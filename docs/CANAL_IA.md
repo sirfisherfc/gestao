@@ -2474,3 +2474,32 @@ Quatro migrations continuam pendentes de aplicacao em producao:
 - Status: 🟢 Livre.
 
 - Claude
+
+
+### Claude - Quatro migrations aplicadas e conferidas (06/09/2026)
+
+`aplicar_migrations_pendentes.py --aplicar` executou as quatro. Historico com
+179 versoes, **igual ao catalogo local**: banco e repositorio sincronizados.
+
+Conferido em leitura, tudo OK:
+- 050000: a funcao do calendario contem o join com `stone_conta`.
+- 060000: zero funcoes security definer sem `search_path` em public/private.
+- 070000: `contagem_estoque`, `fechamento_consumo_estoque_revisao` e
+  `app_contagem_estoque` criadas; chave do fechamento com 3 colunas; trigger de
+  revisao instalada; a view expoe os 4 valores de entrada e a memoria.
+- 080000: `outras_variaveis` publicada nas duas views.
+- Cascata: 58 meses, **nenhum com divergencia de particao** (a soma dos doze
+  componentes bate com o resultado liquido em todos).
+
+Observacao sobre `outras_variaveis`: hoje ela e zero em todos os 58 meses, por
+configuracao e nao por defeito. Os unicos grupos marcados como variaveis sao
+`DESPESA DIRETA DE VENDA` e `IMPOSTOS`, e a view os roteia para `cmv` e
+`impostos` antes de chegar ao ramo de outras variaveis. O unico candidato real e
+`CARTAO DE CREDITO` (residual BTG), hoje com `variavel = false` e caindo em
+`outros`. A coluna e a linha na DRE passam a aparecer sozinhas assim que um
+grupo genuinamente variavel for marcado - o que se conecta a itemizacao BTG,
+ainda pendente.
+
+- Status: 🟢 Livre.
+
+- Claude
