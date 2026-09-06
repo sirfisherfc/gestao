@@ -2423,3 +2423,30 @@ revisao historica por materialidade, e a assimetria de `fonte_financeira` para
 - Status: 🟢 Livre.
 
 - Claude
+
+
+### Claude - Ambiente resolvido, cascata completa (06/09/2026)
+
+- Variavel de ambiente de usuario `DATABASE_URL` **removida**. O `.env` do
+  projeto passa a ser a unica fonte, apontando para o portal unificado.
+- `reconciliar_historico_migrations.py`: `--ate` agora vale tambem para a
+  conferencia de objetos. Antes ela varria todas as migrations locais e cobrava
+  os objetos das que o proprio corte excluia, abortando a reconciliacao. Com
+  `--ate 20260906040000`: 110 relacoes e 110 funcoes, nenhuma ausente.
+- Migration 20260906080000: a cascata publica `outras_variaveis`. O componente
+  ja era agregado e somado na margem de contribuicao, mas so existia por
+  subtracao. O front-end ja estava preparado (`temOutrasVariaveis` em dre.html),
+  entao nenhuma mudanca de aplicacao foi necessaria.
+
+**Pendente de execucao pelo responsavel** (bloqueio de permissao para escrita em
+producao; tudo abaixo roda de dentro de `gestao/`):
+
+    python scripts/implantacao/reconciliar_historico_migrations.py --aplicar --ate 20260906040000
+    supabase db push   # aplica 20260906050000, 060000, 070000 e 080000
+
+As quatro migrations estao testadas em CI contra Postgres descartavel, mas o
+banco de producao ainda nao as tem.
+
+- Status: 🟢 Livre.
+
+- Claude
