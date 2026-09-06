@@ -2262,3 +2262,19 @@ Handoff de infraestrutura crítica para Claude Code e Codex:
 
 — Antigravity
 
+
+### Antigravity — Passo 3 do Master Prompt: Testes de Paridade Diferencial de Parsers (06/09/2026)
+
+- Criado `scripts/ci/test_paridade_parsers.py` e integrado ao job `import-outbox` em `.github/workflows/quality.yml`.
+- **Risco 4 sanado**:
+  1. **Banco do Brasil**: Paridade diferencial validada entre `04_importar_bb.py` e `private.parse_bb`. Formatos antigo (com sinal `-`) e novo (sem sinal `D`) geram exatamente os mesmos valores (-4.00) e o mesmo `dedup_hash` normalizado. Aplicações em fundo de investimento Selic (provisórias vs consolidadas) convergem para a mesma chave unívoca sem duplicação.
+  2. **Stone Extrato**: Paridade diferencial validada entre `01_importar_extrato_stone.py` e `private.parse_stone_extrato`, incluindo tratamento de campos nulos (`'None'` literal) no hash md5.
+  3. **BS Cash**: Paridade diferencial validada entre `05_importar_bs_cash.py` e `private.parse_bs_cash`.
+  4. **Stone Vendas e Recebíveis**: Tipagem, conversões numéricas e temporais e cabeçalhos validados entre Python e `private.parse_stone_*`.
+- Execução automatizada no CI em container PostgreSQL 15 descartável (com fallback automático e seguro para variáveis de ambiente locais sem segredos hardcoded).
+- `check_project.py` aprovado com `QUALITY_OK` (240 arquivos escaneados, zero segredos).
+- Status: 🟢 Livre.
+
+— Antigravity
+
+

@@ -238,3 +238,33 @@ Validações realizadas:
 Commit sugerido:
 `feat: adiciona fechamento auxiliar de consumo de estoque e view de acompanhamento`
 
+## Sexta entrega — Testes de Paridade Diferencial de Parsers (Passo 3 / Risco 4)
+
+Implementada a suíte de testes diferenciais automatizados garantindo 100% de paridade entre os parsers em Python (`scripts/importacao/`) e os parsers nativos do PostgreSQL (`private.parse_*`).
+
+- `scripts/ci/test_paridade_parsers.py`:
+  1. **Banco do Brasil (`04_importar_bb.py` vs `private.parse_bb`)**:
+     - Formato antigo (com sinal negativo `-4,00 D`) e formato novo (positivo `4,00 D`) geram exatamente o mesmo `dedup_hash` normalizado (`f312f91ea6f921c4ff103e980199aa22`) e o mesmo valor negativo (`-4.00`), impedindo duplicação silenciosa de lançamentos reexportados.
+     - Lançamentos provisórios e consolidados de fundos de investimento Selic (`Aplicação Fundo BB` vs `BB RF LP Selic`) convergem para a mesma chave canônica (`b55488e9ed9530ca53c44a6c6bea7aff`).
+     - Tratamento consistente de campos em branco e nulos.
+  2. **Stone Extrato (`01_importar_extrato_stone.py` vs `private.parse_stone_extrato`)**:
+     - Validação estrita da representação de strings literais `'None'` em campos vazios/nulos nas f-strings do Python e `coalesce(..., 'None')` no PostgreSQL.
+     - Paridade absoluta de hashes em créditos e débitos com ou sem documento de destino.
+  3. **BS Cash (`05_importar_bs_cash.py` vs `private.parse_bs_cash`)**:
+     - Parsing de créditos vs débitos em colunas separadas convergindo para `valor_raw` e valor com sinal.
+     - Paridade estrita de hashes em operações com campos vazios.
+  4. **Stone Vendas e Recebíveis (`02_importar_vendas_stone.py` e `03_importar_recebiveis_stone.py` vs `private.parse_stone_vendas` e `private.parse_stone_recebiveis`)**:
+     - Parsing numérico brasileiro (`1.234,56` -> `1234.56`) e temporal (`DD/MM/YYYY HH:MM` -> ISO).
+     - Conferência dos cabeçalhos reais com acentos e preposições (`DESCONTO DE MDR`, `DESCONTO DE ANTECIPACAO`, `Nº DA PARCELA`, `VALOR LÍQUIDO`).
+  5. **Integração no CI / GitHub Actions**:
+     - Configurado no workflow `.github/workflows/quality.yml` no job `import-outbox` para execução automática a cada push/PR em container PostgreSQL isolado.
+     - Zero credenciais em arquivos rastreados (compatível com o scanner estático de segurança).
+
+Validações realizadas:
+- Execução local contra Supabase `portal`: 100% de paridade (zero divergências).
+- `scripts/ci/check_project.py`: `QUALITY_OK` (95 contratos, 26 de segurança, 240 arquivos verificados).
+- `scripts/ci/test_dre_apresentacao.mjs`: 19/19 testes passando.
+
+Commit sugerido:
+`test(ci): adiciona suite de paridade diferencial de parsers python vs sql`
+

@@ -80,3 +80,13 @@ jobs:
           PGDATABASE: sirfisher_outbox_test
           PGUSER: postgres
         run: python scripts/ci/test_importacao_outbox.py
+
+      - name: Differential parser parity (Python vs PostgreSQL)
+        env:
+          PGHOST: 127.0.0.1
+          PGPORT: '5432'
+          PGDATABASE: sirfisher_outbox_test
+          PGUSER: postgres
+        run: |
+          pip install psycopg2-binary
+          python scripts/ci/test_paridade_parsers.py
