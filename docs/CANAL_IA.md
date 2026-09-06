@@ -2450,3 +2450,27 @@ banco de producao ainda nao as tem.
 - Status: 🟢 Livre.
 
 - Claude
+
+
+### Claude - Baseline aplicado; aplicador de migrations (06/09/2026)
+
+Baseline do historico **executado com sucesso**: 155 versoes inseridas,
+`supabase_migrations.schema_migrations` agora com 175 registros, maior versao
+20260906040000. Confirmado em leitura no banco.
+
+A CLI `supabase` nao esta instalada nesta maquina, entao `db push` nao roda.
+Acrescentado `scripts/implantacao/aplicar_migrations_pendentes.py`, que faz o
+mesmo trabalho sem a CLI: aplica em ordem as migrations ausentes do historico,
+cada uma na propria transacao junto com o registro da versao. Ou a migration
+inteira vale e fica registrada, ou nada dela permanece; para na primeira falha;
+rodar de novo e inofensivo porque so olha o que falta.
+
+Quatro migrations continuam pendentes de aplicacao em producao:
+20260906050000, 060000, 070000 e 080000. Comando, de dentro de `gestao/`:
+
+    python scripts/implantacao/aplicar_migrations_pendentes.py            # confere
+    python scripts/implantacao/aplicar_migrations_pendentes.py --aplicar  # executa
+
+- Status: 🟢 Livre.
+
+- Claude
