@@ -74,13 +74,22 @@ def catalogo_local() -> dict[str, str]:
     return catalogo
 
 
-def objetos_esperados() -> tuple[dict[str, str], dict[str, str]]:
-    """Objetos criados pelas migrations e não derrubados depois."""
+def objetos_esperados(ate: str | None = None) -> tuple[dict[str, str], dict[str, str]]:
+    """Objetos criados pelas migrations e não derrubados depois.
+
+    ``ate`` restringe a varredura às migrations que serão registradas. Sem esse
+    corte, objetos de uma migration ainda não aplicada — e deliberadamente fora
+    do baseline — seriam cobrados como ausentes.
+    """
     relacoes: dict[str, str] = {}
     funcoes: dict[str, str] = {}
     derrubados: dict[str, str] = {}
 
-    for arquivo in sorted(MIGRACOES.glob("*.sql")):
+    arquivos = sorted(MIGRACOES.glob("*.sql"))
+    if ate:
+        arquivos = [a for a in arquivos if a.name[:14] <= ate]
+
+    for arquivo in arquivos:
         sql = arquivo.read_text(encoding="utf-8", errors="replace")
         for m in CREATE_REL.finditer(sql):
             relacoes[m.group(1).lower()] = arquivo.name
@@ -99,9 +108,9 @@ def objetos_esperados() -> tuple[dict[str, str], dict[str, str]]:
     )
 
 
-def conferir_objetos(cur) -> list[str]:
+def conferir_objetos(cur, ate: str | None = None) -> list[str]:
     """Retorna a lista de objetos esperados que não existem no banco."""
-    relacoes, funcoes = objetos_esperados()
+    relacoes, funcoes = objetos_esperados(ate)
     ausentes: list[str] = []
 
     for nome in sorted(relacoes):
@@ -199,7 +208,7 @@ def main() -> int:
         print(f"\nPrimeira ausente: {ausentes[0]}   última: {ausentes[-1]}")
 
         if args.conferir_objetos or args.aplicar:
-            faltando = conferir_objetos(cur)
+            faltando = conferir_objetos(cur, args.ate)
             if faltando:
                 print("\nABORTADO: objetos abaixo não existem no banco.")
                 for item in faltando[:20]:
