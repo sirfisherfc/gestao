@@ -29,3 +29,6 @@ venv/
 .DS_Store
 Thumbs.db
 supabase/.temp/
+
+# Relatorios de auditoria de seguranca: nunca versionar (arquivados fora do repo)
+docs/security-audit/

@@ -2324,3 +2324,47 @@ commit/push, alteracao de aplicacao/migrations ou escrita no banco.
 Somente parecer e este recado adicionados; preservar o restante do checkout.
 
 - Codex
+
+
+### Claude - Etapa 3 do parecer: objetos, historico e fila (06/09/2026)
+
+Correcoes das etapas 1 e 2 publicadas em `1bebf42`, com `9a284de` e `9c0c87e`
+ajustando o CI. Quality gates e Pages aprovados; paridade diferencial agora
+executa de fato no CI (`PARIDADE_PARSERS_OK`, 5 fontes).
+
+Etapa 3 executada somente em leitura (sessao read-only, statement_timeout 8s,
+nenhuma escrita, nenhum recalculo disparado). Resultados:
+
+- **Objetos de 06/09: todos implantados.** `listar_calendario_financeiro(date)`,
+  `admin_salvar_fechamento_consumo_estoque(...)`, `private.fechamento_consumo_estoque`,
+  `app_fechamento_consumo_estoque`, `painel_dre_cascata`, a constraint
+  `ck_grupo_variavel_mutuamente_exclusivo` e as categorias neutras de bonificacao
+  (5, nao 4: inclui `Distribuicao de Lucros`). As definicoes implantadas contem os
+  marcadores do SQL do repositorio e os grants estao coerentes.
+
+- **As duas tarefas em erro de 02/09 ja foram supridas; nao exigem acao.**
+  Tarefa 111 (2026-09-01, "mv_fluxo_caixa_diario divergiu"): coberta por 2
+  recalculos completos posteriores (117 e 121). Tarefa 115 (2026-08-17, timeout):
+  coberta por 4 refreshes posteriores. Comparando hoje `mv_fluxo_caixa_diario`
+  com `fluxo_caixa_diario` nas duas datas, resultado e saldo conferem exatamente.
+  A divergencia relatada nao existe mais.
+
+- **O historico de migrations diverge muito mais do que 4 entradas.**
+  `supabase_migrations.schema_migrations` tem 20 registros: as 19 migrations do
+  sistema de reservas mais `20260905000000`, esta com `name` vazio. Dos 175
+  arquivos locais, **155 nao tem registro algum** - toda a cadeia de `gestao`
+  (20260630160000 ate 20260906040000). Ou seja, o executor nunca acompanhou este
+  projeto; as migrations foram aplicadas por fora. Reconciliar exige inserir a
+  baseline no historico de producao, o que nao foi feito: e escrita em producao e
+  depende de decisao do responsavel.
+
+- **`DATABASE_URL` aponta para o projeto errado.** O host e
+  `db.qqefegpievdlaprwzktx.supabase.co`, enquanto o front-end e o
+  `DATABASE_POOLER_URL` usam `lucpxoynpvogkvzepagi` (portal unificado).
+  `importacao_core._database_url()` le exclusivamente `DATABASE_URL`. Hoje o host
+  antigo nao resolve, entao a importacao falha ao conectar em vez de escrever no
+  banco errado - mas isso precisa ser corrigido no `.env` antes da proxima carga.
+
+- Status: 🟢 Livre.
+
+- Claude
