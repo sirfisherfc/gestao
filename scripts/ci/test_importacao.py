@@ -74,6 +74,7 @@ def run_dry_run(script: str, csv_path: Path) -> None:
         [sys.executable, str(IMPORT_DIR / script), str(csv_path), "--dry-run"],
         capture_output=True,
         text=True,
+            encoding="utf-8",
     )
     if result.returncode != 0:
         raise AssertionError(f"{script} retornou {result.returncode}: {result.stdout}")
@@ -189,6 +190,7 @@ def main() -> int:
             [sys.executable, str(IMPORT_DIR / "02_importar_vendas_stone.py"), str(invalid), "--dry-run"],
             capture_output=True,
             text=True,
+            encoding="utf-8",
         )
         if result.returncode != 2:
             raise AssertionError(f"CSV inválido deveria retornar 2, retornou {result.returncode}")
@@ -205,6 +207,7 @@ def main() -> int:
             [sys.executable, str(IMPORT_DIR / "04_importar_bb.py"), str(invalid_balance), "--dry-run"],
             capture_output=True,
             text=True,
+            encoding="utf-8",
         )
         if result.returncode != 2 or "saldo final não confere" not in result.stdout:
             raise AssertionError(

@@ -11,6 +11,7 @@ import argparse
 import csv
 import os
 import re
+import sys
 from contextlib import contextmanager
 from dataclasses import dataclass
 from datetime import date, datetime
@@ -417,16 +418,60 @@ def executar_com_saida(main: Callable[[], None]) -> int:
         return 1
 
 
+_REF_HOST_DIRETO = re.compile(r"//(?:[^@/]*@)?db\.([a-z0-9]{16,})\.supabase\.co")
+_REF_USUARIO_POOLER = re.compile(r"//postgres\.([a-z0-9]{16,}):")
+_REF_SUPABASE_URL = re.compile(r"https://([a-z0-9]{16,})\.supabase\.co")
+
+
+def _referencia_projeto(url: str) -> str | None:
+    """Extrai a referência do projeto Supabase de uma URL de conexão."""
+    for padrao in (_REF_HOST_DIRETO, _REF_USUARIO_POOLER):
+        achado = padrao.search(url or "")
+        if achado:
+            return achado.group(1)
+    return None
+
+
 def _database_url() -> str:
+    do_env: str | None = None
     try:
-        from dotenv import load_dotenv
+        from dotenv import dotenv_values, load_dotenv
 
         load_dotenv()
+        do_env = (dotenv_values() or {}).get("DATABASE_URL")
     except ImportError:
         pass
+
     url = os.environ.get("DATABASE_URL")
+
+    # O .env do projeto e a fonte de verdade. Uma variável de ambiente do sistema
+    # tem precedência natural sobre ele e chegou a apontar para um projeto
+    # Supabase antigo por tempo indeterminado. Quando as duas discordam, vale o
+    # .env, e a substituicao e anunciada para nao virar surpresa silenciosa.
+    if do_env and url and url != do_env:
+        print(
+            "AVISO: DATABASE_URL do ambiente difere do .env; usando o valor do .env. "
+            "Remova a variável de ambiente obsoleta para evitar ambiguidade.",
+            file=sys.stderr,
+        )
+        url = do_env
+
     if not url:
         raise ErroOperacional("variável DATABASE_URL não encontrada")
+
+    # Rede de seguranca final: escrever no banco errado e irreversivel, entao a
+    # apontou para um projeto Supabase antigo, sem que nada avisasse. Escrever no
+    # banco errado e irreversivel, entao a divergencia entre DATABASE_URL e
+    # SUPABASE_URL passa a interromper a execucao em vez de seguir em silencio.
+    esperado = _REF_SUPABASE_URL.search(os.environ.get("SUPABASE_URL", ""))
+    if esperado:
+        atual = _referencia_projeto(url)
+        if atual and atual != esperado.group(1):
+            raise ErroOperacional(
+                f"DATABASE_URL aponta para o projeto '{atual}', mas SUPABASE_URL "
+                f"indica '{esperado.group(1)}'. Verifique o .env e as variáveis de "
+                "ambiente do sistema antes de continuar."
+            )
     return url
 
 
