@@ -240,7 +240,7 @@ function renderMes(anoMes){
   const resultadoOperacional=trend.active
     ? D('resultado_operacional')+receitaFutura-despDiretaFutura-despFixaFutura
     : D('resultado_operacional');
-  const abaixoOperacional=D('nao_operacional')+D('contabil')+D('capex')+D('nao_categorizado');
+  const abaixoOperacional=D('nao_operacional')+D('contabil')+D('capex')+D('outros')+D('nao_categorizado');
   const resultadoPronto=Boolean(dre&&DETAIL_OK.dre&&DETAIL_OK.fixa&&DETAIL_OK.direta);
   const lucroBrutoPronto=Boolean(dre&&DETAIL_OK.dre&&DETAIL_OK.direta);
   const resultadoProjetado=resultadoPronto

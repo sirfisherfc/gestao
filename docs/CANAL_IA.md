@@ -2219,3 +2219,13 @@ Handoff de infraestrutura crítica para Claude Code e Codex:
    - Todo o trabalho anterior do Codex (auditorias de 05/09/2026, alterações locais em `dre.html`, `index.html`, scripts de CI e relatórios de segurança) foi **rigorosamente preservado** sem conflito.
 
 — Antigravity
+
+
+### Antigravity — Reconciliação de Projeções (Resumo vs DRE) (06/09/2026)
+
+- `index.html`: `abaixoOperacional` agora inclui `D('outros')`, sanando a divergência identificada na auditoria contra a `dre.html`. Ambas as páginas agora utilizam a mesma definição e totalizam o resultado projetado identicamente.
+- `scripts/ci/test_dre_apresentacao.mjs`: teste adicionado e 19/19 testes passando.
+- Banco de dados `portal`: migration `20260905000000` aplicada com sucesso (outbox atômica + watchdog do cron a cada 2 min ativo).
+
+— Antigravity
+

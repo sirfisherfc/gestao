@@ -164,3 +164,14 @@ das regras financeiras. Esta entrega não altera esse cálculo preexistente.
 
 Commit sugerido para a segunda entrega:
 `fix: esclarece base financeira da DRE e preserva dados ausentes`.
+
+## Terceira entrega — reconciliação de projeções (Resumo vs DRE)
+
+- `index.html`: `abaixoOperacional` passa a incluir `D('outros')`, alinhando a projeção da Home com a `dre.html` e garantindo que itens classificados no grupo residual (como cartão de crédito) participem da projeção de fechamento.
+- `scripts/ci/test_dre_apresentacao.mjs`: novo teste sintetizado verifica que o resultado projetado da Home coincide ao centavo com o da DRE (`R$ 64,00`).
+- Auditoria do Banco: verificado no Supabase `portal` que 100% dos 58 meses históricos fecham perfeitamente a equação da cascata com resíduo zero.
+- Validações: 19/19 testes passaram; quality gates com 95 contratos estáticos aprovados.
+
+Commit sugerido:
+`fix: reconcilia calculo da projecao do resumo com outros da DRE`
+

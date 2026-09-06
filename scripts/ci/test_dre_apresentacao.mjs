@@ -139,3 +139,26 @@ test('Resumo trata espacos como ausencia e mantem percentual zero valido',()=>{
   const pessoal=markup.split('class="txt">Pessoal registrado')[1];
   assert.match(pessoal,/class="value"[^>]*>0,0%/);
 });
+
+test('Resumo reconcilia resultado projetado com outros e coincide com DRE',()=>{
+  const elements=new Map();
+  class Chart{static defaults={font:{}};destroy(){}}
+  const c=vm.createContext({Chart,fixtures:[{mes:'2026-09-01',ano_mes:'2026-09',receita:100,faturamento:100,faturamento_proj:200}],
+    addEventListener(){},SirFisherSupabase:{},SirFisherDOM:{escapeHTML:s=>String(s??'')},
+    SirFisherApp:{number:(_key,value)=>value},
+    document:{addEventListener(){},getElementById(id){
+      if(!elements.has(id))elements.set(id,{id,style:{},addEventListener(){}});
+      return elements.get(id);
+    }}});
+  c.window=c;
+  vm.runInContext(read('assets/dashboard-utils.js'),c);
+  const indexSource=read('index.html').match(/<script>\s*([\s\S]*?)<\/script>/)[1].split('(async()=>{')[0];
+  vm.runInContext(indexSource,c);
+  vm.runInContext(`ROWS=fixtures;DRE_ROWS=[${JSON.stringify(completo())}];
+    DETAIL_OK.dre=true;DETAIL_OK.fixa=true;DETAIL_OK.direta=true;
+    DESP_DIRETA=[{dia:'2026-09-20',valor:20}];DESP_FIXA=[{dia:'2026-09-20',valor:30}];
+    LOAD_STAGE='concluido';drawBullet=()=>{};drawDia=async()=>{};drawBars=()=>{};renderMes('2026-09');`,c);
+  const markup=elements.get('main').innerHTML;
+  assert.match(markup,/Total gerencial \(tend\.\)[\s\S]*?class="value"[^>]*>R\$ 64<\/div>/);
+});
+
