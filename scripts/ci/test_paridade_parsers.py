@@ -44,7 +44,7 @@ def get_db_connection():
     if os.environ.get("PGHOST"):
         host = os.environ["PGHOST"]
         port = os.environ.get("PGPORT", "5432")
-        database = os.environ.get("PGDATABASE", "sirfisher_outbox_test")
+        database = os.environ.get("PGDATABASE", "postgres")
         user = os.environ.get("PGUSER", "postgres")
         password = os.environ.get("PGPASSWORD")
         conn = psycopg2.connect(host=host, port=port, dbname=database, user=user, password=password)
@@ -321,7 +321,10 @@ def test_stone_vendas_e_recebiveis_parity(conn) -> None:
     ]
     cur.execute("select stone_id, valor_bruto, valor_liquido, desconto_mdr, desconto_antecipacao from private.parse_stone_vendas(%s);", (json.dumps(vendas_rows),))
     r = cur.fetchone()
-    assert r[0] == "venda-001"
+    print("DEBUG_VENDAS_R:", repr(r))
+    print("DEBUG_VENDAS_COLS:", [d[0] for d in cur.description])
+    assert r is not None, "parse_stone_vendas retornou None"
+    assert r[0] == "venda-001", f"Esperado stone_id='venda-001', obteve: {r}"
     assert float(r[1]) == 100.00
     assert float(r[2]) == 95.00
     assert float(r[3]) == 3.00
@@ -340,7 +343,9 @@ def test_stone_vendas_e_recebiveis_parity(conn) -> None:
     ]
     cur.execute("select stone_id, data_vencimento::text, qtd_parcelas, n_parcela, valor_bruto, valor_liquido from private.parse_stone_recebiveis(%s);", (json.dumps(recebiveis_rows),))
     r2 = cur.fetchone()
-    assert r2[0] == "rec-001"
+    print("DEBUG_RECEBIVEIS_R2:", repr(r2))
+    assert r2 is not None, "parse_stone_recebiveis retornou None"
+    assert r2[0] == "rec-001", f"Esperado stone_id='rec-001', obteve: {r2}"
     assert r2[1] == "2026-07-02"
     assert r2[2] == 1
     assert r2[3] == 1
