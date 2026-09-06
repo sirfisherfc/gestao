@@ -77,7 +77,10 @@ function pessoas(){
   return _pessoas;
 }
 function demandaDe(dia,hora){
-  const r=DEMANDA.find(d=>d.dia_semana===dia&&d.hora===(hora%24));
+  let d=dia, h=hora;
+  while(h<0){ h+=24; d=d===1?7:d-1; }
+  while(h>=24){ h-=24; d=d===7?1:d+1; }
+  const r=DEMANDA.find(item=>item.dia_semana===d&&item.hora===h);
   return r?Number(r.vendas_hora):0;
 }
 function funcionamento(dia){
@@ -109,7 +112,7 @@ function serie(equipe,dia){
   if(!_serie)_serie=new Map();
   const k=equipe+'|'+dia;
   if(_serie.has(k))return _serie.get(k);
-  const cap=cfg('capacidade_vendas_hora_pessoa',4.18);
+  const cap=cfg('capacidade_vendas_hora_pessoa',4.34);
   // Piso 1 nas duas equipes: so "tem de ter alguem com a casa aberta". O piso
   // de 2 na cozinha era arbitrario — criava 44,5 pessoas-hora de exigencia por
   // semana que a demanda nao pede, e cobrava 24h de deficit de uma escala que

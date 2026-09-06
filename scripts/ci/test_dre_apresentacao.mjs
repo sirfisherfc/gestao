@@ -162,3 +162,19 @@ test('Resumo reconcilia resultado projetado com outros e coincide com DRE',()=>{
   assert.match(markup,/Total gerencial \(tend\.\)[\s\S]*?class="value"[^>]*>R\$ 64<\/div>/);
 });
 
+test('Cascata DRE valida integridade dos subtotais mutuamente exclusivos',()=>{
+  const row = completo();
+  assert.equal(row.margem_contribuicao, row.receita + row.cmv + row.impostos);
+  assert.equal(row.resultado_operacional, row.margem_contribuicao + row.pessoal + row.infraestrutura + row.marketing);
+  assert.equal(row.resultado_liquido, row.resultado_operacional + row.nao_operacional + row.contabil + row.capex + row.outros + row.nao_categorizado);
+});
+
+test('Cascata DRE acomoda grupo residual em outros sem alterar margem de contribuicao',()=>{
+  const t = tela({...completo(), outros: -15, resultado_liquido: 0});
+  t.render();
+  assert.match(t.markup('dreTbl'), /Outros grupos<\/td><td class="r">R\$ -15,00/);
+  assert.match(t.markup('dreTbl'), /Total gerencial<\/td><td class="r">R\$ 0,00/);
+  assert.match(t.markup('dreTbl'), /Margem de contribuição<\/td><td class="r">R\$ 60,00/);
+});
+
+

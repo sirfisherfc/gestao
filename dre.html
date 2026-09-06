@@ -162,25 +162,53 @@ function montarSeletorPeriodo(anoMesList,selecionado){
   mesSel.onchange=function(){renderMes(mesSel.value);};
 }
 
+let mainAbortController=null;
+
 async function main(){
+  if(mainAbortController){try{mainAbortController.abort();}catch(_e){}}
+  mainAbortController=typeof AbortController!=='undefined'?new AbortController():null;
+  const signal=mainAbortController?.signal;
+
   try{
-    const [r,res,df,dd]=await Promise.all([
-      sb.from('app_painel_dre_cascata').select('*').order('mes',{ascending:true}),
-      sb.from('app_painel_resumo_mensal').select('ano_mes,faturamento,faturamento_proj').order('ano_mes',{ascending:true}),
-      sb.from('app_projecao_despesa_fixa').select('dia,valor'),
-      sb.from('app_projecao_despesa_direta').select('dia,valor')
+    const resilient=(queryFn)=>sb.resilientFetch?sb.resilientFetch(queryFn):queryFn();
+    const [r,res,df,dd]=await Promise.allSettled([
+      resilient(()=>sb.from('app_painel_dre_cascata').select('*').order('mes',{ascending:true})),
+      resilient(()=>sb.from('app_painel_resumo_mensal').select('ano_mes,faturamento,faturamento_proj').order('ano_mes',{ascending:true})),
+      resilient(()=>sb.from('app_projecao_despesa_fixa').select('dia,valor')),
+      resilient(()=>sb.from('app_projecao_despesa_direta').select('dia,valor'))
     ]);
-    if(r.error)throw r.error;
-    if(res.error)throw res.error;
-    if(df.error)throw df.error;
-    if(dd.error)throw dd.error;
-    ROWS=r.data||[];RESUMO=res.data||[];
-    DESP_FIXA=df.data||[];DESP_DIRETA=dd.data||[];
+    if(signal?.aborted)return;
+
+    const val=(result)=>result.status==='fulfilled'?result.value:{data:null,error:result.reason};
+    const [rVal,resVal,dfVal,ddVal]=[r,res,df,dd].map(val);
+
+    if(rVal.error)throw rVal.error;
+    ROWS=rVal.data||[];
     if(!ROWS.length)throw new Error('Sem dados de DRE.');
+
+    RESUMO=resVal.data||[];
+    DESP_FIXA=dfVal.data||[];
+    DESP_DIRETA=ddVal.data||[];
+
+    const projParcial=Boolean(resVal.error||dfVal.error||ddVal.error);
+    if(projParcial){
+      console.warn('Projeções auxiliares temporariamente indisponíveis:',{res:resVal.error,df:dfVal.error,dd:ddVal.error});
+    }
+
     montarSeletorPeriodo(ROWS.map(x=>x.ano_mes), ROWS[ROWS.length-1].ano_mes);
     renderMes(document.getElementById('mesSel').value);
+    if(projParcial){
+      const alertBox=document.createElement('div');
+      alertBox.className='alerta';
+      alertBox.innerHTML=ic(ICON.alert)+'<div>Projeções de fechamento temporariamente indisponíveis. Exibindo dados realizados registrados.</div>';
+      const mainEl=document.getElementById('main');
+      if(mainEl&&mainEl.firstChild)mainEl.insertBefore(alertBox,mainEl.firstChild);
+    }
     carregarRodape();
-  }catch(e){document.getElementById('main').innerHTML='<div class="erro">Não foi possível carregar os dados: '+esc(e.message||e)+'</div>';}
+  }catch(e){
+    if(signal?.aborted)return;
+    document.getElementById('main').innerHTML='<div class="erro">Não foi possível carregar os dados: '+esc(e.message||e)+'</div>';
+  }
 }
 
 async function carregarRodape(){

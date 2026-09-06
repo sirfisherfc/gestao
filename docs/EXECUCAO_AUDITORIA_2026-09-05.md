@@ -268,3 +268,42 @@ Validações realizadas:
 Commit sugerido:
 `test(ci): adiciona suite de paridade diferencial de parsers python vs sql`
 
+## Sétima entrega — Subtotais da Cascata Econômica & Resolução de Sobreposição de Grupos (Passo 4 / Risco 1)
+
+Implementada e aplicada com sucesso no Supabase `portal` (`lucpxoynpvogkvzepagi`).
+
+- `supabase/migrations/20260906020000_cascata_dre_subtotais_mutuamente_exclusivos.sql`:
+  1. Configuração dinâmica de unidade: substituição do literal fixo `'PRAIA'` por `public.unidade_principal_nome()`.
+  2. Partição analítica e componentes mutuamente exclusivos: cada lançamento em `dre_mensal` é classificado em exatamente um componente econômico (`receita`, `cmv`, `impostos`, `outras_variaveis`, `pessoal`, `infraestrutura`, `marketing`, `nao_operacional`, `contabil`, `capex`, `nao_categorizado`, `outros`).
+  3. Eliminação do mascaramento por resíduo: a linha `outros` passa a ser a agregação direta dos grupos residuais não categorizados explicitamente, sem fórmulas de subtração que mascaravam contagem dupla ou sobreposição de grupos operacionais.
+  4. Constraint de integridade: adicionada `ck_grupo_variavel_mutuamente_exclusivo` na tabela `public.grupo_variavel`, bloqueando no nível do banco qualquer tentativa de marcar grupos fixos, operacionais ou patrimoniais como variáveis.
+- Validações realizadas:
+  - Teste de paridade histórica em todos os 58 meses da base: 100% de paridade (zero discrepâncias numéricas em todas as 21 colunas).
+  - Teste de bloqueio da constraint: rejeição imediata com `CheckViolation` ao tentar atualizar `PESSOAL` para variável.
+  - Teste automatizado de integridade dos subtotais e grupos residuais adicionado a `scripts/ci/test_dre_apresentacao.mjs` (21/21 testes passando).
+
+## Oitava entrega — Política de Bonificação e Escalas (Passo 5 / Risco 5)
+
+Implementada e aplicada com sucesso no Supabase `portal` (`lucpxoynpvogkvzepagi`) e no front-end.
+
+- `supabase/migrations/20260906030000_bonificacao_neutraliza_fluxos_financiamento.sql`:
+  1. Neutralização de decisões de financiamento societário na remuneração operacional: categorias `Empréstimo`, `Pagamento de Empréstimo`, `Investimento Financeiro` e `Investimento negócio` marcadas com `neutra_bonificacao = true` em `public.categoria_dre`.
+  2. Alinhamento com a gestão real: amortizações de dívidas e investimentos financeiros decididos pelos sócios deixam de penalizar a base de bônus do gerente; captações de crédito não inflam artificialmente a bonificação.
+  3. Custos de manutenção ordinária continuam como despesa operacional gerenciável.
+- `escalas.html`:
+  1. Correção de virada de meia-noite na função `demandaDe`: normalização cíclica de hora e dia da semana quando `hora < 0` ou `hora >= 24`, eliminando o bug de busca com índice negativo em interpolações no início do dia.
+  2. Sincronização do fallback de `capacidade_vendas_hora_pessoa` para 4.34 (conforme parametrização vigente no banco `escala_config`).
+
+## Nona entrega — Resiliência de Front-end e Camada de Acesso Móvel (Passo 6)
+
+Implementada no cliente Supabase e na página da DRE.
+
+- `assets/supabase-client.js`:
+  1. Implementada a função `resilientFetch(fetcher, maxAttempts, baseDelayMs)` no objeto `SirFisherSupabase`:
+     - Retentativas com backoff exponencial e jitter (até 3 tentativas) para falhas transitórias de rede, timeouts e erros 5xx (incluindo `PGRST003` / 504).
+     - Não repete erros 4xx (permissões, validação, RLS) nem cancelamentos de requisição.
+- `dre.html`:
+  1. Implementado `AbortController` na função `main()`: cancela leituras obsoletas em caso de navegação rápida ou reconexão, prevenindo que respostas antigas sobrescrevam o estado atual.
+  2. Segregação de falhas com `Promise.allSettled`: o insucesso no carregamento de projeções auxiliares (`app_painel_resumo_mensal`, `app_projecao_despesa_fixa`, `app_projecao_despesa_direta`) não derruba a exibição da DRE realizada, emitindo aviso informativo e mantendo os dados consolidados visíveis.
+
+

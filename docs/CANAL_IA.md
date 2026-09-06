@@ -2276,5 +2276,33 @@ Handoff de infraestrutura crítica para Claude Code e Codex:
 - Status: 🟢 Livre.
 
 — Antigravity
+ 
+ 
+### Antigravity — Passos 4, 5 e 6 do Master Prompt (Cascata DRE, Bonificação e Resiliência Front-end) (06/09/2026)
+
+- **Passo 4 (Risco 1 - Subtotais da Cascata DRE & Exclusividade Mútua)**:
+  1. Criada e aplicada migration `supabase/migrations/20260906020000_cascata_dre_subtotais_mutuamente_exclusivos.sql`.
+  2. Substituído literal `'PRAIA'` por `public.unidade_principal_nome()`.
+  3. Partição estrita de lançamentos em componentes mutuamente exclusivos (`receita`, `cmv`, `impostos`, `outras_variaveis`, `pessoal`, `infraestrutura`, `marketing`, `nao_operacional`, `contabil`, `capex`, `nao_categorizado`, `outros`).
+  4. `outros` passa a ser a soma direta dos grupos residuais não categorizados (atualmente cartão de crédito BTG temporário), eliminando o resíduo por subtração que mascarava erros nos subtotais de Margem de Contribuição e Resultado Operacional.
+  5. Adicionada constraint `ck_grupo_variavel_mutuamente_exclusivo` na tabela `public.grupo_variavel`, impedindo no nível do banco que despesas operacionais ou de capital sejam marcadas indevidamente como variáveis.
+  6. Teste de paridade em todos os 58 meses históricos: 100% de paridade numérica.
+  7. Testes unitários adicionados a `scripts/ci/test_dre_apresentacao.mjs` (21/21 testes passando).
+
+- **Passo 5 (Risco 5 - Política de Bonificação e Escala)**:
+  1. Criada e aplicada migration `supabase/migrations/20260906030000_bonificacao_neutraliza_fluxos_financiamento.sql`.
+  2. Neutralizadas as categorias de financiamento societário (`Empréstimo`, `Pagamento de Empréstimo`, `Investimento Financeiro`, `Investimento negócio`) com `neutra_bonificacao = true`. Amortizações de dívidas ou aplicações de capital decididas pelos sócios deixam de penalizar a remuneração operacional do gerente; captações não inflam a bonificação. Manutenção ordinária permanece operacional gerenciável.
+  3. `escalas.html`: normalizada a função `demandaDe` com rotação cíclica de hora e dia da semana para interpolações no entorno da meia-noite, e atualizado o fallback de `capacidade_vendas_hora_pessoa` para 4.34 (conforme calibrado no banco `escala_config`).
+
+- **Passo 6 - Resiliência de Front-end e Acesso Móvel**:
+  1. `assets/supabase-client.js`: adicionado helper `resilientFetch` ao `SirFisherSupabase`, com até 3 tentativas, backoff exponencial e jitter para falhas transitórias de rede, timeouts e 5xx (incluindo `PGRST003` / 504), respeitando cancelamentos e sem retentar erros 4xx.
+  2. `dre.html`: adicionado `AbortController` para cancelar consultas obsoletas e reestruturado o carregamento com `Promise.allSettled`. Falhas temporárias em tabelas de projeção auxiliar não derrubam mais a exibição dos dados realizados consolidados da DRE, mantendo o histórico visível com aviso amigável.
+
+- Quality gates (`scripts/ci/check_project.py`): aprovado com `QUALITY_OK` (242 arquivos verificados, 0 vulnerabilidades).
+- Status: 🟢 Livre.
+
+— Antigravity
+
+
 
 
