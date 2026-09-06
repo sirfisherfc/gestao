@@ -95,15 +95,17 @@ def ensure_parser_functions(conn) -> None:
     cur.execute("create table if not exists public.raw_bs_cash (data date, valor numeric, dedup_hash text);")
 
     # Helpers Stone (campo_csv, parse_valor_br, parse_data_hora_br, parse_inteiro_br, parse_stone_*)
+    # Em PostgreSQL <= 15, \v não é reconhecido como escape C e era tratado como letra literal 'v'
+    # em btrim(). \x0b é o escape canônico para vertical tab (ASCII 11) em todas as versões do Postgres.
     m_stone = (MIGRATIONS_DIR / "20260751000000_importacao_web_stone.sql").read_text(encoding="utf-8-sig")
     p_stone = m_stone[m_stone.index("create or replace function private.campo_csv"):]
-    p_stone = p_stone[:p_stone.index("create or replace function public.importar_csv_stone")]
+    p_stone = p_stone[:p_stone.index("create or replace function public.importar_csv_stone")].replace(r"\v", r"\x0b")
     cur.execute(p_stone)
 
     # Helpers BB/BS Cash (parse_data_br, parse_data_hora_seg_br, parse_bb, parse_bs_cash)
     m_bb_bs = (MIGRATIONS_DIR / "20260756000000_importacao_web_bb_bs_cash.sql").read_text(encoding="utf-8-sig")
     p_bb_bs = m_bb_bs[m_bb_bs.index("create or replace function private.parse_data_br"):]
-    p_bb_bs = p_bb_bs[:p_bb_bs.index("create or replace function public.importar_csv_stone")]
+    p_bb_bs = p_bb_bs[:p_bb_bs.index("create or replace function public.importar_csv_stone")].replace(r"\v", r"\x0b")
     cur.execute(p_bb_bs)
 
     # BB vigente com suporte a débito sem sinal negativo (20260819020000)
@@ -321,10 +323,8 @@ def test_stone_vendas_e_recebiveis_parity(conn) -> None:
     ]
     cur.execute("select stone_id, valor_bruto, valor_liquido, desconto_mdr, desconto_antecipacao from private.parse_stone_vendas(%s);", (json.dumps(vendas_rows),))
     r = cur.fetchone()
-    print("DEBUG_VENDAS_R:", repr(r))
-    print("DEBUG_VENDAS_COLS:", [d[0] for d in cur.description])
     assert r is not None, "parse_stone_vendas retornou None"
-    assert r[0] == "venda-001", f"Esperado stone_id='venda-001', obteve: {r}"
+    assert r[0] == "venda-001"
     assert float(r[1]) == 100.00
     assert float(r[2]) == 95.00
     assert float(r[3]) == 3.00
@@ -343,9 +343,8 @@ def test_stone_vendas_e_recebiveis_parity(conn) -> None:
     ]
     cur.execute("select stone_id, data_vencimento::text, qtd_parcelas, n_parcela, valor_bruto, valor_liquido from private.parse_stone_recebiveis(%s);", (json.dumps(recebiveis_rows),))
     r2 = cur.fetchone()
-    print("DEBUG_RECEBIVEIS_R2:", repr(r2))
     assert r2 is not None, "parse_stone_recebiveis retornou None"
-    assert r2[0] == "rec-001", f"Esperado stone_id='rec-001', obteve: {r2}"
+    assert r2[0] == "rec-001"
     assert r2[1] == "2026-07-02"
     assert r2[2] == 1
     assert r2[3] == 1
