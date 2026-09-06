@@ -122,3 +122,16 @@ jobs:
             -c 'drop database if exists sirfisher_calendario_test' \
             -c 'create database sirfisher_calendario_test'
           python scripts/ci/test_calendario_recebiveis_sql.py
+
+      - name: Inventory counts and closing revisions
+        env:
+          PGHOST: 127.0.0.1
+          PGPORT: '5432'
+          PGDATABASE: sirfisher_estoque_test
+          PGUSER: postgres
+          ESTOQUE_SQL_DISPOSABLE: '1'
+        run: |
+          psql -h 127.0.0.1 -U postgres -d postgres \
+            -c 'drop database if exists sirfisher_estoque_test' \
+            -c 'create database sirfisher_estoque_test'
+          python scripts/ci/test_estoque_sql.py
