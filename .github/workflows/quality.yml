@@ -96,3 +96,16 @@ jobs:
             -c 'drop database if exists sirfisher_parsers_test' \
             -c 'create database sirfisher_parsers_test'
           python scripts/ci/test_paridade_parsers.py
+
+      - name: DRE cascade view executed against real SQL
+        env:
+          PGHOST: 127.0.0.1
+          PGPORT: '5432'
+          PGDATABASE: sirfisher_cascata_test
+          PGUSER: postgres
+          CASCATA_SQL_DISPOSABLE: '1'
+        run: |
+          psql -h 127.0.0.1 -U postgres -d postgres \
+            -c 'drop database if exists sirfisher_cascata_test' \
+            -c 'create database sirfisher_cascata_test'
+          python scripts/ci/test_cascata_sql.py
