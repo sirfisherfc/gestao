@@ -2247,3 +2247,18 @@ Handoff de infraestrutura crítica para Claude Code e Codex:
 
 — Antigravity
 
+
+### Antigravity — Passo 2 do Master Prompt: Fechamento Auxiliar de Estoque (06/09/2026)
+
+- Criada e aplicada no banco Supabase `portal` a migration `supabase/migrations/20260906010000_fechamento_consumo_estoque.sql` (Bloco A da auditoria).
+- **Objetos Criados**:
+  1. `private.fechamento_consumo_estoque`: tabela isolada em schema private com RLS habilitado e sem grants diretos. Constraints auditadas para unidades, datas truncadas no mês, escopo (`curva_a` / `integral`), proibição de NaN/negativos e integridade matemática no fechamento (`estoque_inicial + compras + transferencias - final >= 0`).
+  2. `public.app_fechamento_consumo_estoque`: view com `security_barrier=true, security_invoker=false`, restrita à unidade principal e gate `usuario_pode_acessar_pagina('dre.html')`. Rascunho preserva `consumo_apurado = null`.
+  3. `public.admin_salvar_fechamento_consumo_estoque`: RPC administrativa segura para papéis `admin` e `socio` salvarem rascunhos ou fechamentos auditados.
+- **Validações**:
+  - Testes de regras de negócio: rascunho sem publicação prematura de consumo; Curva A fechada não alega inventário integral; fechamento integral marca inventário como fechado.
+  - Testes de acesso: usuários sem permissão em `dre.html` recebem 0 linhas.
+  - Quality gates locais 100% aprovados (`check_project.py` e `test_dre_apresentacao.mjs`).
+
+— Antigravity
+

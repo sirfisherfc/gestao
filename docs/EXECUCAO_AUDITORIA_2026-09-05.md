@@ -202,3 +202,39 @@ Validações realizadas:
 Commit sugerido:
 `perf: consolida varredura do calendario e unifica view de vendas stone`
 
+## Quinta entrega — Fechamento Auxiliar de Consumo de Estoque (Passo 2 / Bloco A)
+
+Implementada e aplicada com sucesso no Supabase `portal` (`lucpxoynpvogkvzepagi`).
+
+- `supabase/migrations/20260906010000_fechamento_consumo_estoque.sql`:
+  1. Criação da tabela privada `private.fechamento_consumo_estoque` com isolamento por RLS, sem grants públicos, e constraints estritas:
+     - Unidade e mês normalizados (`mes = date_trunc('month', mes)::date`).
+     - Escopo delimitado a `curva_a` ou `integral`.
+     - Proibição de NaN e valores negativos para estoques.
+     - Validação matemática estrita no fechamento: `estoque_inicial + compras_liquidas + transferencias_liquidas - estoque_final >= 0`.
+     - Auditoria de fechamento (`fechado_em` e `fechado_por`).
+  2. Criação da view pública `public.app_fechamento_consumo_estoque`:
+     - Padrão arquitetural estrito: `with (security_barrier = true, security_invoker = false)`.
+     - Gate de autorização: `f.unidade = public.unidade_principal_nome() and public.usuario_pode_acessar_pagina('dre.html')`.
+     - Rascunhos não publicam `consumo_apurado` (retorna `null`).
+     - Fechamento em `curva_a` não alega inventário integral (`inventario_integral_fechado = false`).
+     - `grant select on public.app_fechamento_consumo_estoque to authenticated`.
+  3. RPC administrativa `public.admin_salvar_fechamento_consumo_estoque`:
+     - Permite salvar rascunhos de conferência ou formalizar o fechamento auditado do mês para papéis `admin` e `socio`.
+
+Validações realizadas:
+- **Catálogo e Segurança**:
+  - Tabela `private.fechamento_consumo_estoque` com RLS ativo e permissões diretas revogadas.
+  - View com barreira de segurança e invoker do definer.
+- **Regras de Negócio e Gates**:
+  - Rascunho preserva `consumo_apurado = null` e `fechado_em = null`.
+  - Escopo `curva_a` fechado calcula `consumo_apurado` mantendo `inventario_integral_fechado = false`.
+  - Fechamento `integral` marca `inventario_integral_fechado = true`.
+  - Gate de acesso restringe retorno a 0 linhas para usuários sem permissão em `dre.html`.
+- **Quality Gates**:
+  - `check_project.py`: `QUALITY_OK` (95 contratos, 26 de segurança, 239 arquivos verificados).
+  - `test_dre_apresentacao.mjs`: 19/19 testes passando.
+
+Commit sugerido:
+`feat: adiciona fechamento auxiliar de consumo de estoque e view de acompanhamento`
+
