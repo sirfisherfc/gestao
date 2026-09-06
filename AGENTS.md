@@ -4,6 +4,11 @@
 
 Este é o projeto **sirfisher-app**, o painel financeiro do restaurante Sir Fisher. A aplicação usa front-end em HTML, CSS e JavaScript, scripts Python para importação de dados, Supabase/Postgres como camada de dados e GitHub Pages para publicação do front-end.
 
+- **Repositório GitHub Oficial**: `https://github.com/sirfisherfc/sirfisher` (organização corporativa `sirfisherfc`, migrado de `durthvader/sirfisher`).
+- **Domínio de Produção**: `https://admin.sirfisher.com.br` (publicado via GitHub Pages em `sirfisherfc.github.io`).
+- **Banco de Dados Supabase (UNIFICADO)**: Projeto **`portal`** (Project Ref: `lucpxoynpvogkvzepagi`, Região `sa-east-1` / São Paulo). Este banco unifica tanto o **Painel Financeiro** quanto o **Sistema de Reservas** (`reservas.sirfisher.com.br`).
+- **Banco de Dados Legado**: O projeto antigo `qqefegpievdlaprwzktx` na conta `Durth Vader` foi **PAUSADO** e não deve mais ser referenciado.
+
 Este arquivo é a fonte canônica das instruções operacionais para qualquer IA que trabalhe no repositório, incluindo Claude Code e Codex. O `CLAUDE.md` importa este arquivo e deve conter apenas orientações exclusivas do Claude Code.
 
 ## Estrutura principal
@@ -58,6 +63,9 @@ Este arquivo é a fonte canônica das instruções operacionais para qualquer IA
 - Documentar qualquer alteração de schema, tabela, view, materialized view, function, trigger ou policy.
 - Não assumir que uma divergência financeira é erro de código ou banco sem validar a origem, o período, a regra de cálculo e a completude dos dados.
 - Não alterar diretamente o banco por ferramentas configuradas apenas para leitura.
+- **Atenção à Coexistência no Banco Unificado**: O banco Supabase `portal` (`lucpxoynpvogkvzepagi`) hospeda simultaneamente as tabelas financeiras e as tabelas do sistema de reservas (`reservations`, `customers`, `reservation_status_history`, `access_requests`, `restaurant_settings`, `availability_rules`, `blocked_dates`, `blocked_time_slots`, `notification_queue`, `ad_conversion_events`, `app_users`). **NUNCA alterar, renomear ou dropar tabelas do sistema de reservas.**
+- **Grants em novas views/tabelas**: Toda nova view `public.app_*` criada deve conter explicitamente `GRANT SELECT ON public.app_* TO authenticated;` (além dos privilégios de `service_role`). Sem isso, o cliente web Supabase receberá erro de `permission denied`.
+
 
 ### Padrão das views `app_*` e avisos do Security Advisor (decisão intencional)
 

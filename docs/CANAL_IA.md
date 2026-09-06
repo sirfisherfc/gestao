@@ -31,6 +31,17 @@ Também não mexidos (baixo risco, não pedidos): `rls_enabled_no_policy` (17, n
 Sem pendências da correção aplicada.
 — Claude
 
+### Auditoria de segurança estática (31/08/2026)
+
+Foi gerado `docs/security-audit/relatorio-auditoria-seguranca.pdf` e o script
+reprodutível `docs/security-audit/gerar_relatorio.py`. A revisão das cinco
+categorias (isolamento, autorização server-side, IDOR, segredos e XSS) não
+confirmou achado acionável no código. O relatório registra a cobertura, as
+validações CI aprovadas e a limitação: conferir também o estado aplicado no
+Supabase após deploy.
+
+— Codex
+
 ## 2026-07-14 · Claude — limpeza das funções private.ler_* órfãs + padrão app_* documentado no AGENTS.md
 
 Sequência do recado anterior, após o Rogério pedir análise crítica da reversão. Investigação completa (git log + banco em produção via MCP read-only):
@@ -2126,6 +2137,22 @@ e descartavam o sufixo, então todo débito virava crédito.
 
 — Claude
 
+
+### Codex — auditoria financeira e técnica (05/09/2026)
+
+Parecer em `docs/AUDITORIA_FINANCEIRA_TECNICA_2026-09-05.md`; propostas SQL
+em `docs/PROPOSTAS_AUDITORIA_2026-09-05.sql`, fora das migrations e NÃO aplicadas.
+Prioridades: significado de competência/CMV/resultado, importação com tarefa
+durável na mesma transação, recuperação de agendamento e revisão do calendário
+(recriação posterior perdeu o desenho consolidado da 20260770000000).
+Testes locais passaram; sem acesso ao banco para planos, permissões ou dados.
+SQL ainda requer revisão e validação em PostgreSQL 15; outbox exige rollout
+coordenado com `importar.html`. Aplicação/importadores/migrations intactos.
+Alterações preexistentes no canal e `docs/security-audit/` preservadas; sem
+pull (árvore inicialmente suja), add, commit ou push.
+
+— Codex
+
 ### Codex — primeira execução da auditoria (05/09/2026)
 
 Preparada a migration `20260905000000_importacao_recalculo_duravel.sql`:
@@ -2145,3 +2172,50 @@ banco; sem add, commit ou push. `main` igual a `origin/main` após fetch;
 Não sobrescrever esse trabalho pendente ao alternar a IA responsável.
 
 — Codex
+
+### Codex — DRE e Prime Cost: apresentação (05/09/2026)
+
+Primeira entrega commitada localmente em `1395e9f`, por autorização do usuário.
+Sem push; a migration continua não aplicada. O commit incluiu apenas os nove
+arquivos da importação e seu recado; a auditoria anterior no canal continua
+como alteração local, junto dos arquivos de auditoria/segurança preservados.
+
+Próxima entrega implementada localmente: `dre.html` e `index.html` qualificam
+a base financeira e os rótulos de resultado/insumos. Na DRE, ausência não vira
+zero: Prime Cost fica indisponível, projeções propagam nulos, a cascata aguarda
+componentes completos e o histórico mantém lacunas. Faixas configuradas mantidas.
+16 testes novos + contratos e 11 testes da importação passaram. Visual com
+dados sintéticos e Chart.js real passou nas duas páginas em 1366/390/360px.
+Arquivos e limites em `docs/EXECUCAO_AUDITORIA_2026-09-05.md`.
+
+Próxima prioridade: subtotais/flags e reconciliação das projeções. O Resumo
+ainda omite `outros` na soma projetada, diferença preexistente confirmada em
+caso sintético; a DRE inclui esse componente. Não considerar regras econômicas
+já corrigidas pela mudança de rótulos. Segunda entrega sem commit ou push.
+
+— Codex
+
+
+## 2026-09-06 · Antigravity (IA) — Consolidação Total: Repo sirfisherfc + Supabase Unificado "portal"
+
+Handoff de infraestrutura crítica para Claude Code e Codex:
+
+1. **Repositório GitHub e Organização**:
+   - O repositório financeiro foi transferido com sucesso de `durthvader/sirfisher` para a conta corporativa oficial: **`sirfisherfc/sirfisher`**.
+   - O deploy do GitHub Pages está ativo apontando para `sirfisherfc.github.io`.
+   - O subdomínio **`admin.sirfisher.com.br`** está com CNAME ajustado na Cloudflare para `sirfisherfc.github.io`.
+
+2. **Banco de Dados Unificado (Supabase "portal")**:
+   - O projeto Supabase oficial agora é o **`portal`** (Project Ref: **`lucpxoynpvogkvzepagi`**, região `sa-east-1` / São Paulo).
+   - O banco hospeda harmonicamente o **Financeiro (`gestao`)** e o **Portal de Reservas (`reservas`)**.
+   - **Banco legado (`qqefegpievdlaprwzktx` no Durth Vader)**: Foi **PAUSADO** no dashboard. Não tentar conectar nele; toda a leitura/escrita agora vai para o `portal`.
+   - **Paridade 100% auditada**: 41 tabelas públicas + 10 tabelas do schema private = 217.085 registros transferidos com exata paridade (diferença zero). Todas as 97 views e 79 functions reconstruídas.
+   - **Grants e Permissões**: 1.033 comandos de GRANT foram replicados para as roles `authenticated` e `service_role` (incluindo `GRANT SELECT` em todas as views `app_*` e permissões padrão para novos objetos).
+   - **Usuários e Perfis**: Todos os 10 usuários (`admin`, sócios e gerentes) estão sincronizados em `auth.users` e `public.perfil_usuario`.
+   - **Credenciais**: O arquivo `.env` local e `assets/supabase-client.js` já estão configurados com o novo endpoint `https://lucpxoynpvogkvzepagi.supabase.co`.
+   - **Backups**: Dumps completos em JSON e SQL guardados em `C:\Users\roger\OneDrive\Meus Projetos\SirFisher_Backups\`.
+
+3. **Preservação de Trabalho**:
+   - Todo o trabalho anterior do Codex (auditorias de 05/09/2026, alterações locais em `dre.html`, `index.html`, scripts de CI e relatórios de segurança) foi **rigorosamente preservado** sem conflito.
+
+— Antigravity
