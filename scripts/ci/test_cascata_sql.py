@@ -31,11 +31,17 @@ from decimal import Decimal
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-MIGRACAO = (
+# A constraint nasce na migration da exclusividade mútua; a view autoritativa é
+# a da migration que publica outras_variaveis. Testar a mais recente evita que o
+# teste valide uma definição que produção já superou.
+MIGRACAO_CONSTRAINT = (
     ROOT
     / "supabase"
     / "migrations"
     / "20260906020000_cascata_dre_subtotais_mutuamente_exclusivos.sql"
+)
+MIGRACAO_VIEW = (
+    ROOT / "supabase" / "migrations" / "20260906080000_cascata_expoe_outras_variaveis.sql"
 )
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -48,12 +54,10 @@ MES = "2026-01-01"
 
 
 def _sql_da_migration() -> tuple[str, str]:
-    """Extrai, sem reescrever, a constraint e a view do arquivo de migration."""
-    sql = MIGRACAO.read_text(encoding="utf-8")
-
+    """Extrai, sem reescrever, a constraint e a view das migrations."""
     bloco_constraint = re.search(
         r"(alter table public\.grupo_variavel\s+add constraint .*?\);)",
-        sql,
+        MIGRACAO_CONSTRAINT.read_text(encoding="utf-8"),
         re.S | re.I,
     )
     if not bloco_constraint:
@@ -61,7 +65,7 @@ def _sql_da_migration() -> tuple[str, str]:
 
     bloco_view = re.search(
         r"(create or replace view public\.painel_dre_cascata as.*?order by mes;)",
-        sql,
+        MIGRACAO_VIEW.read_text(encoding="utf-8"),
         re.S | re.I,
     )
     if not bloco_view:
@@ -175,13 +179,26 @@ def verificar_particao(linha: dict) -> None:
             f"resultado_liquido {linha['resultado_liquido']} != esperado {esperado}"
         )
 
-    # outras_variaveis não é publicada como coluna; deriva do subtotal.
-    outras_variaveis = (
+    # outras_variaveis precisa ser coluna publicada, não valor obtido por
+    # subtração: era exatamente essa a lacuna de apresentação da cascata.
+    if "outras_variaveis" not in linha:
+        raise AssertionError(
+            "a view não publica outras_variaveis; o componente volta a só "
+            "existir por subtração da margem de contribuição"
+        )
+    outras_variaveis = linha["outras_variaveis"]
+
+    derivada = (
         linha["margem_contribuicao"]
         - linha["receita"]
         - linha["cmv"]
         - linha["impostos"]
     )
+    if derivada != outras_variaveis:
+        raise AssertionError(
+            f"coluna outras_variaveis {outras_variaveis} diverge da derivada "
+            f"do subtotal {derivada}"
+        )
     componentes = (
         linha["receita"]
         + linha["cmv"]
