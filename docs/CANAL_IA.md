@@ -2125,3 +2125,23 @@ e descartavam o sufixo, então todo débito virava crédito.
   (`private.parse_bb`) e script Python precisam gerar o mesmo hash.
 
 — Claude
+
+### Codex — primeira execução da auditoria (05/09/2026)
+
+Preparada a migration `20260905000000_importacao_recalculo_duravel.sql`:
+importação e tarefa atômicas; watchdog privado recupera job perdido a cada
+dois minutos, sem retentar erros. `importar.html` acompanha cada ID, preserva
+sucessos parciais e diferencia consulta indisponível de erro do processamento.
+Fallback para banco anterior agenda por arquivo; rollout ainda exige cuidado.
+Detalhes, arquivos e próximos passos em `docs/EXECUCAO_AUDITORIA_2026-09-05.md`.
+
+Testes locais passaram: contratos existentes, 11 fluxos JS e fixture SQL
+em PostgreSQL embarcado 18.3 com cron/refresh simulados. CI ganhou job com
+PostgreSQL 15 descartável (ainda não executado). Visual sintético passou em
+1366/390/360px, sem erros de console. Falta validar cron real/concorrência no
+Supabase de teste e revisar a migration antes de publicar. Não aplicada ao
+banco; sem add, commit ou push. `main` igual a `origin/main` após fetch;
+árvore inicialmente suja preservada, inclusive auditorias e segurança.
+Não sobrescrever esse trabalho pendente ao alternar a IA responsável.
+
+— Codex

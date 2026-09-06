@@ -1019,8 +1019,8 @@ no repositório.
   `stone_recebiveis`), Banco do Brasil (`bb`) e BS Cash (`bs_cash`) pelo site,
   sem depender dos scripts Python locais — de qualquer computador ou celular.
 - O navegador só lê o CSV e faz o parse em objetos por cabeçalho; validação,
-  conversão, dedup, recálculo de saldo e `log_carga` acontecem nesta RPC, que é
-  a autoridade. Grava nas mesmas tabelas `raw_stone_*`, com as mesmas chaves de
+  conversão, dedup e `log_carga` acontecem nesta RPC, que é a autoridade.
+  O recálculo pesado é executado pelo worker. Grava nas mesmas tabelas `raw_stone_*`, com as mesmas chaves de
   dedup dos scripts (`uq_extrato_dedup`, `uq_vendas_stoneid`,
   `uq_receb_stoneid_parcela`), então os dois caminhos convivem e reenviar um
   arquivo não duplica.
@@ -1039,6 +1039,20 @@ no repositório.
   `20260758000000`, `solicitar_recalculo_saldo()` enfileira o período e um job
   `pg_cron` executa `recalcular_saldo_fechamento()` + `refresh_painel()` em
   background, fora do `statement_timeout` curto de `authenticated`.
+- A migration `20260905000000_importacao_recalculo_duravel.sql` (preparada;
+  aplicação no servidor ainda não verificada) passa a inserir a **tarefa** na
+  mesma transação das linhas raw e devolve `recalculo_id` na resposta real.
+  Falha ao enfileirar reverte a importação inteira do arquivo. O período cobre
+  somente linhas efetivamente inseridas; se houver inserções sem data inicial,
+  a RPC aborta. Dry-run não enfileira; zero inserções retorna ID nulo e preserva
+  tarefas anteriores. Parsers, hashes, classificação e grants são preservados.
+- Com essa migration, o navegador acompanha cada ID sem solicitar outra tarefa.
+  Na janela de publicação com banco anterior, a ausência do campo ativa a RPC
+  de solicitação imediatamente após cada arquivo; esse fallback ainda depende
+  da conexão entre as duas chamadas. ID presente e nulo não ativa o fallback.
+  Consulta indisponível, tarefa pendente e erro de processamento são estados
+  distintos. O prazo de acompanhamento é compartilhado pelo lote; seu término
+  não cancela o trabalho no banco. É possível consultar novamente na mesma tela.
 - Criada em `20260751000000_importacao_web_stone.sql`.
 
 ### solicitar_recalculo_saldo(date, date) / consultar_recalculo_saldo(bigint)
@@ -1046,7 +1060,7 @@ no repositório.
 - Uso: `importar.html`, `status.html`.
 - Propósito: enfileirar e acompanhar o recálculo assíncrono do saldo depois de
   uma importação ou manutenção. A fila privada guarda somente período, estado
-  e mensagem técnica. Não há cron permanente: cada solicitação liga
+  e mensagem técnica. O executor pesado funciona sob demanda: cada solicitação liga
   temporariamente `sirfisher-processar-recalculo-saldo`, que processa uma
   tarefa por vez, atualiza os snapshots e remove o próprio agendamento quando a
   fila esvazia. A migration inicial enfileira uma recomposição desde o começo
@@ -1054,6 +1068,28 @@ no repositório.
 - Criadas em `20260758000000_recalculo_saldo_assincrono.sql`; agendamento
   convertido para sob demanda em
   `20260759000000_recalculo_saldo_cron_sob_demanda.sql`.
+
+### garantir_worker_recalculo_saldo() / recuperação do agendamento
+- Função privada `SECURITY DEFINER` com `search_path=pg_catalog,pg_temp` e
+  `EXECUTE` revogado de `public`, `anon`, `authenticated` e `service_role`.
+  Introduzida pela migration `20260905000000`, ainda sujeita à revisão e
+  confirmação de aplicação no servidor.
+- O job permanente `sirfisher-garantir-worker-recalculo-saldo` roda a cada dois
+  minutos. Se houver pendências, arma/reativa o executor existente a cada cinco
+  segundos. Usa `pg_try_advisory_xact_lock(58000000)`, o mesmo lock do worker:
+  retorna sem esperar quando ocupado. O importador não adquire esse lock.
+- O índice parcial `private.fila_recalculo_pendente_id_idx` cobre `id` apenas
+  em `situacao='pendente'`. Nenhuma tarefa em erro é retentada, nem são criadas
+  tarefas para importações históricas que ficaram sem elas. O worker mantém
+  a retenção de trinta dias dos estados terminais e o tratamento de erros.
+- Instalação e outbox são uma única transação, com `lock_timeout=2s` e
+  verificação do owner do worker, das RPCs e dos jobs homônimos visíveis.
+  Divergência nas âncoras da definição do importador aborta a migration.
+- Risco operacional: uma tarefa por arquivo pode aumentar o trabalho na fila;
+  a cadência não é SLA. Em manutenção, pausar **também** o job de recuperação
+  para que ele não reative o executor. Verificar o job, sua execução e a fila,
+  pois um job cron concluído pode conter uma tarefa que terminou em erro.
+- Validação e limites em `docs/EXECUCAO_AUDITORIA_2026-09-05.md`.
 
 ## Tabelas / views que alimentam os painéis HTML
 - `analise_individual` → `analise_individual.html`

@@ -183,18 +183,18 @@ function render(){
       <div id="drop" class="drop-area">
         <b>Arraste os CSV aqui</b>
         <p>ou toque para escolher do aparelho</p>
-        <input type="file" id="files" accept=".csv,text/csv" multiple aria-label="Escolher arquivos CSV">
+        <input type="file" id="files" accept=".csv,text/csv" multiple aria-label="Escolher arquivos CSV" ${OCUPADO?'disabled':''}>
       </div>
     </section>
 
-    ${ARQUIVOS.length?`<section class="panel"><div class="panel-head"><div><h3>2 · Conferir</h3><div class="hint">Nada foi gravado ainda. Esta conferência roda no banco, com as mesmas regras da gravação.</div></div></div>
+    ${ARQUIVOS.length?`<section class="panel"><div class="panel-head"><div><h3>2 · Conferir</h3><div class="hint">${ARQUIVOS.some(a=>a.resultado)?'Confira a gravação e a atualização de cada arquivo abaixo.':'Nada foi gravado ainda. Esta conferência roda no banco, com as mesmas regras da gravação.'}</div></div></div>
       <div class="table-wrap"><table class="data-table"><thead><tr><th>Arquivo</th><th>Fonte</th><th class="right">Linhas</th><th class="right">Novas</th><th>Período</th><th>Situação</th></tr></thead><tbody>
       ${ARQUIVOS.map(a=>{
         if(a.erro)return `<tr><td class="file-nome"><b>${esc(a.nome)}</b></td><td colspan="5" class="file-erro">${esc(a.erro)}</td></tr>`;
         if(!a.previa)return `<tr><td class="file-nome"><b>${esc(a.nome)}</b></td><td colspan="5" class="hint">Conferindo…</td></tr>`;
         const p=a.previa;
         const estado=a.resultado
-          ? `<span class="status ok">Importado</span>`
+          ? estadoArquivo(a)
           : (p.novas>0?`<span class="status ok">Pronto</span>`:`<span class="status warn">Nada novo</span>`);
         const linhaArquivo=`<tr><td class="file-nome"><b>${esc(a.nome)}</b></td><td>${esc(p.fonte)}</td><td class="right">${num(p.linhas)}</td><td class="right">${a.resultado?num(a.resultado.inseridos):num(p.novas)}</td><td>${fmtDia(p.periodo_inicio)} a ${fmtDia(p.periodo_fim)}</td><td>${estado}</td></tr>`;
         const codigos=p.estabelecimentos&&typeof p.estabelecimentos==='object'?Object.entries(p.estabelecimentos):[];
@@ -206,7 +206,8 @@ function render(){
       <div class="actions" style="margin-top:14px">
         <button id="importar" class="button" ${pendentes.length&&!OCUPADO?'':'disabled'}>Importar ${pendentes.length||''} arquivo(s)</button>
         <button id="limpar" class="button secondary" ${OCUPADO?'disabled':''}>Limpar</button>
-        <span id="msg" class="hint"></span>
+        ${ARQUIVOS.some(a=>a.atualizacao?.id&&!['concluido','erro'].includes(a.atualizacao.situacao))?`<button id="consultar" class="button secondary" ${OCUPADO?'disabled':''}>Consultar atualização</button>`:''}
+        <span id="msg" class="hint" role="status" aria-live="polite"></span>
       </div>
     </section>`:''}`;
 
@@ -217,11 +218,14 @@ function render(){
   drop.addEventListener('drop',e=>adicionar(e.dataTransfer.files));
   const btn=document.getElementById('importar');
   if(btn)btn.addEventListener('click',importar);
+  const consultar=document.getElementById('consultar');
+  if(consultar)consultar.addEventListener('click',consultarAtualizacoes);
   const limpar=document.getElementById('limpar');
   if(limpar)limpar.addEventListener('click',()=>{ARQUIVOS=[];render();});
 }
 
 async function adicionar(fileList){
+  if(OCUPADO)return;
   const novos=Array.from(fileList||[]).map(f=>({nome:f.name,file:f}));
   if(!novos.length)return;
   ARQUIVOS=ARQUIVOS.concat(novos);
@@ -254,88 +258,115 @@ function aviso(texto,cor){
 
 function esperar(ms){return new Promise(resolve=>setTimeout(resolve,ms));}
 
-// A partir da migration 20260758000000 o recalculo roda em background, fora
-// do timeout curto do navegador. Durante a janela de publicacao, banco antigo
-// continua compativel: a resposta antiga nao tem id e segue pelo fluxo abaixo.
-async function aguardarRecalculo(id){
-  const limite=Date.now()+120000;
-  while(Date.now()<limite){
-    await esperar(2000);
-    const {data,error}=await sb.rpc('consultar_recalculo_saldo',{p_id:id});
-    if(error)return {situacao:'erro',mensagem:error.message};
-    if(data&&data.situacao==='concluido')return data;
-    if(data&&data.situacao==='erro')return data;
-    aviso('Dados salvos. Recalculando o saldo e atualizando o painel em segundo plano…');
-  }
-  return {situacao:'processando'};
+// Gravar e atualizar sao estados distintos, inclusive quando um lote para.
+function estadoArquivo(a){
+  if(!a.resultado.inseridos)return '<span class="status warn">Sem linhas novas</span>';
+  const situacao=a.atualizacao?.situacao;
+  const rotulos={concluido:'Painel atualizado',erro:'Salvo · atualização falhou',
+    desconhecido:'Salvo · consulta indisponível',nao_agendado:'Salvo · atualização não confirmada'};
+  return `<span class="status ${situacao==='concluido'?'ok':'warn'}">${rotulos[situacao]||'Salvo · atualização pendente'}</span>`;
 }
 
-// A gravacao continua sincrona para a tela saber exatamente o que entrou. O
-// recalculo e o refresh rodam uma unica vez ao fim do lote, em background,
-// porque o recalculo deixou de caber no statement_timeout de authenticated.
+// Todos os IDs compartilham o prazo. Uma consulta que falha nao significa
+// falha do worker. O ID fica no arquivo para uma nova consulta, sem reimportar.
+async function aguardarRecalculos(arquivos){
+  const limite=Date.now()+120000;
+  const tarefas=arquivos.filter(a=>a.atualizacao?.id&&!['concluido','erro'].includes(a.atualizacao.situacao));
+  tarefas.forEach(a=>a.atualizacao.situacao='pendente');
+  while(Date.now()<limite){
+    const pendentes=tarefas.filter(a=>['pendente','processando'].includes(a.atualizacao.situacao));
+    if(!pendentes.length)return;
+    const respostas=await Promise.allSettled(pendentes.map(a=>
+      sb.rpc('consultar_recalculo_saldo',{p_id:a.atualizacao.id})));
+    respostas.forEach((resposta,i)=>{
+      const a=pendentes[i];
+      const consulta=resposta.status==='fulfilled'?resposta.value:null;
+      const estado=consulta?.data;
+      if(!consulta||consulta.error||!['pendente','processando','concluido','erro'].includes(estado?.situacao)){
+        a.atualizacao.situacao='desconhecido';
+      }else{
+        a.atualizacao.situacao=estado.situacao;
+      }
+    });
+    render();
+    aviso('Dados salvos. Acompanhando a atualização dos arquivos em segundo plano…');
+    if(!tarefas.some(a=>['pendente','processando'].includes(a.atualizacao.situacao)))return;
+    await esperar(2000);
+  }
+}
+
+function resumirImportacao(){
+  const salvos=ARQUIVOS.filter(a=>a.resultado);
+  const total=salvos.reduce((s,a)=>s+Number(a.resultado.inseridos||0),0);
+  const interrompido=ARQUIVOS.some(a=>a.erro);
+  const estados=salvos.filter(a=>a.resultado.inseridos>0).map(a=>a.atualizacao?.situacao);
+  const partes=[`${total} nova(s) linha(s) com gravação confirmada.`];
+  if(interrompido)partes.push('Há arquivo(s) sem importação confirmada. Os anteriores estão salvos; reenviar não duplica.');
+  if(estados.includes('erro'))partes.push('A atualização de parte dos dados falhou. Avise o administrador.');
+  if(estados.includes('nao_agendado'))partes.push('Não foi possível confirmar o agendamento de parte dos dados. Avise o administrador para solicitar a atualização na tela de Status.');
+  if(estados.includes('desconhecido'))partes.push('Não foi possível consultar parte das atualizações. Use "Consultar atualização" para conferir novamente.');
+  const pendente=estados.some(s=>!['concluido','erro','nao_agendado','desconhecido'].includes(s));
+  if(pendente)partes.push('A atualização continua pendente em segundo plano. Você pode fechar esta página e conferir o painel mais tarde.');
+  if(estados.length&&estados.every(s=>s==='concluido'))partes.push('Saldo recalculado e painel atualizado para todos os arquivos salvos.');
+  if(!total&&salvos.length)partes.push('Nenhuma tarefa nova foi solicitada; atualizações anteriores podem continuar pendentes.');
+  const atencao=interrompido||pendente||estados.some(s=>s!=='concluido');
+  aviso(partes.join(' '),atencao?'var(--amber)':'var(--green)');
+}
+
+async function consultarAtualizacoes(){
+  if(OCUPADO)return;
+  OCUPADO=true;render();
+  try{
+    await aguardarRecalculos(ARQUIVOS);
+  }finally{
+    OCUPADO=false;render();resumirImportacao();
+  }
+}
+
+// Banco com outbox: cada resposta ja confirma dados E tarefa, sem segunda
+// mutacao. No rollout, contrato antigo (campo ausente) agenda imediatamente
+// por arquivo; ainda existe a lacuna entre as duas RPCs nesse banco antigo.
 async function importar(){
   if(OCUPADO)return;
   const fila=ARQUIVOS.filter(a=>a.previa&&!a.erro&&!a.resultado);
   if(!fila.length)return;
-  OCUPADO=true;
-  render();
-
-  let total=0,ini=null,fim=null;
-  for(const a of fila){
-    aviso(`Gravando ${a.nome}…`);
-    const {data,error}=await sb.rpc('importar_csv_stone',{p_fonte:a.cfg.fonte,p_linhas:a.registros,p_dry_run:false});
-    if(error){
-      a.erro=error.message;OCUPADO=false;render();
-      aviso(`Parou em ${a.nome}: ${error.message}. Os arquivos anteriores já foram gravados; reenviar não duplica.`,'var(--red)');
-      return;
+  OCUPADO=true;render();
+  try{
+    for(const a of fila){
+      aviso(`Gravando ${a.nome}…`);
+      try{
+        const {data,error}=await sb.rpc('importar_csv_stone',{p_fonte:a.cfg.fonte,p_linhas:a.registros,p_dry_run:false});
+        if(error)throw new Error(error.message);
+        if(!data||!Number.isInteger(data.inseridos)||data.inseridos<0)throw new Error('Resposta de gravação não reconhecida.');
+        a.resultado=data;
+      }catch(e){
+        a.erro=e.message||'Não foi possível confirmar a gravação.';
+        break;
+      }
+      const data=a.resultado;
+      if(data.inseridos>0){
+        if(Object.prototype.hasOwnProperty.call(data,'recalculo_id')){
+          a.atualizacao=data.recalculo_id
+            ? {id:data.recalculo_id,situacao:'pendente'}
+            : {situacao:'nao_agendado'};
+        }else{
+          a.atualizacao={situacao:'nao_agendado'};
+          if(data.recalculo_inicio){
+            try{
+              const rec=await sb.rpc('solicitar_recalculo_saldo',{
+                p_data_min:data.recalculo_inicio,p_data_max:data.recalculo_fim||data.recalculo_inicio});
+              if(!rec.error&&rec.data?.id)a.atualizacao={id:rec.data.id,situacao:'pendente'};
+            }catch(e){/* Dados salvos: falha de agendamento nao vira falha de importacao. */}
+          }
+        }
+      }
+      render();
     }
-    a.resultado=data;total+=data.inseridos;
-    // Periodo das linhas efetivamente novas (null quando nada entrou).
-    if(data.recalculo_inicio&&(!ini||data.recalculo_inicio<ini))ini=data.recalculo_inicio;
-    if(data.recalculo_fim&&(!fim||data.recalculo_fim>fim))fim=data.recalculo_fim;
-    render();
+    // Mesmo se um arquivo posterior falhou, acompanhar os que foram salvos.
+    await aguardarRecalculos(ARQUIVOS);
+  }finally{
+    OCUPADO=false;render();resumirImportacao();
   }
-
-  // Nada novo: nada mudou, entao nao ha o que recalcular nem atualizar.
-  if(!total||!ini){
-    OCUPADO=false;render();
-    aviso('✓ Nenhuma linha nova: os arquivos já estavam importados. Painel inalterado.','var(--green)');
-    return;
-  }
-
-  aviso('Recalculando o saldo — isso leva alguns segundos.');
-  const rec=await sb.rpc('solicitar_recalculo_saldo',{p_data_min:ini,p_data_max:fim});
-  if(rec.error){
-    OCUPADO=false;render();
-    aviso(`${total} linha(s) gravada(s), mas o recálculo do saldo falhou: ${rec.error.message}. Os dados estão salvos; avise o administrador — o saldo de fechamento pode ficar desatualizado até rodar de novo.`,'var(--red)');
-    return;
-  }
-
-  // Banco novo: o worker tambem faz o refresh depois do recalculo, na ordem
-  // correta. Nao disparar um refresh concorrente por esta requisicao.
-  if(rec.data&&rec.data.id){
-    aviso('Dados salvos. Recalculando o saldo e atualizando o painel em segundo plano…');
-    const estado=await aguardarRecalculo(rec.data.id);
-    OCUPADO=false;render();
-    if(estado.situacao==='concluido'){
-      aviso(`✓ ${total} nova(s) linha(s) importada(s), saldo recalculado e painel atualizado.`,'var(--green)');
-    }else if(estado.situacao==='erro'){
-      aviso(`${total} linha(s) gravada(s), mas a atualização em segundo plano falhou: ${estado.mensagem||'erro desconhecido'}. Os dados estão salvos; avise o administrador.`,'var(--red)');
-    }else{
-      aviso(`✓ ${total} nova(s) linha(s) importada(s). A atualização continua em segundo plano e aparecerá no painel em instantes.`,'var(--green)');
-    }
-    return;
-  }
-
-  // Compatibilidade temporaria com o banco anterior a 20260758000000.
-  aviso('Atualizando o painel — isso leva alguns segundos.');
-  const ref=await sb.rpc('solicitar_refresh_painel');
-  OCUPADO=false;render();
-  if(ref.error){
-    aviso(`${total} linha(s) gravada(s) e saldo recalculado, mas o painel não atualizou: ${ref.error.message}. Use "Atualizar painel agora" na tela de Status.`,'var(--red)');
-    return;
-  }
-  aviso(`✓ ${total} nova(s) linha(s) importada(s), saldo recalculado e painel atualizado.`,'var(--green)');
 }
 
 (async()=>{const auth=await SirFisherAuth.requireRole(sb);if(auth)render();})();

@@ -46,3 +46,34 @@ jobs:
 
       - name: Front-end performance and resilience contracts
         run: python scripts/ci/test_frontend_contracts.py
+
+      - name: Web import partial failure and background update flows
+        run: node --test scripts/ci/test_importacao_web.mjs
+
+  import-outbox:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_DB: sirfisher_outbox_test
+          POSTGRES_HOST_AUTH_METHOD: trust
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Transactional import in disposable PostgreSQL 15
+        env:
+          PGHOST: 127.0.0.1
+          PGPORT: '5432'
+          PGDATABASE: sirfisher_outbox_test
+          PGUSER: postgres
+        run: python scripts/ci/test_importacao_outbox.py
