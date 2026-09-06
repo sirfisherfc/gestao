@@ -109,3 +109,16 @@ jobs:
             -c 'drop database if exists sirfisher_cascata_test' \
             -c 'create database sirfisher_cascata_test'
           python scripts/ci/test_cascata_sql.py
+
+      - name: Calendar receivables universe filter
+        env:
+          PGHOST: 127.0.0.1
+          PGPORT: '5432'
+          PGDATABASE: sirfisher_calendario_test
+          PGUSER: postgres
+          CALENDARIO_SQL_DISPOSABLE: '1'
+        run: |
+          psql -h 127.0.0.1 -U postgres -d postgres \
+            -c 'drop database if exists sirfisher_calendario_test' \
+            -c 'create database sirfisher_calendario_test'
+          python scripts/ci/test_calendario_recebiveis_sql.py

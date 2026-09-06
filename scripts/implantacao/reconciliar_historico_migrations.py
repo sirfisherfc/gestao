@@ -138,7 +138,19 @@ def main() -> int:
         action="store_true",
         help="valida que os objetos das migrations existem antes de gravar",
     )
+    parser.add_argument(
+        "--ate",
+        metavar="VERSAO",
+        help=(
+            "registra apenas versões até esta (inclusive). Use quando o "
+            "repositório já contém migrations ainda não aplicadas: sem o corte, "
+            "elas seriam marcadas como aplicadas e nunca rodariam"
+        ),
+    )
     args = parser.parse_args()
+
+    if args.ate and not re.fullmatch(r"\d{14}", args.ate):
+        raise SystemExit("--ate exige uma versão no formato AAAAMMDDHHMMSS")
 
     import psycopg2
 
@@ -160,6 +172,17 @@ def main() -> int:
 
         ausentes = sorted(set(catalogo) - registradas)
         orfas = sorted(registradas - set(catalogo))
+
+        if args.ate:
+            adiadas = [v for v in ausentes if v > args.ate]
+            ausentes = [v for v in ausentes if v <= args.ate]
+            if adiadas:
+                print(
+                    f"Corte --ate {args.ate}: {len(adiadas)} versões ficam de fora "
+                    "e deverão ser aplicadas normalmente pelo executor."
+                )
+                for versao in adiadas:
+                    print(f"  adiada: {versao} | {catalogo[versao]}")
 
         print(f"Catálogo local              : {len(catalogo)} migrations")
         print(f"Histórico no banco          : {len(registradas)} versões")
