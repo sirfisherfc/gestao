@@ -85,8 +85,14 @@ jobs:
         env:
           PGHOST: 127.0.0.1
           PGPORT: '5432'
-          PGDATABASE: postgres
+          PGDATABASE: sirfisher_parsers_test
           PGUSER: postgres
+          PARSER_PARITY_DISPOSABLE: '1'
         run: |
           pip install psycopg2-binary
+          # Banco proprio e descartavel: o bootstrap cria os parsers do zero e
+          # nao reaproveita os objetos do teste de outbox.
+          psql -h 127.0.0.1 -U postgres -d postgres \
+            -c 'drop database if exists sirfisher_parsers_test' \
+            -c 'create database sirfisher_parsers_test'
           python scripts/ci/test_paridade_parsers.py
