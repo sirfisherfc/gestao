@@ -195,7 +195,7 @@ def _assert_disposable_target(conn) -> None:
 
     with conn.cursor() as cur:
         cur.execute(
-            "select current_database(), inet_server_addr()::text, "
+            "select current_database(), host(inet_server_addr()), "
             "current_setting('server_version_num')::integer"
         )
         current_database, server_address, server_version = cur.fetchone()
@@ -203,8 +203,17 @@ def _assert_disposable_target(conn) -> None:
 
     if current_database != database:
         raise AssertionError("PGDATABASE nao corresponde ao banco conectado")
-    if server_address is None or not ipaddress.ip_address(server_address).is_loopback:
-        raise AssertionError("Bootstrap bloqueado: servidor conectado nao e loopback")
+    # O alvo precisa ser um servidor efemero: loopback, ou o endereco privado de
+    # um container de servico (o Postgres do CI se enxerga em 172.x, ainda que o
+    # cliente chegue por 127.0.0.1). Qualquer endereco roteavel na internet, como
+    # o banco de producao, continua bloqueado.
+    if server_address is None:
+        raise AssertionError("Bootstrap bloqueado: servidor conectado nao identificado")
+    server_ip = ipaddress.ip_address(server_address)
+    if not (server_ip.is_loopback or server_ip.is_private):
+        raise AssertionError(
+            f"Bootstrap bloqueado: servidor {server_address} nao e local nem privado"
+        )
     if server_version < 150000:
         raise AssertionError("A fixture de paridade exige PostgreSQL 15 ou superior")
 
