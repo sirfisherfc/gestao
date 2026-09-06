@@ -2368,3 +2368,58 @@ nenhuma escrita, nenhum recalculo disparado). Resultados:
 - Status: 🟢 Livre.
 
 - Claude
+
+
+### Claude - Etapas 4 e 5 do parecer (06/09/2026)
+
+Ambiente corrigido primeiro: `DATABASE_URL` apontava para o projeto Supabase
+antigo `qqefegpi...`, e nao para o portal unificado `lucpxoyn...`. A causa raiz e
+uma variavel de ambiente de nivel de usuario que sobrepoe o `.env` em qualquer
+ferramenta da maquina. Nao consegui remover essa variavel (bloqueio de
+permissao), entao `_database_url()` passa a preferir o `.env` com aviso em
+stderr, e para a execucao se a referencia de projeto divergir do `SUPABASE_URL`.
+**Remova a variavel de usuario `DATABASE_URL` quando puder.**
+
+**Historico de migrations.** `scripts/implantacao/reconciliar_historico_migrations.py`
+registra as 155 versoes aplicadas fora do executor. Dry-run por padrao, exige
+`--aplicar`, e so grava depois de conferir que os objetos existem (220
+conferidos, nenhum ausente). A gravacao em producao foi bloqueada por permissao
+e **continua pendente**; rode com `--ate 20260906040000` para nao marcar como
+aplicadas as migrations novas que ainda nao rodaram.
+
+**Etapa 4.**
+- `test_cascata_sql.py`: executa o SQL literal da view da cascata contra
+  PostgreSQL descartavel. Comprova que os 12 componentes particionam o total sem
+  sobreposicao, que um grupo residual novo aparece em `outros` em vez de ser
+  absorvido, que linhas fora da DRE e de outra unidade nao vazam, e que a
+  constraint rejeita de fato os sete grupos que nao podem ser variaveis.
+- Universos do calendario: a CTE `recebiveis` lia `raw_stone_recebiveis` sem
+  filtro, enquanto as vendas passam por `stone_conta`. Duas contas estao com
+  `entra_faturamento = false`. Conferido em producao que hoje o filtro nao muda
+  numero algum (442 dias, totais identicos), entao a migration 20260906050000
+  elimina risco latente sem efeito colateral. `test_calendario_recebiveis_sql.py`
+  forca o cenario com dados sinteticos.
+- Claims: `fn_claim_perfil_usuario` era a unica funcao security definer de
+  public/private sem `search_path` fixo, e e justamente a que atribui papel de
+  usuario. Migration 20260906060000 corrige e valida que nenhuma outra fique sem.
+- Cron e RLS conferidos em leitura: dois jobs ativos, 461 execucoes `succeeded`
+  em 24h, nenhuma falha; todas as tabelas de `public` com RLS habilitada.
+
+**Etapa 5 (estoque).** Migration 20260906070000: `escopo` entra na chave do
+fechamento (antes nem `curva_a` e `integral` do mesmo mes coexistiam),
+`private.contagem_estoque` guarda contagens como evento datado com varias por
+mes, e uma trigger registra toda gravacao, fechamento e reabertura em
+`private.fechamento_consumo_estoque_revisao`. A view passa a expor os quatro
+valores de entrada e a memoria. `test_estoque_sql.py` cobre tudo isso.
+
+**Nao concluido.** As tres migrations 20260906050000/060000/070000 estao no
+repositorio mas **nao aplicadas em producao** (bloqueio de permissao). O estoque
+nao tem front-end: nenhuma pagina referencia o fechamento, e nao existe catalogo
+de itens no banco, entao a contagem e por valor e escopo, nao item a item.
+Continuam pendentes a conciliacao do consumo com a DRE, a itemizacao BTG, a
+revisao historica por materialidade, e a assimetria de `fonte_financeira` para
+`stone_recebiveis` (`entra_caixa` e `entra_faturamento` em false).
+
+- Status: 🟢 Livre.
+
+- Claude
