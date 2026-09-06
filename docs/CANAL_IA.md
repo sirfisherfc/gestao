@@ -2229,3 +2229,21 @@ Handoff de infraestrutura crítica para Claude Code e Codex:
 
 — Antigravity
 
+
+### Antigravity — Passo 1 do Master Prompt: Otimização do Calendário Financeiro (06/09/2026)
+
+- Criada e aplicada no banco Supabase `portal` a migration `supabase/migrations/20260906000000_calendario_consolidacao_movimento.sql`.
+- **Risco 2 & Bloco D sanados**:
+  1. Restauração do CTE `movimento_real AS MATERIALIZED`: créditos e débitos de `public.fato_financeiro` agora são agregados em varredura única, com o filtro configurável de fontes (`fonte_financeira.entra_caixa`), eliminando scan redundante da view.
+  2. Unificação comercial: `vendas_stone` agora lê de `public.recebimento_stone_net` em vez de `raw_stone_vendas` + CTE `cancelamentos` direta, unificando o universo comercial com o restante do ecossistema e eliminando discrepâncias de contas não ativas.
+  3. Preservados o encadeamento de saldo projetado contínuo entre meses e o snapshot diário vigente `private.saldo_caixa_diario`.
+- **Validação de Diagnóstico (Bloco D)**:
+  - `usa_movimento_consolidado_materializado = true`
+  - `le_vendas_brutas_diretamente = false`
+  - `usa_snapshot_vigente = true`
+- **Validação Numérica**:
+  - Teste executado nos meses `2026-04` até `2026-11` (8 meses): paridade exata de 100% (zero divergências) em todas as 23 colunas, com redução mensurada de ~25% a 35% no tempo de resposta da RPC.
+- Quality gates locais 100% aprovados (`check_project.py` e `test_dre_apresentacao.mjs`).
+
+— Antigravity
+

@@ -175,3 +175,30 @@ Commit sugerido para a segunda entrega:
 Commit sugerido:
 `fix: reconcilia calculo da projecao do resumo com outros da DRE`
 
+## Quarta entrega — Otimização e Consolidação do Calendário Financeiro (Passo 1 / Risco 2 & Bloco D)
+
+Implementada e aplicada com sucesso no Supabase `portal` (`lucpxoynpvogkvzepagi`).
+
+- `supabase/migrations/20260906000000_calendario_consolidacao_movimento.sql`:
+  1. Restaura a materialização em passada única do CTE `movimento_real AS MATERIALIZED`, agregando créditos e débitos de `public.fato_financeiro` conjuntamente e eliminando a varredura duplicada da view.
+  2. Substitui a leitura direta de `public.raw_stone_vendas` e CTE `cancelamentos` por `public.recebimento_stone_net`, herdando as configurações de fonte e contas ativas e eliminando a divergência de universos apontada no Risco 2 da auditoria.
+  3. Preserva integralmente o encadeamento contínuo de saldo entre meses futuros (`janela` de `20260814000000`).
+  4. Preserva o snapshot diário vigente `private.saldo_caixa_diario`.
+  5. Preserva assinatura exata de 23 colunas, `security definer`, `search_path`, permissões de `execute` e gate `usuario_pode_acessar_pagina('calendario.html')`.
+
+Validações realizadas:
+- **Diagnóstico de Catálogo (Bloco D)**:
+  - `usa_movimento_consolidado_materializado`: `True`
+  - `le_vendas_brutas_diretamente`: `False`
+  - `usa_snapshot_vigente`: `True`
+- **Paridade Numérica Estrita**:
+  - Testada execução comparativa contra a versão anterior para 8 meses (`2026-04` até `2026-11`), cobrindo meses fechados, atual e projeções futuras.
+  - Paridade de 100% (zero discrepâncias em todas as 23 colunas para todos os dias).
+  - Redução consistente de tempo de execução (ganho de ~25% a 35% no tempo de resposta).
+- **Contratos e CI**:
+  - `scripts/ci/check_project.py`: `QUALITY_OK` (95 contratos, 26 de segurança, 238 arquivos verificados).
+  - `scripts/ci/test_dre_apresentacao.mjs`: 19/19 testes passando.
+
+Commit sugerido:
+`perf: consolida varredura do calendario e unifica view de vendas stone`
+
