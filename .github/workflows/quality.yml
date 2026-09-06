@@ -50,6 +50,9 @@ jobs:
       - name: Web import partial failure and background update flows
         run: node --test scripts/ci/test_importacao_web.mjs
 
+      - name: DRE presentation and missing-data behavior
+        run: node --test scripts/ci/test_dre_apresentacao.mjs
+
   import-outbox:
     runs-on: ubuntu-latest
     services:

@@ -1,5 +1,10 @@
 # Execução prioritária da auditoria — 05/09/2026
 
+Atualização: a primeira entrega foi commitada localmente em `1395e9f`, após
+autorização do usuário. Não houve push nem aplicação da migration ao banco.
+O registro abaixo preserva as condições da primeira entrega; a segunda está
+descrita ao fim deste documento.
+
 Primeira entrega: atualização durável após a importação web e recuperação de
 tarefas pendentes sem executor. Implementada localmente; migration ainda não
 aplicada no Supabase, sem commit ou push. Referências de escopo: a auditoria
@@ -106,3 +111,56 @@ o conteúdo preexistente de `docs/CANAL_IA.md`. Nenhum arquivo foi staged.
 
 Commit sugerido: `fix: garante recalculo duravel apos importacao web`.
 Não incluir arquivos preexistentes não relacionados ao selecionar o commit.
+
+## Segunda entrega — apresentação da DRE e dados indisponíveis
+
+Implementada localmente após o commit `1395e9f`, sem nova migration ou mudança
+nas regras de classificação. A árvore ainda continha a auditoria anterior e o
+recado correspondente no canal: foram preservados. `git fetch origin main`
+confirmou um commit local à frente e nenhum remoto pendente; não houve pull
+sobre a árvore suja nem push.
+
+Arquivos desta entrega:
+
+- `dre.html`: identifica a base predominantemente financeira; substitui
+  resultado líquido por total gerencial e CMV por insumos pagos/despesa direta;
+  esclarece a mistura de bases na projeção. Não declara mês encerrado ou fontes
+  completas apenas porque a tendência não está ativa.
+- `index.html`: alinha os rótulos do Resumo, qualifica a receita após despesa
+  direta/contribuição estimada e deixa indicadores de custo ausentes neutros.
+  Sem tendência, receita ou despesa direta ausente não produz diferença numérica.
+- `scripts/ci/test_dre_apresentacao.mjs`: 16 testes executam o JavaScript real
+  com dados sintéticos e conferem nulos, campos ausentes, vazio, valores
+  inválidos, zero válido, denominador não positivo, projeções, tabela e gráficos.
+- `.github/workflows/quality.yml`: executa esses testes no CI.
+- `docs/EXECUCAO_AUDITORIA_2026-09-05.md` e `docs/CANAL_IA.md`: registro e recado.
+
+Prime Cost é apresentado como aproximação de insumos pagos mais pessoal
+registrado, sobre a receita financeira. Só aparece se ambos os componentes e
+seus percentuais forem válidos e a receita for positiva. Ausência fica como
+“Indisponível”, sem barra ou faixa verde; zero explicitamente informado continua
+zero. As faixas configuradas foram mantidas, identificadas como acompanhamento
+interno, sem alegação de padrão universal de mercado ou cobertura confirmada de
+estoque, encargos e provisões. Zero retornado pelo banco não comprova completude.
+
+Na DRE, projeções propagam componentes ausentes; a tabela mantém esses campos
+visíveis com travessão. A cascata não é desenhada com componentes incompletos e
+as linhas históricas não atravessam margens indisponíveis. Valores e fórmulas
+com todos os componentes válidos permanecem iguais aos anteriores.
+
+Validações: 16 testes novos e os 11 testes da importação passaram; quality gates,
+sintaxe, contratos de front-end, financeiros e de acesso passaram. Testes visuais
+com Chromium e Chart.js real, Supabase/autenticação simulados, passaram nas duas
+páginas em 1366, 390 e 360 pixels: troca de período, estado incompleto/completo,
+tooltips e console sem erros. Imagens conferidas; nenhum dado real utilizado.
+
+Limites e próxima prioridade: não há acesso ao banco para validar completude,
+classificação ou planos. A interpretação econômica da cascata continua exigindo
+revisão dos subtotais e das flags. Na projeção do Resumo, o cálculo preexistente
+de `abaixoOperacional` ainda não inclui `outros`, enquanto a DRE inclui; o caso
+sintético confirmou a diferença. Tratar essa reconciliação na próxima entrega
+de subtotais, sem confundir a correção de rótulos com uma revisão já concluída
+das regras financeiras. Esta entrega não altera esse cálculo preexistente.
+
+Commit sugerido para a segunda entrega:
+`fix: esclarece base financeira da DRE e preserva dados ausentes`.

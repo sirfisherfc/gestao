@@ -75,7 +75,7 @@
   <main id="main"><div class="loading">Carregando DRE…</div></main>
   <footer id="rodape" style="display:none">
     <span id="rodapeAtt"></span>
-    <span>Regime de competência · unidade <b data-app-unidade>PRINCIPAL</b> · <a href="#" id="verCargas" style="color:var(--teal);text-decoration:none">histórico de cargas</a></span>
+    <span>Base predominantemente financeira · unidade <b data-app-unidade>PRINCIPAL</b> · <a href="#" id="verCargas" style="color:var(--teal);text-decoration:none">histórico de cargas</a></span>
   </footer>
 </div>
 <div id="cargasBox" style="display:none;position:fixed;inset:0;background:rgba(18,49,63,.45);z-index:60;align-items:center;justify-content:center;padding:20px">
@@ -98,21 +98,28 @@ const MESES=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agos
 let CHARTS=[],ROWS=[],RESUMO=[],DESP_FIXA=[],DESP_DIRETA=[],ULTIMA=null,CARGAS=[];
 
 const DESC={
-  recReal:'Receita de vendas líquida de estornos, acumulada somente até o corte dos dados.',
-  recProj:'Receita estimada para o fechamento pela mesma tendência de faturamento bruto usada no Resumo.',
-  mcReal:'Margem de contribuição já realizada: receita menos os custos variáveis acumulados até o corte.',
+  recReal:'Receita classificada na DRE financeira, acumulada até o corte dos dados. Não equivale necessariamente ao faturamento comercial do período.',
+  recProj:'Estimativa pela tendência de faturamento comercial bruto usada no Resumo. Sua base difere da receita financeira realizada.',
+  mcReal:'Contribuição gerencial: receita financeira menos os grupos classificados como variáveis. Usa despesas registradas; não comprova consumo de estoque.',
   mcProj:'Margem de contribuição estimada: margem já realizada + receita futura − despesa direta futura.',
-  opReal:'Resultado operacional já realizado, sem receita nem despesa futura.',
+  opReal:'Subtotal operacional dos lançamentos disponíveis, sem valores futuros. A base financeira não permite interpretá-lo como EBITDA contábil.',
   opProj:'Resultado operacional estimado: realizado + receita futura − despesas diretas e fixas futuras, usando as mesmas premissas do caixa.',
-  liqReal:'Resultado líquido já apurado com os lançamentos acumulados até o corte.',
-  liqProj:'Resultado líquido estimado: resultado operacional projetado + itens abaixo da operação já realizados, sem extrapolá-los.'
+  liqReal:'Total gerencial dos lançamentos, incluindo investimentos e itens não operacionais. Não representa lucro líquido contábil nem saldo disponível para distribuição.',
+  liqProj:'Total gerencial estimado: operacional projetado + itens abaixo da operação já registrados. Combina projeção comercial com base financeira; não representa lucro líquido contábil.'
 };
 
 function brl(v){if(v==null||isNaN(v))return '—';const a=Math.abs(v);if(a>=1e6)return 'R$ '+(v/1e6).toFixed(2).replace('.',',')+' mi';if(a>=1e3)return 'R$ '+(v/1e3).toFixed(1).replace('.',',')+' mil';return 'R$ '+v.toFixed(0);}
 function brlK(v){if(v==null||isNaN(v))return '—';return 'R$ '+Math.round(v/1e3)+'k';}
 function rs(v){return v==null?'—':'R$ '+Number(v).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
 function pp(v){return (v==null||isNaN(v))?'—':v.toFixed(1).replace('.',',')+'%';}
-function num(v){return v==null?null:Number(v);}
+function num(v){
+  if(!['number','string'].includes(typeof v)||(typeof v==='string'&&!v.trim()))return null;
+  const n=Number(v);return Number.isFinite(n)?n:null;
+}
+function soma(...valores){return valores.some(v=>num(v)==null)?null:valores.reduce((s,v)=>s+Number(v),0);}
+function negativo(v){return num(v)==null?null:-Number(v);}
+function margem(v,receita){return num(v)!=null&&num(receita)>0?v/receita*100:null;}
+function corResultado(v){return num(v)==null?C.muted:(v>=0?C.green:C.red);}
 function ic(p){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>';}
 const ICON={cash:'<path d="M2 7h20v10H2z"/><circle cx="12" cy="12" r="2.5"/>',mc:'<path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/>',op:'<path d="M4 19V5M4 19h16M9 16V9M14 16V6M19 16v-4"/>',liq:'<path d="M12 2v20M5 9l7-7 7 7"/>',alert:'<path d="M12 9v4"/><circle cx="12" cy="16.2" r=".4" fill="currentColor"/><path d="M10.3 3.9 1.8 18a1.8 1.8 0 0 0 1.6 2.7h17.2a1.8 1.8 0 0 0 1.6-2.7L13.7 3.9a1.8 1.8 0 0 0-3.4 0z"/>'};
 
@@ -198,36 +205,37 @@ function renderMes(anoMes){
   CHARTS.forEach(c=>{try{c.destroy()}catch(e){}});CHARTS=[];
   const idx=ROWS.findIndex(r=>r.ano_mes===anoMes);
   const r=ROWS[idx]; const prev=idx>0?ROWS[idx-1]:null;
-  const N=k=>r[k]==null?0:Number(r[k]);
-  const P=k=>prev&&prev[k]!=null?Number(prev[k]):null;
+  if(!r)return;
+  const N=k=>num(r[k]);
+  const P=k=>num(prev?.[k]);
   const trend=SirFisherFormat.monthTrend(RESUMO,anoMes);
-  const somaProj=(rows)=>rows
+  const somaProj=(rows)=>soma(...rows
     .filter(x=>x.dia&&x.dia.slice(0,7)===anoMes)
-    .reduce((s,x)=>s+Math.abs(Number(x.valor)||0),0);
+    .map(x=>num(x.valor)==null?null:Math.abs(Number(x.valor))));
   // Usa a projeção comercial como receita de fechamento. No começo do mês, a
   // receita financeira reconhecida na DRE fica atrás das vendas e não pode ser
   // a base da extrapolação sem derrubar artificialmente o resultado.
   const receitaProj=trend.active?trend.projected:N('receita');
-  const receitaFutura=trend.active?Math.max(receitaProj-N('receita'),0):0;
+  const receitaFutura=trend.active?(N('receita')==null?null:Math.max(receitaProj-N('receita'),0)):0;
   const despDiretaFutura=trend.active?somaProj(DESP_DIRETA):0;
   const despFixaFutura=trend.active?somaProj(DESP_FIXA):0;
   const margemContribProj=trend.active
-    ? N('margem_contribuicao')+receitaFutura-despDiretaFutura
+    ? soma(N('margem_contribuicao'),receitaFutura,negativo(despDiretaFutura))
     : N('margem_contribuicao');
   const resultadoOpProj=trend.active
-    ? N('resultado_operacional')+receitaFutura-despDiretaFutura-despFixaFutura
+    ? soma(N('resultado_operacional'),receitaFutura,negativo(despDiretaFutura),negativo(despFixaFutura))
     : N('resultado_operacional');
-  const abaixoOperacional=N('nao_operacional')+N('contabil')+N('capex')+N('outros')+N('nao_categorizado');
-  const resultadoLiqProj=trend.active?resultadoOpProj+abaixoOperacional:N('resultado_liquido');
-  const margemMcProj=receitaProj?margemContribProj/receitaProj*100:null;
-  const margemOpProj=receitaProj?resultadoOpProj/receitaProj*100:null;
-  const margemLiqProj=receitaProj?resultadoLiqProj/receitaProj*100:null;
-  const memoriaProj=trend.active
+  const abaixoOperacional=soma(N('nao_operacional'),N('contabil'),N('capex'),N('outros'),N('nao_categorizado'));
+  const resultadoLiqProj=trend.active?soma(resultadoOpProj,abaixoOperacional):N('resultado_liquido');
+  const margemMcProj=margem(margemContribProj,receitaProj);
+  const margemOpProj=margem(resultadoOpProj,receitaProj);
+  const margemLiqProj=margem(resultadoLiqProj,receitaProj);
+  const memoriaProj=trend.active&&resultadoOpProj!=null
     ? '<div class="hint proj-memoria"><b>Memória do resultado operacional projetado:</b> '
       +brl(N('resultado_operacional'))+' realizado + '+brl(receitaFutura)+' receita futura − '
       +brl(despDiretaFutura)+' despesa direta − '+brl(despFixaFutura)+' despesa fixa = <b>'
       +brl(resultadoOpProj)+'</b></div>'
-    : '';
+    : (trend.active?'<div class="hint proj-memoria">Projeção operacional indisponível: faltam valores necessários ao cálculo.</div>':'');
 
   const naoCat=N('nao_categorizado');
   const alertaHtml=Math.abs(naoCat)>0.5
@@ -235,31 +243,32 @@ function renderMes(anoMes){
     : '';
 
   const html=`
-    <div class="section-title">Resultado de ${MESES[new Date(r.mes).getUTCMonth()]} ${new Date(r.mes).getUTCFullYear()}</div>
+    <div class="section-title">Resultado gerencial de ${MESES[new Date(r.mes).getUTCMonth()]} ${new Date(r.mes).getUTCFullYear()}</div>
+    <div class="hint scenario-hint">Base predominantemente financeira. Pagamentos de insumos não são CMV apurado; o total inclui investimentos e itens não operacionais e não equivale a lucro líquido contábil.</div>
     ${alertaHtml}
-    <div class="section-title">${trend.active?'Realizado até o corte':'Realizado no mês encerrado'}</div>
-    <div class="hint scenario-hint">${trend.active?'Somente lançamentos já apurados; não inclui receita nem despesa futura.':'Valores finais do período selecionado.'}</div>
+    <div class="section-title">Lançamentos disponíveis no período</div>
+    <div class="hint scenario-hint">Valores registrados até o corte, sem projeções. A completude das fontes não está confirmada; — indica valor indisponível.</div>
     <div class="kpis">
-      ${kpi('Receita de vendas realizada','cash',brl(N('receita')),deltaVal(N('receita'),P('receita')),C.header,'recReal',N('receita'))}
+      ${kpi('Receita financeira registrada','cash',brl(N('receita')),deltaVal(N('receita'),P('receita')),C.header,'recReal',N('receita'))}
       ${kpi('Margem de contribuição realizada','mc',brl(N('margem_contribuicao')),subMarg(N('mc_perc'),P('mc_perc')),C.teal,'mcReal',N('margem_contribuicao'))}
-      ${kpi('Resultado operacional realizado','op',brl(N('resultado_operacional')),subMarg(N('margem_op_perc'),P('margem_op_perc')),N('resultado_operacional')>=0?C.green:C.red,'opReal',N('resultado_operacional'))}
-      ${kpi('Resultado líquido realizado','liq',brl(N('resultado_liquido')),subMarg(N('margem_liq_perc'),P('margem_liq_perc')),N('resultado_liquido')>=0?C.green:C.red,'liqReal',N('resultado_liquido'))}
+      ${kpi('Operacional gerencial registrado','op',brl(N('resultado_operacional')),subMarg(N('margem_op_perc'),P('margem_op_perc')),corResultado(N('resultado_operacional')),'opReal',N('resultado_operacional'))}
+      ${kpi('Total gerencial registrado','liq',brl(N('resultado_liquido')),subMarg(N('margem_liq_perc'),P('margem_liq_perc')),corResultado(N('resultado_liquido')),'liqReal',N('resultado_liquido'))}
     </div>
     ${trend.active?`
       <div class="section-title">Projeção de fechamento</div>
-      <div class="hint scenario-hint">Estimativa para o fim do mês; não é lucro já realizado.</div>
+      <div class="hint scenario-hint">Combina tendência de faturamento comercial com lançamentos financeiros. As bases diferem; esta estimativa não é lucro apurado.</div>
       <div class="kpis">
         ${kpi('Receita de vendas projetada','cash',brl(receitaProj),'<div class="sub">fechamento estimado pela tendência</div>',C.header,'recProj',receitaProj)}
         ${kpi('Margem de contribuição projetada','mc',brl(margemContribProj),subCenario(margemMcProj,'fechamento estimado'),C.teal,'mcProj',margemContribProj)}
-        ${kpi('Resultado operacional projetado','op',brl(resultadoOpProj),subCenario(margemOpProj,'fechamento estimado'),resultadoOpProj>=0?C.green:C.red,'opProj',resultadoOpProj)}
-        ${kpi('Resultado líquido projetado','liq',brl(resultadoLiqProj),subCenario(margemLiqProj,'fechamento estimado'),resultadoLiqProj>=0?C.green:C.red,'liqProj',resultadoLiqProj)}
+        ${kpi('Operacional gerencial projetado','op',brl(resultadoOpProj),subCenario(margemOpProj,'fechamento estimado'),corResultado(resultadoOpProj),'opProj',resultadoOpProj)}
+        ${kpi('Total gerencial projetado','liq',brl(resultadoLiqProj),subCenario(margemLiqProj,'fechamento estimado'),corResultado(resultadoLiqProj),'liqProj',resultadoLiqProj)}
       </div>
       ${memoriaProj}
     `:''}
 
     <div class="section-title">Cascata realizada até o corte</div>
     <div class="card">
-      <h3>Da receita ao resultado líquido realizado</h3>
+      <h3>Da receita ao total gerencial registrado</h3>
       <div class="hint">Não inclui a projeção de fechamento · cada barra mostra quanto soma (verde) ou consome (vermelho)</div>
       <div class="chart-wrap h-wf"><canvas id="wf"></canvas></div>
       <div class="legenda">
@@ -270,27 +279,27 @@ function renderMes(anoMes){
     </div>
 
     <div class="card">
-      <h3>DRE realizada até o corte</h3>
-      <div class="hint">Somente lançamentos já apurados e % sobre a receita realizada</div>
+      <h3>DRE gerencial até o corte</h3>
+      <div class="hint">Lançamentos disponíveis e % sobre a receita financeira registrada</div>
       <div id="dreTbl"></div>
     </div>
 
     <div class="section-title">Saúde de custos</div>
     <div class="card">
-      <h3>Indicadores vs referência de mercado</h3>
-      <div class="hint">Faixas de referência para restaurantes; use como termômetro, não como meta rígida</div>
+      <h3>Custos registrados e faixas configuradas</h3>
+      <div class="hint">Base: receita financeira da DRE. Faixas de acompanhamento interno; não são referências universais de mercado. Inventário e custo completo de pessoal não estão confirmados.</div>
       <div id="bench"></div>
     </div>
 
     <div class="section-title">Tendência</div>
     <div class="card">
       <h3>Evolução das margens</h3>
-      <div class="hint">Margem de contribuição, operacional e líquida mês a mês</div>
+      <div class="hint">Contribuição, operacional e total gerencial em % da receita financeira, mês a mês</div>
       <div class="chart-wrap h-marg"><canvas id="marg"></canvas></div>
       <div class="legenda">
         <span><i style="background:${C.teal}"></i>Contribuição</span>
         <span><i style="background:${C.amber}"></i>Operacional</span>
-        <span><i style="background:${C.green}"></i>Líquida</span>
+        <span><i style="background:${C.green}"></i>Total gerencial</span>
       </div>
     </div>
   `;
@@ -305,19 +314,28 @@ function renderMes(anoMes){
 Chart.defaults.font.family="'Roboto',Arial,sans-serif";Chart.defaults.color=C.muted;
 
 function drawWaterfall(r){
-  const N=k=>r[k]==null?0:Number(r[k]);
+  const N=k=>num(r[k]);
+  const campos=['receita','cmv','impostos','margem_contribuicao','pessoal',
+    'infraestrutura','marketing','resultado_operacional','nao_operacional',
+    'contabil','capex','outros','nao_categorizado','resultado_liquido'];
+  if(campos.some(k=>N(k)==null)){
+    const box=document.getElementById('wf').parentElement;
+    box.className='chart-wrap';
+    box.innerHTML='<p class="hint">Cascata indisponível: faltam valores de um ou mais componentes. Consulte os valores disponíveis na tabela.</p>';
+    return;
+  }
   const mc=N('margem_contribuicao'), ro=N('resultado_operacional'), rl=N('resultado_liquido');
   const steps=[];
   steps.push({label:'Receita',base:0,end:N('receita'),total:true});
   let run=N('receita');
-  [['CMV','cmv'],['Impostos s/ venda','impostos']].forEach(([lab,k])=>{const v=N(k);if(Math.abs(v)>0.5){steps.push({label:lab,base:run,end:run+v});run+=v;}});
+  [['Insumos pagos','cmv'],['Impostos s/ venda','impostos']].forEach(([lab,k])=>{const v=N(k);if(Math.abs(v)>0.5){steps.push({label:lab,base:run,end:run+v});run+=v;}});
   steps.push({label:'Margem contribuição',base:0,end:mc,total:true});
   run=mc;
   [['Pessoal','pessoal'],['Infraestrutura','infraestrutura'],['Marketing','marketing']].forEach(([lab,k])=>{const v=N(k);if(Math.abs(v)>0.5){steps.push({label:lab,base:run,end:run+v});run+=v;}});
   steps.push({label:'Resultado operac.',base:0,end:ro,total:true,fin:true});
   run=ro;
   [['Não operacional','nao_operacional'],['Contábil','contabil'],['Investim. (CAPEX)','capex'],['Outros','outros'],['Não categorizado','nao_categorizado']].forEach(([lab,k])=>{const v=N(k);if(Math.abs(v)>0.5){steps.push({label:lab,base:run,end:run+v});run+=v;}});
-  steps.push({label:'Resultado líquido',base:0,end:rl,total:true,fin:true});
+  steps.push({label:'Total gerencial',base:0,end:rl,total:true,fin:true});
 
   const cor=s=>{ if(s.total){ return s.fin?(s.end>=0?C.green:C.red):C.header; } return s.end>=s.base?C.green:C.red; };
 
@@ -329,50 +347,52 @@ function drawWaterfall(r){
 }
 
 function drawTabela(r){
-  const N=k=>r[k]==null?0:Number(r[k]);
+  const N=k=>num(r[k]);
   const rec=N('receita');
-  const pc=v=>rec>0?(v/rec*100).toFixed(1).replace('.',',')+'%':'—';
+  const pc=v=>pp(margem(v,rec));
   const line=(lab,v,cls,ind)=>'<tr class="'+(cls||'')+'"><td'+(ind?' class="ind"':'')+'>'+lab+'</td><td class="r">'+rs(v)+'</td><td class="r" style="color:var(--muted)">'+pc(v)+'</td></tr>';
+  const detalhe=(lab,k)=>N(k)==null||Math.abs(N(k))>0.5?line(lab,N(k),'',true):'';
   let h='<table class="tbl">';
-  h+=line('Receita de vendas',rec,'sub');
-  if(Math.abs(N('cmv'))>0.5)h+=line('CMV (despesa direta)',N('cmv'),'',true);
-  if(Math.abs(N('impostos'))>0.5)h+=line('Impostos sobre venda',N('impostos'),'',true);
+  h+=line('Receita financeira registrada',rec,'sub');
+  h+=detalhe('Insumos pagos (despesa direta)','cmv');
+  h+=detalhe('Impostos sobre venda','impostos');
   h+=line('= Margem de contribuição',N('margem_contribuicao'),'sub');
-  if(Math.abs(N('pessoal'))>0.5)h+=line('Pessoal',N('pessoal'),'',true);
-  if(Math.abs(N('infraestrutura'))>0.5)h+=line('Infraestrutura',N('infraestrutura'),'',true);
-  if(Math.abs(N('marketing'))>0.5)h+=line('Marketing',N('marketing'),'',true);
+  h+=detalhe('Pessoal','pessoal');
+  h+=detalhe('Infraestrutura','infraestrutura');
+  h+=detalhe('Marketing','marketing');
   h+=line('= Resultado operacional',N('resultado_operacional'),'sub');
-  if(Math.abs(N('nao_operacional'))>0.5)h+=line('Não operacional',N('nao_operacional'),'',true);
-  if(Math.abs(N('contabil'))>0.5)h+=line('Contábil',N('contabil'),'',true);
-  if(Math.abs(N('capex'))>0.5)h+=line('Investimentos (CAPEX)',N('capex'),'',true);
-  if(Math.abs(N('outros'))>0.5)h+=line('Outros grupos',N('outros'),'',true);
-  if(Math.abs(N('nao_categorizado'))>0.5)h+=line('⚠️ Não categorizado',N('nao_categorizado'),'',true);
-  h+=line('= Resultado líquido',N('resultado_liquido'),'fin');
+  h+=detalhe('Não operacional','nao_operacional');
+  h+=detalhe('Contábil','contabil');
+  h+=detalhe('Investimentos (CAPEX)','capex');
+  h+=detalhe('Outros grupos','outros');
+  h+=detalhe('⚠️ Não categorizado','nao_categorizado');
+  h+=line('= Total gerencial',N('resultado_liquido'),'fin');
   h+='</table>';
   document.getElementById('dreTbl').innerHTML=h;
 }
 
 function drawBench(r){
-  const N=k=>r[k]==null?0:Number(r[k]);
-  const cmv=N('cmv_perc'), pes=N('pessoal_perc');
-  const prime=(cmv||0)+(pes||0);
+  const N=k=>num(r[k]);
+  const cmv=N('receita')>0&&N('cmv')!=null?N('cmv_perc'):null;
+  const pes=N('receita')>0&&N('pessoal')!=null?N('pessoal_perc'):null;
+  const prime=soma(cmv,pes);
   // [valor, refMin, refMax, escalaMax, nota]
   const items=[
-    ['CMV','cmv',cmv,param('dre_cmv_referencia_min',28),param('dre_cmv_referencia_max',35),60,'faixa configurada'],
-    ['Pessoal','pes',pes,param('dre_pessoal_referencia_min',25),param('dre_pessoal_referencia_max',35),60,'faixa configurada'],
-    ['Prime cost','prime',prime,param('dre_prime_cost_referencia_min',55),param('dre_prime_cost_referencia_max',65),100,'CMV+Pessoal · faixa configurada']
+    ['Insumos pagos','cmv',cmv,param('dre_cmv_referencia_min',28),param('dre_cmv_referencia_max',35),60,'Despesa direta registrada; não é consumo de estoque apurado'],
+    ['Pessoal registrado','pes',pes,param('dre_pessoal_referencia_min',25),param('dre_pessoal_referencia_max',35),60,'Pessoal classificado na DRE; cobertura de encargos e provisões não confirmada'],
+    ['Prime Cost (aprox.)','prime',prime,param('dre_prime_cost_referencia_min',55),param('dre_prime_cost_referencia_max',65),100,'Insumos pagos + pessoal registrado, em % da receita financeira']
   ];
   const corVal=(v,lo,hi)=>v==null?C.muted:(v<=hi?C.green:(v<=hi+8?C.amber:C.red));
   let h='<div class="bench">';
   items.forEach(([nome,key,val,lo,hi,esc,nota])=>{
     const v=val==null?0:val;
     const cor=corVal(val,lo,hi);
-    const refL=lo/esc*100, refW=(hi-lo)/esc*100, fillW=Math.min(v/esc*100,100);
+    const refL=lo/esc*100, refW=(hi-lo)/esc*100, fillW=Math.max(0,Math.min(v/esc*100,100));
     h+='<div><div class="row"><div class="nome">'+nome+'</div>'+
-       '<div class="track"><div class="ref" style="left:'+refL+'%;width:'+refW+'%"></div>'+
-       '<div class="fill" style="width:'+fillW+'%;background:'+cor+';opacity:.85"></div></div>'+
-       '<div class="val" style="color:'+cor+'">'+(val==null?'—':pp(val))+'</div></div>'+
-       '<div class="refnote" style="margin-left:130px">'+nota+'</div></div>';
+       '<div class="track">'+(val==null?'':'<div class="ref" style="left:'+refL+'%;width:'+refW+'%"></div>'+
+       '<div class="fill" style="width:'+fillW+'%;background:'+cor+';opacity:.85"></div>')+'</div>'+
+       '<div class="val" style="color:'+cor+'">'+(val==null?'Indisponível':pp(val))+'</div></div>'+
+       '<div class="refnote">'+nota+(val==null?' · falta custo ou receita válida':' · faixa configurada: '+pp(lo)+' a '+pp(hi))+'</div></div>';
   });
   h+='</div>';
   document.getElementById('bench').innerHTML=h;
@@ -380,11 +400,11 @@ function drawBench(r){
 
 function drawMargens(){
   const labels=ROWS.map(x=>{const d=new Date(x.mes);return MESES[d.getUTCMonth()].slice(0,3)+'/'+String(d.getUTCFullYear()).slice(2);});
-  const ds=(k,cor)=>({label:k,data:ROWS.map(x=>x[k]==null?null:Number(x[k])),borderColor:cor,backgroundColor:cor,borderWidth:2,pointRadius:0,tension:.2,spanGaps:true});
+  const ds=(k,cor)=>({label:k,data:ROWS.map(x=>num(x[k])),borderColor:cor,backgroundColor:cor,borderWidth:2,pointRadius:0,tension:.2,spanGaps:false});
   CHARTS.push(new Chart(document.getElementById('marg'),{type:'line',
     data:{labels,datasets:[ds('mc_perc',C.teal),ds('margem_op_perc',C.amber),ds('margem_liq_perc',C.green)]},
     options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
-      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y==null?null:' '+({mc_perc:'Contribuição',margem_op_perc:'Operacional',margem_liq_perc:'Líquida'})[c.dataset.label]+': '+pp(c.parsed.y)}}},
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y==null?null:' '+({mc_perc:'Contribuição',margem_op_perc:'Operacional',margem_liq_perc:'Total gerencial'})[c.dataset.label]+': '+pp(c.parsed.y)}}},
       scales:{y:{grid:{color:C.border},ticks:{callback:v=>v+'%',font:{size:10}}},x:{grid:{display:false},ticks:{font:{size:9},maxRotation:0,autoSkip:true,maxTicksLimit:10}}}}}));
 }
 
