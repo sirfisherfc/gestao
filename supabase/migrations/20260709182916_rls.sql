@@ -1,0 +1,5 @@
+-- HISTORY-ONLY STUB: migration do sistema de reservas.
+-- Esta versao ja consta no historico do banco portal compartilhado.
+-- O SQL original pertence ao repositorio de reservas; este arquivo existe
+-- apenas para alinhar o catalogo local sem apagar ou reaplicar esse historico.
+-- Intencionalmente sem DDL ou DML. Nao adicionar comandos executaveis aqui.

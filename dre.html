@@ -96,6 +96,7 @@ const C={header:'#12313F',teal:'#00A6A6',amber:'#D6A84F',green:'#2E7D5B',red:'#C
 const param=(chave,padrao)=>window.SirFisherApp.number(chave,padrao);
 const MESES=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
 let CHARTS=[],ROWS=[],RESUMO=[],DESP_FIXA=[],DESP_DIRETA=[],ULTIMA=null,CARGAS=[];
+let PROJECAO_ESTADO='pendente',DADOS_CONFIRMADOS=false,ATUALIZACAO_ERRO='';
 
 const DESC={
   recReal:'Receita classificada na DRE financeira, acumulada até o corte dos dados. Não equivale necessariamente ao faturamento comercial do período.',
@@ -164,61 +165,94 @@ function montarSeletorPeriodo(anoMesList,selecionado){
 
 let mainAbortController=null;
 
+function queryComSinal(query,signal){
+  return signal&&typeof query.abortSignal==='function'?query.abortSignal(signal):query;
+}
+
+function consultaResiliente(queryFn,signal){
+  return sb.resilientFetch
+    ? sb.resilientFetch(queryFn,{signal,maxAttempts:3,baseDelayMs:300,attemptTimeoutMs:12000,budgetMs:30000})
+    : queryFn(signal);
+}
+
 async function main(){
   if(mainAbortController){try{mainAbortController.abort();}catch(_e){}}
-  mainAbortController=typeof AbortController!=='undefined'?new AbortController():null;
-  const signal=mainAbortController?.signal;
+  const controller=typeof AbortController!=='undefined'?new AbortController():null;
+  mainAbortController=controller;
+  const signal=controller?.signal;
 
   try{
-    const resilient=(queryFn)=>sb.resilientFetch?sb.resilientFetch(queryFn):queryFn();
-    const [r,res,df,dd]=await Promise.allSettled([
-      resilient(()=>sb.from('app_painel_dre_cascata').select('*').order('mes',{ascending:true})),
-      resilient(()=>sb.from('app_painel_resumo_mensal').select('ano_mes,faturamento,faturamento_proj').order('ano_mes',{ascending:true})),
-      resilient(()=>sb.from('app_projecao_despesa_fixa').select('dia,valor')),
-      resilient(()=>sb.from('app_projecao_despesa_direta').select('dia,valor'))
+    const drePromise=consultaResiliente(signal=>queryComSinal(sb.from('app_painel_dre_cascata').select('*').order('mes',{ascending:true}),signal),signal);
+    const auxiliaresPromise=Promise.allSettled([
+      consultaResiliente(signal=>queryComSinal(sb.from('app_painel_resumo_mensal').select('ano_mes,faturamento,faturamento_proj').order('ano_mes',{ascending:true}),signal),signal),
+      consultaResiliente(signal=>queryComSinal(sb.from('app_projecao_despesa_fixa').select('dia,valor'),signal),signal),
+      consultaResiliente(signal=>queryComSinal(sb.from('app_projecao_despesa_direta').select('dia,valor'),signal),signal)
     ]);
+    const rVal=await drePromise;
     if(signal?.aborted)return;
-
-    const val=(result)=>result.status==='fulfilled'?result.value:{data:null,error:result.reason};
-    const [rVal,resVal,dfVal,ddVal]=[r,res,df,dd].map(val);
 
     if(rVal.error)throw rVal.error;
-    ROWS=rVal.data||[];
-    if(!ROWS.length)throw new Error('Sem dados de DRE.');
+    if(!Array.isArray(rVal.data)||!rVal.data.length)throw new Error('Sem dados de DRE.');
 
-    RESUMO=resVal.data||[];
-    DESP_FIXA=dfVal.data||[];
-    DESP_DIRETA=ddVal.data||[];
-
-    const projParcial=Boolean(resVal.error||dfVal.error||ddVal.error);
-    if(projParcial){
-      console.warn('Projeções auxiliares temporariamente indisponíveis:',{res:resVal.error,df:dfVal.error,dd:ddVal.error});
-    }
-
-    montarSeletorPeriodo(ROWS.map(x=>x.ano_mes), ROWS[ROWS.length-1].ano_mes);
+    const selecionadoAtual=document.getElementById('mesSel')?.value;
+    ROWS=rVal.data;
+    PROJECAO_ESTADO='pendente';
+    ATUALIZACAO_ERRO='';
+    const selecionado=ROWS.some(x=>x.ano_mes===selecionadoAtual)?selecionadoAtual:ROWS[ROWS.length-1].ano_mes;
+    montarSeletorPeriodo(ROWS.map(x=>x.ano_mes),selecionado);
     renderMes(document.getElementById('mesSel').value);
-    if(projParcial){
-      const alertBox=document.createElement('div');
-      alertBox.className='alerta';
-      alertBox.innerHTML=ic(ICON.alert)+'<div>Projeções de fechamento temporariamente indisponíveis. Exibindo dados realizados registrados.</div>';
-      const mainEl=document.getElementById('main');
-      if(mainEl&&mainEl.firstChild)mainEl.insertBefore(alertBox,mainEl.firstChild);
+    DADOS_CONFIRMADOS=true;
+    carregarRodape(signal);
+
+    const [res,df,dd]=await auxiliaresPromise;
+    if(signal?.aborted)return;
+    const val=result=>result.status==='fulfilled'?result.value:{data:null,error:result.reason};
+    const [resVal,dfVal,ddVal]=[res,df,dd].map(val);
+    const fonteOk=value=>!value.error&&Array.isArray(value.data);
+    const resumoOk=fonteOk(resVal),fixaOk=fonteOk(dfVal),diretaOk=fonteOk(ddVal);
+    const projCompleta=resumoOk&&fixaOk&&diretaOk;
+
+    if(resumoOk)RESUMO=resVal.data;
+    if(fixaOk)DESP_FIXA=dfVal.data;
+    if(diretaOk)DESP_DIRETA=ddVal.data;
+    PROJECAO_ESTADO=projCompleta?'disponivel':'indisponivel';
+
+    if(!projCompleta){
+      const fontes=[];
+      if(!resumoOk)fontes.push('resumo mensal');
+      if(!fixaOk)fontes.push('despesas fixas');
+      if(!diretaOk)fontes.push('despesas diretas');
+      console.warn('Projeção de fechamento indisponível; fontes não confirmadas:',fontes.join(', '));
     }
-    carregarRodape();
+
+    const mesAtual=document.getElementById('mesSel')?.value;
+    renderMes(ROWS.some(x=>x.ano_mes===mesAtual)?mesAtual:ROWS[ROWS.length-1].ano_mes);
   }catch(e){
     if(signal?.aborted)return;
-    document.getElementById('main').innerHTML='<div class="erro">Não foi possível carregar os dados: '+esc(e.message||e)+'</div>';
+    if(DADOS_CONFIRMADOS&&ROWS.length){
+      if(PROJECAO_ESTADO==='pendente')PROJECAO_ESTADO='indisponivel';
+      ATUALIZACAO_ERRO='Não foi possível atualizar agora. Exibindo a última consulta confirmada.';
+      const selecionado=document.getElementById('mesSel')?.value||ROWS[ROWS.length-1].ano_mes;
+      renderMes(ROWS.some(x=>x.ano_mes===selecionado)?selecionado:ROWS[ROWS.length-1].ano_mes);
+      console.warn('Atualização da DRE falhou; dados confirmados foram preservados.');
+    }else{
+      document.getElementById('main').innerHTML='<div class="erro">Não foi possível carregar os dados: '+esc(e.message||e)+'</div>';
+    }
+    try{controller?.abort();}catch(_error){}
   }
 }
 
-async function carregarRodape(){
+async function carregarRodape(signal){
   try{
-    const [uc,cg]=await Promise.all([
-      sb.from('app_painel_ultima_carga').select('ultima'),
-      sb.from('app_painel_cargas').select('*').limit(50)
+    const [ucResult,cgResult]=await Promise.allSettled([
+      consultaResiliente(signal=>queryComSinal(sb.from('app_painel_ultima_carga').select('ultima'),signal),signal),
+      consultaResiliente(signal=>queryComSinal(sb.from('app_painel_cargas').select('*').limit(50),signal),signal)
     ]);
-    ULTIMA=(!uc.error&&uc.data&&uc.data[0])?uc.data[0].ultima:null;
-    CARGAS=cg.error?[]:(cg.data||[]);
+    if(signal?.aborted)return;
+    const value=result=>result.status==='fulfilled'?result.value:{data:null,error:result.reason};
+    const uc=value(ucResult),cg=value(cgResult);
+    if(!uc.error&&Array.isArray(uc.data))ULTIMA=uc.data[0]?.ultima||null;
+    if(!cg.error&&Array.isArray(cg.data))CARGAS=cg.data;
     if(ULTIMA){const d=new Date(ULTIMA);document.getElementById('rodapeAtt').textContent='Atualizado em '+String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');}
     else{document.getElementById('rodapeAtt').textContent='Atualizado: —';}
     const lista=document.getElementById('cargasLista');
@@ -236,7 +270,8 @@ function renderMes(anoMes){
   if(!r)return;
   const N=k=>num(r[k]);
   const P=k=>num(prev?.[k]);
-  const trend=SirFisherFormat.monthTrend(RESUMO,anoMes);
+  const projecaoDisponivel=PROJECAO_ESTADO==='disponivel';
+  const trend=projecaoDisponivel?SirFisherFormat.monthTrend(RESUMO,anoMes):{active:false,projected:null};
   const somaProj=(rows)=>soma(...rows
     .filter(x=>x.dia&&x.dia.slice(0,7)===anoMes)
     .map(x=>num(x.valor)==null?null:Math.abs(Number(x.valor))));
@@ -269,10 +304,20 @@ function renderMes(anoMes){
   const alertaHtml=Math.abs(naoCat)>0.5
     ? '<div class="alerta">'+ic(ICON.alert)+'<div>Há <b>'+rs(Math.abs(naoCat))+'</b> em lançamentos <b>não categorizados</b> neste mês. Classifique para o resultado ficar preciso.</div></div>'
     : '';
+  const atualizacaoHtml=ATUALIZACAO_ERRO
+    ? '<div class="alerta">'+ic(ICON.alert)+'<div>'+esc(ATUALIZACAO_ERRO)+'</div></div>'
+    : '';
+  const projecaoHtml=PROJECAO_ESTADO==='indisponivel'
+    ? '<div class="alerta">'+ic(ICON.alert)+'<div><b>Projeção de fechamento indisponível.</b> Uma ou mais fontes não puderam ser confirmadas; nenhum total projetado parcial é exibido.</div></div>'
+    : (PROJECAO_ESTADO==='pendente'
+      ? '<div class="hint scenario-hint">Projeção de fechamento em carregamento. Os valores realizados já estão disponíveis.</div>'
+      : '');
 
   const html=`
     <div class="section-title">Resultado gerencial de ${MESES[new Date(r.mes).getUTCMonth()]} ${new Date(r.mes).getUTCFullYear()}</div>
     <div class="hint scenario-hint">Base predominantemente financeira. Pagamentos de insumos não são CMV apurado; o total inclui investimentos e itens não operacionais e não equivale a lucro líquido contábil.</div>
+    ${atualizacaoHtml}
+    ${projecaoHtml}
     ${alertaHtml}
     <div class="section-title">Lançamentos disponíveis no período</div>
     <div class="hint scenario-hint">Valores registrados até o corte, sem projeções. A completude das fontes não está confirmada; — indica valor indisponível.</div>
@@ -343,7 +388,8 @@ Chart.defaults.font.family="'Roboto',Arial,sans-serif";Chart.defaults.color=C.mu
 
 function drawWaterfall(r){
   const N=k=>num(r[k]);
-  const campos=['receita','cmv','impostos','margem_contribuicao','pessoal',
+  const temOutrasVariaveis=Object.prototype.hasOwnProperty.call(r,'outras_variaveis');
+  const campos=['receita','cmv','impostos',...(temOutrasVariaveis?['outras_variaveis']:[]),'margem_contribuicao','pessoal',
     'infraestrutura','marketing','resultado_operacional','nao_operacional',
     'contabil','capex','outros','nao_categorizado','resultado_liquido'];
   if(campos.some(k=>N(k)==null)){
@@ -356,7 +402,7 @@ function drawWaterfall(r){
   const steps=[];
   steps.push({label:'Receita',base:0,end:N('receita'),total:true});
   let run=N('receita');
-  [['Insumos pagos','cmv'],['Impostos s/ venda','impostos']].forEach(([lab,k])=>{const v=N(k);if(Math.abs(v)>0.5){steps.push({label:lab,base:run,end:run+v});run+=v;}});
+  [['Insumos pagos','cmv'],['Impostos s/ venda','impostos'],...(temOutrasVariaveis?[['Outras variáveis','outras_variaveis']]:[])].forEach(([lab,k])=>{const v=N(k);if(Math.abs(v)>0.5){steps.push({label:lab,base:run,end:run+v});run+=v;}});
   steps.push({label:'Margem contribuição',base:0,end:mc,total:true});
   run=mc;
   [['Pessoal','pessoal'],['Infraestrutura','infraestrutura'],['Marketing','marketing']].forEach(([lab,k])=>{const v=N(k);if(Math.abs(v)>0.5){steps.push({label:lab,base:run,end:run+v});run+=v;}});
@@ -376,6 +422,7 @@ function drawWaterfall(r){
 
 function drawTabela(r){
   const N=k=>num(r[k]);
+  const temOutrasVariaveis=Object.prototype.hasOwnProperty.call(r,'outras_variaveis');
   const rec=N('receita');
   const pc=v=>pp(margem(v,rec));
   const line=(lab,v,cls,ind)=>'<tr class="'+(cls||'')+'"><td'+(ind?' class="ind"':'')+'>'+lab+'</td><td class="r">'+rs(v)+'</td><td class="r" style="color:var(--muted)">'+pc(v)+'</td></tr>';
@@ -384,6 +431,7 @@ function drawTabela(r){
   h+=line('Receita financeira registrada',rec,'sub');
   h+=detalhe('Insumos pagos (despesa direta)','cmv');
   h+=detalhe('Impostos sobre venda','impostos');
+  if(temOutrasVariaveis)h+=detalhe('Outras despesas variáveis','outras_variaveis');
   h+=line('= Margem de contribuição',N('margem_contribuicao'),'sub');
   h+=detalhe('Pessoal','pessoal');
   h+=detalhe('Infraestrutura','infraestrutura');

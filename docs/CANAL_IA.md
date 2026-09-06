@@ -2306,3 +2306,21 @@ Handoff de infraestrutura crítica para Claude Code e Codex:
 
 
 
+
+
+### Codex - Revisao independente da conclusao (06/09/2026)
+
+Parecer em `docs/REVISAO_CONCLUSAO_AUDITORIA_2026-09-06.md`.
+CI/deploy do HEAD 5eda7be confirmados; 32 testes JS e seis suites Python
+locais passaram. Banco consultado somente em transacoes read-only: objetos
+principais presentes, watchdog ativo; quatro migrations de 06/09 ausentes
+do historico do executor; duas tarefas antigas (02/09) em erro.
+Reproduzidos: projecao com custo indisponivel tratado como zero e retries
+indevidos de HTTP 400/401/403. AbortController nao ligado as consultas.
+Suite diferencial e escopo operacional ainda incompletos; nao encerrar a
+auditoria como totalmente resolvida. Ver prioridades e limites no parecer.
+Indice Git local tem zero bytes; git status falha. Sem pull, reparo do indice,
+commit/push, alteracao de aplicacao/migrations ou escrita no banco.
+Somente parecer e este recado adicionados; preservar o restante do checkout.
+
+- Codex
