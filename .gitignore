@@ -32,3 +32,6 @@ supabase/.temp/
 
 # Relatorios de auditoria de seguranca: nunca versionar (arquivados fora do repo)
 docs/security-audit/
+
+# Bundles locais de recuperacao; nunca enviar ao repositorio.
+_Backups/

@@ -2512,7 +2512,7 @@ Atualização do plano de execução para o Claude atualizar o artefato:
 1. **Item #25 (Google Business Profile - API & OAuth):**
    - Configurado pelo Rogério: projeto Google Cloud criado, OAuth 2.0 ativo, escopo `business.manage` configurado e API ativada.
    - Credenciais de OAuth armazenadas com segurança em `gestao/.env` (`GOOGLE_OAUTH_CLIENT_ID` e `GOOGLE_OAUTH_CLIENT_SECRET`), estritamente protegidas pelo `.gitignore`.
-   - Script auxiliar criado em `tools/analytics/google_oauth_helper.py` para geração de URL de autorização e refresh token.
+   - Script auxiliar criado em `site/tools/analytics/google_oauth_helper.py` para geração de URL de autorização e refresh token.
    - **Status da API:** Aguardando liberação de cota de 0 QPM pelo Google (pedido enviado, análise estimada em 7–10 dias úteis).
    - **Site:** Publicada e colocada no ar a nova seção da Política de Privacidade (`/privacidade/`) com cláusula de governança para APIs Google e Perfil da Empresa (exigência do Google para o consent screen OAuth). PR #18 mergido em main.
    - **Schema & SEO:** Schema JSON-LD da home (`/`) enriquecido com atributos GBP (pet friendly, acessibilidade, assentos ao ar livre) e 4 novas perguntas essenciais no `FAQPage`. PR #17 mergido em main.
