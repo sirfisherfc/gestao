@@ -35,6 +35,9 @@ jobs:
       - name: New installation safeguards
         run: python scripts/ci/test_implantacao.py
 
+      - name: Safe production-write destination guard
+        run: python scripts/ci/test_escrita_segura.py
+
       - name: Migration catalog checks
         run: python scripts/ci/test_migrations.py
 

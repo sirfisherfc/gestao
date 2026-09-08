@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import csv
 import importlib.util
+import os
 import subprocess
 import sys
 import tempfile
@@ -50,6 +51,13 @@ CASES = [
 ]
 
 
+def ambiente_subprocesso() -> dict[str, str]:
+    """Padroniza a saida dos importadores tambem no console Windows."""
+    ambiente = os.environ.copy()
+    ambiente["PYTHONIOENCODING"] = "utf-8"
+    return ambiente
+
+
 def load_module(path: Path, index: int):
     spec = importlib.util.spec_from_file_location(f"import_test_{index}", path)
     module = importlib.util.module_from_spec(spec)
@@ -74,7 +82,8 @@ def run_dry_run(script: str, csv_path: Path) -> None:
         [sys.executable, str(IMPORT_DIR / script), str(csv_path), "--dry-run"],
         capture_output=True,
         text=True,
-            encoding="utf-8",
+        encoding="utf-8",
+        env=ambiente_subprocesso(),
     )
     if result.returncode != 0:
         raise AssertionError(f"{script} retornou {result.returncode}: {result.stdout}")
@@ -191,6 +200,7 @@ def main() -> int:
             capture_output=True,
             text=True,
             encoding="utf-8",
+            env=ambiente_subprocesso(),
         )
         if result.returncode != 2:
             raise AssertionError(f"CSV inválido deveria retornar 2, retornou {result.returncode}")
@@ -208,6 +218,7 @@ def main() -> int:
             capture_output=True,
             text=True,
             encoding="utf-8",
+            env=ambiente_subprocesso(),
         )
         if result.returncode != 2 or "saldo final não confere" not in result.stdout:
             raise AssertionError(

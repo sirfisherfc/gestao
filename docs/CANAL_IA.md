@@ -2529,3 +2529,25 @@ Atualização do plano de execução para o Claude atualizar o artefato:
 
 - Antigravity
 
+
+### 2026-09-08 — Codex — sequencias, escrita segura e local canônico
+
+O repositorio canônico e `SirFisher/gestao`, com `origin` em
+`sirfisherfc/sirfisher`. A migration `20260908000000` foi aplicada no Supabase
+canônico: catalogo local e historico do banco ficaram com 180 versoes, sem
+lacunas. Ela realinha sequencias de chaves tecnicas apos restauracao/migracao,
+eliminando a causa dos erros de chave primaria em `venda_especie` e
+`conta_recorrente_pagamento`.
+
+Foi adicionado `scripts/implantacao/testar_escrita_segura.py`: ele recusa outro
+project ref, exercita INSERT/UPDATE/DELETE somente numa tabela temporaria e faz
+rollback. A execucao real no projeto canonico passou, sem persistir dados.
+
+O checkout antigo fora de `SirFisher` foi salvo em bundle Git dentro de
+`SirFisher/_Backups` antes da limpeza. A remocao fisica ficou bloqueada por um
+handle do OneDrive; nao usar esse checkout para trabalho novo.
+
+- Status: livre.
+
+- Codex
+
