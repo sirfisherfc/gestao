@@ -21,8 +21,8 @@ Não foram incluídos segredos, dados financeiros reais ou arquivos brutos.
 
 ## Evidências positivas
 
-- CI do HEAD: [Quality gates aprovado](https://github.com/sirfisherfc/sirfisher/actions/runs/34014384107).
-- Publicação do HEAD: [GitHub Pages aprovado](https://github.com/sirfisherfc/sirfisher/actions/runs/34014384158).
+- CI do HEAD: [Quality gates aprovado](https://github.com/sirfisherfc/gestao/actions/runs/34014384107).
+- Publicação do HEAD: [GitHub Pages aprovado](https://github.com/sirfisherfc/gestao/actions/runs/34014384158).
 - 32 testes JavaScript locais aprovados: 21 de apresentação da DRE e 11 de importação web.
 - Seis suítes Python locais aprovadas: importação (9 dry-runs e casos adicionais),
   instalação, catálogo de 155 migrations, acesso, contratos financeiros e front-end.

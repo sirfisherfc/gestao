@@ -4,7 +4,7 @@
 
 Este é o projeto **sirfisher-app**, o painel financeiro do restaurante Sir Fisher. A aplicação usa front-end em HTML, CSS e JavaScript, scripts Python para importação de dados, Supabase/Postgres como camada de dados e GitHub Pages para publicação do front-end.
 
-- **Repositório GitHub Oficial**: `https://github.com/sirfisherfc/sirfisher` (organização corporativa `sirfisherfc`, migrado de `durthvader/sirfisher`).
+- **Repositório GitHub Oficial**: `https://github.com/sirfisherfc/gestao` (conta corporativa `sirfisherfc`, migrado de `durthvader/sirfisher`).
 - **Domínio de Produção**: `https://admin.sirfisher.com.br` (publicado via GitHub Pages em `sirfisherfc.github.io`).
 - **Banco de Dados Supabase (UNIFICADO)**: Projeto **`portal`** (Project Ref: `lucpxoynpvogkvzepagi`, Região `sa-east-1` / São Paulo). Este banco unifica tanto o **Painel Financeiro** quanto o **Sistema de Reservas** (`reservas.sirfisher.com.br`).
 - **Banco de Dados Legado**: O projeto antigo `qqefegpievdlaprwzktx` na conta `Durth Vader` foi **PAUSADO** e não deve mais ser referenciado.

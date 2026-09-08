@@ -2201,7 +2201,7 @@ já corrigidas pela mudança de rótulos. Segunda entrega sem commit ou push.
 Handoff de infraestrutura crítica para Claude Code e Codex:
 
 1. **Repositório GitHub e Organização**:
-   - O repositório financeiro foi transferido com sucesso de `durthvader/sirfisher` para a conta corporativa oficial: **`sirfisherfc/sirfisher`**.
+   - O repositório financeiro foi transferido com sucesso de `durthvader/sirfisher` para a conta corporativa oficial: **`sirfisherfc/gestao`**.
    - O deploy do GitHub Pages está ativo apontando para `sirfisherfc.github.io`.
    - O subdomínio **`admin.sirfisher.com.br`** está com CNAME ajustado na Cloudflare para `sirfisherfc.github.io`.
 
@@ -2533,7 +2533,7 @@ Atualização do plano de execução para o Claude atualizar o artefato:
 ### 2026-09-08 — Codex — sequencias, escrita segura e local canônico
 
 O repositorio canônico e `SirFisher/gestao`, com `origin` em
-`sirfisherfc/sirfisher`. A migration `20260908000000` foi aplicada no Supabase
+`sirfisherfc/gestao`. A migration `20260908000000` foi aplicada no Supabase
 canônico: catalogo local e historico do banco ficaram com 180 versoes, sem
 lacunas. Ela realinha sequencias de chaves tecnicas apos restauracao/migracao,
 eliminando a causa dos erros de chave primaria em `venda_especie` e
