@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Testa SQL real da importacao em banco descartavel; pg_cron e refresh simulados.
+"""Testa SQL real da importacao e reparo de sequencias em banco descartavel.
 
 Sem argumentos, usa psql e PGHOST/PGDATABASE/PGUSER (somente localhost e banco
 sirfisher_outbox_test). --write-sql permite executar a mesma fixture em outro
@@ -16,6 +16,7 @@ import tempfile
 ROOT = Path(__file__).resolve().parents[2]
 MIGRATIONS = ROOT / 'supabase/migrations'
 OUTBOX = '20260905000000_importacao_recalculo_duravel.sql'
+SEQUENCE_REPAIR = '20260908000000_repara_sequencias_pos_migracao.sql'
 
 
 def read(name: str) -> str:
@@ -59,6 +60,66 @@ alter table private.fila_recalculo_saldo
     ])
 
 
+def build_sequence_repair_sql() -> str:
+    """Exercita a reparacao em PostgreSQL real, sem dados do projeto."""
+    migration = read(SEQUENCE_REPAIR)
+    return '\n'.join([
+        """
+create table public.venda_especie (
+  id bigint generated always as identity primary key,
+  descricao text not null default 'sintetico'
+);
+create table public.conta_recorrente_pagamento (
+  id bigint generated always as identity primary key,
+  descricao text not null default 'sintetico'
+);
+create table public.outra_tabela_serial (
+  id bigserial primary key,
+  descricao text not null default 'sintetico'
+);
+create table public.tabela_vazia (
+  id bigint generated always as identity primary key
+);
+create schema if not exists private;
+create table private.fila_operacional (
+  id bigint generated always as identity primary key,
+  descricao text not null default 'sintetico'
+);
+
+-- Simula uma restauracao que preservou IDs, mas nao avancou as sequencias.
+insert into public.venda_especie (id) overriding system value values (41);
+insert into public.conta_recorrente_pagamento (id) overriding system value values (84);
+insert into public.outra_tabela_serial (id) values (13);
+insert into private.fila_operacional (id) overriding system value values (25);
+""",
+        # A segunda execucao garante que a migration seja reexecutavel.
+        migration,
+        migration,
+        """
+insert into public.venda_especie default values;
+insert into public.conta_recorrente_pagamento default values;
+insert into public.outra_tabela_serial default values;
+insert into public.tabela_vazia default values;
+insert into private.fila_operacional default values;
+
+do $$
+begin
+  assert exists (select 1 from public.venda_especie where id = 42),
+    'Sequencia de venda_especie nao foi reparada';
+  assert exists (select 1 from public.conta_recorrente_pagamento where id = 85),
+    'Sequencia de conta_recorrente_pagamento nao foi reparada';
+  assert exists (select 1 from public.outra_tabela_serial where id = 14),
+    'Sequencia serial fora das tabelas conhecidas nao foi reparada';
+  assert exists (select 1 from public.tabela_vazia where id = 1),
+    'Sequencia de tabela vazia nao preservou o primeiro ID';
+  assert exists (select 1 from private.fila_operacional where id = 26),
+    'Sequencia de tabela tecnica privada nao foi reparada';
+end;
+$$;
+""",
+    ])
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--write-sql', type=Path)
@@ -81,7 +142,16 @@ def main() -> None:
             # Fixtures sao sinteticas; nao imprimir consultas/valores em erros.
             raise AssertionError('OUTBOX_SQL_FAILED: ' + '\n'.join(
                 line for line in result.stderr.splitlines() if 'ERROR:' in line))
-    print('OUTBOX_SQL_OK: atomicidade, dedup, dry-run, rollback, watchdog, grants e idempotencia')
+        sequence_target = Path(tmp) / 'sequence-repair.sql'
+        sequence_target.write_text(build_sequence_repair_sql(), encoding='utf-8')
+        sequence_result = subprocess.run(
+            ['psql', '-X', '-q', '-v', 'ON_ERROR_STOP=1', '-f', str(sequence_target)],
+            capture_output=True, text=True, encoding='utf-8'
+        )
+        if sequence_result.returncode:
+            raise AssertionError('SEQUENCE_REPAIR_SQL_FAILED: ' + '\n'.join(
+                line for line in sequence_result.stderr.splitlines() if 'ERROR:' in line))
+    print('OUTBOX_SQL_OK: atomicidade, dedup, dry-run, rollback, watchdog, grants, idempotencia e sequencias')
 
 
 if __name__ == '__main__':
