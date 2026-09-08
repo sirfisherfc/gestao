@@ -2544,8 +2544,9 @@ project ref, exercita INSERT/UPDATE/DELETE somente numa tabela temporaria e faz
 rollback. A execucao real no projeto canonico passou, sem persistir dados.
 
 O checkout antigo fora de `SirFisher` foi salvo em bundle Git dentro de
-`SirFisher/_Backups` antes da limpeza. A remocao fisica ficou bloqueada por um
-handle do OneDrive; nao usar esse checkout para trabalho novo.
+`SirFisher/_Backups` antes da limpeza. A remocao fisica ficou bloqueada porque
+a sessao que a executa foi iniciada naquele diretorio; encerre/reabra a sessao
+antes de excluir o checkout. Nao usar esse checkout para trabalho novo.
 
 - Status: livre.
 
