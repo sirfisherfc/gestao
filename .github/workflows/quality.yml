@@ -56,6 +56,9 @@ jobs:
       - name: DRE presentation and missing-data behavior
         run: node --test scripts/ci/test_dre_apresentacao.mjs
 
+      - name: Improvement board summary, ordering and filters
+        run: node --test scripts/ci/test_melhoria_inovacao.mjs
+
   import-outbox:
     runs-on: ubuntu-latest
     services:

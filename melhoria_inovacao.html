@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://*.supabase.co wss://*.supabase.co; img-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'self'; upgrade-insecure-requests">
+<title>Painel · Melhoria e Inovação</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="assets/dashboard-common.css" rel="stylesheet">
+<link href="assets/product-pages.css" rel="stylesheet">
+<link href="assets/accessibility.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2" integrity="sha384-JWEyvHh+lRf0sN/WWY+QTQwX+CyWqmNg4tkc8GQzAMEtR2wGNrCJlvnu1lHD1kDm" crossorigin="anonymous"></script>
+<script src="assets/supabase-client.js"></script>
+<script src="assets/app-config.js"></script>
+<script src="assets/auth.js"></script>
+<script src="assets/safe-dom.js"></script>
+<script src="assets/accessibility.js"></script>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="head-row"><div class="brand"><div class="mark" aria-hidden="true">P</div><div><h1 data-app-nome>Painel</h1><span data-app-subtitulo>Painel de Gestão</span></div></div><div class="head-meta"><div class="unidade">Melhoria e Inovação</div></div></div>
+    <nav class="tabs"><a href="./">Visão Geral</a><a href="vendas.html">Faturamento</a><a href="caixa.html">Caixa</a><a href="dre.html">DRE</a><a href="despesas.html">Despesas</a><a href="conciliacao.html">Conciliação</a><a href="planejamento.html">Planejamento</a><a href="rotinas.html" class="routines">Rotinas</a></nav>
+  </header>
+  <main id="main"><div class="loading">Carregando ideias…</div></main>
+</div>
+<div class="toast" id="toast"></div>
+
+<div class="mi-modal" id="modalNova" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Sugerir ideia">
+  <div class="mi-box">
+    <h3>Sugerir ideia</h3>
+    <p class="hint">Só o título é obrigatório. Responsável, prazo e prioridade ficam para depois, quando alguém assumir.</p>
+    <p class="mi-erro" id="erroNova"></p>
+    <label class="mi-campo"><span>Título</span><input type="text" id="novoTitulo" maxlength="160" placeholder="O que melhorar ou qual o problema" aria-label="Título da ideia"></label>
+    <label class="mi-campo"><span>Descrição (opcional)</span><textarea id="novaDescricao" rows="3" placeholder="Contexto, se ajudar a entender depois" aria-label="Descrição da ideia"></textarea></label>
+    <div class="mi-dupla">
+      <label class="mi-campo"><span>Área</span><select id="novaArea" aria-label="Área da ideia"></select></label>
+      <label class="mi-campo"><span>Origem</span><select id="novaOrigem" aria-label="Origem da ideia"></select></label>
+    </div>
+    <div class="mi-rodape">
+      <button class="button secondary" id="cancelarNova">Cancelar</button>
+      <button class="button" id="salvarNova">Salvar ideia</button>
+    </div>
+  </div>
+</div>
+
+<div class="mi-modal" id="modalDetalhe" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Detalhe da ideia">
+  <div class="mi-box" id="detalheBox"></div>
+</div>
+
+<script>
+const sb=SirFisherSupabase;
+const esc=SirFisherDOM.escapeHTML;
+
+const STATUS=['Recebida','Em avaliação','Em andamento','Concluída','Descartada'];
+const PRIORIDADES=['Baixa','Média','Alta'];
+const ORIGENS=['Equipe','Cliente','Fornecedor','Auditoria','Gestão','Outra'];
+const AREAS=['Geral','Cozinha','Salão','Bar','Delivery','Compras e Estoque','Marketing','Tecnologia','Pessoas','Estrutura'];
+const ENCERRADOS=['Concluída','Descartada'];
+const CLASSE_STATUS={'Recebida':'neutral','Em avaliação':'info','Em andamento':'warn','Concluída':'ok','Descartada':'neutral'};
+const COR_STATUS={'Recebida':'mi-cor-recebida','Em avaliação':'mi-cor-avaliacao','Em andamento':'mi-cor-andamento','Concluída':'mi-cor-concluida','Descartada':'mi-cor-descartada'};
+const PESO_PRIORIDADE={'Alta':3,'Média':2,'Baixa':1};
+const CLASSE_PRIORIDADE={'Alta':'alta','Média':'media','Baixa':'baixa'};
+// Bucket privado: nada e servido por URL publica. O arquivo so aparece por link
+// assinado, gerado ao abrir a ideia e valido por uma hora.
+const BUCKET='melhoria-evidencias';
+const LIMITE_ARQUIVO=10*1024*1024;
+const VALIDADE_LINK=3600;
+
+let IDEIAS=[];
+let RESPONSAVEIS=[];
+let FILTRO={busca:'',status:'',area:''};
+let ABERTA=null;
+
+function toast(texto,erro){
+  const el=document.getElementById('toast');
+  el.textContent=texto;
+  el.classList.toggle('err',!!erro);
+  el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'),erro?4200:2200);
+}
+
+function fmtData(valor){
+  if(!valor)return '—';
+  const [ano,mes,dia]=String(valor).slice(0,10).split('-');
+  return `${dia}/${mes}/${ano}`;
+}
+function fmtDataHora(valor){
+  return valor?new Date(valor).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'}):'—';
+}
+function fmtMoeda(valor){
+  return (Number(valor)||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+}
+function opcoes(lista,selecionado){
+  return lista.map(v=>`<option value="${esc(v)}"${v===selecionado?' selected':''}>${esc(v)}</option>`).join('');
+}
+// O Storage rejeita chave com acento, espaco ou barra, e a RPC recusa caminho
+// que nao seja melhoria/<id>/<arquivo> ou que tenha "..". O carimbo na frente
+// evita que dois envios do mesmo nome se atropelem.
+function caminhoEvidencia(melhoriaId,nome){
+  const limpo=String(nome||'arquivo')
+    .normalize('NFD').replace(/[̀-ͯ]/g,'')
+    .replace(/[^a-zA-Z0-9.]+/g,'-')
+    .replace(/\.{2,}/g,'.')
+    .replace(/^[-.]+|[-.]+$/g,'')
+    .slice(-60).toLowerCase()||'arquivo';
+  const carimbo=Date.now().toString(36)+Math.random().toString(36).slice(2,8);
+  return `melhoria/${melhoriaId}/${carimbo}-${limpo}`;
+}
+
+function areasConhecidas(){
+  const nomes=new Set(AREAS);
+  IDEIAS.forEach(i=>nomes.add(i.area));
+  return [...nomes].sort((a,b)=>a.localeCompare(b,'pt-BR'));
+}
+
+// Ordem de trabalho: o que estourou o prazo primeiro, depois o que ainda esta
+// aberto, depois prioridade e, por fim, o mais recente. Concluida e descartada
+// descem: continuam visiveis, mas nao competem com o que precisa de decisao.
+function ordenar(a,b){
+  if(a.vencida!==b.vencida)return a.vencida?-1:1;
+  const fechadaA=ENCERRADOS.includes(a.status),fechadaB=ENCERRADOS.includes(b.status);
+  if(fechadaA!==fechadaB)return fechadaA?1:-1;
+  const pa=PESO_PRIORIDADE[a.prioridade]||0,pb=PESO_PRIORIDADE[b.prioridade]||0;
+  if(pa!==pb)return pb-pa;
+  return new Date(b.criado_em)-new Date(a.criado_em);
+}
+
+function filtradas(){
+  const busca=FILTRO.busca.trim().toLowerCase();
+  return IDEIAS.filter(i=>{
+    if(FILTRO.status&&i.status!==FILTRO.status)return false;
+    if(FILTRO.area&&i.area!==FILTRO.area)return false;
+    if(!busca)return true;
+    return [i.titulo,i.descricao,i.proxima_acao,i.responsavel_nome,i.area,i.resultado_aprendizado]
+      .some(v=>(v||'').toLowerCase().includes(busca));
+  }).sort(ordenar);
+}
+
+function resumo(){
+  const total=IDEIAS.length;
+  const porStatus={};
+  STATUS.forEach(s=>{porStatus[s]=0;});
+  IDEIAS.forEach(i=>{porStatus[i.status]=(porStatus[i.status]||0)+1;});
+  const concluidas=IDEIAS.filter(i=>i.status==='Concluída');
+  const comDias=concluidas.filter(i=>i.dias_ate_conclusao!==null&&i.dias_ate_conclusao!==undefined);
+  const comPrazo=concluidas.filter(i=>i.concluida_no_prazo!==null&&i.concluida_no_prazo!==undefined);
+  const impacto=IDEIAS.reduce((soma,i)=>soma+(Number(i.impacto_financeiro)||0),0);
+  return {
+    total,porStatus,
+    abertas:IDEIAS.filter(i=>!ENCERRADOS.includes(i.status)).length,
+    vencidas:IDEIAS.filter(i=>i.vencida).length,
+    taxa:total?Math.round(concluidas.length/total*100):null,
+    prazoMedio:comDias.length?Math.round(comDias.reduce((s,i)=>s+Number(i.dias_ate_conclusao),0)/comDias.length):null,
+    noPrazo:comPrazo.length?Math.round(comPrazo.filter(i=>i.concluida_no_prazo).length/comPrazo.length*100):null,
+    impacto:impacto>0?impacto:null
+  };
+}
+
+function htmlResumo(r){
+  const cartao=(rotulo,valor)=>`<div class="summary-card"><div class="label">${esc(rotulo)}</div><div class="value">${valor}</div></div>`;
+  const barra=r.total
+    ? `<div class="mi-barra">${STATUS.filter(s=>r.porStatus[s]).map(s=>`<i class="${COR_STATUS[s]}" style="width:${(r.porStatus[s]/r.total*100).toFixed(2)}%"></i>`).join('')}</div>
+       <div class="mi-legenda">${STATUS.filter(s=>r.porStatus[s]).map(s=>`<span><i class="mi-dot ${COR_STATUS[s]}"></i>${esc(s)} ${r.porStatus[s]}</span>`).join('')}</div>`
+    : '';
+  const metricas=[
+    `Taxa de conclusão <b>${r.taxa===null?'—':r.taxa+'%'}</b>`,
+    `Prazo médio de conclusão <b>${r.prazoMedio===null?'—':r.prazoMedio+' dias'}</b>`,
+    `Concluído no prazo <b>${r.noPrazo===null?'—':r.noPrazo+'%'}</b>`,
+    `Impacto financeiro acumulado <b>${r.impacto===null?'—':fmtMoeda(r.impacto)}</b>`
+  ];
+  return `<div class="summary-grid">
+      ${cartao('Total de ideias',r.total)}
+      ${cartao('Abertas',r.abertas)}
+      ${cartao('Em andamento',r.porStatus['Em andamento'])}
+      ${cartao('Concluídas',r.porStatus['Concluída'])}
+      ${cartao('Descartadas',r.porStatus['Descartada'])}
+      ${cartao('Vencidas',r.vencidas)}
+    </div>
+    ${barra}
+    <div class="mi-metricas">${metricas.map(m=>`<span>${m}</span>`).join('')}</div>`;
+}
+
+function htmlItem(i){
+  const classes=['mi-item'];
+  if(i.vencida)classes.push('vencida');
+  if(ENCERRADOS.includes(i.status))classes.push('encerrada');
+  const prazo=i.prazo
+    ? `<span class="mi-prazo${i.vencida?' atrasado':''}">Prazo ${fmtData(i.prazo)}</span>`
+    : '<span>Sem prazo</span>';
+  const meta=[
+    `<span>${esc(i.area)}</span>`,
+    `<span class="mi-prio ${CLASSE_PRIORIDADE[i.prioridade]}">${esc(i.prioridade)}</span>`,
+    `<span>${i.responsavel_nome?esc(i.responsavel_nome):'Sem responsável'}</span>`,
+    prazo
+  ];
+  return `<div class="${classes.join(' ')}" data-id="${i.id}">
+    <div class="mi-info">
+      <div class="mi-titulo">${esc(i.titulo)}</div>
+      <div class="mi-meta">${meta.join('')}</div>
+    </div>
+    <div class="mi-acoes">
+      <span class="status ${CLASSE_STATUS[i.status]}">${esc(i.status)}</span>
+      <select class="field mi-status" aria-label="Status de ${esc(i.titulo)}">${opcoes(STATUS,i.status)}</select>
+      <button class="button secondary mi-abrir">Abrir</button>
+    </div>
+  </div>`;
+}
+
+function render(){
+  const lista=filtradas();
+  const main=document.getElementById('main');
+  main.innerHTML=`
+    <div class="page-intro">
+      <div><h2>Melhoria e Inovação</h2><p>Registre uma ideia ou um problema em poucos segundos. Depois é só definir responsável e prazo, acompanhar o andamento e fechar com o resultado.</p></div>
+      <div class="actions"><button class="button" id="btnNova">Sugerir ideia</button></div>
+    </div>
+    ${htmlResumo(resumo())}
+    <section class="panel">
+      <div class="panel-head"><div><h3>Ideias e problemas</h3><div class="hint">Vencidas primeiro, depois as abertas por prioridade e, por último, o que já foi fechado.</div></div></div>
+      <div class="mi-filtros">
+        <input type="search" id="filtroBusca" class="field" placeholder="Buscar por texto" value="${esc(FILTRO.busca)}" aria-label="Buscar ideias por texto">
+        <select id="filtroStatus" class="field" aria-label="Filtrar por status"><option value="">Todos os status</option>${opcoes(STATUS,FILTRO.status)}</select>
+        <select id="filtroArea" class="field" aria-label="Filtrar por área"><option value="">Todas as áreas</option>${opcoes(areasConhecidas(),FILTRO.area)}</select>
+        <span class="mi-contagem">${lista.length} de ${IDEIAS.length}</span>
+      </div>
+      <div class="mi-lista">${lista.map(htmlItem).join('')||'<div class="empty">Nenhuma ideia com esses filtros. Que tal sugerir uma?</div>'}</div>
+    </section>`;
+
+  document.getElementById('btnNova').addEventListener('click',abrirNova);
+  const busca=document.getElementById('filtroBusca');
+  busca.addEventListener('input',event=>{FILTRO.busca=event.target.value;render();});
+  if(FILTRO.busca){busca.focus();busca.setSelectionRange(FILTRO.busca.length,FILTRO.busca.length);}
+  document.getElementById('filtroStatus').addEventListener('change',event=>{FILTRO.status=event.target.value;render();});
+  document.getElementById('filtroArea').addEventListener('change',event=>{FILTRO.area=event.target.value;render();});
+  main.querySelectorAll('.mi-item').forEach(linha=>{
+    const id=Number(linha.dataset.id);
+    linha.querySelector('.mi-abrir').addEventListener('click',()=>abrirDetalhe(id));
+    linha.querySelector('.mi-status').addEventListener('change',event=>trocarStatus(id,event.target));
+  });
+}
+
+// ---------------------------------------------------------------------------
+// Cadastro rapido
+// ---------------------------------------------------------------------------
+
+function fecharModal(id){
+  document.getElementById(id).setAttribute('aria-hidden','true');
+}
+
+function abrirNova(){
+  document.getElementById('novoTitulo').value='';
+  document.getElementById('novaDescricao').value='';
+  document.getElementById('novaArea').value='Geral';
+  document.getElementById('novaOrigem').value='Equipe';
+  document.getElementById('erroNova').classList.remove('show');
+  document.getElementById('modalNova').setAttribute('aria-hidden','false');
+  document.getElementById('novoTitulo').focus();
+}
+
+async function salvarNova(){
+  const titulo=document.getElementById('novoTitulo').value.trim();
+  const erro=document.getElementById('erroNova');
+  if(titulo.length<3){
+    erro.textContent='Escreva um título com pelo menos três letras.';
+    erro.classList.add('show');
+    document.getElementById('novoTitulo').focus();
+    return;
+  }
+  const botao=document.getElementById('salvarNova');
+  botao.disabled=true;
+  const {error}=await sb.rpc('criar_melhoria',{
+    p_titulo:titulo,
+    p_descricao:document.getElementById('novaDescricao').value.trim()||null,
+    p_area:document.getElementById('novaArea').value,
+    p_origem:document.getElementById('novaOrigem').value
+  });
+  botao.disabled=false;
+  if(error){
+    console.error('Falha ao registrar ideia:',error);
+    erro.textContent='Não foi possível salvar. Tente de novo; se continuar, veja o erro no console.';
+    erro.classList.add('show');
+    return;
+  }
+  fecharModal('modalNova');
+  toast('Ideia registrada.');
+  await carregar();
+}
+
+// ---------------------------------------------------------------------------
+// Acompanhamento
+// ---------------------------------------------------------------------------
+
+async function trocarStatus(id,select){
+  const novo=select.value;
+  const ideia=IDEIAS.find(i=>i.id===id);
+  if(!ideia||novo===ideia.status)return;
+  if(ENCERRADOS.includes(novo)){
+    // Concluir e descartar pedem um texto curto: abre o detalhe ja no status.
+    select.value=ideia.status;
+    abrirDetalhe(id,novo);
+    return;
+  }
+  select.disabled=true;
+  const {error}=await sb.rpc('alterar_status_melhoria',{p_id:id,p_status:novo});
+  select.disabled=false;
+  if(error){
+    console.error('Falha ao alterar status:',error);
+    select.value=ideia.status;
+    toast('Não foi possível alterar o status.',true);
+    return;
+  }
+  toast(`Status alterado para ${novo}.`);
+  await carregar();
+}
+
+function htmlTimeline(historico){
+  if(!historico.length)return '<p class="hint">Sem movimentação registrada.</p>';
+  return `<div class="mi-tl">${historico.map(h=>{
+    const titulo=h.status_anterior?`${h.status_anterior} → ${h.status_novo}`:h.status_novo;
+    const quem=h.usuario_nome?` · ${h.usuario_nome}`:'';
+    return `<div class="mi-tl-item"><span class="mi-tl-dot ${COR_STATUS[h.status_novo]||'mi-cor-recebida'}"></span><div><strong>${esc(titulo)}</strong><span>${esc(fmtDataHora(h.criado_em))}${esc(quem)}</span>${h.observacao?`<span>${esc(h.observacao)}</span>`:''}</div></div>`;
+  }).join('')}</div>`;
+}
+
+function htmlEvidencias(evidencias){
+  if(!evidencias.length)return '<p class="hint">Nenhuma evidência ligada ainda.</p>';
+  return `<div class="mi-evid">${evidencias.map(e=>{
+    const destino=e.url||e.link_assinado||'';
+    const rotulo=e.storage_path?'arquivo':'link';
+    const corpo=destino
+      ? `<a data-url="${esc(destino)}" rel="noopener noreferrer" target="_blank">${esc(e.titulo)}</a>`
+      : `<span>${esc(e.titulo)}</span>`;
+    return `<div>${corpo}<span class="muted">${rotulo}</span><button class="mi-evid-remover" data-evid="${e.id}">remover</button></div>`;
+  }).join('')}</div>`;
+}
+
+// Assina de uma vez os arquivos da ideia aberta. Link expirado ou objeto que
+// sumiu do bucket viram evidencia sem destino, e nao um erro no console.
+async function assinarEvidencias(evidencias){
+  const arquivos=evidencias.filter(e=>e.storage_path);
+  if(!arquivos.length)return evidencias;
+  const {data,error}=await sb.storage.from(BUCKET)
+    .createSignedUrls(arquivos.map(e=>e.storage_path),VALIDADE_LINK);
+  if(error){
+    console.error('Falha ao assinar evidências:',error);
+    return evidencias;
+  }
+  const porCaminho=new Map((data||[]).map(item=>[item.path,item.signedUrl]));
+  return evidencias.map(e=>e.storage_path
+    ? {...e,link_assinado:porCaminho.get(e.storage_path)||''}
+    : e);
+}
+
+async function abrirDetalhe(id,statusInicial){
+  const ideia=IDEIAS.find(i=>i.id===id);
+  if(!ideia)return;
+  ABERTA=id;
+  const box=document.getElementById('detalheBox');
+  box.innerHTML='<div class="loading">Carregando…</div>';
+  document.getElementById('modalDetalhe').setAttribute('aria-hidden','false');
+
+  const [evidencias,historico]=await Promise.all([
+    sb.from('app_melhoria_evidencias').select('*').eq('melhoria_id',id).order('criado_em'),
+    sb.from('app_melhoria_historico').select('*').eq('melhoria_id',id).order('criado_em')
+  ]);
+  const anexos=evidencias.error?[]:await assinarEvidencias(evidencias.data||[]);
+  if(ABERTA!==id)return;
+
+  const status=statusInicial||ideia.status;
+  const responsavel=RESPONSAVEIS.map(r=>`<option value="${esc(r.user_id)}"${r.user_id===ideia.responsavel_id?' selected':''}>${esc(r.nome)}</option>`).join('');
+  box.innerHTML=`
+    <h3>${esc(ideia.titulo)}</h3>
+    <p class="hint">${esc(ideia.area)} · origem ${esc(ideia.origem)} · registrada em ${esc(fmtData(ideia.primeira_manifestacao_em))}${ideia.criado_por_nome?' por '+esc(ideia.criado_por_nome):''}</p>
+    ${ideia.descricao?`<p class="hint">${esc(ideia.descricao)}</p>`:''}
+    ${ideia.referencia_origem?`<p class="hint">Referência: ${esc(ideia.referencia_origem)}</p>`:''}
+    <p class="mi-erro" id="erroDetalhe"></p>
+    <div class="mi-dupla">
+      <label class="mi-campo"><span>Status</span><select id="detStatus" aria-label="Status da ideia">${opcoes(STATUS,status)}</select></label>
+      <label class="mi-campo"><span>Prioridade</span><select id="detPrioridade" aria-label="Prioridade da ideia">${opcoes(PRIORIDADES,ideia.prioridade)}</select></label>
+    </div>
+    <div class="mi-dupla">
+      <label class="mi-campo"><span>Responsável</span><select id="detResponsavel" aria-label="Responsável pela ideia"><option value="">Sem responsável</option>${responsavel}</select></label>
+      <label class="mi-campo"><span>Prazo</span><input type="date" id="detPrazo" value="${esc(ideia.prazo||'')}" aria-label="Prazo da ideia"></label>
+    </div>
+    <label class="mi-campo"><span>Próxima ação</span><input type="text" id="detProxima" maxlength="200" value="${esc(ideia.proxima_acao||'')}" placeholder="O próximo passo concreto" aria-label="Próxima ação"></label>
+
+    <div class="mi-bloco" id="blocoConclusao" hidden>
+      <h4>Fechamento</h4>
+      <label class="mi-campo"><span>Resultado e aprendizado</span><textarea id="detResultado" rows="3" placeholder="O que mudou e o que ficou de aprendizado" aria-label="Resultado e aprendizado">${esc(ideia.resultado_aprendizado||'')}</textarea></label>
+      <label class="mi-campo"><span>Impacto financeiro em reais (opcional)</span><input type="number" step="0.01" id="detImpacto" value="${esc(ideia.impacto_financeiro==null?'':ideia.impacto_financeiro)}" aria-label="Impacto financeiro em reais"></label>
+    </div>
+
+    <div class="mi-bloco" id="blocoDescarte" hidden>
+      <h4>Descarte</h4>
+      <label class="mi-campo"><span>Motivo curto</span><input type="text" id="detMotivo" maxlength="200" value="${esc(ideia.motivo_descarte||'')}" placeholder="Por que não seguimos" aria-label="Motivo do descarte"></label>
+    </div>
+
+    <div class="mi-bloco">
+      <h4>Evidências</h4>
+      ${evidencias.error?'<p class="hint">Não foi possível carregar as evidências.</p>':htmlEvidencias(anexos)}
+      <div class="mi-evid-form">
+        <input type="text" id="evidTitulo" maxlength="120" placeholder="Nome da evidência" aria-label="Nome da evidência">
+        <input type="url" id="evidUrl" placeholder="https://…" aria-label="Link da evidência">
+        <input type="file" id="evidArquivo" aria-label="Arquivo da evidência">
+        <button class="button secondary" id="evidAdd">Ligar</button>
+      </div>
+      <p class="hint">Um link ou um arquivo de até 10 MB. O arquivo fica em bucket privado e só abre por link temporário.</p>
+    </div>
+
+    <div class="mi-bloco">
+      <h4>Linha do tempo</h4>
+      ${historico.error?'<p class="hint">Não foi possível carregar a linha do tempo.</p>':htmlTimeline(historico.data||[])}
+    </div>
+
+    <div class="mi-rodape">
+      <button class="button secondary" id="detFechar">Fechar</button>
+      <button class="button" id="detSalvar">Salvar</button>
+    </div>`;
+
+  box.querySelectorAll('a[data-url]').forEach(link=>{link.href=link.dataset.url;});
+  const seletor=document.getElementById('detStatus');
+  const sincronizar=()=>{
+    document.getElementById('blocoConclusao').hidden=seletor.value!=='Concluída';
+    document.getElementById('blocoDescarte').hidden=seletor.value!=='Descartada';
+  };
+  seletor.addEventListener('change',sincronizar);
+  sincronizar();
+  document.getElementById('detFechar').addEventListener('click',()=>{ABERTA=null;fecharModal('modalDetalhe');});
+  document.getElementById('detSalvar').addEventListener('click',event=>salvarDetalhe(id,event.currentTarget));
+  document.getElementById('evidAdd').addEventListener('click',event=>ligarEvidencia(id,event.currentTarget));
+  box.querySelectorAll('.mi-evid-remover').forEach(botao=>{
+    botao.addEventListener('click',()=>removerEvidencia(Number(botao.dataset.evid),id));
+  });
+  seletor.focus();
+}
+
+async function salvarDetalhe(id,botao){
+  const erro=document.getElementById('erroDetalhe');
+  const status=document.getElementById('detStatus').value;
+  const resultado=document.getElementById('detResultado')?.value.trim()||null;
+  const motivo=document.getElementById('detMotivo')?.value.trim()||null;
+  if(status==='Concluída'&&!resultado){
+    erro.textContent='Escreva o resultado e o aprendizado antes de concluir.';
+    erro.classList.add('show');
+    return;
+  }
+  if(status==='Descartada'&&!motivo){
+    erro.textContent='Escreva um motivo curto antes de descartar.';
+    erro.classList.add('show');
+    return;
+  }
+  erro.classList.remove('show');
+  const impactoBruto=document.getElementById('detImpacto')?.value;
+  botao.disabled=true;
+  const {error}=await sb.rpc('atualizar_melhoria',{
+    p_id:id,
+    p_status:status,
+    p_prioridade:document.getElementById('detPrioridade').value,
+    p_responsavel_id:document.getElementById('detResponsavel').value||null,
+    p_prazo:document.getElementById('detPrazo').value||null,
+    p_proxima_acao:document.getElementById('detProxima').value.trim()||null,
+    p_resultado_aprendizado:resultado,
+    p_impacto_financeiro:impactoBruto===''||impactoBruto===undefined?null:Number(impactoBruto),
+    p_motivo_descarte:motivo
+  });
+  botao.disabled=false;
+  if(error){
+    console.error('Falha ao atualizar melhoria:',error);
+    erro.textContent='Não foi possível salvar. Tente de novo; se continuar, veja o erro no console.';
+    erro.classList.add('show');
+    return;
+  }
+  ABERTA=null;
+  fecharModal('modalDetalhe');
+  toast('Ideia atualizada.');
+  await carregar();
+}
+
+async function ligarEvidencia(id,botao){
+  const titulo=document.getElementById('evidTitulo').value.trim();
+  const url=document.getElementById('evidUrl').value.trim();
+  const arquivo=document.getElementById('evidArquivo').files[0]||null;
+  const erro=document.getElementById('erroDetalhe');
+  const recusar=mensagem=>{
+    erro.textContent=mensagem;
+    erro.classList.add('show');
+  };
+  if(titulo.length<2)return recusar('Dê um nome à evidência.');
+  if(arquivo&&url)return recusar('Use um link ou um arquivo, não os dois.');
+  if(!arquivo&&!/^https?:\/\//i.test(url))return recusar('Escolha um arquivo ou informe um link começando com http ou https.');
+  if(arquivo&&arquivo.size>LIMITE_ARQUIVO)return recusar('O arquivo passa de 10 MB. Envie um link para arquivos maiores.');
+  erro.classList.remove('show');
+  botao.disabled=true;
+
+  let caminho=null;
+  if(arquivo){
+    caminho=caminhoEvidencia(id,arquivo.name);
+    const envio=await sb.storage.from(BUCKET).upload(caminho,arquivo,{upsert:false});
+    if(envio.error){
+      console.error('Falha ao enviar arquivo da evidência:',envio.error);
+      botao.disabled=false;
+      return recusar('Não foi possível enviar o arquivo.');
+    }
+  }
+
+  const {error}=await sb.rpc('salvar_melhoria_evidencia',{
+    p_melhoria_id:id,
+    p_titulo:titulo,
+    p_url:arquivo?null:url,
+    p_storage_path:caminho
+  });
+  botao.disabled=false;
+  if(error){
+    console.error('Falha ao ligar evidência:',error);
+    // O arquivo ja subiu mas a linha nao entrou: desfaz para nao deixar orfao.
+    if(caminho)await sb.storage.from(BUCKET).remove([caminho]);
+    return recusar('Não foi possível ligar a evidência.');
+  }
+  await carregar();
+  await abrirDetalhe(id);
+  toast(arquivo?'Arquivo anexado.':'Evidência ligada.');
+}
+
+async function removerEvidencia(evidenciaId,id){
+  const {data,error}=await sb.rpc('excluir_melhoria_evidencia',{p_id:evidenciaId});
+  if(error){
+    console.error('Falha ao remover evidência:',error);
+    toast('Não foi possível remover a evidência.',true);
+    return;
+  }
+  if(data){
+    const remocao=await sb.storage.from(BUCKET).remove([data]);
+    if(remocao.error)console.error('Evidência removida, mas o arquivo continua no bucket:',remocao.error);
+  }
+  await carregar();
+  await abrirDetalhe(id);
+}
+
+// ---------------------------------------------------------------------------
+// Carga
+// ---------------------------------------------------------------------------
+
+async function carregar(){
+  const [ideias,responsaveis]=await Promise.all([
+    sb.from('app_melhorias').select('*'),
+    sb.from('app_melhoria_responsaveis').select('*')
+  ]);
+  if(ideias.error){
+    console.error('Falha ao carregar melhorias:',ideias.error);
+    document.getElementById('main').innerHTML='<div class="erro">Não foi possível carregar as ideias.</div>';
+    return;
+  }
+  IDEIAS=ideias.data||[];
+  RESPONSAVEIS=(responsaveis.data||[]).sort((a,b)=>String(a.nome).localeCompare(String(b.nome),'pt-BR'));
+  render();
+}
+
+function instalarModais(){
+  document.getElementById('novaArea').innerHTML=opcoes(AREAS,'Geral');
+  document.getElementById('novaOrigem').innerHTML=opcoes(ORIGENS,'Equipe');
+  document.getElementById('cancelarNova').addEventListener('click',()=>fecharModal('modalNova'));
+  document.getElementById('salvarNova').addEventListener('click',salvarNova);
+  document.getElementById('novoTitulo').addEventListener('keydown',event=>{
+    if(event.key==='Enter'){event.preventDefault();salvarNova();}
+  });
+  ['modalNova','modalDetalhe'].forEach(id=>{
+    const modal=document.getElementById(id);
+    modal.addEventListener('click',event=>{
+      if(event.target!==modal)return;
+      ABERTA=null;
+      fecharModal(id);
+    });
+  });
+  document.addEventListener('keydown',event=>{
+    if(event.key!=='Escape')return;
+    ABERTA=null;
+    fecharModal('modalNova');
+    fecharModal('modalDetalhe');
+  });
+}
+
+(async()=>{
+  const auth=await SirFisherAuth.requireRole(sb);
+  if(!auth)return;
+  instalarModais();
+  await carregar();
+})();
+</script>
+</body>
+</html>

@@ -53,6 +53,7 @@ jobs:
             contas_recorrentes.html \
             escalas.html \
             importar.html \
+            melhoria_inovacao.html \
             parametros.html \
             parametros_editor.html \
             parametros_gerais.html \
@@ -100,6 +101,7 @@ jobs:
             gerente.html \
             importar.html \
             index.html \
+            melhoria_inovacao.html \
             parametros.html \
             parametros_editor.html \
             parametros_gerais.html \

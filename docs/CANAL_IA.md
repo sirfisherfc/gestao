@@ -2552,3 +2552,44 @@ antes de excluir o checkout. Nao usar esse checkout para trabalho novo.
 
 - Codex
 
+
+### 2026-09-14 — Claude — rotina "Melhoria e Inovacao"
+
+Nova rotina para registrar ideia/problema, dar responsavel e prazo, acompanhar
+e fechar com resultado. Entrou como cartao em `rotinas.html` (nao como aba no
+topo: a barra ja tem oito itens e a pagina e ferramenta de operacao, nao painel).
+
+Banco, em duas migrations novas e idempotentes:
+
+- `20260914000000_melhoria_inovacao.sql`: tabelas `melhorias`,
+  `melhoria_evidencias` e `melhoria_historico` (essa alimentada por trigger),
+  views `app_melhoria*` e cinco RPCs security definer. RLS ligado, sem grant
+  para `authenticated` nas tabelas; tudo passa pelas views/RPCs com
+  `usuario_pode_acessar_pagina('melhoria_inovacao.html')`. Nenhuma view toca
+  `auth.users`: o nome sai de `private.nome_exibicao_usuario`.
+- `20260914010000_..._carga_historica.sql`: 20 iniciativas documentadas entre
+  14/03 e 14/09/2026 mais 6 ideias novas. Cada registro tem `chave_carga` unica
+  e o insert usa `on conflict do nothing`, entao re-rodar nao duplica.
+
+**Primeiro uso de Supabase Storage no projeto.** Evidencia aceita link (`url`)
+ou arquivo (`storage_path`). O arquivo vai para o bucket privado
+`melhoria-evidencias`, criado dentro de um bloco condicional em
+`to_regclass('storage.buckets')` para a migration nao quebrar em Postgres puro.
+As policies de `storage.objects` usam o mesmo gate da pagina, e o insert exige
+prefixo `melhoria/`. Nada e servido por URL publica: a pagina assina os links
+ao abrir a ideia, com validade de uma hora. A RPC recusa caminho que nao seja
+`melhoria/<id>/<arquivo>`, e a pagina apaga o objeto quando a linha nao entra
+ou quando a evidencia e removida, para nao deixar arquivo orfao no bucket.
+
+**Aplicacao:** as duas migrations foram aplicadas no Supabase canonico com
+`scripts/implantacao/aplicar_migrations_pendentes.py --aplicar`. Antes do envio
+passaram pelo parser real do PostgreSQL (`pglast`: statements, corpos plpgsql e
+o bloco DO do storage).
+
+**Aviso de seguranca:** o arquivo de conversa da gerencia usado como fonte tem
+uma credencial nas linhas 51547-51550. O trecho foi ignorado por completo e nao
+entrou em codigo, migration ou banco. A credencial precisa ser trocada.
+
+- Status: 🟢 Livre.
+
+- Claude

@@ -28,6 +28,7 @@
     'conciliacao_contabil.html',
     'importar.html',
     'escalas.html',
+    'melhoria_inovacao.html',
     'gerente.html'
   ]);
   const KNOWN_PAGES = new Set([...ADMIN_ONLY_PAGES, ...CONFIGURABLE_PAGES]);

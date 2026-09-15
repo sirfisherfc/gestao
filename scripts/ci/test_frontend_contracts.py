@@ -97,6 +97,31 @@ def main() -> int:
     for page, fragment in guarded.items():
         require(source(page), fragment, f"{page} perdeu protecao contra resposta obsoleta")
 
+    melhoria = source("melhoria_inovacao.html")
+    for fragment in (
+        "criar_melhoria",
+        "alterar_status_melhoria",
+        "atualizar_melhoria",
+        "app_melhorias",
+        "app_melhoria_historico",
+        "melhoria-evidencias",
+        "createSignedUrls",
+        "p_storage_path",
+    ):
+        require(melhoria, fragment, f"Melhoria e Inovacao perdeu contrato: {fragment}")
+    require(melhoria, ">Sugerir ideia<", "Melhoria e Inovacao perdeu o botao de cadastro rapido")
+    # O cadastro rapido tem que continuar com quatro campos: titulo, descricao,
+    # area e origem. Qualquer campo a mais aqui e tempo a mais para registrar.
+    nova = melhoria.split('id="modalNova"', 1)[1].split("</div>\n</div>", 1)[0]
+    if nova.count("<input") + nova.count("<textarea") + nova.count("<select") != 4:
+        fail("Cadastro rapido de melhoria deixou de ser um formulario de quatro campos")
+    if 'href="${' in melhoria:
+        fail("Melhoria e Inovacao voltou a montar href em template literal")
+    # Arquivo orfao no bucket: a pagina precisa desfazer o envio quando a linha
+    # nao entra, e apagar o objeto quando a evidencia sai.
+    if melhoria.count(".from(BUCKET).remove(") < 2:
+        fail("Melhoria e Inovacao pode deixar arquivo orfao no bucket")
+
     require(source("status.html"), "carga_dias_atencao", "Status perdeu prazos configuraveis")
     if "2023–2025" in source("status.html"):
         fail("Status voltou a exibir período histórico específico da empresa atual")
