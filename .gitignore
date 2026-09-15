@@ -35,3 +35,6 @@ docs/security-audit/
 
 # Bundles locais de recuperacao; nunca enviar ao repositorio.
 _Backups/
+
+# Saidas geradas localmente (PDFs, exports): nunca versionar.
+tmp/

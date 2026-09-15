@@ -69,10 +69,11 @@ Calculados automaticamente pelo módulo, sem digitação, e visíveis no topo da
 | Em aberto | 15 |
 | Taxa de conclusão | 31% |
 | Prazo médio de conclusão | 40 dias |
-| Pessoas distintas que registraram | 5 |
+| Pessoas distintas que registraram | 6 |
 | Áreas alcançadas | 9 |
 
 Origem dos registros: Gestão 12, Equipe 10, Cliente 2, Auditoria 1, Outra 1.
+As 20 ideias do histórico têm responsável nomeado; as 6 ideias mais recentes aguardam quem as assuma.
 
 ## 6. Evidências disponíveis para auditoria
 
@@ -169,6 +170,6 @@ contra a operação real, e não tratado como número fixo.
 | Item | Onde está a evidência |
 |---|---|
 | 6.4.1 — iniciativas de inovação alinhadas ao planejamento | Módulo Melhoria e Inovação; sistemas próprios de gestão, reservas e análise. |
-| 6.4.2 — cultura de inovação estabelecida e disseminada | 26 registros de 5 pessoas distintas, em 9 áreas, com 10 de 26 originados pela equipe e 2 por clientes. Acesso nominal liberado à gerência. |
+| 6.4.2 — cultura de inovação estabelecida e disseminada | 26 registros de 6 pessoas distintas, em 9 áreas, com 10 de 26 originados pela equipe e 2 por clientes. Acesso nominal liberado à gerência. |
 | 6.4.3 — sistemática estabelecida e implementada para P&D | Seções 1 a 6 deste documento, com o caso demonstrativo e os cinco casos adicionais do período. |
 | 6.4.4 — gestão de indicadores de inovação e ações de melhoria | Indicadores da seção 5, calculados automaticamente, com responsável, prazo e próxima ação por ação de melhoria. |
