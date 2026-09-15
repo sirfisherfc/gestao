@@ -1,7 +1,14 @@
 # Sistemática de Melhoria Contínua e Desenvolvimento — Sir Fisher
 
 Documento de referência para o item 6.4 (Gestão da Inovação) do checklist de auditoria.
-Vigente desde 14/09/2026. Responsável pela sistemática: a direção, com execução pela gerência.
+
+| | |
+|---|---|
+| Empresa | Sir Fisher |
+| Vigente desde | 14 de março de 2026 |
+| Documentada em | 14 de setembro de 2026 |
+| Responsável | Direção, com execução pela gerência |
+| Evidências do período | 14/03/2026 a 14/09/2026 |
 
 ---
 
@@ -10,6 +17,10 @@ Vigente desde 14/09/2026. Responsável pela sistemática: a direção, com execu
 Garantir que toda ideia de melhoria, problema recorrente ou oportunidade identificada na
 operação seja registrada, avaliada, decidida e tenha o resultado documentado — em vez de
 se perder em conversa.
+
+A prática descrita aqui já era exercida pela empresa. Este documento a formaliza e, em
+setembro de 2026, o registro passou de conversa e planilha para o módulo próprio descrito
+na seção 2, com as ideias do período consolidadas nele.
 
 A sistemática abrange quatro frentes: **produto** (pratos, bebidas e portfólio),
 **processo** (cozinha, salão, compras e estoque), **tecnologia** (sistemas próprios e de
