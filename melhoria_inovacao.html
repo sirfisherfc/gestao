@@ -325,7 +325,7 @@ function htmlTimeline(historico){
 }
 
 function htmlEvidencias(evidencias){
-  if(!evidencias.length)return '<p class="hint">Nenhuma evidência ligada ainda.</p>';
+  if(!evidencias.length)return '<p class="hint">Nenhuma evidência anexada ainda.</p>';
   return `<div class="mi-evid">${evidencias.map(e=>{
     const destino=e.url||e.link_assinado||'';
     const rotulo=e.storage_path?'arquivo':'link';
@@ -404,7 +404,7 @@ async function abrirDetalhe(id,statusInicial){
         <input type="text" id="evidTitulo" maxlength="120" placeholder="Nome da evidência" aria-label="Nome da evidência">
         <input type="url" id="evidUrl" placeholder="https://…" aria-label="Link da evidência">
         <input type="file" id="evidArquivo" aria-label="Arquivo da evidência">
-        <button class="button secondary" id="evidAdd">Ligar</button>
+        <button class="button secondary" id="evidAdd">Anexar</button>
       </div>
       <p class="hint">Um link ou um arquivo de até 10 MB. O arquivo fica em bucket privado e só abre por link temporário.</p>
     </div>
@@ -429,7 +429,7 @@ async function abrirDetalhe(id,statusInicial){
   sincronizar();
   document.getElementById('detFechar').addEventListener('click',()=>{ABERTA=null;fecharModal('modalDetalhe');});
   document.getElementById('detSalvar').addEventListener('click',event=>salvarDetalhe(id,event.currentTarget));
-  document.getElementById('evidAdd').addEventListener('click',event=>ligarEvidencia(id,event.currentTarget));
+  document.getElementById('evidAdd').addEventListener('click',event=>anexarEvidencia(id,event.currentTarget));
   box.querySelectorAll('.mi-evid-remover').forEach(botao=>{
     botao.addEventListener('click',()=>removerEvidencia(Number(botao.dataset.evid),id));
   });
@@ -478,7 +478,7 @@ async function salvarDetalhe(id,botao){
   await carregar();
 }
 
-async function ligarEvidencia(id,botao){
+async function anexarEvidencia(id,botao){
   const titulo=document.getElementById('evidTitulo').value.trim();
   const url=document.getElementById('evidUrl').value.trim();
   const arquivo=document.getElementById('evidArquivo').files[0]||null;
@@ -513,14 +513,14 @@ async function ligarEvidencia(id,botao){
   });
   botao.disabled=false;
   if(error){
-    console.error('Falha ao ligar evidência:',error);
+    console.error('Falha ao anexar evidência:',error);
     // O arquivo ja subiu mas a linha nao entrou: desfaz para nao deixar orfao.
     if(caminho)await sb.storage.from(BUCKET).remove([caminho]);
-    return recusar('Não foi possível ligar a evidência.');
+    return recusar('Não foi possível anexar a evidência.');
   }
   await carregar();
   await abrirDetalhe(id);
-  toast(arquivo?'Arquivo anexado.':'Evidência ligada.');
+  toast(arquivo?'Arquivo anexado.':'Link anexado.');
 }
 
 async function removerEvidencia(evidenciaId,id){
