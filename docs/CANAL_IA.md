@@ -2581,10 +2581,34 @@ ao abrir a ideia, com validade de uma hora. A RPC recusa caminho que nao seja
 `melhoria/<id>/<arquivo>`, e a pagina apaga o objeto quando a linha nao entra
 ou quando a evidencia e removida, para nao deixar arquivo orfao no bucket.
 
-**Aplicacao:** as duas migrations foram aplicadas no Supabase canonico com
-`scripts/implantacao/aplicar_migrations_pendentes.py --aplicar`. Antes do envio
-passaram pelo parser real do PostgreSQL (`pglast`: statements, corpos plpgsql e
-o bloco DO do storage).
+**Aplicacao: feita.** `aplicar_migrations_pendentes.py --aplicar` executou as
+duas; o historico foi de 180 para 182 versoes. Conferido em leitura depois:
+as 3 tabelas com RLS ligado e zero grant para `authenticated`, as 4 views com
+`security_barrier`/`security_invoker=false` e nenhuma citando `auth.users`, as
+5 RPCs executaveis por `authenticated` e nao por `anon`, as 2 triggers ativas,
+o bucket privado com teto de 10 MB e as 3 policies. Carga com 26 linhas (20
+historicas + 6 ideias), 26 no historico, nenhuma com `criado_por` preenchido.
+
+Duas conferencias que valem repetir em mudanca futura:
+
+- **Carga re-executavel**: rodar o INSERT da carga de novo dentro de uma
+  transacao devolveu `rowcount = 0` e a contagem ficou em 26. Desfeito com
+  rollback.
+- **Gate fechado**: com `set local role authenticated` e sem JWT, as quatro
+  views devolvem zero linhas, a leitura direta das tabelas e negada e
+  `criar_melhoria` levanta "Sem permissao". Como `anon`, ate o SELECT na view
+  e negado.
+
+**Sobre o storage:** a conexao de migration e `postgres`, que **nao** e membro
+de `supabase_storage_admin` (dono de `storage.objects`), entao `create policy`
+ali parecia que ia falhar. Nao falhou — `postgres` tem `rolbypassrls` e
+privilegio suficiente neste projeto. Confirmei antes de aplicar executando o
+`insert` no bucket e o `create policy` dentro de uma transacao e desfazendo com
+rollback. Vale repetir esse teste antes de mexer em storage de novo, em vez de
+descobrir no meio de uma migration.
+
+Antes do envio as duas passaram pelo parser real do PostgreSQL (`pglast`:
+statements, corpos plpgsql e o bloco DO do storage).
 
 **Aviso de seguranca:** o arquivo de conversa da gerencia usado como fonte tem
 uma credencial nas linhas 51547-51550. O trecho foi ignorado por completo e nao
