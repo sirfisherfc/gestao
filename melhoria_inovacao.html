@@ -384,7 +384,7 @@ async function abrirDetalhe(id,statusInicial){
       <label class="mi-campo"><span>Responsável</span><select id="detResponsavel" aria-label="Responsável pela ideia"><option value="">Sem responsável</option>${responsavel}</select></label>
       <label class="mi-campo"><span>Prazo</span><input type="date" id="detPrazo" value="${esc(ideia.prazo||'')}" aria-label="Prazo da ideia"></label>
     </div>
-    <label class="mi-campo"><span>Próxima ação</span><input type="text" id="detProxima" maxlength="200" value="${esc(ideia.proxima_acao||'')}" placeholder="O próximo passo concreto" aria-label="Próxima ação"></label>
+    <label class="mi-campo"><span>Próxima ação</span><textarea id="detProxima" rows="3" maxlength="280" placeholder="O próximo passo concreto" aria-label="Próxima ação">${esc(ideia.proxima_acao||'')}</textarea></label>
 
     <div class="mi-bloco" id="blocoConclusao" hidden>
       <h4>Fechamento</h4>

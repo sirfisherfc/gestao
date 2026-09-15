@@ -117,6 +117,10 @@ def main() -> int:
         fail("Cadastro rapido de melhoria deixou de ser um formulario de quatro campos")
     if 'href="${' in melhoria:
         fail("Melhoria e Inovacao voltou a montar href em template literal")
+    # Proxima acao costuma ser uma frase, nao uma palavra: precisa de area de
+    # texto com quebra, e nao de um campo de uma linha so.
+    if '<textarea id="detProxima"' not in melhoria:
+        fail("Proxima acao voltou a ser campo de uma linha")
     # Arquivo orfao no bucket: a pagina precisa desfazer o envio quando a linha
     # nao entra, e apagar o objeto quando a evidencia sai.
     if melhoria.count(".from(BUCKET).remove(") < 2:
