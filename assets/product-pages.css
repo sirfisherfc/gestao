@@ -322,6 +322,14 @@ header{background:var(--header);color:#fff;position:sticky;top:0;z-index:10}
 
 /* Melhoria e Inovacao: resumo enxuto, uma barra de status e a lista de ideias.
    Sem grid de cartoes por etapa e sem grafico: a leitura e a lista. */
+/* Os seis cartoes do resumo cabem numa linha so: sao contagens curtas e a
+   leitura e comparativa. Abaixo de 900px quebram em tres e depois em duas. */
+.mi-resumo{grid-template-columns:repeat(6,1fr);gap:9px}
+.mi-resumo .summary-card{padding:12px 11px;min-width:0}
+.mi-resumo .label{font-size:9.5px;letter-spacing:.35px}
+.mi-resumo .value{font-size:21px;margin-top:5px}
+@media(max-width:900px){.mi-resumo{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:520px){.mi-resumo{grid-template-columns:repeat(2,1fr)}}
 .mi-metricas{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:10.5px;color:var(--muted);margin:-8px 0 14px;padding:0 2px}
 .mi-metricas b{color:var(--text);font-weight:700}
 .mi-barra{display:flex;height:11px;border-radius:999px;overflow:hidden;background:#eef1f2;margin-bottom:7px}

@@ -65,7 +65,7 @@ const CLASSE_PRIORIDADE={'Alta':'alta','Média':'media','Baixa':'baixa'};
 // Bucket privado: nada e servido por URL publica. O arquivo so aparece por link
 // assinado, gerado ao abrir a ideia e valido por uma hora.
 const BUCKET='melhoria-evidencias';
-const LIMITE_ARQUIVO=10*1024*1024;
+const LIMITE_ARQUIVO=3*1024*1024;
 const VALIDADE_LINK=3600;
 
 let IDEIAS=[];
@@ -170,7 +170,7 @@ function htmlResumo(r){
     `Concluído no prazo <b>${r.noPrazo===null?'—':r.noPrazo+'%'}</b>`,
     `Impacto financeiro acumulado <b>${r.impacto===null?'—':fmtMoeda(r.impacto)}</b>`
   ];
-  return `<div class="summary-grid">
+  return `<div class="summary-grid mi-resumo">
       ${cartao('Total de ideias',r.total)}
       ${cartao('Abertas',r.abertas)}
       ${cartao('Em andamento',r.porStatus['Em andamento'])}
@@ -406,7 +406,7 @@ async function abrirDetalhe(id,statusInicial){
         <input type="file" id="evidArquivo" aria-label="Arquivo da evidência">
         <button class="button secondary" id="evidAdd">Anexar</button>
       </div>
-      <p class="hint">Um link ou um arquivo de até 10 MB. O arquivo fica em bucket privado e só abre por link temporário.</p>
+      <p class="hint">Um link ou um arquivo de até 3 MB. O arquivo fica em bucket privado e só abre por link temporário; para algo maior, use o link.</p>
     </div>
 
     <div class="mi-bloco">
@@ -490,7 +490,7 @@ async function anexarEvidencia(id,botao){
   if(titulo.length<2)return recusar('Dê um nome à evidência.');
   if(arquivo&&url)return recusar('Use um link ou um arquivo, não os dois.');
   if(!arquivo&&!/^https?:\/\//i.test(url))return recusar('Escolha um arquivo ou informe um link começando com http ou https.');
-  if(arquivo&&arquivo.size>LIMITE_ARQUIVO)return recusar('O arquivo passa de 10 MB. Envie um link para arquivos maiores.');
+  if(arquivo&&arquivo.size>LIMITE_ARQUIVO)return recusar('O arquivo passa de 3 MB. Para algo maior, guarde na nuvem e cole o link aqui.');
   erro.classList.remove('show');
   botao.disabled=true;
 
