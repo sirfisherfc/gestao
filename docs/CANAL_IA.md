@@ -2729,9 +2729,83 @@ porque o incremento era desfeito. Os oito gates Python passam local
 (`MIGRATION_TESTS_OK count=187`); os testes Node e o outbox em PostgreSQL real
 so rodam no CI, esta maquina nao tem node nem psql.
 
-**Nao aplicada.** Mesmo bloqueio da anterior: o aplicador de migrations e a
-edicao do arquivo de permissoes sao negados ao Claude nesta maquina. Aplicar
-com `python scripts/implantacao/aplicar_migrations_pendentes.py --aplicar`.
+**Aplicada e conferida.** O usuario rodou
+`aplicar_migrations_pendentes.py --aplicar` (historico 186 -> 187). Conferido
+em leitura: a resiliente existe com as 8 subtransacoes e o desvio de
+dependencia, o wrapper continua `void` e levantando, o worker usa a resiliente
+e nao a casca, e os grants de `refresh_painel` foram preservados pelo
+`create or replace`. Primeira execucao real em 09:04:58-09:05:53 (55 s),
+`concluido`, painel integro - mesmo tempo das execucoes anteriores.
+
+O dry-run do aplicador passa para o Claude; o `--aplicar` continua bloqueado.
+
+- Status: 🟢 Livre.
+
+- Claude
+
+
+### Claude - refresh_painel fora do alcance de anon (21/09/2026)
+
+Saiu de uma conferencia de grants no fim da tarefa anterior.
+`public.refresh_painel()` estava com EXECUTE para PUBLIC (`=X` no ACL) e grant
+explicito para `anon`. Com `public` exposto pelo PostgREST e USAGE para anon,
+qualquer um com a chave anon - que e publica - podia disparar pela API os ~55 s
+de refresh das cinco MVs, em serie, com `statement_timeout` zerado. A funcao
+nao tem portao no corpo porque nasceu para ser chamada pelos importadores e por
+outras RPCs. **Exposicao, nao incidente:** nada indica que tenha sido usada.
+
+`20260921020000_refresh_painel_fora_do_alcance_anon.sql` tira EXECUTE de PUBLIC
+e de anon, e reafirma para `authenticated` e `service_role`. Nao muda
+definicao nenhuma. Ninguem perde acesso: os importadores conectam como
+`postgres` (dono), as seis RPCs que a chamam por dentro sao security definer, e
+nenhuma pagina chama a funcao direto - `status.html` vai por
+`solicitar_refresh_painel`, que tem gate proprio.
+
+Ensaiada em transacao desfeita com rollback: ACL passa de
+`{=X,postgres,authenticated,anon,service_role}` para
+`{postgres,authenticated,service_role}`, `anon=False`, os outros tres intactos,
+e a segunda execucao nao muda nada.
+
+**Cuidado para quem recriar a funcao:** `create or replace` preserva ACL, mas
+`drop` + `create` devolve EXECUTE a PUBLIC pelo padrao do PostgreSQL e a `anon`
+pelo default privileges do Supabase. Repetir o revoke nesse caso.
+
+## Auditoria de alcance do anon - o que sobrou em aberto
+
+Levantamento feito no caminho, so leitura, e vale guardar porque a primeira
+leitura assusta mais do que deve:
+
+- `has_function_privilege('anon', ...)` da **true para quase tudo**, porque
+  PUBLIC tem EXECUTE por padrao e anon herda. Sozinho, esse teste nao diz
+  nada.
+- O que filtra de verdade e o **USAGE de schema**: `anon` nao tem USAGE em
+  `private` nem em `cron`. Entao as ~40 funcoes `private.*` que aparecem na
+  lista **nao sao alcancaveis** por anon. (`authenticated` **tem** USAGE em
+  `private` - isso sim merece um olhar depois.)
+- Tirando as funcoes de extensao (`citext`, `unaccent`), as `security invoker`
+  (rodam com o privilegio de quem chama, sem escalada) e as de trigger/event
+  trigger (nao chamaveis por RPC), sobram **poucas** `public` security definer
+  sem portao, alcancaveis por anon:
+
+  - `refresh_painel()` - resolvido nesta migration.
+  - `recalcular_saldo_fechamento(date,date,integer)` - **ainda aberta**, e e a
+    pior: grava em `saldo_fechamento_mensal`. Proposta ao usuario, aguardando.
+  - Da reserva/ads, que **nao sao deste repo e nao devem ser tocadas aqui**:
+    `fn_claim_pending_notifications`, `fn_finalize_notification`,
+    `fn_claim_pending_openai_ads_conversions`,
+    `fn_finalize_openai_ads_conversion`, `fn_enqueue_reservation_reminders`,
+    `fn_update_internal_notes`. Levar ao responsavel pelo sistema de reservas.
+  - Intencionalmente publicas: `fn_cancel_reservation_public` (gate por token),
+    `get_available_time_slots`, `app_configuracao_operacional`,
+    `app_configuracao_empresa`, `parametro_valor`, `unidade_principal_nome`.
+
+  Ou seja: **nao saia revogando em bloco**. Metade da lista existe para o site
+  de reservas funcionar deslogado.
+
+- Nota metodologica: a primeira varredura que fiz deu 32 "sem portao" porque a
+  lista de helpers estava incompleta - faltava `exigir_admin`, que e o portao
+  de boa parte das RPCs `admin_*`. Descobrir os helpers pelo catalogo
+  (`proname like 'exigir%'` etc.) em vez de chutar a lista corrige isso.
 
 - Status: 🟢 Livre.
 
