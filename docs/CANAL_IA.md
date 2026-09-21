@@ -2788,8 +2788,9 @@ leitura assusta mais do que deve:
   sem portao, alcancaveis por anon:
 
   - `refresh_painel()` - resolvido nesta migration.
-  - `recalcular_saldo_fechamento(date,date,integer)` - **ainda aberta**, e e a
-    pior: grava em `saldo_fechamento_mensal`. Proposta ao usuario, aguardando.
+  - `recalcular_saldo_fechamento(date,date,integer)` - fechada em
+    `20260921030000`, mesma receita. Era a pior das duas: grava em
+    `saldo_fechamento_mensal`.
   - Da reserva/ads, que **nao sao deste repo e nao devem ser tocadas aqui**:
     `fn_claim_pending_notifications`, `fn_finalize_notification`,
     `fn_claim_pending_openai_ads_conversions`,
@@ -2806,6 +2807,38 @@ leitura assusta mais do que deve:
   lista de helpers estava incompleta - faltava `exigir_admin`, que e o portao
   de boa parte das RPCs `admin_*`. Descobrir os helpers pelo catalogo
   (`proname like 'exigir%'` etc.) em vez de chutar a lista corrige isso.
+
+- Status: 🟢 Livre.
+
+- Claude
+
+
+### Claude - recalculo de fechamento fora do alcance de anon (21/09/2026)
+
+Fecha a outra metade do par de manutencao.
+`20260921030000_recalculo_fechamento_fora_do_alcance_anon.sql` tira EXECUTE de
+PUBLIC e de `anon` em `public.recalcular_saldo_fechamento(date,date,integer)`,
+e reafirma para `authenticated` e `service_role`. Era a mais grave das duas:
+alem de pesada, **grava** em `saldo_fechamento_mensal`.
+
+Ninguem perde acesso, pelo mesmo motivo da anterior: `importacao_core` chama
+como `postgres` (dono), `private.processar_fila_recalculo_saldo()` e security
+definer, e nenhuma pagina chama direto - `status.html` vai por
+`solicitar_recalculo_saldo`, que tem gate. Ensaiada em transacao desfeita com
+rollback, incluindo reexecucao: ACL de
+`{=X,postgres,authenticated,anon,service_role}` para
+`{postgres,authenticated,service_role}`.
+
+**Deixado de fora de proposito:** `authenticated` mantem EXECUTE nas duas.
+Como nenhuma das duas tem portao no corpo, hoje qualquer usuario logado, de
+qualquer papel, alcanca as duas funcoes. Tirar de `authenticated` e
+defensavel e nao quebraria nada que eu tenha achado - mas muda o alcance de
+quem ja passou pelo login, entao fica para decisao propria.
+
+**Nota de processo:** o usuario aplicou `20260921020000` antes de ler a
+proposta desta. Nao teve efeito nenhum - migration aplicada nao se edita, a
+correcao seguinte e simplesmente a proxima no numero. Vale lembrar disso em
+vez de pensar em desfazer.
 
 - Status: 🟢 Livre.
 
