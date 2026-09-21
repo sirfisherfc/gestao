@@ -88,11 +88,56 @@ def main() -> int:
         "Saldo genérico perdeu uma proteção obrigatória",
     )
 
-    latest_refresh = generic_balance.split(
-        "create or replace function public.refresh_painel()", 1
-    )[1].split("$function$;", 1)[0]
-    if "refresh materialized view concurrently public.mv_saldo_caixa_diario_detalhado" in latest_refresh:
+    # Segue a definição vigente, não uma histórica: quem redefinir o refresh
+    # numa migration nova passa a responder por estes contratos.
+    refresh_files = sorted(
+        path
+        for path in MIGRATIONS.glob("*.sql")
+        if "create or replace function public.refresh_painel()"
+        in path.read_text(encoding="utf-8-sig")
+    )
+    if not refresh_files:
+        fail("Nenhuma migration define public.refresh_painel()")
+    current_refresh_sql = refresh_files[-1].read_text(encoding="utf-8-sig")
+    if (
+        "refresh materialized view concurrently public.mv_saldo_caixa_diario_detalhado"
+        in current_refresh_sql
+    ):
         fail("Refresh atual voltou a recalcular o snapshot fixo legado")
+
+    # A atualização do painel precisa sobreviver à falha de um objeto: cada
+    # refresh na própria subtransação e o resultado devolvido como valor, não
+    # como exceção. Sem isso, o worker desfaz o que já tinha dado certo — foi
+    # o que cegou o painel em 21/09/2026 (ver 20260921010000).
+    resilient_files = sorted(
+        path
+        for path in MIGRATIONS.glob("*.sql")
+        if "create or replace function private.refresh_painel_resiliente()"
+        in path.read_text(encoding="utf-8-sig")
+    )
+    if not resilient_files:
+        fail("Nenhuma migration define private.refresh_painel_resiliente()")
+    resilient_sql = resilient_files[-1].read_text(encoding="utf-8-sig")
+    require(
+        resilient_sql,
+        (
+            "refresh materialized view concurrently private.mv_saldo_conta_diario",
+            "refresh materialized view concurrently public.mv_fluxo_caixa_diario",
+            "refresh materialized view concurrently public.mv_despesa_mensal",
+            "refresh materialized view concurrently public.mv_despesa_diaria",
+            "refresh materialized view concurrently public.mv_conciliacao_contabil",
+            "private.validar_saldo_diario_materializado()",
+            "private.validar_fluxo_materializado()",
+            "private.validar_despesas_materializadas()",
+            "v_relatorio := private.refresh_painel_resiliente();",
+        ),
+        "Refresh resiliente perdeu um objeto ou o worker parou de usá-lo",
+    )
+    # Uma subtransação por objeto: cinco refreshes e três validadores.
+    if resilient_sql.count("exception when others then") < 8:
+        fail("Refresh resiliente perdeu o isolamento por objeto")
+    if "perform public.refresh_painel();" in resilient_sql:
+        fail("Worker voltou a usar o refresh que levanta exceção e desfaz tudo")
 
     calendar_html = (ROOT / "calendario.html").read_text(encoding="utf-8-sig")
     require(

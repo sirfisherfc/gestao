@@ -2668,9 +2668,70 @@ automatico ([Protected-Scope IaC Apply], [Auto-Mode Bypass], [Self-Modification]
 Para uma IA aplicar migration nesta maquina, a regra precisa estar escrita no
 arquivo de permissoes - autorizacao por mensagem nao vale.
 
-**Fica em aberto (proposto ao usuario, ainda nao decidido):** deixar o
-`refresh_painel()` resistente a isso. Hoje um refresh que falha derruba os
-outros quatro e o recalculo do saldo junto.
+**Resolvido em seguida:** ver o recado abaixo, de 21/09.
+
+- Status: 🟢 Livre.
+
+- Claude
+
+
+### Claude - Refresh do painel resiliente a falha de um objeto (21/09/2026)
+
+Sequencia do recado anterior. O indice faltando foi so o gatilho; o que
+transformou aquilo em cascata foi `refresh_painel()` atualizar cinco
+materialized views numa transacao so, com o worker envolvendo tudo em
+`begin/exception`. O erro no segundo objeto desfazia o refresh do primeiro
+**e** o `recalcular_saldo_fechamento` que rodara antes.
+
+`20260921010000_refresh_painel_resiliente.sql`:
+
+- `private.refresh_painel_resiliente()` (nova): cada objeto na propria
+  subtransacao, resultado devolvido como **jsonb**, nao como excecao. E a
+  parte que importa - enquanto o resultado voltar como excecao, o
+  `begin/exception` de quem chama desfaz o trabalho bom de qualquer jeito.
+- `public.refresh_painel()`: mesmo nome, assinatura, grants e contrato
+  (continua levantando). Seis RPCs e os importadores Python dependem disso, e
+  para eles desfazer a gravacao junto com o derivado e o certo. Muda so a
+  mensagem, que agora nomeia todos os objetos que falharam.
+- `private.processar_fila_recalculo_saldo()`: usa a resiliente e grava
+  `concluido`/`erro` sem desfazer nada. O recalculo tambem ganhou subtransacao
+  propria.
+
+**Desvio de dependencia deliberado:** se `private.mv_saldo_conta_diario`
+falhar, `public.mv_fluxo_caixa_diario` e ignorado de proposito - a curva
+ancorada em saldo velho seria pior que o snapshot anterior, e **nenhum
+validador pegaria**, porque os dois lados da comparacao leriam a mesma ancora
+velha. Cada validador so roda se o objeto que ele confere foi atualizado.
+`query_canceled` continua subindo sem captura por objeto: cancelamento e ordem
+de parar, nao defeito de um objeto.
+
+**Ensaios, todos em transacao desfeita com rollback, no banco real:**
+
+1. Caminho feliz com os objetos de producao: `ok=true`, cinco atualizados.
+2. Um validador falhando: `ok=false`, os cinco refreshes mesmo assim, falha
+   nomeando o objeto.
+3. `public.refresh_painel()` levantou como antes, com a mensagem nova.
+4. Worker com objeto falhando: tarefa em `erro` **e** `calculado_em` de
+   `saldo_fechamento_mensal` avancando - prova direta de que o recalculo nao
+   e mais desfeito. Era exatamente o que se perdia antes.
+5. Desvio de dependencia, com objetos sinteticos num schema descartavel (o
+   corpo real reaproveitado, so os nomes trocados; o "saldo" nasce sem indice
+   unico, a mesma falha de 21/09): fluxo ignorado com motivo, independentes
+   atualizados, e so o validador de despesas rodou.
+
+**CI:** `test_financial_contracts.py` passa a seguir a definicao **vigente** de
+`refresh_painel` (a migration mais recente que a define, nao uma historica) e
+cobra os objetos da resiliente, o isolamento por objeto e que o worker nao
+volte a usar a casca que levanta. `test_importacao_outbox.py` encadeia a
+migration nova e troca a resiliente por uma sintetica que conta chamadas; a
+fixture agora cobra `chamadas=3` depois da falha - com o codigo antigo daria 2,
+porque o incremento era desfeito. Os oito gates Python passam local
+(`MIGRATION_TESTS_OK count=187`); os testes Node e o outbox em PostgreSQL real
+so rodam no CI, esta maquina nao tem node nem psql.
+
+**Nao aplicada.** Mesmo bloqueio da anterior: o aplicador de migrations e a
+edicao do arquivo de permissoes sao negados ao Claude nesta maquina. Aplicar
+com `python scripts/implantacao/aplicar_migrations_pendentes.py --aplicar`.
 
 - Status: 🟢 Livre.
 

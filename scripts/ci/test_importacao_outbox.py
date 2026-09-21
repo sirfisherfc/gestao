@@ -16,7 +16,10 @@ import tempfile
 ROOT = Path(__file__).resolve().parents[2]
 MIGRATIONS = ROOT / 'supabase/migrations'
 OUTBOX = '20260905000000_importacao_recalculo_duravel.sql'
+RESILIENTE = '20260921010000_refresh_painel_resiliente.sql'
 SEQUENCE_REPAIR = '20260908000000_repara_sequencias_pos_migracao.sql'
+# Migrations posteriores ao OUTBOX que ja entram na cadeia montada abaixo.
+ENCADEADAS = {OUTBOX, RESILIENTE}
 
 
 def read(name: str) -> str:
@@ -27,9 +30,12 @@ def build_sql() -> str:
     # Detecta mudanca posterior dos objetos cobertos: nao aprovar apenas uma
     # definicao historica se a cadeia efetiva passar a ter outra versao.
     for path in sorted(MIGRATIONS.glob('*.sql')):
-        if path.name > OUTBOX and any(name in path.read_text(encoding='utf-8-sig') for name in (
-            'importar_csv_stone', 'processar_fila_recalculo_saldo', 'garantir_worker_recalculo_saldo'
-        )):
+        if path.name > OUTBOX and path.name not in ENCADEADAS and any(
+            name in path.read_text(encoding='utf-8-sig') for name in (
+                'importar_csv_stone', 'processar_fila_recalculo_saldo',
+                'garantir_worker_recalculo_saldo', 'refresh_painel_resiliente'
+            )
+        ):
             raise AssertionError('Atualizar a fixture com a migration posterior: ' + path.name)
     parsers = read('20260751000000_importacao_web_stone.sql')
     parsers = parsers[parsers.index('create or replace function private.campo_csv'):]
@@ -51,12 +57,36 @@ alter table private.fila_recalculo_saldo
   add column somente_refresh boolean not null default false;
 """
     migration = read(OUTBOX)
+    resiliente = read(RESILIENTE)
+    # O banco descartavel nao tem as materialized views reais, entao a
+    # resiliente vira sintetica depois de instalada. Ela conta chamadas e sabe
+    # falhar: e assim que o teste prova que uma falha de objeto nao apaga o
+    # trabalho que ja tinha dado certo.
+    refresh_sintetico = """
+create or replace function private.refresh_painel_resiliente() returns jsonb
+language plpgsql as $sintetico$
+begin
+  update private.refresh_test set chamadas=chamadas+1;
+  if current_setting('test.fail_refresh',true)='on' then
+    return jsonb_build_object('ok',false,
+      'atualizados',jsonb_build_array('private.mv_saldo_conta_diario'),
+      'ignorados','[]'::jsonb,
+      'falhas',jsonb_build_array(jsonb_build_object(
+        'objeto','public.mv_fluxo_caixa_diario','erro','Falha sintetica')));
+  end if;
+  return jsonb_build_object('ok',true,
+    'atualizados',jsonb_build_array('private.mv_saldo_conta_diario'),
+    'ignorados','[]'::jsonb,'falhas','[]'::jsonb);
+end;
+$sintetico$;
+"""
     return '\n'.join([
         setup, parsers, fila, raw, worker,
         read('20260784000000_importacao_web_protecoes_do_python.sql'),
         read('20260818050000_importacao_web_usa_fontes.sql'),
         # Rodar duas vezes valida idempotencia pelo catalogo efetivo.
-        migration, migration, checks,
+        migration, migration, resiliente, resiliente,
+        refresh_sintetico, checks,
     ])
 
 

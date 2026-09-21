@@ -138,6 +138,13 @@ do $$ begin
   perform set_config('test.fail_refresh','on',true);
   perform private.processar_fila_recalculo_saldo();
   assert (select count(*)=1 from private.fila_recalculo_saldo where situacao='erro'), 'Erro do worker oculto';
+  -- A falha de um objeto nao pode mais desfazer o que ja tinha atualizado:
+  -- duas chamadas boas antes desta, mais esta, que falhou depois de trabalhar.
+  assert (select chamadas=3 from private.refresh_test),
+    'Worker desfez o trabalho ja concluido ao registrar a falha';
+  assert (select mensagem like '%mv_fluxo_caixa_diario%'
+          from private.fila_recalculo_saldo where situacao='erro'),
+    'Mensagem de erro nao nomeia o objeto que falhou';
   perform private.garantir_worker_recalculo_saldo();
   assert (select count(*)=1 from cron.job), 'Watchdog retentou erro terminal';
 end $$;
