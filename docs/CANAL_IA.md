@@ -2617,3 +2617,48 @@ entrou em codigo, migration ou banco. A credencial precisa ser trocada.
 - Status: 🟢 Livre.
 
 - Claude
+
+
+### Claude - Painel congelado: indice unico perdido na migracao (21/09/2026)
+
+`importar.html` vinha marcando "Salvo - atualizacao falhou". A gravacao estava
+certa; o que falhava era a fila. Mensagem no banco, em 16 tarefas desde 15/09:
+`cannot refresh materialized view "public.mv_fluxo_caixa_diario" concurrently`.
+
+**Causa:** o indice unico `mv_fluxo_caixa_diario_dia_idx` (criado em
+20260702120000, exigido por `REFRESH ... CONCURRENTLY`) nao existe mais no
+`portal`. A migration consta no historico; o objeto nao veio na
+restauracao/migracao. Conferi os 50 indices declarados em todas as migrations
+contra `pg_class`: so faltam esse e o de `mv_saldo_caixa_diario_detalhado`, que
+saiu de proposito em 20260818200000. **Vale repetir essa varredura** se
+aparecer outro sintoma estranho pos-migracao - o historico de migrations nao
+prova que o objeto existe.
+
+**Estrago maior do que parecia.** `refresh_painel()` atualiza cinco MVs numa
+transacao so e essa e a segunda: o erro desfaz tambem o `recalcular_saldo_
+fechamento` e o refresh de `private.mv_saldo_conta_diario` que ja tinham
+passado. Por isso o snapshot do fluxo parou em 06/09 (433 dias contra 448) e
+`mv_saldo_conta_diario` parou em 15/09; com o corte em 20/09, `saldo_anchor`
+devolvia 0,00 e **nem a leitura ao vivo de `fluxo_caixa_diario` estava certa**
+(curva inteira deslocada ~R$ 109 mil).
+
+**Correcao:** `20260921000000_repara_indice_unico_mv_fluxo_caixa.sql` - recria
+o indice e enfileira um recalculo do ano corrente. Ensaiada em transacao
+desfeita com rollback: indice em 0,1 s, `recalcular_saldo_fechamento` +
+`refresh_painel()` inteiros em ~87 s, tres validadores passando, snapshot
+identico a view (zero dias divergentes), `saldo_anchor` de 20/09 de volta.
+`test_migrations.py` (186) e `check_project.py` (QUALITY_OK) aprovados; a
+migration tambem passou pelo parser do PostgreSQL (`pglast`).
+
+**Pendente:** a migration foi commitada mas **ainda nao aplicada** por mim -
+`aplicar_migrations_pendentes.py` foi bloqueado por permissao nesta sessao.
+Conferir se a integracao GitHub/Supabase aplicou; se nao, rodar
+`python scripts/implantacao/aplicar_migrations_pendentes.py --aplicar`.
+
+**Fica em aberto (proposto ao usuario, ainda nao decidido):** deixar o
+`refresh_painel()` resistente a isso. Hoje um refresh que falha derruba os
+outros quatro e o recalculo do saldo junto.
+
+- Status: 🟢 Livre.
+
+- Claude
