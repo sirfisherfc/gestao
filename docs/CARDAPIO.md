@@ -228,6 +228,23 @@ O que isso significa na prática:
 | `en/`, `fish-and-chips/`, `en/fish-and-chips/` | → **Hubt** |
 | `sirfisher.com.br/cardapio/` | **portal novo**, indexável e no sitemap |
 
+### O percurso pelo QR, por decisão do proprietário
+
+```
+QR impresso na mesa
+  └─ https://www.sirfisher.com.br/qr/        ← é isto que está gravado no código
+       └─ redireciona para a home, com utm_source=qr_code
+            └─ o cliente toca no botão "Cardápio"
+                 └─ o cardápio abre
+```
+
+**O `/qr/` continua levando à home. Quem abre o cardápio é o cliente, tocando
+no botão.** Decisão do proprietário em 22/09/2026: a rota do QR não deve pular
+a home. Isso vale também depois da virada — na virada muda o **destino do
+botão**, não o redirecionamento do QR.
+
+Não mexer em `qr/index.html` sem o proprietário pedir.
+
 O portal fica alcançável por link direto e pela busca, com o aviso *“Cardápio
 em conferência”* visível. É por ali que a casa revisa o resultado antes de
 decidir a troca.
@@ -237,29 +254,46 @@ decidir a troca.
 - `/cardapio/` passou a servir o portal novo, no lugar da página HTML antiga.
 - **QR conferido, não presumido.** Os códigos impressos em
   `site/assets/qr/qr-cardapio-sirfisher.png` e `.svg` foram decodificados em
-  22/09/2026: ambos codificam `https://www.sirfisher.com.br/qr/`. Como o
-  destino fica do nosso lado, **trocar `/qr/index.html` atualiza todos os
-  códigos já distribuídos, sem reimprimir nada.** Esse é o fato que torna a
-  virada barata quando ela for decidida. A rota em si continua como estava,
-  abrindo a home.
+  22/09/2026: ambos codificam `https://www.sirfisher.com.br/qr/`, e não o
+  endereço do cardápio. Ou seja, **o destino final está do nosso lado** e
+  nenhuma virada exige reimprimir código. A rota continua abrindo a home, por
+  decisão do proprietário.
 - Dados estruturados `schema.org/Menu` gerados da própria publicação — variante
   vira oferta com nome, adicional **não** vira oferta, item esgotado sai como
   `SoldOut`.
 
 ### A virada, quando for decidida
 
-São seis edições, todas no repositório do site:
+São cinco edições, todas no repositório do site. **`qr/index.html` não entra
+na lista** — o QR continua levando à home, e quem abre o cardápio é o cliente,
+no botão.
 
-1. `qr/index.html` → redirecionar para
-   `/cardapio/?utm_source=qr_code&utm_medium=offline&utm_campaign=cardapio_mesa`.
-   Isso sozinho já muda todos os QRs das mesas.
-2. `index.html` → 3 links + o `hasMenu` dos dados estruturados.
-3. `en/index.html` → 3 links + `hasMenu`.
-4. `fish-and-chips/index.html` e `en/fish-and-chips/index.html` → 1 link cada.
-5. `privacidade/index.html` → o Hubt deixa de ser o terceiro que recebe o
+1. `index.html` → 3 links + o `hasMenu` dos dados estruturados.
+2. `en/index.html` → 3 links + `hasMenu`.
+3. `fish-and-chips/index.html` e `en/fish-and-chips/index.html` → 1 link cada.
+4. `privacidade/index.html` → o Hubt deixa de ser o terceiro que recebe o
    cliente; entra o Supabase, que só é lido.
-6. Ao trocar, tirar `target="_blank" rel="noopener"` dos links: o cardápio
+5. Ao trocar, tirar `target="_blank" rel="noopener"` dos links: o cardápio
    passa a ser do próprio site e não faz sentido abrir em outra aba.
+
+**Um detalhe de medição que só aparece depois da virada.** Hoje o `/qr/` manda
+`utm_source=qr_code` para a home, e é lá que a origem é registrada. Quando o
+botão passar a apontar para `./cardapio/`, o link não carrega esses parâmetros
+— o portal veria a visita como `direto` e a origem “veio do QR” se perderia no
+caminho entre uma página e outra.
+
+Duas saídas, ambas baratas:
+
+- Escrever os parâmetros direto no `href` do botão
+  (`./cardapio/?utm_source=site&utm_medium=organic&utm_content=botao_cardapio`),
+  que é o padrão já usado nos botões de reserva; ou
+- Repassar o que chegou na URL da home, como `assets/js/atribuicao.js` já faz
+  para `reservas.sirfisher.com.br` — basta incluir os links para `/cardapio/`
+  no seletor. Assim um acesso por QR continua identificável como QR, e não
+  vira “tráfego direto”.
+
+A segunda é a que preserva de verdade a origem, porque o anúncio ou o QR que
+trouxe a pessoa vence o padrão escrito na página.
 
 **Pré-requisitos da virada**, nesta ordem:
 

@@ -2900,3 +2900,30 @@ troca. A secao 6 de `docs/CARDAPIO.md` lista as seis edicoes da virada e os
 pre-requisitos. **Nao refazer a troca sem o proprietario pedir.**
 
 - Claude
+
+### 2026-09-22 · Antigravity — Ticket oficial da GBP API submetido e OAuth concluído
+
+1. **OAuth 2.0 & Token:** Autorização no OAuth Playground realizada com sucesso (HTTP 200 OK). Refresh token permanente gerado e salvo em `gestao/.env` (`GOOGLE_OAUTH_REFRESH_TOKEN`).
+2. **Cota da API (GBP):** Confirmado que cota inicial era 0 QPM (`RATE_LIMIT_EXCEEDED`). Submetido oficialmente pelo Rogério o formulário de *Application for Basic API Access* no suporte do Google Business Profile.
+3. **Ticket de Suporte aberto no Google:** ID `5-2951000041884` (análise estimada pelo Google em 7–10 dias úteis). Quando liberada a cota, a API estará pronta para consumo direto sem necessidade de novas etapas de autorização.
+
+- Status: 🟢 Livre.
+
+- Antigravity
+
+
+**Segunda correcao do dia — rota do QR.** O proprietario definiu o percurso:
+o QR impresso leva a `/qr/`, que redireciona para a **home**, e quem abre o
+cardapio e o cliente, tocando no botao "Cardapio". O `/qr/` **nao** deve
+pular a home, nem agora nem depois da virada. Na virada muda o destino do
+botao, nao o redirecionamento do QR. `qr/index.html` saiu da lista de
+edicoes da migracao.
+
+Fica anotado em `docs/CARDAPIO.md` um efeito colateral que so aparece depois
+da virada: o botao aponta para `./cardapio/` sem parametros, entao a origem
+`utm_source=qr_code` que chega na home se perderia no salto e o portal veria
+a visita como "direto". A saida e incluir os links de `/cardapio/` no
+seletor de `assets/js/atribuicao.js`, que ja faz esse repasse para o portal
+de reservas.
+
+- Claude
