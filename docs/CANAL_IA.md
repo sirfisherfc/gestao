@@ -2890,3 +2890,13 @@ Depois de aplicar, rodar os testes de acesso da secao 3 de `docs/CARDAPIO.md`
 - Status: 🟢 Livre.
 
 - Claude
+
+**Correcao no mesmo dia:** o proprietario decidiu que **o Hubt continua sendo
+o cardapio oficial por enquanto**. Os 10 links e o redirecionamento do QR
+foram devolvidos ao estado original no repo do site (arquivos byte a byte
+iguais ao commit 71d761b). O portal novo segue no ar em `/cardapio/`,
+indexavel, mas nada aponta para ele: serve para a casa revisar antes da
+troca. A secao 6 de `docs/CARDAPIO.md` lista as seis edicoes da virada e os
+pre-requisitos. **Nao refazer a troca sem o proprietario pedir.**
+
+- Claude

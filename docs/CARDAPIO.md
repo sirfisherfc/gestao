@@ -1,9 +1,13 @@
 # Cardápio — arquitetura, manutenção e migração
 
-O cardápio do Sir Fisher passa a ter **uma fonte só**: as tabelas
-`cardapio_*` no Supabase `portal`. O cliente lê pelo QR da mesa, em
-`sirfisher.com.br/cardapio/`. A operação edita em **Gestão → Rotinas →
-Cardápio**.
+O cardápio do Sir Fisher ganha **uma fonte só**: as tabelas `cardapio_*` no
+Supabase `portal`, editadas em **Gestão → Rotinas → Cardápio** e lidas pelo
+portal em `sirfisher.com.br/cardapio/`.
+
+> **O Hubt ainda é o cardápio oficial.** Por decisão do proprietário em
+> 22/09/2026, a home, o QR das mesas e as demais páginas continuam apontando
+> para o Hubt. O portal novo está no ar para revisão, mas nada leva até ele.
+> A virada, e o que ela exige, estão na [seção 6](#6-migração).
 
 Antes existiam três fontes que discordavam entre si — um TXT, a página HTML
 antiga e o Hubt. A lista do que cada uma dizia de diferente está em
@@ -208,35 +212,70 @@ mudança é grande, para quem abrir sem rede também ver a versão certa.
 
 ## 6. Migração
 
+### Estado atual: o Hubt continua sendo o cardápio oficial
+
+**Decisão do proprietário em 22/09/2026: a troca ainda não acontece.** O portal
+novo já está no ar em `/cardapio/`, mas nada aponta para ele. Quem chega pela
+home, pelo QR da mesa ou pelas páginas em inglês continua indo para o Hubt,
+exatamente como antes.
+
+O que isso significa na prática:
+
+| Endereço | Para onde vai hoje |
+|---|---|
+| `sirfisher.com.br/` | botões do cardápio → **Hubt** |
+| `sirfisher.com.br/qr/` (o QR das mesas) | → a home, como sempre foi |
+| `en/`, `fish-and-chips/`, `en/fish-and-chips/` | → **Hubt** |
+| `sirfisher.com.br/cardapio/` | **portal novo**, indexável e no sitemap |
+
+O portal fica alcançável por link direto e pela busca, com o aviso *“Cardápio
+em conferência”* visível. É por ali que a casa revisa o resultado antes de
+decidir a troca.
+
 ### Já feito
 
-- `/cardapio/` substituído pelo novo portal.
+- `/cardapio/` passou a servir o portal novo, no lugar da página HTML antiga.
 - **QR conferido, não presumido.** Os códigos impressos em
   `site/assets/qr/qr-cardapio-sirfisher.png` e `.svg` foram decodificados em
   22/09/2026: ambos codificam `https://www.sirfisher.com.br/qr/`. Como o
-  destino fica do nosso lado, mudar `/qr/index.html` atualizou **todos** os
-  códigos já impressos, sem reimprimir nada. A rota agora abre o cardápio
-  direto, mantendo `utm_source=qr_code` para o acesso por QR seguir
-  distinguível.
-- 10 links para o Hubt trocados pelo portal próprio em `index.html`,
-  `en/index.html`, `fish-and-chips/` e `en/fish-and-chips/`, incluindo o
-  `hasMenu` dos dados estruturados.
-- Política de privacidade: o Hubt deixou de ser o terceiro que recebe o cliente.
+  destino fica do nosso lado, **trocar `/qr/index.html` atualiza todos os
+  códigos já distribuídos, sem reimprimir nada.** Esse é o fato que torna a
+  virada barata quando ela for decidida. A rota em si continua como estava,
+  abrindo a home.
 - Dados estruturados `schema.org/Menu` gerados da própria publicação — variante
   vira oferta com nome, adicional **não** vira oferta, item esgotado sai como
   `SoldOut`.
 
-### Falta
+### A virada, quando for decidida
 
-- **`almoco-executivo/index.html` ainda aponta para o Hubt**, para
-  `sir-fisher-praia--almoco`, que é **outro cardápio**: o almoço executivo não
-  está entre os 81 registros. Redirecioná-lo para `/cardapio/` mostraria o
-  cardápio errado. Duas saídas: cadastrar o almoço executivo como uma categoria
-  com horário próprio, ou manter o link até essa decisão. **Enquanto isso, a
-  dependência do Hubt não está 100% encerrada.**
-- Conferir preços, variantes e disponibilidade **antes** de usar o portal no
-  atendimento (ver [CARDAPIO_CONFERENCIA.md](CARDAPIO_CONFERENCIA.md)).
+São seis edições, todas no repositório do site:
+
+1. `qr/index.html` → redirecionar para
+   `/cardapio/?utm_source=qr_code&utm_medium=offline&utm_campaign=cardapio_mesa`.
+   Isso sozinho já muda todos os QRs das mesas.
+2. `index.html` → 3 links + o `hasMenu` dos dados estruturados.
+3. `en/index.html` → 3 links + `hasMenu`.
+4. `fish-and-chips/index.html` e `en/fish-and-chips/index.html` → 1 link cada.
+5. `privacidade/index.html` → o Hubt deixa de ser o terceiro que recebe o
+   cliente; entra o Supabase, que só é lido.
+6. Ao trocar, tirar `target="_blank" rel="noopener"` dos links: o cardápio
+   passa a ser do próprio site e não faz sentido abrir em outra aba.
+
+**Pré-requisitos da virada**, nesta ordem:
+
+- Conferir preços, variantes e disponibilidade — ver
+  [CARDAPIO_CONFERENCIA.md](CARDAPIO_CONFERENCIA.md).
 - Aplicar as duas migrations e rodar os testes de segurança da seção 3.
+- Publicar pelo botão da rotina e marcar o catálogo como conferido.
+
+### Fora do escopo
+
+**`almoco-executivo/index.html` aponta para outro cardápio do Hubt**,
+`sir-fisher-praia--almoco`. O almoço executivo **não** está entre os 81
+registros, então redirecioná-lo para `/cardapio/` mostraria o cardápio errado.
+Mesmo depois da virada, a dependência do Hubt só termina quando o almoço
+executivo for decidido: ou vira uma categoria com horário próprio, ou mantém
+link separado.
 
 ### Ordem de aplicação
 
