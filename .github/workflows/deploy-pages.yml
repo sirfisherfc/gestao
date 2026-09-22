@@ -42,6 +42,7 @@ jobs:
             vendas.html \
             caixa.html \
             calendario.html \
+            cardapio.html \
             dre.html \
             despesas.html \
             gerente.html \
@@ -90,6 +91,7 @@ jobs:
             assets/supabase-client.js \
             caixa.html \
             calendario.html \
+            cardapio.html \
             classificar_excecoes.html \
             conciliacao.html \
             conciliacao_contabil.html \

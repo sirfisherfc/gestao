@@ -29,6 +29,7 @@
     'importar.html',
     'escalas.html',
     'melhoria_inovacao.html',
+    'cardapio.html',
     'gerente.html'
   ]);
   const KNOWN_PAGES = new Set([...ADMIN_ONLY_PAGES, ...CONFIGURABLE_PAGES]);

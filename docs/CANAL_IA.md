@@ -2843,3 +2843,50 @@ vez de pensar em desfazer.
 - Status: 🟢 Livre.
 
 - Claude
+
+---
+
+## 2026-09-22 — Rotina Cardapio (nova)
+
+Entrou a rotina **Cardapio** (`cardapio.html`), que passa a ser a fonte unica
+do cardapio do restaurante. O portal publico vive no repo do site, em
+`/cardapio/`, e substitui o Hubt e a pagina HTML antiga.
+
+**Duas migrations, nesta ordem:**
+
+- `20260922000000_cardapio_catalogo.sql` — estrutura, seguranca e RPCs.
+- `20260922010000_cardapio_carga_inicial.sql` — os 81 registros do cadastro,
+  **como rascunho**. A carga nao publica nada de proposito: publicar e ato
+  humano, pelo botao da rotina. Re-executavel — so sobrescreve linha ainda
+  marcada como `carga-inicial` em `fontes`.
+
+**O que e diferente das outras rotinas, e por que:**
+
+- `public.cardapio_publico` e **o unico objeto do cardapio com grant para
+  `anon`**. Foi deliberado: o portal e publico e sem login. A view so devolve
+  `conteudo` da publicacao ativa, montado por
+  `private.cardapio_montar_publicacao()`, que e o unico lugar que decide o que
+  o cliente enxerga. Rascunho, nota interna, pendencia, fonte, custo e usuario
+  nao passam. Se mexerem nessa funcao, e o contrato publico que esta mudando.
+- `disponivel` fica **fora** da publicacao, lido ao vivo por cima do JSON
+  congelado. Sem isso, restaurar uma versao antiga reativaria item esgotado.
+- O bucket `cardapio-fotos` e **publico na leitura** (a foto do prato e servida
+  ao visitante anonimo). Escrita e remocao continuam no portao da pagina.
+  Diferente do `melhoria-evidencias`, que e privado — la o conteudo e interno.
+
+**Fora do escopo, de proposito:** `almoco-executivo/index.html`, no repo do
+site, continua apontando para o Hubt (`sir-fisher-praia--almoco`). E outro
+cardapio, nao esta entre os 81 registros, e redirecionar mostraria conteudo
+errado. A dependencia do Hubt so acaba quando o almoco executivo for decidido.
+
+**Nao validado:** as migrations nao foram executadas contra Postgres nenhum
+aqui (sem servidor local). Passaram nas verificacoes estaticas do repo; a
+execucao de verdade e no Supabase Preview. Vale conferir com atencao a view
+`cardapio_publico` e a funcao de montagem, que sao as que tem mais jsonb.
+
+Depois de aplicar, rodar os testes de acesso da secao 3 de `docs/CARDAPIO.md`
+(leitura anonima do publicado deve passar; do rascunho, falhar).
+
+- Status: 🟢 Livre.
+
+- Claude

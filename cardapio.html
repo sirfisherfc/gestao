@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- frame-src libera apenas o portal publico: e nele que a previa e
+     renderizada, com o mesmo codigo que o cliente ve. img-src libera o
+     Storage do Supabase, de onde vem a foto enviada por aqui. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://*.supabase.co wss://*.supabase.co; img-src 'self' data: https://*.supabase.co https://www.sirfisher.com.br; frame-src https://www.sirfisher.com.br; object-src 'none'; base-uri 'none'; form-action 'self'; upgrade-insecure-requests">
+<title>Painel · Cardápio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="assets/dashboard-common.css" rel="stylesheet">
+<link href="assets/product-pages.css" rel="stylesheet">
+<link href="assets/accessibility.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2" integrity="sha384-JWEyvHh+lRf0sN/WWY+QTQwX+CyWqmNg4tkc8GQzAMEtR2wGNrCJlvnu1lHD1kDm" crossorigin="anonymous"></script>
+<script src="assets/supabase-client.js"></script>
+<script src="assets/app-config.js"></script>
+<script src="assets/auth.js"></script>
+<script src="assets/safe-dom.js"></script>
+<script src="assets/accessibility.js"></script>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="head-row"><div class="brand"><div class="mark" aria-hidden="true">P</div><div><h1 data-app-nome>Painel</h1><span data-app-subtitulo>Painel de Gestão</span></div></div><div class="head-meta"><div class="unidade">Cardápio</div></div></div>
+    <nav class="tabs"><a href="./">Visão Geral</a><a href="vendas.html">Faturamento</a><a href="caixa.html">Caixa</a><a href="dre.html">DRE</a><a href="despesas.html">Despesas</a><a href="conciliacao.html">Conciliação</a><a href="planejamento.html">Planejamento</a><a href="rotinas.html" class="routines">Rotinas</a></nav>
+  </header>
+  <main id="main"><div class="loading">Carregando o cardápio…</div></main>
+</div>
+<div class="toast" id="toast"></div>
+
+<div class="mi-modal" id="modalProduto" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Editar produto">
+  <div class="mi-box" id="boxProduto"></div>
+</div>
+
+<div class="mi-modal" id="modalPublicar" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Publicar cardápio">
+  <div class="mi-box" id="boxPublicar"></div>
+</div>
+
+<div class="mi-modal" id="modalPrevia" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Pré-visualizar como cliente">
+  <div class="mi-box" id="boxPrevia" style="max-width:960px"></div>
+</div>
+
+<script>
+/* ===========================================================================
+   Gestão → Rotinas → Cardápio
+   ---------------------------------------------------------------------------
+   Duas ideias sustentam esta tela.
+
+   1. Rascunho e publicado são coisas diferentes. O que o operador edita aqui
+      não chega ao cliente até alguém apertar "Publicar". A tela mostra, o
+      tempo todo, qual versão está no ar e o que muda se publicar agora.
+
+   2. Disponibilidade não é edição. "Acabou a picanha" precisa valer na mesa
+      em segundos, sem publicar nada e sem abrir formulário. Por isso é um
+      botão direto na lista, com registro de quem mudou e quando -- e fica
+      fora da fotografia publicada, para uma restauração de versão antiga não
+      trazer de volta um item esgotado.
+
+   Campo pendente não vira fato: o que está em conferência aparece marcado
+   aqui e sai do portal como "em conferência", nunca como número.
+   =========================================================================== */
+const sb = SirFisherSupabase;
+const esc = SirFisherDOM.escapeHTML;
+
+const PORTAL = 'https://www.sirfisher.com.br/cardapio/';
+
+let CATEGORIAS = [], PRODUTOS = [], ESTADO = null;
+let FILTRO = { busca: '', categoria: '', situacao: '' };
+
+const ROTULOS_PENDENCIA = {
+  porcao: 'porção', preco: 'preço', foto: 'foto', nome: 'nome',
+  alimentar: 'inf. alimentar', opcoes: 'opções', vigencia: 'vigência',
+  rendimento: 'rendimento', classificacao: 'classificação',
+  descricao: 'descrição', alegacao: 'alegação', regra: 'regra'
+};
+
+function aviso(texto, erro) {
+  const t = document.getElementById('toast');
+  t.textContent = texto;
+  t.className = 'toast show' + (erro ? ' bad' : '');
+  setTimeout(() => { t.className = 'toast'; }, erro ? 6000 : 3000);
+}
+
+const dinheiro = c => c === null || c === undefined ? '—'
+  : 'R$ ' + (c / 100).toFixed(2).replace('.', ',');
+const centavos = txt => {
+  const limpo = String(txt || '').replace(/[^\d,.-]/g, '').replace(',', '.');
+  if (!limpo) return null;
+  return Math.round(parseFloat(limpo) * 100);
+};
+const dataHora = iso => iso
+  ? new Date(iso).toLocaleString('pt-BR', { day: '2-digit', month: '2-digit',
+      year: '2-digit', hour: '2-digit', minute: '2-digit' })
+  : '—';
+
+function abrir(id) { document.getElementById(id).classList.add('show'); }
+function fechar(id) { document.getElementById(id).classList.remove('show'); }
+
+// --------------------------------------------------------------------------
+// Carga
+// --------------------------------------------------------------------------
+
+async function carregar() {
+  const [cat, prod, est] = await Promise.all([
+    sb.resilientFetch(() => sb.from('app_cardapio_categorias').select('*').order('ordem')),
+    sb.resilientFetch(() => sb.from('app_cardapio_produtos').select('*').order('categoria_id').order('ordem')),
+    sb.resilientFetch(() => sb.from('app_cardapio_estado').select('*').maybeSingle())
+  ]);
+  const erro = cat.error || prod.error || est.error;
+  if (erro) throw erro;
+  CATEGORIAS = cat.data || [];
+  PRODUTOS = (prod.data || []).filter(p => !p.arquivado);
+  ESTADO = est.data || {};
+}
+
+// --------------------------------------------------------------------------
+// Tela
+// --------------------------------------------------------------------------
+
+function resumo() {
+  const publicaveis = PRODUTOS.filter(p => p.publicar).length;
+  const pendentes = PRODUTOS.filter(p => (p.pendencias || []).length).length;
+  const esgotados = PRODUTOS.filter(p => !p.disponivel).length;
+  const naoPublicados = PRODUTOS.filter(p => p.alterado_apos_publicacao).length;
+  const versao = ESTADO.versao_publicada;
+
+  const cartao = (rotulo, valor, nota) =>
+    `<div class="summary-card"><div class="label">${esc(rotulo)}</div>` +
+    `<div class="value">${valor}</div>` +
+    (nota ? `<div class="note">${nota}</div>` : '') + '</div>';
+
+  return '<div class="summary-grid">' +
+    cartao('No ar', versao ? 'v' + versao : 'nada', versao
+      ? 'publicado em ' + dataHora(ESTADO.publicado_em)
+      : '<b>o portal ainda não recebeu nenhuma publicação</b>') +
+    cartao('Produtos publicáveis', publicaveis,
+      PRODUTOS.length - publicaveis > 0
+        ? (PRODUTOS.length - publicaveis) + ' em rascunho, fora do portal' : 'todos no catálogo') +
+    cartao('Alterados desde a publicação', naoPublicados,
+      naoPublicados ? 'o cliente ainda não vê estas mudanças' : 'rascunho igual ao que está no ar') +
+    cartao('Com pendência', pendentes, pendentes
+      ? 'sai do portal como “em conferência”' : 'nenhum campo pendente') +
+    cartao('Sem estoque hoje', esgotados, esgotados
+      ? 'marcados como “hoje não temos”' : 'tudo disponível') +
+    '</div>';
+}
+
+function selosProduto(p) {
+  const selos = [];
+  if (!p.publicar) selos.push('<span class="status neutral">rascunho, fora do portal</span>');
+  if (!p.disponivel) selos.push('<span class="status bad">hoje não temos</span>');
+  if (p.alterado_apos_publicacao && p.publicar) {
+    selos.push('<span class="status warn">não publicado</span>');
+  }
+  (p.pendencias || []).forEach(x => {
+    selos.push('<span class="status info">' + esc(ROTULOS_PENDENCIA[x] || x) + ' a conferir</span>');
+  });
+  return selos.length ? '<div class="cd-selos">' + selos.join('') + '</div>' : '';
+}
+
+function precoResumo(p) {
+  const v = p.variantes || [];
+  if (v.length) {
+    const vals = v.map(x => x.preco_centavos);
+    const mn = Math.min(...vals), mx = Math.max(...vals);
+    return mn === mx ? dinheiro(mn) : dinheiro(mn) + ' a ' + dinheiro(mx);
+  }
+  return dinheiro(p.preco_centavos);
+}
+
+function porcaoResumo(p) {
+  const s = (p.porcao || {}).estado;
+  if (s === 'divergente') return '<span style="color:#993d3d">porção divergente</span>';
+  if (!p.porcao || !p.porcao.texto) return '<span class="muted">sem porção</span>';
+  return esc(p.porcao.texto);
+}
+
+function htmlProduto(p) {
+  const classes = ['cd-item'];
+  if (!p.disponivel) classes.push('esgotado');
+  if (!p.publicar) classes.push('rascunho');
+
+  const urlFoto = p.foto && (p.foto.url ||
+    (p.foto.base ? 'https://www.sirfisher.com.br/assets/img/' + p.foto.base + '-440.jpg' : null));
+  const foto = urlFoto
+    ? `<img class="cd-foto" alt="" data-foto="${esc(urlFoto)}">`
+    : '<div class="cd-foto vazia">sem<br>foto</div>';
+
+  // Adicional aparece rotulado como adicional, sempre. Foi exatamente por
+  // confundir adicional com preco que o sanduiche de R$ 37,00 chegou a ser
+  // exportado como R$ 9,90.
+  const adicionais = (p.adicionais || []).map(a =>
+    `adicional ${esc(a.nome)} ${dinheiro(a.preco_centavos)}`).join(' · ');
+
+  return `<div class="${classes.join(' ')}" data-id="${esc(p.id)}">
+    ${foto}
+    <div class="cd-info">
+      <div class="cd-nome">${esc(p.nome)}</div>
+      <div class="cd-meta">
+        <b>${esc(precoResumo(p))}</b>
+        <span>${porcaoResumo(p)}</span>
+        ${(p.variantes || []).length ? `<span>${p.variantes.length} variantes</span>` : ''}
+        ${adicionais ? `<span>${esc(adicionais)}</span>` : ''}
+        <span class="muted">alterado ${esc(dataHora(p.atualizado_em))}${
+          p.atualizado_por_nome ? ' por ' + esc(p.atualizado_por_nome) : ''}</span>
+      </div>
+      ${selosProduto(p)}
+    </div>
+    <div class="cd-acoes">
+      <button class="button secondary cd-estoque" type="button">${
+        p.disponivel ? 'Marcar esgotado' : 'Voltou a ter'}</button>
+      <button class="button cd-editar" type="button">Editar</button>
+    </div>
+  </div>`;
+}
+
+function listaFiltrada() {
+  const q = FILTRO.busca.trim().toLowerCase();
+  return PRODUTOS.filter(p => {
+    if (FILTRO.categoria && p.categoria_id !== FILTRO.categoria) return false;
+    if (FILTRO.situacao === 'pendencia' && !(p.pendencias || []).length) return false;
+    if (FILTRO.situacao === 'esgotado' && p.disponivel) return false;
+    if (FILTRO.situacao === 'naopublicado' && !p.alterado_apos_publicacao) return false;
+    if (FILTRO.situacao === 'rascunho' && p.publicar) return false;
+    if (FILTRO.situacao === 'semfoto' && p.foto) return false;
+    if (q && !(p.nome + ' ' + (p.descricao || '') + ' ' + (p.descritor || ''))
+              .toLowerCase().includes(q)) return false;
+    return true;
+  });
+}
+
+function desenhar() {
+  const lista = listaFiltrada();
+  const porCat = {};
+  lista.forEach(p => { (porCat[p.categoria_id] = porCat[p.categoria_id] || []).push(p); });
+
+  const emConferencia = (ESTADO.valor || 'em_conferencia') !== 'vigente';
+
+  document.getElementById('main').innerHTML = `
+    <div class="page-intro">
+      <div>
+        <h2>Cardápio</h2>
+        <p>Catálogo único do restaurante. O que você edita aqui fica em rascunho;
+           o cliente só vê depois de <b>Publicar</b>. Marcar um item como esgotado
+           vale na hora e não precisa de publicação.</p>
+      </div>
+    </div>
+
+    ${emConferencia ? `<div class="cd-aviso">
+      <b>O cardápio está marcado como “em conferência”.</b> O portal avisa o cliente
+      de que preços e porções ainda estão sendo confirmados. Quando a casa terminar
+      de conferir, use <b>Marcar como conferido</b> para tirar o aviso do ar.
+      <button class="button secondary" id="btnConferido" type="button"
+              style="margin-left:8px">Marcar como conferido</button>
+    </div>` : ''}
+
+    ${resumo()}
+
+    <div class="cd-barra">
+      <button class="button secondary" id="btnPrevia" type="button">Pré-visualizar como cliente</button>
+      <button class="button secondary" id="btnHistorico" type="button">Versões publicadas</button>
+      <span class="spacer"></span>
+      <button class="button" id="btnPublicar" type="button">Publicar…</button>
+    </div>
+
+    <section class="panel">
+      <div class="panel-head">
+        <div><h3>Produtos</h3>
+          <div class="hint">${lista.length} de ${PRODUTOS.length} itens.</div></div>
+      </div>
+      <div class="cd-filtros">
+        <input type="search" id="fBusca" class="field" placeholder="Buscar por nome"
+               value="${esc(FILTRO.busca)}" aria-label="Buscar produto">
+        <select id="fCategoria" class="field" aria-label="Filtrar por categoria">
+          <option value="">Todas as categorias</option>
+          ${CATEGORIAS.map(c => `<option value="${esc(c.id)}"${
+            FILTRO.categoria === c.id ? ' selected' : ''}>${esc(c.nome)}</option>`).join('')}
+        </select>
+        <select id="fSituacao" class="field" aria-label="Filtrar por situação">
+          <option value="">Qualquer situação</option>
+          <option value="pendencia"${FILTRO.situacao === 'pendencia' ? ' selected' : ''}>Com pendência</option>
+          <option value="naopublicado"${FILTRO.situacao === 'naopublicado' ? ' selected' : ''}>Alterado e não publicado</option>
+          <option value="esgotado"${FILTRO.situacao === 'esgotado' ? ' selected' : ''}>Sem estoque hoje</option>
+          <option value="rascunho"${FILTRO.situacao === 'rascunho' ? ' selected' : ''}>Rascunho, fora do portal</option>
+          <option value="semfoto"${FILTRO.situacao === 'semfoto' ? ' selected' : ''}>Sem foto</option>
+        </select>
+      </div>
+      ${CATEGORIAS.filter(c => porCat[c.id]).map(c => `
+        <div class="cd-cat">
+          <div class="cd-cat-head"><h4>${esc(c.nome)}</h4>
+            <span>${porCat[c.id].length} ${porCat[c.id].length === 1 ? 'item' : 'itens'}</span></div>
+          <div class="cd-lista">${porCat[c.id].map(htmlProduto).join('')}</div>
+        </div>`).join('') ||
+        '<div class="empty">Nenhum produto com esses filtros.</div>'}
+    </section>`;
+
+  ligarLista();
+}
+
+function ligarLista() {
+  const g = id => document.getElementById(id);
+  const bind = (id, ev, fn) => { const el = g(id); if (el) el.addEventListener(ev, fn); };
+
+  let atraso;
+  bind('fBusca', 'input', e => {
+    clearTimeout(atraso);
+    const v = e.target.value;
+    atraso = setTimeout(() => { FILTRO.busca = v; desenhar(); g('fBusca').focus(); }, 250);
+  });
+  bind('fCategoria', 'change', e => { FILTRO.categoria = e.target.value; desenhar(); });
+  bind('fSituacao', 'change', e => { FILTRO.situacao = e.target.value; desenhar(); });
+  bind('btnPublicar', 'click', abrirPublicar);
+  bind('btnPrevia', 'click', abrirPrevia);
+  bind('btnHistorico', 'click', abrirHistorico);
+  bind('btnConferido', 'click', marcarConferido);
+
+  document.querySelectorAll('img[data-foto]').forEach(img => { img.src = img.dataset.foto; });
+
+  document.querySelectorAll('.cd-item').forEach(el => {
+    const id = el.dataset.id;
+    el.querySelector('.cd-editar').addEventListener('click', () => abrirProduto(id));
+    el.querySelector('.cd-estoque').addEventListener('click', () => alternarEstoque(id));
+  });
+}
+
+// --------------------------------------------------------------------------
+// Disponibilidade: ação rápida, com registro, sem publicar
+// --------------------------------------------------------------------------
+
+async function alternarEstoque(id) {
+  const p = PRODUTOS.find(x => x.id === id);
+  if (!p) return;
+  let motivo = null;
+  if (p.disponivel) {
+    motivo = prompt('Marcar “' + p.nome + '” como esgotado.\n' +
+      'Motivo (opcional, fica registrado):', '');
+    if (motivo === null) return;
+  }
+  const { error } = await sb.rpc('cardapio_alterar_disponibilidade', {
+    p_id: id, p_disponivel: !p.disponivel, p_motivo: motivo || null
+  });
+  if (error) { aviso(error.message, true); return; }
+  p.disponivel = !p.disponivel;
+  aviso(p.disponivel
+    ? '“' + p.nome + '” voltou ao cardápio. Já vale para quem está na mesa.'
+    : '“' + p.nome + '” marcado como esgotado. Já vale para quem está na mesa.');
+  desenhar();
+}
+
+async function marcarConferido() {
+  if (!confirm('Marcar o cardápio como conferido?\n\n' +
+      'O aviso “em conferência” sai do portal. Faça isso quando a casa tiver ' +
+      'confirmado preços, porções e informação alimentar.')) return;
+  const { error } = await sb.rpc('cardapio_definir_estado', { p_valor: 'vigente' });
+  if (error) { aviso(error.message, true); return; }
+  aviso('Cardápio marcado como conferido. Publique para o aviso sair do portal.');
+  await carregar(); desenhar();
+}
+
+// --------------------------------------------------------------------------
+// Edição do produto
+// --------------------------------------------------------------------------
+
+function campo(rotulo, id, valor, tipo, dica) {
+  const entrada = tipo === 'textarea'
+    ? `<textarea id="${id}" rows="3">${esc(valor || '')}</textarea>`
+    : `<input type="${tipo || 'text'}" id="${id}" value="${esc(valor === null || valor === undefined ? '' : valor)}">`;
+  return `<label class="mi-campo"><span>${esc(rotulo)}</span>${entrada}${
+    dica ? `<small class="muted">${esc(dica)}</small>` : ''}</label>`;
+}
+
+function linhasPreco(titulo, id, itens, dica) {
+  return `<div class="mi-campo larga"><span>${esc(titulo)}</span>
+    <small class="muted">${esc(dica)}</small>
+    <div class="cd-linhas" id="${id}">
+      ${(itens || []).map(x => linhaPreco(x.nome, x.preco_centavos)).join('')}
+    </div>
+    <button class="button secondary" type="button" data-add="${id}"
+            style="margin-top:6px">Acrescentar linha</button>
+  </div>`;
+}
+
+function linhaPreco(nome, centavosValor) {
+  return `<div class="cd-linha">
+    <input class="field" type="text" placeholder="Nome" value="${esc(nome || '')}">
+    <input class="field" type="text" placeholder="R$ 0,00"
+           value="${centavosValor !== null && centavosValor !== undefined
+             ? (centavosValor / 100).toFixed(2).replace('.', ',') : ''}">
+    <button class="cd-remover" type="button" title="Remover">×</button>
+  </div>`;
+}
+
+function lerLinhas(id) {
+  return [...document.querySelectorAll('#' + id + ' .cd-linha')].map(l => {
+    const campos = l.querySelectorAll('input');
+    return { nome: campos[0].value.trim(), preco_centavos: centavos(campos[1].value) };
+  }).filter(x => x.nome && x.preco_centavos !== null && !isNaN(x.preco_centavos));
+}
+
+function abrirProduto(id) {
+  const p = PRODUTOS.find(x => x.id === id);
+  if (!p) return;
+  const porcao = p.porcao || {};
+  const alimentar = p.alimentar || {};
+  const cat = CATEGORIAS.find(c => c.id === p.categoria_id) || {};
+
+  document.getElementById('boxProduto').innerHTML = `
+    <h3>${esc(p.nome)}</h3>
+    <p class="hint">${esc(cat.nome || p.categoria_id)}${
+      p.nome_original && p.nome_original !== p.nome
+        ? ' · no cadastro de origem: “' + esc(p.nome_original) + '”' : ''}</p>
+    <p class="mi-erro" id="erroProduto"></p>
+
+    ${(p.notas_internas || []).length ? `<div class="cd-aviso">
+      <b>Anotações de origem deste item</b><br>${
+        p.notas_internas.map(n => esc(n)).join('<br>')}</div>` : ''}
+
+    <div class="cd-campos">
+      ${campo('Nome que o cliente lê', 'cNome', p.nome)}
+      ${campo('Descritor curto', 'cDescritor', p.descritor,
+        'text', 'Para nome comercial ou em inglês: “camarões empanados com batatas”.')}
+      <label class="mi-campo larga"><span>Descrição na lista</span>
+        <textarea id="cDescricao" rows="2">${esc(p.descricao || '')}</textarea>
+        <small class="muted">Uma frase. É o que aparece no cartão do produto.</small></label>
+      <label class="mi-campo larga"><span>Texto completo (só no detalhe)</span>
+        <textarea id="cDetalhe" rows="3">${esc(p.detalhe || '')}</textarea></label>
+
+      ${campo('Preço', 'cPreco', p.preco_centavos !== null && p.preco_centavos !== undefined
+        ? (p.preco_centavos / 100).toFixed(2).replace('.', ',') : '', 'text',
+        'Deixe vazio se o preço vier das variantes.')}
+      ${campo('Porção como o cliente lê', 'cPorcao', porcao.texto, 'text',
+        'Ex.: “6 unidades / 360 g”. Vazio = o portal não mostra porção.')}
+
+      <label class="mi-campo larga"><span>Situação da porção</span>
+        <select id="cPorcaoEstado">
+          ${['declarado', 'parcial', 'divergente', 'ausente'].map(v =>
+            `<option value="${v}"${(porcao.estado || 'ausente') === v ? ' selected' : ''}>${
+              { declarado: 'Confirmada — o portal mostra o número',
+                parcial: 'Parcial — mostra o que há e registra o resto',
+                divergente: 'Divergente — o portal diz “em conferência”',
+                ausente: 'Sem informação — o portal não mostra porção' }[v]}</option>`).join('')}
+        </select></label>
+      ${porcao.divergencia ? `<div class="mi-campo larga"><span>Divergência registrada</span>
+        <small class="muted">${esc(porcao.divergencia)}</small></div>` : ''}
+
+      <label class="mi-campo larga"><span>Acompanhamentos já inclusos</span>
+        <input type="text" id="cInclui" value="${esc((p.inclui || []).join(' · '))}">
+        <small class="muted">Separe por “ · ”. É o que vem junto sem custo.</small></label>
+
+      ${linhasPreco('Variantes', 'cVariantes', p.variantes,
+        'Jeitos de pedir o mesmo item, com preços próprios. Viram faixa de preço na lista.')}
+      ${linhasPreco('Adicionais', 'cAdicionais', p.adicionais,
+        'Cobrados à parte. Nunca entram como preço do produto.')}
+
+      <div class="mi-campo larga"><span>Informação alimentar</span>
+        <small class="muted">Marcações transcritas do cardápio impresso:
+          <b>${esc((alimentar.declarados || []).join(', ') || 'nenhuma')}</b>.
+          Enquanto a cozinha não confirmar, o portal mostra a ressalva e manda
+          falar com a equipe. Lista vazia significa <b>não revisado</b>, nunca
+          “não contém”.</small>
+        ${(alimentar.divergencias || []).length
+          ? '<div class="cd-aviso" style="margin-top:8px">' +
+            alimentar.divergencias.map(d => esc(d)).join('<br>') + '</div>' : ''}
+      </div>
+
+      <label class="mi-campo larga"><span>Foto</span>
+        <input type="file" id="cFoto" accept="image/jpeg,image/png,image/webp,image/avif">
+        <small class="muted">${p.foto
+          ? 'Já tem foto. Enviar outra substitui a atual.'
+          : 'Sem foto. Envie uma foto real deste prato — nunca a de outro.'}</small></label>
+
+      <label class="mi-campo"><span>Sai no portal?</span>
+        <select id="cPublicar">
+          <option value="1"${p.publicar ? ' selected' : ''}>Sim, publicar</option>
+          <option value="0"${!p.publicar ? ' selected' : ''}>Não, manter em rascunho</option>
+        </select></label>
+      ${campo('Pendências', 'cPendencias', (p.pendencias || []).join(', '), 'text',
+        'Campos ainda a conferir. Some quando o dado for confirmado.')}
+    </div>
+
+    <div class="mi-rodape">
+      <button class="button secondary" type="button" id="cCancelar">Cancelar</button>
+      <button class="button" type="button" id="cSalvar">Salvar rascunho</button>
+    </div>`;
+
+  const box = document.getElementById('boxProduto');
+  box.querySelectorAll('[data-add]').forEach(b => b.addEventListener('click', () => {
+    document.getElementById(b.dataset.add)
+      .insertAdjacentHTML('beforeend', linhaPreco('', null));
+    ligarRemover();
+  }));
+  ligarRemover();
+  document.getElementById('cCancelar').addEventListener('click', () => fechar('modalProduto'));
+  document.getElementById('cSalvar').addEventListener('click', () => salvarProduto(p));
+  abrir('modalProduto');
+  document.getElementById('cNome').focus();
+}
+
+function ligarRemover() {
+  document.querySelectorAll('#boxProduto .cd-remover').forEach(b => {
+    b.onclick = () => b.closest('.cd-linha').remove();
+  });
+}
+
+async function enviarFoto(produtoId, arquivo) {
+  const ext = (arquivo.name.split('.').pop() || 'jpg').toLowerCase();
+  const caminho = `produto/${produtoId}/${Date.now()}.${ext}`;
+  const { error } = await sb.storage.from('cardapio-fotos')
+    .upload(caminho, arquivo, { upsert: false, contentType: arquivo.type });
+  if (error) throw error;
+  const { data } = sb.storage.from('cardapio-fotos').getPublicUrl(caminho);
+  return { url: data.publicUrl, caminho, alt: '' };
+}
+
+async function salvarProduto(p) {
+  const erro = document.getElementById('erroProduto');
+  const g = id => document.getElementById(id);
+  erro.textContent = '';
+
+  const nome = g('cNome').value.trim();
+  if (nome.length < 2) { erro.textContent = 'O nome é obrigatório.'; return; }
+
+  const variantes = lerLinhas('cVariantes');
+  const adicionais = lerLinhas('cAdicionais');
+  const preco = centavos(g('cPreco').value);
+
+  if (preco === null && !variantes.length && g('cPublicar').value === '1') {
+    erro.textContent = 'Um produto publicado precisa de preço ou de variantes com preço.';
+    return;
+  }
+  // A trava que existe por causa do caso real dos sanduíches: a batata de
+  // R$ 9,90 não pode virar o preço de um sanduíche de R$ 37,00.
+  const caro = adicionais.find(a => preco !== null && a.preco_centavos >= preco);
+  if (caro) {
+    erro.textContent = `O adicional “${caro.nome}” custa igual ou mais que o produto. ` +
+      'Confira: adicional é o que se soma ao prato, não uma forma de pedi-lo.';
+    return;
+  }
+
+  let foto = p.foto;
+  const arquivo = g('cFoto').files[0];
+  if (arquivo) {
+    try {
+      g('cSalvar').disabled = true;
+      foto = await enviarFoto(p.id, arquivo);
+    } catch (e) {
+      g('cSalvar').disabled = false;
+      erro.textContent = 'Não consegui enviar a foto: ' + e.message;
+      return;
+    }
+  }
+
+  const porcaoEstado = g('cPorcaoEstado').value;
+  const porcaoTexto = g('cPorcao').value.trim();
+  const porcao = Object.assign({}, p.porcao, {
+    texto: porcaoTexto || null,
+    estado: porcaoEstado
+  });
+
+  const dados = {
+    categoria_id: p.categoria_id,
+    subgrupo: p.subgrupo,
+    nome: nome,
+    nome_original: p.nome_original,
+    descritor: g('cDescritor').value.trim() || null,
+    descricao: g('cDescricao').value.trim() || null,
+    detalhe: g('cDetalhe').value.trim() || null,
+    preco_centavos: preco,
+    ordem: p.ordem,
+    inclui: g('cInclui').value.split('·').map(s => s.trim()).filter(Boolean),
+    opcoes: p.opcoes,
+    porcao: porcao,
+    alimentar: p.alimentar,
+    foto: foto,
+    termos: p.termos,
+    etiquetas: p.etiquetas,
+    publicar: g('cPublicar').value === '1',
+    pendencias: g('cPendencias').value.split(',').map(s => s.trim()).filter(Boolean),
+    fontes: p.fontes,
+    notas_internas: p.notas_internas
+  };
+
+  const { data, error } = await sb.rpc('cardapio_salvar_produto', {
+    p_id: p.id, p_dados: Object.assign(dados, { variantes, adicionais }),
+    p_atualizado_em: p.atualizado_em
+  });
+  g('cSalvar').disabled = false;
+
+  if (error) {
+    // Edição concorrente: em vez de sobrescrever em silêncio, a tela avisa e
+    // manda recarregar. Duas pessoas mexendo no cardápio ao mesmo tempo é
+    // rotina numa operação de restaurante.
+    erro.textContent = String(error.message || '').includes('EDICAO_CONCORRENTE')
+      ? error.message.replace('EDICAO_CONCORRENTE: ', '')
+      : error.message;
+    return;
+  }
+
+  fechar('modalProduto');
+  aviso('Rascunho salvo. Publique para o cliente ver.');
+  await carregar(); desenhar();
+  if (data) { /* novo atualizado_em já veio no recarregamento */ }
+}
+
+// --------------------------------------------------------------------------
+// Pré-visualizar como cliente
+// --------------------------------------------------------------------------
+
+// A prévia é o portal de verdade, num iframe, recebendo o rascunho por
+// postMessage. Assim o operador vê o desenho que o cliente verá, em vez de
+// uma imitação mantida em paralelo aqui dentro.
+function abrirPrevia() {
+  document.getElementById('boxPrevia').innerHTML = `
+    <h3>Pré-visualizar como cliente</h3>
+    <p class="hint">Esta é a página real do cardápio, mostrando o rascunho.
+       Ninguém mais está vendo isto.</p>
+    <p class="mi-erro" id="erroPrevia"></p>
+    <iframe class="cd-previa" id="framePrevia" title="Pré-visualização do cardápio"></iframe>
+    <div class="mi-rodape">
+      <button class="button secondary" type="button" id="pFechar">Fechar</button>
+    </div>`;
+  document.getElementById('pFechar').addEventListener('click', () => fechar('modalPrevia'));
+  document.getElementById('framePrevia').src = PORTAL + '?previa=1';
+  abrir('modalPrevia');
+  enviarPrevia();
+}
+
+async function enviarPrevia() {
+  const { data, error } = await sb.rpc('cardapio_previa');
+  if (error) {
+    document.getElementById('erroPrevia').textContent =
+      'Não consegui montar a prévia: ' + error.message;
+    return;
+  }
+  const frame = document.getElementById('framePrevia');
+  const mandar = () => frame.contentWindow.postMessage(
+    { tipo: 'cardapio-previa', dados: data }, new URL(PORTAL).origin);
+  frame.addEventListener('load', mandar);
+  // O portal avisa quando está pronto; o load cobre o caso de já ter carregado.
+  window.addEventListener('message', ev => {
+    if (ev.origin === new URL(PORTAL).origin &&
+        ev.data && ev.data.tipo === 'cardapio-previa-pronto') mandar();
+  });
+}
+
+// --------------------------------------------------------------------------
+// Publicar
+// --------------------------------------------------------------------------
+
+async function abrirPublicar() {
+  const box = document.getElementById('boxPublicar');
+  box.innerHTML = '<div class="loading">Calculando o que muda…</div>';
+  abrir('modalPublicar');
+
+  const { data, error } = await sb.rpc('cardapio_previa');
+  if (error) {
+    box.innerHTML = `<h3>Publicar</h3><p class="mi-erro">${esc(error.message)}</p>
+      <div class="mi-rodape"><button class="button secondary" type="button"
+        onclick="document.getElementById('modalPublicar').classList.remove('show')">Fechar</button></div>`;
+    return;
+  }
+
+  const pendentes = PRODUTOS.filter(p => p.publicar && (p.pendencias || []).length);
+  const semFoto = PRODUTOS.filter(p => p.publicar && !p.foto &&
+    ['comer'].includes((CATEGORIAS.find(c => c.id === p.categoria_id) || {}).grupo));
+
+  box.innerHTML = `
+    <h3>Publicar o cardápio</h3>
+    <p class="hint">A partir de publicar, quem abrir o QR na mesa vê esta versão.
+       A versão que está no ar hoje continua guardada no histórico.</p>
+    <p class="mi-erro" id="erroPublicar"></p>
+
+    <div class="cd-diff">
+      <b>O que vai para o ar</b>
+      ${data.produtos.length} produtos em ${data.categorias.length} categorias.
+      ${data.estado !== 'vigente'
+        ? '<br>O portal continuará mostrando o aviso de <b>cardápio em conferência</b>.' : ''}
+
+      ${pendentes.length ? `<b>Com campo a conferir (${pendentes.length})</b>
+        ${pendentes.slice(0, 12).map(p => esc(p.nome) + ' (' +
+          p.pendencias.map(x => esc(ROTULOS_PENDENCIA[x] || x)).join(', ') + ')').join('<br>')}
+        ${pendentes.length > 12 ? '<br>e mais ' + (pendentes.length - 12) + '.' : ''}
+        <br><span class="muted">Estes vão ao ar sem o dado pendente, marcados como
+        “em conferência”. Não é impeditivo.</span>` : ''}
+
+      ${semFoto.length ? `<b>Pratos sem foto (${semFoto.length})</b>
+        <span class="muted">Vão ao ar com o brasão no lugar da foto. Nenhum prato
+        recebe a foto de outro.</span>` : ''}
+    </div>
+
+    <label class="mi-campo" style="margin-top:12px"><span>O que mudou (opcional)</span>
+      <input type="text" id="pObs" maxlength="160"
+             placeholder="Ex.: reajuste das cervejas e foto nova do Marine"></label>
+
+    <div class="mi-rodape">
+      <button class="button secondary" type="button" id="pCancelar">Cancelar</button>
+      <button class="button" type="button" id="pConfirmar">Publicar agora</button>
+    </div>`;
+
+  document.getElementById('pCancelar').addEventListener('click', () => fechar('modalPublicar'));
+  document.getElementById('pConfirmar').addEventListener('click', publicar);
+}
+
+async function publicar() {
+  const botao = document.getElementById('pConfirmar');
+  botao.disabled = true;
+  const { data, error } = await sb.rpc('cardapio_publicar', {
+    p_observacao: document.getElementById('pObs').value.trim() || null
+  });
+  botao.disabled = false;
+  if (error) {
+    // Publicação que falha não derruba o que está no ar: a versão anterior
+    // continua ativa, intacta.
+    document.getElementById('erroPublicar').textContent =
+      error.message + ' — a versão que está no ar continua intacta.';
+    return;
+  }
+  fechar('modalPublicar');
+  aviso('Publicado como versão ' + data + '. Já vale para quem abrir o QR.');
+  await carregar(); desenhar();
+}
+
+// --------------------------------------------------------------------------
+// Histórico e restauração
+// --------------------------------------------------------------------------
+
+async function abrirHistorico() {
+  const box = document.getElementById('boxPublicar');
+  box.innerHTML = '<div class="loading">Carregando versões…</div>';
+  abrir('modalPublicar');
+
+  const { data, error } = await sb.from('app_cardapio_publicacoes')
+    .select('*').order('versao', { ascending: false }).limit(40);
+  if (error) { box.innerHTML = `<p class="mi-erro">${esc(error.message)}</p>`; return; }
+
+  box.innerHTML = `
+    <h3>Versões publicadas</h3>
+    <p class="hint">Restaurar não apaga nada: cria uma versão nova com o conteúdo
+       daquela. Itens marcados como esgotados hoje <b>continuam esgotados</b> —
+       disponibilidade não faz parte da versão.</p>
+    <div class="cd-versoes">
+      ${(data || []).map(v => `<div class="cd-versao">
+        <span class="v">v${v.versao}</span>
+        <span class="quando">${esc(dataHora(v.publicado_em))}${
+          v.publicado_por_nome ? ' · ' + esc(v.publicado_por_nome) : ''}
+          · ${v.produtos} produtos${v.observacao ? ' · ' + esc(v.observacao) : ''}</span>
+        ${v.ativo ? '<span class="status ok">no ar</span>'
+          : `<button class="button secondary" type="button"
+                     data-restaurar="${v.versao}">Restaurar</button>`}
+      </div>`).join('') || '<div class="empty">Nenhuma publicação ainda.</div>'}
+    </div>
+    <div class="mi-rodape">
+      <button class="button secondary" type="button" id="hFechar">Fechar</button>
+    </div>`;
+
+  document.getElementById('hFechar').addEventListener('click', () => fechar('modalPublicar'));
+  box.querySelectorAll('[data-restaurar]').forEach(b => {
+    b.addEventListener('click', async () => {
+      const v = Number(b.dataset.restaurar);
+      if (!confirm(`Restaurar a versão ${v}?\n\nUma versão nova será criada com ` +
+        'aquele conteúdo. O histórico continua completo e os itens esgotados hoje ' +
+        'seguem esgotados.')) return;
+      const { data, error } = await sb.rpc('cardapio_restaurar', { p_versao: v });
+      if (error) { aviso(error.message, true); return; }
+      fechar('modalPublicar');
+      aviso('Versão ' + v + ' restaurada como versão ' + data + '.');
+      await carregar(); desenhar();
+    });
+  });
+}
+
+// --------------------------------------------------------------------------
+
+document.addEventListener('keydown', e => {
+  if (e.key !== 'Escape') return;
+  ['modalProduto', 'modalPublicar', 'modalPrevia'].forEach(fechar);
+});
+
+(async () => {
+  const auth = await SirFisherAuth.requireRole(sb);
+  if (!auth) return;
+  try {
+    await carregar();
+    desenhar();
+  } catch (e) {
+    document.getElementById('main').innerHTML =
+      `<div class="erro">Não consegui carregar o cardápio: ${esc(e.message || e)}</div>`;
+  }
+})();
+</script>
+</body>
+</html>

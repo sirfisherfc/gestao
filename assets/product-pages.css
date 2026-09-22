@@ -394,6 +394,7 @@ header{background:var(--header);color:#fff;position:sticky;top:0;z-index:10}
 .mi-erro{color:var(--red);font-size:11px;margin-bottom:9px;display:none}
 .mi-erro.show{display:block}
 .routine-card.tom-melhoria{--tom:#0f6b4f}
+.routine-card.tom-cardapio{--tom:#12293d}
 @media(max-width:620px){
   .mi-item{align-items:stretch}
   .mi-item .mi-acoes{width:100%}
@@ -401,4 +402,51 @@ header{background:var(--header);color:#fff;position:sticky;top:0;z-index:10}
   .mi-dupla{grid-template-columns:1fr}
   .mi-contagem{margin-left:0;width:100%}
   .mi-box{padding:15px}
+}
+
+/* Cardapio (cardapio.html) ------------------------------------------------
+   Lista de edicao do catalogo. O operador precisa enxergar, sem abrir nada:
+   o preco, a porcao, se o item esta no ar, se tem pendencia e se o rascunho
+   ja diverge do que o cliente esta vendo. */
+.cd-barra{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:14px}
+.cd-barra .spacer{flex:1}
+.cd-filtros{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;align-items:center}
+.cd-filtros .field{min-width:150px}
+.cd-cat{margin-bottom:18px}
+.cd-cat-head{display:flex;align-items:baseline;gap:10px;padding:0 2px 7px;border-bottom:2px solid var(--border);margin-bottom:8px}
+.cd-cat-head h4{font-size:13.5px;font-weight:700}
+.cd-cat-head span{font-size:11px;color:var(--muted)}
+.cd-lista{display:flex;flex-direction:column}
+.cd-item{display:flex;gap:12px;align-items:flex-start;padding:10px 6px;border-bottom:1px solid var(--border)}
+.cd-item:last-child{border-bottom:0}
+.cd-item.esgotado{background:#fdf6f6}
+.cd-item.rascunho{background:#fbf9f2}
+.cd-foto{width:46px;height:46px;border-radius:7px;object-fit:cover;flex:none;background:#eef1f3}
+.cd-foto.vazia{display:flex;align-items:center;justify-content:center;border:1px dashed #cfd6da;color:#9aa8b0;font-size:9px;text-align:center;line-height:1.1}
+.cd-info{flex:1;min-width:0}
+.cd-nome{font-size:13.5px;font-weight:700;line-height:1.25}
+.cd-meta{font-size:11px;color:var(--muted);margin-top:3px;display:flex;flex-wrap:wrap;gap:4px 9px;align-items:center}
+.cd-meta b{color:var(--text);font-weight:700}
+.cd-acoes{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:flex-end}
+.cd-acoes .button{padding:6px 10px}
+.cd-selos{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+.cd-campos{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cd-campos .larga{grid-column:1 / -1}
+.cd-linhas{display:flex;flex-direction:column;gap:6px}
+.cd-linha{display:grid;grid-template-columns:1fr 110px 34px;gap:6px;align-items:center}
+.cd-linha input{width:100%}
+.cd-remover{border:1px solid #cfd6da;background:#fff;border-radius:8px;cursor:pointer;color:#993d3d;font-weight:700;padding:7px 0}
+.cd-previa{width:100%;height:70vh;min-height:420px;border:1px solid var(--border);border-radius:10px;background:#fff}
+.cd-diff{font-size:11.5px;line-height:1.55}
+.cd-diff b{display:block;margin-top:8px;font-size:10.5px;text-transform:uppercase;letter-spacing:.45px;color:var(--muted)}
+.cd-versoes{display:flex;flex-direction:column}
+.cd-versao{display:flex;gap:10px;align-items:center;padding:9px 4px;border-bottom:1px solid var(--border);font-size:11.5px}
+.cd-versao:last-child{border-bottom:0}
+.cd-versao .v{font-weight:700;min-width:44px}
+.cd-versao .quando{color:var(--muted);flex:1}
+.cd-aviso{border-left:3px solid var(--amber);background:#fdfaf2;padding:10px 12px;border-radius:0 8px 8px 0;font-size:11.5px;margin-bottom:12px}
+@media(max-width:620px){
+  .cd-campos{grid-template-columns:1fr}
+  .cd-item{flex-wrap:wrap}
+  .cd-acoes{width:100%;justify-content:flex-start}
 }

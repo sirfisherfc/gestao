@@ -1,0 +1,6484 @@
+{
+ "gerado_em": "2026-09-22",
+ "estado_catalogo": "em_conferencia",
+ "nota_estado": "Catálogo reconciliado a partir do cadastro, do cardápio HTML e do cardápio impresso. Nenhum preço, porção ou declaração alimentar foi confirmado pela cozinha ou pela operação até esta data.",
+ "moeda": "BRL",
+ "avisos": [
+  {
+   "id": "alergenos",
+   "tipo": "alimentar",
+   "titulo": "Sobre alérgenos",
+   "texto": "As marcações de cada prato foram transcritas do cardápio impresso e ainda não foram conferidas com a cozinha. Elas não substituem uma ficha técnica. Antes de pedir, fale com a equipe sobre alergias e restrições.",
+   "fonte": "Sir Fisher Praia.pdf, rodapé da página 1",
+   "citacao": "ALÉRGICOS: PODE CONTER CAMARÃO E GLÚTEN.",
+   "estado": "declarado_no_impresso"
+  }
+ ],
+ "sinonimos": {
+  "macaxeira": [
+   "mandioca",
+   "aipim"
+  ],
+  "camarao": [
+   "camarões",
+   "camarao"
+  ],
+  "fish and chips": [
+   "fish n chips",
+   "fish chips",
+   "peixe com batata"
+  ],
+  "chope": [
+   "chopp",
+   "chopinho"
+  ],
+  "refrigerante": [
+   "refri"
+  ],
+  "batata frita": [
+   "fritas",
+   "batatas"
+  ],
+  "pescada amarela": [
+   "peixe"
+  ],
+  "agua de coco": [
+   "coco"
+  ]
+ },
+ "categorias": [
+  {
+   "id": "fish-and-chips",
+   "nome": "Fish & Chips",
+   "resumo": "O prato da casa, em duas massas diferentes.",
+   "grupo": "comer",
+   "subgrupos": []
+  },
+  {
+   "id": "petiscos",
+   "nome": "Petiscos e porções",
+   "resumo": "Para dividir na mesa enquanto a conversa corre.",
+   "grupo": "comer",
+   "subgrupos": [
+    {
+     "id": "mar",
+     "nome": "Do mar"
+    },
+    {
+     "id": "terra",
+     "nome": "Da terra"
+    },
+    {
+     "id": "fritas",
+     "nome": "Fritas e acompanhamentos"
+    }
+   ]
+  },
+  {
+   "id": "sanduiches",
+   "nome": "Sanduíches",
+   "resumo": "Em pão brioche, servidos individualmente.",
+   "grupo": "comer",
+   "subgrupos": []
+  },
+  {
+   "id": "para-dividir",
+   "nome": "Pratos para compartilhar",
+   "resumo": "Servidos na travessa, com arroz, batata frita (ou macaxeira), salada, farota e molho artesanal.",
+   "grupo": "comer",
+   "subgrupos": []
+  },
+  {
+   "id": "sobremesas",
+   "nome": "Sobremesas e café",
+   "resumo": "Para fechar a conta com doce.",
+   "grupo": "comer",
+   "subgrupos": []
+  },
+  {
+   "id": "cervejas",
+   "nome": "Cervejas e chope",
+   "resumo": "Long neck, garrafa 600 e chope.",
+   "grupo": "beber",
+   "subgrupos": []
+  },
+  {
+   "id": "coqueteis",
+   "nome": "Coquetéis",
+   "resumo": "Clássicos e criações da casa.",
+   "grupo": "beber",
+   "subgrupos": []
+  },
+  {
+   "id": "sem-alcool",
+   "nome": "Bebidas sem álcool",
+   "resumo": "Águas, sucos, refrigerantes e energético.",
+   "grupo": "beber",
+   "subgrupos": []
+  },
+  {
+   "id": "doses",
+   "nome": "Doses e aperitivos",
+   "resumo": "Destilados em dose de 50 mL.",
+   "grupo": "beber",
+   "subgrupos": []
+  },
+  {
+   "id": "extras",
+   "nome": "Extras e serviços",
+   "resumo": "Adicionais, itens de apoio e cobranças da casa.",
+   "grupo": "extras",
+   "subgrupos": [
+    {
+     "id": "comestiveis",
+     "nome": "Adicionais do prato"
+    },
+    {
+     "id": "apoio",
+     "nome": "Itens de apoio"
+    },
+    {
+     "id": "cobrancas",
+     "nome": "Cobranças"
+    }
+   ]
+  }
+ ],
+ "produtos": [
+  {
+   "id": "sir-fisher-fish-n-chips",
+   "categoria": "fish-and-chips",
+   "subgrupo": null,
+   "nome": "Sir Fisher — Fish & Chips",
+   "nome_original": "Sir Fisher - Fish N’ Chips",
+   "descritor": "pescada amarela em crosta de panko, com batatas",
+   "descricao": "Pescada amarela envolta em farinha panko, crocante por fora e suculenta por dentro. Acompanha batatas palito.",
+   "detalhe": "Nossa interpretação do clássico Fish & Chips: a pescada amarela é envolta em uma crosta de farinha panko, garantindo textura crocante por fora e suculência por dentro. Acompanhado de batatas palito.",
+   "preco_centavos": 4500,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": null,
+    "principal": null,
+    "total": null,
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "divergente",
+    "divergencia": "Cardápio HTML: 150 g. Cardápio impresso: 200 g.",
+    "nota": "Peso em conferência com a cozinha.",
+    "fontes": [
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [
+     "PEIXE",
+     "GLÚTEN",
+     "OVO"
+    ],
+    "fonte": "Sir Fisher Praia.pdf, página 1",
+    "estado": "declarado_no_impresso",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": {
+    "base": "prato",
+    "larguras": [
+     800,
+     1200
+    ],
+    "alt": "Filés de peixe empanados com batatas fritas, servidos em uma tábua com a bandeira britânica",
+    "estado": "a_confirmar",
+    "nota": "A foto mostra peixe empanado ao estilo panko. Confirmar com a operação se corresponde a esta versão ou à London."
+   },
+   "termos": [
+    "peixe",
+    "pescada amarela",
+    "panko",
+    "empanado",
+    "batata frita",
+    "fish and chips"
+   ],
+   "etiquetas": [
+    "do-mar",
+    "classico-da-casa"
+   ],
+   "pendencias": [
+    "porcao",
+    "foto"
+   ],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [
+    "O TXT e o HTML trazem o selo “Mais Pedido!”. É uma alegação de popularidade sem dado de vendas: não foi publicada."
+   ],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 0,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 4500
+   },
+   "indice_busca": "& - a acompanha acompanhado amarela and batata batatas chips chips: classico com crocante crosta de dentro. do e em empanado envolta farinha fish fisher fora frita fritas garantindo interpretacao n nossa n’ palito. panko panko, peixe pescada por sir suculencia suculenta textura uma —"
+  },
+  {
+   "id": "london-fish-n-chips",
+   "categoria": "fish-and-chips",
+   "subgrupo": null,
+   "nome": "London — Fish & Chips",
+   "nome_original": "London - Fish N’ Chips",
+   "descritor": "peixe em massa fermentada na cerveja, com batatas",
+   "descricao": "Peixe envolto em leve massa fermentada na cerveja e frito até dourar. Acompanha batatas crocantes.",
+   "detalhe": "Autêntico Fish & Chips: o peixe é envolto em uma leve massa fermentada na cerveja e frito até atingir a perfeição dourada. Acompanhado de batatas crocantes, inspirado nas barracas à beira-mar das praias inglesas.",
+   "preco_centavos": 4500,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": null,
+    "principal": null,
+    "total": null,
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "divergente",
+    "divergencia": "Cardápio HTML: 150 g. Cardápio impresso: 200 g.",
+    "nota": "Peso em conferência com a cozinha.",
+    "fontes": [
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [
+     "PEIXE",
+     "GLÚTEN",
+     "OVO"
+    ],
+    "fonte": "Sir Fisher Praia.pdf, página 1",
+    "estado": "declarado_no_impresso",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "peixe",
+    "cerveja",
+    "massa",
+    "batata frita",
+    "fish and chips",
+    "original"
+   ],
+   "etiquetas": [
+    "do-mar",
+    "classico-da-casa"
+   ],
+   "pendencias": [
+    "porcao",
+    "nome"
+   ],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [
+    "O cardápio impresso chama esta versão de “Original — Fish N’ Chips”. A descrição coincide, mas o nome não foi trocado sem confirmação da operação."
+   ],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 1,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 4500
+   },
+   "indice_busca": "& - a acompanha acompanhado amarela and ate atingir autentico barracas batata batatas beira-mar cerveja cerveja, chips chips: com crocantes, crocantes. das de dourada. dourar. e em envolto fermentada fish frita fritas frito inglesas. inspirado leve london massa n na nas n’ o original peixe perfeicao pescada praias uma —"
+  },
+  {
+   "id": "patinha-de-caranguejo",
+   "categoria": "petiscos",
+   "subgrupo": "mar",
+   "nome": "Patinha de Caranguejo",
+   "nome_original": "Patinha de caranguejo",
+   "descritor": null,
+   "descricao": "Patas empanadas e crocantes. Acompanha batata frita e molho da casa.",
+   "detalhe": null,
+   "preco_centavos": 5500,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [
+    "Batata frita",
+    "Molho da casa"
+   ],
+   "opcoes": [],
+   "porcao": {
+    "texto": "10 unidades",
+    "principal": null,
+    "total": null,
+    "unidades": {
+     "quantidade": 10,
+     "rotulo": "patas"
+    },
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "TXT",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [
+     "GLÚTEN",
+     "LACTOSE"
+    ],
+    "fonte": "Sir Fisher Praia.pdf, página 1",
+    "estado": "declarado_no_impresso",
+    "divergencias": [
+     "O nome e a descrição citam caranguejo, mas o impresso não traz o símbolo de CRUSTÁCEOS neste bloco. Divergência registrada para conferência: a ausência do símbolo não indica ausência do ingrediente."
+    ],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "caranguejo",
+    "patinha",
+    "empanado",
+    "frutos do mar"
+   ],
+   "etiquetas": [
+    "do-mar"
+   ],
+   "pendencias": [
+    "alimentar",
+    "nome"
+   ],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [
+    "O impresso usa “PATA DE CARANGUEJO”; o cadastro usa “Patinha de caranguejo”. Nome de exibição mantido conforme o cadastro."
+   ],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 2,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 5500
+   },
+   "indice_busca": "acompanha batata batatas caranguejo casa casa. crocantes. da de do e empanadas empanado frita fritas frutos mar molho patas patinha"
+  },
+  {
+   "id": "bolinha-de-peixe-cremosa",
+   "categoria": "petiscos",
+   "subgrupo": "mar",
+   "nome": "Bolinha de Peixe Cremosa",
+   "nome_original": "Bolinha de Peixe Cremosa",
+   "descritor": null,
+   "descricao": "Seis bolinhas de pescada amarela com recheio cremoso de cream cheese.",
+   "detalhe": null,
+   "preco_centavos": 4400,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "6 unidades",
+    "principal": null,
+    "total": null,
+    "unidades": {
+     "quantidade": 6,
+     "rotulo": "bolinhas"
+    },
+    "rende_pessoas": null,
+    "estado": "parcial",
+    "divergencia": "Peso divergente — TXT e HTML: 300 g. Cardápio impresso: 200 g.",
+    "nota": null,
+    "fontes": [
+     "TXT",
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [
+     "GLÚTEN",
+     "LACTOSE"
+    ],
+    "fonte": "Sir Fisher Praia.pdf, página 1",
+    "estado": "declarado_no_impresso",
+    "divergencias": [
+     "A descrição cita pescada amarela, mas o impresso não traz o símbolo de PEIXE neste bloco. Divergência registrada para conferência."
+    ],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "peixe",
+    "pescada amarela",
+    "cream cheese",
+    "bolinha"
+   ],
+   "etiquetas": [
+    "do-mar"
+   ],
+   "pendencias": [
+    "porcao",
+    "alimentar"
+   ],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 3,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 4400
+   },
+   "indice_busca": "amarela bolinha bolinhas cheese cheese. com cream cremosa cremoso de peixe pescada recheio seis"
+  },
+  {
+   "id": "newcastle",
+   "categoria": "petiscos",
+   "subgrupo": "mar",
+   "nome": "NewCastle",
+   "nome_original": "NewCastle",
+   "descritor": "camarões empanados com batatas",
+   "descricao": "Crocantes por fora, em farinha panko. Inspirado nas ruas de Londres.",
+   "detalhe": "Camarões empanados com uma mistura crocante de farinha panko. Acompanha porção de batatas. Uma explosão de sabores inspirada nas vibrantes ruas londrinas.",
+   "preco_centavos": 6000,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [
+    "Porção de batatas"
+   ],
+   "opcoes": [],
+   "porcao": {
+    "texto": "250 g",
+    "principal": {
+     "valor": 250,
+     "unidade": "g",
+     "alcance": "indefinido"
+    },
+    "total": null,
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": "O cardápio impresso informa “peso in natura”. Alcance por prato ainda em conferência.",
+    "fontes": [
+     "TXT",
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [
+     "CRUSTÁCEOS",
+     "GLÚTEN",
+     "OVO"
+    ],
+    "fonte": "Sir Fisher Praia.pdf, página 1",
+    "estado": "declarado_no_impresso",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": {
+    "base": "newcastle-camarao-empanado-sir-fisher",
+    "larguras": [
+     440,
+     660
+    ],
+    "alt": "Camarões empanados dourados servidos com batatas fritas e molho, em tábua de madeira",
+    "estado": "conferido"
+   },
+   "termos": [
+    "camarao",
+    "camarões",
+    "empanado",
+    "panko",
+    "batata frita",
+    "frutos do mar"
+   ],
+   "etiquetas": [
+    "do-mar"
+   ],
+   "pendencias": [
+    "porcao"
+   ],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [
+    "O impresso não cita o acompanhamento de batatas. Omissão não retira o acompanhamento declarado no cadastro."
+   ],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 4,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 6000
+   },
+   "indice_busca": "acompanha batata batatas batatas. camarao camaroes com crocante crocantes de do em empanado empanados explosao farinha fora, frita fritas frutos inspirada inspirado londres. londrinas. mar mistura nas newcastle panko panko. por porcao ruas sabores uma vibrantes"
+  },
+  {
+   "id": "crocante-carne-de-sol",
+   "categoria": "petiscos",
+   "subgrupo": "terra",
+   "nome": "Crocante de Carne de Sol com Abóbora",
+   "nome_original": "Crocante de Carne de Sol com...",
+   "descritor": null,
+   "descricao": "Seis bolinhos crocantes em leve massa de abóbora, com recheio cremoso de carne de sol.",
+   "detalhe": null,
+   "preco_centavos": 3800,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "6 unidades / 360 g",
+    "principal": null,
+    "total": {
+     "valor": 360,
+     "unidade": "g"
+    },
+    "unidades": {
+     "quantidade": 6,
+     "rotulo": "bolinhos"
+    },
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": "O cardápio impresso informa “peso in natura”. Alcance por prato ainda em conferência.",
+    "fontes": [
+     "TXT",
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [
+     "GLÚTEN",
+     "OVO",
+     "LACTOSE"
+    ],
+    "fonte": "Sir Fisher Praia.pdf, página 1",
+    "estado": "declarado_no_impresso",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "carne de sol",
+    "abobora",
+    "bolinho",
+    "crocante"
+   ],
+   "etiquetas": [
+    "da-terra"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [
+    "Nome truncado no TXT (“Crocante de Carne de Sol com...”). Completado pelo HTML e pelo impresso, que coincidem."
+   ],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 5,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 3800
+   },
+   "indice_busca": "abobora abobora, bolinho bolinhos carne com com... cremoso crocante crocantes de em leve massa recheio seis sol sol."
+  },
+  {
+   "id": "crocante-calabresa",
+   "categoria": "petiscos",
+   "subgrupo": "terra",
+   "nome": "Crocante de Calabresa e Alho Poró",
+   "nome_original": "Crocante de Calabresa e Alho...",
+   "descritor": null,
+   "descricao": "Seis bolinhos crocantes recheados com calabresa frita e alho-poró.",
+   "detalhe": null,
+   "preco_centavos": 3800,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "6 unidades / 360 g",
+    "principal": null,
+    "total": {
+     "valor": 360,
+     "unidade": "g"
+    },
+    "unidades": {
+     "quantidade": 6,
+     "rotulo": "bolinhos"
+    },
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": "O cardápio impresso informa “peso in natura”. Alcance por prato ainda em conferência.",
+    "fontes": [
+     "TXT",
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [
+     "GLÚTEN",
+     "OVO",
+     "LACTOSE"
+    ],
+    "fonte": "Sir Fisher Praia.pdf, página 1",
+    "estado": "declarado_no_impresso",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "calabresa",
+    "alho poro",
+    "bolinho",
+    "crocante"
+   ],
+   "etiquetas": [
+    "da-terra"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [
+    "Nome truncado no TXT. Completado pelo HTML e pelo impresso."
+   ],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 6,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 3800
+   },
+   "indice_busca": "alho alho-poro. alho... bolinho bolinhos calabresa com crocante crocantes de e frita poro recheados seis"
+  },
+  {
+   "id": "big-ben-fries",
+   "categoria": "petiscos",
+   "subgrupo": "fritas",
+   "nome": "Big Ben Fries",
+   "nome_original": "Big Ben Fries",
+   "descritor": "batata frita com cheddar cremoso e bacon",
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 3300,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "200 g",
+    "principal": null,
+    "total": {
+     "valor": 200,
+     "unidade": "g"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": "O cardápio impresso informa “peso in natura”. Alcance por prato ainda em conferência.",
+    "fontes": [
+     "TXT",
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [
+     "GLÚTEN",
+     "OVO",
+     "CORANTES"
+    ],
+    "fonte": "Sir Fisher Praia.pdf, página 1",
+    "estado": "declarado_no_impresso",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "batata frita",
+    "cheddar",
+    "bacon",
+    "fritas"
+   ],
+   "etiquetas": [
+    "da-terra",
+    "para-compartilhar"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 7,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 3300
+   },
+   "indice_busca": "bacon batata batatas ben big cheddar com cremoso e fries frita fritas"
+  },
+  {
+   "id": "pasteizinhos",
+   "categoria": "petiscos",
+   "subgrupo": "terra",
+   "nome": "Pasteizinhos",
+   "nome_original": "Pasteizinhos",
+   "descritor": null,
+   "descricao": "Dez pastéis crocantes com molho especial. Sabor a escolher.",
+   "detalhe": null,
+   "preco_centavos": 3700,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [
+    "Molho especial"
+   ],
+   "opcoes": [
+    {
+     "texto": "2 queijos",
+     "estado": "declarado"
+    },
+    {
+     "texto": "Carne",
+     "estado": "declarado"
+    },
+    {
+     "texto": "Camarão",
+     "estado": "declarado"
+    }
+   ],
+   "porcao": {
+    "texto": "10 unidades",
+    "principal": null,
+    "total": null,
+    "unidades": {
+     "quantidade": 10,
+     "rotulo": "pastéis"
+    },
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "TXT",
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [
+     "LACTOSE",
+     "CRUSTÁCEOS",
+     "GLÚTEN"
+    ],
+    "fonte": "Sir Fisher Praia.pdf, página 1",
+    "estado": "declarado_no_impresso",
+    "divergencias": [
+     "Os símbolos são do bloco com os três sabores. O impresso não separa as marcações por sabor."
+    ],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "pastel",
+    "pasteizinho",
+    "queijo",
+    "carne",
+    "camarao"
+   ],
+   "etiquetas": [
+    "da-terra",
+    "para-compartilhar"
+   ],
+   "pendencias": [
+    "opcoes"
+   ],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [
+    "Nenhuma fonte informa se é possível misturar sabores em uma mesma porção. Pendente de confirmação com a operação.",
+    "Os três sabores são opções de um mesmo registro, com preço único. Não foram desdobrados em produtos separados."
+   ],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 8,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 3700
+   },
+   "indice_busca": "2 a camarao camaroes carne com crocantes dez escolher. especial especial. molho pasteis pasteizinho pasteizinhos pastel queijo queijos sabor"
+  },
+  {
+   "id": "crispy-spicy-chicken",
+   "categoria": "petiscos",
+   "subgrupo": "terra",
+   "nome": "Crispy Spicy Chicken",
+   "nome_original": "Crispy Spicy Chicken",
+   "descritor": "rolinhos de frango empanados recheados com queijo",
+   "descricao": "Marinado em especiarias e frito na hora. Acompanha molho cremoso.",
+   "detalhe": null,
+   "preco_centavos": 3700,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [
+    "Molho cremoso"
+   ],
+   "opcoes": [],
+   "porcao": {
+    "texto": "200 g",
+    "principal": null,
+    "total": {
+     "valor": 200,
+     "unidade": "g"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "parcial",
+    "divergencia": "O impresso descreve “4 grandes rolinhos” e não informa peso. As duas informações podem se somar; confirmar a apresentação vigente.",
+    "nota": "O cardápio impresso informa “peso in natura”. Alcance por prato ainda em conferência.",
+    "fontes": [
+     "TXT",
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [
+     "GLÚTEN",
+     "LACTOSE"
+    ],
+    "fonte": "Sir Fisher Praia.pdf, página 1",
+    "estado": "declarado_no_impresso",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "frango",
+    "queijo",
+    "empanado",
+    "apimentado",
+    "rolinho"
+   ],
+   "etiquetas": [
+    "da-terra"
+   ],
+   "pendencias": [
+    "porcao"
+   ],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 9,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 3700
+   },
+   "indice_busca": "acompanha apimentado chicken com cremoso cremoso. crispy de e em empanado empanados especiarias frango frito hora. marinado molho na queijo recheados rolinho rolinhos spicy"
+  },
+  {
+   "id": "file-mignon-trinchado",
+   "categoria": "petiscos",
+   "subgrupo": "terra",
+   "nome": "Filé Mignon Trinchado",
+   "nome_original": "Filé Mignon Trinchado",
+   "descritor": null,
+   "descricao": "Filé mignon acebolado, servido com batata frita ou macaxeira dourada.",
+   "detalhe": null,
+   "preco_centavos": 8400,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [
+    {
+     "texto": "Batata frita ou macaxeira",
+     "nota": "Troca sem custo declarado nas fontes. Confirmar com a equipe.",
+     "estado": "a_confirmar"
+    }
+   ],
+   "porcao": {
+    "texto": "300 g",
+    "principal": {
+     "valor": 300,
+     "unidade": "g",
+     "alcance": "indefinido"
+    },
+    "total": null,
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": "O cardápio impresso informa “peso in natura”. Alcance por prato ainda em conferência. O impresso não delimita se os 300 g são da carne ou do prato montado.",
+    "fontes": [
+     "TXT",
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [
+     "GLÚTEN"
+    ],
+    "fonte": "Sir Fisher Praia.pdf, página 1",
+    "estado": "declarado_no_impresso",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "file mignon",
+    "carne",
+    "acebolado",
+    "batata frita",
+    "macaxeira"
+   ],
+   "etiquetas": [
+    "da-terra",
+    "para-compartilhar"
+   ],
+   "pendencias": [
+    "porcao"
+   ],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [
+    "Produto distinto do “Filé Mignon” dos pratos para compartilhar (R$ 90,00), que vem com arroz, salada, farota e molho."
+   ],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 10,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 8400
+   },
+   "indice_busca": "acebolado acebolado, aipim batata batatas carne com dourada. file frita fritas macaxeira mandioca mignon ou servido trinchado"
+  },
+  {
+   "id": "caldo-de-peixe",
+   "categoria": "petiscos",
+   "subgrupo": "mar",
+   "nome": "Caldo de Peixe",
+   "nome_original": "Caldo de Peixe",
+   "descritor": null,
+   "descricao": "Caldo de pescada amarela, leve e cheio de sabor.",
+   "detalhe": null,
+   "preco_centavos": 1800,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "200 mL",
+    "principal": null,
+    "total": {
+     "valor": 200,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "TXT",
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [
+     "GLÚTEN",
+     "PEIXE",
+     "OVO"
+    ],
+    "fonte": "Sir Fisher Praia.pdf, página 1",
+    "estado": "declarado_no_impresso",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "caldo",
+    "peixe",
+    "pescada amarela",
+    "sopa"
+   ],
+   "etiquetas": [
+    "do-mar"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 11,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 1800
+   },
+   "indice_busca": "amarela amarela, caldo cheio de e leve peixe pescada sabor. sopa"
+  },
+  {
+   "id": "camarao-alho-e-oleo",
+   "categoria": "petiscos",
+   "subgrupo": "mar",
+   "nome": "Camarão alho e óleo",
+   "nome_original": "Camarão alho e óleo",
+   "descritor": null,
+   "descricao": "Camarão G salteado no alho e óleo.",
+   "detalhe": null,
+   "preco_centavos": 4700,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "300 g",
+    "principal": {
+     "valor": 300,
+     "unidade": "g",
+     "alcance": "indefinido"
+    },
+    "total": null,
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": "O cardápio impresso informa “peso in natura”. Alcance por prato ainda em conferência.",
+    "fontes": [
+     "TXT",
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [
+     "GLÚTEN",
+     "CRUSTÁCEOS"
+    ],
+    "fonte": "Sir Fisher Praia.pdf, página 1",
+    "estado": "declarado_no_impresso",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": {
+    "base": "camarao-alho-e-oleo-sir-fisher",
+    "larguras": [
+     440,
+     660
+    ],
+    "alt": "Camarões inteiros salteados com alho, servidos em travessa com limão",
+    "estado": "conferido"
+   },
+   "termos": [
+    "camarao",
+    "alho",
+    "frutos do mar",
+    "salteado"
+   ],
+   "etiquetas": [
+    "do-mar"
+   ],
+   "pendencias": [
+    "porcao"
+   ],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 12,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 4700
+   },
+   "indice_busca": "alho camarao camaroes do e frutos g mar no oleo oleo. salteado"
+  },
+  {
+   "id": "dadinho-de-tapioca",
+   "categoria": "petiscos",
+   "subgrupo": "terra",
+   "nome": "Dadinho de Tapioca",
+   "nome_original": "Dadinho de Tapioca",
+   "descritor": null,
+   "descricao": "Doze dadinhos de tapioca crocantes por fora e macios por dentro, com molho especial.",
+   "detalhe": null,
+   "preco_centavos": 2900,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [
+    "Molho especial"
+   ],
+   "opcoes": [],
+   "porcao": {
+    "texto": "12 unidades",
+    "principal": null,
+    "total": null,
+    "unidades": {
+     "quantidade": 12,
+     "rotulo": "dadinhos"
+    },
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "TXT",
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [
+     "GLÚTEN",
+     "LACTOSE"
+    ],
+    "fonte": "Sir Fisher Praia.pdf, página 1",
+    "estado": "declarado_no_impresso",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": {
+    "base": "dadinho-de-tapioca-sir-fisher",
+    "larguras": [
+     440,
+     660
+    ],
+    "alt": "Cubos de tapioca dourados servidos com molho em tigela",
+    "estado": "conferido"
+   },
+   "termos": [
+    "tapioca",
+    "dadinho",
+    "queijo coalho",
+    "petisco"
+   ],
+   "etiquetas": [
+    "da-terra",
+    "para-compartilhar"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 13,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 2900
+   },
+   "indice_busca": "coalho com crocantes dadinho dadinhos de dentro, doze e especial especial. fora macios molho petisco por queijo tapioca"
+  },
+  {
+   "id": "calabresa-acebolada-com-fritas",
+   "categoria": "petiscos",
+   "subgrupo": "terra",
+   "nome": "Calabresa Acebolada com Fritas",
+   "nome_original": "Calabresa Acebolada com Fritas",
+   "descritor": null,
+   "descricao": "Calabresa acebolada com porção generosa de batata frita ou macaxeira crocante.",
+   "detalhe": null,
+   "preco_centavos": 4600,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [
+    {
+     "texto": "Batata frita ou macaxeira",
+     "nota": "Troca sem custo declarado nas fontes. Confirmar com a equipe.",
+     "estado": "a_confirmar"
+    }
+   ],
+   "porcao": {
+    "texto": "250 g",
+    "principal": {
+     "valor": 250,
+     "unidade": "g",
+     "alcance": "indefinido"
+    },
+    "total": null,
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": "O cardápio impresso informa “peso in natura”. Alcance por prato ainda em conferência. O impresso não delimita se os 250 g são da calabresa ou do prato montado.",
+    "fontes": [
+     "TXT",
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [
+     "GLÚTEN"
+    ],
+    "fonte": "Sir Fisher Praia.pdf, página 1",
+    "estado": "declarado_no_impresso",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "calabresa",
+    "linguica",
+    "acebolada",
+    "batata frita",
+    "macaxeira"
+   ],
+   "etiquetas": [
+    "da-terra",
+    "para-compartilhar"
+   ],
+   "pendencias": [
+    "porcao"
+   ],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 14,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 4600
+   },
+   "indice_busca": "acebolada aipim batata batatas calabresa com crocante. de frita fritas generosa linguica macaxeira mandioca ou porcao"
+  },
+  {
+   "id": "macaxeira-ou-batata-frita",
+   "categoria": "petiscos",
+   "subgrupo": "fritas",
+   "nome": "Macaxeira Frita ou Batata Frita",
+   "nome_original": "Macaxeira Frita ou Batata Frita",
+   "descritor": null,
+   "descricao": "Macaxeira ou batata frita, douradinhas. Escolha uma das duas.",
+   "detalhe": null,
+   "preco_centavos": 2700,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [
+    {
+     "texto": "Macaxeira frita",
+     "estado": "declarado"
+    },
+    {
+     "texto": "Batata frita",
+     "estado": "declarado"
+    }
+   ],
+   "porcao": {
+    "texto": "250 g",
+    "principal": null,
+    "total": {
+     "valor": 250,
+     "unidade": "g"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": "O cardápio impresso informa “peso in natura”. Alcance por prato ainda em conferência.",
+    "fontes": [
+     "TXT",
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [
+     "GLÚTEN"
+    ],
+    "fonte": "Sir Fisher Praia.pdf, página 1",
+    "estado": "declarado_no_impresso",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "macaxeira",
+    "mandioca",
+    "aipim",
+    "batata frita",
+    "fritas"
+   ],
+   "etiquetas": [
+    "da-terra",
+    "para-compartilhar"
+   ],
+   "pendencias": [
+    "opcoes"
+   ],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [
+    "Registro único com duas opções de escolha. Não foi desdobrado em dois produtos: nenhuma fonte dá preço separado para cada uma."
+   ],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 15,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 2700
+   },
+   "indice_busca": "aipim batata batatas das douradinhas. duas. escolha frita frita, fritas macaxeira mandioca ou uma"
+  },
+  {
+   "id": "isca-de-peixe",
+   "categoria": "petiscos",
+   "subgrupo": "mar",
+   "nome": "Isca de Peixe",
+   "nome_original": "Isca de Peixe",
+   "descritor": null,
+   "descricao": "Tiras de pescada amarela empanadas ao panko, com molho especial.",
+   "detalhe": null,
+   "preco_centavos": 4200,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [
+    "Molho especial"
+   ],
+   "opcoes": [],
+   "porcao": {
+    "texto": "250 g",
+    "principal": null,
+    "total": {
+     "valor": 250,
+     "unidade": "g"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": "O cardápio impresso informa “peso in natura”. Alcance por prato ainda em conferência.",
+    "fontes": [
+     "TXT",
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [
+     "GLÚTEN",
+     "PEIXE",
+     "OVO",
+     "LACTOSE"
+    ],
+    "fonte": "Sir Fisher Praia.pdf, página 1",
+    "estado": "declarado_no_impresso",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": {
+    "base": "isca-de-peixe-sir-fisher",
+    "larguras": [
+     440,
+     660
+    ],
+    "alt": "Tiras de peixe empanadas servidas em tábua com limão e molho",
+    "estado": "conferido"
+   },
+   "termos": [
+    "peixe",
+    "pescada amarela",
+    "isca",
+    "empanado",
+    "panko"
+   ],
+   "etiquetas": [
+    "do-mar",
+    "para-compartilhar"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 16,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 4200
+   },
+   "indice_busca": "amarela ao com de empanadas empanado especial especial. isca molho panko panko, peixe pescada tiras"
+  },
+  {
+   "id": "fisher-burger",
+   "categoria": "sanduiches",
+   "subgrupo": null,
+   "nome": "Fisher Burger",
+   "nome_original": "Fisher Burger",
+   "descritor": "hambúrguer de pescada amarela empanada",
+   "descricao": "Em pão brioche, com picles e molho especial.",
+   "detalhe": "O Fisher Burger é uma criação inspirada nas delícias do mar. Duas fatias de filé de pescada amarela, empanadas para uma crocância perfeita, dispostas em pão brioche. Complementado por picles e um molho especial.",
+   "preco_centavos": 3700,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [
+    {
+     "nome": "Adicionar batata frita",
+     "preco_centavos": 990,
+     "fontes": [
+      "HTML",
+      "PDF"
+     ],
+     "estado": "declarado"
+    }
+   ],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": null,
+    "principal": null,
+    "total": null,
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "parcial",
+    "divergencia": "As fontes citam 120 g sem dizer se é o total das duas fatias ou o peso de cada uma.",
+    "nota": "Peso em conferência com a cozinha.",
+    "fontes": [
+     "TXT",
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [
+     "GLÚTEN",
+     "PEIXE",
+     "OVO",
+     "LACTOSE"
+    ],
+    "fonte": "Sir Fisher Praia.pdf, página 1",
+    "estado": "declarado_no_impresso",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "hamburguer",
+    "sanduiche",
+    "peixe",
+    "pescada amarela",
+    "brioche",
+    "empanado"
+   ],
+   "etiquetas": [
+    "do-mar"
+   ],
+   "pendencias": [
+    "porcao"
+   ],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [
+    "O sanduíche custa R$ 37,00. O adicional de batata (R$ 9,90) é a primeira oferta estruturada no HTML e nunca deve ser lido como preço do produto."
+   ],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 17,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 3700
+   },
+   "indice_busca": "adicionar amarela amarela, batata batatas brioche brioche, brioche. burger com complementado criacao crocancia de delicias dispostas do duas e em empanada empanadas empanado especial. fatias file fisher frita fritas hamburguer inspirada mar. molho nas o pao para peixe perfeita, pescada picles por sanduiche um uma"
+  },
+  {
+   "id": "edimburger",
+   "categoria": "sanduiches",
+   "subgrupo": null,
+   "nome": "Edimburger",
+   "nome_original": "Edimburger",
+   "descritor": "blend de 120 g de bovino com bacon",
+   "descricao": "Em pão brioche, com alface, tomate, maionese especial e cheddar.",
+   "detalhe": "O Edimburger presta homenagem à capital da Escócia com um blend de 120 g de carne, composto por bovino e bacon. Servido em pão brioche macio, com alface crocante, tomate fresco, maionese especial e fatias generosas de cheddar.",
+   "preco_centavos": 3700,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [
+    {
+     "nome": "Adicionar batata frita",
+     "preco_centavos": 990,
+     "fontes": [
+      "HTML",
+      "PDF"
+     ],
+     "estado": "declarado"
+    }
+   ],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "120 g de carne",
+    "principal": {
+     "valor": 120,
+     "unidade": "g",
+     "alcance": "proteina"
+    },
+    "total": null,
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": "O cardápio impresso informa “peso in natura”. Alcance por prato ainda em conferência.",
+    "fontes": [
+     "TXT",
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [
+     "GLÚTEN",
+     "OVO",
+     "LACTOSE"
+    ],
+    "fonte": "Sir Fisher Praia.pdf, página 1",
+    "estado": "declarado_no_impresso",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "hamburguer",
+    "sanduiche",
+    "carne",
+    "bovino",
+    "bacon",
+    "cheddar",
+    "brioche"
+   ],
+   "etiquetas": [
+    "da-terra"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [
+    "Preço do sanduíche: R$ 37,00. O adicional de batata é informação separada."
+   ],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 18,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 3700
+   },
+   "indice_busca": "120 a adicionar alface alface, bacon bacon. batata batatas blend bovino brioche brioche, capital carne carne, cheddar cheddar. com composto crocante, da de e edimburger em escocia especial fatias fresco, frita fritas g generosas hamburguer homenagem macio, maionese o pao por presta sanduiche servido tomate tomate, um"
+  },
+  {
+   "id": "marine-sandwich",
+   "categoria": "sanduiches",
+   "subgrupo": null,
+   "nome": "Marine Sandwich",
+   "nome_original": "Marine Sandwich",
+   "descritor": "camarões salteados com cream cheese empanado",
+   "descricao": "Com molho aioli, alface e pepino, em pão brioche.",
+   "detalhe": null,
+   "preco_centavos": 4600,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [
+    {
+     "nome": "Adicionar batata frita",
+     "preco_centavos": 990,
+     "fontes": [
+      "HTML",
+      "PDF"
+     ],
+     "estado": "declarado"
+    }
+   ],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": null,
+    "principal": null,
+    "total": null,
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "ausente",
+    "divergencia": null,
+    "nota": "Nenhuma fonte informa peso ou quantidade.",
+    "fontes": []
+   },
+   "alimentar": {
+    "declarados": [
+     "GLÚTEN",
+     "CRUSTÁCEOS",
+     "OVO",
+     "LACTOSE"
+    ],
+    "fonte": "Sir Fisher Praia.pdf, página 1",
+    "estado": "declarado_no_impresso",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": {
+    "base": "marine-sandwich-sir-fisher",
+    "larguras": [
+     440,
+     660
+    ],
+    "alt": "Sanduíche em pão brioche coberto de camarões salteados",
+    "estado": "conferido"
+   },
+   "termos": [
+    "camarao",
+    "sanduiche",
+    "cream cheese",
+    "aioli",
+    "brioche",
+    "frutos do mar"
+   ],
+   "etiquetas": [
+    "do-mar"
+   ],
+   "pendencias": [
+    "porcao"
+   ],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [
+    "O impresso não cita o pepino presente no cadastro. Omissão não retira o ingrediente.",
+    "Preço do sanduíche: R$ 46,00. Adicional de batata em separado."
+   ],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 19,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 4600
+   },
+   "indice_busca": "adicionar aioli aioli, alface batata batatas brioche brioche. camarao camaroes cheese com cream do e em empanado frita fritas frutos mar marine molho pao pepino, salteados sanduiche sandwich"
+  },
+  {
+   "id": "file-mignon-dividir",
+   "categoria": "para-dividir",
+   "subgrupo": null,
+   "nome": "Filé Mignon",
+   "nome_original": "Filé Mignon",
+   "descritor": null,
+   "descricao": "Filé mignon suculento, com molho madeira ou preparado ao alho e óleo.",
+   "detalhe": null,
+   "preco_centavos": 9000,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [
+    {
+     "nome": "Arroz extra",
+     "preco_centavos": 1200,
+     "fontes": [
+      "TXT",
+      "PDF"
+     ],
+     "estado": "declarado"
+    }
+   ],
+   "inclui": [
+    "Arroz",
+    "Batata frita ou macaxeira",
+    "Salada",
+    "Farota",
+    "Molho artesanal"
+   ],
+   "opcoes": [
+    {
+     "texto": "Batata frita ou macaxeira",
+     "nota": "Troca sem custo declarado nas fontes. Confirmar com a equipe.",
+     "estado": "a_confirmar"
+    }
+   ],
+   "porcao": {
+    "texto": "300 g de proteína",
+    "principal": {
+     "valor": 300,
+     "unidade": "g",
+     "alcance": "proteina"
+    },
+    "total": null,
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": "O cardápio impresso informa “peso in natura”. Alcance por prato ainda em conferência. O impresso não informa quantas pessoas o prato serve.",
+    "fontes": [
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [
+     "GLÚTEN",
+     "OVO"
+    ],
+    "fonte": "Sir Fisher Praia.pdf, página 1",
+    "estado": "declarado_no_impresso",
+    "divergencias": [
+     "Os símbolos estão no prato completo. O impresso não diz se vêm da proteína, do molho ou de um acompanhamento."
+    ],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": {
+    "base": "file-mignon-sir-fisher",
+    "larguras": [
+     440,
+     660
+    ],
+    "alt": "Travessa com filé mignon ao molho, arroz, batata frita e farofa",
+    "estado": "conferido"
+   },
+   "termos": [
+    "file mignon",
+    "carne",
+    "molho madeira",
+    "alho e oleo",
+    "para dividir",
+    "compartilhar",
+    "arroz",
+    "farota"
+   ],
+   "etiquetas": [
+    "para-compartilhar"
+   ],
+   "pendencias": [
+    "rendimento"
+   ],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [
+    "O impresso declara 300 g de proteína e o rodapé informa peso in natura. Nenhuma fonte informa quantas pessoas o prato serve: o rendimento não foi deduzido do peso."
+   ],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 20,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 9000
+   },
+   "indice_busca": "aipim alho ao arroz artesanal batata batatas carne com compartilhar dividir e extra farota file frita fritas macaxeira madeira mandioca mignon molho oleo oleo. ou para preparado salada suculento,"
+  },
+  {
+   "id": "picanha-importada",
+   "categoria": "para-dividir",
+   "subgrupo": null,
+   "nome": "Picanha Importada",
+   "nome_original": "Picanha Importada",
+   "descritor": null,
+   "descricao": "Picanha importada, grelhada no charbroil para realçar sabor e suculência.",
+   "detalhe": null,
+   "preco_centavos": 9900,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [
+    {
+     "nome": "Arroz extra",
+     "preco_centavos": 1200,
+     "fontes": [
+      "TXT",
+      "PDF"
+     ],
+     "estado": "declarado"
+    }
+   ],
+   "inclui": [
+    "Arroz",
+    "Batata frita ou macaxeira",
+    "Salada",
+    "Farota",
+    "Molho artesanal"
+   ],
+   "opcoes": [
+    {
+     "texto": "Batata frita ou macaxeira",
+     "nota": "Troca sem custo declarado nas fontes. Confirmar com a equipe.",
+     "estado": "a_confirmar"
+    }
+   ],
+   "porcao": {
+    "texto": "300 g de proteína",
+    "principal": {
+     "valor": 300,
+     "unidade": "g",
+     "alcance": "proteina"
+    },
+    "total": null,
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": "O cardápio impresso informa “peso in natura”. Alcance por prato ainda em conferência. O impresso não informa quantas pessoas o prato serve.",
+    "fontes": [
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [
+     "GLÚTEN",
+     "OVO"
+    ],
+    "fonte": "Sir Fisher Praia.pdf, página 1",
+    "estado": "declarado_no_impresso",
+    "divergencias": [
+     "Os símbolos estão no prato completo. O impresso não diz se vêm da proteína, do molho ou de um acompanhamento."
+    ],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": {
+    "base": "picanha-importada-sir-fisher",
+    "larguras": [
+     440,
+     660
+    ],
+    "alt": "Travessa com fatias de picanha grelhada, arroz, batata frita e farofa",
+    "estado": "conferido"
+   },
+   "termos": [
+    "picanha",
+    "carne",
+    "importada",
+    "grelhada",
+    "charbroil",
+    "para dividir",
+    "compartilhar",
+    "arroz",
+    "farota"
+   ],
+   "etiquetas": [
+    "para-compartilhar"
+   ],
+   "pendencias": [
+    "rendimento"
+   ],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [
+    "O impresso declara 300 g de proteína e o rodapé informa peso in natura. Nenhuma fonte informa quantas pessoas o prato serve: o rendimento não foi deduzido do peso."
+   ],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 21,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 9900
+   },
+   "indice_busca": "aipim arroz artesanal batata batatas carne charbroil compartilhar dividir e extra farota frita fritas grelhada importada importada, macaxeira mandioca molho no ou para picanha realcar sabor salada suculencia."
+  },
+  {
+   "id": "file-de-peixe-grelhado",
+   "categoria": "para-dividir",
+   "subgrupo": null,
+   "nome": "Filé de Peixe Grelhado",
+   "nome_original": "Filé de Peixe Grelhado",
+   "descritor": null,
+   "descricao": "Filé de pescada amarela grelhado, leve e cheio de sabor.",
+   "detalhe": null,
+   "preco_centavos": 8000,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [
+    {
+     "nome": "Arroz extra",
+     "preco_centavos": 1200,
+     "fontes": [
+      "TXT",
+      "PDF"
+     ],
+     "estado": "declarado"
+    }
+   ],
+   "inclui": [
+    "Arroz",
+    "Batata frita ou macaxeira",
+    "Salada",
+    "Farota",
+    "Molho artesanal"
+   ],
+   "opcoes": [
+    {
+     "texto": "Batata frita ou macaxeira",
+     "nota": "Troca sem custo declarado nas fontes. Confirmar com a equipe.",
+     "estado": "a_confirmar"
+    }
+   ],
+   "porcao": {
+    "texto": "300 g de proteína",
+    "principal": {
+     "valor": 300,
+     "unidade": "g",
+     "alcance": "proteina"
+    },
+    "total": null,
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": "O cardápio impresso informa “peso in natura”. Alcance por prato ainda em conferência. O impresso não informa quantas pessoas o prato serve.",
+    "fontes": [
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [
+     "GLÚTEN",
+     "OVO",
+     "PEIXE"
+    ],
+    "fonte": "Sir Fisher Praia.pdf, página 1",
+    "estado": "declarado_no_impresso",
+    "divergencias": [
+     "Os símbolos estão no prato completo. O impresso não diz se vêm da proteína, do molho ou de um acompanhamento."
+    ],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": {
+    "base": "peixe-grelhado-sir-fisher",
+    "larguras": [
+     440,
+     660
+    ],
+    "alt": "Travessa com filé de peixe grelhado, arroz, batata frita e farofa",
+    "estado": "conferido"
+   },
+   "termos": [
+    "peixe",
+    "pescada amarela",
+    "grelhado",
+    "leve",
+    "para dividir",
+    "compartilhar",
+    "arroz",
+    "farota"
+   ],
+   "etiquetas": [
+    "para-compartilhar"
+   ],
+   "pendencias": [
+    "rendimento"
+   ],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [
+    "O impresso declara 300 g de proteína e o rodapé informa peso in natura. Nenhuma fonte informa quantas pessoas o prato serve: o rendimento não foi deduzido do peso."
+   ],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 22,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 8000
+   },
+   "indice_busca": "aipim amarela arroz artesanal batata batatas cheio compartilhar de dividir e extra farota file frita fritas grelhado grelhado, leve macaxeira mandioca molho ou para peixe pescada sabor. salada"
+  },
+  {
+   "id": "carne-de-sol-acebolada",
+   "categoria": "para-dividir",
+   "subgrupo": null,
+   "nome": "Carne de Sol Acebolada",
+   "nome_original": "Carne de Sol Acebolada",
+   "descritor": null,
+   "descricao": "Carne de sol de primeira, acompanhada de cebolas douradas.",
+   "detalhe": null,
+   "preco_centavos": 8800,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [
+    {
+     "nome": "Arroz extra",
+     "preco_centavos": 1200,
+     "fontes": [
+      "TXT",
+      "PDF"
+     ],
+     "estado": "declarado"
+    }
+   ],
+   "inclui": [
+    "Arroz",
+    "Batata frita ou macaxeira",
+    "Salada",
+    "Farota",
+    "Molho artesanal"
+   ],
+   "opcoes": [
+    {
+     "texto": "Batata frita ou macaxeira",
+     "nota": "Troca sem custo declarado nas fontes. Confirmar com a equipe.",
+     "estado": "a_confirmar"
+    }
+   ],
+   "porcao": {
+    "texto": "300 g de proteína",
+    "principal": {
+     "valor": 300,
+     "unidade": "g",
+     "alcance": "proteina"
+    },
+    "total": null,
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": "O cardápio impresso informa “peso in natura”. Alcance por prato ainda em conferência. O impresso não informa quantas pessoas o prato serve.",
+    "fontes": [
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [
+     "GLÚTEN",
+     "OVO"
+    ],
+    "fonte": "Sir Fisher Praia.pdf, página 1",
+    "estado": "declarado_no_impresso",
+    "divergencias": [
+     "Os símbolos estão no prato completo. O impresso não diz se vêm da proteína, do molho ou de um acompanhamento."
+    ],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": {
+    "base": "carne-de-sol-sir-fisher",
+    "larguras": [
+     440,
+     660
+    ],
+    "alt": "Travessa com carne de sol acebolada, arroz, batata frita e farofa",
+    "estado": "conferido"
+   },
+   "termos": [
+    "carne de sol",
+    "acebolada",
+    "cebola",
+    "para dividir",
+    "compartilhar",
+    "arroz",
+    "farota"
+   ],
+   "etiquetas": [
+    "para-compartilhar"
+   ],
+   "pendencias": [
+    "rendimento"
+   ],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [
+    "O impresso declara 300 g de proteína e o rodapé informa peso in natura. Nenhuma fonte informa quantas pessoas o prato serve: o rendimento não foi deduzido do peso."
+   ],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 23,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 8800
+   },
+   "indice_busca": "acebolada acompanhada aipim arroz artesanal batata batatas carne cebola cebolas compartilhar de dividir douradas. extra farota frita fritas macaxeira mandioca molho ou para primeira, salada sol"
+  },
+  {
+   "id": "peito-de-frango-com-ervas",
+   "categoria": "para-dividir",
+   "subgrupo": null,
+   "nome": "Peito de Frango com Ervas",
+   "nome_original": "Peito de Frango com Ervas",
+   "descritor": null,
+   "descricao": "Peito de frango temperado com ervas finas e grelhado no charbroil.",
+   "detalhe": null,
+   "preco_centavos": 6200,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [
+    {
+     "nome": "Arroz extra",
+     "preco_centavos": 1200,
+     "fontes": [
+      "TXT",
+      "PDF"
+     ],
+     "estado": "declarado"
+    }
+   ],
+   "inclui": [
+    "Arroz",
+    "Batata frita ou macaxeira",
+    "Salada",
+    "Farota",
+    "Molho artesanal"
+   ],
+   "opcoes": [
+    {
+     "texto": "Batata frita ou macaxeira",
+     "nota": "Troca sem custo declarado nas fontes. Confirmar com a equipe.",
+     "estado": "a_confirmar"
+    }
+   ],
+   "porcao": {
+    "texto": "300 g de proteína",
+    "principal": {
+     "valor": 300,
+     "unidade": "g",
+     "alcance": "proteina"
+    },
+    "total": null,
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": "O cardápio impresso informa “peso in natura”. Alcance por prato ainda em conferência. O impresso não informa quantas pessoas o prato serve.",
+    "fontes": [
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [
+     "GLÚTEN",
+     "OVO"
+    ],
+    "fonte": "Sir Fisher Praia.pdf, página 1",
+    "estado": "declarado_no_impresso",
+    "divergencias": [
+     "Os símbolos estão no prato completo. O impresso não diz se vêm da proteína, do molho ou de um acompanhamento."
+    ],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": {
+    "base": "peito-de-frango-sir-fisher",
+    "larguras": [
+     440,
+     660
+    ],
+    "alt": "Travessa com peito de frango grelhado, arroz, batata frita e farofa",
+    "estado": "conferido"
+   },
+   "termos": [
+    "frango",
+    "peito",
+    "ervas",
+    "grelhado",
+    "charbroil",
+    "para dividir",
+    "compartilhar",
+    "arroz",
+    "farota"
+   ],
+   "etiquetas": [
+    "para-compartilhar"
+   ],
+   "pendencias": [
+    "rendimento"
+   ],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [
+    "O impresso declara 300 g de proteína e o rodapé informa peso in natura. Nenhuma fonte informa quantas pessoas o prato serve: o rendimento não foi deduzido do peso."
+   ],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 24,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 6200
+   },
+   "indice_busca": "aipim arroz artesanal batata batatas charbroil charbroil. com compartilhar de dividir e ervas extra farota finas frango frita fritas grelhado macaxeira mandioca molho no ou para peito salada temperado"
+  },
+  {
+   "id": "picanha-suina",
+   "categoria": "para-dividir",
+   "subgrupo": null,
+   "nome": "Picanha Suína",
+   "nome_original": "Picanha Suína",
+   "descritor": null,
+   "descricao": "Picanha suína grelhada no charbroil.",
+   "detalhe": null,
+   "preco_centavos": 6700,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [
+    {
+     "nome": "Arroz extra",
+     "preco_centavos": 1200,
+     "fontes": [
+      "TXT",
+      "PDF"
+     ],
+     "estado": "declarado"
+    }
+   ],
+   "inclui": [
+    "Arroz",
+    "Batata frita ou macaxeira",
+    "Salada",
+    "Farota",
+    "Molho artesanal"
+   ],
+   "opcoes": [
+    {
+     "texto": "Batata frita ou macaxeira",
+     "nota": "Troca sem custo declarado nas fontes. Confirmar com a equipe.",
+     "estado": "a_confirmar"
+    }
+   ],
+   "porcao": {
+    "texto": "300 g de proteína",
+    "principal": {
+     "valor": 300,
+     "unidade": "g",
+     "alcance": "proteina"
+    },
+    "total": null,
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": "O cardápio impresso informa “peso in natura”. Alcance por prato ainda em conferência. O impresso não informa quantas pessoas o prato serve.",
+    "fontes": [
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [
+     "GLÚTEN",
+     "OVO"
+    ],
+    "fonte": "Sir Fisher Praia.pdf, página 1",
+    "estado": "declarado_no_impresso",
+    "divergencias": [
+     "Os símbolos estão no prato completo. O impresso não diz se vêm da proteína, do molho ou de um acompanhamento."
+    ],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": {
+    "base": "picanha-suina-sir-fisher",
+    "larguras": [
+     440,
+     660
+    ],
+    "alt": "Travessa com picanha suína grelhada, arroz, batata frita e farofa",
+    "estado": "conferido"
+   },
+   "termos": [
+    "picanha suina",
+    "porco",
+    "suina",
+    "grelhada",
+    "charbroil",
+    "para dividir",
+    "compartilhar",
+    "arroz",
+    "farota"
+   ],
+   "etiquetas": [
+    "para-compartilhar"
+   ],
+   "pendencias": [
+    "rendimento"
+   ],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [
+    "O impresso declara 300 g de proteína e o rodapé informa peso in natura. Nenhuma fonte informa quantas pessoas o prato serve: o rendimento não foi deduzido do peso."
+   ],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 25,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 6700
+   },
+   "indice_busca": "aipim arroz artesanal batata batatas charbroil charbroil. compartilhar dividir extra farota frita fritas grelhada macaxeira mandioca molho no ou para picanha porco salada suina"
+  },
+  {
+   "id": "brownie-de-chocolate",
+   "categoria": "sobremesas",
+   "subgrupo": null,
+   "nome": "Brownie de Chocolate",
+   "nome_original": "Brownie de Chocolate",
+   "descritor": null,
+   "descricao": "Brownie macio, feito com chocolate de alta qualidade.",
+   "detalhe": null,
+   "preco_centavos": 1000,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": null,
+    "principal": null,
+    "total": null,
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "ausente",
+    "divergencia": null,
+    "nota": null,
+    "fontes": []
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "brownie",
+    "chocolate",
+    "doce",
+    "sobremesa"
+   ],
+   "etiquetas": [],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 26,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 1000
+   },
+   "indice_busca": "alta brownie chocolate com de doce feito macio, qualidade. sobremesa"
+  },
+  {
+   "id": "brownie-com-sorvete",
+   "categoria": "sobremesas",
+   "subgrupo": null,
+   "nome": "Brownie com Sorvete",
+   "nome_original": "Brownie com Sorvete",
+   "descritor": null,
+   "descricao": "Brownie de chocolate com sorvete de creme e calda de chocolate.",
+   "detalhe": null,
+   "preco_centavos": 1800,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": null,
+    "principal": null,
+    "total": null,
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "ausente",
+    "divergencia": null,
+    "nota": null,
+    "fontes": []
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "brownie",
+    "sorvete",
+    "chocolate",
+    "doce",
+    "sobremesa"
+   ],
+   "etiquetas": [],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 27,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 1800
+   },
+   "indice_busca": "brownie calda chocolate chocolate. com creme de doce e sobremesa sorvete"
+  },
+  {
+   "id": "cafe-expresso",
+   "categoria": "sobremesas",
+   "subgrupo": null,
+   "nome": "Café Expresso",
+   "nome_original": "Café Expresso",
+   "descritor": null,
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 500,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "50 mL",
+    "principal": null,
+    "total": {
+     "valor": 50,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "TXT",
+     "HTML"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "cafe",
+    "expresso",
+    "cafezinho"
+   ],
+   "etiquetas": [
+    "bebida"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [
+    "O impresso lista o café entre as sobremesas e não informa volume. Os 50 mL vêm do cadastro."
+   ],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 28,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 500
+   },
+   "indice_busca": "cafe cafezinho expresso"
+  },
+  {
+   "id": "chope-brahma",
+   "categoria": "cervejas",
+   "subgrupo": null,
+   "nome": "Chope Brahma",
+   "nome_original": "Chope Brahma",
+   "descritor": "chope",
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 1090,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "300 mL",
+    "principal": null,
+    "total": {
+     "valor": 300,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "chope brahma",
+    "cerveja",
+    "chope"
+   ],
+   "etiquetas": [
+    "bebida"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 29,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 1090
+   },
+   "indice_busca": "brahma cerveja chope chopinho chopp"
+  },
+  {
+   "id": "spaten-longneck",
+   "categoria": "cervejas",
+   "subgrupo": null,
+   "nome": "Spaten Longneck",
+   "nome_original": "Spaten Longneck",
+   "descritor": "long neck",
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 1190,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": null,
+    "principal": null,
+    "total": null,
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "divergente",
+    "divergencia": "Volume divergente — HTML: 355 mL. Cardápio impresso: 300 mL.",
+    "nota": null,
+    "fontes": [
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "spaten longneck",
+    "cerveja",
+    "long neck"
+   ],
+   "etiquetas": [
+    "bebida"
+   ],
+   "pendencias": [
+    "porcao"
+   ],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 30,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 1190
+   },
+   "indice_busca": "cerveja long longneck neck spaten"
+  },
+  {
+   "id": "stella-artois-longneck",
+   "categoria": "cervejas",
+   "subgrupo": null,
+   "nome": "Stella Artois Longneck",
+   "nome_original": "Stella Artois Longneck",
+   "descritor": "long neck",
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 1290,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "330 mL",
+    "principal": null,
+    "total": {
+     "valor": 330,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "stella artois longneck",
+    "cerveja",
+    "long neck"
+   ],
+   "etiquetas": [
+    "bebida"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 31,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 1290
+   },
+   "indice_busca": "artois cerveja long longneck neck stella"
+  },
+  {
+   "id": "corona-longneck",
+   "categoria": "cervejas",
+   "subgrupo": null,
+   "nome": "Corona Longneck",
+   "nome_original": "Corona Longneck",
+   "descritor": "long neck",
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 1490,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "330 mL",
+    "principal": null,
+    "total": {
+     "valor": 330,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "corona longneck",
+    "cerveja",
+    "long neck"
+   ],
+   "etiquetas": [
+    "bebida"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 32,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 1490
+   },
+   "indice_busca": "cerveja corona long longneck neck"
+  },
+  {
+   "id": "corona-zero-longneck",
+   "categoria": "cervejas",
+   "subgrupo": null,
+   "nome": "Corona Zero Longneck",
+   "nome_original": "Corona Zero Longneck",
+   "descritor": "long neck",
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 1490,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "330 mL",
+    "principal": null,
+    "total": {
+     "valor": 330,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "corona zero longneck",
+    "cerveja",
+    "long neck"
+   ],
+   "etiquetas": [
+    "bebida"
+   ],
+   "pendencias": [
+    "classificacao"
+   ],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [
+    "O impresso escreve “CORONA ZERO% LONGNECK”. A classificação como bebida sem álcool depende de conferência do produto e não foi aplicada como etiqueta."
+   ],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 33,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 1490
+   },
+   "indice_busca": "cerveja corona long longneck neck zero"
+  },
+  {
+   "id": "spaten-600",
+   "categoria": "cervejas",
+   "subgrupo": null,
+   "nome": "Spaten 600",
+   "nome_original": "Spaten 600",
+   "descritor": "garrafa",
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 1940,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "600 mL",
+    "principal": null,
+    "total": {
+     "valor": 600,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "spaten 600",
+    "cerveja",
+    "garrafa"
+   ],
+   "etiquetas": [
+    "bebida"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 34,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 1940
+   },
+   "indice_busca": "600 cerveja garrafa spaten"
+  },
+  {
+   "id": "original-600",
+   "categoria": "cervejas",
+   "subgrupo": null,
+   "nome": "Original 600",
+   "nome_original": "Original 600",
+   "descritor": "garrafa",
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 1940,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "600 mL",
+    "principal": null,
+    "total": {
+     "valor": 600,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "original 600",
+    "cerveja",
+    "garrafa"
+   ],
+   "etiquetas": [
+    "bebida"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 35,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 1940
+   },
+   "indice_busca": "600 cerveja garrafa original"
+  },
+  {
+   "id": "budweiser-600",
+   "categoria": "cervejas",
+   "subgrupo": null,
+   "nome": "Budweiser 600",
+   "nome_original": "Budweiser 600",
+   "descritor": "garrafa",
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 1840,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "600 mL",
+    "principal": null,
+    "total": {
+     "valor": 600,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "budweiser 600",
+    "cerveja",
+    "garrafa"
+   ],
+   "etiquetas": [
+    "bebida"
+   ],
+   "pendencias": [
+    "vigencia"
+   ],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [
+    "Consta no TXT e no HTML, mas não foi encontrado no cardápio impresso. Ausência em uma fonte não retira o produto do cadastro."
+   ],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 36,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 1840
+   },
+   "indice_busca": "600 budweiser cerveja garrafa"
+  },
+  {
+   "id": "stella-artois-600",
+   "categoria": "cervejas",
+   "subgrupo": null,
+   "nome": "Stella Artois 600",
+   "nome_original": "Stella Artois 600",
+   "descritor": "garrafa",
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 2140,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "600 mL",
+    "principal": null,
+    "total": {
+     "valor": 600,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "stella artois 600",
+    "cerveja",
+    "garrafa"
+   ],
+   "etiquetas": [
+    "bebida"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 37,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 2140
+   },
+   "indice_busca": "600 artois cerveja garrafa stella"
+  },
+  {
+   "id": "stella-pure-gold-600",
+   "categoria": "cervejas",
+   "subgrupo": null,
+   "nome": "Stella Pure Gold 600",
+   "nome_original": "Stella Pure Gold 600",
+   "descritor": "garrafa",
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 2390,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "600 mL",
+    "principal": null,
+    "total": {
+     "valor": 600,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [
+     {
+      "texto": "PURO MALTE, SEM GLÚTEN E COM 17% MENOS CALORIAS",
+      "fonte": "Sir Fisher Praia.pdf, página 2",
+      "estado": "a_conferir",
+      "nota": "Alegação do impresso sobre esta cerveja. Não publicada como informação alimentar: exige conferência com embalagem e fabricante. Não vale para as demais cervejas."
+     }
+    ],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "stella pure gold 600",
+    "cerveja",
+    "garrafa"
+   ],
+   "etiquetas": [
+    "bebida"
+   ],
+   "pendencias": [
+    "alegacao"
+   ],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 38,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 2390
+   },
+   "indice_busca": "600 cerveja garrafa gold pure stella"
+  },
+  {
+   "id": "caipirinha",
+   "categoria": "coqueteis",
+   "subgrupo": null,
+   "nome": "Caipirinha",
+   "nome_original": "Caipirinha",
+   "descritor": "limão, açúcar e cachaça",
+   "descricao": null,
+   "detalhe": "Clássica combinação de limão, açúcar e cachaça, refrescante e cheia de sabor. Escolha a cachaça.",
+   "preco_centavos": 1800,
+   "preco_estado": "declarado",
+   "variantes": [
+    {
+     "nome": "Cachaça nacional",
+     "preco_centavos": 1800,
+     "fontes": [
+      "HTML",
+      "PDF"
+     ],
+     "estado": "declarado"
+    },
+    {
+     "nome": "Ypioca 150",
+     "preco_centavos": 2200,
+     "fontes": [
+      "HTML",
+      "PDF"
+     ],
+     "estado": "declarado"
+    }
+   ],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "300 mL",
+    "principal": null,
+    "total": {
+     "valor": 300,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "caipirinha",
+    "cachaca",
+    "limao",
+    "ypioca",
+    "drink",
+    "coquetel"
+   ],
+   "etiquetas": [
+    "bebida",
+    "com-alcool"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [
+    "O preço do TXT (R$ 18,00) corresponde à variante nacional."
+   ],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 39,
+   "preco": {
+    "tipo": "faixa",
+    "min": 1800,
+    "max": 2200,
+    "centavos": 1800
+   },
+   "indice_busca": "150 a acucar cachaca cachaca, cachaca. caipirinha cheia classica combinacao coquetel de drink e escolha limao limao, nacional refrescante sabor. ypioca"
+  },
+  {
+   "id": "caipiroska",
+   "categoria": "coqueteis",
+   "subgrupo": null,
+   "nome": "Caipiroska",
+   "nome_original": "Caipiroska",
+   "descritor": "limão, açúcar e vodka",
+   "descricao": null,
+   "detalhe": "Releitura da caipirinha, com limão, açúcar e vodka. Escolha a vodka.",
+   "preco_centavos": 2000,
+   "preco_estado": "declarado",
+   "variantes": [
+    {
+     "nome": "Vodka nacional",
+     "preco_centavos": 2000,
+     "fontes": [
+      "HTML",
+      "PDF"
+     ],
+     "estado": "declarado"
+    },
+    {
+     "nome": "Sky",
+     "preco_centavos": 2200,
+     "fontes": [
+      "HTML",
+      "PDF"
+     ],
+     "estado": "declarado"
+    },
+    {
+     "nome": "Absolut",
+     "preco_centavos": 2800,
+     "fontes": [
+      "HTML",
+      "PDF"
+     ],
+     "estado": "declarado"
+    }
+   ],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "300 mL",
+    "principal": null,
+    "total": {
+     "valor": 300,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "caipiroska",
+    "vodka",
+    "limao",
+    "absolut",
+    "sky",
+    "drink",
+    "coquetel"
+   ],
+   "etiquetas": [
+    "bebida",
+    "com-alcool"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 40,
+   "preco": {
+    "tipo": "faixa",
+    "min": 2000,
+    "max": 2800,
+    "centavos": 2000
+   },
+   "indice_busca": "a absolut acucar caipirinha, caipiroska com coquetel da drink e escolha limao limao, nacional releitura sky vodka vodka."
+  },
+  {
+   "id": "caipifruta",
+   "categoria": "coqueteis",
+   "subgrupo": null,
+   "nome": "Caipifruta",
+   "nome_original": "Caipifruta",
+   "descritor": "vodka, açúcar e polpa de fruta",
+   "descricao": null,
+   "detalhe": "Vodka, açúcar e o sabor de fruta da sua escolha. Escolha a vodka e a fruta.",
+   "preco_centavos": 2200,
+   "preco_estado": "declarado",
+   "variantes": [
+    {
+     "nome": "Vodka nacional",
+     "preco_centavos": 2200,
+     "fontes": [
+      "HTML",
+      "PDF"
+     ],
+     "estado": "declarado"
+    },
+    {
+     "nome": "Sky",
+     "preco_centavos": 2400,
+     "fontes": [
+      "HTML",
+      "PDF"
+     ],
+     "estado": "declarado"
+    },
+    {
+     "nome": "Absolut",
+     "preco_centavos": 3000,
+     "fontes": [
+      "HTML",
+      "PDF"
+     ],
+     "estado": "declarado"
+    }
+   ],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [
+    {
+     "texto": "Abacaxi, acerola, caju, cajá, maracujá, morango ou manga (polpa)",
+     "estado": "declarado"
+    }
+   ],
+   "porcao": {
+    "texto": "300 mL",
+    "principal": null,
+    "total": {
+     "valor": 300,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "caipifruta",
+    "vodka",
+    "fruta",
+    "polpa",
+    "abacaxi",
+    "acerola",
+    "caju",
+    "caja",
+    "maracuja",
+    "morango",
+    "manga",
+    "drink"
+   ],
+   "etiquetas": [
+    "bebida",
+    "com-alcool"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 41,
+   "preco": {
+    "tipo": "faixa",
+    "min": 2200,
+    "max": 3000,
+    "centavos": 2200
+   },
+   "indice_busca": "(polpa) a abacaxi abacaxi, absolut acerola acerola, acucar caipifruta caja caja, caju caju, da de drink e escolha escolha. fruta fruta. manga maracuja maracuja, morango nacional o ou polpa sabor sky sua vodka vodka,"
+  },
+  {
+   "id": "gin-tonica",
+   "categoria": "coqueteis",
+   "subgrupo": null,
+   "nome": "Gin Tônica",
+   "nome_original": "Gin Tônica",
+   "descritor": "gin, água tônica e toque cítrico",
+   "descricao": null,
+   "detalhe": "O clássico refrescante: gin, água tônica e um toque cítrico para equilibrar. Escolha o gin.",
+   "preco_centavos": 2100,
+   "preco_estado": "declarado",
+   "variantes": [
+    {
+     "nome": "Gin nacional",
+     "preco_centavos": 2100,
+     "fontes": [
+      "HTML",
+      "PDF"
+     ],
+     "estado": "declarado"
+    },
+    {
+     "nome": "Gordon's",
+     "preco_centavos": 2300,
+     "fontes": [
+      "HTML",
+      "PDF"
+     ],
+     "estado": "declarado"
+    }
+   ],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "300 mL",
+    "principal": null,
+    "total": {
+     "valor": 300,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "gin",
+    "tonica",
+    "gordons",
+    "drink",
+    "coquetel",
+    "citrico"
+   ],
+   "etiquetas": [
+    "bebida",
+    "com-alcool"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 42,
+   "preco": {
+    "tipo": "faixa",
+    "min": 2100,
+    "max": 2300,
+    "centavos": 2100
+   },
+   "indice_busca": "agua citrico classico coquetel drink e equilibrar. escolha gin gin, gin. gordon's gordons nacional o para refrescante: tonica toque um"
+  },
+  {
+   "id": "melancita",
+   "categoria": "coqueteis",
+   "subgrupo": null,
+   "nome": "Melancita",
+   "nome_original": "Melancita",
+   "descritor": "gin, energético de melancia e limão siciliano",
+   "descricao": null,
+   "detalhe": "Gin harmonizado com Red Bull melancia e finalizado com fatias de limão siciliano.",
+   "preco_centavos": 2700,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "300 mL",
+    "principal": null,
+    "total": {
+     "valor": 300,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "melancia",
+    "gin",
+    "red bull",
+    "energetico",
+    "limao siciliano",
+    "drink"
+   ],
+   "etiquetas": [
+    "bebida",
+    "com-alcool"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 43,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 2700
+   },
+   "indice_busca": "bull com de drink e energetico fatias finalizado gin gin, harmonizado limao melancia melancita red siciliano siciliano."
+  },
+  {
+   "id": "sherlock-holmes-gin",
+   "categoria": "coqueteis",
+   "subgrupo": null,
+   "nome": "Sherlock Holmes Gin",
+   "nome_original": "Sherlock Holmes Gin",
+   "descritor": "gin com energético e gengibre",
+   "descricao": null,
+   "detalhe": "Gin com energético e um toque sutil de gengibre. A marca do energético está em conferência com o bar.",
+   "preco_centavos": 2900,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "300 mL",
+    "principal": null,
+    "total": {
+     "valor": 300,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "sherlock",
+    "gin",
+    "gengibre",
+    "energetico",
+    "drink"
+   ],
+   "etiquetas": [
+    "bebida",
+    "com-alcool"
+   ],
+   "pendencias": [
+    "descricao"
+   ],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [
+    "Receita divergente: o HTML cita Monster; o impresso cita Red Bull Zero e xarope de gengibre. A marca do energético não foi publicada até a confirmação da ficha."
+   ],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 44,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 2900
+   },
+   "indice_busca": "a bar. com conferencia de do drink e em energetico esta gengibre gengibre. gin holmes marca o sherlock sutil toque um"
+  },
+  {
+   "id": "tropicall",
+   "categoria": "coqueteis",
+   "subgrupo": null,
+   "nome": "Tropicall",
+   "nome_original": "Tropicall",
+   "descritor": "vodka, energético tropical e limão siciliano",
+   "descricao": null,
+   "detalhe": "Vodka com Red Bull Tropical e um toque cítrico de limão siciliano.",
+   "preco_centavos": 2700,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "300 mL",
+    "principal": null,
+    "total": {
+     "valor": 300,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "tropicall",
+    "vodka",
+    "red bull",
+    "tropical",
+    "limao siciliano",
+    "drink"
+   ],
+   "etiquetas": [
+    "bebida",
+    "com-alcool"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 45,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 2700
+   },
+   "indice_busca": "bull citrico com de drink e energetico limao red siciliano siciliano. toque tropical tropicall um vodka vodka,"
+  },
+  {
+   "id": "margarita",
+   "categoria": "coqueteis",
+   "subgrupo": null,
+   "nome": "Margarita",
+   "nome_original": "Margarita",
+   "descritor": "tequila, triple sec e limão",
+   "descricao": null,
+   "detalhe": "Tequila, triple sec e o toque cítrico marcante do limão.",
+   "preco_centavos": 2900,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": null,
+    "principal": null,
+    "total": null,
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "ausente",
+    "divergencia": null,
+    "nota": "Nenhuma fonte informa o volume deste coquetel.",
+    "fontes": []
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "margarita",
+    "tequila",
+    "triple sec",
+    "limao",
+    "drink"
+   ],
+   "etiquetas": [
+    "bebida",
+    "com-alcool"
+   ],
+   "pendencias": [
+    "porcao",
+    "vigencia"
+   ],
+   "fontes": [
+    "TXT",
+    "HTML"
+   ],
+   "notas_internas": [
+    "Consta no TXT e no HTML, mas não foi encontrado no cardápio impresso. Ausência em uma fonte não retira o produto."
+   ],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 46,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 2900
+   },
+   "indice_busca": "citrico do drink e limao limao. marcante margarita o sec tequila tequila, toque triple"
+  },
+  {
+   "id": "fitzgerald",
+   "categoria": "coqueteis",
+   "subgrupo": null,
+   "nome": "Fitzgerald",
+   "nome_original": "Fitzgerald",
+   "descritor": "gin, limão, açúcar e bitter artesanal",
+   "descricao": null,
+   "detalhe": "Gin, suco de limão, açúcar e um toque sutil de bitter artesanal.",
+   "preco_centavos": 2300,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "300 mL",
+    "principal": null,
+    "total": {
+     "valor": 300,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "fitzgerald",
+    "gin",
+    "limao",
+    "bitter",
+    "drink"
+   ],
+   "etiquetas": [
+    "bebida",
+    "com-alcool"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 47,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 2300
+   },
+   "indice_busca": "acucar artesanal artesanal. bitter de drink e fitzgerald gin gin, limao limao, suco sutil toque um"
+  },
+  {
+   "id": "moscow-mule",
+   "categoria": "coqueteis",
+   "subgrupo": null,
+   "nome": "Moscow Mule",
+   "nome_original": "Moscow mule",
+   "descritor": "vodka, gengibre e limão",
+   "descricao": null,
+   "detalhe": "Vodka, suco de limão e espuma de gengibre.",
+   "preco_centavos": 2600,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "300 mL",
+    "principal": null,
+    "total": {
+     "valor": 300,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "moscow mule",
+    "vodka",
+    "gengibre",
+    "limao",
+    "drink"
+   ],
+   "etiquetas": [
+    "bebida",
+    "com-alcool"
+   ],
+   "pendencias": [
+    "descricao"
+   ],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [
+    "O impresso acrescenta refrigerante de limão à composição. Ficha a confirmar antes de alterar a descrição."
+   ],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 48,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 2600
+   },
+   "indice_busca": "de drink e espuma gengibre gengibre. limao moscow mule suco vodka vodka,"
+  },
+  {
+   "id": "smirnoff-ice",
+   "categoria": "coqueteis",
+   "subgrupo": null,
+   "nome": "Smirnoff Ice",
+   "nome_original": "Smirnoff Ice",
+   "descritor": null,
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 1500,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "275 mL",
+    "principal": null,
+    "total": {
+     "valor": 275,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "smirnoff",
+    "ice",
+    "vodka",
+    "long neck"
+   ],
+   "etiquetas": [
+    "bebida",
+    "com-alcool"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [
+    "Bebida pronta listada entre os coquetéis nas fontes. Mantida na mesma categoria do cadastro."
+   ],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 49,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 1500
+   },
+   "indice_busca": "ice long neck smirnoff vodka"
+  },
+  {
+   "id": "agua-sem-gas",
+   "categoria": "sem-alcool",
+   "subgrupo": null,
+   "nome": "Água sem gás",
+   "nome_original": "Água sem gás",
+   "descritor": null,
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 500,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "500 mL",
+    "principal": null,
+    "total": {
+     "valor": 500,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "agua",
+    "sem gas"
+   ],
+   "etiquetas": [
+    "bebida"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 50,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 500
+   },
+   "indice_busca": "agua gas sem"
+  },
+  {
+   "id": "agua-com-gas",
+   "categoria": "sem-alcool",
+   "subgrupo": null,
+   "nome": "Água com gás",
+   "nome_original": "Água com gás",
+   "descritor": null,
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 600,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "500 mL",
+    "principal": null,
+    "total": {
+     "valor": 500,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "agua",
+    "com gas",
+    "gaseificada"
+   ],
+   "etiquetas": [
+    "bebida"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 51,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 600
+   },
+   "indice_busca": "agua com gas gaseificada"
+  },
+  {
+   "id": "agua-de-coco-copo",
+   "categoria": "sem-alcool",
+   "subgrupo": null,
+   "nome": "Água de Coco",
+   "nome_original": "Água de Coco copo",
+   "descritor": null,
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 500,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "Copo 300 mL",
+    "principal": null,
+    "total": {
+     "valor": 300,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "agua de coco",
+    "coco",
+    "natural"
+   ],
+   "etiquetas": [
+    "bebida"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 52,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 500
+   },
+   "indice_busca": "agua coco copo de natural"
+  },
+  {
+   "id": "agua-tonica",
+   "categoria": "sem-alcool",
+   "subgrupo": null,
+   "nome": "Água Tônica",
+   "nome_original": "Água Tônica",
+   "descritor": null,
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 600,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "350 mL",
+    "principal": null,
+    "total": {
+     "valor": 350,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "agua tonica",
+    "tonica"
+   ],
+   "etiquetas": [
+    "bebida"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 53,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 600
+   },
+   "indice_busca": "agua tonica"
+  },
+  {
+   "id": "refrigerante-lata",
+   "categoria": "sem-alcool",
+   "subgrupo": null,
+   "nome": "Refrigerante lata",
+   "nome_original": "Refrigerante lata",
+   "descritor": "sabor a escolher",
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 800,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [
+    {
+     "texto": "Guaraná, Guaraná Zero, Pepsi, Pepsi Black, laranja, uva ou soda",
+     "estado": "declarado"
+    }
+   ],
+   "porcao": {
+    "texto": "350 mL",
+    "principal": null,
+    "total": {
+     "valor": 350,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "refrigerante",
+    "refri",
+    "lata",
+    "guarana",
+    "pepsi",
+    "laranja",
+    "uva",
+    "soda",
+    "zero"
+   ],
+   "etiquetas": [
+    "bebida"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 54,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 800
+   },
+   "indice_busca": "a black, escolher guarana guarana, laranja laranja, lata ou pepsi pepsi, refri refrigerante sabor soda uva zero zero,"
+  },
+  {
+   "id": "suco-copo",
+   "categoria": "sem-alcool",
+   "subgrupo": null,
+   "nome": "Suco Copo",
+   "nome_original": "Suco Copo",
+   "descritor": "feito com polpa, sabor a escolher",
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 1100,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [
+    {
+     "texto": "Acerola, abacaxi, cajá, caju, limão, maracujá, morango ou manga (polpa)",
+     "estado": "declarado"
+    }
+   ],
+   "porcao": {
+    "texto": "330 mL",
+    "principal": null,
+    "total": {
+     "valor": 330,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "suco",
+    "polpa",
+    "acerola",
+    "abacaxi",
+    "caja",
+    "caju",
+    "limao",
+    "maracuja",
+    "morango",
+    "manga",
+    "natural"
+   ],
+   "etiquetas": [
+    "bebida"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 55,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 1100
+   },
+   "indice_busca": "(polpa) a abacaxi abacaxi, acerola acerola, caja caja, caju caju, com copo escolher feito limao limao, manga maracuja maracuja, morango natural ou polpa polpa, sabor suco"
+  },
+  {
+   "id": "energetico-red-bull",
+   "categoria": "sem-alcool",
+   "subgrupo": null,
+   "nome": "Energético Red Bull",
+   "nome_original": "Energético Red Bull",
+   "descritor": null,
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 1600,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "269 mL",
+    "principal": null,
+    "total": {
+     "valor": 269,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "red bull",
+    "energetico"
+   ],
+   "etiquetas": [
+    "bebida"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 56,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 1600
+   },
+   "indice_busca": "bull energetico red"
+  },
+  {
+   "id": "soda-italiana",
+   "categoria": "sem-alcool",
+   "subgrupo": null,
+   "nome": "Soda Italiana",
+   "nome_original": "Soda Italiana (sem alcool)",
+   "descritor": "sem álcool, sabor a escolher",
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 1500,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [
+    {
+     "texto": "Maçã verde, tangerina, gengibre, granadine ou cranberry",
+     "estado": "declarado"
+    }
+   ],
+   "porcao": {
+    "texto": "300 mL",
+    "principal": null,
+    "total": {
+     "valor": 300,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "soda italiana",
+    "sem alcool",
+    "maca verde",
+    "tangerina",
+    "gengibre",
+    "granadine",
+    "cranberry"
+   ],
+   "etiquetas": [
+    "bebida",
+    "sem-alcool"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [
+    "O impresso marca explicitamente este item como SEM ÁLCOOL."
+   ],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 57,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 1500
+   },
+   "indice_busca": "(sem a alcool alcool) alcool, cranberry escolher gengibre gengibre, granadine italiana maca ou sabor sem soda tangerina tangerina, verde verde,"
+  },
+  {
+   "id": "sumo-de-limao",
+   "categoria": "sem-alcool",
+   "subgrupo": null,
+   "nome": "Sumo de Limão",
+   "nome_original": "Sumo de Limão",
+   "descritor": "50 mL",
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 300,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "50 mL",
+    "principal": null,
+    "total": {
+     "valor": 50,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "sumo de limao",
+    "limao",
+    "suco de limao"
+   ],
+   "etiquetas": [
+    "bebida"
+   ],
+   "pendencias": [
+    "classificacao"
+   ],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [
+    "O impresso lista o item na seção BEBIDAS, com 50 mL. Se na operação ele funciona como complemento de drink, e não como bebida servida, deve ser movido para Extras. Pendente de confirmação."
+   ],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 58,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 300
+   },
+   "indice_busca": "50 de limao ml suco sumo"
+  },
+  {
+   "id": "teachers",
+   "categoria": "doses",
+   "subgrupo": null,
+   "nome": "Teacher's",
+   "nome_original": "Teacher's",
+   "descritor": null,
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 800,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "Dose de 50 mL",
+    "principal": null,
+    "total": {
+     "valor": 50,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "whisky",
+    "teachers",
+    "escoces",
+    "dose",
+    "destilado"
+   ],
+   "etiquetas": [
+    "bebida",
+    "com-alcool"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 59,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 800
+   },
+   "indice_busca": "destilado dose escoces teacher's teachers whisky"
+  },
+  {
+   "id": "black-white",
+   "categoria": "doses",
+   "subgrupo": null,
+   "nome": "Black & White",
+   "nome_original": "Black & White",
+   "descritor": null,
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 800,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "Dose de 50 mL",
+    "principal": null,
+    "total": {
+     "valor": 50,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "whisky",
+    "black white",
+    "dose",
+    "destilado"
+   ],
+   "etiquetas": [
+    "bebida",
+    "com-alcool"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 60,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 800
+   },
+   "indice_busca": "& black destilado dose whisky white"
+  },
+  {
+   "id": "red-label",
+   "categoria": "doses",
+   "subgrupo": null,
+   "nome": "Red Label",
+   "nome_original": "Red Label",
+   "descritor": null,
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 1200,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "Dose de 50 mL",
+    "principal": null,
+    "total": {
+     "valor": 50,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "whisky",
+    "red label",
+    "johnnie walker",
+    "dose",
+    "destilado"
+   ],
+   "etiquetas": [
+    "bebida",
+    "com-alcool"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 61,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 1200
+   },
+   "indice_busca": "destilado dose johnnie label red walker whisky"
+  },
+  {
+   "id": "black-label",
+   "categoria": "doses",
+   "subgrupo": null,
+   "nome": "Black Label",
+   "nome_original": "Black Label",
+   "descritor": null,
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 1700,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "Dose de 50 mL",
+    "principal": null,
+    "total": {
+     "valor": 50,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "whisky",
+    "black label",
+    "johnnie walker",
+    "dose",
+    "destilado"
+   ],
+   "etiquetas": [
+    "bebida",
+    "com-alcool"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 62,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 1700
+   },
+   "indice_busca": "black destilado dose johnnie label walker whisky"
+  },
+  {
+   "id": "rum",
+   "categoria": "doses",
+   "subgrupo": null,
+   "nome": "Rum",
+   "nome_original": "Rum",
+   "descritor": null,
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 800,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [
+    {
+     "texto": "Bacardi ou Montila",
+     "estado": "declarado"
+    }
+   ],
+   "porcao": {
+    "texto": "Dose de 50 mL",
+    "principal": null,
+    "total": {
+     "valor": 50,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "rum",
+    "bacardi",
+    "montila",
+    "dose",
+    "destilado"
+   ],
+   "etiquetas": [
+    "bebida",
+    "com-alcool"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 63,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 800
+   },
+   "indice_busca": "bacardi destilado dose montila ou rum"
+  },
+  {
+   "id": "campari",
+   "categoria": "doses",
+   "subgrupo": null,
+   "nome": "Campari",
+   "nome_original": "Campari",
+   "descritor": null,
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 800,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "Dose de 50 mL",
+    "principal": null,
+    "total": {
+     "valor": 50,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "campari",
+    "aperitivo",
+    "bitter",
+    "dose",
+    "destilado"
+   ],
+   "etiquetas": [
+    "bebida",
+    "com-alcool"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 64,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 800
+   },
+   "indice_busca": "aperitivo bitter campari destilado dose"
+  },
+  {
+   "id": "martini",
+   "categoria": "doses",
+   "subgrupo": null,
+   "nome": "Martini",
+   "nome_original": "Martini",
+   "descritor": null,
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 700,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [
+    {
+     "texto": "Bianco ou Rosato",
+     "estado": "declarado"
+    }
+   ],
+   "porcao": {
+    "texto": "Dose de 50 mL",
+    "principal": null,
+    "total": {
+     "valor": 50,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "martini",
+    "bianco",
+    "rosato",
+    "vermute",
+    "dose",
+    "destilado"
+   ],
+   "etiquetas": [
+    "bebida",
+    "com-alcool"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 65,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 700
+   },
+   "indice_busca": "bianco destilado dose martini ou rosato vermute"
+  },
+  {
+   "id": "vodka-nacional",
+   "categoria": "doses",
+   "subgrupo": null,
+   "nome": "Vodka Nacional",
+   "nome_original": "Vodka Nacional",
+   "descritor": null,
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 700,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "Dose de 50 mL",
+    "principal": null,
+    "total": {
+     "valor": 50,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "vodka",
+    "nacional",
+    "dose",
+    "destilado"
+   ],
+   "etiquetas": [
+    "bebida",
+    "com-alcool"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 66,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 700
+   },
+   "indice_busca": "destilado dose nacional vodka"
+  },
+  {
+   "id": "vodka-sky",
+   "categoria": "doses",
+   "subgrupo": null,
+   "nome": "Vodka Sky",
+   "nome_original": "Vodka Sky",
+   "descritor": null,
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 900,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "Dose de 50 mL",
+    "principal": null,
+    "total": {
+     "valor": 50,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "vodka",
+    "sky",
+    "dose",
+    "destilado"
+   ],
+   "etiquetas": [
+    "bebida",
+    "com-alcool"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 67,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 900
+   },
+   "indice_busca": "destilado dose sky vodka"
+  },
+  {
+   "id": "vodka-absolut",
+   "categoria": "doses",
+   "subgrupo": null,
+   "nome": "Vodka Absolut",
+   "nome_original": "Vodka Absolut",
+   "descritor": null,
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 1500,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "Dose de 50 mL",
+    "principal": null,
+    "total": {
+     "valor": 50,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "vodka",
+    "absolut",
+    "dose",
+    "destilado"
+   ],
+   "etiquetas": [
+    "bebida",
+    "com-alcool"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 68,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 1500
+   },
+   "indice_busca": "absolut destilado dose vodka"
+  },
+  {
+   "id": "gin-nacional",
+   "categoria": "doses",
+   "subgrupo": null,
+   "nome": "Gin Nacional",
+   "nome_original": "Gin Nacional",
+   "descritor": null,
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 1000,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "Dose de 50 mL",
+    "principal": null,
+    "total": {
+     "valor": 50,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "gin",
+    "nacional",
+    "dose",
+    "destilado"
+   ],
+   "etiquetas": [
+    "bebida",
+    "com-alcool"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 69,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 1000
+   },
+   "indice_busca": "destilado dose gin nacional"
+  },
+  {
+   "id": "gin-gordons",
+   "categoria": "doses",
+   "subgrupo": null,
+   "nome": "Gin Gordon's",
+   "nome_original": "Gin Gordon's",
+   "descritor": null,
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 1200,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "Dose de 50 mL",
+    "principal": null,
+    "total": {
+     "valor": 50,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "gin",
+    "gordons",
+    "britanico",
+    "dose",
+    "destilado"
+   ],
+   "etiquetas": [
+    "bebida",
+    "com-alcool"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 70,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 1200
+   },
+   "indice_busca": "britanico destilado dose gin gordon's gordons"
+  },
+  {
+   "id": "aperol",
+   "categoria": "doses",
+   "subgrupo": null,
+   "nome": "Aperol",
+   "nome_original": "Aperol",
+   "descritor": null,
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 800,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "Dose de 50 mL",
+    "principal": null,
+    "total": {
+     "valor": 50,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "aperol",
+    "aperitivo",
+    "spritz",
+    "dose",
+    "destilado"
+   ],
+   "etiquetas": [
+    "bebida",
+    "com-alcool"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 71,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 800
+   },
+   "indice_busca": "aperitivo aperol destilado dose spritz"
+  },
+  {
+   "id": "conhaque",
+   "categoria": "doses",
+   "subgrupo": null,
+   "nome": "Conhaque",
+   "nome_original": "Conhaque",
+   "descritor": null,
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 700,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "Dose de 50 mL",
+    "principal": null,
+    "total": {
+     "valor": 50,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "conhaque",
+    "dose",
+    "destilado"
+   ],
+   "etiquetas": [
+    "bebida",
+    "com-alcool"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 72,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 700
+   },
+   "indice_busca": "conhaque destilado dose"
+  },
+  {
+   "id": "cachaca-nacional",
+   "categoria": "doses",
+   "subgrupo": null,
+   "nome": "Cachaça Nacional",
+   "nome_original": "Cachaça Nacional",
+   "descritor": null,
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 600,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "Dose de 50 mL",
+    "principal": null,
+    "total": {
+     "valor": 50,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "cachaca",
+    "nacional",
+    "dose",
+    "destilado"
+   ],
+   "etiquetas": [
+    "bebida",
+    "com-alcool"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 73,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 600
+   },
+   "indice_busca": "cachaca destilado dose nacional"
+  },
+  {
+   "id": "cachaca-ypioca-150",
+   "categoria": "doses",
+   "subgrupo": null,
+   "nome": "Cachaça Ypioca 150",
+   "nome_original": "Cachaça Ypioca 150",
+   "descritor": null,
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 1000,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "Dose de 50 mL",
+    "principal": null,
+    "total": {
+     "valor": 50,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "cachaca",
+    "ypioca",
+    "dose",
+    "destilado"
+   ],
+   "etiquetas": [
+    "bebida",
+    "com-alcool"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [
+    "O “150” faz parte do nome comercial da cachaça. Não é a medida da dose, que é de 50 mL como nas demais."
+   ],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 74,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 1000
+   },
+   "indice_busca": "150 cachaca destilado dose ypioca"
+  },
+  {
+   "id": "cachaca-premium",
+   "categoria": "doses",
+   "subgrupo": null,
+   "nome": "Cachaça Premium",
+   "nome_original": "Cachaça Premium",
+   "descritor": null,
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 1200,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [
+    {
+     "texto": "Batista (3 anos em barril de carvalho, MG), Gogó da Ema (2 anos em barril de bálsamo, AL), Matriarca (2 anos em barril de umburana, BA) ou Caipira 5 Estrelas (1 ano em barril de cerejeira, ES)",
+     "estado": "declarado"
+    }
+   ],
+   "porcao": {
+    "texto": "Dose de 50 mL",
+    "principal": null,
+    "total": {
+     "valor": 50,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "HTML",
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "cachaca",
+    "premium",
+    "batista",
+    "gogo da ema",
+    "matriarca",
+    "caipira 5 estrelas",
+    "envelhecida",
+    "dose",
+    "destilado"
+   ],
+   "etiquetas": [
+    "bebida",
+    "com-alcool"
+   ],
+   "pendencias": [
+    "opcoes"
+   ],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [
+    "Quatro rótulos sob um mesmo preço, conforme o cadastro. Disponibilidade por rótulo a confirmar com o bar."
+   ],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 75,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 1200
+   },
+   "indice_busca": "(1 (2 (3 5 al), ano anos ba) balsamo, barril batista cachaca caipira carvalho, cerejeira, da de destilado dose em ema envelhecida es) estrelas gogo matriarca mg), ou premium umburana,"
+  },
+  {
+   "id": "molho-extra",
+   "categoria": "extras",
+   "subgrupo": "comestiveis",
+   "nome": "Molho Extra",
+   "nome_original": "Molho Extra",
+   "descritor": "porção adicional de molho",
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 300,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": null,
+    "principal": null,
+    "total": null,
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "ausente",
+    "divergencia": null,
+    "nota": null,
+    "fontes": []
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": null,
+    "estado": "nao_revisado",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "molho",
+    "extra",
+    "adicional"
+   ],
+   "etiquetas": [
+    "adicional"
+   ],
+   "pendencias": [
+    "alimentar"
+   ],
+   "fontes": [
+    "TXT",
+    "HTML"
+   ],
+   "notas_internas": [
+    "Nenhuma fonte informa qual molho, nem a quantidade."
+   ],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 76,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 300
+   },
+   "indice_busca": "adicional de extra molho porcao"
+  },
+  {
+   "id": "arroz-extra",
+   "categoria": "extras",
+   "subgrupo": "comestiveis",
+   "nome": "Arroz Extra",
+   "nome_original": "Arroz Extra",
+   "descritor": "porção adicional de arroz",
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 1200,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": null,
+    "principal": null,
+    "total": null,
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "ausente",
+    "divergencia": null,
+    "nota": null,
+    "fontes": []
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": null,
+    "estado": "nao_revisado",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "arroz",
+    "extra",
+    "adicional"
+   ],
+   "etiquetas": [
+    "adicional"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML",
+    "PDF"
+   ],
+   "notas_internas": [
+    "O impresso traz o mesmo item como “ADICIONAL ARROZ R$ 12,00”, na página dos pratos. Mesmo registro, não duplicado."
+   ],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 77,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 1200
+   },
+   "indice_busca": "adicional arroz de extra porcao"
+  },
+  {
+   "id": "rolha",
+   "categoria": "extras",
+   "subgrupo": "cobrancas",
+   "nome": "Rolha",
+   "nome_original": "Rolha",
+   "descritor": "taxa para consumir bebida trazida pelo cliente",
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 3000,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": null,
+    "principal": null,
+    "total": null,
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "ausente",
+    "divergencia": null,
+    "nota": null,
+    "fontes": []
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": null,
+    "estado": "nao_revisado",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "rolha",
+    "taxa",
+    "servico"
+   ],
+   "etiquetas": [
+    "servico"
+   ],
+   "pendencias": [
+    "regra"
+   ],
+   "fontes": [
+    "TXT",
+    "HTML"
+   ],
+   "notas_internas": [
+    "Cobrança de serviço, não é produto. Regras de aplicação (por garrafa, por mesa) não constam nas fontes."
+   ],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 78,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 3000
+   },
+   "indice_busca": "bebida cliente consumir para pelo rolha servico taxa trazida"
+  },
+  {
+   "id": "pacote-gelo",
+   "categoria": "extras",
+   "subgrupo": "apoio",
+   "nome": "Pacote de Gelo",
+   "nome_original": "Pacote Gelo",
+   "descritor": "pacote de gelo",
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 2000,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": null,
+    "principal": null,
+    "total": null,
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "ausente",
+    "divergencia": null,
+    "nota": null,
+    "fontes": []
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": null,
+    "estado": "nao_revisado",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "gelo",
+    "pacote"
+   ],
+   "etiquetas": [
+    "servico"
+   ],
+   "pendencias": [
+    "porcao"
+   ],
+   "fontes": [
+    "TXT",
+    "HTML"
+   ],
+   "notas_internas": [
+    "Nenhuma fonte informa o peso do pacote."
+   ],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 79,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 2000
+   },
+   "indice_busca": "de gelo pacote"
+  },
+  {
+   "id": "embalagem-viagem",
+   "categoria": "extras",
+   "subgrupo": "apoio",
+   "nome": "Embalagem para Viagem",
+   "nome_original": "Embalagem Viagem",
+   "descritor": "embalagem para levar",
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 300,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": null,
+    "principal": null,
+    "total": null,
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "ausente",
+    "divergencia": null,
+    "nota": null,
+    "fontes": []
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": null,
+    "estado": "nao_revisado",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "embalagem",
+    "viagem",
+    "levar",
+    "marmita",
+    "delivery"
+   ],
+   "etiquetas": [
+    "servico"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "TXT",
+    "HTML"
+   ],
+   "notas_internas": [],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 80,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 300
+   },
+   "indice_busca": "delivery embalagem levar marmita para viagem"
+  },
+  {
+   "id": "adicional-salada",
+   "categoria": "extras",
+   "subgrupo": "comestiveis",
+   "nome": "Adicional Salada",
+   "nome_original": "Adicional Salada",
+   "descritor": "porção adicional de salada",
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 1900,
+   "preco_estado": "somente_impresso",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": null,
+    "principal": null,
+    "total": null,
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "ausente",
+    "divergencia": null,
+    "nota": null,
+    "fontes": []
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": null,
+    "estado": "nao_revisado",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "salada",
+    "adicional",
+    "extra"
+   ],
+   "etiquetas": [
+    "adicional"
+   ],
+   "pendencias": [
+    "vigencia",
+    "preco"
+   ],
+   "fontes": [
+    "PDF"
+   ],
+   "notas_internas": [
+    "Aparece apenas no cardápio impresso (R$ 19,00, página 1). Não está entre os 81 registros do cadastro. Fica em rascunho até a operação confirmar existência e preço vigente."
+   ],
+   "publicar": false,
+   "disponivel": true,
+   "ordem": 81,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 1900
+   },
+   "indice_busca": "adicional de extra porcao salada"
+  },
+  {
+   "id": "corona-600",
+   "categoria": "cervejas",
+   "subgrupo": null,
+   "nome": "Corona 600",
+   "nome_original": "Corona 600",
+   "descritor": "garrafa",
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": null,
+   "preco_estado": "ausente",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "600 mL",
+    "principal": null,
+    "total": {
+     "valor": 600,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "corona",
+    "cerveja",
+    "garrafa"
+   ],
+   "etiquetas": [
+    "bebida"
+   ],
+   "pendencias": [
+    "vigencia",
+    "preco"
+   ],
+   "fontes": [
+    "PDF"
+   ],
+   "notas_internas": [
+    "Aparece no grupo de garrafas 600 mL do impresso, mas não consta no cadastro, que tem Budweiser 600 nessa faixa. Preço não importado do impresso. Fica em rascunho para decisão da operação."
+   ],
+   "publicar": false,
+   "disponivel": true,
+   "ordem": 82,
+   "preco": {
+    "tipo": "ausente",
+    "centavos": null
+   },
+   "indice_busca": "600 cerveja corona garrafa"
+  }
+ ],
+ "fotos_sem_destino": [
+  {
+   "arquivo": "peixe-empanado-sir-fisher",
+   "observado": "Travessa de compartilhar com filés de peixe empanados, arroz, batata frita e farota.",
+   "motivo": "Nenhum prato do cadastro corresponde: o peixe dos pratos para compartilhar é grelhado, não empanado. Não foi atribuída a nenhum produto para não ilustrar um prato com a foto de outro.",
+   "encaminhamento": "Confirmar com a operação se existe (ou existiu) uma versão empanada do prato para compartilhar."
+  },
+  {
+   "arquivo": "almoco-executivo-sir-fisher",
+   "observado": "Cliente à mesa com prato de almoço executivo.",
+   "motivo": "Pertence ao almoço executivo, que tem página própria e não faz parte destes 81 registros.",
+   "encaminhamento": "Manter fora do catálogo do cardápio."
+  }
+ ],
+ "contagem_por_categoria": {
+  "fish-and-chips": 2,
+  "petiscos": 15,
+  "sanduiches": 3,
+  "para-dividir": 6,
+  "sobremesas": 3,
+  "cervejas": 10,
+  "coqueteis": 11,
+  "sem-alcool": 9,
+  "doses": 17,
+  "extras": 5
+ },
+ "total_publicavel": 81,
+ "total_rascunho": 2
+}
