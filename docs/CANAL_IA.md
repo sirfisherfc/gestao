@@ -2982,10 +2982,10 @@ Novo: `scripts/gbp/gbp.py` (simula por padrão; `--publicar` publica e registra)
 post, fluxo de fotos), skill `.claude/skills/perfil-google` e
 `scripts/gbp/rotina.ps1` (execução diária pelo Agendador do Windows).
 
-Pendente: a tarefa agendada **não foi registrada**. Rodar o Claude sem
-interface foi bloqueado pelo modo automático; o Rogério decide se registra com
-`.\scripts\gbp\rotina.ps1 -Registrar`. Até lá, a rotina roda quando alguém
-pedir "rode a rotina do Google".
+Rotina ligada com autorização do Rogério: tarefa "Sir Fisher - Perfil do
+Google" no Agendador do Windows, todo dia às 10h (roda depois se o PC estiver
+desligado). Teste supervisionado em 28/09 terminou com código 0 e relatório
+em `tmp/gbp/rotina/`. Para pausar: desativar a tarefa no Agendador.
 
 Avisos: nenhum post ou resposta deve apontar para `/cardapio/`. A rotina não
 faz commit neste repo; só o `publicar-fotos` publica, e apenas a pasta de fotos

@@ -39,7 +39,7 @@ $tarefas = @("diaria")
 if ($hoje.DayOfWeek -eq "Monday") { $tarefas += "segunda-feira" }
 if ($hoje.Day -eq 1) { $tarefas += "dia 1 do mes" }
 $dias = @{Monday="segunda-feira";Tuesday="terca-feira";Wednesday="quarta-feira";Thursday="quinta-feira";Friday="sexta-feira";Saturday="sabado";Sunday="domingo"}
-$prompt = "Execute a rotina do Perfil do Google usando a skill perfil-google. Hoje e $data, $($dias[[string]$hoje.DayOfWeek]). Partes da rotina de hoje: $($tarefas -join ', '). Escreva o relatorio em tmp/gbp/rotina/$data.md."
+$prompt = "Execute a rotina do Perfil do Google seguindo a skill perfil-google (.claude/skills/perfil-google/SKILL.md; leia esse arquivo primeiro). Hoje e $data, $($dias[[string]$hoje.DayOfWeek]). Partes da rotina de hoje: $($tarefas -join ', '). Escreva o relatorio em tmp/gbp/rotina/$data.md."
 
 $claude = (Get-Command claude -ErrorAction SilentlyContinue).Source
 if (-not $claude) { $claude = Join-Path $env:USERPROFILE ".local\bin\claude.exe" }
@@ -48,10 +48,14 @@ $permitidas = @(
     "Bash(python scripts/gbp/gbp.py:*)",
     "PowerShell(python scripts/gbp/gbp.py:*)",
     "Read", "Glob", "Grep",
-    "Write(tmp/gbp/**)", "Edit(tmp/gbp/**)"
+    "Edit(tmp/gbp/**)"
 )
 "=== $(Get-Date -Format s) inicio ($($tarefas -join ', '))" | Out-File -Append -Encoding utf8 $log
-& $claude -p $prompt --allowedTools @permitidas --max-turns 80 2>&1 | Out-File -Append -Encoding utf8 $log
+# No PowerShell 5.1, qualquer linha do Claude na saida de erro (avisos) vira
+# ErrorRecord; com "Stop" isso derrubaria a rotina. Avisos vao so para o log.
+$ErrorActionPreference = "Continue"
+& $claude -p $prompt --allowedTools @permitidas --max-turns 80 2>&1 |
+    ForEach-Object { "$_" } | Out-File -Append -Encoding utf8 $log
 "=== $(Get-Date -Format s) fim (codigo $LASTEXITCODE)" | Out-File -Append -Encoding utf8 $log
 
 $resumo = "A rotina rodou, mas nao deixou relatorio. Veja $log"
