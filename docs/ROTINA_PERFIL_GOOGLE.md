@@ -73,7 +73,17 @@ brinde e link.
 - Não há mais recepcionista na porta; a forma de receber na entrada foi
   reorganizada (set/2026).
 - A orientação da equipe sobre a taxa de rolha foi ajustada (set/2026). A
-  casa não vende vinho.
+  casa não vende vinho. Não há taxa de rolha para vinhos e espumantes, só para
+  destilados e cervejas trazidos de fora. A casa não tem balde de gelo nem taças
+  para vinho.
+- A cozinha fecha às 22h.
+- Promoções vigentes: terça em dobro no almoço executivo (11h às 14h, exceto
+  feriados) e quarta do camarão. Não há happy hour. Aceita Fortal em Dobro
+  (exceto feriados e datas comemorativas), Prime Gourmet, Duo Gourmet e
+  vale-refeição.
+- Não há TV nem música ao vivo. Há wi-fi.
+- Bolo pode; doces e salgados de fora não. Alergias: falar com o gerente no
+  local.
 - O cheiro que alguns clientes sentem vem da saída de águas pluviais da orla,
   ao lado da casa, e piora com chuva. Não depende só da casa.
 - Horário: 9h às 22h15 de domingo a quinta; 9h às 23h sexta e sábado. Abre
