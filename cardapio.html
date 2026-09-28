@@ -95,8 +95,18 @@ const dataHora = iso => iso
       year: '2-digit', hour: '2-digit', minute: '2-digit' })
   : '—';
 
-function abrir(id) { document.getElementById(id).classList.add('show'); }
-function fechar(id) { document.getElementById(id).classList.remove('show'); }
+function abrir(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.setAttribute('aria-hidden', 'false');
+  el.classList.add('show');
+}
+function fechar(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.setAttribute('aria-hidden', 'true');
+  el.classList.remove('show');
+}
 
 // --------------------------------------------------------------------------
 // Carga
@@ -658,7 +668,7 @@ async function abrirPublicar() {
   if (error) {
     box.innerHTML = `<h3>Publicar</h3><p class="mi-erro">${esc(error.message)}</p>
       <div class="mi-rodape"><button class="button secondary" type="button"
-        onclick="document.getElementById('modalPublicar').classList.remove('show')">Fechar</button></div>`;
+        onclick="fechar('modalPublicar')">Fechar</button></div>`;
     return;
   }
 
@@ -776,6 +786,15 @@ async function abrirHistorico() {
 document.addEventListener('keydown', e => {
   if (e.key !== 'Escape') return;
   ['modalProduto', 'modalPublicar', 'modalPrevia'].forEach(fechar);
+});
+
+['modalProduto', 'modalPublicar', 'modalPrevia'].forEach(id => {
+  const modal = document.getElementById(id);
+  if (modal) {
+    modal.addEventListener('click', e => {
+      if (e.target === modal) fechar(id);
+    });
+  }
 });
 
 (async () => {
