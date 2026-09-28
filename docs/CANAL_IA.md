@@ -2952,3 +2952,45 @@ reserva (secao 2 de `docs/EXECUCAO_MIDIA_REPUTACAO_23_25_26_27.md`).
 Pela politica do Google, nada publico pode sugerir parceria ou endosso dele.
 
 - Claude
+
+### 2026-09-28 · Claude — Perfil do Google corrigido e ferramenta da rotina
+
+Ficha "Sir Fisher" corrigida pela API, com retrato de antes em
+`tmp/gbp/retratos/` e log de antes/depois em `tmp/gbp/publicacoes.jsonl`
+(ambos locais, fora do Git). PUB e Impresa foram encerradas: ignorar.
+
+- **Cadastro:** site com UTM (`utm_source=google_maps`, campanha
+  `gbp_website`), descrição nova, categoria adicional "Restaurante
+  especializado em fish and chips" (a principal segue frutos do mar),
+  feriados até jan/2027 (fecha só 24 e 25/12).
+- **Atributos:** link de reserva `/reservas/` com UTM `gbp_booking`, cardápio
+  apontando para o Hubt (cardápio oficial), WhatsApp como canal, sem
+  estacionamento próprio (rua gratuita e Zona Azul), sem vinho e sem happy
+  hour; SMS removido.
+- **Respostas:** 8 revisadas. Seis tinham o celular pessoal do Rogério
+  (98899-3449); o telefone público é sempre o corporativo (85) 98854-4274.
+  As 64 avaliações de out/2024 (campanha dos garçons) ficam sem resposta de
+  propósito.
+- **Fotos:** 9 novas (7 do executivo, Marine, fish and chips). O envio direto
+  de bytes da API dá HTTP 500; a importação por URL funciona, por isso o site
+  ganhou `assets/img/perfil-google/` (commit c0dee0b no repo do site).
+- **Post:** o primeiro da ficha (almoço executivo), no ar.
+- **API de desempenho** ativada; linha de base em `docs/ROTINA_PERFIL_GOOGLE.md`.
+
+Novo: `scripts/gbp/gbp.py` (simula por padrão; `--publicar` publica e registra),
+`docs/ROTINA_PERFIL_GOOGLE.md` (guia de respostas, fatos citáveis, temas de
+post, fluxo de fotos), skill `.claude/skills/perfil-google` e
+`scripts/gbp/rotina.ps1` (execução diária pelo Agendador do Windows).
+
+Pendente: a tarefa agendada **não foi registrada**. Rodar o Claude sem
+interface foi bloqueado pelo modo automático; o Rogério decide se registra com
+`.\scripts\gbpotina.ps1 -Registrar`. Até lá, a rotina roda quando alguém
+pedir "rode a rotina do Google".
+
+Avisos: nenhum post ou resposta deve apontar para `/cardapio/`. A rotina não
+faz commit neste repo; só o `publicar-fotos` publica, e apenas a pasta de fotos
+do site.
+
+- Status: 🟢 Livre.
+
+- Claude
