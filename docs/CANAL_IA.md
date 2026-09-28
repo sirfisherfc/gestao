@@ -2997,3 +2997,23 @@ do site.
 - Status: 🟢 Livre.
 
 - Claude
+
+### 2026-09-28 · Claude — Fotos do Instagram na rotina e Conversions API na v26
+
+- **Fotos:** a rotina de segunda busca as fotos do @sirfisherfc pela API
+  oficial da Meta (`gbp.py instagram`, `META_IG_TOKEN` de um usuário do sistema
+  novo, só leitura, no `.env` e no ambiente da nuvem). O Rogério informou que
+  todas as pessoas das fotos têm termo de autorização de imagem e que a casa é
+  patrocinada pela Ambev: pessoas e marcas de bebida podem ir para a ficha.
+  Hoje entraram 8 fotos do Instagram. Não mexer no usuário do sistema
+  "Conversions API System User": é o da CAPI de produção.
+- **CAPI (repo reservas, commit 103339c):** `send-openai-ads-conversions` passou
+  da Graph API v21.0 para a v26.0 (a mais nova; a v27 não existe). Publicada
+  pela API de gerenciamento do Supabase como versão 14, `verify_jwt` false
+  mantido; inicia normalmente. Validada com envio vazio, sem registrar evento.
+  A primeira reserva confirmada a partir de agora já sai pela v26; vale
+  conferir no Gerenciador de Eventos.
+
+- Status: 🟢 Livre.
+
+- Claude
