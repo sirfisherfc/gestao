@@ -84,6 +84,8 @@ brinde e link.
   próprio.
 - Pets são bem-vindos na área externa.
 - Reservas pelo site; não são obrigatórias.
+- Pessoas nas fotos do Instagram da casa têm termo de autorização de uso de
+  imagem, e a casa é patrocinada pela Ambev (marcas de bebida podem aparecer).
 
 ## Posts
 

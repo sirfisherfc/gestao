@@ -757,11 +757,17 @@ def cmd_instagram(args):
             if min(img.size) < 400:
                 print("   pequena demais: nao publicada")
                 continue
-            criado = api("POST", f"{V4}/{CONTA}/{LOCAL}/media", {
-                "mediaFormat": "PHOTO",
-                "locationAssociation": {"category": escolhidas[f["id"]]},
-                "sourceUrl": f["url"],
-            })
+            try:
+                criado = api("POST", f"{V4}/{CONTA}/{LOCAL}/media", {
+                    "mediaFormat": "PHOTO",
+                    "locationAssociation": {"category": escolhidas[f["id"]]},
+                    "sourceUrl": f["url"],
+                })
+            except ErroApi as e:
+                # Uma foto recusada (ex.: categoria que nao vale para a ficha)
+                # nao impede as outras.
+                print(f"   !! nao publicada: {e}")
+                continue
             registrar("foto", None, {"instagram": f["id"], "post": f["post"], "midia": criado.get("name"),
                                      "categoria": escolhidas[f["id"]]})
             publicadas.append(h)
