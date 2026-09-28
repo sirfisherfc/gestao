@@ -488,13 +488,49 @@ def dhash(imagem, lado=16):
 
 
 def hashes_publicados():
+    """Hash de cada foto ja publicada na ficha, para nao repetir foto.
+
+    Baixa miniaturas pequenas, com pausa entre elas: a partir de servidores na
+    nuvem o Google responde 429 a rajadas. Miniatura que falhar mesmo apos as
+    novas tentativas e pulada, com aviso, em vez de derrubar o comando.
+    """
     from PIL import Image
-    hashes = []
+    cache_arq = SAIDA / "hashes-ficha.json"
+    try:
+        cache = json.loads(cache_arq.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        cache = {}
+    hashes, falhas = [], 0
     for m in ler_fotos():
         if m.get("mediaFormat") != "PHOTO" or not m.get("googleUrl"):
             continue
-        with urllib.request.urlopen(m["googleUrl"].split("=")[0] + "=s400", timeout=60) as r:
-            hashes.append(dhash(Image.open(io.BytesIO(r.read()))))
+        nome = m["name"].split("/")[-1]
+        if nome in cache:
+            hashes.append(cache[nome])
+            continue
+        pedido = urllib.request.Request(m["googleUrl"].split("=")[0] + "=s128",
+                                        headers={"User-Agent": "Mozilla/5.0"})
+        for espera in (0.3, 5, 20, 60):
+            time.sleep(espera)
+            try:
+                with urllib.request.urlopen(pedido, timeout=60) as r:
+                    cache[nome] = dhash(Image.open(io.BytesIO(r.read())))
+                hashes.append(cache[nome])
+                break
+            except urllib.error.HTTPError as e:
+                if e.code != 429:
+                    break
+            except urllib.error.URLError:
+                break
+        if nome not in cache:
+            falhas += 1
+    if falhas:
+        print(f"aviso: {falhas} miniatura(s) da ficha nao baixaram; a checagem de repetidas ficou parcial")
+    try:
+        SAIDA.mkdir(parents=True, exist_ok=True)
+        cache_arq.write_text(json.dumps(cache), encoding="utf-8")
+    except OSError:
+        pass
     return hashes
 
 
