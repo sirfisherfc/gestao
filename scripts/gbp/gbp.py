@@ -26,7 +26,8 @@ Comandos:
   metricas    buscas, visualizacoes e acoes (API de desempenho)
 
 Credenciais: GOOGLE_OAUTH_CLIENT_ID, GOOGLE_OAUTH_CLIENT_SECRET e
-GOOGLE_OAUTH_REFRESH_TOKEN em gestao/.env. Nada disso e impresso.
+GOOGLE_OAUTH_REFRESH_TOKEN, lidas das variaveis de ambiente (rotina na nuvem)
+ou de gestao/.env (PC). Nada disso e impresso.
 A rotina de uso esta em docs/ROTINA_PERFIL_GOOGLE.md.
 """
 
@@ -34,6 +35,7 @@ import argparse
 import datetime as dt
 import io
 import json
+import os
 import re
 import subprocess
 import sys
@@ -97,18 +99,20 @@ FERIADOS_FIXOS = {
 
 # ----------------------------------------------------------------- infra
 
+CHAVES = ("GOOGLE_OAUTH_CLIENT_ID", "GOOGLE_OAUTH_CLIENT_SECRET", "GOOGLE_OAUTH_REFRESH_TOKEN")
+
+
 def carregar_env():
-    if not ENV.exists():
-        sys.exit(f"Arquivo de credenciais ausente: {ENV}")
-    env = {}
-    for linha in ENV.read_text(encoding="utf-8").splitlines():
-        if "=" in linha and not linha.lstrip().startswith("#"):
-            chave, valor = linha.split("=", 1)
-            env[chave.strip()] = valor.strip().strip('"').strip("'")
-    faltando = [k for k in ("GOOGLE_OAUTH_CLIENT_ID", "GOOGLE_OAUTH_CLIENT_SECRET",
-                            "GOOGLE_OAUTH_REFRESH_TOKEN") if not env.get(k)]
+    """Le as credenciais do gestao/.env (PC) ou das variaveis de ambiente (nuvem)."""
+    env = {k: os.environ[k] for k in CHAVES if os.environ.get(k)}
+    if ENV.exists():
+        for linha in ENV.read_text(encoding="utf-8").splitlines():
+            if "=" in linha and not linha.lstrip().startswith("#"):
+                chave, valor = linha.split("=", 1)
+                env.setdefault(chave.strip(), valor.strip().strip('"').strip("'"))
+    faltando = [k for k in CHAVES if not env.get(k)]
     if faltando:
-        sys.exit("Credenciais ausentes em .env: " + ", ".join(faltando))
+        sys.exit("Credenciais ausentes (gestao/.env ou variaveis de ambiente): " + ", ".join(faltando))
     return env
 
 
