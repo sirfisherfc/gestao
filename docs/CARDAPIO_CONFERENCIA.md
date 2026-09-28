@@ -184,7 +184,7 @@ Não foram excluídos nem promovidos. Ficam como decisão da operação.
 
 ## 6. Fotografias
 
-Das 12 fotos de produto disponíveis em `site/assets/img/`, 12 foram
+Das 12 fotos de produto disponíveis em `site/assets/img/`, 34 foram
 atribuídas depois de inspeção visual. Nenhum prato recebeu a foto de
 outro para tapar buraco: quem não tem foto aparece com o brasão, num
 tratamento igual para todos.
@@ -194,10 +194,24 @@ tratamento igual para todos.
 | Produto | Arquivo | Estado |
 |---|---|---|
 | Sir Fisher — Fish & Chips | `prato` | **a confirmar** — A foto mostra peixe empanado ao estilo panko. Confirmar com a operação se corresponde a esta versão ou à London. |
+| London — Fish & Chips | `london-fish-and-chips-sir-fisher` | conferida |
+| Patinha de Caranguejo | `patinha-de-caranguejo-sir-fisher` | conferida |
+| Bolinha de Peixe Cremosa | `bolinha-de-peixe-cremosa-sir-fisher` | conferida |
 | NewCastle | `newcastle-camarao-empanado-sir-fisher` | conferida |
+| Crocante de Carne de Sol com Abóbora | `crocante-carne-de-sol-sir-fisher` | conferida |
+| Crocante de Calabresa e Alho Poró | `crocante-calabresa-sir-fisher` | conferida |
+| Big Ben Fries | `big-ben-fries-sir-fisher` | conferida |
+| Pasteizinhos | `pasteizinhos-sir-fisher` | conferida |
+| Crispy Spicy Chicken | `crispy-spicy-chicken-sir-fisher` | conferida |
+| Filé Mignon Trinchado | `file-mignon-trinchado-sir-fisher` | conferida |
+| Caldo de Peixe | `caldo-de-peixe-sir-fisher` | conferida |
 | Camarão alho e óleo | `camarao-alho-e-oleo-sir-fisher` | conferida |
 | Dadinho de Tapioca | `dadinho-de-tapioca-sir-fisher` | conferida |
+| Calabresa Acebolada com Fritas | `calabresa-acebolada-com-fritas-sir-fisher` | conferida |
+| Macaxeira Frita ou Batata Frita | `macaxeira-ou-batata-frita-sir-fisher` | conferida |
 | Isca de Peixe | `isca-de-peixe-sir-fisher` | conferida |
+| Fisher Burger | `fisher-burger-sir-fisher` | conferida |
+| Edimburger | `edimburger-sir-fisher` | conferida |
 | Marine Sandwich | `marine-sandwich-sir-fisher` | conferida |
 | Filé Mignon | `file-mignon-sir-fisher` | conferida |
 | Picanha Importada | `picanha-importada-sir-fisher` | conferida |
@@ -205,33 +219,24 @@ tratamento igual para todos.
 | Carne de Sol Acebolada | `carne-de-sol-sir-fisher` | conferida |
 | Peito de Frango com Ervas | `peito-de-frango-sir-fisher` | conferida |
 | Picanha Suína | `picanha-suina-sir-fisher` | conferida |
+| Brownie de Chocolate | `brownie-de-chocolate-sir-fisher` | conferida |
+| Brownie com Sorvete | `brownie-com-sorvete-sir-fisher` | conferida |
+| Café Expresso | `cafe-expresso-sir-fisher` | conferida |
+| Molho Extra | `molho-extra-sir-fisher` | conferida |
+| Arroz Extra | `arroz-extra-sir-fisher` | conferida |
+| Rolha | `rolha-sir-fisher` | conferida |
+| Pacote de Gelo | `pacote-gelo-sir-fisher` | conferida |
+| Embalagem para Viagem | `embalagem-viagem-sir-fisher` | conferida |
 
 ### Fotos existentes sem produto correspondente
 
 - **`peixe-empanado-sir-fisher`** — Travessa de compartilhar com filés de peixe empanados, arroz, batata frita e farota. Nenhum prato do cadastro corresponde: o peixe dos pratos para compartilhar é grelhado, não empanado. Não foi atribuída a nenhum produto para não ilustrar um prato com a foto de outro. *Confirmar com a operação se existe (ou existiu) uma versão empanada do prato para compartilhar.*
 - **`almoco-executivo-sir-fisher`** — Cliente à mesa com prato de almoço executivo. Pertence ao almoço executivo, que tem página própria e não faz parte destes 81 registros. *Manter fora do catálogo do cardápio.*
 
-### Pratos a fotografar (17)
+### Pratos a fotografar (0)
 
 Só pratos; bebidas e doses não precisam de foto no portal.
 
-- London — Fish & Chips (R$ 45,00)
-- Patinha de Caranguejo (R$ 55,00)
-- Bolinha de Peixe Cremosa (R$ 44,00)
-- Crocante de Carne de Sol com Abóbora (R$ 38,00)
-- Crocante de Calabresa e Alho Poró (R$ 38,00)
-- Big Ben Fries (R$ 33,00)
-- Pasteizinhos (R$ 37,00)
-- Crispy Spicy Chicken (R$ 37,00)
-- Filé Mignon Trinchado (R$ 84,00)
-- Caldo de Peixe (R$ 18,00)
-- Calabresa Acebolada com Fritas (R$ 46,00)
-- Macaxeira Frita ou Batata Frita (R$ 27,00)
-- Fisher Burger (R$ 37,00)
-- Edimburger (R$ 37,00)
-- Brownie de Chocolate (R$ 10,00)
-- Brownie com Sorvete (R$ 18,00)
-- Café Expresso (R$ 5,00)
 
 **Orientação de captura**, para as novas combinarem com as 12 que já
 existem: luz natural, prato montado como sai para a mesa, fundo de
@@ -257,5 +262,5 @@ Gestão → Rotinas → Cardápio.
    fornecedores, incluindo óleo e equipamento compartilhados. Resolver as
    duas divergências de símbolo (Patinha de Caranguejo sem CRUSTÁCEOS,
    Bolinha de Peixe sem PEIXE).
-7. **Fotos** dos 17 pratos que faltam.
+7. **Fotos** dos 0 pratos que faltam.
 8. **Marcar como conferido** no editor. O aviso sai do portal.

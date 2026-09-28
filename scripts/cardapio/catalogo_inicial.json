@@ -272,7 +272,15 @@
     "confirmado_cozinha": [],
     "contato_cruzado": []
    },
-   "foto": null,
+   "foto": {
+    "base": "london-fish-and-chips-sir-fisher",
+    "larguras": [
+     440,
+     660
+    ],
+    "alt": "Peixe frito em massa dourada na cerveja, servido com batatas fritas crocantes",
+    "estado": "conferido"
+   },
    "termos": [
     "peixe",
     "cerveja",
@@ -355,7 +363,15 @@
     "confirmado_cozinha": [],
     "contato_cruzado": []
    },
-   "foto": null,
+   "foto": {
+    "base": "patinha-de-caranguejo-sir-fisher",
+    "larguras": [
+     440,
+     660
+    ],
+    "alt": "Patinhas de caranguejo empanadas e crocantes, servidas com batatas fritas e molho da casa",
+    "estado": "conferido"
+   },
    "termos": [
     "caranguejo",
     "patinha",
@@ -433,7 +449,15 @@
     "confirmado_cozinha": [],
     "contato_cruzado": []
    },
-   "foto": null,
+   "foto": {
+    "base": "bolinha-de-peixe-cremosa-sir-fisher",
+    "larguras": [
+     440,
+     660
+    ],
+    "alt": "Bolinhas de peixe cremosas empanadas e douradas, servidas com molho artesanal",
+    "estado": "conferido"
+   },
    "termos": [
     "peixe",
     "pescada amarela",
@@ -600,7 +624,15 @@
     "confirmado_cozinha": [],
     "contato_cruzado": []
    },
-   "foto": null,
+   "foto": {
+    "base": "crocante-carne-de-sol-sir-fisher",
+    "larguras": [
+     440,
+     660
+    ],
+    "alt": "Petiscos crocantes de carne de sol com abóbora, dourados e sequinhos",
+    "estado": "conferido"
+   },
    "termos": [
     "carne de sol",
     "abobora",
@@ -677,7 +709,15 @@
     "confirmado_cozinha": [],
     "contato_cruzado": []
    },
-   "foto": null,
+   "foto": {
+    "base": "crocante-calabresa-sir-fisher",
+    "larguras": [
+     440,
+     660
+    ],
+    "alt": "Petiscos crocantes de calabresa e alho-poró com molho da casa",
+    "estado": "conferido"
+   },
    "termos": [
     "calabresa",
     "alho poro",
@@ -751,7 +791,15 @@
     "confirmado_cozinha": [],
     "contato_cruzado": []
    },
-   "foto": null,
+   "foto": {
+    "base": "big-ben-fries-sir-fisher",
+    "larguras": [
+     440,
+     660
+    ],
+    "alt": "Batatas fritas especiais Big Ben servidas com coberturas da casa",
+    "estado": "conferido"
+   },
    "termos": [
     "batata frita",
     "cheddar",
@@ -841,7 +889,15 @@
     "confirmado_cozinha": [],
     "contato_cruzado": []
    },
-   "foto": null,
+   "foto": {
+    "base": "pasteizinhos-sir-fisher",
+    "larguras": [
+     440,
+     660
+    ],
+    "alt": "Porção de pasteizinhos crocantes e dourados",
+    "estado": "conferido"
+   },
    "termos": [
     "pastel",
     "pasteizinho",
@@ -921,7 +977,15 @@
     "confirmado_cozinha": [],
     "contato_cruzado": []
    },
-   "foto": null,
+   "foto": {
+    "base": "crispy-spicy-chicken-sir-fisher",
+    "larguras": [
+     440,
+     660
+    ],
+    "alt": "Tiras de frango crocantes e levemente apimentadas, servidas com molho especial",
+    "estado": "conferido"
+   },
    "termos": [
     "frango",
     "queijo",
@@ -1001,7 +1065,15 @@
     "confirmado_cozinha": [],
     "contato_cruzado": []
    },
-   "foto": null,
+   "foto": {
+    "base": "file-mignon-trinchado-sir-fisher",
+    "larguras": [
+     440,
+     660
+    ],
+    "alt": "Filé mignon trinchado acebolado servido na chapa com acompanhamentos",
+    "estado": "conferido"
+   },
    "termos": [
     "file mignon",
     "carne",
@@ -1079,7 +1151,15 @@
     "confirmado_cozinha": [],
     "contato_cruzado": []
    },
-   "foto": null,
+   "foto": {
+    "base": "caldo-de-peixe-sir-fisher",
+    "larguras": [
+     440,
+     660
+    ],
+    "alt": "Caldo de peixe quente e temperado, servido em cumbuca",
+    "estado": "conferido"
+   },
    "termos": [
     "caldo",
     "peixe",
@@ -1320,7 +1400,15 @@
     "confirmado_cozinha": [],
     "contato_cruzado": []
    },
-   "foto": null,
+   "foto": {
+    "base": "calabresa-acebolada-com-fritas-sir-fisher",
+    "larguras": [
+     440,
+     660
+    ],
+    "alt": "Calabresa fatiada acebolada servida com batatas fritas crocantes",
+    "estado": "conferido"
+   },
    "termos": [
     "calabresa",
     "linguica",
@@ -1403,7 +1491,15 @@
     "confirmado_cozinha": [],
     "contato_cruzado": []
    },
-   "foto": null,
+   "foto": {
+    "base": "macaxeira-ou-batata-frita-sir-fisher",
+    "larguras": [
+     440,
+     660
+    ],
+    "alt": "Porção de macaxeira frita ou batatas fritas douradas",
+    "estado": "conferido"
+   },
    "termos": [
     "macaxeira",
     "mandioca",
@@ -1574,7 +1670,15 @@
     "confirmado_cozinha": [],
     "contato_cruzado": []
    },
-   "foto": null,
+   "foto": {
+    "base": "fisher-burger-sir-fisher",
+    "larguras": [
+     440,
+     660
+    ],
+    "alt": "Hambúrguer Fisher Burger com blend da casa em pão brioche artesanal",
+    "estado": "conferido"
+   },
    "termos": [
     "hamburguer",
     "sanduiche",
@@ -1663,7 +1767,15 @@
     "confirmado_cozinha": [],
     "contato_cruzado": []
    },
-   "foto": null,
+   "foto": {
+    "base": "edimburger-sir-fisher",
+    "larguras": [
+     440,
+     660
+    ],
+    "alt": "Hambúrguer Edimburger suculento em pão brioche",
+    "estado": "conferido"
+   },
    "termos": [
     "hamburguer",
     "sanduiche",
@@ -2483,7 +2595,15 @@
     "confirmado_cozinha": [],
     "contato_cruzado": []
    },
-   "foto": null,
+   "foto": {
+    "base": "brownie-de-chocolate-sir-fisher",
+    "larguras": [
+     440,
+     660
+    ],
+    "alt": "Fatia de brownie artesanal de chocolate",
+    "estado": "conferido"
+   },
    "termos": [
     "brownie",
     "chocolate",
@@ -2542,7 +2662,15 @@
     "confirmado_cozinha": [],
     "contato_cruzado": []
    },
-   "foto": null,
+   "foto": {
+    "base": "brownie-com-sorvete-sir-fisher",
+    "larguras": [
+     440,
+     660
+    ],
+    "alt": "Brownie quente de chocolate acompanhado de bola de sorvete",
+    "estado": "conferido"
+   },
    "termos": [
     "brownie",
     "sorvete",
@@ -2608,7 +2736,15 @@
     "confirmado_cozinha": [],
     "contato_cruzado": []
    },
-   "foto": null,
+   "foto": {
+    "base": "cafe-expresso-sir-fisher",
+    "larguras": [
+     440,
+     660
+    ],
+    "alt": "Xícara de café expresso tirado na hora",
+    "estado": "conferido"
+   },
    "termos": [
     "cafe",
     "expresso",
@@ -6045,7 +6181,15 @@
     "confirmado_cozinha": [],
     "contato_cruzado": []
    },
-   "foto": null,
+   "foto": {
+    "base": "molho-extra-sir-fisher",
+    "larguras": [
+     440,
+     660
+    ],
+    "alt": "Porção extra de molho artesanal da casa em ramequim",
+    "estado": "conferido"
+   },
    "termos": [
     "molho",
     "extra",
@@ -6108,7 +6252,15 @@
     "confirmado_cozinha": [],
     "contato_cruzado": []
    },
-   "foto": null,
+   "foto": {
+    "base": "arroz-extra-sir-fisher",
+    "larguras": [
+     440,
+     660
+    ],
+    "alt": "Porção extra de arroz branco soltinho",
+    "estado": "conferido"
+   },
    "termos": [
     "arroz",
     "extra",
@@ -6170,7 +6322,15 @@
     "confirmado_cozinha": [],
     "contato_cruzado": []
    },
-   "foto": null,
+   "foto": {
+    "base": "rolha-sir-fisher",
+    "larguras": [
+     440,
+     660
+    ],
+    "alt": "Taxa de rolha para consumo de vinho trazido pelo cliente",
+    "estado": "conferido"
+   },
    "termos": [
     "rolha",
     "taxa",
@@ -6233,7 +6393,15 @@
     "confirmado_cozinha": [],
     "contato_cruzado": []
    },
-   "foto": null,
+   "foto": {
+    "base": "pacote-gelo-sir-fisher",
+    "larguras": [
+     440,
+     660
+    ],
+    "alt": "Pacote de gelo em cubos",
+    "estado": "conferido"
+   },
    "termos": [
     "gelo",
     "pacote"
@@ -6295,7 +6463,15 @@
     "confirmado_cozinha": [],
     "contato_cruzado": []
    },
-   "foto": null,
+   "foto": {
+    "base": "embalagem-viagem-sir-fisher",
+    "larguras": [
+     440,
+     660
+    ],
+    "alt": "Embalagem reforçada para viagem",
+    "estado": "conferido"
+   },
    "termos": [
     "embalagem",
     "viagem",
