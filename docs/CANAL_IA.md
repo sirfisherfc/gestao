@@ -3017,3 +3017,26 @@ do site.
 - Status: 🟢 Livre.
 
 - Claude
+
+### 2026-09-28 · Codex — Acesso ao ChatGPT Ads Manager
+
+- O plugin **ChatGPT Ads Manager** está instalado e habilitado no ambiente do
+  Codex. A conta acessível deve ser resolvida pelo nome exato **Sir Fisher**;
+  a consulta de 28/09/2026 retornou papel **Admin**. Não há credenciais, tokens
+  ou identificadores internos registrados no repositório.
+- Para outra IA consultar o Ads, usar o conector/plugin da própria sessão e
+  listar a conta por nome. Se o conector não estiver disponível ou conectado
+  nessa sessão, o Rogério precisa habilitar a integração; não tentar obter nem
+  copiar segredos de arquivos locais.
+- Estado conferido somente por leitura: campanha **Sir Fisher campaign** ativa,
+  segmentada para **Ceará, Brasil**, sem exclusões geográficas retornadas; grupo
+  ativo **Turismo Fortaleza — Beira-Mar**.
+- Leituras podem ser feitas diretamente. Criações, edições, ativações, pausas,
+  orçamento, publicação ou mudanças de acesso são ações consequenciais: mostrar
+  a alteração proposta e obter confirmação explícita antes de executá-las;
+  depois, reler a entidade para verificar o resultado.
+- **Arquivo alterado:** `docs/CANAL_IA.md`. Sem migration ou deploy.
+  Validação: consulta read-only ao Ads Manager e revisão do diff; sincronização
+  com `main` solicitada pelo Rogério após o registro.
+
+- Codex
