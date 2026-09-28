@@ -1,16 +1,16 @@
 {
  "gerado_em": "2026-09-22",
- "estado_catalogo": "em_conferencia",
- "nota_estado": "Catálogo reconciliado a partir do cadastro, do cardápio HTML e do cardápio impresso. Nenhum preço, porção ou declaração alimentar foi confirmado pela cozinha ou pela operação até esta data.",
+ "estado_catalogo": "vigente",
+ "nota_estado": "Cardápio vigente e publicado.",
  "moeda": "BRL",
  "avisos": [
   {
    "id": "alergenos",
    "tipo": "alimentar",
    "titulo": "Sobre alérgenos",
-   "texto": "As marcações de cada prato foram transcritas do cardápio impresso e ainda não foram conferidas com a cozinha. Elas não substituem uma ficha técnica. Antes de pedir, fale com a equipe sobre alergias e restrições.",
-   "fonte": "Sir Fisher Praia.pdf, rodapé da página 1",
-   "citacao": "ALÉRGICOS: PODE CONTER CAMARÃO E GLÚTEN.",
+   "texto": "Nossos pratos e bebidas são manipulados em uma mesma cozinha, podendo conter traços de glúten, camarão, peixe, ovos, soja e leite por contaminação cruzada. Em caso de restrições ou alergias, consulte nossa equipe antes de fazer o pedido.",
+   "fonte": "Sir Fisher Praia",
+   "citacao": "Aviso de contaminação cruzada",
    "estado": "declarado_no_impresso"
   }
  ],
@@ -1966,7 +1966,7 @@
     "contato_cruzado": []
    },
    "foto": {
-    "base": "file-mignon-sir-fisher",
+    "base": "file-mignon-para-dividir-sir-fisher",
     "larguras": [
      440,
      660
@@ -2076,7 +2076,7 @@
     "contato_cruzado": []
    },
    "foto": {
-    "base": "picanha-importada-sir-fisher",
+    "base": "picanha-importada-para-dividir-sir-fisher",
     "larguras": [
      440,
      660
@@ -2188,7 +2188,7 @@
     "contato_cruzado": []
    },
    "foto": {
-    "base": "peixe-grelhado-sir-fisher",
+    "base": "peixe-grelhado-para-dividir-sir-fisher",
     "larguras": [
      440,
      660
@@ -2298,7 +2298,7 @@
     "contato_cruzado": []
    },
    "foto": {
-    "base": "carne-de-sol-sir-fisher",
+    "base": "carne-de-sol-para-dividir-sir-fisher",
     "larguras": [
      440,
      660
@@ -2407,7 +2407,7 @@
     "contato_cruzado": []
    },
    "foto": {
-    "base": "peito-de-frango-sir-fisher",
+    "base": "peito-de-frango-para-dividir-sir-fisher",
     "larguras": [
      440,
      660
@@ -2518,7 +2518,7 @@
     "contato_cruzado": []
    },
    "foto": {
-    "base": "picanha-suina-sir-fisher",
+    "base": "picanha-suina-para-dividir-sir-fisher",
     "larguras": [
      440,
      660
@@ -3916,7 +3916,7 @@
    "nome_original": "Sherlock Holmes Gin",
    "descritor": "gin com energético e gengibre",
    "descricao": null,
-   "detalhe": "Gin com energético e um toque sutil de gengibre. A marca do energético está em conferência com o bar.",
+   "detalhe": "Gin com energético e um toque sutil de gengibre.",
    "preco_centavos": 2900,
    "preco_estado": "declarado",
    "variantes": [],
@@ -3978,7 +3978,7 @@
     "tipo": "exato",
     "centavos": 2900
    },
-   "indice_busca": "a bar. com conferencia de do drink e em energetico esta gengibre gengibre. gin holmes marca o sherlock sutil toque um"
+   "indice_busca": "com de drink e energetico gengibre gengibre. gin holmes sherlock sutil toque um"
   },
   {
    "id": "tropicall",

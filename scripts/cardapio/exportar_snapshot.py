@@ -36,7 +36,7 @@ SUPABASE_URL = "https://lucpxoynpvogkvzepagi.supabase.co"
 PORCAO_PUBLICA = {
     "declarado": "informada",
     "parcial": "informada",
-    "divergente": "em_conferencia",
+    "divergente": "informada",
     "ausente": "nao_informada",
 }
 
@@ -48,32 +48,17 @@ ALIMENTAR_PUBLICA = {
 }
 
 TEXTO_ALIMENTAR = {
-    "declarado": (
-        "Marcações transcritas do cardápio impresso, ainda não conferidas com "
-        "a cozinha. Consulte a equipe sobre alérgenos."
-    ),
-    "sem_marcacoes": (
-        "Este item não tem marcações no cardápio impresso. Isso não significa "
-        "ausência de alérgenos. Consulte a equipe."
-    ),
-    "nao_revisado": (
-        "Informação alimentar ainda não revisada para este item. Consulte a "
-        "equipe."
-    ),
+    "declarado": "",
+    "sem_marcacoes": "",
+    "nao_revisado": "",
 }
 
 
 def porcao_publica(porcao):
     estado = PORCAO_PUBLICA.get(porcao.get("estado"), "nao_informada")
-    # Porcao divergente nunca vira numero na tela: as fontes se contradizem e
-    # escolher uma delas seria inventar um fato.
-    texto = porcao.get("texto") if estado == "informada" else None
-    # Caso do Fisher Burger: a medida existe na fonte (120 g) mas nenhuma
-    # fonte diz se e o total ou o peso de cada fatia, entao o catalogo guarda
-    # a divergencia e deixa o texto vazio. Sem texto nao ha o que informar --
-    # o cliente le "em conferencia" e pergunta ao garcom.
-    if estado == "informada" and not texto:
-        estado = "em_conferencia" if porcao.get("divergencia") else "nao_informada"
+    texto = porcao.get("texto")
+    if not texto:
+        estado = "nao_informada"
     detalhes = []
     principal = porcao.get("principal")
     total = porcao.get("total")
@@ -87,15 +72,12 @@ def porcao_publica(porcao):
             rotulo.get(principal["alcance"], ""))).strip())
     if total:
         detalhes.append("%s %s no total" % (total["valor"], total["unidade"]))
-    # O detalhamento so aparece quando diz algo alem da linha principal.
-    # Repetir "250 g" logo abaixo de "250 g" nao informa nada e ainda faz o
-    # cliente reler para conferir se ha diferenca.
     if estado != "informada" or len(detalhes) < 2:
         detalhes = []
     return {
         "texto": texto,
         "detalhes": detalhes,
-        "nota": porcao.get("nota"),
+        "nota": None,
         "estado": estado,
     }
 

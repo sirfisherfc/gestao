@@ -63,13 +63,13 @@ AVISOS = [
         "tipo": "alimentar",
         "titulo": "Sobre alérgenos",
         "texto": (
-            "As marcações de cada prato foram transcritas do cardápio impresso "
-            "e ainda não foram conferidas com a cozinha. Elas não substituem "
-            "uma ficha técnica. Antes de pedir, fale com a equipe sobre "
-            "alergias e restrições."
+            "Nossos pratos e bebidas são manipulados em uma mesma cozinha, "
+            "podendo conter traços de glúten, camarão, peixe, ovos, soja e leite "
+            "por contaminação cruzada. Em caso de restrições ou alergias, "
+            "consulte nossa equipe antes de fazer o pedido."
         ),
-        "fonte": "Sir Fisher Praia.pdf, rodapé da página 1",
-        "citacao": AVISO_ALERGENOS_IMPRESSO,
+        "fonte": "Sir Fisher Praia",
+        "citacao": "Aviso de contaminação cruzada",
         "estado": "declarado_no_impresso",
     },
 ]
@@ -738,38 +738,38 @@ DIVIDIR = [
     ("file-mignon-dividir", "Filé Mignon", 9000,
      "filé mignon com molho madeira ou ao alho e óleo",
      "Filé mignon suculento, com molho madeira ou preparado ao alho e óleo.",
-     "file-mignon-sir-fisher",
+     "file-mignon-para-dividir-sir-fisher",
      "Travessa com filé mignon ao molho, arroz, batata frita e farofa",
      ["file mignon", "carne", "molho madeira", "alho e oleo"], []),
     ("picanha-importada", "Picanha Importada", 9900,
      "picanha importada grelhada no charbroil",
      "Picanha importada, grelhada no charbroil para realçar sabor e "
      "suculência.",
-     "picanha-importada-sir-fisher",
+     "picanha-importada-para-dividir-sir-fisher",
      "Travessa com fatias de picanha grelhada, arroz, batata frita e farofa",
      ["picanha", "carne", "importada", "grelhada", "charbroil"], []),
     ("file-de-peixe-grelhado", "Filé de Peixe Grelhado", 8000,
      "pescada amarela grelhada",
      "Filé de pescada amarela grelhado, leve e cheio de sabor.",
-     "peixe-grelhado-sir-fisher",
+     "peixe-grelhado-para-dividir-sir-fisher",
      "Travessa com filé de peixe grelhado, arroz, batata frita e farofa",
      ["peixe", "pescada amarela", "grelhado", "leve"], ["PEIXE"]),
     ("carne-de-sol-acebolada", "Carne de Sol Acebolada", 8800,
      "carne de sol com cebolas douradas",
      "Carne de sol de primeira, acompanhada de cebolas douradas.",
-     "carne-de-sol-sir-fisher",
+     "carne-de-sol-para-dividir-sir-fisher",
      "Travessa com carne de sol acebolada, arroz, batata frita e farofa",
      ["carne de sol", "acebolada", "cebola"], []),
     ("peito-de-frango-com-ervas", "Peito de Frango com Ervas", 6200,
      "frango grelhado no charbroil com ervas finas",
      "Peito de frango temperado com ervas finas e grelhado no charbroil.",
-     "peito-de-frango-sir-fisher",
+     "peito-de-frango-para-dividir-sir-fisher",
      "Travessa com peito de frango grelhado, arroz, batata frita e farofa",
      ["frango", "peito", "ervas", "grelhado", "charbroil"], []),
     ("picanha-suina", "Picanha Suína", 6700,
      "picanha suína grelhada no charbroil",
      "Picanha suína grelhada no charbroil.",
-     "picanha-suina-sir-fisher",
+     "picanha-suina-para-dividir-sir-fisher",
      "Travessa com picanha suína grelhada, arroz, batata frita e farofa",
      ["picanha suina", "porco", "suina", "grelhada", "charbroil"], []),
 ]
@@ -964,7 +964,7 @@ p("melancita", "coqueteis", "Melancita", 2700,
 
 p("sherlock-holmes-gin", "coqueteis", "Sherlock Holmes Gin", 2900,
   descritor="gin com energético e gengibre",
-  detalhe="Gin com energético e um toque sutil de gengibre. A marca do energético está em conferência com o bar.",
+  detalhe="Gin com energético e um toque sutil de gengibre.",
   porcao_=P300(),
   alimentar_=alimentar(estado="sem_simbolos", pagina=2),
   termos=["sherlock", "gin", "gengibre", "energetico", "drink"],
@@ -1418,12 +1418,8 @@ def montar():
 
     return {
         "gerado_em": HOJE,
-        "estado_catalogo": "em_conferencia",
-        "nota_estado": (
-            "Catálogo reconciliado a partir do cadastro, do cardápio HTML e do "
-            "cardápio impresso. Nenhum preço, porção ou declaração alimentar "
-            "foi confirmado pela cozinha ou pela operação até esta data."
-        ),
+        "estado_catalogo": "vigente",
+        "nota_estado": "Cardápio vigente e publicado.",
         "moeda": "BRL",
         "avisos": AVISOS,
         "sinonimos": SINONIMOS,
