@@ -25,7 +25,8 @@ ativa: as duas não devem rodar juntas.
 | Todo dia | Checar a ficha e responder avaliações novas | `checar`, `pendentes --json`, `responder --lote ... --publicar` |
 | Segunda-feira | Post da semana | `post ... --publicar` |
 | Segunda-feira | Feriados dos próximos 120 dias | `feriados --publicar` |
-| Sob demanda, no PC | Fotos novas da caixa de entrada | `preparar-fotos`, revisão, `publicar-fotos --publicar` |
+| Segunda-feira | Fotos novas do Instagram @sirfisherfc | `instagram --dias 8`, revisão, `instagram --publicar --itens ...` |
+| Sob demanda, no PC | Fotos da caixa de entrada `site/Fotos/` | `preparar-fotos`, revisão, `publicar-fotos --publicar` |
 | Dia 1 do mês | Números do mês contra o mês anterior | `metricas --dias 28 --palavras 25` |
 
 Todos os comandos simulam por padrão e só publicam com `--publicar`.
@@ -110,7 +111,17 @@ por decisão do proprietário (ver `docs/CARDAPIO.md`).
 
 ## Fotos
 
-A caixa de entrada é `site/Fotos/` (ignorada pelo Git do site), que só existe
+**Do Instagram, toda segunda (nuvem).** O comando `instagram` lê pela API
+oficial da Meta os posts do @sirfisherfc dos últimos 8 dias, baixa as fotos
+(vídeos e reels ficam de fora), descarta as que já estão na ficha por
+semelhança de imagem e deixa as novas para revisão. As aprovadas são
+importadas pela própria URL da Meta, sem passar pelo site. Credencial:
+`META_IG_TOKEN`, token de usuário do sistema do Business Manager, só leitura
+(`instagram_basic`, `pages_show_list`, `pages_read_engagement`), sem
+expiração; `META_IG_USER_ID` é opcional. Os critérios de revisão estão na
+skill `perfil-google`.
+
+**Da caixa de entrada, no PC.** A caixa de entrada é `site/Fotos/` (ignorada pelo Git do site), que só existe
 no PC do Rogério; por isso fotos não fazem parte da rotina na nuvem e rodam
 sob demanda numa sessão local. Fotos do Instagram ou da agência salvas ali
 entram na ficha assim:

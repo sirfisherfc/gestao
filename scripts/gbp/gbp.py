@@ -18,6 +18,7 @@ Comandos:
   responder   publica ou edita a resposta de uma avaliacao (ou um lote)
   aplicar     aplica um plano JSON de cadastro e atributos
   feriados    sincroniza os horarios de feriado dos proximos meses
+  instagram   fotos recentes do @sirfisherfc (API da Meta) que faltam na ficha
   preparar-fotos  leva fotos novas de site/Fotos para a pasta publica do site
   descartar-foto  tira uma foto preparada que nao serve (e nao a traz de volta)
   publicar-fotos  faz commit/push so da pasta publica, espera o deploy e importa
@@ -102,15 +103,22 @@ FERIADOS_FIXOS = {
 CHAVES = ("GOOGLE_OAUTH_CLIENT_ID", "GOOGLE_OAUTH_CLIENT_SECRET", "GOOGLE_OAUTH_REFRESH_TOKEN")
 
 
-def carregar_env():
-    """Le as credenciais do gestao/.env (PC) ou das variaveis de ambiente (nuvem)."""
-    env = {k: os.environ[k] for k in CHAVES if os.environ.get(k)}
+def credencial(chave):
+    """Valor da variavel de ambiente (nuvem) ou, na falta dela, do gestao/.env (PC)."""
+    if os.environ.get(chave):
+        return os.environ[chave]
     if ENV.exists():
         for linha in ENV.read_text(encoding="utf-8").splitlines():
             if "=" in linha and not linha.lstrip().startswith("#"):
-                chave, valor = linha.split("=", 1)
-                env.setdefault(chave.strip(), valor.strip().strip('"').strip("'"))
-    faltando = [k for k in CHAVES if not env.get(k)]
+                nome, valor = linha.split("=", 1)
+                if nome.strip() == chave:
+                    return valor.strip().strip('"').strip("'")
+    return ""
+
+
+def carregar_env():
+    env = {k: credencial(k) for k in CHAVES}
+    faltando = [k for k in CHAVES if not env[k]]
     if faltando:
         sys.exit("Credenciais ausentes (gestao/.env ou variaveis de ambiente): " + ", ".join(faltando))
     return env
@@ -619,6 +627,114 @@ def cmd_fotos(args):
         print("\n(simulacao: nada publicado; use --publicar)")
 
 
+# ----------------------------------------------------------------- instagram
+
+# API oficial da Meta (Instagram Graph API). Token de usuario do sistema do
+# Business Manager, so leitura, em META_IG_TOKEN. META_IG_USER_ID e opcional:
+# sem ele a conta @sirfisherfc e descoberta pelas paginas do token.
+GRAPH = "https://graph.facebook.com/v23.0"
+USUARIO_IG = "sirfisherfc"
+
+
+def graph(caminho, **params):
+    tok = credencial("META_IG_TOKEN")
+    if not tok:
+        sys.exit("META_IG_TOKEN ausente (gestao/.env ou variavel de ambiente)")
+    params["access_token"] = tok
+    url = f"{GRAPH}/{caminho}?{urllib.parse.urlencode(params)}"
+    try:
+        with urllib.request.urlopen(url, timeout=60) as r:
+            return json.load(r)
+    except urllib.error.HTTPError as e:
+        try:
+            erro = json.load(e).get("error", {})
+        except Exception:
+            erro = {}
+        # Nunca repassa a URL: ela carrega o token.
+        raise ErroApi(e.code, {"mensagem": erro.get("message"), "codigo": erro.get("code"),
+                               "tipo": erro.get("type")}) from None
+
+
+def conta_instagram():
+    fixo = credencial("META_IG_USER_ID")
+    if fixo:
+        return fixo
+    paginas = graph("me/accounts", fields="name,instagram_business_account{id,username}").get("data", [])
+    contas = [p["instagram_business_account"] for p in paginas if p.get("instagram_business_account")]
+    for c in contas:
+        if c.get("username") == USUARIO_IG:
+            return c["id"]
+    if not contas:
+        sys.exit("O token nao enxerga nenhuma conta do Instagram ligada a uma pagina.")
+    return contas[0]["id"]
+
+
+def fotos_instagram(dias):
+    desde = (dt.datetime.now(dt.timezone.utc) - dt.timedelta(days=dias)).isoformat()
+    campos = "id,caption,media_type,media_url,permalink,timestamp,children{id,media_type,media_url}"
+    posts = graph(f"{conta_instagram()}/media", fields=campos, limit=50).get("data", [])
+    for p in posts:
+        if p.get("timestamp", "") < desde[:19]:
+            continue
+        if p.get("media_type") == "IMAGE":
+            itens = [p]
+        elif p.get("media_type") == "CAROUSEL_ALBUM":
+            itens = [c for c in p.get("children", {}).get("data", []) if c.get("media_type") == "IMAGE"]
+        else:
+            continue  # videos e reels ficam de fora
+        for i in itens:
+            if i.get("media_url"):
+                yield {"id": i["id"], "url": i["media_url"], "post": p.get("permalink"),
+                       "data": p.get("timestamp", "")[:10],
+                       "legenda": (p.get("caption") or "").replace("\n", " ")[:160]}
+
+
+def cmd_instagram(args):
+    """Lista as fotos recentes do Instagram que ainda nao estao na ficha e publica as escolhidas.
+
+    Sem --publicar: baixa cada foto nova em tmp/gbp/instagram/ para ser olhada.
+    Com --publicar --itens ID[:CATEGORIA],...: importa na ficha pela URL da Meta.
+    """
+    from PIL import Image
+    pasta = SAIDA / "instagram"
+    pasta.mkdir(parents=True, exist_ok=True)
+    publicadas = hashes_publicados() + hashes_descartados()
+    escolhidas = {}
+    for item in filter(None, (args.itens or "").split(",")):
+        ident, _, cat = item.strip().partition(":")
+        escolhidas[ident] = cat or "FOOD_AND_DRINK"
+    novas = 0
+    for f in fotos_instagram(args.dias):
+        arq = pasta / f"{f['id']}.jpg"
+        pedido = urllib.request.Request(f["url"], headers={"User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(pedido, timeout=60) as r:
+            arq.write_bytes(r.read())
+        img = Image.open(arq)
+        h = dhash(img)
+        if parecida(h, publicadas):
+            print(f"ja na ficha: {f['id']} ({f['data']})")
+            continue
+        novas += 1
+        print(f"nova: {f['id']} ({f['data']}, {img.size[0]}x{img.size[1]}) arquivo={arq}\n"
+              f"   post: {f['post']}\n   legenda: {f['legenda']}")
+        if args.publicar and f["id"] in escolhidas:
+            if min(img.size) < 400:
+                print("   pequena demais: nao publicada")
+                continue
+            criado = api("POST", f"{V4}/{CONTA}/{LOCAL}/media", {
+                "mediaFormat": "PHOTO",
+                "locationAssociation": {"category": escolhidas[f["id"]]},
+                "sourceUrl": f["url"],
+            })
+            registrar("foto", None, {"instagram": f["id"], "post": f["post"], "midia": criado.get("name"),
+                                     "categoria": escolhidas[f["id"]]})
+            publicadas.append(h)
+            print(f"   publicada: {criado.get('name', '?').split('/')[-1]}")
+    print(f"\n{novas} foto(s) nova(s) do Instagram nos ultimos {args.dias} dias")
+    if not args.publicar:
+        print("(simulacao: olhe os arquivos e publique com --publicar --itens ID[:CATEGORIA],...)")
+
+
 # ----------------------------------------------------------------- posts
 
 def cmd_post(args):
@@ -793,6 +909,11 @@ def main():
     s.add_argument("--origem", default=str(PASTA_FOTOS))
     s.add_argument("--destino", default=str(PASTA_PUBLICA))
 
+    s = sub.add_parser("instagram")
+    s.add_argument("--dias", type=int, default=8)
+    s.add_argument("--itens", help="IDs escolhidos, com categoria opcional: ID[:CATEGORIA],...")
+    s.add_argument("--publicar", action="store_true")
+
     s = sub.add_parser("descartar-foto")
     s.add_argument("nome")
     s.add_argument("--motivo", required=True)
@@ -832,6 +953,7 @@ def main():
     comandos = {
         "backup": cmd_backup, "checar": cmd_checar, "pendentes": cmd_pendentes,
         "responder": cmd_responder, "aplicar": cmd_aplicar, "feriados": cmd_feriados,
+        "instagram": cmd_instagram,
         "preparar-fotos": cmd_preparar_fotos, "descartar-foto": cmd_descartar_foto,
         "publicar-fotos": cmd_publicar_fotos, "fotos": cmd_fotos,
         "post": cmd_post, "metricas": cmd_metricas,
