@@ -4,11 +4,19 @@ Ficha: **Sir Fisher**, Av. Beira Mar, 3421 (`locations/12889581244809183683`).
 As fichas "Sir Fisher - PUB" e "Sir Fisher - Impresa" foram encerradas e não
 entram em nada.
 
-Quem executa: o Claude, pela ferramenta `scripts/gbp/gbp.py`, disparado todo
-dia pelo Agendador de Tarefas do Windows (`scripts/gbp/rotina.ps1`). O
-Rogério pediu que o Claude responda as avaliações e revise sempre. Toda
-publicação é registrada em `tmp/gbp/publicacoes.jsonl` com o antes e o depois,
-e cada execução deixa um relatório em `tmp/gbp/rotina/`.
+Quem executa: o Claude, pela ferramenta `scripts/gbp/gbp.py`, numa rotina na
+nuvem do Claude Code ("Sir Fisher - Perfil do Google",
+https://claude.ai/code/routines/trig_012Gh3greT1RsH5CBKahGme3), todo dia às
+10h de Fortaleza (13h UTC), no ambiente "Sir Fisher", que guarda as variáveis
+`GOOGLE_OAUTH_*`. Cada execução é uma sessão em claude.ai/code cuja última
+mensagem é o relatório do dia. O Rogério pediu que o Claude responda as
+avaliações e revise sempre.
+
+Na nuvem os arquivos de `tmp/gbp/` se perdem ao fim da sessão; o relatório da
+sessão é o registro. No PC, `tmp/gbp/publicacoes.jsonl` guarda o antes e o
+depois de tudo que foi publicado de lá. O `scripts/gbp/rotina.ps1` (Agendador
+do Windows) fica como alternativa local, desligado enquanto a nuvem estiver
+ativa: as duas não devem rodar juntas.
 
 ## O que roda e quando
 
@@ -17,7 +25,7 @@ e cada execução deixa um relatório em `tmp/gbp/rotina/`.
 | Todo dia | Checar a ficha e responder avaliações novas | `checar`, `pendentes --json`, `responder --lote ... --publicar` |
 | Segunda-feira | Post da semana | `post ... --publicar` |
 | Segunda-feira | Feriados dos próximos 120 dias | `feriados --publicar` |
-| Segunda-feira | Fotos novas da caixa de entrada | `preparar-fotos`, revisão, `publicar-fotos --publicar` |
+| Sob demanda, no PC | Fotos novas da caixa de entrada | `preparar-fotos`, revisão, `publicar-fotos --publicar` |
 | Dia 1 do mês | Números do mês contra o mês anterior | `metricas --dias 28 --palavras 25` |
 
 Todos os comandos simulam por padrão e só publicam com `--publicar`.
@@ -102,8 +110,10 @@ por decisão do proprietário (ver `docs/CARDAPIO.md`).
 
 ## Fotos
 
-A caixa de entrada é `site/Fotos/` (ignorada pelo Git do site). Fotos do
-Instagram ou da agência salvas ali entram na ficha assim:
+A caixa de entrada é `site/Fotos/` (ignorada pelo Git do site), que só existe
+no PC do Rogério; por isso fotos não fazem parte da rotina na nuvem e rodam
+sob demanda numa sessão local. Fotos do Instagram ou da agência salvas ali
+entram na ficha assim:
 
 1. `preparar-fotos` copia só as inéditas (compara com as da ficha por
    semelhança de imagem) para `site/assets/img/perfil-google/`, em JPG.
@@ -131,6 +141,6 @@ setembro: o nome antigo ainda circula.
 
 ## Como pausar
 
-Desativar a tarefa `Sir Fisher - Perfil do Google` no Agendador de Tarefas do
-Windows, ou apagar com
-`Unregister-ScheduledTask -TaskName "Sir Fisher - Perfil do Google"`.
+Desligar a rotina em https://claude.ai/code/routines. Se a alternativa local
+tiver sido religada, desativar também a tarefa `Sir Fisher - Perfil do Google`
+no Agendador de Tarefas do Windows.

@@ -2982,10 +2982,13 @@ Novo: `scripts/gbp/gbp.py` (simula por padrão; `--publicar` publica e registra)
 post, fluxo de fotos), skill `.claude/skills/perfil-google` e
 `scripts/gbp/rotina.ps1` (execução diária pelo Agendador do Windows).
 
-Rotina ligada com autorização do Rogério: tarefa "Sir Fisher - Perfil do
-Google" no Agendador do Windows, todo dia às 10h (roda depois se o PC estiver
-desligado). Teste supervisionado em 28/09 terminou com código 0 e relatório
-em `tmp/gbp/rotina/`. Para pausar: desativar a tarefa no Agendador.
+Rotina ligada **na nuvem** a pedido do Rogério: rotina "Sir Fisher - Perfil
+do Google" do Claude Code (https://claude.ai/code/routines/trig_012Gh3greT1RsH5CBKahGme3),
+todo dia às 10h de Fortaleza, no ambiente "Sir Fisher" (variáveis
+`GOOGLE_OAUTH_*`). Teste em 28/09 ok (82 s, API respondeu, nada alterado no
+repo). A tarefa do Agendador do Windows ficou **desativada** para as duas não
+rodarem juntas; fotos continuam sob demanda no PC. Para pausar: desligar a
+rotina em claude.ai/code/routines.
 
 Avisos: nenhum post ou resposta deve apontar para `/cardapio/`. A rotina não
 faz commit neste repo; só o `publicar-fotos` publica, e apenas a pasta de fotos
