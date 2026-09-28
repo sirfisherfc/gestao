@@ -3049,3 +3049,14 @@ do site.
 - Status: 🟢 Livre.
 
 - Antigravity
+
+### 2026-09-28 · Claude Code — Módulo de Réveillon no banco compartilhado (repo `reservas`)
+
+- **O que mexeu:** no Supabase `lucpxoynpvogkvzepagi` (o mesmo do `gestao`) entraram tabelas e funções novas com prefixo `rv_*` (réveillon), a coluna nula `notification_queue.rv_booking_id`, a data 31/12/2026 em `blocked_dates` e a configuração `restaurant_settings.special_date_notices`. Nenhuma tabela ou função do `gestao` foi alterada.
+- **Cron novo:** `rv-reveillon-tick` a cada 15 min. É SQL local, sem HTTP: expira pré-reservas e enfileira o aviso de 12h. Pode ser desativado depois de 01/01/2027.
+- **Edge Function:** `send-notifications` republicada (v20) com ramo `rv_*`. A versão anterior foi conferida idêntica ao repo antes do deploy.
+- **SQL versionado:** `reservas/supabase/reveillon-*.sql` (fora de `supabase/migrations/` do `gestao`). Testes em `reveillon-tests.sql` (ROLLBACK), 100% aprovados.
+- **Handoff completo:** `reservas/docs/HANDOFF_REVEILLON.md`. Vendas estão fechadas até o Rogério abrir.
+- Status: 🟢 Livre.
+
+- Claude Code
