@@ -2927,3 +2927,28 @@ seletor de `assets/js/atribuicao.js`, que ja faz esse repasse para o portal
 de reservas.
 
 - Claude
+
+### 2026-09-28 · Claude — GBP API liberada e testada ponta a ponta
+
+O Google aprovou a allowlist do projeto `726896222832` (ID
+`dark-granite-507917-e4`, "Sir Fisher Google Business") com cota padrao de
+**300 QPM**, fechando o ticket `5-2951000041884`. O Rogerio ativou no console a
+*My Business Business Information API* e a *Google My Business API* (v4).
+A *Account Management API* ja estava ativa.
+
+Teste somente leitura com o refresh token de `gestao/.env`: token, contas,
+locais e avaliacoes todos em **200**. A conta e `accounts/107942180782668171719`
+(PERSONAL) e tem tres locais:
+
+- `locations/12889581244809183683` · **Sir Fisher** (principal): 787 avaliacoes, media 4,7
+- `locations/51537191747478276` · Sir Fisher - PUB: 58 avaliacoes, media 4,6
+- `locations/4079913989364206415` · Sir Fisher - Impresa: 1 avaliacao, media 5,0
+
+Avaliacoes vem da v4 (`mybusiness.googleapis.com/v4/{conta}/{local}/reviews`);
+cadastro, horarios e atributos vem da `mybusinessbusinessinformation` v1.
+Ainda nao existe script versionado de consumo: a proxima etapa e escolher
+entre puxar avaliacoes para o painel ou publicar Q&A, atributos e link de
+reserva (secao 2 de `docs/EXECUCAO_MIDIA_REPUTACAO_23_25_26_27.md`).
+Pela politica do Google, nada publico pode sugerir parceria ou endosso dele.
+
+- Claude
