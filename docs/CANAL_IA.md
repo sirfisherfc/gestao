@@ -3040,3 +3040,12 @@ do site.
   com `main` solicitada pelo Rogério após o registro.
 
 - Codex
+
+### 2026-09-28 · Antigravity — Correção de sintaxe e aplicação das migrations do cardápio
+
+- **Causa raiz:** a migration `20260922000000_cardapio_catalogo.sql` falhava ao ser executada no Supabase devido a um parêntese faltante na linha 277 (`private.cardapio_indice_busca`), o que impedia a aplicação das migrations `20260922000000` e `20260922010000` e gerava erro de `public.app_cardapio_categorias` ausente no schema cache ao abrir `cardapio.html`.
+- **Ação:** parêntese de fechamento do `unnest` corrigido na migration `20260922000000_cardapio_catalogo.sql`. Ambas as migrations foram aplicadas no banco de produção `portal` (`lucpxoynpvogkvzepagi`), registradas em `supabase_migrations.schema_migrations` e o schema cache do PostgREST foi recarregado via `NOTIFY pgrst`.
+- **Validações:** `check_project.py`, `test_migrations.py`, `test_access_contracts.py` e `test_frontend_contracts.py` 100% aprovados. Banco com 10 categorias, 83 produtos, 10 variantes e 9 adicionais carregados.
+- Status: 🟢 Livre.
+
+- Antigravity

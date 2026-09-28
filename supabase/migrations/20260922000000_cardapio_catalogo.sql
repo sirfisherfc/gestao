@@ -274,7 +274,7 @@ as $function$
                                 p.descricao, array_to_string(p.termos, ' '))))
                                 like '%' || lower(public.unaccent(alt)) || '%'))
         )
-      )), ' ') as palavra
+      )), ' ')) as palavra
     where palavra <> ''
     order by palavra
   ), ' ')
