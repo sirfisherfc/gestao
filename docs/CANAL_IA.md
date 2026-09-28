@@ -2984,7 +2984,7 @@ post, fluxo de fotos), skill `.claude/skills/perfil-google` e
 
 Pendente: a tarefa agendada **não foi registrada**. Rodar o Claude sem
 interface foi bloqueado pelo modo automático; o Rogério decide se registra com
-`.\scripts\gbpotina.ps1 -Registrar`. Até lá, a rotina roda quando alguém
+`.\scripts\gbp\rotina.ps1 -Registrar`. Até lá, a rotina roda quando alguém
 pedir "rode a rotina do Google".
 
 Avisos: nenhum post ou resposta deve apontar para `/cardapio/`. A rotina não
