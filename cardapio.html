@@ -76,6 +76,29 @@ const ROTULOS_PENDENCIA = {
   descricao: 'descrição', alegacao: 'alegação', regra: 'regra'
 };
 
+const TODOS_ALERGENOS = [
+  'GLÚTEN', 'LACTOSE', 'PEIXE', 'CRUSTÁCEOS', 'OVO',
+  'LEITE', 'SOJA', 'CASTANHAS', 'AMÊNDOAS', 'CORANTES'
+];
+
+const GLIFOS = {
+  'GLÚTEN': '<path d="M12 3v18M12 7c-2-2-4-2-5-1 1 2 3 3 5 3zm0 0c2-2 4-2 5-1-1 2-3 3-5 3zm0 5c-2-2-4-2-5-1 1 2 3 3 5 3zm0 0c2-2 4-2 5-1-1 2-3 3-5 3zm0 5c-2-2-4-2-5-1 1 2 3 3 5 3zm0 0c2-2 4-2 5-1-1 2-3 3-5 3z"/>',
+  'LACTOSE': '<path d="M9 2h6v3l2 3v11a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V8l2-3z"/><path d="M7 12h10"/>',
+  'LEITE': '<path d="M4 17c0-4 2-6 4-7V5h8v5c2 1 4 3 4 7a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3z"/><path d="M8 5h8"/>',
+  'OVO': '<ellipse cx="12" cy="13.5" rx="6" ry="8"/><path d="M12 5.5c1.5 1.5 2.5 3 3 4.5"/>',
+  'PEIXE': '<path d="M3 12c3-4 7-5 10-5s6 2 8 5c-2 3-5 5-8 5s-7-1-10-5z"/><circle cx="16.5" cy="11" r="1"/><path d="M3 12 6 8m-3 4 3 4"/>',
+  'CRUSTÁCEOS': '<path d="M12 8a4 4 0 0 1 4 4v3a4 4 0 0 1-8 0v-3a4 4 0 0 1 4-4z"/><path d="M8 9 4 5M16 9l4-4M7 14H3m18 0h-4"/>',
+  'SOJA': '<path d="M7 16a5 5 0 0 1 0-8c3-2 7-2 10 0a5 5 0 0 1 0 8c-3 2-7 2-10 0z"/><circle cx="10" cy="12" r="1.3"/><circle cx="14.5" cy="12" r="1.3"/>',
+  'CASTANHAS': '<path d="M12 3c4 2 6 5 6 9s-2.7 9-6 9-6-5-6-9 2-7 6-9z"/><path d="M12 6v13"/>',
+  'AMÊNDOAS': '<path d="M12 3c3.5 3 5 6 5 9.5S15 21 12 21s-5-5-5-8.5S8.5 6 12 3z"/>',
+  'CORANTES': '<path d="M5 19a4 4 0 0 0 4-4c0-2 1-3 2-4l7-7 2 2-7 7c-1 1-2 2-4 2a4 4 0 0 0-4 4z"/><circle cx="7" cy="17" r="1"/>'
+};
+
+function glifoSVG(rotulo, tamanho = 16) {
+  const caminho = GLIFOS[rotulo] || '<circle cx="12" cy="12" r="8"/>';
+  return `<svg viewBox="0 0 24 24" width="${tamanho}" height="${tamanho}" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${caminho}</svg>`;
+}
+
 function aviso(texto, erro) {
   const t = document.getElementById('toast');
   t.textContent = texto;
@@ -166,6 +189,9 @@ function selosProduto(p) {
   }
   (p.pendencias || []).forEach(x => {
     selos.push('<span class="status info">' + esc(ROTULOS_PENDENCIA[x] || x) + ' a conferir</span>');
+  });
+  ((p.alimentar && p.alimentar.declarados) || []).forEach(a => {
+    selos.push(`<span class="cd-alergeno-tag" title="Alérgeno declarado: ${esc(a)}">${glifoSVG(a, 13)} <span>${esc(a)}</span></span>`);
   });
   return selos.length ? '<div class="cd-selos">' + selos.join('') + '</div>' : '';
 }
@@ -464,12 +490,18 @@ function abrirProduto(id) {
       ${linhasPreco('Adicionais', 'cAdicionais', p.adicionais,
         'Cobrados à parte. Nunca entram como preço do produto.')}
 
-      <div class="mi-campo larga"><span>Informação alimentar</span>
-        <small class="muted">Marcações transcritas do cardápio impresso:
-          <b>${esc((alimentar.declarados || []).join(', ') || 'nenhuma')}</b>.
-          Enquanto a cozinha não confirmar, o portal mostra a ressalva e manda
-          falar com a equipe. Lista vazia significa <b>não revisado</b>, nunca
-          “não contém”.</small>
+      <div class="mi-campo larga"><span>Alérgenos declarados neste item</span>
+        <small class="muted">Selecione os alérgenos presentes na receita. Os ícones serão exibidos no cardápio.</small>
+        <div class="cd-alergenos-grid" id="cAlergenos">
+          ${TODOS_ALERGENOS.map(rotulo => {
+            const ativo = (alimentar.declarados || []).includes(rotulo);
+            return `<label class="cd-alergeno-toggle${ativo ? ' ativo' : ''}" data-rotulo="${esc(rotulo)}">
+              <input type="checkbox" value="${esc(rotulo)}"${ativo ? ' checked' : ''}>
+              ${glifoSVG(rotulo, 16)}
+              <span>${esc(rotulo)}</span>
+            </label>`;
+          }).join('')}
+        </div>
         ${(alimentar.divergencias || []).length
           ? '<div class="cd-aviso" style="margin-top:8px">' +
             alimentar.divergencias.map(d => esc(d)).join('<br>') + '</div>' : ''}
@@ -502,6 +534,11 @@ function abrirProduto(id) {
     ligarRemover();
   }));
   ligarRemover();
+  box.querySelectorAll('#cAlergenos input').forEach(input => {
+    input.addEventListener('change', () => {
+      input.closest('.cd-alergeno-toggle').classList.toggle('ativo', input.checked);
+    });
+  });
   document.getElementById('cCancelar').addEventListener('click', () => fechar('modalProduto'));
   document.getElementById('cSalvar').addEventListener('click', () => salvarProduto(p));
   abrir('modalProduto');
@@ -569,6 +606,12 @@ async function salvarProduto(p) {
     estado: porcaoEstado
   });
 
+  const declaradosNovos = [...document.querySelectorAll('#cAlergenos input:checked')].map(cb => cb.value);
+  const alimentar = Object.assign({}, p.alimentar, {
+    declarados: declaradosNovos,
+    estado: declaradosNovos.length ? 'declarado_no_impresso' : 'sem_simbolos'
+  });
+
   const dados = {
     categoria_id: p.categoria_id,
     subgrupo: p.subgrupo,
@@ -582,7 +625,7 @@ async function salvarProduto(p) {
     inclui: g('cInclui').value.split('·').map(s => s.trim()).filter(Boolean),
     opcoes: p.opcoes,
     porcao: porcao,
-    alimentar: p.alimentar,
+    alimentar: alimentar,
     foto: foto,
     termos: p.termos,
     etiquetas: p.etiquetas,
