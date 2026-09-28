@@ -3060,3 +3060,21 @@ do site.
 - Status: 🟢 Livre.
 
 - Claude Code
+
+### 2026-09-28 · Antigravity — Publicação do cardápio próprio, abas iFood, fotos para dividir e avisos institucionais
+
+- **O que mexeu:**
+  - **Limpeza de conferência e transição editorial:** Catálogo promovido para `vigente` (versão 1). Removidas todas as mensagens transitórias de conferência (tarjas amarelas, notas de conferência em modais, medidas não cadastradas e cópia salva de 22/09) e o bloco "Como pedir" das modais.
+  - **Avisos institucionais e alérgenos (rodapé):** Adicionados avisos de cheques (não aceitos), 10% opcional (Lei nº 13.419/2017), contatos do DECON-CE e PROCON Fortaleza, formas de pagamento aceitas e Pix, e aviso natural de contaminação cruzada para alérgicos padronizado como em embalagens.
+  - **Abas horizontais de categorias (estilo iFood):** Adicionada barra horizontal com scroll suave, destaque de categoria ativa, CSS crítico inlinado no `<head>` e centralização restrita ao container sem deslocar a rolagem vertical da janela ao fechar modais. Ícones compactos de alérgenos nos cards e legenda descritiva no rodapé.
+  - **Acervo fotográfico ("Pra Dividir"):** Extraídas imagens reais do Hubt dos pratos para compartilhar (Módulo 7), gerando 36 arquivos responsivos (JPG, WebP, AVIF em 440w e 660w) com sufixo `-para-dividir-sir-fisher-*`, corrigindo a colisão com os pratos individuais executivos.
+- **Arquivos alterados:**
+  - `gestao`: `scripts/cardapio/catalogo_inicial.py`, `scripts/cardapio/catalogo_inicial.json`, `scripts/cardapio/exportar_snapshot.py`, `docs/HANDOFF_CARDAPIO.md`, `docs/CANAL_IA.md`.
+  - `site`: `cardapio/dados/cardapio.json`, `cardapio/index.html`, `assets/js/cardapio.js`, `assets/css/cardapio.css`, `assets/img/` (36 fotos novas), `tools/cardapio/teste-aceitacao.html`.
+- **Validações:** 42 testes de aceitação automatizados em `site/tools/cardapio/teste-aceitacao.html` 100% aprovados via Playwright Chromium.
+- **Commits / Deploy:** `gestao` (`8d4c8c3`) e `site` (`1f437e9`) commitados e sincronizados no branch `main`.
+- **Handoff detalhado:** [HANDOFF_CARDAPIO.md](file:///c:/Users/rogerio.fonseca/OneDrive/Meus%20Projetos/SirFisher/gestao/docs/HANDOFF_CARDAPIO.md).
+- Status: 🟢 Livre.
+
+- Antigravity
+
