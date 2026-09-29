@@ -3089,3 +3089,15 @@ do site.
 - Status: 🟢 Publicado.
 
 - Codex
+
+### 2026-09-29 · Codex — Ajustes, PDF, alertas e WhatsApp de eventos
+
+- Migration `20260929010000_eventos_propostas_notificacoes.sql` aplicada no `portal`, adicionando somente condições/versionamento da proposta e rastreio do aviso à tabela de eventos.
+- `event-quote` agora permite ajuste auditado de data, convidados, duração, preço, porções, bebidas e condições; redução de preço continua restrita a admin com justificativa.
+- Proposta definitiva gera PDF versionado com cardápio, equivalência de porções, bebidas, valores, sinal, validade, regras, exclusões e aceite, sem CMV/margem interna.
+- Toda nova solicitação envia e-mail aos administradores ativos. Teste real confirmou envio; solicitação fictícia removida depois.
+- Página pública exibe botão de WhatsApp com o código da proposta já preenchido.
+- Commits: `gestao` `b886833`, `reservas` `d81cc02`, `site` `e5d6a97`. Validações: 11 testes Deno, renderização visual do PDF, quality/contracts/migrations e deploys Pages aprovados.
+- Status: 🟢 Publicado e validado.
+
+- Codex
