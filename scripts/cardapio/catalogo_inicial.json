@@ -1,16 +1,16 @@
 {
- "gerado_em": "2026-09-22",
- "estado_catalogo": "vigente",
- "nota_estado": "Cardápio vigente e publicado.",
+ "gerado_em": "2026-09-29",
+ "estado_catalogo": "em_conferencia",
+ "nota_estado": "Catálogo reconciliado a partir do cadastro, do cardápio HTML e do cardápio impresso. Nenhum preço, porção ou declaração alimentar foi confirmado pela cozinha ou pela operação até esta data.",
  "moeda": "BRL",
  "avisos": [
   {
    "id": "alergenos",
    "tipo": "alimentar",
    "titulo": "Sobre alérgenos",
-   "texto": "Nossos pratos e bebidas são manipulados em uma mesma cozinha, podendo conter traços de glúten, camarão, peixe, ovos, soja e leite por contaminação cruzada. Em caso de restrições ou alergias, consulte nossa equipe antes de fazer o pedido.",
-   "fonte": "Sir Fisher Praia",
-   "citacao": "Aviso de contaminação cruzada",
+   "texto": "As marcações de cada prato foram transcritas do cardápio impresso e ainda não foram conferidas com a cozinha. Elas não substituem uma ficha técnica. Antes de pedir, fale com a equipe sobre alergias e restrições.",
+   "fonte": "Sir Fisher Praia.pdf, rodapé da página 1",
+   "citacao": "ALÉRGICOS: PODE CONTER CAMARÃO E GLÚTEN.",
    "estado": "declarado_no_impresso"
   }
  ],

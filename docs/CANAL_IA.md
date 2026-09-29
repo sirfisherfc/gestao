@@ -3090,6 +3090,17 @@ do site.
 
 - Codex
 
+### 2026-09-29 · Codex — Cardápio e book de atendimento reconciliados
+
+- Alterações locais antigas foram revisadas antes do commit: o catálogo volta a `em_conferencia` porque preços, porções e marcações alimentares não têm validação formal completa da operação.
+- Corrigidas as partes contraditórias do rascunho: as seis fotos de “Pra Dividir” permanecem com bases próprias, sem colisão com o executivo; a observação interna do Sherlock Holmes Gin não virou descrição comercial.
+- Origem, JSON e snapshot público foram regenerados com 81 produtos; porções divergentes não publicam números como fatos e as ressalvas alimentares chegam aos detalhes.
+- `docs/HANDOFF_CARDAPIO.md` foi refeito com o estado real, pipeline e checklist de conferência. `docs/BOOK_QA_ATENDIMENTO.md` foi incluído sem conversas, nomes ou telefones de clientes e com o número pessoal antigo removido.
+- Validações: geração idempotente, 81 produtos, JSON embutido idêntico ao snapshot, ativos completos, sintaxe Deno, quality, migrations, acesso e contratos de frontend aprovados. Navegador integrado indisponível nesta sessão.
+- Status: 🟢 Validado e sincronizado.
+
+- Codex
+
 ### 2026-09-29 · Codex — Ajustes, PDF, alertas e WhatsApp de eventos
 
 - Migration `20260929010000_eventos_propostas_notificacoes.sql` aplicada no `portal`, adicionando somente condições/versionamento da proposta e rastreio do aviso à tabela de eventos.

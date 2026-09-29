@@ -42,7 +42,7 @@ import json
 import os
 import unicodedata
 
-HOJE = "2026-09-22"
+HOJE = "2026-09-29"
 
 # --------------------------------------------------------------------------
 # Avisos do catalogo
@@ -63,13 +63,13 @@ AVISOS = [
         "tipo": "alimentar",
         "titulo": "Sobre alérgenos",
         "texto": (
-            "Nossos pratos e bebidas são manipulados em uma mesma cozinha, "
-            "podendo conter traços de glúten, camarão, peixe, ovos, soja e leite "
-            "por contaminação cruzada. Em caso de restrições ou alergias, "
-            "consulte nossa equipe antes de fazer o pedido."
+            "As marcações de cada prato foram transcritas do cardápio impresso "
+            "e ainda não foram conferidas com a cozinha. Elas não substituem "
+            "uma ficha técnica. Antes de pedir, fale com a equipe sobre "
+            "alergias e restrições."
         ),
-        "fonte": "Sir Fisher Praia",
-        "citacao": "Aviso de contaminação cruzada",
+        "fonte": "Sir Fisher Praia.pdf, rodapé da página 1",
+        "citacao": AVISO_ALERGENOS_IMPRESSO,
         "estado": "declarado_no_impresso",
     },
 ]
@@ -1418,8 +1418,12 @@ def montar():
 
     return {
         "gerado_em": HOJE,
-        "estado_catalogo": "vigente",
-        "nota_estado": "Cardápio vigente e publicado.",
+        "estado_catalogo": "em_conferencia",
+        "nota_estado": (
+            "Catálogo reconciliado a partir do cadastro, do cardápio HTML e do "
+            "cardápio impresso. Nenhum preço, porção ou declaração alimentar "
+            "foi confirmado pela cozinha ou pela operação até esta data."
+        ),
         "moeda": "BRL",
         "avisos": AVISOS,
         "sinonimos": SINONIMOS,
