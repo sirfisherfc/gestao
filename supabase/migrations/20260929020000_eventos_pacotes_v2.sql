@@ -23,9 +23,9 @@ update public.event_pricing_versions
 insert into public.event_pricing_versions
   (code, status, cmv_rate, service_rate, target_contribution_margin, freelancer_day, public_notes, internal_notes)
 values
-  ('eventos-2026-09-v2', 'active', 0.35, 0.10, 0.52, 100,
-   'Valores com atendimento incluído. Duração base de 3 horas; cada hora adicional acrescenta 10%.',
-   'v2: bebidas em 4 modelos, petiscos + lanche, travessas por perfil. CMV de 35% continua provisório.')
+  ('eventos-2026-09-v2', 'active', 0.35, 0.10, 0.35, 100,
+   'Valores com atendimento incluído, abaixo do cardápio. Duração base de 3 horas; cada hora adicional acrescenta 10%.',
+   'v2: preço = cardápio menos desconto (antecipado, volume, horário, formato), limitado pelo piso de custo com margem mínima de 35% e pelo faturamento esperado do horário. CMV de 35% vale só sem CMV real no painel.')
 on conflict (code) do update set
   status = 'active',
   cmv_rate = excluded.cmv_rate,
