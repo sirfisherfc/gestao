@@ -3098,6 +3098,7 @@ do site.
 - Toda nova solicitação envia e-mail aos administradores ativos. Teste real confirmou envio; solicitação fictícia removida depois.
 - Página pública exibe botão de WhatsApp com o código da proposta já preenchido.
 - Commits: `gestao` `b886833`, `reservas` `d81cc02`, `site` `e5d6a97`. Validações: 11 testes Deno, renderização visual do PDF, quality/contracts/migrations e deploys Pages aprovados.
+- Handoff operacional completo: `reservas/docs/HANDOFF_EVENTOS.md`; decisões e arquitetura permanecem em `reservas/docs/eventos-mvp.md`.
 - Status: 🟢 Publicado e validado.
 
 - Codex
