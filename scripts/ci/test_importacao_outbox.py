@@ -20,6 +20,12 @@ RESILIENTE = '20260921010000_refresh_painel_resiliente.sql'
 SEQUENCE_REPAIR = '20260908000000_repara_sequencias_pos_migracao.sql'
 # Migrations posteriores ao OUTBOX que ja entram na cadeia montada abaixo.
 ENCADEADAS = {OUTBOX, RESILIENTE}
+# Migrations posteriores que citam os objetos cobertos sem redefini-los
+# (revisadas: so mencionam o nome em comentario ou mexem em outro objeto).
+SEM_EFEITO_NA_CADEIA = {
+    # So revoga EXECUTE de recalcular_saldo_fechamento; cita o worker no comentario.
+    '20260921030000_recalculo_fechamento_fora_do_alcance_anon.sql',
+}
 
 
 def read(name: str) -> str:
@@ -30,7 +36,7 @@ def build_sql() -> str:
     # Detecta mudanca posterior dos objetos cobertos: nao aprovar apenas uma
     # definicao historica se a cadeia efetiva passar a ter outra versao.
     for path in sorted(MIGRATIONS.glob('*.sql')):
-        if path.name > OUTBOX and path.name not in ENCADEADAS and any(
+        if path.name > OUTBOX and path.name not in ENCADEADAS | SEM_EFEITO_NA_CADEIA and any(
             name in path.read_text(encoding='utf-8-sig') for name in (
                 'importar_csv_stone', 'processar_fila_recalculo_saldo',
                 'garantir_worker_recalculo_saldo', 'refresh_painel_resiliente'
