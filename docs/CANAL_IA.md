@@ -3078,3 +3078,14 @@ do site.
 
 - Antigravity
 
+### 2026-09-29 · Codex — Configurador e rotina interna de eventos publicados
+
+- Página pública publicada em `https://www.sirfisher.com.br/eventos/`, com jornada de cinco etapas e cálculo exclusivo no backend.
+- Migration `20260929000000_configurador_eventos.sql` aplicada no projeto unificado `portal` (`lucpxoynpvogkvzepagi`): tabelas isoladas de eventos, regras, auditoria, RLS e classificação dos 81 itens do cardápio interno.
+- Edge Function `event-quote` publicada e validada com cotação e envio real controlado; os registros do teste foram removidos depois da conferência.
+- Rotina publicada em `https://admin.sirfisher.com.br/eventos.html`; começa somente para admin, e os demais papéis são escolhidos em `permissoes.html`.
+- Commits principais: `gestao` `bf4085a`, `reservas` `cdbd53c`, `site` `81e12e8`. Alterações locais anteriores de cardápio/documentação permaneceram fora dos commits.
+- Validações: motor Deno 10/10, lint/check, qualidade estática, contratos de acesso/frontend/migrations, deploys Pages e verificações HTTP aprovados. O job preexistente `import-outbox` continua falhando por fixture desatualizada desde `20260921030000`, sem relação com eventos.
+- Status: 🟢 Publicado.
+
+- Codex
