@@ -39,15 +39,15 @@ with version as (
   select id from public.event_pricing_versions where code = 'eventos-2026-09-v2'
 ), rules(food_style, profile, units, retail, labor, composition) as (
   values
-    ('petiscos','essencial',7,28.32,7,'{"pasteizinhos":0.2,"bolinha_peixe":0.166667,"crocante_carne_sol":0.166667,"dadinho_tapioca":0.25}'::jsonb),
-    ('petiscos','equilibrada',7,36.86,8,'{"pasteizinhos":0.2,"bolinha_peixe":0.166667,"crocantes":0.333333,"dadinho_tapioca":0.166667,"crispy_chicken":0.125}'::jsonb),
-    ('petiscos','completa',7,42.43,10,'{"pasteizinhos":0.2,"bolinha_peixe":0.166667,"crocantes":0.333333,"dadinho_tapioca":0.166667,"newcastle":0.1,"isca_peixe":0.1}'::jsonb),
-    ('petiscos_principal','essencial',4,55.18,9,'{"pasteizinhos":0.15,"crocante_carne_sol":0.166667,"dadinho_tapioca":0.125,"lanche":1}'::jsonb),
-    ('petiscos_principal','equilibrada',5.1,62.88,10,'{"pasteizinhos":0.16,"bolinha_peixe":0.166667,"crocantes":0.166667,"dadinho_tapioca":0.125,"lanche":1}'::jsonb),
-    ('petiscos_principal','completa',5.3,79.62,12,'{"pasteizinhos":0.18,"bolinha_peixe":0.166667,"crocantes":0.166667,"dadinho_tapioca":0.125,"newcastle":0.1,"lanche":1,"brownie":1}'::jsonb),
-    ('refeicao','essencial',2.5,47.33,9,'{"pasteizinhos":0.1,"dadinho_tapioca":0.125,"travessa_essencial":0.5}'::jsonb),
-    ('refeicao','equilibrada',4,70.51,10,'{"pasteizinhos":0.15,"bolinha_peixe":0.166667,"dadinho_tapioca":0.125,"travessa_equilibrada":0.5,"brownie":1}'::jsonb),
-    ('refeicao','completa',3.5,92.72,13,'{"pasteizinhos":0.15,"bolinha_peixe":0.166667,"crocantes":0.166667,"newcastle":0.1,"travessa_completa":0.5,"brownie_sorvete":1}'::jsonb)
+    ('petiscos','essencial',7,28.32,0,'{"pasteizinhos":0.2,"bolinha_peixe":0.166667,"crocante_carne_sol":0.166667,"dadinho_tapioca":0.25}'::jsonb),
+    ('petiscos','equilibrada',7,36.86,0,'{"pasteizinhos":0.2,"bolinha_peixe":0.166667,"crocantes":0.333333,"dadinho_tapioca":0.166667,"crispy_chicken":0.125}'::jsonb),
+    ('petiscos','completa',7,42.43,0,'{"pasteizinhos":0.2,"bolinha_peixe":0.166667,"crocantes":0.333333,"dadinho_tapioca":0.166667,"newcastle":0.1,"isca_peixe":0.1}'::jsonb),
+    ('petiscos_principal','essencial',4,55.18,0,'{"pasteizinhos":0.15,"crocante_carne_sol":0.166667,"dadinho_tapioca":0.125,"lanche":1}'::jsonb),
+    ('petiscos_principal','equilibrada',5.1,62.88,0,'{"pasteizinhos":0.16,"bolinha_peixe":0.166667,"crocantes":0.166667,"dadinho_tapioca":0.125,"lanche":1}'::jsonb),
+    ('petiscos_principal','completa',5.3,79.62,0,'{"pasteizinhos":0.18,"bolinha_peixe":0.166667,"crocantes":0.166667,"dadinho_tapioca":0.125,"newcastle":0.1,"lanche":1,"brownie":1}'::jsonb),
+    ('refeicao','essencial',2.5,47.33,0,'{"pasteizinhos":0.1,"dadinho_tapioca":0.125,"travessa_essencial":0.5}'::jsonb),
+    ('refeicao','equilibrada',4,70.51,0,'{"pasteizinhos":0.15,"bolinha_peixe":0.166667,"dadinho_tapioca":0.125,"travessa_equilibrada":0.5,"brownie":1}'::jsonb),
+    ('refeicao','completa',3.5,92.72,0,'{"pasteizinhos":0.15,"bolinha_peixe":0.166667,"crocantes":0.166667,"newcastle":0.1,"travessa_completa":0.5,"brownie_sorvete":1}'::jsonb)
 )
 insert into public.event_package_rules
   (pricing_version_id, food_style, profile, guest_min, guest_max, food_units_per_person, retail_per_person, kitchen_labor_per_person, composition)
