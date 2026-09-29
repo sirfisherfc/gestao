@@ -1,22 +1,154 @@
-(function(){
-'use strict';
-const sb=SirFisherSupabase;
-const esc=SirFisherDOM.escapeHTML;
-const ENDPOINT='https://lucpxoynpvogkvzepagi.supabase.co/functions/v1/event-quote';
-let ctx=null;
-let rows=[];
-const money=value=>new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(Number(value)||0);
-const dateBR=value=>value?new Intl.DateTimeFormat('pt-BR').format(new Date(`${value}T12:00:00`)):'—';
-const statusLabel={pending:'Pendente',approved:'Aprovada',adjustment_requested:'Ajuste solicitado',rejected:'Recusada',information_requested:'Informação solicitada',alternative_offered:'Alternativa oferecida',final_proposal_ready:'Proposta definitiva pronta'};
-async function api(action,payload={}){const {data:{session}}=await sb.auth.getSession();if(!session)throw new Error('Sessão expirada. Entre novamente.');const response=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${session.access_token}`},body:JSON.stringify({action,...payload})});const body=await response.json().catch(()=>({}));if(!response.ok)throw new Error(body.error||'Falha ao consultar o módulo de eventos.');return body;}
-function renderShell(){document.getElementById('main').innerHTML=`<div class="page-intro"><div><h2>Eventos</h2><p>Pré-propostas recebidas pelo site. Casos verdes podem ser aprovados rapidamente; amarelos e vermelhos mostram o motivo da revisão.</p></div><button class="button" id="event-refresh">Atualizar</button></div><div class="event-kpis" id="event-kpis"></div><div class="event-filters"><input id="event-search" type="search" placeholder="Código ou cliente"><select id="event-risk-filter"><option value="">Todos os riscos</option><option value="verde">Verde</option><option value="amarelo">Amarelo</option><option value="vermelho">Vermelho</option></select><select id="event-status-filter"><option value="">Todos os status</option>${Object.entries(statusLabel).map(([v,l])=>`<option value="${v}">${l}</option>`).join('')}</select></div><div class="event-list" id="event-list"><div class="loading">Carregando…</div></div>`;document.getElementById('event-refresh').addEventListener('click',load);document.getElementById('event-search').addEventListener('input',renderRows);document.getElementById('event-risk-filter').addEventListener('change',renderRows);document.getElementById('event-status-filter').addEventListener('change',renderRows);}
-function renderKpis(){const open=rows.filter(r=>r.status==='pending');const count=risk=>open.filter(r=>r.risk_level===risk).length;document.getElementById('event-kpis').innerHTML=[['Verdes',count('verde'),'verde'],['Amarelos',count('amarelo'),'amarelo'],['Vermelhos',count('vermelho'),'vermelho']].map(([label,value,risk])=>`<div class="event-kpi"><span>${label}</span><strong class="event-risk--${risk}">${value}</strong></div>`).join('');}
-function renderRows(){const search=(document.getElementById('event-search')?.value||'').trim().toLowerCase();const risk=document.getElementById('event-risk-filter')?.value||'';const status=document.getElementById('event-status-filter')?.value||'';const filtered=rows.filter(row=>(!search||`${row.public_code} ${row.customer_name}`.toLowerCase().includes(search))&&(!risk||row.risk_level===risk)&&(!status||row.status===status));const list=document.getElementById('event-list');if(!filtered.length){list.innerHTML='<div class="event-empty">Nenhuma solicitação neste filtro.</div>';return;}list.innerHTML=filtered.map(row=>`<button class="event-row" type="button" data-id="${esc(row.id)}"><div><b>${esc(row.public_code)}</b><small>${dateBR(row.created_at?.slice(0,10))}</small></div><div><b>${esc(row.customer_name)}</b><small>${row.guests} pessoas</small></div><div><b>${dateBR(row.event_date)} · ${esc(String(row.start_time).slice(0,5))}</b><small>${esc(row.public_snapshot?.name||'')}</small></div><span class="event-risk event-risk--${esc(row.risk_level)}">${esc(row.risk_level)}</span><span class="event-status">${esc(statusLabel[row.status]||row.status)}</span></button>`).join('');list.querySelectorAll('[data-id]').forEach(button=>button.addEventListener('click',()=>openDetail(button.dataset.id)));}
-async function load(){const list=document.getElementById('event-list');if(list)list.innerHTML='<div class="loading">Carregando…</div>';try{const data=await api('admin-list');rows=data.requests||[];renderKpis();renderRows();}catch(error){if(list)list.innerHTML=`<div class="event-error">${esc(error.message)}</div>`;}}
-function kv(items){return `<dl class="event-kv">${items.filter(Boolean).map(([k,v])=>`<div><dt>${esc(k)}</dt><dd>${esc(v==null?'—':v)}</dd></div>`).join('')}</dl>`;}
-function objectItems(obj){return Object.entries(obj||{}).map(([key,value])=>`<li>${esc(key.replaceAll('_',' '))}: <strong>${esc(value)}</strong></li>`).join('')||'<li>Sem itens calculados.</li>';}
-async function openDetail(id){const mount=document.getElementById('event-modal');mount.innerHTML='<div class="event-modal-backdrop"><div class="event-modal"><div class="loading">Carregando…</div></div></div>';mount.querySelector('.event-modal-backdrop').addEventListener('click',event=>{if(event.target.classList.contains('event-modal-backdrop'))closeDetail();});try{const {request:r}=await api('admin-detail',{id});const internal=r.internal_snapshot||{};const pub=r.public_snapshot||{};const signals=internal.signals||{};const alerts=(internal.alerts||[]).map(item=>`<li>${esc(item)}</li>`).join('')||'<li>Sem alertas.</li>';mount.querySelector('.event-modal').innerHTML=`<div class="event-modal-head"><div><span class="event-risk event-risk--${esc(r.risk_level)}">${esc(r.risk_level)}</span><h2>${esc(r.public_code)} · ${esc(r.customer_name)}</h2><small>${esc(statusLabel[r.status]||r.status)}</small></div><button class="event-close" type="button" aria-label="Fechar">×</button></div><div class="event-detail-grid"><section class="event-card"><h3>Cliente e evento</h3>${kv([['WhatsApp',r.customer_phone],['Data',dateBR(r.event_date)],['Início',String(r.start_time).slice(0,5)],['Duração',`${r.duration_hours} horas`],['Convidados',r.guests],['Crianças',r.children]])}<a class="event-wa" target="_blank" rel="noopener" href="https://api.whatsapp.com/send?phone=55${esc(r.customer_phone)}">Abrir WhatsApp</a></section><section class="event-card"><h3>Opção escolhida</h3>${kv([['Pacote',pub.name],['Bebidas',pub.beverageLabel],['Por pessoa',money(pub.pricePerPerson)],['Total',money(pub.total)],['Atendimento','Incluído'],['Versão de preço',r.pricing_version],['Versão do cardápio',r.menu_version]])}</section><section class="event-card"><h3>Dimensionamento</h3><ul class="event-items">${objectItems(internal.portions)}</ul><h3 style="margin-top:12px">Bebidas</h3><ul class="event-items">${objectItems(internal.drinks)}</ul>${kv([['Adultos calculados',internal.adults],['Freelancers',internal.freelancerCount]])}</section><section class="event-card"><h3>Análise interna</h3>${kv([['CMV estimado',money(internal.estimatedCmvTotal)],['Margem estimada',`${Math.round((Number(internal.estimatedContributionMargin)||0)*100)}%`],['Equivalente cardápio',money(internal.menuEquivalentTotal)],['Mínimo técnico',money(internal.technicalMinimumTotal)],['Piso de oportunidade',internal.opportunityFloorTotal==null?'Sem dado':money(internal.opportunityFloorTotal)],['Mediana comparável',signals.comparableRevenueMedian==null?'Sem dado':money(signals.comparableRevenueMedian)]])}<h3 style="margin-top:12px">Alertas</h3><ul class="event-items">${alerts}</ul></section><section class="event-card event-actions"><h3>Registrar decisão</h3><textarea id="event-note" maxlength="1000" placeholder="Justificativa, ajuste ou informação solicitada"></textarea>${ctx.role==='admin'?'<label class="event-discount"><input id="event-discount" type="checkbox"> Aprovar desconto excepcional (justificativa obrigatória)</label>':''}<div class="event-buttons"><button class="primary" data-status="approved">Aprovar</button><button data-status="adjustment_requested">Ajustar</button><button data-status="information_requested">Solicitar informação</button><button data-status="alternative_offered">Oferecer alternativa</button><button data-status="final_proposal_ready">Gerar proposta definitiva</button><button class="danger" data-status="rejected">Recusar</button></div><div id="event-action-error"></div></section></div>`;mount.querySelector('.event-close').addEventListener('click',closeDetail);mount.querySelectorAll('[data-status]').forEach(button=>button.addEventListener('click',()=>updateRequest(r.id,button.dataset.status,button)));}catch(error){mount.querySelector('.event-modal').innerHTML=`<div class="event-error">${esc(error.message)}</div>`;}}
-async function updateRequest(id,status,button){const note=document.getElementById('event-note').value.trim();const discountApproved=Boolean(document.getElementById('event-discount')?.checked);if(discountApproved&&!note){document.getElementById('event-action-error').innerHTML='<div class="event-error">Informe a justificativa do desconto.</div>';return;}button.disabled=true;try{await api('admin-update',{id,status,note,discountApproved});closeDetail();await load();}catch(error){document.getElementById('event-action-error').innerHTML=`<div class="event-error">${esc(error.message)}</div>`;button.disabled=false;}}
-function closeDetail(){document.getElementById('event-modal').innerHTML='';}
-(async()=>{ctx=await SirFisherAuth.requireRole(sb);if(!ctx)return;renderShell();load();})();
+(function () {
+  'use strict';
+  const sb = SirFisherSupabase;
+  const esc = SirFisherDOM.escapeHTML;
+  const ENDPOINT = 'https://lucpxoynpvogkvzepagi.supabase.co/functions/v1/event-quote';
+  let ctx = null;
+  let rows = [];
+  const money = value => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(Number(value) || 0);
+  const dateBR = value => value ? new Intl.DateTimeFormat('pt-BR').format(new Date(`${value}T12:00:00`)) : '—';
+  const statusLabel = {
+    pending: 'Pendente', approved: 'Aprovada', adjustment_requested: 'Ajuste solicitado', rejected: 'Recusada',
+    information_requested: 'Informação solicitada', alternative_offered: 'Alternativa oferecida',
+    final_proposal_ready: 'Proposta definitiva pronta'
+  };
+
+  async function session() {
+    const { data: { session: current } } = await sb.auth.getSession();
+    if (!current) throw new Error('Sessão expirada. Entre novamente.');
+    return current;
+  }
+
+  async function api(action, payload = {}) {
+    const current = await session();
+    const response = await fetch(ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${current.access_token}` },
+      body: JSON.stringify({ action, ...payload })
+    });
+    const body = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(body.error || 'Falha ao consultar o módulo de eventos.');
+    return body;
+  }
+
+  function renderShell() {
+    document.getElementById('main').innerHTML = `<div class="page-intro"><div><h2>Eventos</h2><p>Pré-propostas recebidas pelo site. Revise, ajuste e gere o PDF definitivo antes de confirmar com o cliente.</p></div><button class="button" id="event-refresh">Atualizar</button></div><div class="event-kpis" id="event-kpis"></div><div class="event-filters"><input id="event-search" type="search" placeholder="Código ou cliente"><select id="event-risk-filter"><option value="">Todos os riscos</option><option value="verde">Verde</option><option value="amarelo">Amarelo</option><option value="vermelho">Vermelho</option></select><select id="event-status-filter"><option value="">Todos os status</option>${Object.entries(statusLabel).map(([value, label]) => `<option value="${value}">${label}</option>`).join('')}</select></div><div class="event-list" id="event-list"><div class="loading">Carregando…</div></div>`;
+    document.getElementById('event-refresh').addEventListener('click', load);
+    document.getElementById('event-search').addEventListener('input', renderRows);
+    document.getElementById('event-risk-filter').addEventListener('change', renderRows);
+    document.getElementById('event-status-filter').addEventListener('change', renderRows);
+  }
+
+  function renderKpis() {
+    const open = rows.filter(row => row.status === 'pending');
+    const count = risk => open.filter(row => row.risk_level === risk).length;
+    document.getElementById('event-kpis').innerHTML = [['Verdes', count('verde'), 'verde'], ['Amarelos', count('amarelo'), 'amarelo'], ['Vermelhos', count('vermelho'), 'vermelho']]
+      .map(([label, value, risk]) => `<div class="event-kpi"><span>${label}</span><strong class="event-risk--${risk}">${value}</strong></div>`).join('');
+  }
+
+  function renderRows() {
+    const search = (document.getElementById('event-search')?.value || '').trim().toLowerCase();
+    const risk = document.getElementById('event-risk-filter')?.value || '';
+    const status = document.getElementById('event-status-filter')?.value || '';
+    const filtered = rows.filter(row => (!search || `${row.public_code} ${row.customer_name}`.toLowerCase().includes(search)) && (!risk || row.risk_level === risk) && (!status || row.status === status));
+    const list = document.getElementById('event-list');
+    if (!filtered.length) { list.innerHTML = '<div class="event-empty">Nenhuma solicitação neste filtro.</div>'; return; }
+    list.innerHTML = filtered.map(row => `<button class="event-row" type="button" data-id="${esc(row.id)}"><div><b>${esc(row.public_code)}</b><small>${dateBR(row.created_at?.slice(0, 10))}</small></div><div><b>${esc(row.customer_name)}</b><small>${row.guests} pessoas</small></div><div><b>${dateBR(row.event_date)} · ${esc(String(row.start_time).slice(0, 5))}</b><small>${esc(row.public_snapshot?.name || '')}</small></div><span class="event-risk event-risk--${esc(row.risk_level)}">${esc(row.risk_level)}</span><span class="event-status">${esc(statusLabel[row.status] || row.status)}</span></button>`).join('');
+    list.querySelectorAll('[data-id]').forEach(button => button.addEventListener('click', () => openDetail(button.dataset.id)));
+  }
+
+  async function load() {
+    const list = document.getElementById('event-list');
+    if (list) list.innerHTML = '<div class="loading">Carregando…</div>';
+    try { const data = await api('admin-list'); rows = data.requests || []; renderKpis(); renderRows(); }
+    catch (error) { if (list) list.innerHTML = `<div class="event-error">${esc(error.message)}</div>`; }
+  }
+
+  function kv(items) {
+    return `<dl class="event-kv">${items.filter(Boolean).map(([key, value]) => `<div><dt>${esc(key)}</dt><dd>${esc(value == null ? '—' : value)}</dd></div>`).join('')}</dl>`;
+  }
+
+  function objectItems(obj) {
+    return Object.entries(obj || {}).map(([key, value]) => `<li>${esc(key.replaceAll('_', ' '))}: <strong>${esc(value)}</strong></li>`).join('') || '<li>Sem itens calculados.</li>';
+  }
+
+  function quantityInputs(kind, obj) {
+    return Object.entries(obj || {}).map(([key, value]) => `<label><span>${esc(key.replaceAll('_', ' '))}</span><input type="number" min="0" max="10000" step="1" value="${esc(value)}" data-quantity="${kind}" data-key="${esc(key)}"></label>`).join('') || '<p>Sem itens calculados.</p>';
+  }
+
+  function adjustmentForm(r, pub, internal) {
+    const terms = r.proposal_terms || {};
+    return `<section class="event-card event-adjustment" id="event-adjustment" hidden><div class="event-adjustment-head"><div><h3>Editar proposta</h3><p>Salve os ajustes antes de gerar o PDF definitivo.</p></div><button type="button" class="event-close-adjustment">Fechar</button></div><div class="event-form-grid"><label>Data<input id="adjust-date" type="date" value="${esc(r.event_date)}"></label><label>Início<input id="adjust-time" type="time" value="${esc(String(r.start_time).slice(0, 5))}"></label><label>Duração (horas)<input id="adjust-duration" type="number" min="2" max="8" step="0.5" value="${esc(r.duration_hours)}"></label><label>Convidados<input id="adjust-guests" type="number" min="1" max="300" value="${esc(r.guests)}"></label><label>Crianças<input id="adjust-children" type="number" min="0" max="300" value="${esc(r.children)}"></label><label>Valor por pessoa<input id="adjust-price" type="number" min="1" max="10000" step="0.01" value="${esc(pub.pricePerPerson)}"></label><label class="wide">Nome do pacote<input id="adjust-name" maxlength="140" value="${esc(pub.name)}"></label><label class="wide">Descrição<textarea id="adjust-description" maxlength="500">${esc(pub.description || '')}</textarea></label><label class="wide">Modelo de bebidas<input id="adjust-beverage" maxlength="180" value="${esc(pub.beverageLabel || '')}"></label></div><h3>Porções de alimentos</h3><div class="event-quantity-grid">${quantityInputs('food', internal.portions)}</div><h3>Bebidas</h3><div class="event-quantity-grid">${quantityInputs('drink', internal.drinks)}</div><div class="event-form-grid"><label>Validade (dias)<input id="adjust-validity" type="number" min="1" max="30" value="${esc(terms.validityDays || 5)}"></label><label>Sinal (%)<input id="adjust-deposit" type="number" min="0" max="100" step="0.1" value="${esc(terms.depositPercent ?? 20)}"></label><label>Saldo até quantos dias antes<input id="adjust-balance" type="number" min="0" max="60" value="${esc(terms.balanceDaysBefore ?? 7)}"></label><label class="wide">Adicionais, um por linha<textarea id="adjust-additions">${esc((pub.additions || []).join('\n'))}</textarea></label><label class="wide">Não incluídos, um por linha<textarea id="adjust-excluded">${esc((pub.notIncluded || []).join('\n'))}</textarea></label><label class="wide">Observações comerciais<textarea id="adjust-commercial-notes" maxlength="1000">${esc(terms.additionalNotes || '')}</textarea></label></div><button class="primary event-save-adjustment" type="button">Salvar ajustes</button><div id="event-adjustment-error"></div></section>`;
+  }
+
+  async function openDetail(id) {
+    const mount = document.getElementById('event-modal');
+    mount.innerHTML = '<div class="event-modal-backdrop"><div class="event-modal"><div class="loading">Carregando…</div></div></div>';
+    mount.querySelector('.event-modal-backdrop').addEventListener('click', event => { if (event.target.classList.contains('event-modal-backdrop')) closeDetail(); });
+    try {
+      const { request: r } = await api('admin-detail', { id });
+      const internal = r.internal_snapshot || {};
+      const pub = r.public_snapshot || {};
+      const signals = internal.signals || {};
+      const alerts = (internal.alerts || []).map(item => `<li>${esc(item)}</li>`).join('') || '<li>Sem alertas.</li>';
+      const waText = encodeURIComponent(`Olá, ${r.customer_name}! Estamos analisando a proposta ${r.public_code} do seu evento.`);
+      const notification = r.notification_sent_at ? 'E-mail enviado' : (r.notification_error ? `Falha: ${r.notification_error}` : 'Aguardando envio');
+      mount.querySelector('.event-modal').innerHTML = `<div class="event-modal-head"><div><span class="event-risk event-risk--${esc(r.risk_level)}">${esc(r.risk_level)}</span><h2>${esc(r.public_code)} · ${esc(r.customer_name)}</h2><small>${esc(statusLabel[r.status] || r.status)}</small></div><button class="event-close" type="button" aria-label="Fechar">×</button></div><div class="event-detail-grid"><section class="event-card"><h3>Cliente e evento</h3>${kv([['WhatsApp', r.customer_phone], ['Data', dateBR(r.event_date)], ['Início', String(r.start_time).slice(0, 5)], ['Duração', `${r.duration_hours} horas`], ['Convidados', r.guests], ['Crianças', r.children], ['Aviso interno', notification]])}<a class="event-wa" target="_blank" rel="noopener" href="https://api.whatsapp.com/send?phone=55${esc(r.customer_phone)}&text=${waText}">Conversar no WhatsApp</a></section><section class="event-card"><h3>Opção escolhida</h3>${kv([['Pacote', pub.name], ['Bebidas', pub.beverageLabel], ['Por pessoa', money(pub.pricePerPerson)], ['Total', money(pub.total)], ['Atendimento', 'Incluído'], ['Proposta', r.proposal_version ? `Versão ${r.proposal_version}` : 'Ainda não gerada'], ['Versão de preço', r.pricing_version], ['Versão do cardápio', r.menu_version]])}</section><section class="event-card"><h3>Dimensionamento</h3><ul class="event-items">${objectItems(internal.portions)}</ul><h3 style="margin-top:12px">Bebidas</h3><ul class="event-items">${objectItems(internal.drinks)}</ul>${kv([['Adultos calculados', internal.adults], ['Freelancers', internal.freelancerCount]])}</section><section class="event-card"><h3>Análise interna</h3>${kv([['CMV estimado', money(internal.estimatedCmvTotal)], ['Margem estimada', `${Math.round((Number(internal.estimatedContributionMargin) || 0) * 100)}%`], ['Equivalente cardápio', money(internal.menuEquivalentTotal)], ['Mínimo técnico', money(internal.technicalMinimumTotal)], ['Piso de oportunidade', internal.opportunityFloorTotal == null ? 'Sem dado' : money(internal.opportunityFloorTotal)], ['Mediana comparável', signals.comparableRevenueMedian == null ? 'Sem dado' : money(signals.comparableRevenueMedian)]])}<h3 style="margin-top:12px">Alertas</h3><ul class="event-items">${alerts}</ul></section>${adjustmentForm(r, pub, internal)}<section class="event-card event-actions"><h3>Próximas etapas</h3><textarea id="event-note" maxlength="1000" placeholder="Justificativa, observação ou mensagem interna"></textarea>${ctx.role === 'admin' ? '<label class="event-discount"><input id="event-discount" type="checkbox"> Aprovar desconto excepcional (justificativa obrigatória)</label>' : ''}<div class="event-buttons"><button class="primary" data-status="approved">Aprovar</button><button id="event-edit" type="button">Editar proposta</button><button data-status="information_requested">Solicitar informação</button><button data-status="alternative_offered">Oferecer alternativa</button><button id="event-pdf" type="button">Gerar e baixar PDF definitivo</button><button class="danger" data-status="rejected">Recusar</button></div><div id="event-action-error"></div></section></div>`;
+      mount.querySelector('.event-close').addEventListener('click', closeDetail);
+      mount.querySelector('.event-close-adjustment').addEventListener('click', () => { document.getElementById('event-adjustment').hidden = true; });
+      mount.querySelector('#event-edit').addEventListener('click', () => { const form = document.getElementById('event-adjustment'); form.hidden = false; form.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+      mount.querySelector('.event-save-adjustment').addEventListener('click', event => saveAdjustment(r.id, event.currentTarget));
+      mount.querySelector('#event-pdf').addEventListener('click', event => downloadProposal(r.id, r.public_code, event.currentTarget));
+      mount.querySelectorAll('[data-status]').forEach(button => button.addEventListener('click', () => updateRequest(r.id, button.dataset.status, button)));
+    } catch (error) { mount.querySelector('.event-modal').innerHTML = `<div class="event-error">${esc(error.message)}</div>`; }
+  }
+
+  function collectQuantities(kind) {
+    return Object.fromEntries([...document.querySelectorAll(`[data-quantity="${kind}"]`)].map(input => [input.dataset.key, Number(input.value)]));
+  }
+
+  async function saveAdjustment(id, button) {
+    const note = document.getElementById('event-note').value.trim();
+    const discountApproved = Boolean(document.getElementById('event-discount')?.checked);
+    const adjustment = {
+      date: document.getElementById('adjust-date').value, startTime: document.getElementById('adjust-time').value,
+      durationHours: Number(document.getElementById('adjust-duration').value), guests: Number(document.getElementById('adjust-guests').value),
+      children: Number(document.getElementById('adjust-children').value), pricePerPerson: Number(document.getElementById('adjust-price').value),
+      name: document.getElementById('adjust-name').value, description: document.getElementById('adjust-description').value,
+      beverageLabel: document.getElementById('adjust-beverage').value, portions: collectQuantities('food'), drinks: collectQuantities('drink'),
+      additions: document.getElementById('adjust-additions').value, notIncluded: document.getElementById('adjust-excluded').value,
+      terms: { validityDays: Number(document.getElementById('adjust-validity').value), depositPercent: Number(document.getElementById('adjust-deposit').value), balanceDaysBefore: Number(document.getElementById('adjust-balance').value), additionalNotes: document.getElementById('adjust-commercial-notes').value }
+    };
+    button.disabled = true;
+    try { await api('admin-adjust', { id, adjustment, note, discountApproved }); await openDetail(id); await load(); }
+    catch (error) { document.getElementById('event-adjustment-error').innerHTML = `<div class="event-error">${esc(error.message)}</div>`; button.disabled = false; }
+  }
+
+  async function downloadProposal(id, code, button) {
+    button.disabled = true;
+    const errorMount = document.getElementById('event-action-error');
+    try {
+      const current = await session();
+      const response = await fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${current.access_token}` }, body: JSON.stringify({ action: 'admin-proposal-pdf', id }) });
+      if (!response.ok) { const body = await response.json().catch(() => ({})); throw new Error(body.error || 'Não foi possível gerar o PDF.'); }
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url; link.download = `proposta-${code}.pdf`; document.body.appendChild(link); link.click(); link.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+      closeDetail(); await load();
+    } catch (error) { errorMount.innerHTML = `<div class="event-error">${esc(error.message)}</div>`; button.disabled = false; }
+  }
+
+  async function updateRequest(id, status, button) {
+    const note = document.getElementById('event-note').value.trim();
+    const discountApproved = Boolean(document.getElementById('event-discount')?.checked);
+    if (discountApproved && !note) { document.getElementById('event-action-error').innerHTML = '<div class="event-error">Informe a justificativa do desconto.</div>'; return; }
+    button.disabled = true;
+    try { await api('admin-update', { id, status, note, discountApproved }); closeDetail(); await load(); }
+    catch (error) { document.getElementById('event-action-error').innerHTML = `<div class="event-error">${esc(error.message)}</div>`; button.disabled = false; }
+  }
+
+  function closeDetail() { document.getElementById('event-modal').innerHTML = ''; }
+  (async () => { ctx = await SirFisherAuth.requireRole(sb); if (!ctx) return; renderShell(); load(); })();
 })();
