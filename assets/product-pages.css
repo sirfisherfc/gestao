@@ -63,6 +63,7 @@ header{background:var(--header);color:#fff;position:sticky;top:0;z-index:10}
 .routine-card.tom-conciliacao{--tom:#c0562a}
 .routine-card.tom-importar{--tom:#12313f}
 .routine-card.tom-escalas{--tom:#7a5230}
+.routine-card.tom-eventos{--tom:#c24f39}
 .routine-card .icon svg{width:18px;height:18px}
 .routine-card h3{font-size:14.5px;margin-bottom:4px}
 .routine-card p{font-size:11.5px;color:var(--muted);line-height:1.5}

@@ -46,6 +46,7 @@ jobs:
             dre.html \
             despesas.html \
             gerente.html \
+            eventos.html \
             gerenciador_de_para.html \
             analise_individual.html \
             classificar_excecoes.html \
@@ -73,6 +74,8 @@ jobs:
           cp assets/classification-actions.js _site/assets/
           cp assets/dashboard-common.css _site/assets/
           cp assets/dashboard-utils.js _site/assets/
+          cp assets/eventos.css _site/assets/
+          cp assets/eventos.js _site/assets/
           cp assets/product-pages.css _site/assets/
           cp assets/safe-dom.js _site/assets/
           cp assets/supabase-client.js _site/assets/
@@ -86,6 +89,8 @@ jobs:
             assets/classification-actions.js \
             assets/dashboard-common.css \
             assets/dashboard-utils.js \
+            assets/eventos.css \
+            assets/eventos.js \
             assets/product-pages.css \
             assets/safe-dom.js \
             assets/supabase-client.js \
@@ -99,6 +104,7 @@ jobs:
             despesas.html \
             dre.html \
             escalas.html \
+            eventos.html \
             gerenciador_de_para.html \
             gerente.html \
             importar.html \
