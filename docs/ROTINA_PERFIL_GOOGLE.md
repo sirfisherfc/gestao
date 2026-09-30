@@ -55,6 +55,14 @@ sem desculpa genérica, diga o que mudou somente se estiver na lista de fatos
 abaixo, e convide para conversar pelo WhatsApp (85) 98854-4274. Sinalize a
 avaliação no relatório para o Rogério saber.
 
+**Avaliação "retida" (404).** Às vezes a avaliação aparece em `pendentes`,
+mas o Google recusa a resposta com HTTP 404, e o painel do Maps também diz
+"Não foi possível localizar essa avaliação". Visto em 30/09/2026 com 3
+avaliações de 5 estrelas, sem texto, do mesmo dia (25/09). Não é token nem
+permissão: a mesma credencial publica posts e fotos. O `responder` marca
+"retida pelo Google" e segue o lote. Tente de novo nos dias seguintes e só
+avise o Rogério se passar de 14 dias.
+
 **Nunca:**
 
 - pedir para mudar a nota, "merecer a 5ª estrela" ou atualizar a avaliação;

@@ -325,7 +325,18 @@ def cmd_responder(args):
             continue
         # A leitura (GET) das avaliacoes leva alguns minutos para refletir a
         # edicao; quem confirma na hora e o retorno do proprio PUT.
-        devolvida = api("PUT", f"{V4}/{a['name']}/reply", {"comment": texto})
+        try:
+            devolvida = api("PUT", f"{V4}/{a['name']}/reply", {"comment": texto})
+        except ErroApi as e:
+            if e.status != 404:
+                raise
+            # A avaliacao aparece na lista, mas o Google ainda nao aceita
+            # resposta (o painel diz "Nao foi possivel localizar essa
+            # avaliacao"). Visto em 30/09/2026 com 3 avaliacoes so de estrelas
+            # do mesmo dia. Nao e token: tentar de novo em alguns dias.
+            print("!! retida pelo Google (404): tentar de novo em alguns dias; nao e problema de credencial")
+            erros += 1
+            continue
         ok = devolvida.get("comment", "").strip() == texto
         registrar("resposta", antes, texto, {"avaliacao": a["name"], "conferido": ok,
                                              "atualizada_em": devolvida.get("updateTime")})
