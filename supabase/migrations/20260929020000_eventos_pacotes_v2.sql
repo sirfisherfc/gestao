@@ -67,8 +67,8 @@ with version as (
   values
     ('individual',0,0,0,0,false,'{"perGuest":{},"perAdult":{}}'::jsonb),
     ('sem_alcool',0,14.8,0,0.03,false,'{"perGuest":{"agua":0.8,"refrigerante":0.8,"suco":0.4},"perAdult":{}}'::jsonb),
-    ('chope',32.7,6.5,3,0.05,true,'{"perGuest":{"agua":0.5,"refrigerante":0.5},"perAdult":{"chope":3}}'::jsonb),
-    ('chope_coquetel',41.8,6.5,3,0.05,true,'{"perGuest":{"agua":0.5,"refrigerante":0.5},"perAdult":{"chope":2,"coquetel":1}}'::jsonb)
+    ('chope',32.7,7.7,3,0.05,true,'{"perGuest":{"agua":0.4,"refrigerante":0.3,"suco":0.3},"perAdult":{"chope":3}}'::jsonb),
+    ('chope_coquetel',41.8,7.7,3,0.05,true,'{"perGuest":{"agua":0.4,"refrigerante":0.3,"suco":0.3},"perAdult":{"chope":2,"coquetel":1}}'::jsonb)
 )
 insert into public.event_beverage_rules
   (pricing_version_id, mode, retail_per_adult, retail_per_guest, units_per_adult, waste_risk, needs_validation, composition)
