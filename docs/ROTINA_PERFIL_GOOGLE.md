@@ -118,6 +118,12 @@ Temas em rodízio (não repetir nenhum dos 3 últimos, que o `checar` lista):
 | Guia da Beira-Mar | `/guia/beira-mar/` | `assets/img/pordosol-800.jpg` |
 
 Fotos são usadas pela URL pública `https://www.sirfisher.com.br/<caminho>`.
+
+Links fixos da ficha (atributos): o botão "Reservar" (`url_reservations`) vai
+direto para o sistema, sem passar pelo site:
+`https://reservas.sirfisher.com.br/?utm_source=google_maps&utm_medium=organic&utm_campaign=gbp_booking&utm_content=botao_reservar`
+(alterado em 30/09/2026; no painel de reservas essas reservas aparecem com
+origem `google_maps`). O "Cardápio" (`url_menu`) continua no Hubt.
 Nunca apontar para `/cardapio/`: o cardápio oficial continua sendo o do Hubt,
 por decisão do proprietário (ver `docs/CARDAPIO.md`).
 
