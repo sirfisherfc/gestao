@@ -48,11 +48,27 @@
   }
 
   function renderShell() {
-    document.getElementById('main').innerHTML = `<div class="page-intro"><div><h2>Eventos</h2><p>Pré-propostas recebidas pelo site. Revise, ajuste e gere o PDF definitivo antes de confirmar com o cliente.</p></div><button class="button" id="event-refresh">Atualizar</button></div><div class="event-kpis" id="event-kpis"></div><div class="event-filters"><input id="event-search" type="search" placeholder="Código ou cliente"><select id="event-risk-filter"><option value="">Todos os riscos</option><option value="verde">Verde</option><option value="amarelo">Amarelo</option><option value="vermelho">Vermelho</option></select><select id="event-status-filter"><option value="">Todos os status</option>${Object.entries(statusLabel).map(([value, label]) => `<option value="${value}">${label}</option>`).join('')}</select></div><div class="event-list" id="event-list"><div class="loading">Carregando…</div></div>`;
+    document.getElementById('main').innerHTML = `<div class="page-intro"><div><h2>Eventos</h2><p>Estimativas recebidas pelo site. Revise, ajuste e gere a proposta oficial em PDF antes de confirmar com o cliente.</p></div><button class="button" id="event-refresh">Atualizar</button></div><form class="event-verify" id="event-verify"><label>Verificar proposta<input id="event-verify-code" placeholder="SF-XXXX-XXXX" maxlength="14" autocomplete="off"></label><button class="button" type="submit">Verificar</button><div id="event-verify-result"></div></form><div class="event-kpis" id="event-kpis"></div><div class="event-filters"><input id="event-search" type="search" placeholder="Código ou cliente"><select id="event-risk-filter"><option value="">Todos os riscos</option><option value="verde">Verde</option><option value="amarelo">Amarelo</option><option value="vermelho">Vermelho</option></select><select id="event-status-filter"><option value="">Todos os status</option>${Object.entries(statusLabel).map(([value, label]) => `<option value="${value}">${label}</option>`).join('')}</select></div><div class="event-list" id="event-list"><div class="loading">Carregando…</div></div>`;
     document.getElementById('event-refresh').addEventListener('click', load);
+    document.getElementById('event-verify').addEventListener('submit', verifyProposal);
     document.getElementById('event-search').addEventListener('input', renderRows);
     document.getElementById('event-risk-filter').addEventListener('change', renderRows);
     document.getElementById('event-status-filter').addEventListener('change', renderRows);
+  }
+
+  async function verifyProposal(event) {
+    event.preventDefault();
+    const out = document.getElementById('event-verify-result');
+    const code = document.getElementById('event-verify-code').value.trim();
+    if (!code) return;
+    out.innerHTML = '<div class="loading">Verificando…</div>';
+    try {
+      const r = await api('admin-verify', { code });
+      if (!r.valid) { out.innerHTML = `<div class="event-verify-bad">✗ ${esc(r.reason)}</div>`; return; }
+      const p = r.proposal || {};
+      const latest = r.isLatest ? 'É a versão mais recente.' : `Atenção: existe versão mais nova (v${esc(r.latestVersion)}). Esta foi substituída.`;
+      out.innerHTML = `<div class="event-verify-ok">✓ Proposta autêntica: <b>${esc(p.public_code)}</b> · versão ${esc(p.proposal_version)} · emitida em ${esc(new Date(p.generated_at).toLocaleString('pt-BR'))}<br>${esc(p.customer_name)} · ${dateBR(p.event_date)} às ${esc(String(p.start_time || '').slice(0, 5))} · ${esc(p.guests)} convidados · ${esc(p.option_name || '')}<br>Valor: <b>${money(p.price_per_person)}</b> por pessoa · total <b>${money(p.total)}</b>. Compare com o PDF apresentado: qualquer diferença indica alteração.<br>${latest}</div>`;
+    } catch (error) { out.innerHTML = `<div class="event-error">${esc(error.message)}</div>`; }
   }
 
   function renderKpis() {
