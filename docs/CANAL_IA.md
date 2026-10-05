@@ -3142,8 +3142,32 @@ do site.
 - Migration aplicada e registrada em produção após autorização do usuário.
   Função, grant autenticado, bloqueio anônimo e search_path conferidos;
   schema cache recarregado antes de publicar o frontend.
-- Status: 🟡 Banco pronto e publicação do frontend autorizada; acompanhar
-  GitHub Pages e Quality gates após o push.
+- Frontend publicado no commit `f1fe075`; GitHub Pages aprovado e HTML de
+  produção conferido contra a versão local. Job `quality` aprovado, incluindo
+  os 13 testes novos. Job PostgreSQL `import-outbox` ainda em fila no momento
+  deste registro; as mesmas asserções da consulta passaram localmente em PGlite.
+- Status: 🟢 Banco e frontend publicados. Acompanhar o job PostgreSQL em fila.
 - Commit sugerido: `fix: manter pendencias anteriores nas contas recorrentes`.
+
+- Codex
+
+### 2026-10-05 · Codex — Autorização permanente e sincronização do workspace
+
+- O usuário autorizou expressamente commit, push e publicação nas tarefas
+  solicitadas, sem nova confirmação rotineira, e pediu sincronização de todos
+  os projetos e da raiz.
+- Regras atualizadas em `gestao/AGENTS.md` e `gestao/CLAUDE.md`. Criado o
+  `AGENTS.md` da raiz, herdado pelos três projetos, com conferência obrigatória
+  de `gestao`, `site` e `reservas` ao começar e terminar as tarefas.
+- A raiz não possui Git. Suas orientações ficam também versionadas em
+  `docs/workspace/AGENTS_WORKSPACE.md` e `docs/workspace/README_WORKSPACE.md`.
+  Cada cópia foi conferida idêntica ao arquivo correspondente da raiz.
+- Arquivos desta etapa: `../AGENTS.md`, `AGENTS.md`, `CLAUDE.md`,
+  `docs/workspace/AGENTS_WORKSPACE.md`, `docs/workspace/README_WORKSPACE.md`,
+  `docs/CANAL_IA.md`. Nenhuma credencial ou dado bruto incluído.
+- `site` e `reservas`: pull e push conferidos, árvores limpas e sem divergência
+  com `origin/main`. Mudanças da gestão revisadas e enviadas em commits próprios.
+- Validações: quality com Node e revisão do diff aprovados; cópias da raiz
+  idênticas. A mudança das instruções é documental e não altera o site publicado.
 
 - Codex

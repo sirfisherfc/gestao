@@ -26,8 +26,17 @@ Este arquivo é a fonte canônica das instruções operacionais para qualquer IA
 2. Executar `git status`.
 3. Verificar se há arquivos modificados, staged ou untracked.
 4. Não iniciar trabalho se houver alterações pendentes sem antes explicar ao usuário o estado encontrado e definir como preservá-las.
-5. Com a árvore de trabalho limpa, executar `git pull origin main` antes de começar uma tarefa nova.
+5. Com a árvore de trabalho limpa, executar `git pull --ff-only origin main` antes de começar uma tarefa nova.
 6. Confirmar que a branch ativa e o diretório do repositório são os esperados antes de editar arquivos.
+7. Ler também o `../AGENTS.md`, quando existir, e conferir a sincronização dos repositórios `site` e `reservas`, além dos arquivos de orientação da raiz. Em um clone independente, consultar a cópia versionada das instruções gerais em `docs/workspace/AGENTS_WORKSPACE.md` e sincronizar os repositórios disponíveis.
+
+## Autorização permanente para concluir e sincronizar
+
+- Em 05/10/2026, o usuário autorizou todas as IAs, incluindo Codex e Claude Code, a validar, adicionar, commitar, dar push para `main` e publicar as alterações solicitadas, sem pedir confirmação novamente para essas etapas.
+- A autorização inclui documentação, ajustes de instruções e migrations não destrutivas necessárias ao pedido, com revisão do diff e verificações de destino e resultado. Ferramentas configuradas somente para leitura continuam somente para leitura.
+- Sempre concluir a tarefa com os repositórios do workspace sincronizados. Revisar alterações existentes e preservá-las; não adicionar arquivos desconhecidos, segredos ou dados brutos apenas para deixar a árvore limpa.
+- Manter as orientações da raiz idênticas às cópias em `docs/workspace/` e enviar suas mudanças com o repositório de gestão.
+- Ações destrutivas, descarte de mudanças, force push e trabalho fora do escopo continuam exigindo autorização específica.
 
 ## Regras de Git
 
@@ -59,7 +68,7 @@ Este arquivo é a fonte canônica das instruções operacionais para qualquer IA
 - Antes de criar uma migration, conferir a maior versão já existente com `ls supabase/migrations/` (não apenas `git log`) e usar um número maior. Isso evita colisão de versão quando a outra IA já criou uma migration com o mesmo timestamp — o runner aplica por número e pula silenciosamente a duplicada, deixando a segunda sem efeito mesmo constando como "aplicada".
 - Escrever migrations idempotentes/re-executáveis: `create table/index if not exists`, `create or replace` em funções e views, `drop ... if exists` antes de recriar policy ou trigger, e `on conflict` em seeds. A verificação "Supabase Preview" reprocessa as migrations do zero e falha em statements não-idempotentes.
 - Antes de criar uma migration, explicar o problema, os objetos afetados, o SQL proposto e os riscos.
-- Depois da revisão do usuário, as migrations devem seguir o fluxo normal de commit e push para `main`, onde são aplicadas pela integração do GitHub com o Supabase.
+- Revisar e validar as migrations relacionadas ao pedido antes de publicá-las, dentro da autorização permanente. Conferir se foram realmente aplicadas; não presumir aplicação automática pelo push. Se necessário, usar o fluxo de implantação com escrita autorizado do projeto e registrar a versão na mesma transação. Verificar a nova função antes de publicar páginas que dependam dela.
 - Documentar qualquer alteração de schema, tabela, view, materialized view, function, trigger ou policy.
 - Não assumir que uma divergência financeira é erro de código ou banco sem validar a origem, o período, a regra de cálculo e a completude dos dados.
 - Não alterar diretamente o banco por ferramentas configuradas apenas para leitura.
@@ -113,6 +122,6 @@ Antes de alternar a IA responsável, garantir que a tarefa anterior esteja valid
 - Explicar objetivamente o que foi feito.
 - Rodar todas as validações possíveis e informar seus resultados.
 - Executar `git status` e relatar o estado final.
-- Sugerir uma mensagem de commit adequada quando houver alterações prontas.
-- Não fazer `git add`, commit ou push sem autorização, salvo quando o usuário pedir explicitamente.
+- Fazer commit e push das alterações solicitadas após as validações e informar o commit publicado, usando a autorização permanente.
+- Conferir `gestao`, `site`, `reservas` e as cópias dos arquivos de orientação da raiz, relatando qualquer pendência real de sincronização.
 - Confirmar que nenhum arquivo sensível, dado bruto ou alteração fora do escopo foi incluído.
