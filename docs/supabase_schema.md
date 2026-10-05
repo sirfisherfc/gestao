@@ -936,6 +936,22 @@ no repositório.
   configurada em `meses_media_fixa` de pagamentos reais anteriores à
   competência escolhida. O nome técnico legado da coluna retornada permanece
   `media_3` por compatibilidade.
+- A RPC de leitura `listar_pendencias_recorrentes(date)` retorna `conta_id`,
+  `competencia`, `vencimento` e `media_3` de meses anteriores vencidos sem
+  registro (pagamento ou `sem_movimento`). Considera contas ativas da unidade
+  principal, desde o mês do cadastro ou o primeiro registro legado, o que
+  ocorrer antes. Datas usam America/Fortaleza e dias 29–31 são limitados ao
+  último dia do mês. A média considera somente pagamentos anteriores àquela
+  competência, respeitando `meses_media_fixa`. Sem histórico, a previsão é
+  nula; a ocorrência continua visível, sem ser apresentada como custo zero.
+- A página pagina a consulta de pendências, exibe cada competência separadamente
+  e baixa o mês original, mesmo quando o pagamento ocorre depois. O resumo
+  distingue previsão do mês e anteriores; o gráfico permanece por competência.
+  Ausência de baixa indica pendência de conferência, não dívida comprovada.
+- Limitação: não há início/encerramento históricos explícitos nem saldo parcial
+  por competência. Contas inativas não geram pendências inferidas; reativar uma
+  conta pode exigir marcar meses sem cobrança. O histórico fora da janela
+  visual de 48 meses ainda participa da consulta de pendências no servidor.
 - Escritas usam as RPCs `salvar_conta_recorrente`,
   `salvar_pagamento_recorrente` e `excluir_pagamento_recorrente`.
 - O histórico da planilha antiga foi enviado uma única vez pela RPC admin

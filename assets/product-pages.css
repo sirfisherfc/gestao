@@ -160,6 +160,7 @@ header{background:var(--header);color:#fff;position:sticky;top:0;z-index:10}
 .recurring-group{margin-top:12px}.recurring-group:first-child{margin-top:0}
 .recurring-group-head{display:flex;align-items:center;gap:7px;font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;padding:0 2px 5px}
 .recurring-group-head span{background:#eef1f2;color:#5c6b72;border-radius:999px;padding:1px 7px;font-size:9.5px;font-weight:700}
+.recurring-previous .recurring-name{flex-direction:column;gap:3px;align-items:stretch}.recurring-previous .recurring-name span{color:#993d3d;font-weight:500}.recurring-period{margin-top:9px}.recurring-pending-note{margin:8px 2px 14px;line-height:1.5}
 .recurring-list{display:flex;flex-direction:column;gap:4px}.recurring-row{border:1px solid var(--border);border-radius:8px;background:#fff}
 .recurring-row.state-overdue{border-color:#e4b1b1;background:#fffafa}.recurring-row.state-soon{border-color:#e3cd8c;background:#fffdf7}.recurring-row.state-paid{border-color:#dce7e0}
 .recurring-main{display:grid;grid-template-columns:4px minmax(160px,1fr) 96px 82px 12px;align-items:center;gap:9px;padding:6px 10px;cursor:pointer;list-style:none}

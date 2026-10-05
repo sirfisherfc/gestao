@@ -3113,3 +3113,37 @@ do site.
 - Status: 🟢 Publicado e validado.
 
 - Codex
+
+### 2026-10-05 · Codex — Pendências anteriores em contas recorrentes
+
+- Causa: a consulta e os botões usavam exclusivamente a competência selecionada,
+  ocultando ocorrências anteriores sem baixa ao virar o mês.
+- A lista agora prioriza competências anteriores, identifica mês/vencimento e
+  baixa a competência da própria ocorrência. Resumo separa previsão do mês e
+  anteriores; gráfico continua por competência. Datas operacionais usam Fortaleza.
+- Nova migration `20261005000000_pendencias_recorrentes_anteriores.sql`: somente
+  a RPC protegida de leitura `listar_pendencias_recorrentes(date)`, sem mudanças
+  nas tabelas ou nos registros. Começa no cadastro ou primeiro histórico legado;
+  exclui pagamentos e meses sem movimento; média considera pagamentos anteriores
+  à competência. A página pagina resultados e não exibe totais parciais se falhar.
+- Limitações: ausência de registro não comprova dívida. Datas históricas de
+  início/encerramento não são explícitas. Somente contas ativas geram pendências
+  inferidas; reativação pode exigir marcar meses sem cobrança. Sem saldo parcial,
+  juros ou multas automáticos. Caso específico citado pelo usuário foi reproduzido
+  com dados fictícios, sem consultar ou modificar registros de produção.
+- Arquivos alterados: `contas_recorrentes.html`, `assets/product-pages.css`,
+  `supabase/migrations/20261005000000_pendencias_recorrentes_anteriores.sql`,
+  `scripts/ci/test_contas_recorrentes.mjs`, `scripts/ci/test_contas_recorrentes_sql.py`,
+  `.github/workflows/quality.yml`, `docs/supabase_schema.md`, `docs/CANAL_IA.md`.
+- Validações: 13 testes JavaScript; execução/reexecução e asserções SQL em
+  PostgreSQL isolado (PGlite); quality com Node; migrations; contratos de acesso,
+  frontend e financeiros aprovados. Chromium com dados fictícios: desktop/mobile,
+  pagamento na competência original, sem cobrança e console aprovados.
+- Migration aplicada e registrada em produção após autorização do usuário.
+  Função, grant autenticado, bloqueio anônimo e search_path conferidos;
+  schema cache recarregado antes de publicar o frontend.
+- Status: 🟡 Banco pronto e publicação do frontend autorizada; acompanhar
+  GitHub Pages e Quality gates após o push.
+- Commit sugerido: `fix: manter pendencias anteriores nas contas recorrentes`.
+
+- Codex

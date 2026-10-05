@@ -40,24 +40,28 @@ const CATEGORIAS={
   operacao:'Operação',tributos:'Tributos',financeiro:'Financeiro',outros:'Outros'
 };
 const MESES=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
-let AUTH=null,ROWS=[],PAYMENTS=[],TOTALS=[],chart=null,LOAD_SEQ=0;
+let AUTH=null,ROWS=[],PENDING=[],PAYMENTS=[],TOTALS=[],chart=null,LOAD_SEQ=0;
 let competencia=mesAtual(),filtroStatus='ativas',busca='';
 
-function mesAtual(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;}
+function mesAtual(){return hojeISO().slice(0,7);}
 function competenciaISO(){return competencia+'-01';}
-function hojeISO(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
+function competenciaConta(row){return row.competencia||competenciaISO();}
+function chaveConta(row){return `${row.conta_id}:${competenciaConta(row)}`;}
+function contasExibidas(){return [...PENDING,...ROWS];}
+function filtrarContas(){return contasExibidas().filter(r=>(filtroStatus==='todas'||(filtroStatus==='ativas'?r.ativa:!r.ativa))&&(!busca||r.nome.toLowerCase().includes(busca)));}
+function hojeISO(){const partes=new Intl.DateTimeFormat('en',{timeZone:'America/Fortaleza',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());const valor=tipo=>partes.find(p=>p.type===tipo).value;return `${valor('year')}-${valor('month')}-${valor('day')}`;}
 function brl(v){return Number(v||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});}
 function dataBR(v){if(!v)return '—';const [y,m,d]=String(v).slice(0,10).split('-');return `${d}/${m}/${y}`;}
 function mesLabel(v){const [y,m]=String(v).slice(0,7).split('-').map(Number);return `${MESES[m-1]} ${y}`;}
 function toast(msg,erro=false){const el=document.getElementById('toast');el.textContent=msg;el.className='toast show'+(erro?' err':'');setTimeout(()=>el.classList.remove('show'),2600);}
-function vencimentoISO(row){const [y,m]=competencia.split('-').map(Number);const ultimo=new Date(y,m,0).getDate();return `${y}-${String(m).padStart(2,'0')}-${String(Math.min(Number(row.dia_vencimento),ultimo)).padStart(2,'0')}`;}
+function vencimentoISO(row){if(row.vencimento)return row.vencimento;const [y,m]=competenciaConta(row).split('-').map(Number);const ultimo=new Date(y,m,0).getDate();return `${y}-${String(m).padStart(2,'0')}-${String(Math.min(Number(row.dia_vencimento),ultimo)).padStart(2,'0')}`;}
 function estado(row){
   if(row.situacao==='pago')return{classe:'paid',rotulo:'Pago'};
   if(row.situacao==='sem_movimento')return row.tipo==='rotina'?{classe:'paid',rotulo:'Concluída'}:{classe:'ignored',rotulo:'Sem cobrança'};
   if(!row.ativa)return{classe:'ignored',rotulo:'Inativa'};
   const venc=vencimentoISO(row),hoje=hojeISO();
   if(venc<hoje)return{classe:'overdue',rotulo:'Vencida'};
-  const dias=Math.ceil((new Date(venc+'T12:00:00')-new Date(hoje+'T12:00:00'))/86400000);
+  const dias=(Date.parse(venc+'T00:00:00Z')-Date.parse(hoje+'T00:00:00Z'))/86400000;
   return dias<=diasAlerta()?{classe:'soon',rotulo:dias===0?'Vence hoje':`Vence em ${dias}d`}:{classe:'open',rotulo:'Pendente'};
 }
 function optionCategorias(valor){return Object.entries(CATEGORIAS).map(([k,v])=>`<option value="${k}"${k===valor?' selected':''}>${v}</option>`).join('');}
@@ -65,29 +69,33 @@ function optionCategorias(valor){return Object.entries(CATEGORIAS).map(([k,v])=>
 function resumo(){
   const base=ROWS.filter(r=>r.ativa&&r.tipo==='despesa'&&r.incluir_totais);
   const pagos=base.filter(r=>r.situacao==='pago').reduce((s,r)=>s+Number(r.valor||0),0);
-  const pendentes=base.filter(r=>!r.situacao).reduce((s,r)=>s+Number(r.media_3||0),0);
-  const vencidas=base.filter(r=>!r.situacao&&estado(r).classe==='overdue');
+  const anteriores=PENDING.filter(r=>r.ativa&&r.tipo==='despesa'&&r.incluir_totais);
+  const pendenteMes=base.filter(r=>!r.situacao).reduce((s,r)=>s+Number(r.media_3||0),0);
+  const pendenteAnterior=anteriores.reduce((s,r)=>s+Number(r.media_3||0),0);
+  const pendentes=pendenteMes+pendenteAnterior;
+  const vencidas=[...anteriores,...base.filter(r=>!r.situacao&&estado(r).classe==='overdue')];
   const vencidoValor=vencidas.reduce((s,r)=>s+Number(r.media_3||0),0);
-  return{pagos,pendentes,previsto:pagos+pendentes,vencidas:vencidas.length,vencidoValor};
+  const semEstimativa=[...anteriores,...base.filter(r=>!r.situacao)].filter(r=>r.media_3==null).length;
+  return{pagos,pendentes,pendenteMes,pendenteAnterior,semEstimativa,previsto:pagos+pendentes,vencidas:vencidas.length,vencidoValor};
 }
 
 function render(){
   const main=document.getElementById('main');
   const sum=resumo();
-  const filtradas=ROWS.filter(r=>(filtroStatus==='todas'||(filtroStatus==='ativas'?r.ativa:!r.ativa))&&(!busca||r.nome.toLowerCase().includes(busca)));
+  const filtradas=filtrarContas();
   main.innerHTML=`
-    <div class="page-intro recurring-intro"><div><h2>Contas recorrentes</h2><p>Acompanhe pelo mês de vencimento. A data do pagamento pode ser anterior ou posterior à competência.</p></div><div class="actions"><input id="mesRef" class="field" type="month" value="${competencia}"><button id="recarregar" class="button secondary">Atualizar</button></div></div>
+    <div class="page-intro recurring-intro"><div><h2>Contas recorrentes</h2><p>Contas do mês e pendências anteriores ainda sem baixa. O pagamento mantém o mês de vencimento original.</p></div><div class="actions"><input id="mesRef" class="field" type="month" value="${competencia}" aria-label="Mês de referência"><button id="recarregar" class="button secondary">Atualizar</button></div></div>
     <div class="summary-grid recurring-summary">
-      <div class="summary-card paid"><div class="label">Pago no mês</div><div class="value">${brl(sum.pagos)}</div><div class="note">Valores efetivamente registrados</div></div>
-      <div class="summary-card pending"><div class="label">Pendente previsto</div><div class="value">${brl(sum.pendentes)}</div><div class="note">Média dos ${mesesMedia()} últimos pagamentos</div></div>
+      <div class="summary-card paid"><div class="label">Pago na competência</div><div class="value">${brl(sum.pagos)}</div><div class="note">Contas com vencimento em ${mesLabel(competencia)}</div></div>
+      <div class="summary-card pending"><div class="label">Pendente previsto</div><div class="value">${brl(sum.pendentes)}</div><div class="note">Do mês: ${brl(sum.pendenteMes)} · Anteriores: ${brl(sum.pendenteAnterior)}${sum.semEstimativa?` · ${sum.semEstimativa} sem estimativa`:''}</div></div>
       <div class="summary-card overdue"><div class="label">Vencidas</div><div class="value">${sum.vencidas}</div><div class="note">Previsão de ${brl(sum.vencidoValor)}</div></div>
-      <div class="summary-card forecast"><div class="label">Total previsto</div><div class="value">${brl(sum.previsto)}</div><div class="note">Pago + pendente previsto</div></div>
+      <div class="summary-card forecast"><div class="label">Total previsto</div><div class="value">${brl(sum.previsto)}</div><div class="note">Pago na competência + pendente, incluindo anteriores</div></div>
     </div>
-    <section class="panel recurring-chart-panel"><div class="panel-head"><div><h3>Evolução mensal</h3><div class="hint">Total pago em despesas recorrentes por mês de vencimento.</div></div></div><div class="chart-box recurring-chart"><canvas id="recurringChart"></canvas></div></section>
-    <section class="panel"><div class="panel-head recurring-list-head"><div><h3>${mesLabel(competencia)}</h3><div class="hint">${filtradas.length} conta${filtradas.length===1?'':'s'} exibida${filtradas.length===1?'':'s'}.</div></div><div class="actions"><input id="buscaConta" class="field filter" type="search" placeholder="Buscar conta" value="${esc(busca)}"><select id="filtroStatus" class="field"><option value="ativas"${filtroStatus==='ativas'?' selected':''}>Somente ativas</option><option value="todas"${filtroStatus==='todas'?' selected':''}>Todas</option><option value="inativas"${filtroStatus==='inativas'?' selected':''}>Somente inativas</option></select></div></div>
+    <section class="panel"><div class="panel-head recurring-list-head"><div><h3>${mesLabel(competencia)} e pendências anteriores</h3><div class="hint" id="contagemContas">${contagemHTML(filtradas)}</div></div><div class="actions"><input id="buscaConta" class="field filter" type="search" placeholder="Buscar conta" aria-label="Buscar conta" value="${esc(busca)}"><select id="filtroStatus" class="field" aria-label="Situação do cadastro"><option value="ativas"${filtroStatus==='ativas'?' selected':''}>Somente ativas</option><option value="todas"${filtroStatus==='todas'?' selected':''}>Todas</option><option value="inativas"${filtroStatus==='inativas'?' selected':''}>Somente inativas</option></select></div></div>
       <div class="recurring-legend">${Object.entries(CATEGORIAS).map(([k,v])=>`<span><i class="category-dot ${k}"></i>${v}</span>`).join('')}</div>
       <div id="listaContas">${listaHTML(filtradas)}</div>
     </section>
+    <section class="panel recurring-chart-panel"><div class="panel-head"><div><h3>Evolução mensal</h3><div class="hint">Total pago em despesas recorrentes por mês de vencimento.</div></div></div><div class="chart-box recurring-chart"><canvas id="recurringChart"></canvas></div></section>
     <details class="panel recurring-create"><summary>Adicionar nova conta</summary><form id="novaConta" class="recurring-form"><input name="nome" class="field wide" required maxlength="160" placeholder="Nome da conta"><input name="dia" class="field small" type="number" min="1" max="31" required placeholder="Dia"><select name="categoria" class="field">${optionCategorias('outros')}</select><select name="tipo" class="field"><option value="despesa">Despesa</option><option value="rotina">Rotina sem valor</option></select><input name="unidade" class="field" value="${esc(unidade())}" readonly required maxlength="40"><button class="button" type="submit">Cadastrar</button></form></details>`;
   bind();renderChart();atualizarDatalist();
 }
@@ -97,14 +105,16 @@ function linhaConta(row){
   const pago=row.situacao==='pago',sem=row.situacao==='sem_movimento';
   const valorTxt=pago?brl(Number(row.valor)):(row.tipo==='rotina'||row.media_3==null?'—':brl(row.media_3));
   const extra=[!row.ativa?'inativa':'',row.tipo==='rotina'?'rotina':'',row.tipo==='despesa'&&!row.incluir_totais?'fora dos totais':''].filter(Boolean).join(' · ');
-  return `<details class="recurring-row state-${e.classe}" data-id="${row.conta_id}">
+  const anterior=competenciaConta(row)<competenciaISO();
+  return `<details class="recurring-row state-${e.classe}${anterior?' recurring-previous':''}" data-key="${chaveConta(row)}">
     <summary class="recurring-main">
       <i class="category-bar ${row.categoria}" title="${esc(CATEGORIAS[row.categoria]||'Outros')}"></i>
-      <span class="recurring-name"><strong>${esc(row.nome)}</strong><span>dia ${row.dia_vencimento}${extra?' · '+extra:''}</span></span>
+      <span class="recurring-name"><strong>${esc(row.nome)}</strong><span>${anterior?`${mesLabel(competenciaConta(row))} · ${dataBR(vencimentoISO(row))}`:`dia ${row.dia_vencimento}`}${extra?' · '+extra:''}</span></span>
       <span class="recurring-average"><span>${pago?'Pago':`Média ${mesesMedia()}m`}</span><strong>${valorTxt}</strong></span>
       <span class="recurring-status ${e.classe}">${e.rotulo}</span>
     </summary>
     <div class="recurring-detail">
+      <div class="hint recurring-period">Competência: ${mesLabel(competenciaConta(row))} · Vencimento: ${dataBR(vencimentoISO(row))}${anterior?' · A baixa será registrada neste mês de vencimento.':''}</div>
       <div class="recurring-controls">
         ${row.tipo==='despesa'?`<input class="field pay-value" type="number" min="0" step="0.01" placeholder="Valor pago" value="${pago?Number(row.valor):''}"><input class="field pay-bank" list="contasBancarias" placeholder="Conta bancária" value="${pago?esc(row.conta_bancaria||''):''}"><input class="field pay-date" type="date" value="${pago&&row.data_pagamento?row.data_pagamento:hojeISO()}"><button class="button pay-save">${pago?'Atualizar':'Salvar'}</button><button class="button secondary no-charge">${sem?'✓ Sem cobrança':'Sem cobrança'}</button>`:`<button class="button secondary no-charge">${sem?'✓ Concluída':'Marcar concluída'}</button>`}
         ${row.pagamento_id?'<button class="button danger pay-clear">Limpar</button>':''}
@@ -120,10 +130,13 @@ function linhaConta(row){
 function listaHTML(filtradas){
   if(!filtradas.length)return '<div class="empty">Nenhuma conta encontrada neste filtro.</div>';
   const concluida=r=>r.situacao==='pago'||r.situacao==='sem_movimento';
-  const abertas=filtradas.filter(r=>!concluida(r)),pagas=filtradas.filter(concluida);
+  const anteriores=filtradas.filter(r=>competenciaConta(r)<competenciaISO());
+  const doMes=filtradas.filter(r=>competenciaConta(r)===competenciaISO());
+  const abertas=doMes.filter(r=>!concluida(r)),pagas=doMes.filter(concluida);
   const grupo=(titulo,lista)=>lista.length?`<div class="recurring-group"><div class="recurring-group-head">${titulo}<span>${lista.length}</span></div><div class="recurring-list">${lista.map(linhaConta).join('')}</div></div>`:'';
-  return grupo('Em aberto',abertas)+grupo('Pagas',pagas);
+  return grupo('Pendências de meses anteriores',anteriores)+(anteriores.length?'<p class="hint recurring-pending-note">Sem baixa registrada. Confira se houve pagamento ou se o mês ficou sem cobrança. Valores previstos pela média dos pagamentos anteriores; não incluem juros ou multas.</p>':'')+grupo('Em aberto · '+mesLabel(competencia),abertas)+grupo('Pagas · '+mesLabel(competencia),pagas);
 }
+function contagemHTML(rows){const anteriores=rows.filter(r=>competenciaConta(r)<competenciaISO()).length;return `${rows.length} ocorrência${rows.length===1?'':'s'} exibida${rows.length===1?'':'s'}${anteriores?` · ${anteriores} de meses anteriores`:''}.`;}
 
 function bind(){
   document.getElementById('mesRef').addEventListener('change',e=>{competencia=e.target.value||mesAtual();load();});
@@ -131,8 +144,12 @@ function bind(){
   document.getElementById('filtroStatus').addEventListener('change',e=>{filtroStatus=e.target.value;render();});
   document.getElementById('buscaConta').addEventListener('input',e=>{busca=e.target.value.trim().toLowerCase();renderLista();});
   document.getElementById('novaConta').addEventListener('submit',salvarNovaConta);
-  document.querySelectorAll('.recurring-row').forEach(row=>{
-    const id=Number(row.dataset.id),data=ROWS.find(r=>Number(r.conta_id)===id);
+  bindContas(document.getElementById('listaContas'));
+}
+function bindContas(list){
+  const contas=new Map(contasExibidas().map(r=>[chaveConta(r),r]));
+  list.querySelectorAll('.recurring-row').forEach(row=>{
+    const data=contas.get(row.dataset.key);
     row.querySelector('.pay-save')?.addEventListener('click',()=>salvarPagamento(row,data));
     row.querySelector('.no-charge')?.addEventListener('click',()=>salvarSemMovimento(data));
     row.querySelector('.pay-clear')?.addEventListener('click',()=>limparPagamento(data));
@@ -141,9 +158,10 @@ function bind(){
 }
 function renderLista(){
   const list=document.getElementById('listaContas');
-  const filtradas=ROWS.filter(r=>(filtroStatus==='todas'||(filtroStatus==='ativas'?r.ativa:!r.ativa))&&(!busca||r.nome.toLowerCase().includes(busca)));
+  const filtradas=filtrarContas();
   list.innerHTML=listaHTML(filtradas);
-  list.querySelectorAll('.recurring-row').forEach(row=>{const data=ROWS.find(r=>Number(r.conta_id)===Number(row.dataset.id));row.querySelector('.pay-save')?.addEventListener('click',()=>salvarPagamento(row,data));row.querySelector('.no-charge')?.addEventListener('click',()=>salvarSemMovimento(data));row.querySelector('.pay-clear')?.addEventListener('click',()=>limparPagamento(data));row.querySelector('.edit-account').addEventListener('submit',e=>salvarEdicaoConta(e,data));});
+  document.getElementById('contagemContas').innerHTML=contagemHTML(filtradas);
+  bindContas(list);
 }
 
 function canonBanco(v){
@@ -155,11 +173,11 @@ function canonBanco(v){
 async function salvarPagamento(el,row){
   const valor=Number(el.querySelector('.pay-value').value),banco=canonBanco(el.querySelector('.pay-bank').value),data=el.querySelector('.pay-date').value;
   if(!(valor>0)||!banco||!data){toast('Informe valor, conta bancária e data.',true);return;}
-  setBusy(el,true);const{error}=await sb.rpc('salvar_pagamento_recorrente',{p_conta_id:row.conta_id,p_competencia:competenciaISO(),p_valor:valor,p_conta_bancaria:banco,p_data_pagamento:data,p_sem_movimento:false,p_observacao:null});
+  setBusy(el,true);const{error}=await sb.rpc('salvar_pagamento_recorrente',{p_conta_id:row.conta_id,p_competencia:competenciaConta(row),p_valor:valor,p_conta_bancaria:banco,p_data_pagamento:data,p_sem_movimento:false,p_observacao:null});
   if(error){toast('Não salvou: '+error.message,true);setBusy(el,false);return;}toast('Pagamento salvo.');load();
 }
-async function salvarSemMovimento(row){const{error}=await sb.rpc('salvar_pagamento_recorrente',{p_conta_id:row.conta_id,p_competencia:competenciaISO(),p_valor:null,p_conta_bancaria:null,p_data_pagamento:null,p_sem_movimento:true,p_observacao:null});if(error){toast('Não atualizou: '+error.message,true);return;}toast(row.tipo==='rotina'?'Rotina concluída.':'Mês marcado sem cobrança.');load();}
-async function limparPagamento(row){if(!confirm(`Limpar o registro de ${row.nome} em ${mesLabel(competencia)}?`))return;const{error}=await sb.rpc('excluir_pagamento_recorrente',{p_conta_id:row.conta_id,p_competencia:competenciaISO()});if(error){toast('Não limpou: '+error.message,true);return;}toast('Registro removido.');load();}
+async function salvarSemMovimento(row){const{error}=await sb.rpc('salvar_pagamento_recorrente',{p_conta_id:row.conta_id,p_competencia:competenciaConta(row),p_valor:null,p_conta_bancaria:null,p_data_pagamento:null,p_sem_movimento:true,p_observacao:null});if(error){toast('Não atualizou: '+error.message,true);return;}toast(row.tipo==='rotina'?'Rotina concluída.':'Mês marcado sem cobrança.');load();}
+async function limparPagamento(row){if(!confirm(`Limpar o registro de ${row.nome} em ${mesLabel(competenciaConta(row))}?`))return;const{error}=await sb.rpc('excluir_pagamento_recorrente',{p_conta_id:row.conta_id,p_competencia:competenciaConta(row)});if(error){toast('Não limpou: '+error.message,true);return;}toast('Registro removido.');load();}
 function setBusy(el,busy){el.querySelectorAll('button,input').forEach(x=>x.disabled=busy);}
 
 async function salvarNovaConta(event){event.preventDefault();const f=new FormData(event.currentTarget);const tipo=f.get('tipo');const{error}=await sb.rpc('salvar_conta_recorrente',{p_id:null,p_nome:f.get('nome'),p_dia_vencimento:Number(f.get('dia')),p_categoria:f.get('categoria'),p_tipo:tipo,p_unidade:f.get('unidade'),p_ativa:true,p_incluir_totais:tipo==='despesa'});if(error){toast('Não cadastrou: '+error.message,true);return;}toast('Conta cadastrada.');event.currentTarget.reset();load();}
@@ -176,18 +194,32 @@ function atualizarDatalist(){
   document.getElementById('contasBancarias').innerHTML=bancos.map(v=>`<option value="${esc(v)}">`).join('');
 }
 
+async function carregarPendencias(mes){
+  const data=[],tamanho=500;
+  for(let inicio=0;;inicio+=tamanho){
+    const result=await sb.rpc('listar_pendencias_recorrentes',{p_competencia:mes}).range(inicio,inicio+tamanho-1);
+    if(result.error)return result;
+    data.push(...(result.data||[]));
+    if((result.data||[]).length<tamanho)return{data,error:null};
+  }
+}
 async function load(){
   const loadSeq=++LOAD_SEQ;
+  const mes=competenciaISO();
   document.getElementById('main').innerHTML='<div class="loading">Carregando contas…</div>';
   const inicio=new Date();inicio.setMonth(inicio.getMonth()-48);const corte=`${inicio.getFullYear()}-${String(inicio.getMonth()+1).padStart(2,'0')}-01`;
-  const [contas,pagamentos,totais]=await Promise.all([
-    sb.rpc('listar_contas_recorrentes',{p_competencia:competenciaISO()}),
+  const [contas,pendencias,pagamentos,totais]=await Promise.all([
+    sb.rpc('listar_contas_recorrentes',{p_competencia:mes}),
+    carregarPendencias(mes),
     sb.from('app_contas_recorrentes_pagamentos').select('*').gte('competencia',corte).order('competencia',{ascending:false}),
     sb.from('app_contas_recorrentes_totais').select('*').gte('competencia',corte).order('competencia',{ascending:true})
   ]);
   if(loadSeq!==LOAD_SEQ)return;
-  const error=contas.error||pagamentos.error||totais.error;if(error){document.getElementById('main').innerHTML='<div class="erro">Não foi possível carregar as contas recorrentes.</div>';toast(error.message,true);return;}
-  ROWS=contas.data||[];PAYMENTS=pagamentos.data||[];TOTALS=totais.data||[];render();
+  const error=contas.error||pendencias.error||pagamentos.error||totais.error;if(error){document.getElementById('main').innerHTML='<div class="erro">Não foi possível carregar as contas recorrentes e suas pendências. Tente atualizar a página.</div>';toast(error.message,true);return;}
+  ROWS=(contas.data||[]).map(r=>({...r,competencia:mes}));
+  const cadastro=new Map(ROWS.map(r=>[String(r.conta_id),r]));
+  PENDING=(pendencias.data||[]).filter(p=>cadastro.has(String(p.conta_id))).map(p=>({...cadastro.get(String(p.conta_id)),...p,pagamento_id:null,situacao:null,valor:null,conta_bancaria:null,data_pagamento:null,observacao:null,atualizado_por_nome:null,atualizado_em:null}));
+  PAYMENTS=pagamentos.data||[];TOTALS=totais.data||[];render();
 }
 
 (async()=>{AUTH=await SirFisherAuth.requireRole(sb);if(AUTH)await load();})();
