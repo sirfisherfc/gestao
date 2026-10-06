@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 livre — melhorias Google/site/reservas entregues e publicações conferidas
+> **🚦 Status atual:** 🟢 livre — revisão ChatGPT Ads concluída; campanha segue com configuração atual
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -3427,5 +3427,72 @@ banheiro sem acessibilidade; preços do cardápio publicado aprovados.
   ou incentivo, fotos reais quando disponíveis, conferir feriados/cardápio e
   acompanhar descoberta comercial, contatos, reservas e comparecimentos.
   Não foram criados envios, fotos artificiais ou automações recorrentes.
+
+— Codex
+
+## 2026-10-06 · Codex — revisão ChatGPT Ads pela API
+
+Objetivo do usuário: visibilidade e novos clientes; comparar alterações e
+decidir entre continuar, ajustar ou pausar. Revisão pela habilidade
+ads-manager-review, com histórico de auditoria solicitado expressamente.
+Conta Sir Fisher em BRL, fuso America/Fortaleza confirmado pelo diagnóstico.
+Cobertura completa: uma campanha ativa, um grupo e um anúncio ativo; 25
+registros de auditoria, sem paginação pendente. Conta/anúncio aprovados,
+faturamento configurado, sem bloqueadores de entrega no diagnóstico completo.
+
+- Comparação: 29/09–05/10 versus 22–28/09, dias completos, mesma campanha.
+  Gasto R$288,39 versus R$354,48 (-18,6%); impressões 5.491 versus 6.971;
+  cliques 71 versus 94 (-24,5%); CTR 1,29% versus 1,35%; CPC R$4,06 versus
+  R$3,77 (+7,7%); CPM R$52,52 versus R$50,85. Métricas validadas também pelo
+  endpoint da campanha; nenhum cálculo reconstruído de CPA ou ROAS.
+- Conversões: 1 reserva atribuída por clique versus zero, com janela de 30
+  dias e visualização desativada. API retorna CPA R$288,39, porém apenas uma
+  conversão não sustenta conclusão estável de eficiência. Os eventos atuais
+  atribuídos incluem 62 page_viewed, 5 menu_opened e 2 reservation_started;
+  são contagens de eventos, não clientes únicos nem funil de coorte completo.
+- Operação, agregados somente de leitura: uma reserva criada com oppref,
+  confirmada, para duas pessoas e visita futura. Zero comparecimentos dessa
+  origem até agora não caracteriza fracasso da reserva. O valor R$116 enviado
+  com a reserva é estimativa de duas pessoas × R$58; não é consumo apurado.
+  order_created/ROAS retornam zero, mas não existe integração de venda real
+  do PDV com esse evento: não interpretar como faturamento do restaurante zero.
+- GA4, homepage e chatgpt/paid: sessões 72→56; engajadas 17→19; taxa de
+  engajamento 23,6%→33,9%. No portal, sessões 19→3; escopos/usuários não somados
+  como se fossem únicos. Troca de destino e possíveis perdas de atribuição
+  impedem interpretar essa razão como conversão direta do funil.
+- Histórico: campanha reativada em 23/09, depois de pausa desde 30/08;
+  destino passou por reservas/home em 23 e 28/09; em 28/09 ficou na homepage
+  com UTM sir_fisher_ceara. Encerramento prorrogado para 07/10/2026 às 17h17.
+  Não há alterações registradas de copy ou orçamento nessa retomada. A semana
+  anterior contém um dia pausado e gasto maior nos primeiros dias da retomada.
+  A variação diária é compatível com o orçamento médio e não prova edição de
+  orçamento. A API mostra alcance, cobrança por impressão, Ceará, R$40/dia;
+  associar metas de reserva/visita não transforma a campanha em conversões.
+- Diagnóstico: EQS sem pontuação, motivo low_volume, avaliação 28/09–05/10 UTC;
+  não é nota zero. Janela de identificadores distinta: 29/09 18h–06/10 18h UTC,
+  14/1.092 eventos Pixel com e-mail/telefone (1,28%), zero external_id; CAPI
+  tem base elegível zero, portanto cobertura indisponível. Isso não demonstra
+  por si ausência de envios: banco registra 10 schedule enviados na semana,
+  5 na anterior, sem pendências/falhas. Triggers ativos, dreno horário e função
+  Edge ACTIVE v16 confirmados. Investigar/reconciliar fonte, deduplicação e
+  janela do diagnóstico antes de alterar instrumentação ou alegar falha.
+- Mudanças de hoje no site (atribuição, acessibilidade e SDKs após pintura)
+  ainda não têm janela posterior completa; não atribuir a elas resultados até
+  05/10. A espera do SDK pode perder usuários que saem cedo, apesar das filas
+  preservadas; comparar cobertura depois, sem fabricar eventos.
+- Recomendação: manter até o término programado sem ampliar orçamento, não
+  prorrogar automaticamente; conferir comparecimento e custo aceitável por
+  cliente antes de decidir continuidade. Não há evidência forte para pausar
+  por desempenho, renovar indefinidamente ou alterar lance/geo/criativo agora.
+  Falta teto de aquisição, margem e medição de clientes que chegam sem reserva.
+  Pergunta econômica enviada ao usuário; ausência de resposta não virou meta.
+- Orientação oficial consultada: orçamento diário é média por semana de
+  domingo a sábado, podendo chegar a 2× em um dia; mínimo BRL R$40. Hints de
+  contexto não são palavras-chave de correspondência exata. Referências:
+  https://help.openai.com/en/articles/20001413-daily-budgets e
+  https://help.openai.com/en/articles/20001409-conversion-measurement.
+- Entrega: apenas docs/CANAL_IA.md alterado; nenhuma migration, envio de
+  conversão de teste, mudança de campanha ou agendamento recorrente. Leituras
+  de Ads/GA4/operação reconciliadas; nenhuma informação de cliente exposta.
 
 — Codex
