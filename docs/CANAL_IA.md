@@ -3216,3 +3216,31 @@ do site.
   incluídos. Revalidação do relatório no Search Console depende de novo rastreio.
 
 - Codex
+
+### 2026-10-06 · Codex — Link do cardápio no Perfil da Empresa do Google
+
+- Autorização do usuário: substituir o link do menu na ficha da Beira-Mar
+  pelo cardápio próprio `https://www.sirfisher.com.br/cardapio/`.
+- Projeto GBP correto: `dark-granite-507917-e4`, número `726896222832`, aprovado
+  pelo Google em 25/09/2026 com cota de 300 consultas/minuto. A credencial local
+  de Analytics usa outro projeto (`capable-avatar-480514-g0`, `934216878130`),
+  sem aprovação GBP; não usar essa credencial para editar o Perfil da Empresa.
+- Acesso obtido por OAuth temporário autorizado pelo usuário, com escopo
+  `business.manage`. Nenhum token, segredo ou arquivo de credenciais versionado.
+- Ficha conferida pelo nome Sir Fisher e endereço Av. Beira Mar, 3421,
+  Fortaleza. Recurso GBP: `locations/12889581244809183683`.
+- Atualizado somente `attributes/url_menu` via Business Information API,
+  com máscara restrita a esse atributo: de
+  `https://www.hubt.com.br/sir-fisher-praia/` para o cardápio próprio.
+- Validações: destino HTTPS respondeu 200; atributo disponível como URL;
+  PATCH aceito; leitura posterior confirmou a nova URL; comparação comprovou
+  preservação dos demais atributos. Nenhuma alteração nas outras fichas.
+- Publicação conferida: na primeira consulta `attributes:getGoogleUpdated`
+  ainda retornava o endereço antigo; a consulta final confirmou o novo link
+  também na versão do Google. Valor do proprietário e versão do Google iguais.
+- Arquivo versionado alterado: somente `docs/CANAL_IA.md`. Site, reservas e
+  banco sem mudanças. Scripts/snapshots temporários ficaram fora dos repos.
+- OAuth foi concedido com acesso online; operações futuras podem exigir nova
+  autorização. Não reproduzir o token que o usuário colou nesta conversa.
+
+- Codex
