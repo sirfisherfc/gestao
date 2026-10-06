@@ -3244,3 +3244,112 @@ do site.
   autorização. Não reproduzir o token que o usuário colou nesta conversa.
 
 - Codex
+
+## 2026-10-06 · Codex — revisão do Google, buscas e site
+
+- Pedido reformulado: avaliar visibilidade e aquisição de novos clientes do
+  Sir Fisher Praia, separando Perfil da Empresa, busca orgânica e comportamento
+  no site; apresentar ajustes por impacto, esforço e confiança na evidência.
+  Usuário escolheu explicitamente visibilidade e novos clientes como prioridade.
+- Revisão de leitura: nenhuma alteração adicional no perfil, nas páginas,
+  nas configurações de Analytics/Search Console ou no banco. Somente este
+  registro de entrega foi editado. Credenciais e token permaneceram fora dos
+  arquivos versionados; snapshots temporários não contêm tokens.
+- Fontes autenticadas: Business Information, Performance e API v4 do GBP;
+  Search Console da propriedade de domínio; GA4 properties/353205396. Stream
+  G-F40Z5Y9QT6 confirmado no Admin e no site. GA4 filtrado por hostname
+  www.sirfisher.com.br, separando o portal de reservas e acessos locais.
+- Comparação final: 01–30/09/2026 versus 02–31/08/2026, 30 dias em cada período.
+  Não usar o relatório inicial até 05/10: no GBP, dias recentes estavam sem
+  valores e poderiam produzir uma queda artificial. São períodos descritivos,
+  sem atribuição causal; não controlam sazonalidade, dias da semana ou mudanças
+  de medição e de campanhas.
+
+| Métrica | Período anterior | Setembro | Variação |
+| --- | ---: | ---: | ---: |
+| GBP: soma das impressões por dispositivo/superfície | 11.904 | 11.464 | -3,7% |
+| GBP: pedidos de rota | 437 | 440 | +0,7% |
+| GBP: cliques no site | 49 | 60 | +22,4% |
+| GBP: interações com cardápio | 197 | 256 | +29,9% |
+| GBP: cliques para ligar | 12 | 14 | +16,7% |
+| Search Console: cliques, pesquisa web | 85 | 146 | +71,8% |
+| Search Console: impressões, pesquisa web | 7.676 | 31.096 | +305,1% |
+| Search Console: CTR | 1,11% | 0,47% | Queda; composição mudou |
+| Search Console: posição média | 8,14 | 6,26 | Melhora agregada |
+| GA4: sessões no site principal | 910 | 1.913 | +110,2% |
+| GA4: usuários ativos no site principal | 820 | 1.567 | +91,1% |
+| GA4: sessões google / organic | 94 | 179 | +90,4% |
+
+- Não somar esses indicadores como pessoas únicas: usuários podem reaparecer
+  em datas/superfícies e em várias fontes. Pedidos de rota/cliques não comprovam
+  comparecimento. Novos usuários do GA4 não equivalem a novos clientes.
+- Setembro no GA4: ig/social 925 sessões, l.instagram.com/referral 65,
+  qr_code/offline 399, google/organic 179, google_maps/organic 8. QR pode
+  representar clientes já presentes. O crescimento geral também inclui novos
+  conteúdos e alterações de instrumentação. Engajamento 74,9% versus 56,2%,
+  com ressalva: click_menu passou a contar como key event (1.038 em setembro;
+  nenhum key event no período anterior), afetando a definição de engajamento.
+  Eventos principais são predominantemente intenções, não vendas.
+- Busca orgânica: /por-do-sol/ teve 20.423 impressões e 27 cliques; homepage
+  canônica teve 107 cliques versus 84. Não interpretar CTR total baixo ou
+  posição média melhor como diagnóstico isolado: entrou forte exposição
+  informacional. Query comercial restaurante beira mar fortaleza: 547
+  impressões, 3 cliques, CTR 0,55%, posição média 7,68. Marca sir fisher
+  fortaleza: 85 impressões, 17 cliques, posição média 1,59.
+- GBP, palavras de setembro: restaurantes 3.795; restaurants 206;
+  restaurantes beira mar fortaleza 155; restaurante perto de mim 126.
+  São impressões mensais por termo, não visitas. Termos abaixo do limiar
+  retornado pela API não foram tratados como contagem exata.
+- Perfil: categoria principal frutos do mar; endereço, telefone, horários
+  regulares, descrição, link de reservas com UTM, WhatsApp e cardápio coerentes
+  com o site. Nota 4,7/5, 787 avaliações. Nas 50 mais recentes por atualização,
+  todas têm resposta; criação em setembro 3, contra 11 em agosto. Amostra não
+  comprova qualidade de todas as respostas. Temas positivos: vista, comida,
+  atendimento e custo-benefício; uma reclamação descreve desencontro de horário
+  e recepção, relato do cliente e não fato operacional confirmado.
+- Mídia: API informa 122 itens; uploads recentes em 28 e 30/09. Dois posts LIVE
+  consultados, sobre almoço e Réveillon. Metadados conferidos, sem avaliação
+  visual completa das fotos. Não há motivo para recomendar atualização de
+  fotos como se o perfil estivesse abandonado.
+- Oportunidades por prioridade:
+  1. Alta, baixo esforço: reconciliar horário especial de 31/12 (encerra
+     22h15 no GBP) com evento/site/post (20h–2h de 01/01). Confirmar também
+     atendimento normal desse dia e abertura de 01/01 antes de editar.
+  2. Alta, esforço médio: testar apresentação e relevância das páginas
+     comerciais para Beira-Mar/Meireles/almoço/frutos do mar; medir cliques e
+     ações por grupo de consultas, separando marca e consultas informacionais.
+     Links/CTAs de reserva e rota já existem na página do pôr do sol: avaliar
+     utilização, não recomendar adicioná-los como se estivessem ausentes.
+  3. Média, baixo esforço contínuo: convidar clientes a avaliar a experiência,
+     sem seleção por satisfação ou incentivo; manter respostas e fotos recentes.
+  4. Média, esforço médio: foodMenus retornou sem menus próprios cadastrados.
+     Avaliar cadastrar itens/seções/preços diretamente no Google a partir do
+     cardápio oficial e manter uma fonte atualizada. Isso não prova ausência
+     de menu extraído/fornecido por outras fontes no resultado público.
+  5. Média: confirmar atributos operacionais potencialmente sensíveis, como
+     sala privativa, acessibilidade de estacionamento/mesas/banheiros,
+     entrega e cartões aceitos. Não inferir falsidade somente do cadastro.
+  6. Alta para medição: separar consulta ao cardápio, contato, reserva concluída
+     e comparecimento; atribuição por origem e identificação de cliente novo
+     precisam de validação agregada com operação. Evitar somar sessões por
+     hostname ou usuários por canal para calcular totais.
+- Indexação: inspeção autenticada PASS para home, cardápio, pôr do sol e
+  Réveillon; acesso permitido, fetch bem-sucedido e canonicals esperadas.
+  Últimos crawls: home 04/10; cardápio e pôr do sol 17/09; Réveillon 01/10.
+  A cópia indexada do Réveillon ainda mostra os avisos opcionais antigos,
+  anteriores à correção de 06/10; o HTML publicado contém performer e
+  validFrom. Não confundir aviso histórico com regressão da correção.
+- HTTP público: home/cardápio/Réveillon 200, JSON-LD e canonical presentes.
+  PageSpeed Insights público retornou HTTP 429; não há nota de velocidade ou
+  conclusão de Core Web Vitals nesta revisão. Navegador integrado indisponível
+  na sessão: não houve teste visual completo de experiência móvel.
+- Faltam para concluir aquisição real: novos clientes e comparecimentos
+  atribuídos à origem; público prioritário/localização; horários especiais e
+  atributos operacionais confirmados; aferição de velocidade/experiência móvel.
+  Não faltam acessos aos números básicos de GBP, GSC ou GA4: todos consultados.
+- Critérios de sucesso: crescimento de descoberta por consultas comerciais
+  sem marca, cliques/rotas/contatos qualificados e novos clientes comprovados,
+  com períodos consistentes e transparência sobre limites. Hipóteses de causa
+  e efeito exigem acompanhamento; não prometido ganho de ranking por posts.
+
+- Codex
