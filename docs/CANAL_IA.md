@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 Livre
+> **🚦 Status atual:** 🟢 livre — melhorias Google/site/reservas entregues; bandeiras no Google aguardam renovação OAuth
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -3353,3 +3353,71 @@ do site.
   e efeito exigem acompanhamento; não prometido ganho de ranking por posts.
 
 - Codex
+
+## 2026-10-06 · Codex — melhorias do perfil Google, SEO e medição
+
+Execução autorizada pelo proprietário, com objetivo de visibilidade e novos
+clientes. Confirmações: funcionamento contínuo em 31/12 antes/durante o evento,
+entrega exclusivamente pelo 99Food, sem sala privativa, mesas acessíveis e
+banheiro sem acessibilidade; preços do cardápio publicado aprovados.
+
+- Perfil da Beira-Mar: horário especial de 31/12 ajustado de 9h até 2h de
+  01/01; preservados os demais horários. Descrição informa entrega pelo 99Food;
+  atributos de sala privativa e mesas corrigidos. Leitura de getGoogleUpdated
+  confirmou os valores, sem diffMask/pendingMask nessa conferência.
+- Cardápio FoodMenus publicado: 78 itens, 10 seções e 6 opções adicionais,
+  extraídos da fonte pública. Todas as 84 entradas de preço conferidas por
+  arredondamento decimal para centavos. Sem publicar alegações de alérgenos,
+  dietas ou pesos ainda em conferência. Gerador reproduzível em
+  site/tools/analytics/build_google_menu.py; payload sem credenciais.
+- Site: contexto comercial de Beira-Mar/Fortaleza/Meireles em páginas-chave,
+  CTA de cardápio no pôr do sol, horários e acessibilidade alinhados, convite
+  neutro de avaliação e QR para impressão em tools/perfil-google/avaliacoes.html.
+  Contraste e nome acessível do menu corrigidos; preload responsivo da imagem
+  e carregamento de SDKs Meta/OpenAI após primeira pintura, mantendo filas e
+  antecipação na primeira interação. GA4 permanece assíncrono desde o início.
+- Cartões confirmados pelo usuário: Visa, Mastercard, Elo, American Express,
+  UnionPay e Cabal, além dos principais vales-refeição. Site PT/EN atualizado,
+  sem inventar bandeiras dos vales. Falta reconciliar os atributos de cartões
+  no Google: o token temporário expirou (HTTP 401), e foi solicitada nova
+  autenticação por arquivo local fora dos repositórios. Não reaproveitar os
+  antigos Diners/Discover/JCB como se tivessem sido confirmados. Entrada e
+  estacionamento acessíveis continuam sem resposta; atributos preservados.
+- Medição: removidas UTMs artificiais de navegação interna; mantidas campanhas
+  externas reais e contexto sf_origin. Reservas toleram storage bloqueado e
+  identificam sessão via API gtag, com timeout e fallback GS1/GS2. click_menu
+  deixou de ser evento principal no GA4; evento segue coletado. Outros eventos
+  principais preservados; não há links Google Ads na propriedade conferida.
+- Relatório reproduzível: acquisition_report.py e CLI report.py com períodos
+  fechados, totais sem somar usuários por canal, consultas comerciais/marca/
+  informacionais separadas e agregados opcionais de operação somente de leitura.
+  Primeiro comparecimento registrado não é prova de cliente novo. Setembro:
+  27 reservas criadas, 20 com identificadores GA; 13 reservas comparecidas,
+  11 clientes distintos e 10 primeiros comparecimentos registrados. Datas de
+  criação e visita não formam uma coorte direta. Nenhuma migration ou escrita
+  no banco; trigger de comparecimento existente foi confirmado e preservado.
+- Validação: 12 testes Deno aprovados (atribuição e filas de marketing), 24
+  blocos JSON-LD válidos, Python validado e git diff --check limpo. PageSpeed
+  móvel final: desempenho 66, acessibilidade 100 (antes 96), SEO 100; LCP
+  sintético 7,1 s, FCP 2,6 s, bloqueio total 160 ms, CLS zero. Escore anterior
+  68 e execuções intermediárias 60–66: sem ganho consistente comprovado de
+  velocidade. CrUX da URL: LCP 1.419 ms, INP 152 ms, CLS zero, faixa boa;
+  janela histórica não representa efeito da publicação de hoje. Captura móvel
+  Lighthouse inspecionada; navegador integrado indisponível, sem teste manual
+  completo de navegação/reserva.
+- Publicações site: 1e6472f (SEO/atribuição), a16e90c (SDKs), 04548a5
+  (pagamentos), a9f6ac4 (registro móvel). Reservas: d128689. Deploys das duas
+  primeiras publicações do site, pagamentos e reservas passaram, com arquivos
+  públicos conferidos. A publicação de a9f6ac4 falhou por timeout ao obter
+  ID token no GitHub; retry dos jobs falhos solicitado (HTTP 201), aguardando
+  execução. O site público contém todas as mudanças funcionais; resta publicar
+  a documentação móvel. Nenhuma alteração de permissão foi feita por causa da
+  mensagem genérica de id-token: write.
+  Sitemap atualizado enviado ao Search Console (HTTP 204), pendente de
+  processamento pelo Google, sem erros/avisos na leitura inicial.
+- Rotina registrada em site/tools/analytics/README.md: avaliações sem seleção
+  ou incentivo, fotos reais quando disponíveis, conferir feriados/cardápio e
+  acompanhar descoberta comercial, contatos, reservas e comparecimentos.
+  Não foram criados envios, fotos artificiais ou automações recorrentes.
+
+— Codex
