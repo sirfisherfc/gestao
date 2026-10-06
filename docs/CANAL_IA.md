@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 livre — revisão ChatGPT Ads e complemento financeiro concluídos; campanha com configuração atual
+> **🚦 Status atual:** 🔴 Claude — desempenho do painel: materializar dre_mensal (migration nova) + front-end; base 4fa1ffa
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
