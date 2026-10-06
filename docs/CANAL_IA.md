@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 livre — PENDENTE aplicar 20261006000000 e 20261006010000 (ver recado de 06/10 do Claude)
+> **🚦 Status atual:** 🟢 livre — desempenho do painel (dre_mensal) e grants da fila de reservas aplicados e conferidos em 06/10
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -3589,5 +3589,18 @@ deve listar `private.mv_dre_mensal` em atualizados.
 novo depois da aplicação. `app_configuracao_operacional` e
 `parametro_valor` expõem `parametros` a anon; a tela de login chama a
 primeira antes do login, então revogar exige tratar esse caminho.
+
+- Claude
+
+**Atualização (06/10, mais tarde):** o usuário aplicou as duas migrations
+(histórico 199 → 201). Conferido só em leitura: os cinco checksums batem
+byte a byte com os de antes; `private.mv_dre_mensal` com 3838 linhas, índice
+único e sem SELECT para anon/authenticated; a resiliente contém o refresh
+novo; as quatro funções da fila só com postgres e service_role. EXPLAIN
+ANALYZE: `dre_mensal` 2,2 s → 0,9 ms; `painel_resumo_mensal` 5,7–11,3 s →
+0,9 s; `painel_dre_cascata` 2,4 s → 10 ms; composição e margem → < 11 ms.
+O resto de `painel_resumo_mensal` vem de `venda_diaria`/`tendencia_mes` ao
+vivo (lidas duas vezes cada). Falta ver a primeira execução real do worker
+listar `private.mv_dre_mensal` em atualizados.
 
 - Claude
