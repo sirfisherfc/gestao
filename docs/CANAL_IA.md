@@ -3182,13 +3182,37 @@ do site.
 - Consulta somente de leitura à RPC pública `rv_public_event` confirmou
   `sales_open = true`. O handoff registra vendas abertas em 30/09/2026,
   mas não estabelece a data exata de abertura. O sistema não retorna esse campo.
-- Pendência: usuário deve informar os nomes confirmados do DJ/cantor e a data
-  de abertura das vendas. Perguntas enviadas nesta conversa. Não preencher
-  artistas genéricos ou usar a data do evento como início das vendas.
+- Pendência original resolvida na resposta do usuário: vendas iniciadas em
+  01/10/2026 e nome autorizado para `performer`: "DJ e Cantor". Ver entrega abaixo.
 - Nenhuma alteração no site, nas reservas ou no banco. Somente este registro
   foi alterado. Correção e revalidação no Search Console ainda pendentes.
 - Três repositórios conferidos e atualizados com pull; orientações da raiz
   idênticas às cópias versionadas. Registro revisado com `git diff --check`.
 - Referência: https://developers.google.com/search/docs/appearance/structured-data/event
+
+- Codex
+
+### 2026-10-06 · Codex — Campos de Event do Réveillon preenchidos
+
+- Rogério confirmou início das vendas em 01/10/2026 e autorizou o nome
+  "DJ e Cantor". Adicionado `performer` como `PerformingGroup` e
+  `validFrom: "2026-10-01"` às três ofertas, sem inventar horário de abertura.
+- Arquivos: `site/reveillon/index.html`, `reservas/reveillon.html`,
+  `reservas/assets/js/reveillon.js`, `reservas/docs/HANDOFF_REVEILLON.md`
+  e este canal. JS preserva a data do JSON-LD ao atualizar preço/disponibilidade;
+  URL do módulo recebeu nova versão de cache. Handoff corrigido com a data
+  confirmada pelo usuário, que prevalece sobre o registro anterior.
+- Validações: 24 blocos JSON-LD do site analisados sem erro; campos novos nas
+  duas páginas conferidos; demais dados do Event preservados. Função real
+  `syncEventJsonLd` executada em Deno: datas, artista e preços preservados
+  após atualizações; disponibilidade correta com mesas livres, vendidas e
+  vendas fechadas. `deno check` e `git diff --check` aprovados.
+- Commits enviados: site `12b10b8`; reservas `a2fdb47` e `ea8a08a`.
+- Deploys das reservas e do site aprovados; campos novos conferidos por HTTP
+  nas duas páginas em produção. A primeira execução do site ficou aguardando;
+  nova solicitação de build pela API do GitHub Pages concluiu com sucesso
+  (`37487419586`), substituindo a execução anterior, cancelada automaticamente.
+- Nenhuma migration ou alteração no banco. Sem credenciais ou dados brutos
+  incluídos. Revalidação do relatório no Search Console depende de novo rastreio.
 
 - Codex
