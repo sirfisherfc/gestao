@@ -367,6 +367,23 @@ no repositório.
   com erro explícito se encontrar alguma inconsistência; não há correção
   silenciosa de classificação financeira.
 
+### dre_mensal / private.mv_dre_mensal
+- Tipo: view sobre materialized view (snapshot), desde `20261006000000`.
+- Uso: base de `painel_resumo_mensal`, `painel_dre_cascata`,
+  `painel_composicao_despesa` e `painel_margem_contribuicao` (e das `app_*`
+  da visão geral, vendas, DRE, despesas e gerente). Nenhuma função a lê.
+- Regra: agregado mensal de `fato_financeiro` por empresa, unidade, grupo,
+  categoria, natureza e `entra_dre`. A consulta é a mesma de antes; só deixou
+  de rodar a cada leitura (custava ~2,2 s e `painel_resumo_mensal` a lia duas
+  vezes, com a visão geral chegando a 7,6 s contra o teto de 8 s).
+- Atualização: `private.refresh_painel_resiliente()`, em subtransação
+  própria. Roda no fim das importações, no worker da fila (acionado pelas
+  RPCs de classificação manual, ~1 min) e no botão "Atualizar tudo agora".
+  Uma classificação manual chega ao painel quando o worker termina, como já
+  acontecia em Despesas com `mv_despesa_mensal`.
+- Acesso: o snapshot fica em `private`, sem grant para anon/authenticated;
+  `dre_mensal` continua sem SELECT para eles.
+
 ### painel_dre_cascata
 - Tipo: painel / view agregada
 - Uso: `dre.html`

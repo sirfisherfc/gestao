@@ -25,6 +25,9 @@ ENCADEADAS = {OUTBOX, RESILIENTE}
 SEM_EFEITO_NA_CADEIA = {
     # So revoga EXECUTE de recalcular_saldo_fechamento; cita o worker no comentario.
     '20260921030000_recalculo_fechamento_fora_do_alcance_anon.sql',
+    # Redefine a resiliente so para incluir private.mv_dre_mensal; a fixture
+    # troca a resiliente pela sintetica, entao a cadeia testada nao muda.
+    '20261006000000_dre_mensal_materializada.sql',
 }
 
 

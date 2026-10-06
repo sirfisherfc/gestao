@@ -126,18 +126,51 @@ def main() -> int:
             "refresh materialized view concurrently public.mv_despesa_mensal",
             "refresh materialized view concurrently public.mv_despesa_diaria",
             "refresh materialized view concurrently public.mv_conciliacao_contabil",
+            "refresh materialized view concurrently private.mv_dre_mensal",
             "private.validar_saldo_diario_materializado()",
             "private.validar_fluxo_materializado()",
             "private.validar_despesas_materializadas()",
-            "v_relatorio := private.refresh_painel_resiliente();",
         ),
-        "Refresh resiliente perdeu um objeto ou o worker parou de usá-lo",
+        "Refresh resiliente perdeu um objeto",
     )
-    # Uma subtransação por objeto: cinco refreshes e três validadores.
-    if resilient_sql.count("exception when others then") < 8:
+    # Uma subtransação por objeto: seis refreshes e três validadores.
+    if resilient_sql.count("exception when others then") < 9:
         fail("Refresh resiliente perdeu o isolamento por objeto")
     if "perform public.refresh_painel();" in resilient_sql:
+        fail("Refresh resiliente voltou a chamar o refresh que levanta exceção")
+
+    # O worker pode ser redefinido em outra migration: conferir a versão atual dele.
+    worker_files = sorted(
+        path
+        for path in MIGRATIONS.glob("*.sql")
+        if "create or replace function private.processar_fila_recalculo_saldo()"
+        in path.read_text(encoding="utf-8-sig")
+    )
+    if not worker_files:
+        fail("Nenhuma migration define private.processar_fila_recalculo_saldo()")
+    worker_sql = worker_files[-1].read_text(encoding="utf-8-sig")
+    worker_sql = worker_sql[
+        worker_sql.index("create or replace function private.processar_fila_recalculo_saldo()"):
+    ]
+    require(
+        worker_sql,
+        ("v_relatorio := private.refresh_painel_resiliente();",),
+        "Worker parou de usar o refresh resiliente",
+    )
+    if "perform public.refresh_painel();" in worker_sql:
         fail("Worker voltou a usar o refresh que levanta exceção e desfaz tudo")
+
+    # dre_mensal le o snapshot; as views do painel nao podem voltar a
+    # recalcular fato_financeiro inteiro a cada leitura (ver 20261006000000).
+    dre_files = sorted(
+        path
+        for path in MIGRATIONS.glob("*.sql")
+        if "create or replace view public.dre_mensal" in path.read_text(encoding="utf-8-sig")
+    )
+    if not dre_files or "from private.mv_dre_mensal" not in dre_files[-1].read_text(
+        encoding="utf-8-sig"
+    ):
+        fail("dre_mensal voltou a ser calculada ao vivo em vez de ler private.mv_dre_mensal")
 
     calendar_html = (ROOT / "calendario.html").read_text(encoding="utf-8-sig")
     require(

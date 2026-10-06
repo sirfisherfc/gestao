@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🔴 Claude — desempenho do painel: materializar dre_mensal (migration nova) + front-end; base 4fa1ffa
+> **🚦 Status atual:** 🟢 livre — PENDENTE aplicar 20261006000000 e 20261006010000 (ver recado de 06/10 do Claude)
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -3543,3 +3543,51 @@ sem alterar papéis, permissões ou filtros de segurança.
   clientes novos e origem dos comparecimentos, sem transferir o cálculo ao usuário.
 
 — Codex
+
+## 2026-10-06 · Claude — desempenho do painel (dre_mensal) e grants da fila de reservas
+
+**Medido (pg_stat_statements desde 09/07, role authenticated):** as views do
+painel rodam no limite do teto de 8 s: `app_painel_resumo_mensal` média 6,7 s
+(pico 7,6 s), gerente 4,1–4,9 s, `app_painel_dre_cascata` 3,7 s, margem 3,5 s.
+Causa: `dre_mensal` agregava `fato_financeiro` ao vivo (~2,2 s por leitura), e
+`painel_resumo_mensal` a lia duas vezes. Só as quatro `painel_*` (e as sete
+`app_*` acima delas) dependem de `dre_mensal`; nenhuma função a lê.
+
+**Migrations criadas, NÃO aplicadas** (o aplicador, inclusive o dry-run,
+foi bloqueado pelo classificador do modo automático):
+- `20261006000000_dre_mensal_materializada.sql`: `private.mv_dre_mensal`
+  (mesma consulta, índice único) + `dre_mensal` como select sobre ela (create
+  or replace, mesmas colunas e grants) + refresh isolado na resiliente (resto
+  conferido idêntico ao banco). Defasagem nova: classificação manual chega ao
+  painel quando o worker termina (~1 min).
+- `20261006010000_reservas_fila_somente_service_role.sql`: anon e
+  authenticated tinham EXECUTE em `fn_claim_pending_notifications` (devolve a
+  fila de e-mail com dados de clientes), `fn_finalize_notification`,
+  `fn_finalize_openai_ads_conversion` e `fn_enqueue_reservation_reminders`.
+  A fonte de reservas já declara só `service_role`; chamadores são edge
+  functions com service role e o cron (postgres).
+
+**Também:** `test_financial_contracts.py` passou a conferir o worker na
+migration que o define por último (antes exigia estar no mesmo arquivo da
+resiliente) e trava `dre_mensal` sobre o snapshot; `test_importacao_outbox.py`
+lista a nova migration como sem efeito na cadeia. Validações locais:
+test_migrations (201), financial/access/frontend contracts, escrita_segura,
+check_project QUALITY_OK, `pglast` nas duas migrations. outbox e SQL reais
+precisam de Postgres local: ficam para o CI.
+
+**Para aplicar e conferir:** `python scripts/implantacao/aplicar_migrations_pendentes.py --aplicar`.
+Depois, só leitura: checksums de `dre_mensal` (3838 linhas, md5 4f6371b1…),
+`painel_dre_cascata` (d2f00ee9…), `painel_composicao_despesa` (0ca2efe1…),
+`painel_margem_contribuicao` (c250bf05…) e `painel_resumo_mensal` sem o mês
+corrente (c2a0447e…) devem bater, salvo carga nova no meio; ACL das quatro
+funções só com postgres e service_role; um "Atualizar tudo agora" no Status
+deve listar `private.mv_dre_mensal` em atualizados.
+
+**Próximos gargalos (não mexidos):** `listar_calendario_financeiro` 5,2 s,
+`app_recebimento_projetado` 2,5 s, `app_projecao_despesa_direta` 2,1 s,
+`app_painel_saldo_atual` 1,8 s, `app_projecao_despesa_fixa` 1,7 s. Medir de
+novo depois da aplicação. `app_configuracao_operacional` e
+`parametro_valor` expõem `parametros` a anon; a tela de login chama a
+primeira antes do login, então revogar exige tratar esse caminho.
+
+- Claude
