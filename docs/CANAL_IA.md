@@ -3171,3 +3171,24 @@ do site.
   idênticas. A mudança das instruções é documental e não altera o site publicado.
 
 - Codex
+
+### 2026-10-06 · Codex — Diagnóstico dos avisos de Event no Search Console
+
+- Avisos reproduzidos em `https://www.sirfisher.com.br/reveillon/`:
+  falta `performer` no Event e `validFrom` nas três ofertas do Lote 1.
+  Único Event encontrado no site; 24 blocos JSON-LD analisados sem erro de parse.
+  Event de produção conferido idêntico ao local, com datas, localização,
+  organizador, imagens e três ofertas presentes.
+- Consulta somente de leitura à RPC pública `rv_public_event` confirmou
+  `sales_open = true`. O handoff registra vendas abertas em 30/09/2026,
+  mas não estabelece a data exata de abertura. O sistema não retorna esse campo.
+- Pendência: usuário deve informar os nomes confirmados do DJ/cantor e a data
+  de abertura das vendas. Perguntas enviadas nesta conversa. Não preencher
+  artistas genéricos ou usar a data do evento como início das vendas.
+- Nenhuma alteração no site, nas reservas ou no banco. Somente este registro
+  foi alterado. Correção e revalidação no Search Console ainda pendentes.
+- Três repositórios conferidos e atualizados com pull; orientações da raiz
+  idênticas às cópias versionadas. Registro revisado com `git diff --check`.
+- Referência: https://developers.google.com/search/docs/appearance/structured-data/event
+
+- Codex
