@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 livre — revisão ChatGPT Ads concluída; campanha segue com configuração atual
+> **🚦 Status atual:** 🟢 livre — revisão ChatGPT Ads e complemento financeiro concluídos; campanha com configuração atual
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -3494,5 +3494,52 @@ faturamento configurado, sem bloqueadores de entrega no diagnóstico completo.
 - Entrega: apenas docs/CANAL_IA.md alterado; nenhuma migration, envio de
   conversão de teste, mudança de campanha ou agendamento recorrente. Leituras
   de Ads/GA4/operação reconciliadas; nenhuma informação de cliente exposta.
+
+Complemento financeiro solicitado pelo usuário: definir os limites a partir
+do painel de gestão, em vez de exigir que ele forneça uma meta. Consultados
+apenas agregados de julho–setembro e caixa/projeção atuais, pelo endpoint de
+leitura. As views app_* retornam vazio sem sessão de usuário; os agregados
+painel_* que as alimentam foram consultados com o acesso de leitura autorizado,
+sem alterar papéis, permissões ou filtros de segurança.
+
+- Margem de contribuição gerencial: julho 61,6%, agosto 56,5%, setembro 49,3%;
+  ponderada dos três meses 56,03%. Setembro: operacional registrado 1,8%,
+  R$3.210,81; R$15.550,06 sem categoria. Total gerencial -R$8.681,70, que inclui
+  itens abaixo da operação e não equivale a lucro/prejuízo contábil apurado.
+  Caixa atualizado até 05/10 e projeção de 31 dias sem saldo negativo. Existe
+  espaço para piloto pequeno; o resultado reduzido e a classificação pendente
+  desaconselham ampliação sem comprovação de retorno.
+- Ticket por pagamento em setembro R$76,13, distinto de ticket por cliente.
+  Não há contagem financeira de comensais para transformar esse valor em CAC
+  exato por pessoa. Mantida R$58/pessoa somente como hipótese provisória da
+  integração, sem tratá-la como consumo real. Com contribuição de 49,31%,
+  resulta R$28,60/pessoa antes de fixos e publicidade; reservar aproximadamente
+  metade para aquisição sugere meta inicial perto de R$15 por cliente novo
+  efetivamente presente. Não assumido LTV nem repetição de compra.
+- Reservas públicas de duas pessoas com data passada entre 01/07 e 05/10:
+  5 comparecimentos, 16 no_show e 4 cancelamentos; mais 1 sem encerramento.
+  Comparecimento observado entre as 25 concluídas: 20%. É uma amostra pequena
+  de todos os canais, não uma taxa comprovada do ChatGPT Ads. Meta financeira
+  provisória para confirmação de duas pessoas: cerca de R$6 (R$15 × 2 × 20%),
+  faixa prudente R$5–7. Rever ao melhorar registro/comparecimento e medir gasto
+  real; custo por reserva não pode substituir custo por cliente presente.
+- Teto inicial recomendado para ChatGPT Ads: R$280 por mês, incluindo o gasto
+  já realizado, como piloto e não como percentual universal de marketing.
+  Corresponde a 8,7% do operacional registrado de setembro e a uma semana do
+  orçamento médio mínimo atual de R$40. Outubro tem R$190,57 consolidados até
+  05/10; sobram R$89,43 antes de contabilizar hoje. A consulta até a última hora
+  completa devolveu dados somente até 06/10 00h: cobertura de hoje indisponível,
+  não presumida zero. Teto recomendado não foi configurado na plataforma.
+- Decisão refinada: manter até 07/10 às 17h17 apenas dentro desse limite de
+  teste; encerrar antes caso ele seja atingido, sem prorrogar automaticamente.
+  A reserva futura ainda não prova prejuízo, e clientes sem reserva não são
+  medidos. Retorno suficiente para manter uma campanha contínua ainda não foi
+  demonstrado. Os limites são recomendações econômicas provisórias, sustentadas
+  por contribuição e hipóteses explícitas, sem alterar a campanha.
+- Método de contribuição/limite de equilíbrio conferido na orientação da SBA:
+  https://legacy.sba.gov/business-guide/plan-your-business/calculate-your-startup-costs/break-even-point.
+  Pagamentos de insumos não são CMV por inventário; margens financeiras/comerciais
+  têm bases diferentes. Esses limites precisam ser calibrados com consumo,
+  clientes novos e origem dos comparecimentos, sem transferir o cálculo ao usuário.
 
 — Codex
