@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 livre — melhorias Google/site/reservas entregues; bandeiras no Google aguardam renovação OAuth
+> **🚦 Status atual:** 🟢 livre — melhorias Google/site/reservas entregues; deploy de documentação do site em fila
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -3378,11 +3378,15 @@ banheiro sem acessibilidade; preços do cardápio publicado aprovados.
   antecipação na primeira interação. GA4 permanece assíncrono desde o início.
 - Cartões confirmados pelo usuário: Visa, Mastercard, Elo, American Express,
   UnionPay e Cabal, além dos principais vales-refeição. Site PT/EN atualizado,
-  sem inventar bandeiras dos vales. Falta reconciliar os atributos de cartões
-  no Google: o token temporário expirou (HTTP 401), e foi solicitada nova
-  autenticação por arquivo local fora dos repositórios. Não reaproveitar os
-  antigos Diners/Discover/JCB como se tivessem sido confirmados. Entrada e
-  estacionamento acessíveis continuam sem resposta; atributos preservados.
+  sem inventar bandeiras dos vales. Após renovação OAuth por arquivo local
+  fora dos repositórios, o atributo de cartões foi atualizado e sua leitura
+  confirmou Visa, Mastercard, American Express e China UnionPay; Diners,
+  Discover e JCB foram desmarcados. Elo/Cabal não são opções dessa API e foram
+  informados na descrição (697 caracteres), junto à aceitação genérica de
+  vales. Após processamento, getGoogleUpdated confirmou os cartões e a
+  descrição enviados, sem pendingMask. Alelo, Pluxee, Ticket Restaurante e VR
+  são campos específicos, não alterados sem confirmação dessas bandeiras.
+  Entrada e estacionamento acessíveis continuam sem resposta; preservados.
 - Medição: removidas UTMs artificiais de navegação interna; mantidas campanhas
   externas reais e contexto sf_origin. Reservas toleram storage bloqueado e
   identificam sessão via API gtag, com timeout e fallback GS1/GS2. click_menu
@@ -3406,12 +3410,15 @@ banheiro sem acessibilidade; preços do cardápio publicado aprovados.
   Lighthouse inspecionada; navegador integrado indisponível, sem teste manual
   completo de navegação/reserva.
 - Publicações site: 1e6472f (SEO/atribuição), a16e90c (SDKs), 04548a5
-  (pagamentos), a9f6ac4 (registro móvel). Reservas: d128689. Deploys das duas
+  (pagamentos), a9f6ac4 (registro móvel), e718ecd (documentação dos cartões).
+  Reservas: d128689. Deploys das duas
   primeiras publicações do site, pagamentos e reservas passaram, com arquivos
   públicos conferidos. A publicação de a9f6ac4 falhou por timeout ao obter
   ID token no GitHub; retry dos jobs falhos solicitado (HTTP 201), aguardando
-  execução. O site público contém todas as mudanças funcionais; resta publicar
-  a documentação móvel. Nenhuma alteração de permissão foi feita por causa da
+  execução; a publicação de e718ecd também está em fila. O site público contém
+  todas as mudanças funcionais; resta publicar a documentação móvel/cartões.
+  Os arquivos de documentação já estão versionados no GitHub. Nenhuma
+  alteração de permissão foi feita por causa da
   mensagem genérica de id-token: write.
   Sitemap atualizado enviado ao Search Console (HTTP 204), pendente de
   processamento pelo Google, sem erros/avisos na leitura inicial.
