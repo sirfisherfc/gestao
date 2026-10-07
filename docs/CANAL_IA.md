@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 livre — avaliações e Sebrae publicados e conferidos por Codex em 07/10/2026.
+> **🚦 Status atual:** 🟢 livre — foto real do terraço publicada e conferida por Codex em 07/10/2026.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -3770,5 +3770,30 @@ diretórios antigos ("Sir Fisher - PUB", @sirfisherpub) são ação manual.
   apenas local; falta confirmar origem/fidelidade antes de publicá-la como
   fotografia do espaço. Os três repos e os pares de orientações da raiz
   foram conferidos; publicação desta revisão sem pendências.
+
+— Codex
+
+
+## 2026-10-07 · Codex — foto real do terraço na capa da página Conheça
+
+- O proprietário confirmou que fotografou o espaço real; tratamento anterior
+  apenas de cores, nitidez e contraste. Resolvida a pendência de origem da foto
+  registrada na entrega anterior. Nenhuma alteração criativa adicional.
+- Site publicado em `14f2e9e`: `conheca/index.html`, `assets/css/conheca.css`,
+  README de analytics e quatro variantes `terraco-por-do-sol-sir-fisher-*`.
+  Capa preserva a proporção inteira; limite de 500 px no desktop e largura
+  responsiva no celular. A foto anterior continua na galeria do almoço.
+- PNG original de aproximadamente 4 MB permanece em Downloads, fora do Git.
+  AVIF/WebP de 640/960 px publicados; AVIF com 60/116 KB. Preload corresponde
+  à imagem selecionada; dimensões HTML reservam espaço. Fonte registrada no
+  README, incluindo autoria/tratamento confirmados e fim da pendência.
+- Validações locais e publicadas em 320/390/820/1440 px e temas claro/escuro:
+  carregamento da foto nova, proporção sem distorção/corte, ausência de overflow
+  e erros, atribuição nos links de reserva e detalhes. Capturas inspecionadas.
+  7 testes de atribuição/marketing passaram; HTML/JSON-LD/caminhos e orientação
+  da raiz conferidos. HTML/CSS e quatro fotos publicados iguais aos locais,
+  HTTP 200. Não houve nova medição PageSpeed ou reserva artificial.
+- Home do QR, campanhas e orçamento não alterados. Nenhuma migration ou
+  mudança no banco. Três repos sincronizados; sem pendência desta entrega.
 
 — Codex
