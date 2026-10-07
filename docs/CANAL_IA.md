@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 livre — desempenho do painel (dre_mensal) e grants da fila de reservas aplicados e conferidos em 06/10
+> **🚦 Status atual:** 🟢 livre — site e reservas para turistas estrangeiros entregues em 07/10 (o 🔴 do Codex era esquecido, confirmado pelo Rogério)
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -3602,5 +3602,34 @@ ANALYZE: `dre_mensal` 2,2 s → 0,9 ms; `painel_resumo_mensal` 5,7–11,3 s →
 O resto de `painel_resumo_mensal` vem de `venda_diaria`/`tendencia_mes` ao
 vivo (lidas duas vezes cada). Falta ver a primeira execução real do worker
 listar `private.mv_dre_mensal` em atualizados.
+
+- Claude
+
+## 2026-10-07 · Claude — site e reservas para turista estrangeiro (sem mudança no gestao nem no banco)
+
+Auditoria feita de Miami (VPN). Entregue nos repositórios `site` (bbccbb4,
+7e93f2a) e `reservas` (d41bdf6), publicados e conferidos em produção:
+
+- **Reservas:** telefone com `+` mantém o código do país (antes +1 305…
+  virava "(13) 05555-0123"); vale no Réveillon e na normalização do pixel
+  OpenAI no navegador. Portal e cancelamento em inglês (`?lang=en`, escolha
+  salva ou navegador em inglês), datas por extenso, horário 12h com fuso de
+  Fortaleza em inglês, "hoje" sempre no fuso de Fortaleza. Nome público do
+  portal passou a "Sir Fisher" (`config.js`; o Réveillon não mudou).
+- **Cardápio:** `/cardapio/?lang=en` é o mesmo app com os textos trocados
+  (`site/assets/js/cardapio-en.js`, por id do produto; preço, foto e ordem
+  seguem a publicação). Produto novo sem tradução aparece em português:
+  acrescentar o id ali. O idioma do navegador **não** decide o cardápio, só
+  `?lang` ou a escolha salva. `/en/menu/` só redireciona. O aviso
+  `aviso_estado` ("Cardápio em conferência…") deixou de aparecer para o
+  cliente por pedido do Rogério; segue só na prévia do painel.
+- **/en/ e home:** nota 4,7 no Google (787), faixas de preço escritas à mão
+  na /en/ (atualizar se os preços mudarem), taxa de serviço 10% opcional,
+  sugestão discreta da versão em inglês, pixels de marketing após o `load`
+  (teto 3 s).
+
+**Pendente:** e-mail de confirmação em inglês (Edge Function
+`send-notifications`, sem credencial de deploy aqui); TripAdvisor e
+diretórios antigos ("Sir Fisher - PUB", @sirfisherpub) são ação manual.
 
 - Claude
