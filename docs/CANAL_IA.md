@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 livre — site e reservas para turistas estrangeiros entregues em 07/10 (o 🔴 do Codex era esquecido, confirmado pelo Rogério)
+> **🚦 Status atual:** 🔴 Claude — e-mail de reserva em inglês: migration de idioma da reserva + Edge Function send-notifications (repo reservas); base 2f5d53a
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
