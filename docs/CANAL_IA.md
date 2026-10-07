@@ -3663,7 +3663,7 @@ diretórios antigos ("Sir Fisher - PUB", @sirfisherpub) são ação manual.
   limitado a R$500 no mês. A home continua sendo a entrada do QR das mesas;
   anúncios levam a `https://www.sirfisher.com.br/conheca/`, com origem preservada
   no caminho até a reserva. Cardápio e rota têm destaque; reserva é opcional.
-- Site: `028d2a5`, `5650c2a`, `52fed87`, `6276292` e `ab68e76`, publicados. Landing com
+- Site: `028d2a5`, `5650c2a`, `52fed87`, `6276292`, `ab68e76` e `f21a35d`, publicados. Landing com
   texto curto, 14 imagens, comida/preços conferidos, espaço, celebração,
   Sebrae e avaliações. Corrigidas alturas das galerias no celular. Fotos
   originais fornecidas pelo proprietário mostram Diamante 2024 e 2025/2026;
@@ -3688,6 +3688,8 @@ diretórios antigos ("Sir Fisher - PUB", @sirfisherpub) são ação manual.
   amostra insuficiente para retorno ou comparação causal.
   Não há renovação mensal automática nem promessa de receita/comparecimento.
 - Validação: 7 testes de atribuição/carregamento de marketing; HTML/JSON-LD,
+  mocks de eventos atualizados para o `load` introduzido na home pelo Claude,
+  conferindo fila inicial e ausência de duplicação após interação/timer/load;
   58 caminhos locais, IDs/âncoras e CSS; navegador em 320/390/1440 px, temas
   claro/escuro, proporções das galerias, origem da reserva e detalhes. Publicação
   HTML/CSS/imagens conferida com HTTP 200 e conteúdo local; home do QR idêntica.
