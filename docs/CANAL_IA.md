@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 livre — landing compacta e OAuth persistente do painel reutilizado, publicados e conferidos em 07/10.
+> **🚦 Status atual:** 🟢 livre — avaliações e Sebrae publicados e conferidos por Codex em 07/10/2026.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -3733,5 +3733,42 @@ diretórios antigos ("Sir Fisher - PUB", @sirfisherpub) são ação manual.
   caminhos e instruções do workspace. Fontes privadas e QA em `tmp/` fora do
   Git. Nenhuma migration ou mudança no banco. PageSpeed 77/100 é a medição
   anterior desta data, não um novo escore após a segunda revisão visual.
+
+— Codex
+
+
+## 2026-10-07 · Codex — relatos originais e provas visíveis do Sebrae
+
+- Site publicado em `94ac08a`: `conheca/index.html`, `assets/css/conheca.css`
+  e `tools/analytics/README.md`. As duas notificações traduzidas/truncadas foram
+  substituídas por seis cards de avaliações originais em português, com nomes,
+  datas e estrelas conferidos pela API da ficha da Beira-Mar. São trechos
+  literais selecionados (até 25 palavras por autor), não prints simulados.
+  Primeiro aparecem os relatos de pratos e porções. Fundo branco sólido e
+  texto de 16 px nos dois temas; três colunas no desktop e rolagem no celular.
+- Google novamente consultado: 4,7/5 e 787 avaliações em 07/10. Instagram
+  continua com 41,2 mil informados pelo proprietário em 06/10. OAuth renovado
+  pela credencial persistente de `gestao/scripts/gbp/gbp.py`, sem login manual.
+  Respostas brutas e scripts temporários somente no `tmp/` fora dos repos.
+- Sebrae: três fotos visíveis por padrão, sem `details`; enquadramentos
+  individuais preservam certificado, rostos da entrega e troféu. Fotos de
+  300 px, com legendas e ampliação dos originais; galeria lateral no celular.
+  Seção publicada mediu 635–653 px em 320/390 px e 397 px no desktop de 1440.
+  Explicação curta do Selo Sebrae de Qualidade Empresarial e da categoria
+  máxima Diamante, com link à fonte oficial da Agência Sebrae/CE. Datas
+  documentadas: 2024 e 2025/2026; não inventar quatro ciclos consecutivos.
+- Validações: 7 testes de atribuição/marketing, HTML/JSON-LD, 34 caminhos locais,
+  IDs únicos, correspondência literal de trechos/autores/datas à API e CSS.
+  Navegador local e publicado em 320/390/820/1440 px, temas claro/escuro,
+  rolagem das galerias, contraste/texto, carregamento de fotos, ausência de
+  overflow/erros, origem da reserva e detalhes práticos. Capturas inspecionadas.
+  HTML/CSS/fotos publicados comparados aos locais, HTTP 200. Home do QR idêntica.
+- Nenhuma migration, alteração do banco, campanha ou orçamento. Não foi criada
+  reserva artificial nem medido um novo PageSpeed nesta revisão. Mais clientes
+  ou conversões ainda dependem da observação dos resultados reais.
+- Pendência independente: foto de terraço enviada em Downloads tem prévia
+  apenas local; falta confirmar origem/fidelidade antes de publicá-la como
+  fotografia do espaço. Os três repos e os pares de orientações da raiz
+  foram conferidos; publicação desta revisão sem pendências.
 
 — Codex
