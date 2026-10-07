@@ -47,6 +47,21 @@
   outros sistemas. Não usar ferramentas configuradas somente para leitura
   para escrever no banco.
 
+## Acesso ao Perfil da Empresa no Google
+
+- Antes de solicitar novo login ou token temporário, executar
+  `python site/tools/analytics/google_oauth_helper.py --verificar`.
+- A autorização persistente já configurada em `gestao/scripts/gbp/gbp.py`
+  usa `GOOGLE_OAUTH_CLIENT_ID`, `GOOGLE_OAUTH_CLIENT_SECRET` e
+  `GOOGLE_OAUTH_REFRESH_TOKEN`, do ambiente ou de `gestao/.env` ignorado.
+  Reutilizar essa rotina para leituras e alterações autorizadas do perfil.
+- Em 07/10/2026, duas renovações e leituras reais da ficha/avaliações foram
+  verificadas sem intervenção do usuário. Não voltar a pedir um Access token
+  de uma hora enquanto a credencial existente puder renovar o acesso.
+- Só solicitar reconexão depois de confirmar falha da renovação ou ausência
+  da credencial necessária. Não exibir, copiar para páginas nem versionar
+  os segredos. Não criar uma segunda rotina agendada para o mesmo perfil.
+
 ## Instruções de cada projeto
 
 - Ler `README.md`, `AGENTS.md` e `CLAUDE.md` do projeto, quando existirem.

@@ -18,6 +18,22 @@ depois de tudo que foi publicado de lá. O `scripts/gbp/rotina.ps1` (Agendador
 do Windows) fica como alternativa local, desligado enquanto a nuvem estiver
 ativa: as duas não devem rodar juntas.
 
+## Autorização reutilizável
+
+A rotina usa `GOOGLE_OAUTH_CLIENT_ID`, `GOOGLE_OAUTH_CLIENT_SECRET` e
+`GOOGLE_OAUTH_REFRESH_TOKEN`, do ambiente ou de `gestao/.env` ignorado. O
+`gbp.py` troca o refresh token por um novo Access token a cada execução;
+a expiração do Access token não exige login manual a cada revisão.
+Em 07/10/2026, duas renovações e leituras reais da ficha/avaliações foram
+conferidas no PC, e o comando de verificação também passou.
+
+Na raiz do workspace: `python site/tools/analytics/google_oauth_helper.py --verificar`.
+Codex e outras IAs devem reutilizar essa autorização antes de pedir novo
+login ou token temporário. Só reconectar se a renovação falhar ou a credencial
+estiver ausente. Não duplicar a rotina diária nem publicar as credenciais.
+
+Referência: [OAuth offline do Perfil Google](https://developers.google.com/my-business/content/implement-oauth#offline-access).
+
 ## O que roda e quando
 
 | Quando | O quê | Comando |
