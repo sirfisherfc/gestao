@@ -3797,3 +3797,19 @@ diretórios antigos ("Sir Fisher - PUB", @sirfisherpub) são ação manual.
   mudança no banco. Três repos sincronizados; sem pendência desta entrega.
 
 — Codex
+
+
+## 2026-10-08 · Codex — conferência do aviso de parâmetros Gemini
+
+- Documentação oficial do Google consultada sobre thinking_level e remoção de
+  thinking_budget, temperature, top_p e top_k nos modelos novos.
+- Busca nos arquivos não ignorados de gestao, site e reservas: a chamada encontrada
+  está em site/tools/ia-imagem/editar.py e envia somente responseModalities na
+  generationConfig. Nenhum dos parâmetros citados aparece nessa chamada.
+- Nenhuma mudança de código necessária pelo aviso. A origem das requisições
+  detectadas pelo Google depende de conferir o projeto/chave e seus registros;
+  logs da conta e ferramentas externas não foram consultados nesta tarefa.
+- Três repositórios em main atualizados por pull --ff-only; pares AGENTS/README
+  da raiz idênticos às cópias versionadas. Registro de conferência como única alteração.
+
+— Codex
