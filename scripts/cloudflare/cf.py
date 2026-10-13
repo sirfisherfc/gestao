@@ -49,6 +49,10 @@ CONFIGURACOES = {
     "rocket_loader": "off",      # reescreveria os scripts da pagina
     "email_obfuscation": "off",  # injetaria script no HTML
     "browser_cache_ttl": 0,      # respeita o max-age da origem: HTML segue com 10 min
+    # HSTS de 1 ano com subdominios (todos respondem em HTTPS; o e-mail nao usa HSTS).
+    # Sem "preload": entrar na lista dos navegadores e um compromisso dificil de desfazer.
+    "security_header": {"strict_transport_security": {
+        "enabled": True, "max_age": 31536000, "include_subdomains": True, "preload": False, "nosniff": True}},
 }
 # So o que tem ?v= ganha um ano: o site grava ali o hash do conteudo
 # (site/tools/cache/versionar_assets.py, no pre-commit), entao arquivo novo =
@@ -68,6 +72,20 @@ REGRA_REDIRECIONAMENTO = {
     "action_parameters": {"from_value": {
         "status_code": 301, "preserve_query_string": True,
         "target_url": {"expression": f'concat("https://{WWW}", http.request.uri.path)'}}},
+}
+# A politica de scripts fica no <meta> de cada pagina (site/tools/seguranca/csp.py);
+# aqui vai o que so funciona por cabecalho.
+REGRA_CABECALHOS = {
+    "description": "Site: cabecalhos de seguranca (quadro, origem, referencia, permissoes)",
+    "expression": f'(http.host eq "{WWW}")',
+    "action": "rewrite",
+    "action_parameters": {"headers": {
+        "X-Frame-Options": {"operation": "set", "value": "SAMEORIGIN"},
+        "Content-Security-Policy": {"operation": "set", "value": "frame-ancestors 'self'; upgrade-insecure-requests"},
+        "Cross-Origin-Opener-Policy": {"operation": "set", "value": "same-origin"},
+        "Referrer-Policy": {"operation": "set", "value": "strict-origin-when-cross-origin"},
+        "Permissions-Policy": {"operation": "set", "value": "camera=(), microphone=(), geolocation=(), payment=(), usb=()"},
+    }},
 }
 
 
@@ -147,7 +165,7 @@ def cmd_diagnostico(_args):
         print(f"  conf {nome} = {(res.get('result') or {}).get('value')}")
     for c in api("GET", f"/zones/{zid}/ssl/certificate_packs?status=all").get("result") or []:
         print(f"  cert {c.get('type')} {c.get('status')} {c.get('hosts')}")
-    for fase in ("http_request_cache_settings", "http_request_dynamic_redirect"):
+    for fase in ("http_request_cache_settings", "http_request_dynamic_redirect", "http_response_headers_transform"):
         r = api("GET", f"/zones/{zid}/rulesets/phases/{fase}/entrypoint")
         regras = (r.get("result") or {}).get("rules") or []
         print(f"  regras {fase}: {[x.get('description') for x in regras] or 'nenhuma'}")
@@ -161,6 +179,7 @@ def cmd_site(args):
         print(f"  configuracao {nome} -> {valor}")
     print("  regra de cache:", REGRA_CACHE["expression"])
     print("  redirecionamento:", REGRA_REDIRECIONAMENTO["expression"], "-> https://" + WWW)
+    print("  cabecalhos:", ", ".join(REGRA_CABECALHOS["action_parameters"]["headers"]))
     for r in registros:
         print(f"  proxy {r['type']} {r['name']} {r['content']}: {r.get('proxied')} -> True")
     if not args.aplicar:
@@ -174,6 +193,8 @@ def cmd_site(args):
         "PUT", f"/zones/{zid}/rulesets/phases/http_request_cache_settings/entrypoint", {"rules": [REGRA_CACHE]}))
     tudo_ok &= conferir("redirecionamento sem www", api(
         "PUT", f"/zones/{zid}/rulesets/phases/http_request_dynamic_redirect/entrypoint", {"rules": [REGRA_REDIRECIONAMENTO]}))
+    tudo_ok &= conferir("cabecalhos de seguranca", api(
+        "PUT", f"/zones/{zid}/rulesets/phases/http_response_headers_transform/entrypoint", {"rules": [REGRA_CABECALHOS]}))
     if not tudo_ok:
         sys.exit("Algo falhou antes do proxy; o proxy NAO foi ligado.")
     for r in registros:

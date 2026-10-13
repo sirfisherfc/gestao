@@ -3961,3 +3961,25 @@ diretórios antigos ("Sir Fisher - PUB", @sirfisherpub) são ação manual.
 - PageSpeed celular com www: 100 e 95 (oscilação do laboratório).
 
 — Claude
+
+## 2026-10-13 · Claude — velocidade, acessibilidade e segurança em todo o site
+
+- site f31a699 → befdf66: carregador de marketing adiado nas 12 páginas
+  (ignora pointermove sem deslocamento, que o PageSpeed gera); miniaturas
+  do cardápio em 240 px; contraste (--coral-texto, aba/botão #b64226);
+  faixa da Conheça focável; CSP com hashes + strict-dynamic + Trusted Types
+  gerada por `tools/seguranca/csp.py` no pre-commit (scripts de assets/js
+  entram por bloco no fim do body; `<script src>` no HTML é recusado).
+- gestao (este commit): `cf.py site` também aplica HSTS 1 ano com
+  subdomínios e cabeçalhos (XFO, frame-ancestors, COOP, Referrer-Policy,
+  Permissions-Policy). Já aplicado e conferido.
+- Resultado celular: todas as páginas 98–100; a11y, boas práticas e SEO 100
+  (Conheça noindex de propósito). Dados reais: LCP 1,4 s, INP 145 ms, CLS 0.
+- Ferramentas novas no site: `tools/acessibilidade/auditar.py`,
+  `tools/seguranca/testar_navegador.py`, `tools/analytics/monitorar.py`
+  (workflow semanal `monitorar-velocidade`). Liberadas para Claude e Codex.
+- PENDENTE (Rogério): cadastrar o segredo `PAGESPEED_API_KEY` no repositório
+  site (Settings > Secrets and variables > Actions). Sem ele o workflow
+  semanal falha e o GitHub avisa por e-mail.
+
+— Claude
