@@ -29,6 +29,7 @@ import argparse
 import json
 import os
 import sys
+import time
 import urllib.error
 import urllib.request
 from pathlib import Path
@@ -83,18 +84,26 @@ def api(metodo, caminho, corpo=None):
     if not token:
         sys.exit("CLOUDFLARE_API_TOKEN ausente (gestao/.env ou variavel de ambiente).")
     dados = json.dumps(corpo).encode() if corpo is not None else None
-    req = urllib.request.Request(BASE + caminho, data=dados, method=metodo, headers={
-        "Authorization": "Bearer " + token, "Content-Type": "application/json"})
-    try:
-        with urllib.request.urlopen(req, timeout=60) as r:
-            return json.loads(r.read())
-    except urllib.error.HTTPError as e:
-        corpo_erro = e.read() or b"{}"
+    # Todas as chamadas daqui sao idempotentes (PUT/PATCH/GET/purga), entao uma
+    # conexao derrubada no meio (visto: SSL UNEXPECTED_EOF) pode ser repetida.
+    for tentativa in range(1, 5):
+        req = urllib.request.Request(BASE + caminho, data=dados, method=metodo, headers={
+            "Authorization": "Bearer " + token, "Content-Type": "application/json"})
         try:
-            erros = json.loads(corpo_erro).get("errors")
-        except ValueError:
-            erros = corpo_erro[:200]
-        return {"success": False, "http": e.code, "errors": erros}
+            with urllib.request.urlopen(req, timeout=60) as r:
+                return json.loads(r.read())
+        except urllib.error.HTTPError as e:
+            corpo_erro = e.read() or b"{}"
+            try:
+                erros = json.loads(corpo_erro).get("errors")
+            except ValueError:
+                erros = corpo_erro[:200]
+            return {"success": False, "http": e.code, "errors": erros}
+        except (urllib.error.URLError, ConnectionError, TimeoutError) as e:
+            if tentativa == 4:
+                return {"success": False, "http": None, "errors": f"rede: {e}"}
+            print(f"  rede falhou ({e}); tentando de novo em {2 ** tentativa} s...")
+            time.sleep(2 ** tentativa)
 
 
 def conferir(rotulo, resposta):
@@ -114,7 +123,10 @@ def zona_id():
 
 def registros_do_site(zid):
     """Registros que servem o site: A/AAAA do dominio sem www e o CNAME do www."""
-    todos = api("GET", f"/zones/{zid}/dns_records?per_page=200")["result"]
+    resposta = api("GET", f"/zones/{zid}/dns_records?per_page=200")
+    if not resposta.get("success"):
+        sys.exit(f"Nao consegui ler os registros DNS: {resposta.get('errors')}")
+    todos = resposta["result"]
     return [r for r in todos if (r["name"] == ZONA and r["type"] in ("A", "AAAA"))
             or (r["name"] == WWW and r["type"] == "CNAME")]
 
