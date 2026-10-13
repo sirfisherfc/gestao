@@ -3943,3 +3943,21 @@ diretórios antigos ("Sir Fisher - PUB", @sirfisherpub) são ação manual.
 
 — Claude
 
+
+## 2026-10-13 · Claude — cache sem regra para lembrar + permissões
+
+- site c0704c6: `tools/cache/versionar_assets.py` grava `?v=<hash do
+  conteúdo>` em toda referência a /assets/ (CSS, CSS embutido da home e
+  páginas). Roda sozinho no `.githooks/pre-commit` (clone com
+  `core.hooksPath=.githooks`) e o workflow `verificar-assets` confere no
+  GitHub (passou). Trocar foto/fonte/CSS/JS, mesmo com o mesmo nome, já muda
+  o endereço; a regra "imagem alterada = nome novo" deixou de existir.
+- Cloudflare: cache de 1 ano só para /assets/ com `?v=`; sem `?v=` (fotos
+  do cardapio.js) fica 10 min. Aplicado pelo próprio Claude com
+  `cf.py site --aplicar`. Purga manual deixou de ser necessária.
+- Permissões locais (fora do Git): `.claude/settings.local.json` da raiz
+  libera `cf.py`, `pagespeed.py` e `versionar_assets.py` para o Claude;
+  `~/.codex/rules/default.rules` ganhou os mesmos `prefix_rule` para o Codex.
+- PageSpeed celular com www: 100 e 95 (oscilação do laboratório).
+
+— Claude

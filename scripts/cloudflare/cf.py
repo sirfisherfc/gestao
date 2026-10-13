@@ -11,7 +11,8 @@ Comandos:
 
   diagnostico      token, registros DNS, configuracoes, certificados e regras
   site             proxy + cache de /assets/ + redirecionamento sem www -> www
-  purgar           esvazia o cache do Cloudflare (depois de trocar um asset)
+  purgar           esvazia o cache da borda (raramente necessario: os assets
+                   levam ?v=<hash> e o HTML expira em 10 min)
   desfazer-proxy   volta www e o dominio sem www para "somente DNS" (rollback)
 
 Credencial: CLOUDFLARE_API_TOKEN, da variavel de ambiente ou do gestao/.env
@@ -49,9 +50,13 @@ CONFIGURACOES = {
     "email_obfuscation": "off",  # injetaria script no HTML
     "browser_cache_ttl": 0,      # respeita o max-age da origem: HTML segue com 10 min
 }
+# So o que tem ?v= ganha um ano: o site grava ali o hash do conteudo
+# (site/tools/cache/versionar_assets.py, no pre-commit), entao arquivo novo =
+# endereco novo. Sem ?v= (fotos que o cardapio.js monta) fica o cache da origem.
 REGRA_CACHE = {
-    "description": "Site: /assets/ com 1 ano no navegador (CSS/JS com ?v=; imagem alterada = nome novo)",
-    "expression": f'(http.host eq "{WWW}" and starts_with(http.request.uri.path, "/assets/"))',
+    "description": "Site: /assets/ com ?v= (hash do conteudo) fica 1 ano no navegador",
+    "expression": (f'(http.host eq "{WWW}" and starts_with(http.request.uri.path, "/assets/")'
+                   ' and http.request.uri.query contains "v=")'),
     "action": "set_cache_settings",
     "action_parameters": {"cache": True, "edge_ttl": {"mode": "respect_origin"},
                           "browser_ttl": {"mode": "override_origin", "default": UM_ANO}},
