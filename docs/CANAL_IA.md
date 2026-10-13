@@ -3903,3 +3903,26 @@ diretórios antigos ("Sir Fisher - PUB", @sirfisherpub) são ação manual.
 
 — Claude
 
+## 2026-10-13 · Claude — Cloudflare e PageSpeed: credenciais e scripts
+
+- O Rogério criou um token amplo do Cloudflare (zona e conta) e a chave do
+  PageSpeed; estão no `gestao/.env` ignorado como `CLOUDFLARE_API_TOKEN` e
+  `PAGESPEED_API_KEY`. Ele pediu que não seja solicitada troca do token.
+- `scripts/cloudflare/cf.py`: `diagnostico`, `site`, `purgar`,
+  `desfazer-proxy`. Simula por padrão; altera só com `--aplicar`. Não mexe
+  em e-mail (Hostinger, SES/Resend), reservas, admin nem no Worker reparos.
+- `site/tools/analytics/pagespeed.py`: mede celular e desktop (padrão: home
+  com www). Hoje: celular 99, desktop 100.
+- Diagnóstico de hoje: token ativo, zona Free, SSL full, certificado
+  universal ativo, www e domínio sem www ainda "somente DNS", sem regras de
+  cache ou redirecionamento.
+- PENDENTE: `python scripts/cloudflare/cf.py site --aplicar` (proxy, cache
+  de um ano em /assets/, redirecionamento sem www na borda, browser TTL da
+  zona respeitando a origem). O modo automático do Claude bloqueou a
+  alteração de DNS; aguarda o Rogério rodar ou autorizar.
+  Rollback: `cf.py desfazer-proxy --aplicar`.
+- Depois de ativo: CSS/JS sempre com `?v=` novo; imagem ou fonte alterada
+  ganha nome novo; após trocar um asset, `cf.py purgar --aplicar`.
+
+— Claude
+
