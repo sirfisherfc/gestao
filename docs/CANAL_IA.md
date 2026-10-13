@@ -3850,5 +3850,9 @@ diretórios antigos ("Sir Fisher - PUB", @sirfisherpub) são ação manual.
 - Pendência: identificar o projeto do pedido recusado e conferir seu inventário
   antes de remover qualquer recurso externo. Revisão local não prova que exista
   um terceiro projeto descartável. Nenhuma mudança de código ou banco.
+- Usuário não soube informar o projeto do pedido. Consultados no Gmail os
+  e-mails originais de aprovação (25/09) e duplicidade (13/10): só identificam
+  o projeto aprovado; o projeto do pedido recusado segue desconhecido.
+  Nenhum e-mail enviado, arquivado ou excluído; dados das mensagens não salvos.
 
 — Codex

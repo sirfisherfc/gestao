@@ -43,6 +43,10 @@ orientação recebida é usar esse projeto existente. Embora o e-mail use o
 rótulo "Project ID", ele se refere ao número do projeto GCP.
 O ID desse projeto é **`dark-granite-507917-e4`**, registrado na entrega
 de 06/10/2026 em `docs/CANAL_IA.md`.
+Os e-mails originais de 25/09/2026 (aprovação) e 13/10/2026 (duplicidade)
+também foram lidos nesta revisão. Ambos citam somente o número aprovado;
+o segundo não identifica o projeto usado no pedido recusado. Não presumir
+que exista outro projeto descartável a partir dessa mensagem.
 
 A verificação local de 13/10/2026 renovou a autorização persistente e leu
 a ficha Sir Fisher e uma página de avaliações com sucesso. O prefixo numérico
