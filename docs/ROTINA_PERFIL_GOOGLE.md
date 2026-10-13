@@ -69,14 +69,18 @@ específica. A aprovação é concedida por projeto, conforme a
 |---|---|---|
 | `dark-granite-507917-e4` / `726896222832` | Perfil da Empresa via OAuth persistente de `gbp.py` | Renovação e leitura da ficha passaram; manter. |
 | `capable-avatar-480514-g0` / `934216878130` | Conta de serviço de Analytics e Search Console em `site/tools/analytics/` | Consulta GA4 da propriedade `353205396` e acesso ao domínio no Search Console passaram; manter. |
+| `gen-lang-client-0894233383` | Default Gemini Project; chave Gemini vinculada no AI Studio | Vínculo chave/projeto confirmado por print do proprietário; vínculo ao script local ainda não confirmado. |
 
 O proprietário confirmou em 13/10/2026 que renomeou **My First Project**
 para **Sir Fisher - Analytics** no Console. O projeto continua identificado
 por `capable-avatar-480514-g0` / `934216878130`; a renomeação foi informada
 pelo proprietário, sem nova leitura remota do nome nesta sessão.
 
-O print do Console também mostra **Default Gemini Project**, com ID truncado
-`gen-lang-cl...`. Em 13/10/2026, a conferência de
+O print do AI Studio enviado em 13/10/2026 confirma uma chave Gemini vinculada
+ao **Default Gemini Project**, ID **`gen-lang-client-0894233383`**. A página
+mostra também um aviso de que o projeto precisa de atenção, sem informar a
+causa nessa tela; abrir o aviso antes de atribuí-lo a faturamento ou permissões.
+Não concluir que o projeto esteja sem uso. Na mesma data, a conferência de
 `site/tools/ia-imagem/editar.py` mostrou que ele exige `GEMINI_API_KEY`, ausente
 no processo atual e nas variáveis persistentes de usuário e máquina. O comando
 `python -B site/tools/ia-imagem/editar.py --modelos` parou por ausência da chave,
@@ -84,9 +88,10 @@ antes de acessar a API. O e-mail do AI Studio de 07/10 indica requisições
 recentes, mas não identifica o projeto nem o aplicativo responsável.
 A associação do projeto Gemini ao script **não está confirmada**; não concluir
 que o projeto inteiro esteja sem uso pela ausência dessa variável local.
-Conferir a coluna Projeto na
-[página de chaves do AI Studio](https://aistudio.google.com/api-keys), sem
-compartilhar o valor das chaves. Não foi criada ou substituída nenhuma chave.
+O print identifica o projeto da chave exibida na
+[página de chaves do AI Studio](https://aistudio.google.com/api-keys), mas não
+prova que essa chave tenha sido configurada no script. Nenhum valor de chave
+foi copiado, nenhuma chave foi criada ou substituída nesta revisão.
 
 Um pedido duplicado de acesso GBP não demonstra que o projeto usado para
 o pedido esteja sem uso: ele pode atender outros serviços. A conta de serviço

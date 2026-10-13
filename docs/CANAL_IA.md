@@ -4026,3 +4026,16 @@ diretórios antigos ("Sir Fisher - PUB", @sirfisherpub) são ação manual.
   nenhuma geração de imagem, exclusão ou alteração de projeto.
 
 — Codex
+
+## 2026-10-13 · Codex — projeto da chave Gemini identificado por print
+
+- Print do proprietário no AI Studio confirma chave vinculada ao Default
+  Gemini Project, ID gen-lang-client-0894233383. ID incorporado ao inventário
+  em docs/ROTINA_PERFIL_GOOGLE.md, sem copiar valores ou fragmentos de chave.
+- Vínculo ao script editar.py continua não confirmado: a variável local estava
+  ausente. Print não comprova uso pelo script nem ausência de outros usos.
+- Aviso de atenção ao projeto visível; causa não detalhada no print. Próximo
+  diagnóstico depende de abrir esse aviso, sem presumir problema de cobrança.
+- Nenhuma chave, projeto, faturamento ou código alterado; somente documentação.
+
+— Codex
