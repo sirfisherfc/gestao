@@ -3873,3 +3873,19 @@ diretórios antigos ("Sir Fisher - PUB", @sirfisherpub) são ação manual.
   pendência como única mudança local; três repositórios conferidos em main.
 
 — Codex
+
+
+## 2026-10-13 · Claude — PageSpeed da home (repositório site)
+
+- Chave dedicada `PAGESPEED_API_KEY` adicionada ao `gestao/.env` (ignorado).
+  O OAuth do Perfil não serve: falta escopo para o PageSpeed (HTTP 403).
+- site 4f6d0cb: SDKs de marketing (GA4/Meta/OpenAI) só após interação ou 4 s
+  do load; CSS da home embutido por `tools/css/embutir_css.py` (rodar após
+  editar style.css/desktop.css); `--sea` clara #226861; imagens menores.
+- Resultado: desktop 89→100; celular 64→88–93; acessibilidade 100 nos dois.
+  Detalhes em `site/tools/analytics/README.md`.
+- Efeito colateral esperado: GA4/pixels deixam de medir rejeições imediatas
+  sem interação; comparar sessões antes/depois de 13/10 com isso em mente.
+- Fora do código: cache de 10 min e redirecionamento sem-www do GitHub Pages.
+
+— Claude
