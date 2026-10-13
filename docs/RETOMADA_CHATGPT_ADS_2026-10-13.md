@@ -1,10 +1,12 @@
 # Retomada controlada do ChatGPT Ads do Sir Fisher
 
 Preparado para Rogerio em 13 de outubro de 2026. A campanha de outubro foi
-corrigida e esta pausada. A entrega parou por esgotamento do orcamento; nao
+corrigida e foi ativada com autorizacao do proprietario. A entrega anterior
+parou por esgotamento do orcamento; nao
 ha evidencia suficiente para concluir que os anuncios nao trouxeram clientes.
-Recomendo um teste de ate R$200 adicionais e sete dias, condicionado a aprovacao
-financeira, com registro dos clientes que chegam sem reserva.
+O proprietario aprovou ate R$300 adicionais e sete dias, ajustando a proposta
+inicial de R$200. O termino aplicado e 20/10/2026 as 16h19min17s em Fortaleza,
+com registro dos clientes que chegam sem reserva.
 
 ## Diagnostico reavaliado
 
@@ -41,7 +43,7 @@ conversao de coorte. A reserva anterior identificada desde 23/09 ficou no_show.
 
 | Prioridade e momento | Evidencia e impacto | Acao executada ou pendente | Validacao |
 | --- | --- | --- | --- |
-| Bloqueador financeiro antes de ativar | Plataforma informa teto total esgotado de R$277,05 | Campanha pausada; nenhum aumento de teto, saldo ou lance | Leitura posterior confirmou pausa e mesmo orcamento. Novo gasto depende de aprovacao |
+| Bloqueador financeiro resolvido | Teto anterior esgotado de R$277,05 | Com aprovacao, teto acumulado elevado para R$577,05 e campanha ativada, com termino definido | Leitura posterior confirmou valores, data e status. Diagnostico nao mostra bloqueador de conta/orcamento |
 | Importante, corrigido antes do teste | Campanha de cliques sem metas associadas; relatorio comercial incompleto | Associadas Reserva confirmada e Visita realizada | Leitura posterior confirmou as duas metas; objetivo continua cliques |
 | Importante, corrigido antes do teste | Testes reproduziram heranca de oppref/IDs entre campanhas e prioridade do storage antigo sobre cookie novo | Corrigidos site e reservas; nova origem substitui a anterior; navegacao interna preserva o toque | Regressao falhou antes e passou depois; testes de storage bloqueado e GA4 preservados |
 | Importante, corrigido antes do teste | Pagina do anuncio aguardava interacao ou sete segundos apos load para baixar tags; acessos curtos podiam escapar | Chegadas pagas em Conheca carregam apos primeira pintura, com teto de um segundo | Testes sem load, com duas pinturas e teto; sem duplicar SDKs. Nas demais chegadas, comportamento preservado |
@@ -89,7 +91,7 @@ HTTP cobrem codigo, contratos e arquivos publicados; a interacao visual completa
 em um navegador real permanece como verificacao operacional. Nao afirmar que
 o contrato aceito comprova uma venda ou toda a jornada de um cliente real.
 
-## Estrutura escolhida e proposta para aprovacao
+## Estrutura aprovada e ativada
 
 Usar a campanha existente **Sir Fisher Novos clientes Outubro 2026**, com um
 grupo e o anuncio aprovado **Conheca Sir Fisher Comida e vista**. Preservar a
@@ -101,21 +103,27 @@ Destino: Conheca, com cardapio, rotas, contato e acesso a reservas. Copy,
 imagem, contexto local do grupo e lance permanecem os aprovados. Os sinais de
 cardapio/rota justificam observar tambem visitas sem reserva.
 
-| Item | Configuracao proposta, ainda sem liberar gasto |
+| Item | Configuracao aplicada e verificada |
 | --- | --- |
-| Novo investimento maximo | R$200 adicionais, tratado como custo de um teste, sem retorno garantido |
-| Duracao | Ate sete dias corridos a partir da ativacao ou ate o teto, o que ocorrer primeiro |
-| Controle efetivo | Teto total da campanha passaria de R$277,05 para R$477,05; termino em sete dias. Pode consumir a verba antes; nao equivale a R$28,57/dia garantidos |
-| Total da conta em outubro | Ate R$700,10 considerando os R$500,10 ja reportados, sujeito a ajustes de gasto anterior |
-| Geografia desta proposta | Ceara, com contexto explicitamente Fortaleza/Beira-Mar. Preferencia de refinamento: cidade Fortaleza quando houver selecao valida; nao foi aplicada |
+| Novo investimento maximo | R$300 adicionais, tratado como custo de um teste, sem retorno garantido |
+| Duracao | Ativada em 13/10; termina em 20/10/2026 as 16h19min17s em Fortaleza ou no teto, o que ocorrer primeiro |
+| Controle efetivo | Teto total da campanha elevado de R$277,05 para R$577,05, incluindo o gasto anterior. Modelo de orcamento total preservado; nao fixa gasto de R$40 por dia e pode consumir a verba antes |
+| Total da conta em outubro | Exposicao prevista ate R$800,10 considerando os R$500,10 ja reportados, sujeito a ajustes de gasto anterior; nao e um teto configurado separado na conta |
+| Geografia | Ceara, com contexto explicitamente Fortaleza/Beira-Mar. Preferencia de refinamento: cidade Fortaleza quando houver selecao valida; nao foi aplicada |
 | Lance | Manter maximo existente de R$3,50 por clique; sem aumento automatico |
 | Revisoes | Primeiros R$100 adicionais e encerramento. Inspecao diaria pela operacao, sem criar agenda automatica nesta entrega |
-| Mudancas financeiras pendentes | Novo teto, nova data de termino, descricao coerente com o teto aprovado e ativacao. Nenhuma delas foi executada |
+| Mudancas executadas | Novo teto, data de termino, descricao coerente e ativacao. Nao houve recarga nem alteracao de lance |
 
-R$200 limita a exposicao financeira enquanto se recupera a medicao presencial.
-O CPC observado de R$2,74 sugere ordem de grandeza de 70 cliques, sem garantia
+R$300 limita a exposicao financeira enquanto se recupera a medicao presencial.
+O CPC observado de R$2,74 sugere ordem de grandeza de 110 cliques, sem garantia
 de volume. O teste serve para obter evidencias operacionais; nao tem potencia
 para comprovar causalidade ou significancia estatistica sozinho.
+
+A leitura posterior confirmou status ativo, metas e segmentacao preservadas.
+O diagnostico de entrega nao mostra bloqueadores de conta ou orcamento, mas
+aponta entrega limitada por lance possivelmente baixo. O maximo permanece
+R$3,50 por clique; a ativacao nao comprova novas impressoes ou cliques. Revisar
+esse aviso com dados de entrega do teste, sem aumentar lance automaticamente.
 
 ## Medicao presencial e economia
 
@@ -143,9 +151,9 @@ Manter tres camadas no acompanhamento:
 
 A margem gerencial agregada de setembro, aproximadamente 49,3%, pode servir
 apenas como hipotese inicial; ha classificacoes pendentes e ela nao substitui
-CMV/custos variaveis dos pedidos adquiridos. Nesse cenario, R$200 exigiriam
-cerca de **R$406 de consumo incremental** para cobrir a publicidade antes de
-custos fixos. Com margem efetiva de 40%, seriam R$500; com 60%, R$333.
+CMV/custos variaveis dos pedidos adquiridos. Nesse cenario, R$300 exigiriam
+cerca de **R$609 de consumo incremental** para cobrir a publicidade antes de
+custos fixos. Com margem efetiva de 40%, seriam R$750; com 60%, R$500.
 Ticket por pagamento nao e ticket por pessoa, e R$58 nao e receita apurada.
 
 Usar a contribuicao incremental estimada menos gasto publicitario como criterio
@@ -177,17 +185,18 @@ comprovado da publicidade.
   e contribuicao incremental estimada pelo menos 30% acima do gasto. Esse 30%
   e uma folga proposta, nao benchmark validado. Nova aprovacao financeira.
 
-## Fases e aprovacao final
+## Fases e execucao autorizada
 
 Fase 1 e fase 2: correcoes da conta/codigo, publicacao e validacoes executadas.
 Restam verificacao visual
 operacional, inicio do registro presencial e refinamento geografico opcional.
 Essas limitacoes nao impedem um teste pequeno com medicao parcial explicita.
 
-Fase 3: pronta para decisao sobre o plano acima. A autorizacao precisa abranger
-**R$200 adicionais, ate sete dias, teto total R$477,05, Ceara nesta rodada e
-ativacao da campanha corrigida**. Um saldo ou recarga adicional, se exigido,
-deve ser apresentado separadamente; nao autorizar recarga automatica.
+Fase 3: executada apos o proprietario responder que podia executar e ajustar
+o teto da retomada para R$300. Aplicados **R$300 adicionais, ate sete dias,
+teto acumulado R$577,05, Ceara e ativacao da campanha corrigida**. Registro
+anterior e leitura posterior preservados em artefatos locais fora do Git.
+Sem recarga automatica; uma nova recarga, se necessaria, exige aprovacao propria.
 
 Fase 4: revisoes baseadas nos registros do teste e nas regras acima. Sem
 integracao do PDV, sem clientes sem reserva identificados e sem comparacao
