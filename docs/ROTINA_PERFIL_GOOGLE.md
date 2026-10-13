@@ -34,6 +34,29 @@ estiver ausente. Não duplicar a rotina diária nem publicar as credenciais.
 
 Referência: [OAuth offline do Perfil Google](https://developers.google.com/my-business/content/implement-oauth#offline-access).
 
+### Projeto aprovado e pedido duplicado (13/10/2026)
+
+O Google informou, na resposta compartilhada pelo proprietário, que o projeto
+de número **`726896222832`**, associado a `https://www.sirfisher.com.br`, já
+está aprovado para a API. O novo pedido foi recusado por duplicidade; a
+orientação recebida é usar esse projeto existente. Embora o e-mail use o
+rótulo "Project ID", ele se refere ao número do projeto GCP.
+
+A verificação local de 13/10/2026 renovou a autorização persistente e leu
+a ficha Sir Fisher e uma página de avaliações com sucesso. O prefixo numérico
+do cliente OAuth configurado coincide com o número citado pelo Google.
+Essas leituras confirmam que a integração existente funciona; não houve
+consulta às permissões IAM ou às cotas no Console do Google Cloud, nem
+verificação da execução diária na nuvem do Claude.
+
+Continuar usando a configuração atual, sem novo pedido de aprovação ou
+troca de credenciais por causa desse e-mail. Se houver problema de acesso
+ao projeto no Console ou a outra API, usar o
+[suporte GBP](https://support.google.com/business/contact/api_default),
+na opção **General API Question**, citando o projeto já aprovado e a falha
+específica. A aprovação é concedida por projeto, conforme a
+[documentação oficial](https://developers.google.com/my-business/content/faq#how_does_access_to_gbp_api_work).
+
 ## O que roda e quando
 
 | Quando | O quê | Comando |

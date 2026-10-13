@@ -3813,3 +3813,20 @@ diretórios antigos ("Sir Fisher - PUB", @sirfisherpub) são ação manual.
   da raiz idênticos às cópias versionadas. Registro de conferência como única alteração.
 
 — Codex
+
+
+## 2026-10-13 · Codex — pedido duplicado de acesso à API do Perfil Google
+
+- E-mail compartilhado pelo proprietário: Google confirma o projeto aprovado
+  de número 726896222832 para sirfisher.com.br e recusa um pedido duplicado.
+- Verificação OAuth existente passou; leituras reais da ficha e de uma página
+  de avaliações também passaram. Prefixo numérico do cliente OAuth coincide
+  com o projeto indicado, sem exibir ou versionar credenciais.
+- Atualizada docs/ROTINA_PERFIL_GOOGLE.md: manter a configuração existente;
+  suporte General API Question apenas para falhas específicas. Console GCP,
+  IAM, cotas e execução da rotina na nuvem não foram verificados.
+- Nenhuma alteração de código, credenciais, ficha, banco ou rotina agendada.
+  Três repos em main atualizados por pull --ff-only; pares AGENTS/README da
+  raiz idênticos às cópias versionadas. Entrega somente documental.
+
+— Codex
