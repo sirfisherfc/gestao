@@ -3856,3 +3856,20 @@ diretórios antigos ("Sir Fisher - PUB", @sirfisherpub) são ação manual.
   Nenhum e-mail enviado, arquivado ou excluído; dados das mensagens não salvos.
 
 — Codex
+
+
+## 2026-10-13 · Codex — renomeação solicitada do projeto Analytics
+
+- Usuário autorizou renomear My First Project (capable-avatar-480514-g0,
+  934216878130) para Sir Fisher - Analytics; usar hífen simples conforme os
+  caracteres permitidos para nomes de projetos na documentação Google.
+- Alteração externa não executada: navegador integrado continua sem instâncias
+  e a busca de plugins não encontrou integração utilizável para administrar
+  projetos GCP. Cloud Resource Manager já havia retornado SERVICE_DISABLED.
+- Caminho oficial conferido: IAM e administração > Configurações, projeto
+  capable-avatar-480514-g0, editar Nome do projeto e salvar. Renomeação segue
+  pendente; não registrar o novo nome como aplicado sem conferir o Console.
+- Nenhuma credencial, ID de projeto, API ou recurso alterado. Registro de
+  pendência como única mudança local; três repositórios conferidos em main.
+
+— Codex
