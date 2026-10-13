@@ -75,6 +75,19 @@ para **Sir Fisher - Analytics** no Console. O projeto continua identificado
 por `capable-avatar-480514-g0` / `934216878130`; a renomeação foi informada
 pelo proprietário, sem nova leitura remota do nome nesta sessão.
 
+O print do Console também mostra **Default Gemini Project**, com ID truncado
+`gen-lang-cl...`. Em 13/10/2026, a conferência de
+`site/tools/ia-imagem/editar.py` mostrou que ele exige `GEMINI_API_KEY`, ausente
+no processo atual e nas variáveis persistentes de usuário e máquina. O comando
+`python -B site/tools/ia-imagem/editar.py --modelos` parou por ausência da chave,
+antes de acessar a API. O e-mail do AI Studio de 07/10 indica requisições
+recentes, mas não identifica o projeto nem o aplicativo responsável.
+A associação do projeto Gemini ao script **não está confirmada**; não concluir
+que o projeto inteiro esteja sem uso pela ausência dessa variável local.
+Conferir a coluna Projeto na
+[página de chaves do AI Studio](https://aistudio.google.com/api-keys), sem
+compartilhar o valor das chaves. Não foi criada ou substituída nenhuma chave.
+
 Um pedido duplicado de acesso GBP não demonstra que o projeto usado para
 o pedido esteja sem uso: ele pode atender outros serviços. A conta de serviço
 de Analytics continua necessária e não deve ser substituída pelo OAuth GBP

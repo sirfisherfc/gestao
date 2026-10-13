@@ -4010,3 +4010,19 @@ diretórios antigos ("Sir Fisher - PUB", @sirfisherpub) são ação manual.
 - Somente documentação; nenhuma alteração de credenciais, APIs, código ou banco.
 
 — Codex
+
+## 2026-10-13 · Codex — conferência do vínculo do projeto Gemini
+
+- Usuário pediu confirmar o vínculo de Default Gemini Project com o script de
+  imagens. editar.py usa somente GEMINI_API_KEY, ausente no processo e nas
+  variáveis persistentes de usuário/máquina; arquivos .env usuais conferidos
+  também não fornecem essa variável. Valores de credenciais não exibidos.
+- Comando editar.py --modelos interrompido antes da API por ausência da chave.
+  E-mail do AI Studio de 07/10 lido: indica uso recente, sem ID de projeto ou
+  origem. Não permite atribuir essas chamadas ao script de imagens.
+- Atualizada docs/ROTINA_PERFIL_GOOGLE.md: vínculo não confirmado, verificar
+  coluna Projeto na página de chaves do AI Studio. Ausência local da chave
+  não prova que o projeto esteja sem uso. Nenhuma chave criada/trocada,
+  nenhuma geração de imagem, exclusão ou alteração de projeto.
+
+— Codex
