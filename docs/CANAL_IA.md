@@ -4000,3 +4000,13 @@ diretórios antigos ("Sir Fisher - PUB", @sirfisherpub) são ação manual.
   CLS 0,02 de laboratório pela troca da Fraunces (campo real: 0).
 
 — Claude
+
+## 2026-10-13 · Codex — renomeação Analytics confirmada pelo proprietário
+
+- Rogério confirmou que concluiu a renomeação de My First Project para
+  Sir Fisher - Analytics. Resolvida a pendência de nome registrada anteriormente.
+- Atualizada docs/ROTINA_PERFIL_GOOGLE.md; ID capable-avatar-480514-g0 e número
+  934216878130 preservados. Confirmação do proprietário, sem leitura remota nova.
+- Somente documentação; nenhuma alteração de credenciais, APIs, código ou banco.
+
+— Codex

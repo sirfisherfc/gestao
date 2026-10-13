@@ -70,6 +70,11 @@ específica. A aprovação é concedida por projeto, conforme a
 | `dark-granite-507917-e4` / `726896222832` | Perfil da Empresa via OAuth persistente de `gbp.py` | Renovação e leitura da ficha passaram; manter. |
 | `capable-avatar-480514-g0` / `934216878130` | Conta de serviço de Analytics e Search Console em `site/tools/analytics/` | Consulta GA4 da propriedade `353205396` e acesso ao domínio no Search Console passaram; manter. |
 
+O proprietário confirmou em 13/10/2026 que renomeou **My First Project**
+para **Sir Fisher - Analytics** no Console. O projeto continua identificado
+por `capable-avatar-480514-g0` / `934216878130`; a renomeação foi informada
+pelo proprietário, sem nova leitura remota do nome nesta sessão.
+
 Um pedido duplicado de acesso GBP não demonstra que o projeto usado para
 o pedido esteja sem uso: ele pode atender outros serviços. A conta de serviço
 de Analytics continua necessária e não deve ser substituída pelo OAuth GBP
