@@ -3978,8 +3978,11 @@ diretórios antigos ("Sir Fisher - PUB", @sirfisherpub) são ação manual.
 - Ferramentas novas no site: `tools/acessibilidade/auditar.py`,
   `tools/seguranca/testar_navegador.py`, `tools/analytics/monitorar.py`
   (workflow semanal `monitorar-velocidade`). Liberadas para Claude e Codex.
-- PENDENTE (Rogério): cadastrar o segredo `PAGESPEED_API_KEY` no repositório
-  site (Settings > Secrets and variables > Actions). Sem ele o workflow
-  semanal falha e o GitHub avisa por e-mail.
+- Monitor semanal DESATIVADO a pedido do Rogério (site 8d3232a): o
+  workflow só roda manualmente; `monitorar.py` segue disponível localmente.
+  Segredo `PAGESPEED_API_KEY` no GitHub deixou de ser pendência.
+- `/conheca/` continua `noindex` (destino dos anúncios até 31/10). Depois da
+  campanha, avaliar levar o conteúdo à home ou indexá-la com título e
+  descrição próprios (hoje a descrição é igual à da home).
 
 — Claude
