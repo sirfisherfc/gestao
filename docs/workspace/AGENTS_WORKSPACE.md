@@ -62,6 +62,26 @@
   da credencial necessária. Não exibir, copiar para páginas nem versionar
   os segredos. Não criar uma segunda rotina agendada para o mesmo perfil.
 
+## Acesso ao Supabase portal
+
+- A credencial de implantação e leitura da Management API está em
+  `reservas/.env.local`, variável `SUPABASE_ACCESS_TOKEN`. Esse arquivo fica
+  no OneDrive para uso nos dois PCs do proprietário e é ignorado pelo Git.
+  Não copiar seu conteúdo para documentação, chat, logs ou commits.
+- Antes de pedir reconexão, executar
+  `python site/tools/analytics/supabase_credentials.py`. Essa verificação
+  reutiliza a credencial e confirma acesso ao projeto `portal` sem exibi-la.
+- Scripts Python podem reutilizar `access_token()` do módulo
+  `site/tools/analytics/supabase_credentials.py`; o ambiente tem precedência.
+  Validar o projeto de destino antes de implantar. Um conector que mostre
+  somente outros projetos não invalida esse acesso local já configurado.
+- Não usar DPAPI vinculado a um PC como armazenamento canônico, pois o
+  proprietário alterna entre dois computadores. Manter a pasta e o arquivo
+  privados no OneDrive; as permissões locais devem ser verificadas em cada PC.
+- O acesso existente não amplia autorização: consultas de auditoria usam
+  a rota de leitura; implantações dependem do pedido e preservam autenticação,
+  segredos e os outros sistemas. Ferramentas MCP de leitura continuam sem escrita.
+
 ## Instruções de cada projeto
 
 - Ler `README.md`, `AGENTS.md` e `CLAUDE.md` do projeto, quando existirem.

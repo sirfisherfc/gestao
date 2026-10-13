@@ -1,6 +1,9 @@
 # Handoff — experimento do ChatGPT Ads
 
-Atualizado em 28/09/2026. Este documento permite que outra IA retome a análise sem depender do histórico da conversa.
+Referencia historica do experimento de setembro. O estado atual, as correcoes
+executadas e a proposta pendente de autorizacao estao em
+[Retomada controlada de 13/10/2026](RETOMADA_CHATGPT_ADS_2026-10-13.md).
+As janelas e permissoes de gasto abaixo nao autorizam a retomada de outubro.
 
 ## Acesso e segurança
 

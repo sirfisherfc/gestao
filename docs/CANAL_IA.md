@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 livre — foto real do terraço publicada e conferida por Codex em 07/10/2026.
+> **🚦 Status atual:** 🟢 livre — recuperação técnica do ChatGPT Ads publicada e conferida por Codex em 13/10/2026; gasto segue pausado, aguardando aprovação.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -4086,5 +4086,46 @@ diretórios antigos ("Sir Fisher - PUB", @sirfisherpub) são ação manual.
   e Troubleshooting (Help Center); GA4 Regional data collection; SBA break-even.
   Nenhuma campanha, orçamento, lance, evento ou banco alterado; nenhum dado
   pessoal, credencial ou resposta bruta versionado. Somente registro documental.
+
+— Codex
+
+
+## 2026-10-13 · Codex — recuperacao tecnica do ChatGPT Ads e credencial compartilhada
+
+- Missao do proprietario: corrigir e preparar retomada, com autorizacao para
+  mudancas tecnicas reversiveis. Ativacao, novo teto e saldo exigem aprovacao
+  financeira explicita. Reavaliada a conclusao anterior: falta de atribuicao
+  nao demonstra ausencia de clientes; teto esgotado era o bloqueador de entrega.
+- Campanha de novos clientes pausada; associadas metas Reserva confirmada e
+  Visita realizada. Leitura posterior confirmou pausa, metas e preservacao do
+  teto/lance. Antiga preservada; nenhuma campanha criada ou verba liberada.
+- Site/reservas: corrigida heranca de IDs entre origens, cookie compartilhado
+  mais recente e preservacao do toque na navegacao interna. Landing paga mede
+  apos primeira pintura com teto de 1 s. Removidos localizacao presumida e
+  valores estimados de reserva/visita da OpenAI/GA4; telefone internacional
+  corrigido na CAPI. Evento Meta legado continua estimado, fora deste escopo.
+- 83 testes aprovados; TypeScript, hashes de assets e CSP conferidos. Edge
+  Function implantada na versao 17 com autenticacao preservada. API aceitou
+  ambos os contratos em validate_only (HTTP 200), sem salvar conversoes;
+  requisicao sem autenticacao rejeitada (401). Triggers e worker existentes
+  ativos, sem criar reservas/reenvios/migrations para teste.
+- Commits site 9dc0de0 e reservas aebd092 publicados. HTTP 200 e conteudo local
+  correspondente na landing, cardapio, portal e scripts de medicao; backend
+  publico respondeu configuracoes e horarios, sem clientes ou criacao de reserva.
+- Relatorio executivo/operacional em docs/RETOMADA_CHATGPT_ADS_2026-10-13.md:
+  estrutura simples existente, proposta ate R$200 adicionais/sete dias, teto
+  da campanha R$477,05 e conta outubro ate R$700,10 considerando gasto reportado.
+  Limite total pode ser consumido cedo; nao prometer pacing diario. Indicadores,
+  registro presencial e regras de parada/ampliacao definidos; nada aprovado.
+- Geo mantida Ceara: lookup de Fortaleza retornou CEPs, sem resolver cidade.
+  Refinamento pendente; nao adivinhar ID nem usar CEPs como cobertura completa.
+  Navegador indisponivel; conferencia visual completa permanece operacional.
+- Credencial de Management API confirmada em reservas/.env.local. A pedido do
+  proprietario, armazenamento canonico permanece no OneDrive para dois PCs,
+  ignorado pelo Git. ACL local limitada ao usuario/SYSTEM, sem expor valor.
+  Copia temporaria vinculada a um PC removida. Modulo supabase_credentials.py
+  verifica portal e e usado pelo relatorio de aquisicao. AGENTS/README raiz e
+  copias versionadas sincronizados com local/procedimento de acesso. Nao pedir
+  reconexao antes dessa verificacao. Nenhum segredo ou dado bruto versionado.
 
 — Codex

@@ -21,6 +21,10 @@ seu proprio historico, remoto e deploy.
 - `gestao/_Backups/`: bundles locais de recuperacao do painel financeiro,
   ignorados pelo Git.
 - `.claude/`: configuracao local do workspace.
+- `reservas/.env.local`: credencial Supabase privada, sincronizada pelo
+  OneDrive entre os dois PCs e ignorada pelo Git. Verificar o acesso com
+  `python site/tools/analytics/supabase_credentials.py`, sem abrir ou imprimir
+  o arquivo. O local e o procedimento tambem constam em `AGENTS.md`.
 
 Os tres projetos compartilham o Supabase `portal` (ref
 `lucpxoynpvogkvzepagi`), mas cada um deve ser alterado, testado e enviado no
