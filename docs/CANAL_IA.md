@@ -3889,3 +3889,17 @@ diretórios antigos ("Sir Fisher - PUB", @sirfisherpub) são ação manual.
 - Fora do código: cache de 10 min e redirecionamento sem-www do GitHub Pages.
 
 — Claude
+
+## 2026-10-13 · Claude — PageSpeed, segunda rodada (site)
+
+- site 05e2aed: Work Sans trocada pela fonte do sistema em todo o site
+  (worksans.woff2 removido); rodapé da home sem itálico. Fraunces mantida.
+- site 57e5935: contador de visitas só após load/ocioso; SDKs de marketing
+  7 s após o load; ?v= em atribuicao.js e contador-visitas.js.
+- Celular 99 com www (93–95 sem www, redirecionamento); desktop 100.
+- Domínio já usa nameservers do Cloudflare, mas registros www/apex estão
+  como "somente DNS". Ativar proxy + cache de /assets/ depende do Rogério
+  (token ou painel). Regra nova: imagem alterada = nome novo.
+
+— Claude
+
