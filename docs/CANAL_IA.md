@@ -4039,3 +4039,52 @@ diretórios antigos ("Sir Fisher - PUB", @sirfisherpub) são ação manual.
 - Nenhuma chave, projeto, faturamento ou código alterado; somente documentação.
 
 — Codex
+
+## 2026-10-13 · Codex — performance ChatGPT Ads e decisão sobre continuidade
+
+- Usuário pediu revisão crítica antes de decidir se deve voltar a anunciar:
+  problema real, premissas, perguntas, critérios, lacunas e reformulação do pedido.
+  Confirmou que a equipe não registra clientes sem reserva vindos do anúncio.
+- Conta Sir Fisher/BRL; Ads Manager Review em leitura, duas campanhas e fonte
+  de conversões inventariadas sem paginação pendente. Dias completos até 12/10,
+  fuso Fortaleza confirmado pelo diagnóstico; gasto/atribuição podem ajustar.
+- Nova campanha de cliques (06-12/10): R$277,05, 10.147 impressões, 101 cliques,
+  CTR 1,00%, CPC R$2,74. Status active, entrega blocked por esgotamento do teto
+  total de R$277,05. Gastos ocorreram de 06 a 09/10, com apenas impressões
+  residuais em 10/10. Aviso adicional de lance baixo não explica o teto esgotado.
+- Antiga (01-12/10): R$223,05, 4.321 impressões, 56 cliques, CTR 1,30%, CPC
+  R$3,98, pausada. Total outubro pelo relatório da conta: R$500,10, 157 cliques.
+  Objetivos, destinos e períodos de entrega diferentes; comparação descritiva,
+  sem atribuir causalmente o CPC menor a uma alteração isolada.
+- Nova: eventos atribuídos por clique em janela de 30 dias, sem visualização:
+  95 page_viewed, 16 menu_opened, 3 directions_requested, 2 reservation_started;
+  nenhum evento de reserva confirmada/visita atribuído nessa consulta. Contagens
+  de eventos não são pessoas únicas nem um funil de coorte completo. Metas
+  de reserva/visita configuradas somente na campanha antiga. O zero de metas
+  da nova, isoladamente, não demonstraria ausência de clientes.
+- GA4, UTM sir_fisher_outubro_2026 em 06-12/10: site 81 sessões, 21 engajadas;
+  portal 2 sessões. Duas ações de reserva e três de rota. Cidades do subconjunto
+  medido: Fortaleza 29 sessões, São Paulo 14; não prova falha de segmentação,
+  localização física de todo público ou ausência de turistas planejando visita.
+- Banco portal: conexão local TLS, destino validado, transação read-only
+  conferida e rollback; apenas agregados. Nenhuma reserva com UTM da nova ou
+  identificador de clique desde 06/10. A única reserva identificada por clique
+  desde 23/09 está no_show. Nove reservas públicas em 06-12/10, cinco compareceu,
+  nenhuma identificada como nova campanha; nove schedule enviados pela fila,
+  todos sem identificação da nova campanha ou referência de clique. Não afirmar
+  que houve nove conversões dos anúncios.
+- Fonte: EQS indisponível por no_attribution_evidence, avaliação de 09/10,
+  janela 03-10/10 UTC; não é nota zero nem comprova Pixel/CAPI quebrado. Sem
+  integração do consumo do PDV, valores de venda/ROAS da API não apuram retorno.
+- Recomendação: não adicionar orçamento/retomar gasto agora. Antes de novo
+  teste, revisar associação das metas, preservar atribuição, registrar origem
+  de clientes sem reserva e definir consumo/contribuição por cliente, limite
+  do teste e regra de parada. Não recomendar aumento de lance/criativo/geo
+  com base neste conjunto de evidências. Permanecem desconhecidos clientes
+  incrementais, consumo, capacidade ociosa e comparação econômica com canais.
+- Referências oficiais: Conversion Measurement, Create Campaigns for ChatGPT
+  e Troubleshooting (Help Center); GA4 Regional data collection; SBA break-even.
+  Nenhuma campanha, orçamento, lance, evento ou banco alterado; nenhum dado
+  pessoal, credencial ou resposta bruta versionado. Somente registro documental.
+
+— Codex
