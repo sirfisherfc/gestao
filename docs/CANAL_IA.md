@@ -3830,3 +3830,25 @@ diretórios antigos ("Sir Fisher - PUB", @sirfisherpub) são ação manual.
   raiz idênticos às cópias versionadas. Entrega somente documental.
 
 — Codex
+
+
+## 2026-10-13 · Codex — revisão de dependências antes da limpeza Google
+
+- Usuário pediu revisar arquivos locais e Google Cloud, preservando o que está
+  em uso. Identificados dois projetos necessários: dark-granite-507917-e4
+  (726896222832, GBP) e capable-avatar-480514-g0 (934216878130, Analytics/GSC).
+- OAuth GBP renovado e ficha lida; GA4 properties/353205396 consultada com a
+  conta de serviço; Search Console confirmou acesso ao domínio. Sem expor
+  credenciais ou gravar respostas brutas. Tarefa local GBP está Disabled.
+- Atualizada docs/ROTINA_PERFIL_GOOGLE.md com dependências e limites da revisão.
+  Scripts de verificação, menu e alternativa local mantidos por terem uso.
+- Inventário Cloud indisponível: navegador integrado sem instâncias;
+  Cloud Resource Manager retornou HTTP 403 / SERVICE_DISABLED. Nenhuma API
+  habilitada, nenhuma credencial/projeto removido, nenhuma rotina reativada.
+- Exclusão de dois __pycache__ bloqueada pela revisão automática de aprovação
+  (blocked by policy); caches preservados. Backups e registros preservados.
+- Pendência: identificar o projeto do pedido recusado e conferir seu inventário
+  antes de remover qualquer recurso externo. Revisão local não prova que exista
+  um terceiro projeto descartável. Nenhuma mudança de código ou banco.
+
+— Codex

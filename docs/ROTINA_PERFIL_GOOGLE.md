@@ -41,6 +41,8 @@ de número **`726896222832`**, associado a `https://www.sirfisher.com.br`, já
 está aprovado para a API. O novo pedido foi recusado por duplicidade; a
 orientação recebida é usar esse projeto existente. Embora o e-mail use o
 rótulo "Project ID", ele se refere ao número do projeto GCP.
+O ID desse projeto é **`dark-granite-507917-e4`**, registrado na entrega
+de 06/10/2026 em `docs/CANAL_IA.md`.
 
 A verificação local de 13/10/2026 renovou a autorização persistente e leu
 a ficha Sir Fisher e uma página de avaliações com sucesso. O prefixo numérico
@@ -56,6 +58,40 @@ ao projeto no Console ou a outra API, usar o
 na opção **General API Question**, citando o projeto já aprovado e a falha
 específica. A aprovação é concedida por projeto, conforme a
 [documentação oficial](https://developers.google.com/my-business/content/faq#how_does_access_to_gbp_api_work).
+
+### Limpeza e dependências (13/10/2026)
+
+| Projeto GCP | Uso identificado | Resultado da revisão local |
+|---|---|---|
+| `dark-granite-507917-e4` / `726896222832` | Perfil da Empresa via OAuth persistente de `gbp.py` | Renovação e leitura da ficha passaram; manter. |
+| `capable-avatar-480514-g0` / `934216878130` | Conta de serviço de Analytics e Search Console em `site/tools/analytics/` | Consulta GA4 da propriedade `353205396` e acesso ao domínio no Search Console passaram; manter. |
+
+Um pedido duplicado de acesso GBP não demonstra que o projeto usado para
+o pedido esteja sem uso: ele pode atender outros serviços. A conta de serviço
+de Analytics continua necessária e não deve ser substituída pelo OAuth GBP
+apenas para unificar projetos.
+
+Manter `gbp.py`, `google_oauth_helper.py` (verificação e reconexão),
+`build_google_menu.py` (geração do payload do menu) e `rotina.ps1` (alternativa
+local documentada). A tarefa Windows **Sir Fisher - Perfil do Google** foi
+conferida como **Disabled**; não reativar enquanto a rotina na nuvem estiver
+ativa. Esse estado local não comprova a execução diária na nuvem.
+
+Caches `__pycache__` são descartáveis e regenerados pelo Python. Credenciais,
+retratos da ficha, registros de publicação e backups não são lixo por serem
+ignorados pelo Git; preservá-los.
+Nesta revisão, os dois caches em `gestao/scripts/gbp/` e
+`site/tools/analytics/` foram preservados: a revisão automática de aprovação
+bloqueou o comando de exclusão por política do ambiente.
+
+A revisão não conseguiu inventariar os recursos ou clientes OAuth no Google
+Cloud: navegador integrado indisponível e Cloud Resource Manager respondeu
+HTTP 403 com motivo `SERVICE_DISABLED` usando a conta de serviço existente.
+Nenhuma API foi habilitada e nenhum projeto ou credencial foi removido.
+Antes de encerrar um projeto adicional, identificar seu ID/número e conferir
+recursos, serviços e dependências de autenticação. A
+[exclusão de projeto](https://docs.cloud.google.com/resource-manager/docs/delete-restore-projects)
+o torna imediatamente indisponível, mesmo com a janela de recuperação.
 
 ## O que roda e quando
 
