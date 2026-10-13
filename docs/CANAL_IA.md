@@ -3926,3 +3926,20 @@ diretórios antigos ("Sir Fisher - PUB", @sirfisherpub) são ação manual.
 
 — Claude
 
+## 2026-10-13 · Claude — Cloudflare ativo no site
+
+- O Rogério rodou `cf.py site --aplicar` (a 1ª tentativa caiu por
+  SSL UNEXPECTED_EOF antes do proxy; gestao 2d0e132 acrescentou
+  retentativas). Proxy ligado em www e no domínio sem www; reservas, admin,
+  e-mail e reparos intocados (MX segue na Hostinger, reservas no GitHub).
+- Conferido: HTML `max-age=600` (DYNAMIC); /assets/ `max-age=31536000` com
+  HIT na borda; `sirfisher.com.br/...?q` → 301 para www preservando caminho
+  e query; http → https; páginas principais 200, 404 preservado.
+- PageSpeed celular com www: 100, 100 e 96 (cache frio na borda); desktop
+  100. Aviso de cache resolvido.
+- Regra em vigor: CSS/JS com `?v=` novo a cada alteração; imagem ou fonte
+  alterada ganha nome novo; depois de trocar asset, `cf.py purgar --aplicar`.
+  Rollback: `cf.py desfazer-proxy --aplicar`.
+
+— Claude
+
