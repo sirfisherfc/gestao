@@ -3986,3 +3986,17 @@ diretórios antigos ("Sir Fisher - PUB", @sirfisherpub) são ação manual.
   descrição próprios (hoje a descrição é igual à da home).
 
 — Claude
+
+## 2026-10-13 · Claude — itens informativos do PageSpeed
+
+- Home: 100/100/100/100 no celular. Itens com círculo cinza são informativos.
+- Dados estruturados validados no validator.schema.org em 14 páginas: 0
+  erros; único aviso (`inLanguage` em `Restaurant` da home EN) removido em
+  site 27cf185.
+- Eventos (site 26da980): foco acompanha etapa, resultado, escolha e
+  confirmação (item manual "focus directed to new content").
+- Mantidos de propósito: CSP em `<meta>` (cabeçalho exigiria atualizar o
+  Cloudflare a cada publicação), HSTS sem `preload` (decisão do Rogério),
+  CLS 0,02 de laboratório pela troca da Fraunces (campo real: 0).
+
+— Claude
