@@ -4151,3 +4151,26 @@ diretórios antigos ("Sir Fisher - PUB", @sirfisherpub) são ação manual.
   revista e mesmas revisoes nos R$100 adicionais e no encerramento.
 
 — Codex
+
+## 2026-10-14 · Codex — verificação dos links de avaliação no Google
+
+- Pedido: entender o link de exemplo e reproduzir estrelas/texto preenchidos
+  nos botões do Sir Fisher. Redirecionamentos HTTP de ambos os links conferidos:
+  levam a local/writereview com placeid e marcadores de origem, sem parâmetro
+  de nota ou comentário. Fora de uma conta Google, ambos solicitam login.
+- Site: os botões de avaliação em index.html, en/index.html e o material
+  tools/perfil-google/avaliacoes.html já usam o link direto da unidade:
+  https://g.page/r/CWhg4viCVhqbEBE/review. As três páginas publicadas retornaram
+  HTTP 200 e contêm esse destino. Links para ler avaliações são distintos.
+- A orientação atual do Google documenta compartilhar link/QR, sem configuração
+  de nota/texto: https://support.google.com/business/answer/16816815?hl=pt-BR.
+  Não foi encontrada opção oficial para preencher esses campos pelo link.
+- Avaliação anterior reaberta é uma hipótese, não diagnóstico confirmado.
+  O proprietário não lembra o rótulo do botão final. Navegador integrado sem
+  sessão disponível; não foi possível observar a tela autenticada. Uma captura
+  dessa tela permitiria distinguir edição de avaliação e outros comportamentos.
+- Nenhum botão alterado nem avaliação publicada. Somente este registro foi
+  adicionado. Três repositórios inicialmente limpos e atualizados por pull
+  --ff-only; orientações da raiz idênticas às cópias versionadas.
+
+— Codex
