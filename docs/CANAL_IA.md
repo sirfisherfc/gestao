@@ -4190,3 +4190,32 @@ diretórios antigos ("Sir Fisher - PUB", @sirfisherpub) são ação manual.
   alterado, sem credenciais, dados financeiros ou mudanças no site/reservas.
 
 — Codex
+
+## 2026-10-15 · Codex — pesquisa de demanda e conteúdo do Sir Fisher
+
+- Pesquisa executada na conversa, sem implementação no site, portal ou Perfil
+  da Empresa. Proprietário priorizou reconhecimento da marca e motivos de
+  visita todos os dias entre 9h e 22h; confirmou registro consistente dos
+  comparecimentos. Esse intervalo é o foco solicitado, não uma alteração dos
+  horários oficiais publicados.
+- Inspecionadas páginas públicas, resultados de busca e concorrentes; lidos
+  Search Console, GA4 e termos mensais do Perfil Google pelos acessos existentes.
+  Agregados operacionais consultados somente pela rota de leitura do Supabase
+  portal, com destino validado; sem clientes, contatos ou valores financeiros.
+- Base principal: 13/09 a 12/10/2026; histórico de 90 dias até 12/10 e termos da
+  ficha de agosto/setembro. Coleta em 15/10. Recortes, limites da busca sem
+  localização controlada e distinção entre exposição, intenção e visita
+  explicitados. Volumes totais e dificuldade orgânica não disponíveis.
+- Pôr do sol: publicação no histórico em 07/09; página com 48 cliques e
+  35.764 impressões no recorte principal. GA4 registrou 48 sessões google/organic,
+  39 localizadas em Fortaleza, 13 engajadas e um clique em rota. Ausência de
+  outros eventos observados não comprova ausência de clientes ou lembrança.
+- Recomendações: melhorar home/localização, cardápio/especialidade, almoço,
+  pôr do sol e guia micro-local existente, sem páginas por variação de palavra.
+  Plano 30/60/90 separa marca, descoberta relevante, intenção, reservas e visitas,
+  com atenção à sazonalidade, cobertura e continuidade entre subdomínios.
+- Agregados e script pontual ficaram no diretório ignorado
+  site/_materiais/seo-demanda-2026-10-15/, sem segredos ou dados pessoais.
+  Somente este registro integra o commit; sem alterações operacionais.
+
+— Codex
