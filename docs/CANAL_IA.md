@@ -4174,3 +4174,19 @@ diretórios antigos ("Sir Fisher - PUB", @sirfisherpub) são ação manual.
   --ff-only; orientações da raiz idênticas às cópias versionadas.
 
 — Codex
+
+## 2026-10-15 · Codex — formulação de pesquisa de oportunidades de SEO
+
+- Pedido atendido na conversa: diagnóstico do objetivo, premissas, perguntas,
+  dados faltantes e prompt para pesquisar demanda e priorizar conteúdo do site.
+- Captura do Search Console: “pôr do sol hoje”, 45 cliques / 28.543 impressões
+  (CTR aproximado de 0,16%). Isso não mede volume total de buscas nem comprova
+  conversão em clientes; orientar cruzamento por página, geografia e ações.
+- Prompt exige fontes, recortes geográficos, distinção entre estimativa e
+  hipótese, aderência à oferta real e plano de medição. Pesquisa de palavras
+  e implementação no site não foram executadas nesta tarefa.
+- Três repositórios em main, limpos e atualizados por pull --ff-only no início;
+  cópias das orientações da raiz conferidas e idênticas. Apenas este registro
+  alterado, sem credenciais, dados financeiros ou mudanças no site/reservas.
+
+— Codex
