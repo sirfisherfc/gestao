@@ -4219,3 +4219,13 @@ diretórios antigos ("Sir Fisher - PUB", @sirfisherpub) são ação manual.
   Somente este registro integra o commit; sem alterações operacionais.
 
 — Codex
+
+## 2026-10-19 · Claude — Eventos vai para o fim da página Rotinas
+
+- `rotinas.html`: o cartão Eventos saiu da primeira posição do array `ROTINAS`
+  e passou a ser o último, depois de Conciliação contábil, a pedido do Rogério.
+  A ordem dos demais cartões não mudou e as permissões por papel continuam iguais.
+- Validação: ordem dos títulos e balanceamento do array conferidos por parse.
+  Sem migration e sem pendências.
+
+— Claude
