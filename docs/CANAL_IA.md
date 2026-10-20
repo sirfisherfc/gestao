@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 livre — extrato Stone via Meu Pluggy implantado e executado com sucesso no GitHub; BB adiado pelo proprietário.
+> **🚦 Status atual:** 🟢 livre — handoff das integrações consolidado no último recado; extrato Stone online, BB adiado e Saipos aguardando token.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -4557,5 +4557,74 @@ diretórios antigos ("Sir Fisher - PUB", @sirfisherpub) são ação manual.
   Conciliação/Pix Stone e o 403 descritos pelo Claude continuam no fluxo anterior.
   Nenhuma contratação nem mudança em reservas/site. Sem segredos ou dados brutos
   nos commits. Orientações da raiz e sincronização dos três projetos conferidas.
+
+— Codex
+
+## 2026-10-20 · Codex — handoff para a próxima IA: integrações bancárias
+
+Pedido explícito do proprietário: salvar o contexto para voltar à outra IA.
+Leia este recado junto à entrega Pluggy imediatamente acima e a
+`docs/INTEGRACAO_API_BANCOS.md`; não reiniciar a configuração já concluída.
+
+- **Em produção:** extrato da conta Stone pelo Meu Pluggy, código `83852d7`,
+  documentação/entrega `72aa62a`. Workflow `importacao-pluggy.yml` às 00:43 e
+  09:43 de Fortaleza. Roda no GitHub com o PC desligado. Resultado/erros em
+  https://admin.sirfisher.com.br/status.html > Integrações automáticas >
+  `Extrato Stone (Pluggy)`. Execução real aprovada:
+  https://github.com/sirfisherfc/gestao/actions/runs/39514186190 .
+- **Conferido:** 891 movimentos de setembro e suas classificações; primeira
+  carga com 33 novos de 19–20/10, saldo fechado; nova execução local e online
+  com zero duplicatas. 18 testes Pluggy aprovados, migration `20261020231044`
+  aplicada no portal (histórico 204), Quality gates e Pages aprovados também
+  no commit documental `72aa62a`.
+- **Credenciais:** reutilizar `gestao/.env`, ignorado, e Secrets privados já
+  cadastrados no GitHub: `DATABASE_URL`, `PLUGGY_CLIENT_ID`,
+  `PLUGGY_CLIENT_SECRET`, `PLUGGY_STONE_ITEM_ID`, `PLUGGY_STONE_ACCOUNT_ID`,
+  `PLUGGY_STONE_CONTA_ID`, `PLUGGY_STONE_DESDE`. Local aceita os aliases
+  antigos `PLUGGY_Client_ID` e `PLUGGY_Client_Secret`. Não solicitar que o
+  proprietário cole segredos no chat nem criar novo token sem necessidade.
+- **Diagnóstico sem gravação no banco:**
+  `python scripts/importacao/api_pluggy.py --verificar --catalogar` e
+  `python scripts/importacao/api_pluggy_stone.py --dry-run`. Evidências financeiras
+  permanecem em `scripts/importacao/api-pluggy/` e `tmp/pluggy-validacao/`,
+  fora do Git; não publicar o conteúdo desses arquivos.
+- **Não romper a virada:** converter UTC para Fortaleza e completar a janela
+  UTC; manter nomes da descrição, CPF mascarado e CNPJ com `/` para o DE-Para.
+  CSV novo a partir da virada da conta é bloqueado pela migration; não remover
+  a proteção nem misturar os formatos para contornar erro. Revisar saldo,
+  cobertura e deduplicação antes de qualquer fallback.
+- **Página local:** o servidor de autorização da porta 8766 foi encerrado
+  após sucesso. Só reabrir com `python scripts/importacao/conectar_pluggy.py`
+  para compartilhar outra conta ou renovar consentimento. Ela não é a rotina
+  diária e não precisa permanecer aberta. Usar o conector MeuPluggy da conta
+  existente, sem novo banco direto/plano pago. O proxy atualiza diariamente;
+  não tentar PATCH nem listar `/v2/items` nesse plano.
+- **BB adiado pelo proprietário:** ele respondeu “Vou conectar o BB depois”.
+  Quando decidir retomar, conectar o BB PJ no portal Meu Pluggy, compartilhar
+  pelo conector, validar a conta/titular e comparar com o CSV já importado.
+  O importador atual é específico do extrato Stone; não apontá-lo para o BB.
+- **Saipos:** o proprietário enviou confirmação de formulário de solicitação
+  do token da API de Dados. O envio do formulário foi confirmado; recebimento
+  e configuração da chave ainda não foram confirmados nesta conversa. Antes
+  de pedir nova solicitação, conferir com o proprietário/ambiente existente.
+  Ainda não há importador Saipos. Próxima prova: período conhecido, pagamentos
+  e identificadores TEF/SmartPOS realmente preenchidos, sem duplicar receita.
+- **Conciliação completa:** extrato é uma etapa. Vendas operacionais Saipos,
+  pagamentos/recebíveis Stone e créditos no banco precisam ser cruzados.
+  NSU/autorização só permitem confirmação automática quando preenchidos e
+  compatíveis; casos ambíguos vão para revisão. A falta de endpoint Saipos
+  para venda individual não impede a consulta por período e o cruzamento local.
+- **Pendências do fluxo Stone anterior:** erro 403 na API de Conciliação e
+  publicação/mapeamento do webhook Pix descritos pelo Claude continuam
+  pendentes. Pluggy resolve o extrato, sem substituir os detalhes de vendas e
+  recebíveis. `DATABASE_URL` já foi cadastrado no GitHub nesta entrega; o recado
+  antigo sobre ausência de todos os Secrets não é mais integralmente atual.
+  Não insistir no 403 em loop. Respeitar a autorização permanente da raiz;
+  os bloqueios da ferramenta anterior não criam nova exigência de confirmação.
+
+Nesta atualização, apenas `docs/CANAL_IA.md` foi alterado. Sem nova carga,
+migration, credencial ou configuração externa. Registro revisado, sem valores
+de segredos/dados brutos; conferir a sincronização dos três repositórios e dos
+pares de orientação da raiz ao concluir a troca de IA.
 
 — Codex
