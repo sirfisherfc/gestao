@@ -31,6 +31,8 @@ Também não mexidos (baixo risco, não pedidos): `rls_enabled_no_policy` (17, n
 Sem pendências da correção aplicada.
 — Claude
 
+
+
 ### Auditoria de segurança estática (31/08/2026)
 
 Foi gerado `docs/security-audit/relatorio-auditoria-seguranca.pdf` e o script
@@ -4250,3 +4252,47 @@ diretórios antigos ("Sir Fisher - PUB", @sirfisherpub) são ação manual.
   documentado lá.
 
 — Claude
+
+## 2026-10-20 · Codex — auditoria de desempenho digital e canais
+
+- Pedido: diagnosticar o problema comercial, premissas, lacunas e próximos
+  passos para Google, presença pública, Meta e ChatGPT Ads; respostas na conversa.
+  Auditoria das plataformas e do banco somente em leitura, sem novas campanhas,
+  mudanças de verba, publicação de conteúdo comercial ou reservas de teste.
+- Janela principal: 20/09–17/10 contra 23/08–19/09, ambas de 28 dias. Google
+  Analytics, Search Console e Perfil da Empresa consultados com os acessos
+  persistentes. Crescimento na pesquisa concentrado no conteúdo de pôr do sol;
+  consultas comerciais visíveis sem marca não acompanharam o aumento. Rotas
+  da ficha recuaram. Google oficial: 4,7 e 800 avaliações na leitura atual.
+- Instagram consultado pela API: alcance cresceu, mas visitas ao perfil e
+  toques no site ficaram quase estáveis. Alcance pode incluir anúncios. Acesso
+  aos relatórios Meta Ads negado por falta de ads_read/ads_management; não
+  confundir indisponibilidade com zero gasto ou ausência de campanhas.
+- ChatGPT Ads, mesma campanha: 13–19/10 teve 109 cliques e aproximadamente
+  R$300 adicionais, CPC estável. Nenhuma reserva/visita atribuída. Teto acumulado
+  praticamente esgotado; fim configurado para 20/10 às 16h19 de Fortaleza.
+  Diferença de seis centavos entre agregações da conta/campanha registrada;
+  não prolongar nem renovar automaticamente. EQS sem nota por baixo volume.
+- Banco portal: somente agregados via endpoint read-only, destino verificado.
+  Reservas públicas cresceram entre as janelas de 28 dias, mas última semana
+  teve três contra nove. Cobertura de identificadores GA melhorou: aumento de
+  eventos medidos não comprova aumento equivalente de clientes. Reservas
+  criadas e comparecimentos por data não são um mesmo funil de coorte.
+- Proprietário não sabe se a equipe registrou clientes vindos do ChatGPT sem
+  reserva. Confirmar esse registro e consumo real antes de avaliar retorno.
+  Recomendações: fechar teste atual, reconciliar visitas/atribuição, obter
+  relatórios Meta, melhorar descoberta comercial e corrigir cadastros externos.
+- PageSpeed atual da home: desempenho 100 em celular e desktop; campo móvel
+  LCP 1,61 s, INP 153 ms, CLS zero. Desktop tem acessibilidade 96 por contraste;
+  demais categorias 100. Uma rodada não garante desempenho de toda jornada.
+- Achado de segurança real: script legado de criação de anúncios tinha token
+  literal no código. Removido no site; exige META_ADS_TOKEN no ambiente, sem
+  argumento de linha de comando. Sintaxe validada, sem executar anúncios.
+  Credencial antiga permanece no histórico: revogação na Meta ainda necessária.
+  Não reproduzir o valor nem usar o script legado para consultar desempenho.
+- Scripts pontuais e agregados ficaram em tmp/marketing-review-20261020,
+  fora do Git, sem nomes/contatos de clientes nem credenciais. Três repositórios
+  limpos e atualizados por pull no início; orientações da raiz idênticas às
+  cópias versionadas. Entrega inclui apenas documentação e remoção do segredo.
+
+— Codex
