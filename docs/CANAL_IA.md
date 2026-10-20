@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 livre — consulta da API Saipos concluída; viabilidade e requisitos registrados, sem implantação.
+> **🚦 Status atual:** 🟢 livre — extrato Stone via Meu Pluggy implantado e executado com sucesso no GitHub; BB adiado pelo proprietário.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -4516,3 +4516,46 @@ diretórios antigos ("Sir Fisher - PUB", @sirfisherpub) são ação manual.
 - Voucher (0,8% do faturamento Stone) não existe na API.
 
 — Claude
+
+## 2026-10-20 · Codex — extrato Stone via Meu Pluggy online
+
+- Retomado o histórico do Claude por solicitação do proprietário. Credenciais
+  locais reutilizadas, sem expor valores. Proprietário concluiu a autorização
+  na página local e preferiu conectar o BB depois. Só a conta Stone foi mapeada.
+- Novos `api_pluggy.py`, `conectar_pluggy.py`, `api_pluggy_stone.py` e testes
+  em `scripts/ci/test_pluggy.py`. Cliente trata aliases antigos das variáveis,
+  token renovável, consentimento, paginação V2 completa e fuso Fortaleza.
+  Diretório `scripts/importacao/api-pluggy/` e `tmp/pluggy-validacao/` privados,
+  ignorados pelo Git. A página local é só para autorização inicial.
+- Setembro: 891 movimentos conferidos por dia/valor/multiplicidade, entradas
+  e saídas iguais ao CSV. Simulação na view financeira vigente reproduziu as
+  891 classificações individuais e os 191 grupos diários e respectivos totais.
+  CNPJ formatado, CPF mascarado como no CSV e nomes completos da descrição
+  bancária preservam o DE-Para. Sem aliases de pessoas gravados no código.
+- Primeira carga real: 33 movimentos novos de 19–20/10; saldo anterior + novos
+  fecha com a fotografia Pluggy. Histórico preservado. Reexecução encontrou
+  zero novos. Registros Pluggy usam hash de conta/ID; colisões com legado,
+  alteração, consulta incompleta e divergência de saldo interrompem a carga.
+- Migration `20261020231044` aplicada no portal, histórico 204: índice parcial
+  e trigger privada impedem CSV novo depois da virada efetiva da conta, sem
+  alterar o histórico. Teste transacional confirmou bloqueio do CSV e aceitação
+  de hash histórico repetido, seguido de rollback. Advisor sem alerta da função.
+- `.github/workflows/importacao-pluggy.yml`: 00:43 e 09:43 de Fortaleza,
+  execução com PC desligado, Secrets privados cadastrados e lidos pelo runner.
+  Log público não publica extratos/valores. Fonte em Status > Integrações
+  automáticas: `Extrato Stone (Pluggy)`, com sucesso/erro e link do GitHub.
+- Código publicado em `83852d7`. Primeira execução real no GitHub aprovada:
+  https://github.com/sirfisherfc/gestao/actions/runs/39514186190 ; registrada
+  como origem `github`, sem movimento novo e sem duplicação. Quality gates
+  (incluindo PostgreSQL descartável) e deploy Pages aprovados. Local: 18 testes
+  Pluggy, qualidade estática/JS e catálogo de 204 migrations aprovados.
+- Guias de importação e integração atualizados, inclusive correção da afirmação
+  anterior sobre plano comercial: o guia oficial permite acesso gratuito aos
+  próprios dados via MeuPluggy. Origem atualiza diariamente; renovação de
+  consentimento continua necessária quando expirar.
+- Pendências fora desta entrega: BB aguarda conexão pelo proprietário;
+  Conciliação/Pix Stone e o 403 descritos pelo Claude continuam no fluxo anterior.
+  Nenhuma contratação nem mudança em reservas/site. Sem segredos ou dados brutos
+  nos commits. Orientações da raiz e sincronização dos três projetos conferidas.
+
+— Codex

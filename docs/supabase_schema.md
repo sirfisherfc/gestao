@@ -1384,3 +1384,16 @@ movimento real da casa.
 - O front-end autenticado usa views `app_*` e RPCs protegidas; tabelas internas
   não são expostas para leitura anônima.
 - Esse documento não altera o banco, apenas descreve o schema usado pelo app.
+
+
+## Protecao da virada Pluggy Stone (2026-10-20)
+
+Migration `20261020231044` aplicada no portal (historico 204). O indice parcial
+`ix_raw_stone_extrato_pluggy_corte` localiza os movimentos Pluggy por conta e
+data. A funcao privada `private.proteger_virada_pluggy_stone()` e o trigger
+`trg_proteger_virada_pluggy_stone` recusam novos hashes de CSV a partir da
+primeira data Pluggy da conta; hashes ja existentes seguem o ON CONFLICT.
+Nenhuma linha historica foi alterada. A funcao e invoker, search_path fixo,
+sem acesso anon/authenticated; service_role tem EXECUTE explicito. A importacao
+Python conecta como dono, usa a tabela raw existente e o log integracao_execucao.
+Regras, deduplicacao e verificacoes em docs/INTEGRACAO_API_BANCOS.md.

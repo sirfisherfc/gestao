@@ -173,6 +173,12 @@ Regras de segurança da carga:
 BB fica para uma etapa posterior: o proprietário informou que conectará depois.
 Não contratar plano nem criar conexão bancária direta para contornar esse passo.
 
+Implantação conferida: migration aplicada no portal (histórico 204), primeira
+carga de 33 movimentos de 19–20/10 com saldo fechado e reexecução sem novos.
+Rotina real no GitHub aprovada em
+https://github.com/sirfisherfc/gestao/actions/runs/39514186190 e registrada na
+página Status como origem `github`. Qualidade e deploy Pages aprovados.
+
 ### Banco do Brasil: API Extratos
 
 1. **Gerente BB:** pedir a habilitação da **API Extratos** para a conta PJ e
