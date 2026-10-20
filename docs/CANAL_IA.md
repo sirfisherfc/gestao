@@ -4285,11 +4285,19 @@ diretórios antigos ("Sir Fisher - PUB", @sirfisherpub) são ação manual.
 - PageSpeed atual da home: desempenho 100 em celular e desktop; campo móvel
   LCP 1,61 s, INP 153 ms, CLS zero. Desktop tem acessibilidade 96 por contraste;
   demais categorias 100. Uma rodada não garante desempenho de toda jornada.
+- Captura posterior enviada pelo proprietário: Conquistas do Search Console
+  exibe 244/250 cliques em 28 dias, marco de 200 em 13/10 e 180 em 11/10.
+  Evidência adicional de progresso; o fim da janela da captura não está
+  identificado. Consulta fixa até 17/10 tem 242 cliques; não misturar recortes.
 - Achado de segurança real: script legado de criação de anúncios tinha token
   literal no código. Removido no site; exige META_ADS_TOKEN no ambiente, sem
   argumento de linha de comando. Sintaxe validada, sem executar anúncios.
   Credencial antiga permanece no histórico: revogação na Meta ainda necessária.
   Não reproduzir o valor nem usar o script legado para consultar desempenho.
+- Remoção publicada no site em edf035d, workflow de assets e deploy aprovados;
+  home e script responderam HTTP 200 com User-Agent de navegador. Arquivo
+  publicado exige variável privada e não contém o token literal. Registro
+  documental também passou por Quality gates e publicação no gestao.
 - Scripts pontuais e agregados ficaram em tmp/marketing-review-20261020,
   fora do Git, sem nomes/contatos de clientes nem credenciais. Três repositórios
   limpos e atualizados por pull no início; orientações da raiz idênticas às
