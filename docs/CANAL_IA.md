@@ -4229,3 +4229,24 @@ diretórios antigos ("Sir Fisher - PUB", @sirfisherpub) são ação manual.
   Sem migration e sem pendências.
 
 — Claude
+
+## 2026-10-20 · Claude — Supabase deixa de dar grants automáticos em tabelas novas (30/10)
+
+- Aviso do Supabase: a partir de 30/10/2026, tabelas e views novas em `public`
+  não recebem mais acesso automático da Data API, inclusive no Supabase Preview.
+  Objetos existentes mantêm os grants. Nada quebra no dia.
+- Conferido só pela rota de leitura: o padrão atual do `portal` ainda dava a
+  tabelas novas tudo ao `service_role` e `select` ao `authenticated` (o `anon`
+  já estava fechado desde `20260703160000`). As 202 migrations locais estão
+  aplicadas; nenhuma pendente cai na regra nova. CI usa `postgres:15` puro.
+- Risco real: as migrations concediam ao `authenticated`, mas o `service_role`
+  vinha do padrão. Tabela nova lida por Edge Function do `reservas` sem
+  `grant ... to service_role` passa a dar `permission denied`.
+- Regra ampliada no `AGENTS.md` (Grants explícitos em novas tabelas e views),
+  registrada em `reservas/docs/supabase.md` e numa linha do `AGENTS.md` da raiz
+  (cópia em `docs/workspace/AGENTS_WORKSPACE.md` sincronizada). Sem migration.
+- Pendência opcional: `reservas/supabase/rls.sql` e `reveillon-rls.sql` não
+  concedem tabelas ao `service_role`; só importa ao duplicar o projeto e está
+  documentado lá.
+
+— Claude

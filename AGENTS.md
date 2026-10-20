@@ -73,7 +73,11 @@ Este arquivo é a fonte canônica das instruções operacionais para qualquer IA
 - Não assumir que uma divergência financeira é erro de código ou banco sem validar a origem, o período, a regra de cálculo e a completude dos dados.
 - Não alterar diretamente o banco por ferramentas configuradas apenas para leitura.
 - **Atenção à Coexistência no Banco Unificado**: O banco Supabase `portal` (`lucpxoynpvogkvzepagi`) hospeda simultaneamente as tabelas financeiras e as tabelas do sistema de reservas (`reservations`, `customers`, `reservation_status_history`, `access_requests`, `restaurant_settings`, `availability_rules`, `blocked_dates`, `blocked_time_slots`, `notification_queue`, `ad_conversion_events`, `app_users`). **NUNCA alterar, renomear ou dropar tabelas do sistema de reservas.**
-- **Grants em novas views/tabelas**: Toda nova view `public.app_*` criada deve conter explicitamente `GRANT SELECT ON public.app_* TO authenticated;` (além dos privilégios de `service_role`). Sem isso, o cliente web Supabase receberá erro de `permission denied`.
+- **Grants explícitos em novas tabelas e views (desde 30/10/2026)**: o Supabase deixou de conceder acesso automático da Data API (supabase-js, PostgREST, GraphQL) a tabelas, views e materialized views criadas em `public`, inclusive no Supabase Preview, que reaplica as migrations do zero. A migration que cria o objeto deve trazer, no mesmo arquivo, os grants de cada papel que vai usá-lo, só com os privilégios necessários:
+  - `authenticated`: toda nova view `public.app_*` recebe `GRANT SELECT ON public.app_* TO authenticated;`; tabelas recebem só o que as páginas usam.
+  - `service_role`: conceder sempre que uma Edge Function do `reservas` ou um script com chave de serviço acessar o objeto pela API. A chave de serviço ignora RLS, mas não dispensa o grant. Modelo: `20260930010000_eventos_confirmacao_agenda.sql`.
+  - `anon`: nada, salvo objeto público por decisão explícita (hoje só `cardapio_publico`, `restaurant_settings` e `rv_table_state`). Não copiar o exemplo do aviso do Supabase que concede `select` ao `anon`; o acesso anônimo foi fechado em `20260703160000`.
+  - `drop` + `create` gera um objeto novo e perde os grants; repeti-los ao recriar. `create or replace view` preserva. Os importadores Python conectam como `postgres` (dono) e não dependem desses grants. Sem o grant, a API responde `permission denied` (`42501`).
 
 
 ### Padrão das views `app_*` e avisos do Security Advisor (decisão intencional)

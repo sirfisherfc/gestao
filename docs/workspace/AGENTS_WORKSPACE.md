@@ -43,6 +43,11 @@
   dados financeiros brutos. Respeitar os `.gitignore` de cada projeto.
 - Trabalhar com uma IA por vez em cada repositório. Não iniciar agentes em
   paralelo para editar o mesmo projeto.
+- Desde 30/10/2026, o Supabase não concede mais acesso da Data API a tabelas
+  e views novas no `public`. Quem criar ou recriar um objeto deve incluir no
+  mesmo SQL os `GRANT` de cada papel que vai usá-lo, inclusive `service_role`
+  para Edge Functions; `anon` só com decisão explícita. Regras completas em
+  `gestao/AGENTS.md` e `reservas/docs/supabase.md`.
 - Os projetos compartilham o Supabase `portal`; uma mudança deve respeitar os
   outros sistemas. Não usar ferramentas configuradas somente para leitura
   para escrever no banco.
