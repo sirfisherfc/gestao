@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 livre — correção da foto repetida no pôr do sol publicada no site em 56fc59d, com conferência em produção.
+> **🚦 Status atual:** 🟢 livre — consulta da API Saipos concluída; viabilidade e requisitos registrados, sem implantação.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -4467,5 +4467,25 @@ diretórios antigos ("Sir Fisher - PUB", @sirfisherpub) são ação manual.
 - Sem migrations. Os outros dois projetos e os pares de orientação da raiz
   foram conferidos; trabalho Stone de outra IA preservado em 7457ca6.
   Sem pendências desta correção.
+
+— Codex
+
+## 2026-10-20 · Codex — viabilidade da API de Dados Saipos
+
+- Consulta solicitada pelo proprietário, comparando com a integração Stone.
+  A API permite consultar vendas, itens e lançamentos financeiros. A proposta
+  é importar a operação para o Gestão e cruzá-la com os recebíveis Stone,
+  validando campos, cobertura e deduplicação antes de qualquer carga.
+- Documentação oficial consultada: https://saipos-data-api.readme.io/reference/introducao
+  e https://saipos-data-api.readme.io/reference/layout-definicoes-vendas.
+  Preço informado: R$ 59,90/mês por token por loja; token solicitado pelo
+  formulário oficial vinculado na introdução, com retorno em até 1 dia útil.
+- Dados podem apresentar atraso D+1; a Saipos recomenda coleta após 05h
+  de Brasília. Movimentação de estoque está em manutenção, sem dados
+  disponíveis. Há divergência entre páginas sobre limites de requisições;
+  confirmar esse ponto antes de implementar.
+- Alterado somente este registro. Sem contratação, token solicitado,
+  importador, migration ou alteração no banco/site. Validação documental
+  e sincronização dos três repositórios e dos pares de orientação da raiz.
 
 — Codex
