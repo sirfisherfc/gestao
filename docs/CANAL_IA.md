@@ -4394,3 +4394,32 @@ diretórios antigos ("Sir Fisher - PUB", @sirfisherpub) são ação manual.
   aguarda a revisão do proprietário, conforme pedido explícito nesta conversa.
 
 — Codex
+
+## 2026-10-20 · Codex — execução da abertura compacta aprovada
+
+- Proprietário aprovou a prévia com “massa, execute”. Aplicada somente à
+  página de pôr do sol: título, horário compacto, foto real das mesas/mar,
+  convite curto e acesso à rota/cardápio no começo da página. No desktop,
+  foto e informações ficam lado a lado. Nenhuma campanha/verba alterada.
+- Foto anterior de paisagem preservada no bloco da visita; resumo anual
+  mantido junto à tabela. Title, description, H1, canonical e as 12 linhas
+  mensais conferidos contra a versão anterior; JSON-LD válido. Cálculo solar,
+  fuso Fortaleza e aviso de amanhã após o ocaso preservados.
+- Testes de datas de referência/fuso/viradas aprovados; fallback sem JS,
+  parâmetros de origem e eventos de clique conferidos sem envios reais às
+  plataformas. Acessibilidade e teclado passaram em claro/escuro e celular/
+  desktop. Capturas locais inspecionadas entre 320 e 1440 px, sem overflow.
+- Texto ampliado a 200% em 320, 390 e 1440 px: sem sobreposição no quadro
+  nem rolagem horizontal, com adaptação da navegação e linhas de horário.
+- Código do site publicado em d5afb12. Evidências temporárias em
+  tmp/sunset-review-20261020/compact-approved, fora do Git. README de analytics
+  atualizado; sem credenciais, clientes ou dados financeiros no commit.
+- Assets e deploy aprovados; HTML/CSS/JS versionados conferidos em produção,
+  HTTP 200 e conteúdo correspondente ao local. Teste publicado de medição
+  aprovado com envios interceptados. PageSpeed: SEO/acessibilidade/boas práticas
+  100 em celular e desktop; desempenho 99/100, LCP 2,0/0,4 s e CLS zero.
+  Dados CrUX retornados são históricos; não comprovam efeito desta publicação.
+- Ao concluir, surgiram alterações de outro trabalho nos scripts de importação
+  Stone do gestao; preservadas e não incluídas neste commit documental.
+
+— Codex
