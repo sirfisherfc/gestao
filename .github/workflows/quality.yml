@@ -32,6 +32,9 @@ jobs:
       - name: Importer dry-runs
         run: python scripts/ci/test_importacao.py
 
+      - name: Bank API downloaders without network
+        run: python scripts/ci/test_api_bancos.py
+
       - name: New installation safeguards
         run: python scripts/ci/test_implantacao.py
 

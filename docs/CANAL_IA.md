@@ -4347,3 +4347,27 @@ diretórios antigos ("Sir Fisher - PUB", @sirfisherpub) são ação manual.
   sem garantir posição/tráfego; acompanhar próximas janelas consolidadas.
 
 — Codex
+
+## 2026-10-20 · Claude — baixadores das APIs Stone e BB (fase 1)
+
+- Pedido: atualizar o painel pelo extrato via API em vez de CSV. Entregue só
+  o download e a conferência; **nada grava no banco** e o BAT não mudou.
+- `scripts/importacao/api_stone_conciliacao.py`: arquivo diário de
+  conciliação (vendas, parcelas, pagamentos) por stonecode, com a chave de
+  cliente criada pelo titular no Portal Stone (Basic sem senha +
+  `x-user-type: client`). Respeita 7 consultas/hora por stonecode e dia.
+- `scripts/importacao/api_bb_extrato.py`: API Extratos com OAuth
+  `extrato-info`, mTLS em produção e conferência de saldo. A documentação do
+  BB fica atrás de login: endereços, nome do parâmetro da chave e formato da
+  data seguem a especificação conhecida e são configuráveis pelo `.env`.
+- Cliente HTTP comum em `api_cliente.py`, só biblioteca padrão; erros não
+  exibem corpo nem cabeçalhos. Downloads em `scripts/importacao/api-*/`,
+  nova linha no `.gitignore`. Testes sem rede em
+  `scripts/ci/test_api_bancos.py`, incluídos no Quality gates.
+- Pendências do proprietário (chave Stone, gerente/portal/certificado BB) e
+  plano da fase 2 em `docs/INTEGRACAO_API_BANCOS.md`. Fase 2 só depois de
+  comparar um mês baixado pela API com o mesmo mês já importado por CSV:
+  as chaves de dedup (`stone_id`, `dedup_hash` do BB) precisam bater.
+- Extrato da Conta Stone continua por CSV: a API da conta exige parceria.
+
+— Claude

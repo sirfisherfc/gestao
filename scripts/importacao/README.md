@@ -119,3 +119,12 @@ O extrato da conta BS Cash (`05_importar_bs_cash.py`) é gravado por inteiro em
 `raw_bs_cash`. A data inicial que participa do `fato_financeiro` é editável em
 **Parâmetros > Fontes financeiras > Considerar desde**. Data vazia inclui todo
 o histórico; isso evita levar para outra empresa o corte legado desta base.
+
+## Download por API (fase 1)
+
+`api_stone_conciliacao.py` (vendas e recebíveis Stone) e `api_bb_extrato.py`
+(extrato BB) baixam os arquivos pelas APIs dos bancos para
+`scripts/importacao/api-*/`, ignorada pelo Git. Eles **não gravam no banco**
+e não entram no BAT nem no dispatcher. Ambos aceitam `--verificar` para
+testar as credenciais. Passo a passo, variáveis do `.env` e o plano para
+gravar no painel: `docs/INTEGRACAO_API_BANCOS.md`.
