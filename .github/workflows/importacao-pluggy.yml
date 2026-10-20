@@ -1,0 +1,61 @@
+name: Extrato Stone via Meu Pluggy
+
+# Consulta e importa na nuvem. O PC do proprietario pode estar desligado.
+# Meu Pluggy sincroniza a origem diariamente; nunca solicitar PATCH do proxy.
+# 00:43 e 09:43 em Fortaleza. A segunda rodada recupera indisponibilidades.
+on:
+  schedule:
+    - cron: '43 3,12 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Conferir sem gravar no banco'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: extrato-stone-pluggy
+  cancel-in-progress: false
+
+jobs:
+  extrato:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      PLUGGY_CLIENT_ID: ${{ secrets.PLUGGY_CLIENT_ID }}
+      PLUGGY_CLIENT_SECRET: ${{ secrets.PLUGGY_CLIENT_SECRET }}
+      PLUGGY_STONE_ITEM_ID: ${{ secrets.PLUGGY_STONE_ITEM_ID }}
+      PLUGGY_STONE_ACCOUNT_ID: ${{ secrets.PLUGGY_STONE_ACCOUNT_ID }}
+      PLUGGY_STONE_CONTA_ID: ${{ secrets.PLUGGY_STONE_CONTA_ID }}
+      PLUGGY_STONE_DESDE: ${{ secrets.PLUGGY_STONE_DESDE }}
+      DRY_RUN: ${{ inputs.dry_run || false }}
+      TZ: America/Fortaleza
+      PYTHONIOENCODING: utf-8
+    steps:
+      - name: Verificar configuracao privada
+        shell: bash
+        run: |
+          for nome in DATABASE_URL PLUGGY_CLIENT_ID PLUGGY_CLIENT_SECRET PLUGGY_STONE_ITEM_ID PLUGGY_STONE_ACCOUNT_ID PLUGGY_STONE_CONTA_ID PLUGGY_STONE_DESDE; do
+            [ -n "${!nome}" ] || { echo "Configuracao privada ausente: $nome"; exit 1; }
+          done
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Dependencias
+        run: python -m pip install -q -r requirements.txt
+      - name: Conferir saldo e atualizar extrato
+        shell: bash
+        run: |
+          args=()
+          if [ "$DRY_RUN" = "true" ]; then args+=(--dry-run); fi
+          status=0
+          python scripts/importacao/api_pluggy_stone.py "${args[@]}" > saida-pluggy.log 2>&1 || status=$?
+          # O repositorio e publico: nenhum extrato ou valor financeiro no log.
+          grep -E '^(ERRO|AVISO)' saida-pluggy.log || true
+          if [ "$status" = 0 ]; then echo 'Conferencia concluida. Consulte a pagina Status do Gestao.'; fi
+          exit "$status"

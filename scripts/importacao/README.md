@@ -141,3 +141,16 @@ Function `stone-webhook`): cadastra o webhook, pede o arquivo e compara com o
 painel. Vendas Stone continuam pelo CSV até o mapeamento do Pix ser
 confirmado com um arquivo real; o Voucher não existe na API. Detalhes:
 `docs/INTEGRACAO_API_BANCOS.md`.
+
+### Extrato Stone pelo Meu Pluggy
+
+`python scripts/importacao/conectar_pluggy.py` abre a autorização local do
+Meu Pluggy e salva os IDs no `.env` ignorado. A página local só é necessária
+para conectar; a rotina diária roda online no GitHub Actions com o PC desligado.
+
+`api_pluggy.py --verificar --catalogar` confere o acesso e gera catálogo de
+contas privado. `api_pluggy_stone.py --dry-run` confere movimentos/saldo sem
+gravar. A execução sem esse argumento usa a conta explicitamente mapeada,
+deduplica e importa o extrato. Resultado em **Status > Integrações automáticas**.
+Após a virada, CSV novo desse período é recusado para impedir duplicidade.
+Regras, configuração e limitações em `docs/INTEGRACAO_API_BANCOS.md`.

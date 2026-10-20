@@ -108,11 +108,70 @@ CSV continua.
 |---|---|---|---|
 | APIs diretas (atual) | Stone cartão, Pix e recebíveis; BB pela API Extratos; Conta Stone se a parceria sair | sem mensalidade conhecida; confirmar tarifa do BB | mais trabalho por banco |
 | Open Finance via agregador (ex.: Pluggy Data) | extratos de todas as contas, inclusive Stone, BB, Inter e BNB | a partir de R$ 2.500/mês (Pluggy, out/2026) | consentimento renovado periodicamente; descrições diferentes do CSV pedem data de virada |
-| Meu Pluggy (gratuito) | até 5 contas do mesmo titular | grátis | a Pluggy proíbe uso comercial no plano grátis; não serve para a empresa |
+| Meu Pluggy (gratuito) | contas próprias autorizadas no Meu Pluggy | grátis para o acesso aos próprios dados pelo conector MeuPluggy | guia oficial permite proxy na aplicação demo sem assinatura/due diligence; não confundir com produto para dados de terceiros |
 | Sistema de gestão integrado à Stone (ex.: vhsys) | extrato da Conta Stone | mensalidade do sistema | o painel leria do sistema, mais uma dependência |
 
 Não entram em nenhum caminho: vendas em espécie, que são lançamento manual,
 e Voucher, que a Stone não entrega por API.
+
+### Meu Pluggy: extrato Stone e execução online
+
+O [guia oficial](https://meu.pluggy.ai/api-guide) documenta o acesso gratuito
+aos próprios dados via conector MeuPluggy na aplicação demo. A afirmação
+anterior de que esse caminho exigia o plano comercial foi corrigida.
+Conectar um banco diretamente no Dashboard é outro fluxo.
+
+- `conectar_pluggy.py` abre uma página **só em 127.0.0.1**, por padrão na
+  porta 8766, para autorizar uma conta já conectada no Meu Pluggy. Salva
+  `PLUGGY_ITEM_IDS` no `.env` privado depois de consultar o item na aplicação.
+  Somente o connect token restrito vai ao navegador. Client ID/secret e API
+  key permanecem no Python. Aceita os nomes antigos `PLUGGY_Client_ID` e
+  `PLUGGY_Client_Secret`, além dos nomes totalmente maiúsculos.
+- `api_pluggy.py --verificar --catalogar` confere consentimento e salva um
+  catálogo privado em `scripts/importacao/api-pluggy/contas.json`. Para baixar,
+  indicar `--conta`, `--de` e `--ate`. Paginação usa `/v2/transactions`,
+  `dateFrom/dateTo` e a query `next` completa. As datas são convertidas para
+  Fortaleza, com a janela UTC ampliada até o dia seguinte e filtro local.
+- `api_pluggy_stone.py --dry-run` compara com o histórico e confere saldo.
+  Sem a opção, importa somente movimentos novos, recalcula e atualiza o painel.
+  Configuração privada: `PLUGGY_STONE_ITEM_ID`, `PLUGGY_STONE_ACCOUNT_ID`,
+  `PLUGGY_STONE_CONTA_ID` (vínculo do Gestão) e `PLUGGY_STONE_DESDE`.
+- A execução automática fica em `.github/workflows/importacao-pluggy.yml`,
+  às **00:43 e 09:43 de Fortaleza**, com credenciais nos Secrets privados do
+  GitHub. **Não depende do PC ligado**. O resultado aparece em
+  **Status > Integrações automáticas > Extrato Stone (Pluggy)**.
+
+Prova de 20/10/2026: 891 movimentos de setembro correspondem por data local,
+valor e multiplicidade ao CSV. Simulação na view financeira vigente reproduziu
+as 891 classificações individuais e os 191 grupos diários de categoria/grupo/
+status e seus totais. O nome completo foi preservado da descrição bancária;
+CNPJ mantém a formatação com `/` e CPF o trecho mascarado usado no legado.
+Cinco débitos de boleto tinham tipo genérico `Transação` no CSV e ficam como
+`Pagamento`; ambos seguem o mesmo DE-Para e a classificação financeira conferiu.
+
+Regras de segurança da carga:
+
+- Registros Pluggy usam hash de conta + ID da transação; reexecução não duplica.
+  Alteração de conteúdo de ID já importado interrompe a carga. O legado é
+  preservado e comparado por dia/valor/quantidade; isso não comprova identidade
+  nem detecta toda possível retificação de soma zero no histórico sem IDs comuns.
+- Correspondência parcial, movimento retroativo, moeda/tipo desconhecido,
+  consulta incompleta, saldo divergente ou último instante com ordem ambígua
+  impedem a gravação inteira. O saldo final da base + novos movimentos deve
+  corresponder ao snapshot da conta, reconsultado antes de gravar.
+- Escrita, recálculo e log de carga ficam na mesma transação, com bloqueio
+  de concorrência da tabela de extrato. O refresh posterior é recuperável na
+  próxima rodada, inclusive quando não houver novos movimentos.
+- Migration `20261020231044` impede novos CSVs na conta a partir da primeira
+  data efetivamente importada pela Pluggy. Hashes históricos idênticos continuam
+  sendo ignorados normalmente. Um fallback de CSV após a virada exige revisão
+  da integração; não misturar os dois formatos sem esse controle.
+- A origem do Meu Pluggy atualiza a cada 24h. O proxy não aceita PATCH;
+  `nextAutoSyncAt` nulo é normal. `/v2/items` não está disponível nesse caminho;
+  guardar IDs no callback. Renovar o consentimento quando expirar.
+
+BB fica para uma etapa posterior: o proprietário informou que conectará depois.
+Não contratar plano nem criar conexão bancária direta para contornar esse passo.
 
 ### Banco do Brasil: API Extratos
 
