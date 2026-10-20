@@ -4304,3 +4304,46 @@ diretórios antigos ("Sir Fisher - PUB", @sirfisherpub) são ação manual.
   cópias versionadas. Entrega inclui apenas documentação e remoção do segredo.
 
 — Codex
+
+## 2026-10-20 · Codex — conversão e responsividade da página de pôr do sol
+
+- Proprietário priorizou esta página antes das sugestões gerais de marketing:
+  conservar descoberta na busca e melhorar o convite à visita. Acrescentou
+  adaptação real para celular e desktop. Nenhuma campanha/verba alterada.
+- Search Console filtrado pela URL, 21/09–18/10: 101 cliques, 42.831 impressões.
+  GA4, sessões iniciadas nela: 86, sendo 79 de google/organic; 83 em celular e
+  três no desktop. Seis cliques no cardápio, um em rota e nenhum em reserva;
+  eventos/intenção não comprovam comparecimento. Recorte de 90 dias confirmou
+  a captura: “pôr do sol hoje” com 86 cliques e 34.835 impressões nessa URL.
+- Title, description, H1, canonical, URL e tabela mensal preservados por
+  comparação automática com a versão anterior. Sitemap só atualiza lastmod
+  desta página. Conteúdo continua acessível em HTML e sem JavaScript.
+- Quadro com horário aproximado de hoje/amanhã, fuso Fortaleza e cálculo
+  NOAA/Meeus local, sem API/geolocalização. Datas de referência, fronteira de
+  meia-noite UTC−3, virada do ano, bissexto e antes/depois do ocaso testados.
+  Cálculo comparado ao JS original NOAA em todos os 366 dias de 2028, com
+  coincidência ao minuto; não implica visibilidade garantida nem clima previsto.
+- Rota e cardápio próximos da resposta; fotos existentes e reais de espaço e
+  pratos, nota Google verificada e reserva com regra de corte às 15h30.
+  Removidas orientações contraditórias de 16h45 fixas/chegada às 17h30 e
+  promessa de posição do disco/mesa. Assentos seguem disponibilidade.
+- Layout exclusivo da página: coluna no celular, abertura em duas colunas e
+  conteúdo distribuído no desktop; fontes/cores do site preservadas. Medição
+  de intenção mantém eventos e atribuição, sem UTM de campanha interna.
+- Acessibilidade automatizada/teclado aprovada em celular/desktop e claro/
+  escuro; segurança conferiu GA, Meta, OpenAI e contador com envios interceptados.
+  Testes de fallback sem JS, origem nos links, aviso pós-ocaso e um evento por
+  clique aprovados. Capturas locais inspecionadas e sem overflow nas larguras
+  de 320, 390, 768, 1000 e 1440 px. Navegador integrado indisponível; usada
+  validação local automatizada no Edge, sem contaminar métricas externas.
+- Linha de base, roteiro de acompanhamento e teste solar documentados em
+  site/tools/analytics/README.md. Evidências agregadas/scripts/capturas em
+  tmp/sunset-review-20261020, fora do Git; sem clientes ou credenciais.
+- Site publicado em 6353d63: assets e deploy aprovados; HTML, CSS, JS e sitemap
+  retornam HTTP 200 e correspondem aos arquivos locais. PageSpeed publicado:
+  celular e desktop 100 em desempenho, acessibilidade, boas práticas e SEO;
+  LCP 1,5 s e 0,4 s, CLS zero. Campo CrUX é histórico, não ganho atribuído à
+  alteração. Pergunta posterior sobre SEO respondida com essas verificações,
+  sem garantir posição/tráfego; acompanhar próximas janelas consolidadas.
+
+— Codex
