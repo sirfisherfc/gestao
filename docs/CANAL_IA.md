@@ -4423,3 +4423,25 @@ diretórios antigos ("Sir Fisher - PUB", @sirfisherpub) são ação manual.
   Stone do gestao; preservadas e não incluídas neste commit documental.
 
 — Codex
+
+## 2026-10-20 · Claude — recebíveis Stone pela API (fase 2)
+
+- Proprietário criou a chave "API de Conciliação Stone" no site da Stone
+  (`gestao/.env`, `STONE_CONCILIACAO_API_KEY`). Vale para 770398216 e
+  173835323; 140366173 (Imprensa) responde 403.
+- Novo `scripts/importacao/api_stone_recebiveis.py`: XML de conciliação →
+  `raw_stone_recebiveis`, mesma chave e mesmo `importar_registros`.
+  Dry-run de setembro (1.509 linhas) e de 1–18/10 (905): tudo já estava no
+  painel e as 21 colunas batem, exceto `ultimo_status` ("Pago" na API,
+  "Aberto" no CSV antigo; nenhuma view usa). **Nenhuma gravação feita**:
+  primeira carga real e agendamento aguardam decisão do proprietário.
+- Vendas Stone continuam no CSV: o arquivo não traz Pix (528 em setembro)
+  nem Voucher (26). Gravar só cartão adiantaria `corte_venda` com dias
+  incompletos. Pix pela API exige webhook público; registrado como opção.
+- Stonecodes padrão agora filtram `ativa and entra_faturamento` (Imprensa e
+  Pub fora). O 403 só encerra um stonecode se vier antes de qualquer dia
+  aceito: o 19/10 do 770398216 funcionou uma vez e depois passou a dar 403.
+- XMLs de setembro e outubro em `scripts/importacao/api-stone-conciliacao/`,
+  fora do Git. Regras, códigos e prova em `docs/INTEGRACAO_API_BANCOS.md`.
+
+— Claude

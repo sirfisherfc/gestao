@@ -7,18 +7,22 @@ mudar as tabelas nem as regras do painel.
 
 | Fonte no painel | API | Estado |
 |---|---|---|
-| Vendas Stone (`raw_stone_vendas`) | Stone, API de Conciliação | baixador pronto; falta a chave |
-| Recebíveis Stone (`raw_stone_recebiveis`) | Stone, API de Conciliação (mesmo arquivo) | baixador pronto; falta a chave |
+| Recebíveis Stone (`raw_stone_recebiveis`) | Stone, API de Conciliação | **importador pronto e provado**; falta autorizar a primeira gravação e o agendamento |
+| Vendas Stone (`raw_stone_vendas`) | Stone, API de Conciliação | continua por CSV: o arquivo não traz Pix nem Voucher |
 | Extrato BB (`raw_bb`) | BB, API Extratos | baixador pronto; faltam contrato, aplicativo e certificado |
 | Extrato Stone (`raw_stone_extrato`) | Stone, API da Conta Stone | sem acesso de cliente; a Stone pede parceria comercial |
 
-Fase 1, entregue: `scripts/importacao/api_stone_conciliacao.py` e
-`scripts/importacao/api_bb_extrato.py` **só baixam e conferem** os arquivos.
-Eles salvam em `scripts/importacao/api-*/`, pasta ignorada pelo Git, e não
-gravam no banco. Os testes sem rede ficam em `scripts/ci/test_api_bancos.py`.
+- `scripts/importacao/api_stone_conciliacao.py` baixa o XML diário de
+  conciliação por stonecode.
+- `scripts/importacao/api_stone_recebiveis.py` monta as linhas de
+  `raw_stone_recebiveis` a partir desses XML e grava pelo mesmo
+  `importar_registros` do CSV. Com `--baixar`, baixa antes os dias que faltam.
+- `scripts/importacao/api_bb_extrato.py` só baixa e confere o extrato BB.
+- Arquivos baixados ficam em `scripts/importacao/api-*/`, pasta ignorada pelo
+  Git. Testes sem rede: `scripts/ci/test_api_bancos.py`.
 
-Fase 2, pendente: gravar no painel. Depende de arquivos reais, porque o
-formato das APIs é diferente do CSV (ver "Fase 2" abaixo).
+Rotina diária, depois de autorizada:
+`python scripts/importacao/api_stone_recebiveis.py --baixar` (importa ontem).
 
 ## Passo a passo do proprietário
 
@@ -30,19 +34,20 @@ formato das APIs é diferente do CSV (ver "Fase 2" abaixo).
 2. Clicar no nome, no canto superior direito, e abrir **Perfil > Acesso e
    Segurança > Chaves de autenticação > Criar Chave**. Escolher **"API de
    Conciliação Stone"**.
-   Em 20/10/2026, o perfil pessoal do titular mostrava só "Segurança" e
-   "Aplicativos conectados" nesse grupo. Se a opção não aparecer dentro da
-   conta da empresa, pedir ao Atendimento da Stone que a habilite.
 3. Copiar a chave e colar no `gestao/.env`, sem enviá-la por chat:
    `STONE_CONCILIACAO_API_KEY=<chave>`.
 4. Testar: `python scripts/importacao/api_stone_conciliacao.py --verificar`.
-5. Baixar um mês que já foi importado por CSV, para a comparação da fase 2:
-   `python scripts/importacao/api_stone_conciliacao.py --de 2026-09-01 --ate 2026-09-30`.
 
-A chave vale para os stonecodes do CNPJ que a criou. Um stonecode de outro
-CNPJ responde HTTP 403 e precisa de uma chave criada pelo titular daquele
-CNPJ. Sem `--stonecode` nem `STONE_STONECODES`, o script lê os stonecodes
-ativos de `stone_conta`, somente leitura, com o `DATABASE_URL` do `.env`.
+Feito em 20/10/2026 com a chave "chaveapi-sirfisher". Ela funciona para
+770398216 (Praia) e 173835323 (link de pagamento). O 140366173 (Imprensa)
+respondeu 403: é de outro CNPJ e não entra no faturamento.
+
+Sem `--stonecode` nem `STONE_STONECODES`, os scripts usam os stonecodes com
+`ativa` e `entra_faturamento` em `stone_conta`, lidos com o `DATABASE_URL`
+do `.env` em modo somente leitura. Imprensa e Pub ficam de fora.
+Em 20/10/2026, o dia 19/10 do 770398216 funcionou uma vez e depois passou a
+responder 403, enquanto os outros dias continuavam aceitos. O baixador só
+desiste do stonecode quando o 403 vem antes de qualquer dia aceito.
 
 Limites documentados pela Stone: o arquivo de um dia sai no dia seguinte a
 partir das 4h (HTTP 503 antes disso), e cada combinação de stonecode e dia
@@ -116,8 +121,37 @@ usa a especificação conhecida, com os pontos abaixo configuráveis:
 - a resposta traz as linhas `Saldo Anterior` e `S A L D O`? Se trouxer, o
   script confere o saldo como o importador do CSV; se não, avisa.
 
-Na Stone, conferir no primeiro arquivo real se o `ReferenceDate` do cabeçalho
-segue `AAAAMMDD` e se o layout 2.4 traz todos os campos usados abaixo.
+## Stone: o que o arquivo de conciliação provou (20/10/2026)
+
+Comparação de setembro inteiro e de 1 a 18/10 com o que o CSV já tinha
+gravado, somente leitura:
+
+- **Recebíveis:** as 1.509 linhas de setembro (1.508 parcelas de venda e um
+  cancelamento) e as 905 de outubro montadas pela API já estão no painel com
+  a mesma chave. As 21 colunas são iguais; só o `ultimo_status` difere em 260
+  parcelas, em que a API diz "Pago" e o CSV, exportado antes, "Aberto".
+  Nenhuma view lê esse campo.
+- **Regras do CSV reproduzidas:** STONE ID = `AcquirerTransactionKey`;
+  `data_venda` = `CaptureLocalDateTime`; vencimento = `PaymentDate`, ou a
+  previsão enquanto não pago; `desconto_mdr` = líquido − bruto; antecipação
+  e unificado zero; `entradas_brutas` = bruto. Cancelamento: valores
+  negativos, data do evento, vencimento da cobrança e "Cancelamento Parcial"
+  quando a devolução é menor que a venda.
+- **Códigos:** BrandId 1 Visa, 2 MasterCard, 3 AmericanExpress, 171 Elo;
+  AccountType 1 Debito, 2 Credito, 3 Debito Pre-pago, 4 Credito Pre-pago.
+  Código novo, chargeback e cancelamento de venda parcelada recusam a carga
+  inteira, com orientação de usar o CSV do dia, até ganharem regra conferida.
+- **Por que só recebíveis:** o arquivo traz apenas cartão. As 528 vendas Pix
+  e as 26 Voucher de setembro não aparecem. Pix e Voucher não geram recebível
+  na Stone, então o importador de recebíveis cobre 100% do CSV de
+  recebíveis. Gravar só as vendas com cartão faria `corte_venda`, que usa a
+  maior `data_venda` de `raw_stone_vendas`, tratar dias sem Pix como
+  fechados. `recebimento_projetado` já corta na maior `data_venda` de
+  `raw_stone_recebiveis`, então recebíveis em dia só melhoram a projeção.
+- **Pix pela API:** existe um arquivo próprio
+  (`POST .../conciliation-file/pix/{data}`), mas a Stone entrega o link por
+  webhook. Exige um endereço público para receber o aviso, por exemplo uma
+  Edge Function. Fica para uma decisão futura.
 
 ## Fase 2: gravar no painel
 
@@ -125,14 +159,6 @@ Regra comum: a API entra pelas mesmas tabelas e pelo mesmo
 `importar_registros`, com `on conflict do nothing`. Uma linha que já veio por
 CSV não pode entrar de novo pela API.
 
-- **Vendas Stone:** a chave é `stone_id`. Hipótese a provar: o STONE ID do
-  CSV é o `AcquirerTransactionKey` do XML. O XML traz códigos (`BrandId`,
-  `AccountType`, `EntryMode`, `PoiType`) onde o CSV traz textos (bandeira,
-  produto, meio de captura, status); o mapeamento precisa reproduzir os
-  textos que as views usam.
-- **Recebíveis Stone:** a chave é `(stone_id, n_parcela, categoria)`.
-  Parcelas vêm de `Installments`; cancelamentos e chargebacks viram
-  categorias próprias. Conferir valores bruto e líquido por parcela.
 - **Extrato BB:** `dedup_hash` = md5 de
   `data|lançamento|documento|valor|detalhes`. Hipótese: `textoDescricaoHistorico`,
   `numeroDocumento` e `textoInformacaoComplementar` correspondem a
@@ -142,7 +168,7 @@ CSV não pode entrar de novo pela API.
 - **Prova antes de gravar:** baixar um mês já importado, gerar as linhas da
   API em `--dry-run` e comparar chaves, quantidades e totais com o banco.
   Só gravar quando o mês bater sem diferença.
-- **Agendamento** (decidir depois da prova): Agendador de Tarefas do Windows
+- **Agendamento** (decisão do proprietário): Agendador de Tarefas do Windows
   num dos PCs (depende do PC ligado), GitHub Actions com segredos (roda na
   nuvem, mas guarda `DATABASE_URL`, chaves e certificado no GitHub) ou Edge
   Function do Supabase com `pg_cron`. Cada opção exige decisão explícita

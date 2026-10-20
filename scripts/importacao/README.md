@@ -120,11 +120,17 @@ O extrato da conta BS Cash (`05_importar_bs_cash.py`) é gravado por inteiro em
 **Parâmetros > Fontes financeiras > Considerar desde**. Data vazia inclui todo
 o histórico; isso evita levar para outra empresa o corte legado desta base.
 
-## Download por API (fase 1)
+## Importação por API
 
-`api_stone_conciliacao.py` (vendas e recebíveis Stone) e `api_bb_extrato.py`
-(extrato BB) baixam os arquivos pelas APIs dos bancos para
-`scripts/importacao/api-*/`, ignorada pelo Git. Eles **não gravam no banco**
-e não entram no BAT nem no dispatcher. Ambos aceitam `--verificar` para
-testar as credenciais. Passo a passo, variáveis do `.env` e o plano para
-gravar no painel: `docs/INTEGRACAO_API_BANCOS.md`.
+`api_stone_conciliacao.py` (arquivo de conciliação Stone) e
+`api_bb_extrato.py` (extrato BB) baixam os arquivos pelas APIs dos bancos para
+`scripts/importacao/api-*/`, ignorada pelo Git, sem gravar no banco. Ambos
+aceitam `--verificar` para testar as credenciais.
+
+`api_stone_recebiveis.py` lê esses XML e grava `raw_stone_recebiveis` com a
+mesma chave, as mesmas convenções e o mesmo `importar_registros` do CSV de
+recebíveis; os dois caminhos convivem sem duplicar. `--baixar` busca antes os
+dias que faltam e `--dry-run` compara com o painel sem gravar. Ainda não entra
+no BAT nem no dispatcher. Vendas Stone continuam pelo CSV, porque o arquivo
+da API não traz Pix nem Voucher. Detalhes e prova de equivalência:
+`docs/INTEGRACAO_API_BANCOS.md`.

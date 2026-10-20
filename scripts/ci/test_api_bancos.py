@@ -25,6 +25,7 @@ sys.path.insert(0, str(IMPORT_DIR))
 import api_bb_extrato
 import api_cliente
 import api_stone_conciliacao
+import api_stone_recebiveis
 from importacao_core import ErroOperacional, ValidacaoErro
 
 
@@ -193,6 +194,125 @@ def test_stone_baixar_periodo() -> None:
             esperar_erro(ErroOperacional, "7 consultas por hora", api_stone_conciliacao.baixar_periodo, "k", ["777"], dias[:1], "XML2_4", pasta, False)
 
 
+def xml_conciliacao(dia: str, transacoes: str = "", liquidacoes: str = "") -> bytes:
+    return f"""<Conciliation>
+  <Header><StoneCode>123456789</StoneCode><ReferenceDate>{dia}</ReferenceDate><LayoutVersion>2.4</LayoutVersion></Header>
+  <FinancialTransactions>{transacoes}</FinancialTransactions>
+  <FinancialEvents><Event/></FinancialEvents>
+  <FinancialTransactionsAccounts>{liquidacoes}</FinancialTransactionsAccounts>
+</Conciliation>""".encode()
+
+
+def captura_xml(chave: str, *, brand: str = "2", account: str = "3", eventos: str = "<Captures>1</Captures>") -> str:
+    return f"""<Transaction><Events>{eventos}</Events>
+  <AcquirerTransactionKey>{chave}</AcquirerTransactionKey><CaptureLocalDateTime>20260907194223</CaptureLocalDateTime>
+  <AccountType>{account}</AccountType><NumberOfInstallments>1</NumberOfInstallments><BrandId>{brand}</BrandId>
+  <Installments><Installment><InstallmentNumber>1</InstallmentNumber><GrossAmount>29.800000</GrossAmount>
+    <NetAmount>29.493060</NetAmount><PrevisionPaymentDate>20260908</PrevisionPaymentDate></Installment></Installments>
+</Transaction>"""
+
+
+CANCELAMENTO_XML = """<Transaction><Events><Cancellations>1</Cancellations></Events>
+  <AcquirerTransactionKey>{chave}</AcquirerTransactionKey>
+  <Cancellations><Cancellation><OperationKey>op-1</OperationKey><CancellationDateTime>20260908022326</CancellationDateTime>
+    <ReturnedAmount>{devolvido}</ReturnedAmount><Billing><ChargedAmount>29.493060</ChargedAmount>
+    <PrevisionChargeDate>20260909</PrevisionChargeDate></Billing></Cancellation></Cancellations>
+</Transaction>"""
+
+
+class BancoFake:
+    def __init__(self, vendas=None):
+        self.vendas = vendas or {}
+
+    def documento(self, stonecode):
+        return "00.000.000/0001-00"
+
+    def venda(self, stone_id):
+        return self.vendas.get(stone_id)
+
+
+def test_recebiveis_stone() -> None:
+    from decimal import Decimal
+
+    pagamento = """<Transaction><AcquirerTransactionKey>11111111111111</AcquirerTransactionKey>
+      <Installments><Installment><InstallmentNumber>1</InstallmentNumber><PaymentDate>20260908</PaymentDate>
+      <OriginalPaymentDate>20260908</OriginalPaymentDate></Installment></Installments></Transaction>"""
+    leitura = api_stone_recebiveis.ler_arquivo(
+        xml_conciliacao("20260907", captura_xml("11111111111111")), "123456789", date(2026, 9, 7)
+    )
+    leitura.juntar(api_stone_recebiveis.ler_arquivo(
+        xml_conciliacao("20260908", CANCELAMENTO_XML.format(chave="11111111111111", devolvido="29.800000"), pagamento),
+        "123456789", date(2026, 9, 8),
+    ))
+    if leitura.eventos_ignorados != 2:
+        raise AssertionError("eventos financeiros deveriam ser contados e ignorados")
+    registros, rejeicoes = api_stone_recebiveis.montar_registros(leitura, BancoFake())
+    if rejeicoes or [item["categoria"] for item in registros] != ["Venda", "Cancelamento"]:
+        raise AssertionError(f"venda + cancelamento montados errado: {rejeicoes}")
+    venda, cancelamento = registros
+    esperado_venda = {
+        "bandeira": "MasterCard", "produto": "Debito Pre-pago", "n_parcela": 1, "qtd_parcelas": 1,
+        "valor_bruto": Decimal("29.800000"), "valor_liquido": Decimal("29.493060"),
+        "desconto_mdr": Decimal("-0.306940"), "entradas_brutas": Decimal("29.800000"),
+        "saidas_brutas": Decimal("0"), "ultimo_status": "Pago", "data_vencimento": date(2026, 9, 8),
+        "documento": "00.000.000/0001-00", "stonecode": "123456789",
+    }
+    for campo, valor in esperado_venda.items():
+        if venda[campo] != valor:
+            raise AssertionError(f"Venda: {campo} = {venda[campo]!r}, esperado {valor!r}")
+    if str(venda["data_venda"]) != "2026-09-07 19:42:23":
+        raise AssertionError("data da venda deve ser a captura local, com segundos")
+    esperado_cancelamento = {
+        "valor_bruto": Decimal("-29.800000"), "valor_liquido": Decimal("-29.493060"),
+        "desconto_mdr": Decimal("0.306940"), "entradas_brutas": Decimal("0"),
+        "saidas_brutas": Decimal("-29.800000"), "data_vencimento": date(2026, 9, 9),
+        "produto": "Debito Pre-pago", "ultimo_status": "Aberto",
+    }
+    for campo, valor in esperado_cancelamento.items():
+        if cancelamento[campo] != valor:
+            raise AssertionError(f"Cancelamento: {campo} = {cancelamento[campo]!r}, esperado {valor!r}")
+    if str(cancelamento["data_venda"]) != "2026-09-08 02:23:26":
+        raise AssertionError("data do cancelamento deve ser a do evento")
+
+    # Cancelamento de venda importada antes do período: dados vêm do painel.
+    parcial = api_stone_recebiveis.ler_arquivo(
+        xml_conciliacao("20260908", CANCELAMENTO_XML.format(chave="22222222222222", devolvido="10.000000")),
+        "123456789", date(2026, 9, 8),
+    )
+    conhecida = api_stone_recebiveis.VendaConhecida("Visa", "Credito", 1, Decimal("29.80"))
+    registros, rejeicoes = api_stone_recebiveis.montar_registros(parcial, BancoFake({"22222222222222": conhecida}))
+    if rejeicoes or registros[0]["categoria"] != "Cancelamento Parcial":
+        raise AssertionError("devolução menor que a venda deveria ser Cancelamento Parcial")
+    _, rejeicoes = api_stone_recebiveis.montar_registros(parcial, BancoFake())
+    if not rejeicoes or "importe o CSV" not in rejeicoes[0]:
+        raise AssertionError("cancelamento sem venda conhecida deveria ser recusado")
+    parcelada = api_stone_recebiveis.VendaConhecida("Visa", "Credito", 3, Decimal("29.80"))
+    _, rejeicoes = api_stone_recebiveis.montar_registros(parcial, BancoFake({"22222222222222": parcelada}))
+    if not rejeicoes or "parcelada" not in rejeicoes[0]:
+        raise AssertionError("cancelamento de venda parcelada deveria ser recusado")
+
+    desconhecida = api_stone_recebiveis.ler_arquivo(
+        xml_conciliacao("20260907", captura_xml("33333333333333", brand="99")), "123456789", date(2026, 9, 7)
+    )
+    registros, rejeicoes = api_stone_recebiveis.montar_registros(desconhecida, BancoFake())
+    if registros or not any("BrandId 99" in item for item in rejeicoes):
+        raise AssertionError("bandeira sem mapeamento deveria recusar a parcela")
+    chargeback = api_stone_recebiveis.ler_arquivo(
+        xml_conciliacao("20260907", captura_xml("44444444444444", eventos="<Chargebacks>1</Chargebacks>")),
+        "123456789", date(2026, 9, 7),
+    )
+    if not any("Chargebacks sem regra" in item for item in chargeback.rejeicoes):
+        raise AssertionError("chargeback deveria recusar a carga até ter regra")
+
+    existentes = {("11111111111111", 1, "Venda"): {
+        "data_venda": venda["data_venda"], "data_vencimento": date(2026, 9, 8),
+        "valor_bruto": Decimal("29.80"), "valor_liquido": Decimal("29.40"),
+    }}
+    contagem = api_stone_recebiveis.comparar([venda, cancelamento], existentes)
+    if contagem != {"novas": 1, "iguais": 0, "diferentes": 1}:
+        raise AssertionError(f"comparação com o painel errada: {contagem}")
+
+
 VARIAVEIS_BB = {
     "BB_AMBIENTE": "homologacao",
     "BB_CLIENT_ID": "id-teste",
@@ -332,11 +452,12 @@ def main() -> int:
     test_stone_requisicao()
     test_stone_cabecalho_e_erros()
     test_stone_baixar_periodo()
+    test_recebiveis_stone()
     test_bb_configuracao()
     test_bb_token_e_paginas()
     test_bb_blocos_e_gravacao()
     test_cli_sem_credenciais()
-    print("API_BANCOS_TESTS_OK stone=3 bb=3 cli=2")
+    print("API_BANCOS_TESTS_OK stone=3 recebiveis=1 bb=3 cli=2")
     return 0
 
 

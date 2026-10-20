@@ -35,7 +35,10 @@ MAXIMO_DIAS = 366
 MENSAGENS = {
     400: "data de referência ausente ou inválida",
     401: "chave recusada; confira STONE_CONCILIACAO_API_KEY no .env",
-    403: "a chave não vale para esse stonecode (ela cobre só os stonecodes do CNPJ que a criou)",
+    403: (
+        "acesso negado; a chave cobre só os stonecodes do CNPJ que a criou. "
+        "Se o stonecode funcionou em outro dia, tente este de novo mais tarde"
+    ),
     429: "limite da Stone: 7 consultas por hora para o mesmo stonecode e dia; tente mais tarde",
     503: "a Stone está atualizando os arquivos; tente de novo depois das 4h (Brasília)",
 }
@@ -62,17 +65,17 @@ class ResumoArquivo:
         )
 
 
-def _local(tag: str) -> str:
+def local(tag: str) -> str:
     return tag.rsplit("}", 1)[-1]
 
 
-def _filhos(elemento, nome: str):
-    return [filho for filho in elemento if _local(filho.tag) == nome]
+def filhos(elemento, nome: str):
+    return [filho for filho in elemento if local(filho.tag) == nome]
 
 
-def _texto(elemento, nome: str) -> str | None:
+def texto(elemento, nome: str) -> str | None:
     for filho in elemento:
-        if _local(filho.tag) == nome:
+        if local(filho.tag) == nome:
             return (filho.text or "").strip() or None
     return None
 
@@ -86,28 +89,28 @@ def resumir_xml(dados: bytes) -> ResumoArquivo:
         raiz = ElementTree.fromstring(dados)
     except ElementTree.ParseError as exc:
         raise ValidacaoErro("a Stone devolveu um XML inválido") from exc
-    if _local(raiz.tag) != "Conciliation":
+    if local(raiz.tag) != "Conciliation":
         raise ValidacaoErro("o XML recebido não é um arquivo de conciliação")
 
-    cabecalho = next(iter(_filhos(raiz, "Header")), None)
+    cabecalho = next(iter(filhos(raiz, "Header")), None)
     transacoes = parcelas = liquidacoes = eventos = pagamentos = 0
     for secao in raiz:
-        nome = _local(secao.tag)
+        nome = local(secao.tag)
         if nome == "FinancialTransactions":
-            for transacao in _filhos(secao, "Transaction"):
+            for transacao in filhos(secao, "Transaction"):
                 transacoes += 1
-                for grupo in _filhos(transacao, "Installments"):
-                    parcelas += len(_filhos(grupo, "Installment"))
+                for grupo in filhos(transacao, "Installments"):
+                    parcelas += len(filhos(grupo, "Installment"))
         elif nome == "FinancialTransactionsAccounts":
-            liquidacoes += len(_filhos(secao, "Transaction"))
+            liquidacoes += len(filhos(secao, "Transaction"))
         elif nome.startswith("FinancialEvent") and not nome.endswith("Expected"):
-            eventos += len(_filhos(secao, "Event"))
+            eventos += len(filhos(secao, "Event"))
         elif nome == "Payments":
-            pagamentos += len(_filhos(secao, "Payment"))
+            pagamentos += len(filhos(secao, "Payment"))
     return ResumoArquivo(
-        stonecode=_texto(cabecalho, "StoneCode") if cabecalho is not None else None,
-        data_referencia=_texto(cabecalho, "ReferenceDate") if cabecalho is not None else None,
-        layout=_texto(cabecalho, "LayoutVersion") if cabecalho is not None else None,
+        stonecode=texto(cabecalho, "StoneCode") if cabecalho is not None else None,
+        data_referencia=texto(cabecalho, "ReferenceDate") if cabecalho is not None else None,
+        layout=texto(cabecalho, "LayoutVersion") if cabecalho is not None else None,
         transacoes=transacoes,
         parcelas=parcelas,
         liquidacoes=liquidacoes,
@@ -144,7 +147,11 @@ def baixar_dia(chave: str, stonecode: str, dia: date, layout: str) -> tuple[byte
 
 
 def stonecodes_do_banco() -> list[str]:
-    """Lista os stonecodes ativos do painel, somente leitura."""
+    """Lista os stonecodes que entram no faturamento do painel, somente leitura.
+
+    Imprensa e Pub ficam de fora: são outras casas, e misturá-las ao painel já
+    contaminou o faturamento uma vez (ver ``docs/CANAL_IA.md``).
+    """
     from importacao_core import _database_url
 
     try:
@@ -157,7 +164,9 @@ def stonecodes_do_banco() -> list[str]:
     try:
         conn.set_session(readonly=True)
         with conn.cursor() as cur:
-            cur.execute("select stonecode from stone_conta where ativa order by stonecode;")
+            cur.execute(
+                "select stonecode from stone_conta where ativa and entra_faturamento order by stonecode;"
+            )
             return [linha[0] for linha in cur.fetchall()]
     finally:
         conn.close()
@@ -202,7 +211,7 @@ def criar_parser() -> argparse.ArgumentParser:
     parser.add_argument("--verificar", action="store_true", help="testa a chave com o arquivo de ontem do primeiro stonecode, sem salvar")
     parser.add_argument("--de", type=_data_iso, help="primeiro dia (AAAA-MM-DD); padrão: ontem")
     parser.add_argument("--ate", type=_data_iso, help="último dia (AAAA-MM-DD); padrão: igual a --de")
-    parser.add_argument("--stonecode", action="append", help="stonecode a baixar; repita para vários (padrão: STONE_STONECODES ou os ativos do painel)")
+    parser.add_argument("--stonecode", action="append", help="stonecode a baixar; repita para vários (padrão: STONE_STONECODES ou os que entram no faturamento)")
     parser.add_argument("--layout", choices=LAYOUTS, default=LAYOUT_PADRAO, help=f"layout do XML (padrão: {LAYOUT_PADRAO})")
     parser.add_argument("--pasta", type=Path, default=PASTA_PADRAO, help="pasta de destino, fora do Git")
     parser.add_argument("--sobrescrever", action="store_true", help="baixa de novo arquivos que já existem")
@@ -224,6 +233,7 @@ def baixar_periodo(chave: str, stonecodes: list[str], dias: list[date], layout: 
     falhas = 0
     for stonecode in stonecodes:
         print(f"\n== Stonecode {stonecode} ==")
+        aceito = False
         for dia in dias:
             destino = pasta / stonecode / f"{dia.isoformat()}.xml"
             if destino.exists() and not sobrescrever:
@@ -236,9 +246,12 @@ def baixar_periodo(chave: str, stonecodes: list[str], dias: list[date], layout: 
                 print(f"  {dia}: ERRO {exc}")
                 if exc.status in STATUS_QUE_ENCERRAM:
                     raise
-                if exc.status == 403:
+                # 403 logo na primeira consulta indica stonecode de outro CNPJ;
+                # depois de um dia aceito, a Stone também nega dias avulsos.
+                if exc.status == 403 and not aceito:
                     break
                 continue
+            aceito = True
             salvar_atomico(destino, dados)
             print(f"  {dia}: {resumo.texto()}")
     return falhas
