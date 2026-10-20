@@ -24,10 +24,15 @@ formato das APIs é diferente do CSV (ver "Fase 2" abaixo).
 
 ### Stone: API de Conciliação
 
-1. Entrar no Portal Stone como **titular** da conta. O menu só aparece para o
-   titular.
-2. Abrir **Perfil > Chaves de Autenticação > Criar Chave** e escolher
-   **"API de Conciliação Stone"**.
+1. No computador, entrar em `conta.stone.com.br` como **titular** e trocar
+   para a conta da empresa dona dos stonecodes. A Stone documenta este passo
+   só na web, não no app.
+2. Clicar no nome, no canto superior direito, e abrir **Perfil > Acesso e
+   Segurança > Chaves de autenticação > Criar Chave**. Escolher **"API de
+   Conciliação Stone"**.
+   Em 20/10/2026, o perfil pessoal do titular mostrava só "Segurança" e
+   "Aplicativos conectados" nesse grupo. Se a opção não aparecer dentro da
+   conta da empresa, pedir ao Atendimento da Stone que a habilite.
 3. Copiar a chave e colar no `gestao/.env`, sem enviá-la por chat:
    `STONE_CONCILIACAO_API_KEY=<chave>`.
 4. Testar: `python scripts/importacao/api_stone_conciliacao.py --verificar`.
