@@ -14,8 +14,11 @@ name: Importação diária por API
 # detalhe no banco e o log mostra só as linhas de erro.
 
 on:
-  schedule:
-    - cron: "43 7,12 * * *"
+  # Agendamento pausado em 20/10/2026: a chave da Conciliação Stone responde
+  # 403 e STONE_CONCILIACAO_API_KEY ainda não está nos Secrets. Para religar,
+  # descomentar as duas linhas abaixo depois que --verificar voltar a passar.
+  # schedule:
+  #   - cron: "43 7,12 * * *"
   workflow_dispatch:
     inputs:
       dias:
@@ -43,7 +46,7 @@ jobs:
     steps:
       - name: Segredos cadastrados
         run: |
-          for nome in DATABASE_URL SUPABASE_URL STONE_CONCILIACAO_API_KEY; do
+          for nome in DATABASE_URL STONE_CONCILIACAO_API_KEY; do
             [ -n "${!nome}" ] || { echo "Segredo $nome não cadastrado em Settings > Secrets and variables > Actions"; exit 1; }
           done
 

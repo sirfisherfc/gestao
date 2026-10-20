@@ -4628,3 +4628,19 @@ de segredos/dados brutos; conferir a sincronização dos três repositórios e d
 pares de orientação da raiz ao concluir a troca de IA.
 
 — Codex
+
+## 2026-10-20 · Claude — revisão do handoff Pluggy
+
+- Handoff do Codex conferido contra o estado real: workflow Pluggy com
+  sucesso no GitHub, Secrets listados batem com o recado, `integracao_execucao`
+  com as cargas manual e `github` do Extrato Stone (Pluggy).
+- `importacao-diaria.yml` (Conciliação Stone) teve o **agendamento pausado**:
+  sem `STONE_CONCILIACAO_API_KEY` nos Secrets e com a chave em 403, falharia
+  duas vezes por dia. Execução manual mantida; religar descomentando o
+  `schedule` quando `api_stone_conciliacao.py --verificar` passar.
+  `SUPABASE_URL` deixou de ser obrigatório nesse workflow.
+- Status > Integrações automáticas só cobra "sem execução" a partir do
+  primeiro dia registrado de cada fonte, evitando pendências falsas antes da
+  integração existir.
+
+— Claude

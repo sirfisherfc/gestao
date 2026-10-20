@@ -49,14 +49,16 @@ function pendenciasIntegracao(rows){
   rows.forEach(row=>{const chave=`${row.fonte}|${row.dia_referencia}|${row.stonecode||''}`;const atual=ultima.get(chave);if(!atual||row.executado_em>atual.executado_em)ultima.set(chave,row);});
   const pendencias=[...ultima.values()].filter(row=>row.situacao==='erro');
   const grupos=new Map();
-  rows.forEach(row=>grupos.set(`${row.fonte}|${row.stonecode||''}`,{fonte:row.fonte,stonecode:row.stonecode}));
+  // Só cobra dias a partir do primeiro registrado de cada fonte: antes disso a
+  // integração não existia.
+  rows.forEach(row=>{const chave=`${row.fonte}|${row.stonecode||''}`;const grupo=grupos.get(chave);if(!grupo||row.dia_referencia<grupo.inicio)grupos.set(chave,{fonte:row.fonte,stonecode:row.stonecode,inicio:row.dia_referencia});});
   const hoje=new Date();
   for(let atraso=1;atraso<=DIAS_INTEGRACAO;atraso++){
     const dia=new Date(hoje.getFullYear(),hoje.getMonth(),hoje.getDate()-atraso);
     // O arquivo do dia anterior só existe a partir das 4h.
     if(atraso===1&&hoje.getHours()<6)continue;
     const iso=isoDia(dia);
-    grupos.forEach(grupo=>{if(!ultima.has(`${grupo.fonte}|${iso}|${grupo.stonecode||''}`))pendencias.push({...grupo,dia_referencia:iso,situacao:'sem execução',mensagem:'A rotina não rodou para este dia.',executado_em:null,execucao_url:null});});
+    grupos.forEach(({inicio,...grupo})=>{if(iso>=inicio&&!ultima.has(`${grupo.fonte}|${iso}|${grupo.stonecode||''}`))pendencias.push({...grupo,dia_referencia:iso,situacao:'sem execução',mensagem:'A rotina não rodou para este dia.',executado_em:null,execucao_url:null});});
   }
   return pendencias.sort((a,b)=>String(b.dia_referencia).localeCompare(String(a.dia_referencia)));
 }
