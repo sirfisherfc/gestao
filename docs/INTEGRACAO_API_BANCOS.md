@@ -7,8 +7,10 @@ mudar as tabelas nem as regras do painel.
 
 | Fonte no painel | API | Estado |
 |---|---|---|
-| Recebíveis Stone (`raw_stone_recebiveis`) | Stone, API de Conciliação | **importador pronto e provado**; falta autorizar a primeira gravação e o agendamento |
-| Vendas Stone (`raw_stone_vendas`) | Stone, API de Conciliação | continua por CSV: o arquivo não traz Pix nem Voucher |
+| Recebíveis Stone (`raw_stone_recebiveis`) | Stone, API de Conciliação | importador provado; gravação autorizada; rotina no GitHub aguarda segredos e a chave voltar a responder |
+| Vendas Stone com cartão | Stone, API de Conciliação | mapeamento provado; grava junto com o Pix do mesmo dia |
+| Vendas Stone Pix (23% do faturamento Stone) | Stone, arquivo Pix por webhook | código pronto; falta publicar a Edge Function e receber o primeiro arquivo |
+| Vendas Stone Voucher (0,8%) | nenhuma | a Stone não entrega Voucher por API; segue pelo CSV |
 | Extrato BB (`raw_bb`) | BB, API Extratos | baixador pronto; faltam contrato, aplicativo e certificado |
 | Extrato Stone (`raw_stone_extrato`) | Stone, API da Conta Stone | sem acesso de cliente; a Stone pede parceria comercial |
 
@@ -17,12 +19,45 @@ mudar as tabelas nem as regras do painel.
 - `scripts/importacao/api_stone_recebiveis.py` monta as linhas de
   `raw_stone_recebiveis` a partir desses XML e grava pelo mesmo
   `importar_registros` do CSV. Com `--baixar`, baixa antes os dias que faltam.
+- `scripts/importacao/api_stone_pix.py` cadastra o webhook, pede o arquivo
+  Pix e compara os arquivos recebidos com o painel.
+- `scripts/importacao/integracao_log.py` grava cada dia processado em
+  `integracao_execucao`, mostrado em Status > Integrações automáticas.
 - `scripts/importacao/api_bb_extrato.py` só baixa e confere o extrato BB.
 - Arquivos baixados ficam em `scripts/importacao/api-*/`, pasta ignorada pelo
   Git. Testes sem rede: `scripts/ci/test_api_bancos.py`.
 
-Rotina diária, depois de autorizada:
-`python scripts/importacao/api_stone_recebiveis.py --baixar` (importa ontem).
+## Rotina diária no GitHub Actions
+
+`.github/workflows/importacao-diaria.yml` roda às 04:43 e às 09:43 de
+Fortaleza e reprocessa os últimos 3 dias, ou quantos forem pedidos na
+execução manual (Actions > Importação diária por API > Run workflow). A
+carga não duplica, então um dia que falhou entra na rodada seguinte. Não
+roda à meia-noite porque o arquivo de um dia só existe a partir das 4h do
+dia seguinte.
+
+O repositório é público, então o log do Actions também é. A rotina escreve
+no log só as linhas de erro; o detalhe fica em `integracao_execucao`.
+
+Segredos em Settings > Secrets and variables > Actions, com os valores do
+`gestao/.env`: `DATABASE_URL`, `SUPABASE_URL` e `STONE_CONCILIACAO_API_KEY`.
+Sem eles, o primeiro passo da rotina falha avisando qual falta.
+
+## Pix pela API: o que falta
+
+1. Publicar `supabase/functions/stone-webhook` com `verify_jwt = false` e
+   cadastrar o segredo `STONE_WEBHOOK_TOKEN` na função. O mesmo valor vai no
+   `gestao/.env`. Sem o segredo, a função recusa tudo com 401.
+2. `python scripts/importacao/api_stone_pix.py --cadastrar-webhook`. A Stone
+   testa a URL antes de salvar.
+3. `python scripts/importacao/api_stone_pix.py --solicitar --de 2026-09-01 --ate 2026-09-07`
+   e depois `--analisar` no mesmo período. A análise diz qual coluna casa com
+   o STONE ID das vendas Pix do CSV (esperado: `pix_transaction__e2e_id`,
+   formato `E` + 31 caracteres), se o valor vem em reais ou centavos, o fuso de
+   `created_at` e se o terminal bate.
+4. Com o mapeamento confirmado, criar `api_stone_vendas.py`: grava cartão e
+   Pix de um dia só quando os dois arquivos daquele dia chegaram, para
+   `corte_venda` não avançar com dia incompleto. Entrar na rotina diária.
 
 ## Passo a passo do proprietário
 
@@ -45,9 +80,13 @@ respondeu 403: é de outro CNPJ e não entra no faturamento.
 Sem `--stonecode` nem `STONE_STONECODES`, os scripts usam os stonecodes com
 `ativa` e `entra_faturamento` em `stone_conta`, lidos com o `DATABASE_URL`
 do `.env` em modo somente leitura. Imprensa e Pub ficam de fora.
-Em 20/10/2026, o dia 19/10 do 770398216 funcionou uma vez e depois passou a
-responder 403, enquanto os outros dias continuavam aceitos. O baixador só
-desiste do stonecode quando o 403 vem antes de qualquer dia aceito.
+Incidente de 20/10/2026: depois de cerca de 120 consultas em uma hora, a
+chave passou a receber 403 em todos os dias dos dois stonecodes, inclusive
+dias baixados com sucesso minutos antes. Um 403 não é 401: a chave continua
+reconhecida, mas sem permissão para os stonecodes. Conferir no site da Stone
+se a chave segue ativa e com os stonecodes; se estiver, perguntar à Stone se
+há bloqueio por volume. Em operação normal a rotina faz poucas consultas por
+dia: 3 dias × 2 stonecodes, pulando o que já baixou.
 
 Limites documentados pela Stone: o arquivo de um dia sai no dia seguinte a
 partir das 4h (HTTP 503 antes disso), e cada combinação de stonecode e dia
@@ -56,9 +95,24 @@ está na pasta, salvo com `--sobrescrever`.
 
 ### Stone: extrato da Conta Stone
 
-A API da Conta Stone (saldo e extrato) é liberada pelo time comercial, por
-parceria. Pergunta para a Stone: "a API da Conta Stone libera o extrato para
-a própria empresa, sem ser parceira?". Enquanto isso, o CSV continua.
+A API da Conta Stone (saldo, extrato, Pix e boletos) é a mesma que sistemas
+de gestão como o vhsys usam. A Stone a libera por contrato de parceria com o
+time comercial, não por chave no site. Pedido a fazer: "queremos a API da
+Conta Stone para o sistema próprio da Sir Fisher ler o extrato da nossa
+conta; vocês liberam como parceiro de integração própria?". Enquanto isso, o
+CSV continua.
+
+### Alternativas para automatizar todo o painel
+
+| Caminho | Cobre | Custo | Observação |
+|---|---|---|---|
+| APIs diretas (atual) | Stone cartão, Pix e recebíveis; BB pela API Extratos; Conta Stone se a parceria sair | sem mensalidade conhecida; confirmar tarifa do BB | mais trabalho por banco |
+| Open Finance via agregador (ex.: Pluggy Data) | extratos de todas as contas, inclusive Stone, BB, Inter e BNB | a partir de R$ 2.500/mês (Pluggy, out/2026) | consentimento renovado periodicamente; descrições diferentes do CSV pedem data de virada |
+| Meu Pluggy (gratuito) | até 5 contas do mesmo titular | grátis | a Pluggy proíbe uso comercial no plano grátis; não serve para a empresa |
+| Sistema de gestão integrado à Stone (ex.: vhsys) | extrato da Conta Stone | mensalidade do sistema | o painel leria do sistema, mais uma dependência |
+
+Não entram em nenhum caminho: vendas em espécie, que são lançamento manual,
+e Voucher, que a Stone não entrega por API.
 
 ### Banco do Brasil: API Extratos
 
@@ -98,6 +152,8 @@ a própria empresa, sem ser parceira?". Enquanto isso, o CSV continua.
 |---|---|
 | `STONE_CONCILIACAO_API_KEY` | chave da API de Conciliação |
 | `STONE_STONECODES` | opcional; lista separada por vírgula |
+| `STONE_WEBHOOK_TOKEN` | token da URL do webhook Pix; o mesmo valor fica nos segredos da Edge Function |
+| `SUPABASE_URL` | já existente; base da URL do webhook |
 | `BB_AMBIENTE` | `homologacao` (padrão) ou `producao` |
 | `BB_CLIENT_ID`, `BB_CLIENT_SECRET` | credenciais OAuth da aplicação |
 | `BB_DEVELOPER_APP_KEY` | `developer_application_key` da aplicação |
@@ -168,11 +224,7 @@ CSV não pode entrar de novo pela API.
 - **Prova antes de gravar:** baixar um mês já importado, gerar as linhas da
   API em `--dry-run` e comparar chaves, quantidades e totais com o banco.
   Só gravar quando o mês bater sem diferença.
-- **Agendamento** (decisão do proprietário): Agendador de Tarefas do Windows
-  num dos PCs (depende do PC ligado), GitHub Actions com segredos (roda na
-  nuvem, mas guarda `DATABASE_URL`, chaves e certificado no GitHub) ou Edge
-  Function do Supabase com `pg_cron`. Cada opção exige decisão explícita
-  sobre onde ficam os segredos.
+- **Agendamento:** decidido em 20/10/2026, GitHub Actions (ver "Rotina diária").
 
 ## Segurança
 

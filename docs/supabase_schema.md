@@ -1357,6 +1357,29 @@ movimento real da casa.
 - `escalas.html` entra em `pagina_permissao` com `papeis = {}`: só admin. Para
   liberar o gerente basta marcar em `permissoes.html`, sem migration nova.
 
+## Integrações por API (20261020000000)
+
+### integracao_execucao
+- Tipo: tabela de registro. Os importadores por API (`api_stone_recebiveis.py`
+  e, depois, Pix e vendas) gravam uma linha por fonte, dia e stonecode a cada
+  rodada, com `situacao` `ok`, `sem_movimento` ou `erro`, linhas novas,
+  mensagem e o link da execução no GitHub Actions.
+- RLS ligado e sem policy; `anon` e `authenticated` sem grant. Os scripts
+  conectam como dono.
+
+### app_integracao_execucao
+- Tipo: view `security_barrier = true, security_invoker = false`, filtrada por
+  `usuario_tem_papel(array['admin'])`, com `grant select` para `authenticated`.
+- Uso: `status.html` > Integrações automáticas. Vale a tentativa mais recente
+  de cada fonte/dia/stonecode; dia sem tentativa nos últimos 7 dias também
+  aparece como pendência.
+
+### stone_pix_arquivo
+- Tipo: fila dos arquivos Pix da Stone. A Edge Function `stone-webhook` grava
+  o aviso (`aviso` jsonb, `url_arquivo`) e o CSV baixado (`conteudo`);
+  `api_stone_pix.py` lê e marca `processado_em`.
+- RLS ligado e sem policy; `select, insert, update` só para `service_role`.
+
 ## Observações
 - O front-end autenticado usa views `app_*` e RPCs protegidas; tabelas internas
   não são expostas para leitura anônima.

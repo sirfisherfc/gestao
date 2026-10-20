@@ -4489,3 +4489,30 @@ diretórios antigos ("Sir Fisher - PUB", @sirfisherpub) são ação manual.
   e sincronização dos três repositórios e dos pares de orientação da raiz.
 
 — Codex
+
+## 2026-10-20 · Claude — rotina diária, registro de erros e base do Pix
+
+- Migration `20261020000000` **aplicada** (histórico 203): `integracao_execucao`
+  + view admin `app_integracao_execucao` (Status > Integrações automáticas) e
+  fila `stone_pix_arquivo` (grant só `service_role`). Grants explícitos.
+- `api_stone_recebiveis.py` grava por dia o resultado em
+  `integracao_execucao`, importa os dias que baixaram e falha no fim se faltou
+  algum. Primeira carga real (19/10): Praia falhou com 403 (registrado), link
+  de pagamento sem movimento. Nenhuma linha de recebível gravada ainda.
+- **Chave Stone em 403 desde a tarde de 20/10** para os dois stonecodes,
+  inclusive dias já baixados. Proprietário precisa conferir a chave no site;
+  não insistir com consultas.
+- `.github/workflows/importacao-diaria.yml`: 04:43 e 09:43 de Fortaleza,
+  reprocessa 3 dias. Repositório público, então o log mostra só erros.
+  **Segredos ainda não cadastrados** (a gravação automática pelo Claude foi
+  bloqueada pela política do ambiente): `DATABASE_URL`, `SUPABASE_URL`,
+  `STONE_CONCILIACAO_API_KEY`.
+- Pix: Edge Function `supabase/functions/stone-webhook` (token na URL,
+  `verify_jwt=false`) e `api_stone_pix.py` (cadastro do webhook, pedido,
+  espera e `--analisar`). **Função não publicada** (deploy bloqueado pela
+  política; precisa de autorização). STONE ID das vendas Pix do CSV tem formato
+  de end-to-end id; a análise do primeiro arquivo real confirma o mapeamento
+  antes de criar `api_stone_vendas.py` (cartão + Pix por dia).
+- Voucher (0,8% do faturamento Stone) não existe na API.
+
+— Claude

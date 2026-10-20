@@ -181,7 +181,7 @@ def test_stone_baixar_periodo() -> None:
         respostas = [403, RespostaFake(xml_segundo.replace(b"20261019", b"20261018")), RespostaFake(xml_segundo)]
         with rede(respostas) as fake:
             falhas = api_stone_conciliacao.baixar_periodo("k", ["123456789", "555"], dias, "XML2_4", pasta, False)
-        if falhas != 1 or len(fake.pedidos) != 3:
+        if [(codigo, dia) for codigo, dia, _ in falhas] != [("123456789", date(2026, 10, 19))] or len(fake.pedidos) != 3:
             raise AssertionError(f"esperado 1 falha e 3 pedidos, veio {falhas} e {len(fake.pedidos)}")
         if existente.read_bytes() != b"antigo":
             raise AssertionError("arquivo já baixado não deveria ser substituído sem --sobrescrever")
@@ -190,8 +190,16 @@ def test_stone_baixar_periodo() -> None:
         if list(pasta.rglob("*.parcial")):
             raise AssertionError("gravação atômica deixou arquivo temporário")
 
-        with rede([429]):
-            esperar_erro(ErroOperacional, "7 consultas por hora", api_stone_conciliacao.baixar_periodo, "k", ["777"], dias[:1], "XML2_4", pasta, False)
+        # 429 encerra a rodada: o dia consultado e os pendentes entram como falha.
+        with rede([429]) as fake:
+            falhas = api_stone_conciliacao.baixar_periodo("k", ["777", "888"], dias, "XML2_4", pasta, False)
+        if len(fake.pedidos) != 1 or len(falhas) != 4 or "7 consultas por hora" not in falhas[-1][2]:
+            raise AssertionError(f"429 deveria encerrar e marcar os 4 dias pendentes: {falhas}")
+        # 403 na primeira consulta descarta o stonecode inteiro, sem novos pedidos.
+        with rede([403]) as fake:
+            falhas = api_stone_conciliacao.baixar_periodo("k", ["999"], dias, "XML2_4", pasta, False)
+        if len(fake.pedidos) != 1 or len(falhas) != 2:
+            raise AssertionError(f"403 inicial deveria marcar os 2 dias com um só pedido: {falhas}")
 
 
 def xml_conciliacao(dia: str, transacoes: str = "", liquidacoes: str = "") -> bytes:
@@ -311,6 +319,59 @@ def test_recebiveis_stone() -> None:
     contagem = api_stone_recebiveis.comparar([venda, cancelamento], existentes)
     if contagem != {"novas": 1, "iguais": 0, "diferentes": 1}:
         raise AssertionError(f"comparação com o painel errada: {contagem}")
+    if venda["_origem"] != ("123456789", date(2026, 9, 7)) or cancelamento["_origem"] != ("123456789", date(2026, 9, 8)):
+        raise AssertionError("cada linha deveria apontar o arquivo de onde veio")
+
+    alvos = [("123456789", date(2026, 9, 7)), ("123456789", date(2026, 9, 8)), ("123456789", date(2026, 9, 9))]
+    execucoes = api_stone_recebiveis._execucoes(
+        alvos,
+        {alvos[0]: ("ok", 1), alvos[1]: ("sem_movimento", 0)},
+        {alvos[2]: "HTTP 403"},
+    )
+    if [(item.dia_referencia.day, item.situacao) for item in execucoes] != [(7, "ok"), (8, "sem_movimento"), (9, "erro")]:
+        raise AssertionError(f"registro de execuções por dia errado: {execucoes}")
+
+
+def test_pix_stone() -> None:
+    from datetime import datetime
+    from decimal import Decimal
+
+    import api_stone_pix
+
+    e2e = "E1823612020260907224223abcdef12"
+    for separador in (",", ";"):
+        texto = separador.join(["id", "amount", "status", "created_at", "pix_transaction__e2e_id",
+                                "pix_transaction__terminal__serial_number", "pix_transaction__fee_amount"]) + "\n"
+        texto += separador.join(["ev_1", "2980", "paid", "2026-09-07T22:42:23.000Z", e2e, "SN1", "0"]) + "\n"
+        linhas = api_stone_pix.ler_csv(texto)
+        if len(linhas) != 1 or linhas[0]["pix_transaction__e2e_id"] != e2e:
+            raise AssertionError(f"CSV Pix com '{separador}' lido errado: {linhas}")
+    if api_stone_pix.data_hora_local("2026-09-07T22:42:23.000Z") != datetime(2026, 9, 7, 19, 42, 23):
+        raise AssertionError("created_at em UTC deveria virar horário de Fortaleza")
+    esperar_erro(ValidacaoErro, "coluna id", api_stone_pix.ler_csv, "outra,coluna\n1,2\n")
+
+    vendas = {e2e: {"data_venda": datetime(2026, 9, 7, 19, 42), "valor_bruto": Decimal("29.80"), "n_serie": "SN1"}}
+    resultado = api_stone_pix.analisar(linhas, vendas)
+    if resultado["chave escolhida"] != "pix_transaction__e2e_id" or resultado["escala do valor"] != {"centavos": 1}:
+        raise AssertionError(f"análise do Pix escolheu chave ou escala errada: {resultado}")
+    if resultado["terminal igual"] != {True: 1} or resultado["data do banco - created_at local (min)"] != {0: 1}:
+        raise AssertionError(f"análise do Pix comparou terminal ou data errado: {resultado}")
+
+    with ambiente(SUPABASE_URL="https://ref.supabase.co/", STONE_WEBHOOK_TOKEN="tok"):
+        if api_stone_pix.url_webhook() != "https://ref.supabase.co/functions/v1/stone-webhook?token=tok":
+            raise AssertionError("URL do webhook montada errado")
+        with rede([RespostaFake(b"")]) as fake:
+            api_stone_pix.cadastrar_webhook("k")
+        with rede([RespostaFake(b"")]) as fake_put:
+            api_stone_pix.cadastrar_webhook("k", atualizar=True)
+    if fake.pedidos[0].get_method() != "POST" or fake_put.pedidos[0].get_method() != "PUT":
+        raise AssertionError("cadastro usa POST e atualização usa PUT")
+    if json.loads(fake.pedidos[0].data)["url"].count("token=tok") != 1:
+        raise AssertionError("corpo do cadastro deveria levar a URL com o token")
+    with rede([RespostaFake(b"")]) as fake:
+        api_stone_pix.solicitar("k", "37889047000168", date(2026, 9, 7))
+    if fake.pedidos[0].full_url != "https://conciliation.stone.com.br/v2/merchant/37889047000168/conciliation-file/pix/2026-09-07":
+        raise AssertionError(f"pedido do arquivo Pix com URL errada: {fake.pedidos[0].full_url}")
 
 
 VARIAVEIS_BB = {
@@ -453,11 +514,12 @@ def main() -> int:
     test_stone_cabecalho_e_erros()
     test_stone_baixar_periodo()
     test_recebiveis_stone()
+    test_pix_stone()
     test_bb_configuracao()
     test_bb_token_e_paginas()
     test_bb_blocos_e_gravacao()
     test_cli_sem_credenciais()
-    print("API_BANCOS_TESTS_OK stone=3 recebiveis=1 bb=3 cli=2")
+    print("API_BANCOS_TESTS_OK stone=3 recebiveis=1 pix=1 bb=3 cli=2")
     return 0
 
 

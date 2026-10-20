@@ -130,7 +130,14 @@ aceitam `--verificar` para testar as credenciais.
 `api_stone_recebiveis.py` lê esses XML e grava `raw_stone_recebiveis` com a
 mesma chave, as mesmas convenções e o mesmo `importar_registros` do CSV de
 recebíveis; os dois caminhos convivem sem duplicar. `--baixar` busca antes os
-dias que faltam e `--dry-run` compara com o painel sem gravar. Ainda não entra
-no BAT nem no dispatcher. Vendas Stone continuam pelo CSV, porque o arquivo
-da API não traz Pix nem Voucher. Detalhes e prova de equivalência:
+dias que faltam e `--dry-run` compara com o painel sem gravar. Não entra no
+BAT nem no dispatcher: roda todo dia pelo GitHub Actions
+(`.github/workflows/importacao-diaria.yml`). Cada dia processado, com erro ou
+não, fica em `integracao_execucao` (`integracao_log.py`) e aparece em
+Status > Integrações automáticas.
+
+`api_stone_pix.py` cuida do Pix, que a Stone entrega por webhook (Edge
+Function `stone-webhook`): cadastra o webhook, pede o arquivo e compara com o
+painel. Vendas Stone continuam pelo CSV até o mapeamento do Pix ser
+confirmado com um arquivo real; o Voucher não existe na API. Detalhes:
 `docs/INTEGRACAO_API_BANCOS.md`.

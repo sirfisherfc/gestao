@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import argparse
 import sys
+from collections import Counter
 from dataclasses import dataclass, field
 from datetime import date, datetime, timedelta
 from decimal import Decimal, InvalidOperation
@@ -23,11 +24,13 @@ from pathlib import Path
 from xml.etree import ElementTree
 
 import api_stone_conciliacao as conciliacao
+import integracao_log
 from api_cliente import carregar_env, variavel
 from api_stone_conciliacao import filhos, local, texto
 from importacao_core import (
     LIMITE_REJEICOES_EXIBIDAS,
     ErroOperacional,
+    ImportacaoErro,
     ValidacaoErro,
     atualizar_painel,
     executar_com_saida,
@@ -48,6 +51,7 @@ COLUNAS = [
     "desconto_mdr", "desconto_antecipacao", "desconto_unificado",
     "ultimo_status", "data_ultimo_status", "entradas_brutas", "saidas_brutas",
 ]
+FONTE = "stone_recebiveis"
 CAMPOS_COMPARADOS = ("data_venda", "data_vencimento", "valor_bruto", "valor_liquido")
 EVENTOS_SEM_REGRA = ("Chargebacks", "ChargebackRefunds")
 ZERO = Decimal("0")
@@ -71,6 +75,7 @@ class Captura:
     account_type: str | None
     qtd_parcelas: int
     parcelas: tuple[Parcela, ...]
+    origem: tuple[str, date] | None = None
 
 
 @dataclass(frozen=True)
@@ -82,6 +87,7 @@ class Cancelamento:
     devolvido: Decimal
     cobrado: Decimal
     previsao: date
+    origem: tuple[str, date] | None = None
 
 
 @dataclass
@@ -138,7 +144,7 @@ def _contagem(eventos, nome: str) -> int:
         return 0
 
 
-def _ler_captura(transacao, stonecode: str) -> Captura:
+def _ler_captura(transacao, stonecode: str, origem: tuple[str, date]) -> Captura:
     stone_id = texto(transacao, "AcquirerTransactionKey")
     parcelas = []
     for grupo in filhos(transacao, "Installments"):
@@ -159,10 +165,11 @@ def _ler_captura(transacao, stonecode: str) -> Captura:
         account_type=texto(transacao, "AccountType"),
         qtd_parcelas=int(texto(transacao, "NumberOfInstallments") or len(parcelas)),
         parcelas=tuple(parcelas),
+        origem=origem,
     )
 
 
-def _ler_cancelamentos(transacao, stonecode: str) -> list[Cancelamento]:
+def _ler_cancelamentos(transacao, stonecode: str, origem: tuple[str, date]) -> list[Cancelamento]:
     stone_id = texto(transacao, "AcquirerTransactionKey")
     lidos = []
     for grupo in filhos(transacao, "Cancellations"):
@@ -176,6 +183,7 @@ def _ler_cancelamentos(transacao, stonecode: str) -> list[Cancelamento]:
                 devolvido=_decimal(texto(item, "ReturnedAmount"), "valor devolvido"),
                 cobrado=_decimal(texto(cobranca, "ChargedAmount") if cobranca is not None else None, "valor cobrado"),
                 previsao=_data(texto(cobranca, "PrevisionChargeDate") if cobranca is not None else None, "previsão da cobrança"),
+                origem=origem,
             ))
     return lidos
 
@@ -213,9 +221,9 @@ def ler_arquivo(dados: bytes, stonecode: str, dia: date) -> Leitura:
                 eventos = next(iter(filhos(transacao, "Events")), None)
                 try:
                     if _contagem(eventos, "Captures"):
-                        leitura.capturas.append(_ler_captura(transacao, stonecode))
+                        leitura.capturas.append(_ler_captura(transacao, stonecode, (stonecode, dia)))
                     if _contagem(eventos, "Cancellations"):
-                        leitura.cancelamentos.extend(_ler_cancelamentos(transacao, stonecode))
+                        leitura.cancelamentos.extend(_ler_cancelamentos(transacao, stonecode, (stonecode, dia)))
                 except ValueError as exc:
                     leitura.rejeicoes.append(f"{stonecode} {dia} {chave}: {exc}")
                 for evento in EVENTOS_SEM_REGRA:
@@ -236,9 +244,11 @@ def ler_arquivo(dados: bytes, stonecode: str, dia: date) -> Leitura:
     return leitura
 
 
-def _linha(**valores) -> dict:
+def _linha(origem: tuple[str, date] | None, **valores) -> dict:
+    """Linha no formato de COLUNAS; ``_origem`` aponta o arquivo e não é gravada."""
     linha = {coluna: None for coluna in COLUNAS[1:]}
     linha.update(valores)
+    linha["_origem"] = origem
     return linha
 
 
@@ -257,6 +267,7 @@ def linhas_de_captura(captura: Captura, pagamentos: dict, documento: str | None)
         pago = pagamentos.get((captura.stone_id, parcela.numero))
         vencimento, original = pago if pago else (parcela.previsao, parcela.previsao)
         linhas.append(_linha(
+            captura.origem,
             documento=documento,
             stonecode=captura.stonecode,
             categoria="Venda",
@@ -296,6 +307,7 @@ def linha_de_cancelamento(cancelamento: Cancelamento, venda: VendaConhecida | No
     vencimento, original = cobrado if cobrado else (cancelamento.previsao, cancelamento.previsao)
     total = cancelamento.devolvido >= venda.bruto_total - TOLERANCIA
     return _linha(
+        cancelamento.origem,
         documento=documento,
         stonecode=cancelamento.stonecode,
         categoria="Cancelamento" if total else "Cancelamento Parcial",
@@ -457,20 +469,17 @@ def criar_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def ler_periodo(pasta: Path, stonecodes: list[str], dias: list[date]) -> Leitura:
+def ler_periodo(pasta: Path, alvos: list[tuple[str, date]]) -> tuple[Leitura, list[tuple[str, date]]]:
+    """Lê os XML presentes e devolve também os (stonecode, dia) sem arquivo."""
     leitura = Leitura()
     ausentes = []
-    for stonecode in stonecodes:
-        for dia in dias:
-            arquivo = pasta / stonecode / f"{dia.isoformat()}.xml"
-            if not arquivo.is_file():
-                ausentes.append(f"{stonecode}/{dia}")
-                continue
-            leitura.juntar(ler_arquivo(arquivo.read_bytes(), stonecode, dia))
-    if ausentes:
-        amostra = ", ".join(ausentes[:LIMITE_REJEICOES_EXIBIDAS])
-        raise ValidacaoErro(f"{len(ausentes)} arquivo(s) ausente(s), use --baixar: {amostra}")
-    return leitura
+    for stonecode, dia in alvos:
+        arquivo = pasta / stonecode / f"{dia.isoformat()}.xml"
+        if not arquivo.is_file():
+            ausentes.append((stonecode, dia))
+            continue
+        leitura.juntar(ler_arquivo(arquivo.read_bytes(), stonecode, dia))
+    return leitura, ausentes
 
 
 def resumo(leitura: Leitura, registros: list[dict]) -> None:
@@ -487,6 +496,18 @@ def resumo(leitura: Leitura, registros: list[dict]) -> None:
     print(f"  duplicatas internas: {len(registros) - len(chaves)}")
 
 
+def _execucoes(alvos, situacao_por_alvo, erros) -> list[integracao_log.Execucao]:
+    execucoes = []
+    for alvo in alvos:
+        stonecode, dia = alvo
+        if alvo in erros:
+            execucoes.append(integracao_log.Execucao(FONTE, dia, stonecode, "erro", mensagem=erros[alvo]))
+        elif alvo in situacao_por_alvo:
+            situacao, novas = situacao_por_alvo[alvo]
+            execucoes.append(integracao_log.Execucao(FONTE, dia, stonecode, situacao, linhas_novas=novas))
+    return execucoes
+
+
 def fluxo() -> None:
     opcoes = criar_parser().parse_args()
     carregar_env()
@@ -494,48 +515,75 @@ def fluxo() -> None:
     hoje = date.today()
     inicio = opcoes.de or hoje - timedelta(days=1)
     dias = conciliacao.dias_do_periodo(inicio, opcoes.ate or inicio, hoje)
+    alvos = [(stonecode, dia) for stonecode in stonecodes for dia in dias]
+    registrar = not opcoes.dry_run
     print(f"Recebíveis Stone pela API: {len(dias)} dia(s), stonecode(s) {', '.join(stonecodes)}.")
+
+    erros: dict[tuple[str, date], str] = {}
     if opcoes.baixar:
-        falhas = conciliacao.baixar_periodo(
+        for stonecode, dia, mensagem in conciliacao.baixar_periodo(
             variavel("STONE_CONCILIACAO_API_KEY"), stonecodes, dias,
             conciliacao.LAYOUT_PADRAO, opcoes.pasta, sobrescrever=False,
-        )
-        if falhas:
-            raise ErroOperacional(f"{falhas} arquivo(s) não baixado(s); nada foi gravado")
+        ):
+            erros[(stonecode, dia)] = mensagem
 
-    leitura = ler_periodo(opcoes.pasta, stonecodes, dias)
-    banco = ConsultaBanco()
     try:
-        registros, rejeicoes = montar_registros(leitura, banco)
-        resumo(leitura, registros)
-        if rejeicoes:
-            amostra = "; ".join(rejeicoes[:LIMITE_REJEICOES_EXIBIDAS])
-            raise ValidacaoErro(f"{len(rejeicoes)} rejeição(ões); nenhuma gravação foi feita. {amostra}")
-        comparar(registros, banco.existentes(registros))
-    finally:
-        banco.fechar()
+        leitura, ausentes = ler_periodo(opcoes.pasta, alvos)
+        for alvo in ausentes:
+            erros.setdefault(alvo, "arquivo não baixado; rode com --baixar")
+        banco = ConsultaBanco()
+        try:
+            registros, rejeicoes = montar_registros(leitura, banco)
+            resumo(leitura, registros)
+            if rejeicoes:
+                amostra = "; ".join(rejeicoes[:LIMITE_REJEICOES_EXIBIDAS])
+                raise ValidacaoErro(f"{len(rejeicoes)} rejeição(ões); nenhuma gravação foi feita. {amostra}")
+            existentes = banco.existentes(registros)
+            comparar(registros, existentes)
+        finally:
+            banco.fechar()
 
-    if not registros:
-        print("\nNenhuma parcela no período; nada a gravar.")
-        return
-    if opcoes.dry_run:
-        print("\n[DRY-RUN] Arquivos válidos; nada foi gravado no banco.")
-        return
-    print("\n== Gravando, recalculando e registrando carga ==")
-    imprimir_resultado(importar_registros(
-        registros=registros,
-        tabela="raw_stone_recebiveis",
-        colunas=COLUNAS,
-        conflito="(stone_id, n_parcela, categoria)",
-        montar_linha=lambda item, conta_id: [conta_id] + [item[coluna] for coluna in COLUNAS[1:]],
-        fonte_log="Recebíveis Stone",
-        periodo=periodo_dos_registros(registros),
-        fonte_chave="stone_recebiveis",
-    ))
-    if not opcoes.sem_refresh_painel:
-        print("\n== Atualizando painel ==")
-        atualizar_painel()
-        print("  painel atualizado.")
+        presentes = [alvo for alvo in alvos if alvo not in erros]
+        linhas = Counter(item["_origem"] for item in registros)
+        novas = Counter(
+            item["_origem"] for item in registros
+            if (item["stone_id"], item["n_parcela"], item["categoria"]) not in existentes
+        )
+        if opcoes.dry_run:
+            print("\n[DRY-RUN] Arquivos válidos; nada foi gravado no banco.")
+        elif registros:
+            print("\n== Gravando, recalculando e registrando carga ==")
+            imprimir_resultado(importar_registros(
+                registros=registros,
+                tabela="raw_stone_recebiveis",
+                colunas=COLUNAS,
+                conflito="(stone_id, n_parcela, categoria)",
+                montar_linha=lambda item, conta_id: [conta_id] + [item[coluna] for coluna in COLUNAS[1:]],
+                fonte_log="Recebíveis Stone",
+                periodo=periodo_dos_registros(registros),
+                fonte_chave="stone_recebiveis",
+            ))
+            if not opcoes.sem_refresh_painel:
+                print("\n== Atualizando painel ==")
+                atualizar_painel()
+                print("  painel atualizado.")
+        else:
+            print("\nNenhuma parcela no período; nada a gravar.")
+    except ImportacaoErro as exc:
+        if registrar:
+            falhou = {alvo: erros.get(alvo, str(exc)) for alvo in alvos}
+            integracao_log.registrar(_execucoes(alvos, {}, falhou))
+        raise
+
+    if registrar:
+        situacao = {
+            alvo: ("ok" if linhas[alvo] else "sem_movimento", novas[alvo]) for alvo in presentes
+        }
+        integracao_log.registrar(_execucoes(alvos, situacao, erros))
+    if erros:
+        for (stonecode, dia), mensagem in sorted(erros.items()):
+            print(f"  sem arquivo {stonecode} {dia}: {mensagem}")
+        raise ErroOperacional(f"{len(erros)} dia(s) sem arquivo da Stone; os demais foram processados")
     print("\nOK.")
 
 

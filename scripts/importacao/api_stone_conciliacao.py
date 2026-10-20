@@ -229,31 +229,44 @@ def verificar(chave: str, stonecodes: list[str], layout: str, hoje: date) -> Non
         print(f"  outros stonecodes a baixar: {', '.join(stonecodes[1:])}")
 
 
-def baixar_periodo(chave: str, stonecodes: list[str], dias: list[date], layout: str, pasta: Path, sobrescrever: bool) -> int:
-    falhas = 0
-    for stonecode in stonecodes:
-        print(f"\n== Stonecode {stonecode} ==")
-        aceito = False
-        for dia in dias:
-            destino = pasta / stonecode / f"{dia.isoformat()}.xml"
-            if destino.exists() and not sobrescrever:
-                print(f"  {dia}: já baixado, pulado")
-                continue
-            try:
-                dados, resumo = baixar_dia(chave, stonecode, dia, layout)
-            except ErroHttp as exc:
-                falhas += 1
-                print(f"  {dia}: ERRO {exc}")
-                if exc.status in STATUS_QUE_ENCERRAM:
-                    raise
-                # 403 logo na primeira consulta indica stonecode de outro CNPJ;
-                # depois de um dia aceito, a Stone também nega dias avulsos.
-                if exc.status == 403 and not aceito:
-                    break
-                continue
-            aceito = True
-            salvar_atomico(destino, dados)
-            print(f"  {dia}: {resumo.texto()}")
+def baixar_periodo(
+    chave: str, stonecodes: list[str], dias: list[date], layout: str, pasta: Path, sobrescrever: bool
+) -> list[tuple[str, date, str]]:
+    """Baixa o que falta e devolve as falhas como (stonecode, dia, mensagem).
+
+    Dias não tentados por causa de uma falha que encerra a rodada também
+    entram na lista, para o registro de execuções mostrar o buraco inteiro.
+    """
+    falhas: list[tuple[str, date, str]] = []
+    pendentes = [(stonecode, dia) for stonecode in stonecodes for dia in dias]
+    descartar_stonecode = None
+    for indice, (stonecode, dia) in enumerate(pendentes):
+        if indice == 0 or pendentes[indice - 1][0] != stonecode:
+            print(f"\n== Stonecode {stonecode} ==")
+            aceito = False
+        if stonecode == descartar_stonecode:
+            falhas.append((stonecode, dia, falhas[-1][2]))
+            continue
+        destino = pasta / stonecode / f"{dia.isoformat()}.xml"
+        if destino.exists() and not sobrescrever:
+            print(f"  {dia}: já baixado, pulado")
+            continue
+        try:
+            dados, resumo = baixar_dia(chave, stonecode, dia, layout)
+        except ErroHttp as exc:
+            print(f"  {dia}: ERRO {exc}")
+            falhas.append((stonecode, dia, str(exc)))
+            if exc.status in STATUS_QUE_ENCERRAM:
+                falhas.extend((codigo, data, str(exc)) for codigo, data in pendentes[indice + 1:])
+                return falhas
+            # 403 logo na primeira consulta indica stonecode de outro CNPJ;
+            # depois de um dia aceito, a Stone também nega dias avulsos.
+            if exc.status == 403 and not aceito:
+                descartar_stonecode = stonecode
+            continue
+        aceito = True
+        salvar_atomico(destino, dados)
+        print(f"  {dia}: {resumo.texto()}")
     return falhas
 
 
@@ -272,7 +285,7 @@ def fluxo() -> None:
     print(f"Destino: {opcoes.pasta}")
     falhas = baixar_periodo(chave, stonecodes, dias, opcoes.layout, opcoes.pasta, opcoes.sobrescrever)
     if falhas:
-        raise ErroOperacional(f"{falhas} arquivo(s) não baixado(s); os demais foram salvos")
+        raise ErroOperacional(f"{len(falhas)} arquivo(s) não baixado(s); os demais foram salvos")
     print("\nOK.")
 
 
