@@ -4371,3 +4371,26 @@ diretórios antigos ("Sir Fisher - PUB", @sirfisherpub) são ação manual.
 - Extrato da Conta Stone continua por CSV: a API da conta exige parceria.
 
 — Claude
+
+## 2026-10-20 · Codex — proposta de revisão da abertura do pôr do sol
+
+- Proprietário questionou a distância entre o horário e a demonstração visual
+  do restaurante. Pediu composição recomendada antes de implementar; nenhuma
+  alteração nova foi feita na página publicada ou nas campanhas.
+- Medição da versão atual: em 390×844, foto do espaço começa em aproximadamente
+  3.176 px e pratos em 3.815 px; em 320×568, 3.361 e 4.003 px. Marca/convite/
+  rota já estão no início. Problema observado é a distância da prova visual;
+  abandono causado pelo horário e melhora de conversão são hipóteses.
+- Proposta isolada, fora dos repositórios: título informacional preservado,
+  resposta diária compacta, foto real das mesas/mar, convite curto, rota e
+  cardápio. Substituir a foto genérica de abertura, mantendo a paisagem no
+  conteúdo explicativo. Tabela, metadados e conteúdo útil previstos para
+  preservação. Não garantir posição no Google ou resultado comercial.
+- Prévia em tmp/sunset-review-20261020/proposta-abertura.html e capturas
+  proposta-390.png/proposta-320.png. Em 390×844, foto começa em 215 px e botões
+  terminam em 622 px; em 320×568, botões ficam próximos do início da segunda
+  tela. Fotos originais preservadas; recorte só por CSS, sem geração/retoco.
+- Só este registro documental integra o commit. Implementação da composição
+  aguarda a revisão do proprietário, conforme pedido explícito nesta conversa.
+
+— Codex
