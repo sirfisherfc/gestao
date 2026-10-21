@@ -1433,11 +1433,12 @@ Gate `usuario_pode_acessar_pagina('cancelamentos.html')`; `select` só para
 com 10+ caracteres; bloqueado depois da revisão.
 `revisar_cancelamento(p_id, p_revisao, p_obs)`: admin ou sócio; `null` desfaz.
 
-## Desempenho do painel: snapshots e fila (20261021050000–20261021090000)
+## Desempenho do painel: snapshots e fila (20261021050000–20261021110000)
 
 Medição, causas e plano em `docs/DESEMPENHO_PAINEL.md`. Todas aplicadas em
-21/10/2026 (histórico 214), com md5 idêntico antes e depois em 27 objetos
-(views, Calendário de três meses como admin e as `app_*` das páginas).
+21/10/2026 (histórico 216), ensaiadas antes em transação com rollback e com
+md5 idêntico antes e depois (views, Calendário de três meses como admin e as
+`app_*` das páginas). As que trocam views abortam sozinhas se o md5 mudar.
 
 - **Índices** (`20261021050000`): `raw_stone_vendas(data_venda)`,
   `raw_stone_recebiveis(data_vencimento)` e `(data_venda)`,
@@ -1475,6 +1476,19 @@ Medição, causas e plano em `docs/DESEMPENHO_PAINEL.md`. Todas aplicadas em
   competência a partir do mês do corte (os meses anteriores nunca casavam na
   junção final). Tentativas de levar o mesmo limite à CTE `media` pioraram o
   plano (subconsulta: 1,2 s; função de parâmetro no filtro: 14 s). Não repetir.
+- **Configuração da empresa** (`20261021100000`): `app_configuracao_empresa`
+  respondia 403 em toda página porque os grants por coluna de
+  `20260816000000` (`SELECT (nome, subtitulo)` para `anon` e `authenticated`)
+  tinham sumido do portal. Restaurados como no desenho original (função
+  `SECURITY INVOKER` sob a política `singleton = true`, contrato em
+  `test_access_contracts.py`); EXECUTE para PUBLIC retirado.
+- **Conciliação Stone** (`20261021110000`): `private.mv_conciliacao_stone`
+  (por `stone_id`, índice por `mes_referencia`) e
+  `private.mv_conciliacao_stone_resumo_mensal` (por mês e situação).
+  `conciliacao_stone` e `conciliacao_stone_resumo_mensal` leem deles; o
+  resumo passou a ordenar por mês e situação (antes a ordem entre situações
+  do mesmo mês dependia do plano). O refresh atualiza base e resumo no mesmo
+  bloco, logo depois dos snapshots Stone.
 - **Etapa não aplicada (decisão)**: um snapshot de `fato_financeiro` para as
   views do painel tornaria o cartão do gerente e a bonificação ~3× mais
   rápidos, mas atrasaria a classificação manual nas projeções. Ficou fora

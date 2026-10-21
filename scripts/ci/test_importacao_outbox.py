@@ -33,6 +33,8 @@ SEM_EFEITO_NA_CADEIA = {
     # Redefine a resiliente para atualizar os snapshots de corte e vendas
     # Stone; pelo mesmo motivo acima, a cadeia testada nao muda.
     '20261021070000_snapshots_corte_e_vendas_stone.sql',
+    # Idem: +1 bloco com os snapshots da Conciliação Stone.
+    '20261021110000_snapshots_conciliacao_stone.sql',
 }
 
 
