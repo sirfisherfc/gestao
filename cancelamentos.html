@@ -124,7 +124,7 @@ function render(){
       <select id="fSituacao" class="field" aria-label="Situação">${Object.entries(SITUACOES).map(([k,[r]])=>`<option value="${k}"${k===filtros.situacao?' selected':''}>${esc(r)}</option>`).join('')}</select>
     </div>
     <div class="summary-grid">
-      <div class="summary-card"><div class="label">Cancelado no período</div><div class="value">${rs(cancelado)}</div><div class="note">${pct(lancado?cancelado/lancado*100:0)} do lançado (${rs(lancado)})</div></div>
+      <div class="summary-card"><div class="label">Cancelado no período</div><div class="value">${rs(cancelado)}</div><div class="note">${pct(lancado?cancelado/lancado*100:0)} do lançado</div></div>
       <div class="summary-card"><div class="label">Para justificar</div><div class="value" style="color:${pend.length?'var(--red)':'inherit'}">${pend.length}</div><div class="note">${rs(pend.reduce((t,c)=>t+Number(c.valor||0),0))}</div></div>
       <div class="summary-card"><div class="label">Aguardando revisão</div><div class="value">${aguard.length}</div><div class="note">Justificados pelo gerente</div></div>
       <div class="summary-card"><div class="label">Histórico sem justificativa</div><div class="value">${historico.length}</div><div class="note">Antes de 21/10, fora das pendências</div></div>
@@ -133,7 +133,7 @@ function render(){
     <section class="panel"><div class="panel-head"><div><h3>${esc(SITUACOES[filtros.situacao][0])}</h3><div class="hint">Mais recentes primeiro. Pontos: provavelmente servido ou cancelado depois de começar a pagar valem 2; perto do pagamento, 60+ min após lançar, mesa paga em dinheiro e sem motivo valem 1. Justificativa obrigatória a partir de 3 pontos ou R$ 100. Casos até 20/10 ficam como histórico, fora das pendências.</div></div></div>
       <div class="cx-lista" id="listaCasos">${lista.map(cartao).join('')||'<div class="empty">Nada nesta situação no período.</div>'}</div>
     </section>
-    <section class="panel"><div class="panel-head"><div><h3>Fora da curva</h3><div class="hint">Cancelado ÷ lançado, sem trocas de mesa nem correções. Destaque quando a taxa passa de 2× a média do período e o cancelado soma pelo menos R$ 50.</div></div></div>
+    <section class="panel"><div class="panel-head"><div><h3>Fora da curva</h3><div class="hint">Taxa = cancelado ÷ lançado, sem trocas de mesa nem correções; o valor lançado não é exibido. Destaque quando a taxa passa de 2× a média do período e o cancelado soma pelo menos R$ 50.</div></div></div>
       <div class="cx-tabs" id="tabsDim">${[['dia','Por dia'],['hora','Por hora'],['turno','Por turno'],['semana','Dia da semana'],['lancou','Por funcionário']].map(([k,r])=>`<button data-dim="${k}" class="${k===DIMENSAO?'ativo':''}">${r}</button>`).join('')}</div>
       <div class="table-wrap" id="tabelaFora">${tabelaFora()}</div>
     </section>`;
@@ -196,9 +196,7 @@ function tabelaFora(){
   else if(DIMENSAO==='semana')linhas.sort((a,b)=>SEMANA.indexOf(a.k)-SEMANA.indexOf(b.k));
   else linhas.sort((a,b)=>b.x-a.x);
   if(!linhas.length)return '<div class="empty">Sem lançamentos no período.</div>';
-  // Por funcionário só a taxa: o valor que cada um lança não fica exposto.
-  const comLancado=DIMENSAO!=='lancou';
-  return `<table class="data-table"><thead><tr><th>${{dia:'Dia',hora:'Hora do lançamento',turno:'Turno',semana:'Dia da semana',lancou:'Quem lançou'}[DIMENSAO]}</th>${comLancado?'<th class="right">Lançado</th>':''}<th class="right">Cancelado</th><th class="right">Casos</th><th class="right">Taxa</th><th class="right">× média</th></tr></thead><tbody>${linhas.map(l=>{const fora=l.x>=2&&l.c>=50;return`<tr><td>${DIMENSAO==='dia'?dia(l.k):esc(l.k)}</td>${comLancado?`<td class="right">${rs(l.v)}</td>`:''}<td class="right">${rs(l.c)}</td><td class="right">${l.n}</td><td class="right">${pct(l.taxa*100)}</td><td class="right${fora?' cx-fora':''}">${l.x.toLocaleString('pt-BR',{maximumFractionDigits:1})}×</td></tr>`;}).join('')}<tr><td><b>Média do período</b></td>${comLancado?`<td class="right"><b>${rs(totLan)}</b></td>`:''}<td class="right"><b>${rs(totCan)}</b></td><td></td><td class="right"><b>${pct(media*100)}</b></td><td class="right">1×</td></tr></tbody></table>`;
+  return `<table class="data-table"><thead><tr><th>${{dia:'Dia',hora:'Hora do lançamento',turno:'Turno',semana:'Dia da semana',lancou:'Quem lançou'}[DIMENSAO]}</th><th class="right">Cancelado</th><th class="right">Casos</th><th class="right">Taxa</th><th class="right">× média</th></tr></thead><tbody>${linhas.map(l=>{const fora=l.x>=2&&l.c>=50;return`<tr><td>${DIMENSAO==='dia'?dia(l.k):esc(l.k)}</td><td class="right">${rs(l.c)}</td><td class="right">${l.n}</td><td class="right">${pct(l.taxa*100)}</td><td class="right${fora?' cx-fora':''}">${l.x.toLocaleString('pt-BR',{maximumFractionDigits:1})}×</td></tr>`;}).join('')}<tr><td><b>Média do período</b></td><td class="right"><b>${rs(totCan)}</b></td><td></td><td class="right"><b>${pct(media*100)}</b></td><td class="right">1×</td></tr></tbody></table>`;
 }
 
 async function justificar(id){
