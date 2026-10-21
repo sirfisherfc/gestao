@@ -1391,8 +1391,10 @@ turno, criação/alteração, `cancelada`, tipo e total. Gravada por
 Pagamentos de cada venda (PK `id_sale, origem, ordem`): origem `pos`
 (transação da maquininha) ou `forma` (lançado no caixa), categoria, valor,
 horário, código de autorização e `entra_conciliacao`. `stone_id` (único),
-`casamento` (`codigo` ou `valor_horario`) e `diferenca_min` guardam o par em
-`raw_stone_vendas`, refeito a cada importação.
+`casamento` (`codigo`, `valor_horario`, `janela_ampla` ou `soma`) e
+`diferenca_min` guardam o par em `raw_stone_vendas`, refeito a cada
+importação. No casamento `soma`, `stone_ids_extra` (índice GIN, migration
+20261021020000) traz as demais vendas Stone (20261021010000).
 
 ### conciliacao_saipos_stone_base
 View interna (sem grant): vendas Stone da casa, aprovadas, no dia do turno

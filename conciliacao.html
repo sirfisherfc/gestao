@@ -156,7 +156,7 @@ async function renderMes(anoMes){
 async function renderSaipos(inicio,prox,renderSeq){
   const [dias,pend]=await Promise.all([
     sb.from('app_conciliacao_saipos_dia').select('*').gte('data_turno',inicio).lt('data_turno',prox).order('data_turno',{ascending:false}),
-    sb.from('app_conciliacao_saipos_pendencia').select('*').gte('data_turno',inicio).lt('data_turno',prox).order('horario',{ascending:false}).limit(300),
+    sb.from('app_conciliacao_saipos_pendencia').select('*').gte('data_turno',inicio).lt('data_turno',prox).order('lado').order('horario',{ascending:false}).limit(300),
   ]);
   if(renderSeq!==RENDER_SEQ)return;
   const box=document.getElementById('saiposSection');
@@ -164,21 +164,26 @@ async function renderSaipos(inicio,prox,renderSeq){
   if(dias.error||pend.error){box.innerHTML='<div class="erro">Não foi possível carregar a conciliação Saipos.</div>';return;}
   const linhas=dias.data||[];
   if(!linhas.length){box.innerHTML='<div class="notice">Sem vendas da Saipos importadas neste mês.</div>';return;}
-  const soma=campo=>linhas.reduce((t,r)=>t+Number(r[campo]||0),0);
-  const stone=soma('qtd_stone'),semSaipos=soma('qtd_stone_sem_saipos'),semStone=soma('qtd_saipos_sem_stone');
-  const taxa=stone?(stone-semSaipos)/stone*100:0;
+  // Dias depois da última venda Stone importada ainda não têm com o que
+  // casar; ficam na tabela, fora dos totais.
+  const ultimoStone=linhas.filter(r=>Number(r.qtd_stone)>0).map(r=>r.data_turno).sort().pop()||'';
+  const aguardando=r=>r.data_turno>ultimoStone;
+  const fechados=linhas.filter(r=>!aguardando(r));
+  const soma=campo=>fechados.reduce((t,r)=>t+Number(r[campo]||0),0);
+  const aprox=r=>Number(r.qtd_por_valor_horario||0)+Number(r.qtd_janela_ampla||0)+Number(r.qtd_soma||0);
+  const conciliavel=soma('qtd_conciliavel'),semStone=soma('qtd_saipos_sem_stone'),semSaipos=soma('qtd_stone_sem_saipos');
+  const taxa=conciliavel?(conciliavel-semStone)/conciliavel*100:0;
   const n=v=>Number(v||0).toLocaleString('pt-BR');
   box.innerHTML=`
     <div class="page-intro"><div><h2>Saipos × Stone</h2><p>Cada pagamento do PDV casado com a venda Stone: cartão na maquininha pelo código de autorização; Pix e lançamentos do caixa por valor e horário. Dinheiro e Fiado ficam fora.</p></div></div>
     <div class="summary-grid">
-      <div class="summary-card"><div class="label">Vendas Stone</div><div class="value">${n(stone)}</div></div>
-      <div class="summary-card"><div class="label">Casadas pelo código</div><div class="value">${n(soma('qtd_por_codigo'))}</div></div>
-      <div class="summary-card"><div class="label">Casadas por valor e horário</div><div class="value">${n(soma('qtd_por_valor_horario'))}</div></div>
-      <div class="summary-card"><div class="label">Stone conciliada</div><div class="value">${pct(taxa)}</div></div>
-      <div class="summary-card"><div class="label">Sem par</div><div class="value" style="color:${semSaipos+semStone>0?'var(--red)':'inherit'}">${n(semSaipos+semStone)}</div></div>
+      <div class="summary-card"><div class="label">Pagamentos Saipos (cartão e Pix)</div><div class="value">${n(conciliavel)}</div></div>
+      <div class="summary-card"><div class="label">Saipos conciliada</div><div class="value">${pct(taxa)}</div></div>
+      <div class="summary-card"><div class="label">Saipos sem Stone</div><div class="value" style="color:${semStone>0?'var(--red)':'inherit'}">${n(semStone)} · ${rs(soma('valor_saipos_sem_stone'))}</div></div>
+      <div class="summary-card"><div class="label">Stone sem Saipos</div><div class="value">${n(semSaipos)} · ${rs(soma('valor_stone_sem_saipos'))}</div></div>
     </div>
-    <section class="panel"><div class="panel-head"><div><h3>Por dia</h3><div class="hint">Data do turno da Saipos (o turno da noite vai até 08:00 do dia seguinte).</div></div></div><div class="table-wrap"><table class="data-table"><thead><tr><th>Dia</th><th class="right">Stone</th><th class="right">Pelo código</th><th class="right">Valor e horário</th><th class="right">Stone sem Saipos</th><th class="right">Saipos sem Stone</th><th class="right">Dinheiro/Fiado</th></tr></thead><tbody>${linhas.map(r=>`<tr><td>${fmtDay(r.data_turno)}</td><td class="right">${n(r.qtd_stone)} · ${rs(r.valor_stone)}</td><td class="right">${n(r.qtd_por_codigo)}</td><td class="right">${n(r.qtd_por_valor_horario)}</td><td class="right">${Number(r.qtd_stone_sem_saipos)?`<span class="status bad">${n(r.qtd_stone_sem_saipos)} · ${rs(r.valor_stone_sem_saipos)}</span>`:'—'}</td><td class="right">${Number(r.qtd_saipos_sem_stone)?`<span class="status warn">${n(r.qtd_saipos_sem_stone)} · ${rs(r.valor_saipos_sem_stone)}</span>`:'—'}</td><td class="right">${rs(r.valor_dinheiro_fiado)}</td></tr>`).join('')}</tbody></table></div></section>
-    <section class="panel"><div class="panel-head"><div><h3>Pagamentos sem par</h3><div class="hint">Stone sem Saipos: cobrado na maquininha sem venda lançada no PDV (ou venda cancelada). Saipos sem Stone: lançado no caixa sem transação Stone correspondente. Até 300, mais recentes primeiro.</div></div></div><div class="table-wrap"><table class="data-table"><thead><tr><th>Dia</th><th>Horário</th><th>Situação</th><th>Forma</th><th class="right">Valor</th><th>Referência</th></tr></thead><tbody>${(pend.data||[]).map(r=>`<tr><td>${fmtDay(r.data_turno)}</td><td>${r.horario?new Date(r.horario).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}):'—'}</td><td><span class="status ${r.lado==='Stone sem Saipos'?'bad':'warn'}">${esc(r.lado)}</span></td><td>${esc(r.forma||'—')}</td><td class="right">${rs(r.valor)}</td><td class="mono">${esc(r.referencia||'—')}</td></tr>`).join('')||'<tr><td colspan="6" class="empty">Tudo casado neste mês.</td></tr>'}</tbody></table></div></section>`;
+    <section class="panel"><div class="panel-head"><div><h3>Por dia</h3><div class="hint">Data do turno da Saipos (o turno da noite vai até 08:00 do dia seguinte).</div></div></div><div class="table-wrap"><table class="data-table"><thead><tr><th>Dia</th><th class="right">Stone</th><th class="right">Pelo código</th><th class="right">Valor e horário</th><th class="right">Saipos sem Stone</th><th class="right">Stone sem Saipos</th><th class="right">Dinheiro/Fiado</th></tr></thead><tbody>${linhas.map(r=>`<tr><td>${fmtDay(r.data_turno)}</td><td class="right">${n(r.qtd_stone)} · ${rs(r.valor_stone)}</td><td class="right">${n(r.qtd_por_codigo)}</td><td class="right">${n(aprox(r))}</td><td class="right">${aguardando(r)?'<span class="status neutral">aguardando Stone</span>':Number(r.qtd_saipos_sem_stone)?`<span class="status bad">${n(r.qtd_saipos_sem_stone)} · ${rs(r.valor_saipos_sem_stone)}</span>`:'—'}</td><td class="right">${Number(r.qtd_stone_sem_saipos)?`<span class="status warn">${n(r.qtd_stone_sem_saipos)} · ${rs(r.valor_stone_sem_saipos)}</span>`:'—'}</td><td class="right">${rs(r.valor_dinheiro_fiado)}</td></tr>`).join('')}</tbody></table></div></section>
+    <section class="panel"><div class="panel-head"><div><h3>Pagamentos sem par</h3><div class="hint">Saipos sem Stone: lançado no caixa como cartão/Pix sem cobrança Stone correspondente. Stone sem Saipos: cobrado na maquininha sem venda lançada no PDV (ou venda cancelada). Dias aguardando a Stone ficam de fora. Até 300.</div></div></div><div class="table-wrap"><table class="data-table"><thead><tr><th>Dia</th><th>Horário</th><th>Situação</th><th>Forma</th><th class="right">Valor</th><th>Referência</th></tr></thead><tbody>${(pend.data||[]).filter(r=>!aguardando(r)).map(r=>`<tr><td>${fmtDay(r.data_turno)}</td><td>${r.horario?new Date(r.horario).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}):'—'}</td><td><span class="status ${r.lado==='Saipos sem Stone'?'bad':'warn'}">${esc(r.lado)}</span></td><td>${esc(r.forma||'—')}</td><td class="right">${rs(r.valor)}</td><td class="mono">${esc(r.referencia||'—')}</td></tr>`).join('')||'<tr><td colspan="6" class="empty">Tudo casado neste mês.</td></tr>'}</tbody></table></div></section>`;
 }
 
 (async()=>{const auth=await SirFisherAuth.requireRole(sb);if(auth)await loadReconciliation();})();

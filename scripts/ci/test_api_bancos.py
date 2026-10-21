@@ -583,6 +583,33 @@ def test_saipos_vendas() -> None:
     casados = {(p.categoria, p.stone_id, p.casamento) for p in pagamentos if p.stone_id}
     if casados != {("credito", "391", "codigo"), ("pix", "E1", "valor_horario")}:
         raise AssertionError(f"conciliação Saipos x Stone errada: {casados}")
+    # Conta dividida: caixa e maquininha diferem em centavos; zerado não entra.
+    _, centavos = api_saipos_vendas.ler_venda({**bruta, "payments": [
+        {"desc_store_payment_type": "Crédito", "payment_amount": 40.01, "created_at": "2026-10-18T12:00:00"},
+        {"desc_store_payment_type": "Pix", "payment_amount": 0, "created_at": "2026-10-18T12:00:00"},
+    ]})
+    if [(p.origem, p.entra_conciliacao) for p in centavos] != [("pos", True), ("forma", False)]:
+        raise AssertionError("forma com centavos de diferença ou zerada deveria sair da conciliação")
+
+    def manual(valor: str, hora: int, minuto: int, cat: str = "outro") -> api_saipos_vendas.Pagamento:
+        return api_saipos_vendas.Pagamento(2, "forma", hora * 60 + minuto, "x", cat, Decimal(valor),
+                                           datetime(2026, 10, 18, hora, minuto), None, None, True)
+
+    vale, fechada, comum = manual("117.70", 20, 24), manual("59.18", 22, 44, "credito"), manual("5.00", 22, 44, "pix")
+    stone = [
+        api_saipos_vendas.VendaStone(f"V{i}", datetime(2026, 10, 18, 20, 23), "outro", Decimal("39.23")) for i in range(3)
+    ] + [
+        api_saipos_vendas.VendaStone("C", datetime(2026, 10, 18, 21, 4), "credito", Decimal("59.18")),
+        api_saipos_vendas.VendaStone("P1", datetime(2026, 10, 18, 21, 0), "pix", Decimal("5.00")),
+        api_saipos_vendas.VendaStone("P2", datetime(2026, 10, 18, 21, 30), "pix", Decimal("5.00")),
+    ]
+    api_saipos_vendas.conciliar([vale, fechada, comum], stone)
+    if (vale.casamento, len(vale.stone_ids_extra or [])) != ("soma", 2):
+        raise AssertionError("vale dividido em 3 cartões deveria casar pela soma")
+    if (fechada.stone_id, fechada.casamento) != ("C", "janela_ampla"):
+        raise AssertionError("conta fechada depois da cobrança deveria casar pela janela ampla")
+    if comum.stone_id is not None:
+        raise AssertionError("valor comum com dois candidatos na janela ampla não pode casar")
     if api_saipos_vendas.categoria("Débito Pré-pago") != "debito" or api_saipos_vendas.categoria("Pix QRcode") != "pix":
         raise AssertionError("categoria de pagamento errada")
     esperar_erro(ValidacaoErro, "ainda não fechou", api_saipos_vendas.dias_do_periodo, date(2026, 10, 20), date(2026, 10, 20), date(2026, 10, 20))

@@ -332,14 +332,24 @@ Importador `scripts/importacao/api_saipos_vendas.py`; tabelas
   1. `authorization_code` = `stone_id` (cartão na maquininha);
   2. Pix na maquininha: mesmo valor e categoria, até 5 min (o código "A..."
      da Saipos não é o E2E da Stone);
-  3. lançamento no caixa: mesmo valor, até 30 min, mesma categoria de
-     preferência; aceita outra categoria se não houver par.
+  3. lançamento no caixa: valor com tolerância de R$ 0,05 (conta dividida
+     gera centavos de diferença), até 30 min, mesma categoria de
+     preferência; aceita outra categoria se não houver par;
+  4. ainda sem par: a única venda Stone de mesmo valor e categoria nas 3 h
+     anteriores (`janela_ampla`, conta fechada depois da cobrança) ou a soma
+     de 2 a 4 vendas Stone em 10 min (`soma`, vale em vários cartões; as
+     demais ficam em `stone_ids_extra`).
+- Forma do caixa que repete a transação da maquininha (mesma categoria, até
+  R$ 0,05 de diferença) e pagamentos de R$ 0,00 não entram.
 - Dia de comparação = data do turno; o turno Manhã começa às 08:00, então a
   venda Stone da madrugada vai para o dia anterior.
 - Cada rodada baixa os últimos 7 dias e refaz o casamento do período, pois
   as vendas Stone podem chegar depois (`--so-conciliar` refaz sem consultar).
 - Prova 12–18/10/2026: 518 de 529 vendas Stone casadas; cartão na
   maquininha 338/338 pelo código, com valores idênticos.
+- Carga 01/09–20/10/2026 com as regras acima: 3.452 pagamentos Saipos de
+  cartão/Pix; 23 sem par na Stone (R$ 1.494,82), quase todos "Pagamento não
+  cadastrado" e valores redondos. Stone sem Saipos: 32.
 - Painel: Conciliação > "Saipos × Stone" (`app_conciliacao_saipos_dia` e
   `app_conciliacao_saipos_pendencia`). Rotina: `importacao-saipos.yml`,
   05:30 de Fortaleza; exige o secret `SAIPOS_API_TOKEN` no GitHub.

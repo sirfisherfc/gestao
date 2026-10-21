@@ -8,9 +8,14 @@ Baixa ``search_sales`` dia a dia pela data do turno, grava em
 1. cartão na maquininha integrada: ``authorization_code`` = ``stone_id``;
 2. Pix na maquininha e pagamentos lançados no caixa: mesmo valor, mesma
    categoria e horário próximo. Lançamento manual aceita outra categoria
-   quando não há par na mesma, porque o caixa às vezes marca a forma errada.
+   quando não há par na mesma, porque o caixa às vezes marca a forma errada;
+3. lançamento no caixa ainda sem par: a única venda Stone de mesmo valor e
+   categoria nas 3 h anteriores (conta fechada depois da cobrança) ou a soma
+   de 2 a 4 vendas Stone próximas (vale dividido em vários cartões).
 
-Dinheiro, Fiado e vendas canceladas não entram na conciliação. O resultado
+Na conta dividida o caixa e a maquininha podem diferir em centavos, então
+lançamentos no caixa casam com tolerância de R$ 0,05. Dinheiro, Fiado,
+pagamentos zerados e vendas canceladas não entram na conciliação. O resultado
 aparece em Conciliação no painel (``app_conciliacao_saipos_dia``).
 
 Prova de 12–18/10/2026: 518 de 529 vendas Stone casadas (ver
@@ -28,6 +33,7 @@ import urllib.parse
 from dataclasses import dataclass
 from datetime import date, datetime, timedelta
 from decimal import Decimal
+from itertools import combinations
 
 import integracao_log
 from api_cliente import ErroHttp, carregar_env, requisitar, variavel
@@ -53,6 +59,10 @@ FORA_DA_CONCILIACAO = {"dinheiro", "fiado"}
 INICIO_TURNO = timedelta(hours=8)
 JANELA_POS = timedelta(minutes=5)
 JANELA_MANUAL = timedelta(minutes=30)
+JANELA_AMPLA = timedelta(hours=3)
+JANELA_SOMA = timedelta(minutes=10)
+TOLERANCIA = Decimal("0.05")
+MAXIMO_PARTES = 4
 
 
 @dataclass
@@ -70,6 +80,7 @@ class Pagamento:
     stone_id: str | None = None
     casamento: str | None = None
     diferenca_min: int | None = None
+    stone_ids_extra: list[str] | None = None
 
 
 @dataclass(frozen=True)
@@ -184,19 +195,20 @@ def ler_venda(bruta: dict) -> tuple[dict, list[Pagamento]]:
             _data_hora(transacao.get("created_at"), contexto),
             (transacao.get("authorization_code") or "").strip() or None,
             str(transacao.get("id_transaction") or "").strip() or None,
-            valida and not cancelada,
+            valida and valor > 0 and not cancelada,
         ))
     for ordem, forma in enumerate(bruta.get("payments") or []):
         nome = str(forma.get("desc_store_payment_type") or "").strip() or "?"
         cat = categoria(nome)
         valor = _valor(forma.get("payment_amount"), contexto)
-        if (cat, valor) in cobertas:
-            cobertas.remove((cat, valor))
+        iguais = [item for item in cobertas if item[0] == cat and abs(item[1] - valor) <= TOLERANCIA]
+        if iguais:
+            cobertas.remove(min(iguais, key=lambda item: abs(item[1] - valor)))
             continue
         pagamentos.append(Pagamento(
             id_sale, "forma", ordem, nome, cat, valor,
             _data_hora(forma.get("created_at") or bruta.get("created_at"), contexto),
-            None, None, cat not in FORA_DA_CONCILIACAO and not cancelada,
+            None, None, cat not in FORA_DA_CONCILIACAO and valor > 0 and not cancelada,
         ))
     return venda, pagamentos
 
@@ -205,31 +217,70 @@ def categoria_stone(produto: str | None) -> str:
     return categoria(produto)
 
 
+def _casar(pagamento: Pagamento, venda: VendaStone, casamento: str, livres: dict) -> None:
+    livres.pop(venda.stone_id)
+    pagamento.stone_id, pagamento.casamento = venda.stone_id, casamento
+    pagamento.diferenca_min = round((venda.data_venda - pagamento.criado_em).total_seconds() / 60)
+
+
+def _soma(alvo: Decimal, candidatas: list[VendaStone]) -> list[VendaStone] | None:
+    """Menor grupo de 2 a ``MAXIMO_PARTES`` vendas cuja soma bate com o alvo."""
+    for tamanho in range(2, min(MAXIMO_PARTES, len(candidatas)) + 1):
+        for grupo in combinations(candidatas, tamanho):
+            if abs(sum(venda.valor for venda in grupo) - alvo) <= TOLERANCIA:
+                return list(grupo)
+    return None
+
+
 def conciliar(pagamentos: list[Pagamento], stone: list[VendaStone]) -> None:
     """Casa os pagamentos com as vendas Stone livres; altera ``pagamentos``."""
     livres = {venda.stone_id: venda for venda in stone}
     for pagamento in pagamentos:
-        pagamento.stone_id = pagamento.casamento = pagamento.diferenca_min = None
+        pagamento.stone_id = pagamento.casamento = pagamento.diferenca_min = pagamento.stone_ids_extra = None
     pendentes = [p for p in pagamentos if p.entra_conciliacao]
     for pagamento in pendentes:
         if pagamento.codigo_autorizacao and pagamento.codigo_autorizacao in livres:
-            venda = livres.pop(pagamento.codigo_autorizacao)
-            pagamento.stone_id, pagamento.casamento = venda.stone_id, "codigo"
-            pagamento.diferenca_min = round((venda.data_venda - pagamento.criado_em).total_seconds() / 60)
-    for origem, janela in (("pos", JANELA_POS), ("forma", JANELA_MANUAL)):
-        for pagamento in sorted((p for p in pendentes if p.origem == origem and not p.stone_id), key=lambda p: p.criado_em):
+            _casar(pagamento, livres[pagamento.codigo_autorizacao], "codigo", livres)
+
+    def sem_par(origem: str) -> list[Pagamento]:
+        return sorted((p for p in pendentes if p.origem == origem and not p.stone_id), key=lambda p: p.criado_em)
+
+    for origem, janela, tolerancia in (("pos", JANELA_POS, Decimal("0")), ("forma", JANELA_MANUAL, TOLERANCIA)):
+        for pagamento in sem_par(origem):
             candidatas = [
                 venda for venda in livres.values()
-                if venda.valor == pagamento.valor and abs(venda.data_venda - pagamento.criado_em) <= janela
+                if abs(venda.valor - pagamento.valor) <= tolerancia
+                and abs(venda.data_venda - pagamento.criado_em) <= janela
             ]
             mesma = [venda for venda in candidatas if venda.categoria == pagamento.categoria]
             escolhidas = mesma or (candidatas if origem == "forma" else [])
-            if not escolhidas:
-                continue
-            venda = min(escolhidas, key=lambda v: abs(v.data_venda - pagamento.criado_em))
-            livres.pop(venda.stone_id)
-            pagamento.stone_id, pagamento.casamento = venda.stone_id, "valor_horario"
-            pagamento.diferenca_min = round((venda.data_venda - pagamento.criado_em).total_seconds() / 60)
+            if escolhidas:
+                venda = min(escolhidas, key=lambda v: (abs(v.valor - pagamento.valor), abs(v.data_venda - pagamento.criado_em)))
+                _casar(pagamento, venda, "valor_horario", livres)
+
+    # Conta fechada no caixa depois da cobrança: só com par único, para não
+    # trocar entre mesas vendas de valor comum (R$ 5, R$ 10).
+    for pagamento in sem_par("forma"):
+        candidatas = [
+            venda for venda in livres.values()
+            if venda.categoria == pagamento.categoria and abs(venda.valor - pagamento.valor) <= TOLERANCIA
+            and timedelta(0) <= pagamento.criado_em - venda.data_venda <= JANELA_AMPLA
+        ]
+        if len(candidatas) == 1:
+            _casar(pagamento, candidatas[0], "janela_ampla", livres)
+
+    # Vale ou conta dividida em vários cartões: a soma bate com o lançamento.
+    for pagamento in sem_par("forma"):
+        proximas = sorted(
+            (venda for venda in livres.values() if abs(venda.data_venda - pagamento.criado_em) <= JANELA_SOMA),
+            key=lambda venda: abs(venda.data_venda - pagamento.criado_em),
+        )[:8]
+        grupo = _soma(pagamento.valor, proximas)
+        if grupo:
+            _casar(pagamento, grupo[0], "soma", livres)
+            pagamento.stone_ids_extra = [venda.stone_id for venda in grupo[1:]]
+            for venda in grupo[1:]:
+                livres.pop(venda.stone_id)
 
 
 def dias_do_periodo(inicio: date, fim: date, hoje: date) -> list[date]:
@@ -257,18 +308,23 @@ def gravar(cur, vendas: list[dict], pagamentos: list[Pagamento]) -> int:
     ids = [venda["id_sale"] for venda in vendas]
     cur.execute("select id_sale from saipos_venda where id_sale = any(%s);", (ids,))
     existentes = {linha[0] for linha in cur.fetchall()}
+    from psycopg2.extras import execute_values
+
+    # Em lote: cada ida ao banco custa ~50 ms, e uma carga tem milhares de linhas.
     colunas = ("id_sale", "id_store", "data_turno", "turno", "criada_em", "atualizada_em", "cancelada", "tipo_venda", "total")
-    cur.executemany(
-        f"insert into saipos_venda ({', '.join(colunas)}) values ({', '.join(['%s'] * len(colunas))}) "
+    execute_values(
+        cur,
+        f"insert into saipos_venda ({', '.join(colunas)}) values %s "
         "on conflict (id_sale) do update set "
         + ", ".join(f"{coluna} = excluded.{coluna}" for coluna in colunas[1:])
         + ", importado_em = now();",
         [tuple(venda[coluna] for coluna in colunas) for venda in vendas],
     )
     cur.execute("delete from saipos_pagamento where id_sale = any(%s);", (ids,))
-    cur.executemany(
+    execute_values(
+        cur,
         "insert into saipos_pagamento (id_sale, origem, ordem, forma, categoria, valor, criado_em, "
-        "codigo_autorizacao, id_transacao, entra_conciliacao) values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);",
+        "codigo_autorizacao, id_transacao, entra_conciliacao) values %s;",
         [
             (p.id_sale, p.origem, p.ordem, p.forma, p.categoria, p.valor, p.criado_em,
              p.codigo_autorizacao, p.id_transacao, p.entra_conciliacao)
@@ -296,7 +352,8 @@ def reconciliar_periodo(cur, inicio: date, fim: date) -> dict[str, int]:
         "(select c.stonecode from stone_conta c where c.ativa and c.entra_faturamento)) "
         "and v.data_venda >= %s and v.data_venda < %s "
         "and not exists (select 1 from saipos_pagamento p join saipos_venda s on s.id_sale = p.id_sale "
-        "where p.stone_id = v.stone_id and s.data_turno not between %s and %s);",
+        "where (p.stone_id = v.stone_id or p.stone_ids_extra @> array[v.stone_id]) "
+        "and s.data_turno not between %s and %s);",
         (
             datetime.combine(inicio, datetime.min.time()) + INICIO_TURNO - timedelta(days=1),
             datetime.combine(fim + timedelta(days=2), datetime.min.time()) + INICIO_TURNO,
@@ -309,23 +366,28 @@ def reconciliar_periodo(cur, inicio: date, fim: date) -> dict[str, int]:
     ]
     conciliar(pagamentos, stone)
     cur.execute(
-        "update saipos_pagamento p set stone_id = null, casamento = null, diferenca_min = null "
+        "update saipos_pagamento p set stone_id = null, casamento = null, diferenca_min = null, stone_ids_extra = null "
         "from saipos_venda s where s.id_sale = p.id_sale and s.data_turno between %s and %s;",
         (inicio, fim),
     )
     casados = [p for p in pagamentos if p.stone_id]
-    cur.executemany(
-        "update saipos_pagamento set stone_id = %s, casamento = %s, diferenca_min = %s "
-        "where id_sale = %s and origem = %s and ordem = %s;",
-        [(p.stone_id, p.casamento, p.diferenca_min, p.id_sale, p.origem, p.ordem) for p in casados],
+    from psycopg2.extras import execute_values
+
+    execute_values(
+        cur,
+        "update saipos_pagamento p set stone_id = v.stone_id, casamento = v.casamento, "
+        "diferenca_min = v.diferenca_min, stone_ids_extra = v.extra "
+        "from (values %s) as v (stone_id, casamento, diferenca_min, extra, id_sale, origem, ordem) "
+        "where p.id_sale = v.id_sale and p.origem = v.origem and p.ordem = v.ordem;",
+        [(p.stone_id, p.casamento, p.diferenca_min, p.stone_ids_extra, p.id_sale, p.origem, p.ordem) for p in casados],
+        template="(%s, %s, %s::integer, %s::text[], %s::bigint, %s, %s::smallint)",
     )
     conciliaveis = [p for p in pagamentos if p.entra_conciliacao]
     return {
         "conciliaveis": len(conciliaveis),
-        "codigo": sum(1 for p in casados if p.casamento == "codigo"),
-        "valor_horario": sum(1 for p in casados if p.casamento == "valor_horario"),
+        **{tipo: sum(1 for p in casados if p.casamento == tipo) for tipo in ("codigo", "valor_horario", "janela_ampla", "soma")},
         "saipos_sem_stone": sum(1 for p in conciliaveis if not p.stone_id),
-        "stone_sem_saipos": len(stone) - len(casados),
+        "stone_sem_saipos": len(stone) - len(casados) - sum(len(p.stone_ids_extra or []) for p in casados),
     }
 
 

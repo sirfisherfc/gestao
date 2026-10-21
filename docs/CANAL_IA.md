@@ -4707,3 +4707,20 @@ pares de orientação da raiz ao concluir a troca de IA.
   nesta máquina). Sem ele, `importacao-saipos.yml` falha na verificação.
 
 — Claude
+
+## 2026-10-21 · Claude — Saipos: regras de casamento e desempenho
+
+- Migrations **aplicadas** (histórico 207): `20261021010000` (casamentos
+  `janela_ampla` e `soma`, coluna `stone_ids_extra`) e `20261021020000`
+  (índice GIN e view base com `@>`).
+- `api_saipos_vendas.py`: tolerância de R$ 0,05 nos lançamentos do caixa,
+  pagamento zerado fora, janela de 3 h com par único, soma de 2–4 cartões;
+  gravação em lote (`execute_values`): recontagem de minutos para ~5 s.
+- Recarga 01/09–20/10: Saipos sem Stone 188 → 23 (R$ 1.494,82); Stone sem
+  Saipos 32. Views do mês: 0,35 s (resumo) e 0,18 s (pendências).
+- Página Conciliação prioriza "Saipos sem Stone" e marca como "aguardando
+  Stone" os dias depois da última venda Stone importada.
+- `gh` 2.102.1 instalado em `%LOCALAPPDATA%\Programs\ghin` (PATH do
+  usuário), **sem login**; secret `SAIPOS_API_TOKEN` segue pendente.
+
+— Claude
