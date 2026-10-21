@@ -1413,6 +1413,8 @@ PK `id` (`item:<id_sale_item>` ou `mesa:<id_sale>`). Dados da Saipos (tipo,
 dia/turno, mesa, produto, valor, horários, minutos, minutos até o pagamento,
 quem lançou/cancelou/autorizou, motivo), `sinais`, `pontos` e
 `exige_justificativa`, gravados por `api_saipos_vendas.py`. Campos humanos:
+`marcacao` ("Histórico anterior à rotina" para casos até 20/10/2026,
+migration 20261021040000; a view aplica o corte também a casos novos),
 `justificativa`/`justificado_por`/`justificado_em` e
 `revisao` (`procedente`/`suspeito`)/`revisao_obs`/`revisado_por`/`revisado_em`.
 RLS ligado, sem acesso direto.

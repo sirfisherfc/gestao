@@ -360,10 +360,10 @@ def gravar_cancelamentos(cur, dia: date, cancelamentos: list[dict], resumo: list
             + ", importado_em = now();",
             [tuple(item[coluna] for coluna in COLUNAS_CANCELAMENTO) for item in cancelamentos],
         )
-    # Some só o que ninguém tratou: o que já tem justificativa fica como registro.
+    # Some só o que ninguém tratou: justificado, revisado ou marcado fica como registro.
     cur.execute(
         "delete from saipos_cancelamento where data_turno = %s and not (id = any(%s)) "
-        "and justificativa is null and revisao is null;",
+        "and justificativa is null and revisao is null and marcacao is null;",
         (dia, [item["id"] for item in cancelamentos]),
     )
     cur.execute("delete from saipos_lancamento_resumo where data_turno = %s;", (dia,))

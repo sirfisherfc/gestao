@@ -381,6 +381,9 @@ Página `cancelamentos.html` (Rotinas): gerente justifica
 curva" compara a taxa por dia, hora, turno, dia da semana e funcionário.
 O importador só atualiza os dados Saipos; justificativa e revisão nunca são
 sobrescritas, e um caso já tratado não é apagado.
+A rotina conta a partir de 21/10/2026: casos anteriores levam a marcação
+"Histórico anterior à rotina" (coluna `marcacao`, migration
+`20261021040000`), ficam fora das pendências e aparecem no filtro Histórico.
 
 ## Segurança
 

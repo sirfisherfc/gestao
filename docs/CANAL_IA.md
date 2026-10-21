@@ -4749,3 +4749,15 @@ pares de orientação da raiz ao concluir a troca de IA.
   justificar. Teste em `test_api_bancos.py`.
 
 — Claude
+
+## 2026-10-21 · Claude — Cancelamentos: histórico antes da rotina
+
+- Decisão do proprietário: pendências contam a partir de 21/10/2026. Migration
+  `20261021040000` **aplicada** (histórico 209): coluna `marcacao`; os 228
+  casos até 20/10 (43 que exigiriam justificativa) marcados "Histórico
+  anterior à rotina". A view aplica o corte a qualquer caso antigo
+  reprocessado; o importador não apaga casos marcados.
+- Página: filtro "Histórico anterior à rotina" e card de histórico sem
+  justificativa; casos marcados ainda podem ser revisados.
+
+— Claude

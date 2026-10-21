@@ -58,9 +58,10 @@ const {rs,pct}=SirFisherFormat;
 let PAPEL=null,CASOS=[],RESUMO=[],DIMENSAO='dia',CARREGAR_SEQ=0;
 const filtros={dias:30,situacao:'pendentes'};
 const SITUACOES={
-  pendentes:['Para justificar',c=>c.exige_justificativa&&!c.justificativa&&!c.revisao],
+  pendentes:['Para justificar',c=>c.exige_justificativa&&!c.justificativa&&!c.revisao&&!c.marcacao],
   justificados:['Justificados, aguardando revisão',c=>c.justificativa&&!c.revisao],
   revisados:['Revisados',c=>!!c.revisao],
+  historico:['Histórico anterior à rotina',c=>!!c.marcacao&&c.exige_justificativa],
   casos:['Todos os casos',c=>c.exige_justificativa||c.justificativa||c.revisao],
   todos:['Todos os cancelamentos',()=>true],
 };
@@ -114,6 +115,7 @@ function render(){
   const pend=CASOS.filter(SITUACOES.pendentes[1]);
   const aguard=CASOS.filter(SITUACOES.justificados[1]);
   const suspeitos=CASOS.filter(c=>c.revisao==='suspeito');
+  const historico=CASOS.filter(SITUACOES.historico[1]).filter(c=>!c.justificativa&&!c.revisao);
   const lista=CASOS.filter(SITUACOES[filtros.situacao][1]);
   main.innerHTML=`
     <div class="page-intro"><div><h2>Cancelamentos</h2><p>Itens e mesas cancelados na Saipos. Troca de mesa não conta, e o item relançado logo em seguida conta como correção. Os casos com sinais de risco precisam de justificativa do gerente; admin e sócio revisam.</p></div><button id="btnAtualizar" class="button secondary">Atualizar</button></div>
@@ -125,9 +127,10 @@ function render(){
       <div class="summary-card"><div class="label">Cancelado no período</div><div class="value">${rs(cancelado)}</div><div class="note">${pct(lancado?cancelado/lancado*100:0)} do lançado (${rs(lancado)})</div></div>
       <div class="summary-card"><div class="label">Para justificar</div><div class="value" style="color:${pend.length?'var(--red)':'inherit'}">${pend.length}</div><div class="note">${rs(pend.reduce((t,c)=>t+Number(c.valor||0),0))}</div></div>
       <div class="summary-card"><div class="label">Aguardando revisão</div><div class="value">${aguard.length}</div><div class="note">Justificados pelo gerente</div></div>
+      <div class="summary-card"><div class="label">Histórico sem justificativa</div><div class="value">${historico.length}</div><div class="note">Antes de 21/10, fora das pendências</div></div>
       <div class="summary-card"><div class="label">Marcados como suspeitos</div><div class="value">${suspeitos.length}</div><div class="note">${rs(suspeitos.reduce((t,c)=>t+Number(c.valor||0),0))}</div></div>
     </div>
-    <section class="panel"><div class="panel-head"><div><h3>${esc(SITUACOES[filtros.situacao][0])}</h3><div class="hint">Mais recentes primeiro. Pontos: provavelmente servido ou cancelado depois de começar a pagar valem 2; perto do pagamento, 60+ min após lançar, mesa paga em dinheiro e sem motivo valem 1. Justificativa obrigatória a partir de 3 pontos ou R$ 100.</div></div></div>
+    <section class="panel"><div class="panel-head"><div><h3>${esc(SITUACOES[filtros.situacao][0])}</h3><div class="hint">Mais recentes primeiro. Pontos: provavelmente servido ou cancelado depois de começar a pagar valem 2; perto do pagamento, 60+ min após lançar, mesa paga em dinheiro e sem motivo valem 1. Justificativa obrigatória a partir de 3 pontos ou R$ 100. Casos até 20/10 ficam como histórico, fora das pendências.</div></div></div>
       <div class="cx-lista" id="listaCasos">${lista.map(cartao).join('')||'<div class="empty">Nada nesta situação no período.</div>'}</div>
     </section>
     <section class="panel"><div class="panel-head"><div><h3>Fora da curva</h3><div class="hint">Cancelado ÷ lançado, sem trocas de mesa nem correções. Destaque quando a taxa passa de 2× a média do período e o cancelado soma pelo menos R$ 50.</div></div></div>
@@ -154,7 +157,7 @@ function cartao(c){
   let just='';
   if(c.justificativa){
     just=`<div class="cx-just"><b>Justificativa</b> de ${esc(c.justificado_por_nome||'—')} em ${quando(c.justificado_em)}: ${esc(c.justificativa)}</div>`;
-  }else if(c.exige_justificativa&&!c.revisao){
+  }else if(c.exige_justificativa&&!c.revisao&&!c.marcacao){
     just=`<div class="cx-form"><textarea id="j_${esc(c.id)}" class="field" placeholder="O que aconteceu? Ex.: cliente reclamou do ponto e o prato voltou para a cozinha."></textarea><button class="button" data-justificar="${esc(c.id)}">Justificar</button></div>`;
   }
   let rev='';
@@ -168,7 +171,7 @@ function cartao(c){
     ${detalhe}
     <div class="cx-meta">${dia(c.data_turno)} · ${esc(c.turno||'—')} · ${tempos}${c.pontos?` · <b>${c.pontos} ponto${c.pontos>1?'s':''}</b>`:''}</div>
     <div class="cx-meta">${pessoas}</div>
-    ${sinais?`<div class="cx-sinais">${sinais}</div>`:''}
+    ${sinais||c.marcacao?`<div class="cx-sinais">${c.marcacao?`<span class="status neutral">${esc(c.marcacao)}</span>`:''}${sinais}</div>`:''}
     ${just}${rev}
   </div>`;
 }
