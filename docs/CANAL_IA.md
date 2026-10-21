@@ -4720,7 +4720,7 @@ pares de orientação da raiz ao concluir a troca de IA.
   Saipos 32. Views do mês: 0,35 s (resumo) e 0,18 s (pendências).
 - Página Conciliação prioriza "Saipos sem Stone" e marca como "aguardando
   Stone" os dias depois da última venda Stone importada.
-- `gh` 2.102.1 instalado em `%LOCALAPPDATA%\Programs\ghin` (PATH do
+- `gh` 2.102.1 instalado em `%LOCALAPPDATA%/Programs/gh/bin` (PATH do
   usuário), **sem login**; secret `SAIPOS_API_TOKEN` segue pendente.
 
 — Claude
