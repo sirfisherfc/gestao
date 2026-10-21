@@ -97,6 +97,7 @@ jobs:
             assets/supabase-client.js \
             caixa.html \
             calendario.html \
+            cancelamentos.html \
             cardapio.html \
             classificar_excecoes.html \
             conciliacao.html \
@@ -106,7 +107,6 @@ jobs:
             dre.html \
             escalas.html \
             eventos.html \
-            cancelamentos.html \
             gerenciador_de_para.html \
             gerente.html \
             importar.html \
