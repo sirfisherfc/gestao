@@ -4779,3 +4779,24 @@ pares de orientação da raiz ao concluir a troca de IA.
   `pg_stat_statements` acumula desde 09/07 (não resetado); comparar por delta.
 
 — Claude
+
+## 2026-10-21 · Claude — desempenho do painel: fases 1 e 2 e ganhos rápidos de front
+
+- Linha de base, causas e plano em `docs/DESEMPENHO_PAINEL.md`; rotina de
+  medição em `docs/OBSERVABILIDADE.md` e `scripts/diagnostico/medir_desempenho.py`
+  (somente leitura). Nenhuma mudança de banco nem de dados.
+- Causa principal confirmada: CPU de recomputação. `corte_caixa` (max sobre
+  `fato_financeiro`) e `venda_diaria` são recalculadas várias vezes por
+  consulta; o banco Nano é pequeno, compartilhado e varia 2–4×.
+- Protótipo descartável (só pg_temp, md5 idêntico): índices + snapshot do
+  corte + snapshot diário da Stone levam o Calendário de 6,7 s a 0,8 s e o
+  `saldo_mensal_calculado` do worker de 57 s a 2,7 s (com `MATERIALIZED`).
+- Front publicado: papel/permissões em paralelo com a configuração e em cache
+  entre abas (mesmo TTL, apagado no logout); `preconnect`; corte do Calendário
+  em paralelo; `?perf=1`. Teste novo `test_desempenho_front.mjs` no CI.
+- **Parado na Fase 2 por regra do pedido:** etapas B–F aguardam aprovação do
+  proprietário (decisões listadas no fim de `docs/DESEMPENHO_PAINEL.md`).
+- Não paralelizar as rodadas das páginas antes de B/C: com a CPU saturada isso
+  atrasa o primeiro conteúdo; o contrato do índice exige liberar o resumo antes.
+
+— Claude
