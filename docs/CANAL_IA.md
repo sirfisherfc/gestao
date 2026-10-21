@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 livre — handoff das integrações consolidado no último recado; extrato Stone online, BB adiado e Saipos aguardando token.
+> **🚦 Status atual:** 🟢 livre — handoff das integrações consolidado no último recado; extrato Stone online, BB adiado e Saipos com token (prova de conciliação feita, sem importador).
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -4672,5 +4672,22 @@ pares de orientação da raiz ao concluir a troca de IA.
   `STONECODES_FORA_DA_API` em `api_stone_conciliacao.py`, aplicado à lista do
   banco e a `STONE_STONECODES` (vale também para `api_stone_recebiveis.py`).
   `stone_conta` e faturamento não mudaram. Teste em `test_api_bancos.py`.
+
+— Claude
+
+## 2026-10-21 · Claude — Saipos: token e prova de conciliação
+
+- Token da API de Dados recebido (loja CNPJ 37889047000168, `id_store`
+  49581) e gravado em `gestao/.env` como `SAIPOS_API_TOKEN`/`SAIPOS_CNPJ`.
+  Não versionar. Base `https://data.saipos.io/v1`, `Authorization: Bearer`.
+- `search_sales` com 15 dias deu HTTP 504 (pool da Saipos); 1 dia funcionou.
+  Consultar em janelas curtas e com nova tentativa.
+- Prova em 18/10 (somente leitura, dados no scratchpad): 130 vendas.
+  Cartão SmartPOS 65/65 casado com `raw_stone_vendas.stone_id` pelo
+  `authorization_code`, valores idênticos. Pix na maquininha 29/29 casado por
+  valor e minuto (código "A..." próprio, não é o E2E). Pagamentos lançados à
+  mão (12) casam por valor/horário com ambiguidade. Stone sem Saipos: 4
+  transações (R$ 51,44). Dinheiro e Fiado ficam fora.
+- Sem importador, migration ou alteração no banco.
 
 — Claude
