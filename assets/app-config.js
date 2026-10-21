@@ -42,9 +42,15 @@
   let settings = settingsFallback;
   let cachedAt = 0;
 
+  // Configuracao publica da empresa (sem dado financeiro): vale entre abas com
+  // o mesmo TTL curto, para uma aba nova nao repetir as duas consultas.
+  function cacheStore() {
+    try { return window.localStorage; } catch (_error) { return null; }
+  }
+
   function restoreCache() {
     try {
-      const cached = JSON.parse(sessionStorage.getItem(CACHE_KEY) || 'null');
+      const cached = JSON.parse(cacheStore()?.getItem(CACHE_KEY) || 'null');
       if (!cached || typeof cached !== 'object') return;
       const nome = String(cached.current?.nome || '').trim();
       const subtitulo = String(cached.current?.subtitulo || '').trim();
@@ -54,14 +60,14 @@
       }
       cachedAt = Number(cached.savedAt) || 0;
     } catch (_error) {
-      // sessionStorage pode estar desabilitado; a configuracao remota segue normal.
+      // O armazenamento pode estar desabilitado; a configuracao remota segue normal.
     }
   }
 
   function saveCache() {
     try {
       cachedAt = Date.now();
-      sessionStorage.setItem(CACHE_KEY, JSON.stringify({
+      cacheStore()?.setItem(CACHE_KEY, JSON.stringify({
         savedAt: cachedAt,
         current,
         settings
@@ -114,7 +120,7 @@
     }
     if (force) {
       cachedAt = 0;
-      try { sessionStorage.removeItem(CACHE_KEY); } catch (_error) {}
+      try { cacheStore()?.removeItem(CACHE_KEY); } catch (_error) {}
     }
     const client = window.SirFisherSupabase;
     if (client) {

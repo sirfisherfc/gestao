@@ -42,19 +42,31 @@
   const ROLE_CACHE_TTL_MS = 5 * 60 * 1000;
   const KNOWN_ROLES = new Set(['admin', 'socio', 'gerente']);
 
+  // Papel e matriz de navegacao valem para todas as abas do navegador, com o
+  // mesmo TTL curto; o logout apaga os dois. O servidor continua sendo a
+  // autoridade: as views e RPCs conferem o papel em cada consulta.
+  function cacheStore() {
+    try { return window.localStorage; } catch (_error) { return null; }
+  }
+
   let permissionsPromise = null;
   function clearPermissionsCache() {
     permissionsPromise = null;
-    try { sessionStorage.removeItem(PERMISSIONS_CACHE_KEY); } catch (_error) {}
+    try { cacheStore()?.removeItem(PERMISSIONS_CACHE_KEY); } catch (_error) {}
   }
 
   function clearRoleCache() {
-    try { sessionStorage.removeItem(ROLE_CACHE_KEY); } catch (_error) {}
+    try { cacheStore()?.removeItem(ROLE_CACHE_KEY); } catch (_error) {}
+  }
+
+  function clearAccessCache() {
+    clearRoleCache();
+    clearPermissionsCache();
   }
 
   function cachedRole(userId) {
     try {
-      const cached = JSON.parse(sessionStorage.getItem(ROLE_CACHE_KEY) || 'null');
+      const cached = JSON.parse(cacheStore()?.getItem(ROLE_CACHE_KEY) || 'null');
       if (!cached || cached.userId !== userId) return null;
       if (Date.now() - Number(cached.savedAt) >= ROLE_CACHE_TTL_MS) return null;
       return KNOWN_ROLES.has(cached.role) ? cached.role : null;
@@ -70,7 +82,7 @@
     const role = result.error ? null : result.data;
     if (KNOWN_ROLES.has(role)) {
       try {
-        sessionStorage.setItem(ROLE_CACHE_KEY, JSON.stringify({
+        cacheStore()?.setItem(ROLE_CACHE_KEY, JSON.stringify({
           savedAt: Date.now(), userId, role
         }));
       } catch (_error) {
@@ -84,7 +96,7 @@
 
   function cachedPermissions() {
     try {
-      const cached = JSON.parse(sessionStorage.getItem(PERMISSIONS_CACHE_KEY) || 'null');
+      const cached = JSON.parse(cacheStore()?.getItem(PERMISSIONS_CACHE_KEY) || 'null');
       if (!cached || Date.now() - Number(cached.savedAt) >= PERMISSIONS_CACHE_TTL_MS) return null;
       const map = new Map();
       (cached.rows || []).forEach(row => map.set(row.pagina, new Set(row.papeis || [])));
@@ -110,7 +122,7 @@
         const rows = data || [];
         rows.forEach(row => map.set(row.pagina, new Set(row.papeis || [])));
         try {
-          sessionStorage.setItem(PERMISSIONS_CACHE_KEY, JSON.stringify({ savedAt: Date.now(), rows }));
+          cacheStore()?.setItem(PERMISSIONS_CACHE_KEY, JSON.stringify({ savedAt: Date.now(), rows }));
         } catch (_error) {
           // Cache e apenas uma otimizacao.
         }
@@ -288,7 +300,7 @@
     logout.className = 'sf-auth-google';
     logout.textContent = 'Sair desta conta';
     logout.addEventListener('click', async () => {
-      clearRoleCache();
+      clearAccessCache();
       await sb.auth.signOut();
       window.location.replace('./');
     });
@@ -392,7 +404,7 @@
     logout.setAttribute('role', 'menuitem');
     logout.addEventListener('click', async () => {
       sessionStorage.removeItem(NEXT_KEY);
-      clearRoleCache();
+      clearAccessCache();
       await sb.auth.signOut();
       window.location.replace('./');
     });
@@ -455,6 +467,14 @@
     // Executa as duas em paralelo para nao somar duas esperas de rede a cada pagina.
     const appReady = window.SirFisherApp?.ready || Promise.resolve();
     const sessionRequest = sb.auth.getSession();
+    // Papel e matriz de navegacao dependem so da sessao: comecam assim que ela
+    // e lida, em paralelo com a configuracao, em vez de esperar uma pela outra.
+    const roleRequest = sessionRequest.then(({ data }) => {
+      const session = data?.session;
+      if (!session) return null;
+      if (cachedRole(session.user.id) !== 'admin') fetchPermissions(sb);
+      return currentRole(sb, session.user.id);
+    }).catch(() => null);
     const startup = await Promise.allSettled([appReady, sessionRequest]);
     const sessionResult = startup[1].status === 'fulfilled'
       ? startup[1].value
@@ -472,7 +492,7 @@
       return null;
     }
 
-    const role = await currentRole(sb, session.user.id);
+    const role = await roleRequest;
     if (!role) {
       if (!settings.loginPage) {
         window.location.replace('./');
@@ -498,6 +518,7 @@
       return null;
     }
 
+    try { performance.mark('sirfisher:auth'); } catch (_error) {}
     return { session, role };
   }
 

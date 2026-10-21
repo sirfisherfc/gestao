@@ -4,7 +4,135 @@
   const SUPABASE_URL = "https://lucpxoynpvogkvzepagi.supabase.co";
   const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx1Y3B4b3lucHZvZ2t2emVwYWdpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM2MDYxNzQsImV4cCI6MjA5OTE4MjE3NH0.r0XGYX1KqAXQA4g9uoUAFLFTEaWUEXobWqyKVe0_SnE";
 
-  const client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  // Medicao de desempenho opcional: ?perf=1 liga e ?perf=0 desliga, valendo
+  // para a aba. Desligada, o cliente e criado exatamente como antes.
+  const PERF_KEY = 'sirfisher_perf';
+
+  function perfLigado() {
+    try {
+      const flag = new URLSearchParams(window.location.search).get('perf');
+      if (flag === '1') sessionStorage.setItem(PERF_KEY, '1');
+      if (flag === '0') sessionStorage.removeItem(PERF_KEY);
+      return sessionStorage.getItem(PERF_KEY) === '1';
+    } catch (_error) {
+      return false;
+    }
+  }
+
+  function criarMedidor() {
+    const registros = [];
+    let pendentes = 0;
+    let timer = null;
+    let lcp = null;
+    try {
+      new PerformanceObserver((lista) => {
+        const entradas = lista.getEntries();
+        if (entradas.length) lcp = entradas[entradas.length - 1].startTime;
+      }).observe({ type: 'largest-contentful-paint', buffered: true });
+    } catch (_error) {
+      // Navegador sem LCP: o resumo mostra so os demais marcos.
+    }
+
+    function rotulo(url) {
+      try {
+        const caminho = new URL(url, window.location.href).pathname;
+        return caminho.replace(/^\/rest\/v1\//, '').replace(/^\/auth\/v1\//, 'auth/');
+      } catch (_error) {
+        return String(url);
+      }
+    }
+
+    // Rodada: grupo de requisicoes que comecam antes de a anterior terminar.
+    function rodadas(lista) {
+      let total = 0;
+      let fimRodada = -1;
+      lista.slice().sort((a, b) => a.inicio - b.inicio).forEach((r) => {
+        if (r.inicio >= fimRodada) total += 1;
+        fimRodada = Math.max(fimRodada, r.fim);
+      });
+      return total;
+    }
+
+    function ms(valor) {
+      return valor == null ? '—' : Math.round(valor) + ' ms';
+    }
+
+    function resumir() {
+      const nav = performance.getEntriesByType('navigation')[0] || null;
+      const fcp = performance.getEntriesByName('first-contentful-paint')[0] || null;
+      const auth = performance.getEntriesByName('sirfisher:auth')[0] || null;
+      const fimDados = registros.reduce((max, r) => Math.max(max, r.fim), 0);
+      const resumo = {
+        pagina: window.location.pathname.split('/').pop() || 'index.html',
+        html: nav ? Math.round(nav.responseEnd) : null,
+        primeira_pintura: fcp ? Math.round(fcp.startTime) : null,
+        maior_pintura: lcp == null ? null : Math.round(lcp),
+        auth_pronto: auth ? Math.round(auth.startTime) : null,
+        dados_completos: Math.round(fimDados),
+        requisicoes: registros.length,
+        rodadas: rodadas(registros)
+      };
+      console.table(registros.map((r) => ({
+        consulta: r.nome,
+        inicio_ms: Math.round(r.inicio),
+        duracao_ms: Math.round(r.fim - r.inicio),
+        status: r.status
+      })));
+      console.info('[perf]', resumo);
+      let caixa = document.getElementById('sf-perf');
+      if (!caixa) {
+        caixa = document.createElement('div');
+        caixa.id = 'sf-perf';
+        Object.assign(caixa.style, {
+          position: 'fixed', left: '8px', bottom: '8px', zIndex: '9999', maxWidth: '320px',
+          background: '#12313f', color: '#fff', font: '11px/1.5 Roboto,Arial,sans-serif',
+          padding: '8px 10px', borderRadius: '8px', boxShadow: '0 6px 18px rgba(0,0,0,.25)',
+          whiteSpace: 'pre-line', cursor: 'pointer'
+        });
+        caixa.title = 'Medição ativa (?perf=0 desliga). Clique para fechar.';
+        caixa.addEventListener('click', () => caixa.remove());
+        document.body.appendChild(caixa);
+      }
+      caixa.textContent = [
+        'Medição · ' + resumo.pagina,
+        'HTML ' + ms(resumo.html) + ' · 1ª pintura ' + ms(resumo.primeira_pintura),
+        'Maior pintura ' + ms(resumo.maior_pintura) + ' · acesso ' + ms(resumo.auth_pronto),
+        'Dados completos ' + ms(resumo.dados_completos),
+        resumo.requisicoes + ' consultas em ' + resumo.rodadas + ' rodadas'
+      ].join('\n');
+      window.SirFisherPerf = Object.freeze({ resumo, registros: registros.slice() });
+    }
+
+    function agendar() {
+      clearTimeout(timer);
+      if (pendentes === 0) timer = setTimeout(resumir, 1500);
+    }
+
+    async function medirFetch(input, init) {
+      const nome = rotulo(typeof input === 'string' ? input : input?.url);
+      const inicio = performance.now();
+      pendentes += 1;
+      clearTimeout(timer);
+      try {
+        const resposta = await fetch(input, init);
+        registros.push({ nome, inicio, fim: performance.now(), status: resposta.status });
+        return resposta;
+      } catch (error) {
+        registros.push({ nome, inicio, fim: performance.now(), status: 'falha' });
+        throw error;
+      } finally {
+        pendentes -= 1;
+        agendar();
+      }
+    }
+
+    return { fetch: medirFetch };
+  }
+
+  const medidor = perfLigado() ? criarMedidor() : null;
+  const client = medidor
+    ? supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, { global: { fetch: medidor.fetch } })
+    : supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
   const RETRY_DEFAULTS = Object.freeze({
     maxAttempts: 3,

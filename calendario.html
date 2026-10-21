@@ -6,6 +6,8 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://*.supabase.co wss://*.supabase.co; img-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'self'; upgrade-insecure-requests">
 <title>Painel · Calendário</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://lucpxoynpvogkvzepagi.supabase.co" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 <link href="assets/dashboard-common.css" rel="stylesheet">
 <link href="assets/product-pages.css" rel="stylesheet">
@@ -58,6 +60,7 @@ let AUTH=null;
 let DESPESAS_DIA={};
 let SALDOS_DIA={};
 let CORTE;
+let CORTE_REQ=null;
 let hoverTimer=null;
 let CARGA_ATUAL=0;
 const HOVER_FINO=window.matchMedia('(hover: hover) and (pointer: fine)').matches;
@@ -209,6 +212,11 @@ async function carregar(mesForcado){
   const main=document.getElementById('main');
   const mes=typeof mesForcado==='string'?mesForcado:(document.getElementById('mesSel')?.value||mesAtual());
   main.innerHTML='<div class="loading">Carregando calendário…</div>';
+  // O corte não depende do mês: vai junto com o calendário, sem esperar por ele.
+  if(CORTE===undefined&&!CORTE_REQ){
+    CORTE_REQ=Promise.resolve(sb.rpc('resumo_corte_caixa'));
+    CORTE_REQ.catch(()=>{}); // a falha é tratada onde o corte é lido, abaixo
+  }
   let data=null,error=null;
   for(let tentativa=1;tentativa<=3;tentativa++){
     if(carga!==CARGA_ATUAL)return;
@@ -231,7 +239,7 @@ async function carregar(mesForcado){
   // consulta por carga da página, não uma por mês navegado.
   if(CORTE===undefined){
     try{
-      const {data:corte,error:erroCorte}=await sb.rpc('resumo_corte_caixa');
+      const {data:corte,error:erroCorte}=await CORTE_REQ;
       if(erroCorte)throw erroCorte;
       CORTE=corte?.[0]||null;
     }catch(falha){console.error('Falha ao consultar o corte de caixa:',falha);CORTE=null;}

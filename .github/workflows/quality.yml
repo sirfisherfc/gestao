@@ -70,6 +70,9 @@ jobs:
       - name: Recurring bills overdue carryover and original-period settlement
         run: node --test scripts/ci/test_contas_recorrentes.mjs
 
+      - name: Front-end startup in parallel, cross-tab cache, calendar cut and opt-in measurement
+        run: node --test scripts/ci/test_desempenho_front.mjs
+
   import-outbox:
     runs-on: ubuntu-latest
     services:
