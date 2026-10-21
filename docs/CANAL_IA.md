@@ -4800,3 +4800,29 @@ pares de orientação da raiz ao concluir a troca de IA.
   atrasa o primeiro conteúdo; o contrato do índice exige liberar o resumo antes.
 
 — Claude
+
+## 2026-10-21 · Claude — desempenho do painel: snapshots aplicados (fase 3)
+
+- Proprietário delegou a decisão. Migrations **aplicadas** (histórico 214):
+  `20261021050000` (índices de data Stone), `060000` (`saldo_mensal_calculado`
+  com CTEs MATERIALIZED), `070000` (`private.mv_corte_caixa_base` e
+  `private.mv_venda_stone_dia`; `corte_caixa`, `venda_diaria`, Calendário e
+  refresh resiliente com work_mem 16 MB), `080000` (worker processa todas as
+  pendentes numa execução) e `090000` (`projecao_despesa_fixa` limita o
+  realizado ao mês do corte). Ensaiadas antes em transação com rollback:
+  27 objetos com md5 idêntico. A 070000 e a 090000 abortam se o md5 mudar.
+- Medido depois: páginas 2,0–5,3 s → 0,5–1,4 s no banco; refresh 28,5 s sem
+  disco temporário; worker agrupou duas tarefas num refresh só.
+- Front: Início e Gerente pedem as consultas junto com o resumo. Testes novos
+  em `test_desempenho_front.mjs` (11) e contratos atualizados; a fixture do
+  outbox cobre o worker agrupado (testada no PGlite e no CI).
+- **Não feito, por decisão:** snapshot de `fato_financeiro` (atrasaria a
+  classificação manual nas projeções) e cache de números no navegador.
+- Cuidado: carga nova que grave `raw_stone_vendas`, `raw_stone_recebiveis` ou
+  fontes de `fato_financeiro` precisa chamar `refresh_painel()` ou a fila,
+  senão corte e vendas Stone ficam no snapshot anterior. Detalhes em
+  `docs/supabase_schema.md` (seção de desempenho) e `docs/DESEMPENHO_PAINEL.md`.
+- Achados à parte: job `sirfisher-virada-financeira` sumiu do cron do portal;
+  worker com EXECUTE para PUBLIC/authenticated (schema private).
+
+— Claude

@@ -41,9 +41,14 @@ python scripts/diagnostico/medir_desempenho.py pgss delta retrato.json
 - `checksums`: md5 do resultado ordenado. Rodar antes e depois de mudar uma
   view ou função, na mesma data, para provar resultado idêntico.
 - `pgss`: compara o `pg_stat_statements` por delta, sem resetar estatísticas.
-- A CPU do plano Free é compartilhada e varia 2–4× entre rodadas: comparar
-  medianas de pelo menos 3 voltas e evitar loops longos no horário de serviço,
-  porque disputam CPU com as reservas. Os arquivos de retrato ficam fora do Git.
+- A CPU do plano Free é compartilhada e varia 2–4× entre rodadas (picos de
+  até 8× já foram vistos): comparar medianas de pelo menos 3 voltas e evitar
+  loops longos no horário de serviço, porque disputam CPU com as reservas. Os
+  arquivos de retrato ficam fora do Git.
+- Antes de trocar uma view ou função do painel, ensaiar a migration numa
+  transação com rollback e comparar o md5 dos objetos afetados e dependentes
+  (inclusive o Calendário como admin). As migrations de 21/10/2026 também
+  abortam sozinhas se o md5 mudar.
 
 ## Regras para índices
 

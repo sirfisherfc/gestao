@@ -83,17 +83,57 @@ por rodada + HTML 0–0,45 s + JavaScript ~0,1 s): Início 1,1–2,0 s, Caixa
 consulta do navegador acima de 1 s no servidor. Com E, revisita sem dado novo
 em ~0,3–0,5 s. No celular em 4G, somar 0,5–1,0 s.
 
-## Decisões do proprietário (pendentes)
+## Decisões (21/10/2026)
 
-1. Aprovar B (sem atraso de dado).
-2. Aprovar C: a venda Stone e o corte de caixa avançam ao fim do refresh que a
-   própria carga dispara, como já acontece com DRE, saldo e fluxo.
-3. Decidir D: projeções passam a refletir uma classificação manual quando o
-   worker termina (~1 min), igual à DRE hoje. As telas de classificação
-   continuam ao vivo.
-4. Confirmar E: guardar no navegador, por usuário e versão dos dados, os
-   números já exibidos, apagando no logout.
-5. Job diário de `pg_cron`: não é necessário neste plano.
+O proprietário delegou a escolha ("faça o que achar melhor"). Critério: maior
+ganho sem mudar números, sem atraso além do aceito e sem risco de mostrar
+número desatualizado.
+
+1. **B e C aplicadas** (migrations `20261021050000` a `20261021080000`), com a
+   memória do refresh em 16 MB (suficiente para zerar o disco temporário,
+   medido) em vez dos 32 MB previstos.
+2. **B extra aplicada**: `projecao_despesa_fixa` limita o realizado aos meses a
+   partir do corte (`20261021090000`), 0,37 s → 0,22 s.
+3. **E, parte segura, aplicada**: Início e Gerente pedem as consultas
+   secundárias junto com o resumo (3 rodadas → 1 na carga de dados). O cache
+   de números no navegador **não** foi feito: com o banco rápido, o ganho não
+   compensa o risco de exibir número antigo.
+4. **D não aplicada**: atrasaria a classificação manual nas projeções, e o
+   pedido exige que ações manuais apareçam na hora.
+5. Nenhum job novo de `pg_cron` foi necessário.
+
+## Resultado (21/10/2026, depois de A–C e da parte segura de E)
+
+Mesma rotina da linha de base. Páginas: mediana de 5 voltas; antes, de 3.
+
+| Página | Dados no banco antes | Depois | Rodadas antes → depois | Dados completos no PC (estimado) |
+|---|---|---|---|---|
+| Início | 4,0 s | 0,68 s | 3 → 2 | 0,8–1,4 s |
+| Caixa | 4,6 s | 0,59 s | 2 → 2 | 0,7–1,2 s |
+| Gerente | 4,4 s | 0,91 s | 3 → 1 | 1,0–1,5 s |
+| DRE | 2,0 s | 0,51 s | 2 → 2 | 0,6–1,1 s |
+| Despesas | 2,3 s | 0,52 s | 2 → 2 | 0,6–1,1 s |
+| Calendário | 5,3 s | 1,36 s | 2 → 1 | 1,5–2,0 s |
+| Conciliação (não alterada) | 1,7 s | 1,29 s | 2 → 2 | 1,4–1,9 s |
+
+Consultas no servidor (melhor tempo, antes → depois): Calendário 4,1 s →
+0,70 s; cartão do gerente 2,3 s → 0,51 s; resumo mensal 0,93 s → 0,19 s;
+projeção de despesa direta 0,99 s → 0,06 s; recebimento projetado 1,0 s →
+0,06 s; saldo atual 0,98 s → 0,07 s; saldo por conta 0,30 s → 0,001 s;
+recebimento conhecido 0,31 s → 0,001 s; resumo do gerente 0,91 s → 0,08 s.
+Restam acima de 0,3 s: projeção de despesa fixa (~0,22–0,37 s), bonificação
+(~0,33 s), conciliação Stone (~0,33–0,36 s).
+
+Importação: um refresh completo leva 28,5 s (antes ~50–65 s por tarefa), sem
+disco temporário. Duas tarefas enfileiradas juntas foram processadas numa
+execução só (início em 6 s, 28,7 s). Com 4 arquivos: ~35 s até os números,
+contra ~4 min antes.
+
+**Riscos que continuam.** A CPU do plano Free é compartilhada: a mesma página
+ainda pode ter picos de 2–8× (Calendário: um pico de 8,2 s em 5 voltas). A
+primeira chamada numa conexão nova também planeja mais devagar (~0,3 s a mais
+no Calendário), e o PostgREST fecha conexões ociosas. O que confirma a
+experiência real é medir com `?perf=1` no PC e no celular.
 
 ## Achados fora do escopo
 
@@ -101,4 +141,9 @@ em ~0,3–0,5 s. No celular em 4G, somar 0,5–1,0 s.
   (`mv_fluxo_caixa_diario` e `mv_despesa_mensal` divergiram); as seguintes
   concluíram. Vale investigar à parte.
 - `mv_conciliacao_contabil` é recalculada em todo refresh (15–19 s de CPU)
-  embora só a página de conciliação contábil a use.
+  embora só a página de conciliação contábil a use. É hoje metade do refresh.
+- O job horário `sirfisher-virada-financeira` (criado em `20260818110000`) não
+  existe mais no `cron.job` do portal; o saldo e o fluxo materializados só
+  avançam na virada do dia quando há carga. Restaurar exige decisão.
+- `private.processar_fila_recalculo_saldo()` tem EXECUTE para PUBLIC e
+  `authenticated` (schema `private`, fora da API). Vale revogar à parte.
