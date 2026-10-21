@@ -97,6 +97,14 @@ def main() -> int:
     for page, fragment in guarded.items():
         require(source(page), fragment, f"{page} perdeu protecao contra resposta obsoleta")
 
+    # Gerente: as consultas do mes corrente e o rodape saem junto com o resumo.
+    manager = source("gerente.html")
+    manager_summary = manager.index("const r=await sb.from('app_gerente_resumo_mensal')")
+    for fragment in ("const mesCorrente=consultarMes(mesAtual);", "carregarRodape();"):
+        if fragment not in manager or manager.index(fragment) > manager_summary:
+            fail("Gerente voltou a esperar o resumo para pedir as consultas do mes")
+    require(manager, "consultaPronta||consultarMes(mes)", "Gerente deixou de aproveitar a consulta antecipada")
+
     melhoria = source("melhoria_inovacao.html")
     for fragment in (
         "criar_melhoria",

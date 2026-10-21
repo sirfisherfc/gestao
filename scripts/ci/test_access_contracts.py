@@ -128,8 +128,15 @@ def main() -> int:
         fail("Páginas consultam tabelas raw diretamente: " + ", ".join(raw_access))
 
     dashboard = (ROOT / "index.html").read_text(encoding="utf-8")
-    if "const r=await sb.from('app_painel_resumo_mensal')" not in dashboard:
-        fail("Index precisa liberar o resumo antes das consultas secundárias")
+    resumo_await = "const r=await sb.from('app_painel_resumo_mensal')"
+    if resumo_await not in dashboard:
+        fail("Index precisa desenhar o resumo sem esperar as consultas secundárias")
+    # Com o banco aliviado (20261021070000), as secundárias saem junto com o
+    # resumo em vez de esperar em fila; o resumo continua desenhado primeiro.
+    resumo_pos = dashboard.index(resumo_await)
+    for pedido in ("const detalhesReq=Promise.allSettled([", "const apoioReq=Promise.allSettled(["):
+        if pedido not in dashboard or dashboard.index(pedido) > resumo_pos:
+            fail("Index voltou a esperar o resumo para pedir as consultas secundárias")
     if dashboard.count("Promise.allSettled([") < 2 or "function applyResult(" not in dashboard:
         fail("Index perdeu o carregamento progressivo tolerante a falhas")
     if "DETAIL_OK.dre" not in dashboard or "DETAIL_OK.fixa" not in dashboard or "DETAIL_OK.direta" not in dashboard:

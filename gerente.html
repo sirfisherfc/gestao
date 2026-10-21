@@ -81,15 +81,28 @@ function al(pos){return pos>82?'translateX(-100%)':(pos<18?'translateX(0)':'tran
 async function carregar(){
   const main=document.getElementById('main');
   try{
+    // O mês corrente é quase sempre o que abre: suas consultas e o rodapé saem
+    // junto com o resumo. Se o painel abrir em outro mês, ele é buscado depois.
+    const mesAtual=hojeISO().slice(0,7);
+    const mesCorrente=consultarMes(mesAtual);
+    carregarRodape();
     const r=await sb.from('app_gerente_resumo_mensal').select('*').order('ano_mes',{ascending:true});
     if(r.error)throw r.error;
     rowsResumo=(r.data||[]).filter(x=>x.ano_mes);
     if(!rowsResumo.length)throw new Error('Ainda não há dados carregados.');
-    const mesAtual=hojeISO().slice(0,7);
     mesAtualPainel=(rowsResumo.find(x=>x.ano_mes===mesAtual)||rowsResumo[rowsResumo.length-1]).ano_mes;
-    await trocarMes(mesAtualPainel);
-    carregarRodape();
+    await trocarMes(mesAtualPainel,mesAtualPainel===mesAtual?mesCorrente:null);
   }catch(e){main.innerHTML='<div class="erro">Não foi possível carregar o painel: '+esc(e.message||String(e))+'</div>';}
+}
+
+function consultarMes(mes){
+  return Promise.allSettled([
+    sb.from('app_gerente_meta_diaria').select('dia,venda_dia,meta_dia').eq('mes',mes+'-01').order('dia',{ascending:true}),
+    sb.from('app_gerente_gasto_grupo').select('grupo,participacao_perc').eq('ano_mes',mes),
+    sb.from('app_gerente_movimento_hora').select('hora,qtd').eq('ano_mes',mes).order('hora',{ascending:true}),
+    sb.from('app_gerente_saldo_variacao').select('ano_mes,variacao_perc,previsao_bonificacao').eq('ano_mes',mes).maybeSingle(),
+    sb.from('app_gerente_dre_cascata_perc').select('*').eq('ano_mes',mes).maybeSingle()
+  ]);
 }
 
 async function carregarRodape(){
@@ -107,7 +120,7 @@ async function carregarRodape(){
   }
 }
 
-async function trocarMes(mes){
+async function trocarMes(mes,consultaPronta){
   const trocaSeq=++TROCA_SEQ;
   const main=document.getElementById('main');
   const cur=rowsResumo.find(x=>x.ano_mes===mes);
@@ -116,13 +129,7 @@ async function trocarMes(mes){
     CHARTS.forEach(chart=>chart.destroy());
     CHARTS=[];
     main.innerHTML='<div class="loading">Carregando painel…</div>';
-    const resultados=await Promise.allSettled([
-      sb.from('app_gerente_meta_diaria').select('dia,venda_dia,meta_dia').eq('mes',mes+'-01').order('dia',{ascending:true}),
-      sb.from('app_gerente_gasto_grupo').select('grupo,participacao_perc').eq('ano_mes',mes),
-      sb.from('app_gerente_movimento_hora').select('hora,qtd').eq('ano_mes',mes).order('hora',{ascending:true}),
-      sb.from('app_gerente_saldo_variacao').select('ano_mes,variacao_perc,previsao_bonificacao').eq('ano_mes',mes).maybeSingle(),
-      sb.from('app_gerente_dre_cascata_perc').select('*').eq('ano_mes',mes).maybeSingle()
-    ]);
+    const resultados=await (consultaPronta||consultarMes(mes));
     if(trocaSeq!==TROCA_SEQ)return;
     const resposta=index=>resultados[index].status==='fulfilled'?resultados[index].value:{data:null,error:resultados[index].reason};
     const [dia,gasto,hora,saldoVar,cascata]=[0,1,2,3,4].map(resposta);

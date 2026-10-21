@@ -88,15 +88,14 @@ def _consultas() -> dict[str, str]:
 
 # Rodadas sequenciais de cada página, como o código das páginas as dispara.
 PAGINAS = {
-    "index": [["resumo_mensal"],
-              ["dre_cascata", "proj_desp_fixa", "proj_desp_direta", "diario"],
-              ["composicao", "saldo_fim_mes", "saldo_atual", "margem", "ultima_carga", "cargas"]],
+    "index": [["resumo_mensal", "dre_cascata", "proj_desp_fixa", "proj_desp_direta", "composicao",
+               "saldo_fim_mes", "saldo_atual", "margem", "ultima_carga", "cargas"],
+              ["diario"]],
     "caixa": [["saldo_atual", "saldo_fim_mes", "saldo_por_conta"],
               ["fluxo_curva", "receb_conhecido_mes", "receb_projetado_mes", "proj_desp_fixa_mes",
                "proj_desp_direta_mes", "ultima_carga", "cargas"]],
-    "gerente": [["g_resumo"],
-                ["g_meta_diaria", "g_gasto_grupo", "g_mov_hora", "g_saldo_var", "g_cascata"],
-                ["g_ultima"]],
+    "gerente": [["g_resumo", "g_meta_diaria", "g_gasto_grupo", "g_mov_hora", "g_saldo_var",
+                 "g_cascata", "g_ultima"]],
     "dre": [["dre_cascata", "resumo_mensal_colunas", "proj_desp_fixa", "proj_desp_direta"],
             ["ultima_carga", "cargas"]],
     "despesas": [["composicao", "resumo_mensal_colunas", "proj_desp_fixa", "proj_desp_direta"],
@@ -153,7 +152,7 @@ def cmd_paginas(args) -> None:
     consultas = _consultas()
     boot = conectar(autocommit=True)
     pre = prefixo(admin_ativo(boot.cursor()))
-    conexoes = [conectar(autocommit=True) for _ in range(8)]
+    conexoes = [conectar(autocommit=True) for _ in range(10)]
 
     def rodar(i_nome):
         i, nome = i_nome

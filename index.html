@@ -148,6 +148,21 @@ function montarSeletorPeriodo(anoMesList,selecionado){
 
 async function main(){
   try{
+    // Detalhes e apoio não dependem do resumo: saem junto com ele, em vez de
+    // esperar em fila. O resumo continua desenhado assim que chega.
+    const detalhesReq=Promise.allSettled([
+      sb.from('app_painel_dre_cascata').select('*').order('mes',{ascending:true}),
+      sb.from('app_projecao_despesa_fixa').select('dia,valor'),
+      sb.from('app_projecao_despesa_direta').select('dia,valor')
+    ]);
+    const apoioReq=Promise.allSettled([
+      sb.from('app_painel_composicao_despesa').select('*'),
+      sb.from('app_painel_saldo_fim_mes').select('ano_mes,saldo_fim,situacao'),
+      sb.from('app_painel_saldo_atual').select('*'),
+      sb.from('app_painel_margem_contribuicao').select('ano_mes,mc_perc'),
+      sb.from('app_painel_ultima_carga').select('ultima'),
+      sb.from('app_painel_cargas').select('*').limit(50)
+    ]);
     const r=await sb.from('app_painel_resumo_mensal').select('*').order('mes',{ascending:true});
     if(r.error)throw r.error;
     ROWS=r.data||[];
@@ -158,25 +173,14 @@ async function main(){
     LOAD_STAGE='detalhes';
     renderMes(document.getElementById('mesSel').value);
 
-    const detalhes=await Promise.allSettled([
-      sb.from('app_painel_dre_cascata').select('*').order('mes',{ascending:true}),
-      sb.from('app_projecao_despesa_fixa').select('dia,valor'),
-      sb.from('app_projecao_despesa_direta').select('dia,valor')
-    ]);
+    const detalhes=await detalhesReq;
     DETAIL_OK.dre=applyResult(detalhes[0],'DRE',data=>{DRE_ROWS=data;});
     DETAIL_OK.fixa=applyResult(detalhes[1],'projeção de despesa fixa',data=>{DESP_FIXA=data;});
     DETAIL_OK.direta=applyResult(detalhes[2],'projeção de despesa direta',data=>{DESP_DIRETA=data;});
     LOAD_STAGE='apoio';
     rerenderCurrent();
 
-    const apoio=await Promise.allSettled([
-      sb.from('app_painel_composicao_despesa').select('*'),
-      sb.from('app_painel_saldo_fim_mes').select('ano_mes,saldo_fim,situacao'),
-      sb.from('app_painel_saldo_atual').select('*'),
-      sb.from('app_painel_margem_contribuicao').select('ano_mes,mc_perc'),
-      sb.from('app_painel_ultima_carga').select('ultima'),
-      sb.from('app_painel_cargas').select('*').limit(50)
-    ]);
+    const apoio=await apoioReq;
     applyResult(apoio[0],'composição das despesas',data=>{COMP=data;});
     applyResult(apoio[1],'saldo projetado',data=>{data.forEach(x=>SALDO[x.ano_mes]={v:Number(x.saldo_fim),s:x.situacao});});
     applyResult(apoio[2],'saldo atual',data=>{SALDO_REAL=data[0]||null;});

@@ -181,3 +181,102 @@ test('calendario pede o corte junto com o calendario e so uma vez por pagina',as
   assert.equal(t.ordem.filter(n=>n==='resumo_corte_caixa').length,1,'corte nao deve repetir ao trocar de mes');
   assert.equal(t.run('renders'),2);
 });
+
+// Cliente falso: cada consulta e registrada quando de fato e enviada (then),
+// e o resumo fica pendente ate o teste liberar.
+function clienteFalso(tabelaPendente){
+  const pedidos=[];
+  let libera;
+  const pendente=new Promise(resolve=>{libera=resolve;});
+  const from=tabela=>{
+    const filtros={};
+    let enviado=null;
+    const b={
+      select:()=>b,order:()=>b,limit:()=>b,maybeSingle:()=>b,
+      eq:(coluna,valor)=>{filtros[coluna]=valor;return b;},
+      then:(ok,erro)=>{
+        if(!enviado){
+          pedidos.push({tabela,filtros});
+          enviado=tabela===tabelaPendente?pendente:Promise.resolve({data:[],error:null});
+        }
+        return enviado.then(ok,erro);
+      }
+    };
+    return b;
+  };
+  return {sb:{from},pedidos,libera:valor=>libera(valor)};
+}
+
+function scriptDaPagina(arquivo){
+  const html=readFileSync(new URL('../../'+arquivo,import.meta.url),'utf8');
+  const source=html.match(/<script>\s*([\s\S]*?)<\/script>\s*<\/body>/)[1];
+  return source.slice(0,source.lastIndexOf('(async()=>{'));
+}
+
+function contextoPagina(sb){
+  const elementos=new Map();
+  const el=()=>({innerHTML:'',textContent:'',value:'',style:{},addEventListener(){},parentElement:{innerHTML:''}});
+  class Chart{constructor(){}destroy(){}}
+  Chart.defaults={font:{}};
+  const c=vm.createContext({Date,Intl,Map,Set,Promise,setTimeout,console:{warn(){},error(){}},Chart,
+    SirFisherSupabase:sb,SirFisherDOM:{escapeHTML:s=>String(s??'')},
+    SirFisherFormat:{brl:String,pct:String,rs:String,monthTrend:()=>({active:false,label:a=>a,value:v=>v})},
+    SirFisherApp:{number:(_chave,padrao)=>padrao},addEventListener(){},
+    document:{addEventListener(){},querySelectorAll:()=>[],getElementById(id){
+      if(!elementos.has(id))elementos.set(id,el());
+      return elementos.get(id);
+    }}});
+  c.window=c;
+  return c;
+}
+
+const mesCorrente=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');};
+
+test('inicio pede detalhes e apoio junto com o resumo e desenha o resumo primeiro',async()=>{
+  const f=clienteFalso('app_painel_resumo_mensal');
+  const c=contextoPagina(f.sb);
+  vm.runInContext(scriptDaPagina('index.html'),c);
+  vm.runInContext("var etapas=[];renderMes=()=>{etapas.push(LOAD_STAGE);};renderFooter=()=>{};montarSeletorPeriodo=()=>{};document.getElementById('mesSel').value='2026-10';",c);
+  const carga=vm.runInContext('main()',c);
+  await tick();
+  const tabelas=f.pedidos.map(p=>p.tabela);
+  for(const t of ['app_painel_dre_cascata','app_projecao_despesa_fixa','app_projecao_despesa_direta',
+    'app_painel_composicao_despesa','app_painel_saldo_fim_mes','app_painel_saldo_atual',
+    'app_painel_margem_contribuicao','app_painel_ultima_carga','app_painel_cargas','app_painel_resumo_mensal'])
+    assert.ok(tabelas.includes(t),t+' deveria sair antes da resposta do resumo');
+  assert.equal(vm.runInContext("etapas.join(',')",c),'','nada deveria ser desenhado antes do resumo');
+  f.libera({data:[{ano_mes:'2026-10',faturamento:10}],error:null});
+  await carga;
+  assert.equal(vm.runInContext("etapas.join(',')",c),'detalhes,apoio,concluido');
+});
+
+test('gerente pede o mes corrente e o rodape junto com o resumo e reaproveita a consulta',async()=>{
+  const f=clienteFalso('app_gerente_resumo_mensal');
+  const c=contextoPagina(f.sb);
+  vm.runInContext(scriptDaPagina('gerente.html'),c);
+  vm.runInContext('var renders=0;render=()=>{renders++;};',c);
+  const carga=vm.runInContext('carregar()',c);
+  await tick();
+  const mes=mesCorrente();
+  const doMes=f.pedidos.filter(p=>p.filtros.ano_mes===mes||p.filtros.mes===mes+'-01');
+  assert.equal(doMes.length,5,'as cinco consultas do mes deveriam sair com o resumo');
+  assert.ok(f.pedidos.some(p=>p.tabela==='app_gerente_ultima_carga'),'rodape deveria sair com o resumo');
+  f.libera({data:[{ano_mes:'2026-01'},{ano_mes:mes}],error:null});
+  await carga;
+  assert.equal(f.pedidos.length,7,'nao deveria repetir as consultas do mes corrente');
+  assert.equal(vm.runInContext('renders',c),1);
+});
+
+test('gerente busca o mes certo quando o painel abre em outro mes',async()=>{
+  const f=clienteFalso('app_gerente_resumo_mensal');
+  const c=contextoPagina(f.sb);
+  vm.runInContext(scriptDaPagina('gerente.html'),c);
+  vm.runInContext('var renders=0;render=()=>{renders++;};',c);
+  const carga=vm.runInContext('carregar()',c);
+  await tick();
+  f.libera({data:[{ano_mes:'2020-01'},{ano_mes:'2020-02'}],error:null});
+  await carga;
+  const outroMes=f.pedidos.filter(p=>p.filtros.ano_mes==='2020-02'||p.filtros.mes==='2020-02-01');
+  assert.equal(outroMes.length,5,'deveria buscar as cinco consultas do mes aberto');
+  assert.equal(vm.runInContext('renders',c),1);
+});
