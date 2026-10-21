@@ -4661,3 +4661,16 @@ pares de orientação da raiz ao concluir a troca de IA.
   caso enviado à Stone (aloparceiro@stone.com.br).
 
 — Claude
+
+## 2026-10-21 · Claude — Stone: 403 intermitente e 173835323 fora da API
+
+- Teste de `api_stone_conciliacao.py --verificar` (5 consultas): a primeira
+  consulta de cada stonecode passou (770398216: 59 transações em 20/10) e as
+  seguintes, minutos depois, voltaram a dar 403. Padrão sugere bloqueio por
+  volume, não permissão; não confirmado pela Stone.
+- Decisão do proprietário: parar de consultar o 173835323 na API. Novo
+  `STONECODES_FORA_DA_API` em `api_stone_conciliacao.py`, aplicado à lista do
+  banco e a `STONE_STONECODES` (vale também para `api_stone_recebiveis.py`).
+  `stone_conta` e faturamento não mudaram. Teste em `test_api_bancos.py`.
+
+— Claude

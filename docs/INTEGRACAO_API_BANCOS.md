@@ -98,6 +98,10 @@ respondeu 403: é de outro CNPJ e não entra no faturamento.
 Sem `--stonecode` nem `STONE_STONECODES`, os scripts usam os stonecodes com
 `ativa` e `entra_faturamento` em `stone_conta`, lidos com o `DATABASE_URL`
 do `.env` em modo somente leitura. Imprensa e Pub ficam de fora.
+Desde 21/10/2026, por decisão do proprietário, o 173835323 (link de
+pagamento) também fica fora da API (`STONECODES_FORA_DA_API`), mesmo se vier
+do banco ou de `STONE_STONECODES`. Segue em `stone_conta` e no faturamento;
+só um `--stonecode 173835323` explícito o consulta.
 Incidente de 20/10/2026: depois de cerca de 120 consultas em uma hora, a
 chave passou a receber 403 em todos os dias dos dois stonecodes, inclusive
 dias baixados com sucesso minutos antes. Um 403 não é 401: a chave continua

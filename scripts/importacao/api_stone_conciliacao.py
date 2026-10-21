@@ -44,6 +44,10 @@ MENSAGENS = {
 }
 # Sem estes, insistir só gasta a cota de 7 consultas por hora do mesmo dia.
 STATUS_QUE_ENCERRAM = {401, 429, 503}
+# Decisão do proprietário em 21/10/2026: o e-commerce/link de pagamento não é
+# consultado na API, nem pela lista do banco nem por STONE_STONECODES. Continua
+# em stone_conta e no faturamento; só --stonecode explícito o consulta.
+STONECODES_FORA_DA_API = {"173835323"}
 
 
 @dataclass(frozen=True)
@@ -180,6 +184,8 @@ def resolver_stonecodes(informados: list[str] | None) -> list[str]:
     else:
         codigos = stonecodes_do_banco()
     codigos = [codigo.strip() for codigo in codigos if codigo.strip()]
+    if not informados:
+        codigos = [codigo for codigo in codigos if codigo not in STONECODES_FORA_DA_API]
     invalidos = [codigo for codigo in codigos if not codigo.isdigit()]
     if invalidos:
         raise ValidacaoErro("stonecode deve ter só dígitos: " + ", ".join(invalidos))

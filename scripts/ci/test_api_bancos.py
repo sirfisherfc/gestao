@@ -15,6 +15,7 @@ import tempfile
 import urllib.error
 import urllib.parse
 from datetime import date
+from unittest import mock
 from pathlib import Path
 
 
@@ -166,6 +167,9 @@ def test_stone_cabecalho_e_erros() -> None:
     esperar_erro(ValidacaoErro, "só dígitos", api_stone_conciliacao.resolver_stonecodes, ["12a"])
     if api_stone_conciliacao.resolver_stonecodes(["2", " 1 ", "2"]) != ["2", "1"]:
         raise AssertionError("stonecodes repetidos deveriam ser removidos mantendo a ordem")
+    with mock.patch.object(api_stone_conciliacao, "stonecodes_do_banco", return_value=["173835323", "770398216"]),             mock.patch.object(api_stone_conciliacao, "variavel", return_value=None):
+        if api_stone_conciliacao.resolver_stonecodes(None) != ["770398216"]:
+            raise AssertionError("173835323 não deveria ser consultado sem --stonecode explícito")
 
 
 def test_stone_baixar_periodo() -> None:
