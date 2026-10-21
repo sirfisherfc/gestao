@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 livre — handoff das integrações consolidado no último recado; extrato Stone online, BB adiado e Saipos com token (prova de conciliação feita, sem importador).
+> **🚦 Status atual:** 🟢 livre — handoff das integrações consolidado no último recado; extrato Stone online, BB adiado e Saipos importada e conciliada com a Stone (falta o secret SAIPOS_API_TOKEN no GitHub).
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -4689,5 +4689,21 @@ pares de orientação da raiz ao concluir a troca de IA.
   mão (12) casam por valor/horário com ambiguidade. Stone sem Saipos: 4
   transações (R$ 51,44). Dinheiro e Fiado ficam fora.
 - Sem importador, migration ou alteração no banco.
+
+— Claude
+
+## 2026-10-21 · Claude — Saipos: importador e conciliação com a Stone
+
+- Novo `scripts/importacao/api_saipos_vendas.py`; migration
+  `20261021000000_saipos_vendas_e_conciliacao.sql` **aplicada** (histórico
+  205): `saipos_venda`, `saipos_pagamento`, `conciliacao_saipos_stone_base`
+  (interna) e `app_conciliacao_saipos_dia`/`_pendencia` (authenticated).
+- Conciliação ganhou a seção "Saipos × Stone"; Status nomeia `saipos_vendas`.
+  Teste em `test_api_bancos.py`. Regras em `docs/INTEGRACAO_API_BANCOS.md`.
+- Carga real 01/09–20/10/2026: 3.543 vendas, 50 dias `ok`. Vendas Stone
+  casadas: set 2.022/2.061, out 1.261/1.280 (98%); 2.244 pelo código.
+  Saipos sem Stone de 19–20/10 é esperado: Stone no banco só até 19/10 13h.
+- **Pendente:** cadastrar o secret `SAIPOS_API_TOKEN` no GitHub (sem `gh`
+  nesta máquina). Sem ele, `importacao-saipos.yml` falha na verificação.
 
 — Claude
