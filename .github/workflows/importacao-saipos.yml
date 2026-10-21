@@ -23,7 +23,7 @@ concurrency:
 jobs:
   vendas:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 45
     env:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
       SAIPOS_API_TOKEN: ${{ secrets.SAIPOS_API_TOKEN }}

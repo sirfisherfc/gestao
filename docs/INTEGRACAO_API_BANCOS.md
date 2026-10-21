@@ -323,7 +323,7 @@ Importador `scripts/importacao/api_saipos_vendas.py`; tabelas
 
 - Consulta `search_sales` por `shift_date`, **um dia por vez**: 15 dias numa
   consulta deram HTTP 504 (pool da Saipos). 502/503/504 e falhas de rede
-  têm até 3 novas tentativas (5, 20 e 60 s). Limite: 500 consultas em 5 min.
+  têm até 4 novas tentativas (5, 20, 60 e 120 s); falha em dia anterior ao último vira aviso, pois a rodada seguinte refaz o período. Limite: 500 consultas em 5 min.
 - Pagamento conciliável = transação da maquininha integrada (origem `pos`)
   ou forma lançada no caixa sem transação igual (origem `forma`). A forma
   que repete a transação da maquininha não entra duas vezes. Dinheiro,

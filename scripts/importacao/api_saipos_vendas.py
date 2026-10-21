@@ -58,7 +58,7 @@ MENSAGENS = {
 }
 # O 504 vem do pool de conexões da Saipos; uma nova tentativa costuma passar.
 STATUS_REPETIR = {502, 503, 504}
-ESPERAS = (5, 20, 60)
+ESPERAS = (5, 20, 60, 120)
 FORA_DA_CONCILIACAO = {"dinheiro", "fiado"}
 # O primeiro turno começa às 08:00: venda Stone da madrugada é do dia anterior.
 INICIO_TURNO = timedelta(hours=8)
@@ -539,10 +539,16 @@ def fluxo() -> None:
                 for dia, (cancelamentos, _) in cancelados.items()
             ]
         )
-    if erros or erros_cancel:
+    # Cada rodada refaz os últimos dias, então a falha num dia antigo se
+    # corrige na próxima; só o último dia do período derruba a execução.
+    if fim in erros or fim in erros_cancel:
         raise ErroOperacional(
-            f"{len(erros)} dia(s) sem vendas e {len(erros_cancel)} sem cancelamentos da Saipos; os demais foram gravados"
+            f"{len(erros)} dia(s) sem vendas e {len(erros_cancel)} sem cancelamentos da Saipos, incluindo {fim}; "
+            "os demais foram gravados"
         )
+    if erros or erros_cancel:
+        print(f"AVISO: {len(erros)} dia(s) sem vendas e {len(erros_cancel)} sem cancelamentos; "
+              "a próxima rodada tenta de novo")
     print("\nOK.")
 
 
