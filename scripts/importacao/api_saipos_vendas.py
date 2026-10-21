@@ -18,6 +18,9 @@ lançamentos no caixa casam com tolerância de R$ 0,05. Dinheiro, Fiado,
 pagamentos zerados e vendas canceladas não entram na conciliação. O resultado
 aparece em Conciliação no painel (``app_conciliacao_saipos_dia``).
 
+Também baixa itens e histórico de status e grava os cancelamentos com sinais
+de risco para a rotina Cancelamentos (regras em ``saipos_cancelamentos.py``).
+
 Prova de 12–18/10/2026: 518 de 529 vendas Stone casadas (ver
 ``docs/INTEGRACAO_API_BANCOS.md``).
 """
@@ -36,12 +39,14 @@ from decimal import Decimal
 from itertools import combinations
 
 import integracao_log
+import saipos_cancelamentos
 from api_cliente import ErroHttp, carregar_env, requisitar, variavel
 from importacao_core import ErroOperacional, ValidacaoErro, executar_com_saida
 
 
 FONTE = "saipos_vendas"
-URL_VENDAS = "https://data.saipos.io/v1/search_sales"
+FONTE_CANCELAMENTOS = "saipos_cancelamentos"
+URL_BASE = "https://data.saipos.io/v1/"
 LIMITE_PAGINA = 1000
 DIAS_PADRAO = 7
 MENSAGENS = {
@@ -124,7 +129,8 @@ def _valor(valor, contexto: str) -> Decimal:
         raise ValidacaoErro(f"valor inválido em {contexto}: {valor!r}") from exc
 
 
-def baixar_dia(token: str, dia: date) -> list[dict]:
+def baixar_dia(token: str, dia: date, rota: str = "search_sales") -> list[dict]:
+    """Uma rota da API para um dia do turno: vendas, itens ou histórico de status."""
     vendas: list[dict] = []
     deslocamento = 0
     while True:
@@ -138,7 +144,7 @@ def baixar_dia(token: str, dia: date) -> list[dict]:
         for tentativa, espera in enumerate((*ESPERAS, None)):
             try:
                 resposta = requisitar(
-                    f"{URL_VENDAS}?{consulta}",
+                    f"{URL_BASE}{rota}?{consulta}",
                     cabecalhos={"Authorization": f"Bearer {token}", "Accept": "application/json"},
                     mensagens=MENSAGENS,
                     timeout=180,
@@ -150,7 +156,7 @@ def baixar_dia(token: str, dia: date) -> list[dict]:
             except ErroOperacional:
                 if espera is None:
                     raise
-            print(f"  {dia}: Saipos indisponível, nova tentativa em {espera} s")
+            print(f"  {dia} {rota}: Saipos indisponível, nova tentativa em {espera} s")
             time.sleep(espera)
         try:
             lote = json.loads(resposta.corpo)
@@ -334,6 +340,45 @@ def gravar(cur, vendas: list[dict], pagamentos: list[Pagamento]) -> int:
     return len(set(ids) - existentes)
 
 
+COLUNAS_CANCELAMENTO = (
+    "id", "tipo", "id_sale", "id_sale_item", "data_turno", "turno", "mesa", "produto", "quantidade", "valor",
+    "lancado_em", "cancelado_em", "minutos", "min_ate_pagamento", "bebida", "lancou", "garcom_id", "cancelou",
+    "autorizou", "motivo", "sinais", "pontos", "exige_justificativa",
+)
+
+
+def gravar_cancelamentos(cur, dia: date, cancelamentos: list[dict], resumo: list[dict]) -> int:
+    """Atualiza os dados Saipos do dia sem tocar em justificativa e revisão."""
+    from psycopg2.extras import execute_values
+
+    if cancelamentos:
+        execute_values(
+            cur,
+            f"insert into saipos_cancelamento ({', '.join(COLUNAS_CANCELAMENTO)}) values %s "
+            "on conflict (id) do update set "
+            + ", ".join(f"{coluna} = excluded.{coluna}" for coluna in COLUNAS_CANCELAMENTO[1:])
+            + ", importado_em = now();",
+            [tuple(item[coluna] for coluna in COLUNAS_CANCELAMENTO) for item in cancelamentos],
+        )
+    # Some só o que ninguém tratou: o que já tem justificativa fica como registro.
+    cur.execute(
+        "delete from saipos_cancelamento where data_turno = %s and not (id = any(%s)) "
+        "and justificativa is null and revisao is null;",
+        (dia, [item["id"] for item in cancelamentos]),
+    )
+    cur.execute("delete from saipos_lancamento_resumo where data_turno = %s;", (dia,))
+    if resumo:
+        execute_values(
+            cur,
+            "insert into saipos_lancamento_resumo (data_turno, turno, hora, lancou, itens, valor) values %s;",
+            [
+                (r["data_turno"], r["turno"] or "", -1 if r["hora"] is None else r["hora"], r["lancou"] or "", r["itens"], r["valor"])
+                for r in resumo
+            ],
+        )
+    return sum(1 for item in cancelamentos if item["exige_justificativa"])
+
+
 def reconciliar_periodo(cur, inicio: date, fim: date) -> dict[str, int]:
     """Refaz o casamento dos dias do período com as vendas Stone já no banco."""
     cur.execute(
@@ -434,11 +479,14 @@ def fluxo() -> None:
 
     token = variavel("SAIPOS_API_TOKEN")
     lidos: dict[date, tuple[list[dict], list[Pagamento]]] = {}
+    cancelados: dict[date, tuple[list[dict], list[dict]]] = {}
     erros: dict[date, str] = {}
+    erros_cancel: dict[date, str] = {}
     for dia in dias:
         try:
+            brutas = baixar_dia(token, dia)
             vendas, pagamentos = [], []
-            for bruta in baixar_dia(token, dia):
+            for bruta in brutas:
                 venda, itens = ler_venda(bruta)
                 vendas.append(venda)
                 pagamentos.extend(itens)
@@ -447,15 +495,32 @@ def fluxo() -> None:
         except (ErroOperacional, ValidacaoErro) as exc:
             erros[dia] = str(exc)
             print(f"{dia}: ERRO {exc}", file=sys.stderr)
+            continue
+        # Itens e histórico alimentam a rotina Cancelamentos; uma falha aqui
+        # não impede a conciliação das vendas.
+        try:
+            itens_dia = {v["id_sale"]: v.get("items") or [] for v in baixar_dia(token, dia, "sales_items")}
+            status_dia = {v["id_sale"]: v.get("histories") or [] for v in baixar_dia(token, dia, "sales_status_histories")}
+            cancelados[dia] = saipos_cancelamentos.montar(
+                {v["id_sale"]: v for v in brutas}, itens_dia, status_dia, saipos_cancelamentos.nomes_usuarios(status_dia),
+            )
+            pendentes = sum(1 for c in cancelados[dia][0] if c["exige_justificativa"])
+            print(f"  {len(cancelados[dia][0])} cancelamento(s), {pendentes} para justificar")
+        except (ErroOperacional, ValidacaoErro, KeyError, ValueError) as exc:
+            erros_cancel[dia] = str(exc)
+            print(f"{dia}: ERRO cancelamentos {exc}", file=sys.stderr)
     if opcoes.dry_run:
         print("\n--dry-run: nada gravado.")
     else:
         novas: dict[date, int] = {}
+        para_justificar: dict[date, int] = {}
         conn = _conectar()
         try:
             with conn, conn.cursor() as cur:
                 for dia, (vendas, pagamentos) in lidos.items():
                     novas[dia] = gravar(cur, vendas, pagamentos)
+                for dia, (cancelamentos, resumo) in cancelados.items():
+                    para_justificar[dia] = gravar_cancelamentos(cur, dia, cancelamentos, resumo)
                 if lidos:
                     print(f"\nConciliação {inicio} a {fim}: {reconciliar_periodo(cur, inicio, fim)}")
         finally:
@@ -466,9 +531,18 @@ def fluxo() -> None:
                 integracao_log.Execucao(FONTE, dia, None, "ok" if vendas else "sem_movimento", linhas_novas=novas[dia])
                 for dia, (vendas, _) in lidos.items()
             ]
+            + [integracao_log.Execucao(FONTE_CANCELAMENTOS, dia, None, "erro", mensagem=m) for dia, m in erros_cancel.items()]
+            + [
+                integracao_log.Execucao(
+                    FONTE_CANCELAMENTOS, dia, None, "ok" if cancelamentos else "sem_movimento", linhas_novas=para_justificar[dia],
+                )
+                for dia, (cancelamentos, _) in cancelados.items()
+            ]
         )
-    if erros:
-        raise ErroOperacional(f"{len(erros)} dia(s) sem vendas da Saipos; os demais foram gravados")
+    if erros or erros_cancel:
+        raise ErroOperacional(
+            f"{len(erros)} dia(s) sem vendas e {len(erros_cancel)} sem cancelamentos da Saipos; os demais foram gravados"
+        )
     print("\nOK.")
 
 

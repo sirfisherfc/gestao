@@ -31,6 +31,7 @@
     'melhoria_inovacao.html',
     'cardapio.html',
     'eventos.html',
+    'cancelamentos.html',
     'gerente.html'
   ]);
   const KNOWN_PAGES = new Set([...ADMIN_ONLY_PAGES, ...CONFIGURABLE_PAGES]);

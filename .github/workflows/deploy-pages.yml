@@ -47,6 +47,7 @@ jobs:
             despesas.html \
             gerente.html \
             eventos.html \
+            cancelamentos.html \
             gerenciador_de_para.html \
             analise_individual.html \
             classificar_excecoes.html \
@@ -105,6 +106,7 @@ jobs:
             dre.html \
             escalas.html \
             eventos.html \
+            cancelamentos.html \
             gerenciador_de_para.html \
             gerente.html \
             importar.html \

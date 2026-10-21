@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://*.supabase.co wss://*.supabase.co; img-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'self'; upgrade-insecure-requests">
+<title>Painel · Cancelamentos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="assets/dashboard-common.css" rel="stylesheet">
+<link href="assets/product-pages.css" rel="stylesheet">
+<link href="assets/accessibility.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2" integrity="sha384-JWEyvHh+lRf0sN/WWY+QTQwX+CyWqmNg4tkc8GQzAMEtR2wGNrCJlvnu1lHD1kDm" crossorigin="anonymous"></script>
+<script src="assets/supabase-client.js"></script>
+<script src="assets/app-config.js"></script>
+<script src="assets/auth.js"></script>
+<script src="assets/safe-dom.js"></script>
+<script src="assets/dashboard-utils.js"></script>
+<script src="assets/accessibility.js"></script>
+<style>
+  .cx-filtros{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+  .cx-caso{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;display:grid;gap:8px}
+  .cx-caso.alto{border-left:4px solid #c94c4c}
+  .cx-caso.medio{border-left:4px solid #d6a84f}
+  .cx-topo{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:baseline}
+  .cx-titulo{font-weight:700;font-size:13.5px}
+  .cx-valor{font-weight:700;font-size:15px;white-space:nowrap}
+  .cx-meta{font-size:11.5px;color:var(--muted);line-height:1.5}
+  .cx-sinais{display:flex;gap:6px;flex-wrap:wrap}
+  .cx-just{background:#f6f8f9;border-radius:8px;padding:8px 10px;font-size:12.5px;line-height:1.5}
+  .cx-just b{font-weight:600}
+  .cx-form{display:flex;gap:8px;flex-wrap:wrap;align-items:flex-start}
+  .cx-form textarea{flex:1;min-width:220px;min-height:54px;resize:vertical}
+  .cx-acoes{display:flex;gap:6px;flex-wrap:wrap}
+  .cx-lista{display:grid;gap:10px}
+  .cx-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+  .cx-tabs button{border:1px solid var(--border);background:var(--card);border-radius:999px;padding:5px 12px;font-size:12px;cursor:pointer}
+  .cx-tabs button.ativo{background:#123c4a;color:#fff;border-color:#123c4a}
+  .cx-fora{color:#993d3d;font-weight:700}
+  @media (prefers-color-scheme:dark){.cx-just{background:rgba(255,255,255,.05)}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="head-row"><div class="brand"><div class="mark" aria-hidden="true">P</div><div><h1 data-app-nome>Painel</h1><span data-app-subtitulo>Painel de Gestão</span></div></div><div class="head-meta"><div class="unidade">Cancelamentos</div></div></div>
+    <nav class="tabs"><a href="./">Visão Geral</a><a href="vendas.html">Faturamento</a><a href="caixa.html">Caixa</a><a href="dre.html">DRE</a><a href="despesas.html">Despesas</a><a href="conciliacao.html">Conciliação</a><a href="planejamento.html">Planejamento</a><a href="rotinas.html" class="routines active">Rotinas</a></nav>
+  </header>
+  <main id="main"><div class="loading">Carregando cancelamentos…</div></main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const sb=SirFisherSupabase;
+const esc=SirFisherDOM.escapeHTML;
+const {rs,pct}=SirFisherFormat;
+let PAPEL=null,CASOS=[],RESUMO=[],DIMENSAO='dia',CARREGAR_SEQ=0;
+const filtros={dias:30,situacao:'pendentes'};
+const SITUACOES={
+  pendentes:['Para justificar',c=>c.exige_justificativa&&!c.justificativa&&!c.revisao],
+  justificados:['Justificados, aguardando revisão',c=>c.justificativa&&!c.revisao],
+  revisados:['Revisados',c=>!!c.revisao],
+  casos:['Todos os casos',c=>c.exige_justificativa||c.justificativa||c.revisao],
+  todos:['Todos os cancelamentos',()=>true],
+};
+
+function toast(msg,isErr){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.className='toast show'+(isErr?' err':'');
+  setTimeout(()=>{t.className='toast';},3500);
+}
+function dia(v){return v?new Date(`${String(v).slice(0,10)}T12:00:00`).toLocaleDateString('pt-BR'):'—';}
+function hora(v){return v?String(v).slice(11,16):'—';}
+function quando(v){return v?new Date(v).toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}):'—';}
+function revisor(){return PAPEL==='admin'||PAPEL==='socio';}
+function corrigido(c){return (c.sinais||[]).some(s=>s.startsWith('corrigido'));}
+
+async function lerTudo(consulta){
+  // A API devolve no máximo 1000 linhas por chamada.
+  const linhas=[];
+  for(let de=0;;de+=1000){
+    const {data,error}=await consulta().range(de,de+999);
+    if(error)throw error;
+    linhas.push(...(data||[]));
+    if(!data||data.length<1000)return linhas;
+  }
+}
+
+async function carregar(){
+  const seq=++CARREGAR_SEQ;
+  const main=document.getElementById('main');
+  const desde=new Date(Date.now()-filtros.dias*86400000).toISOString().slice(0,10);
+  try{
+    const [casos,resumo]=await Promise.all([
+      lerTudo(()=>sb.from('app_saipos_cancelamento').select('*').gte('data_turno',desde).order('cancelado_em',{ascending:false})),
+      lerTudo(()=>sb.from('app_saipos_lancamento_resumo').select('*').gte('data_turno',desde).order('data_turno')),
+    ]);
+    if(seq!==CARREGAR_SEQ)return;
+    CASOS=casos;RESUMO=resumo;
+    render();
+  }catch(e){
+    if(seq!==CARREGAR_SEQ)return;
+    main.innerHTML='<div class="erro">Não foi possível carregar os cancelamentos: '+esc(e.message||String(e))+'</div>';
+  }
+}
+
+function render(){
+  const main=document.getElementById('main');
+  const reais=CASOS.filter(c=>!corrigido(c));
+  const lancado=RESUMO.reduce((t,r)=>t+Number(r.valor||0),0);
+  const cancelado=reais.reduce((t,c)=>t+Number(c.valor||0),0);
+  const pend=CASOS.filter(SITUACOES.pendentes[1]);
+  const aguard=CASOS.filter(SITUACOES.justificados[1]);
+  const suspeitos=CASOS.filter(c=>c.revisao==='suspeito');
+  const lista=CASOS.filter(SITUACOES[filtros.situacao][1]);
+  main.innerHTML=`
+    <div class="page-intro"><div><h2>Cancelamentos</h2><p>Itens e mesas cancelados na Saipos. Troca de mesa não conta, e o item relançado logo em seguida conta como correção. Os casos com sinais de risco precisam de justificativa do gerente; admin e sócio revisam.</p></div><button id="btnAtualizar" class="button secondary">Atualizar</button></div>
+    <div class="cx-filtros">
+      <select id="fDias" class="field" aria-label="Período">${[7,30,60,90].map(d=>`<option value="${d}"${d===filtros.dias?' selected':''}>Últimos ${d} dias</option>`).join('')}</select>
+      <select id="fSituacao" class="field" aria-label="Situação">${Object.entries(SITUACOES).map(([k,[r]])=>`<option value="${k}"${k===filtros.situacao?' selected':''}>${esc(r)}</option>`).join('')}</select>
+    </div>
+    <div class="summary-grid">
+      <div class="summary-card"><div class="label">Cancelado no período</div><div class="value">${rs(cancelado)}</div><div class="note">${pct(lancado?cancelado/lancado*100:0)} do lançado (${rs(lancado)})</div></div>
+      <div class="summary-card"><div class="label">Para justificar</div><div class="value" style="color:${pend.length?'var(--red)':'inherit'}">${pend.length}</div><div class="note">${rs(pend.reduce((t,c)=>t+Number(c.valor||0),0))}</div></div>
+      <div class="summary-card"><div class="label">Aguardando revisão</div><div class="value">${aguard.length}</div><div class="note">Justificados pelo gerente</div></div>
+      <div class="summary-card"><div class="label">Marcados como suspeitos</div><div class="value">${suspeitos.length}</div><div class="note">${rs(suspeitos.reduce((t,c)=>t+Number(c.valor||0),0))}</div></div>
+    </div>
+    <section class="panel"><div class="panel-head"><div><h3>${esc(SITUACOES[filtros.situacao][0])}</h3><div class="hint">Mais recentes primeiro. Pontos: provavelmente servido ou cancelado depois de começar a pagar valem 2; perto do pagamento, 60+ min após lançar, mesa paga em dinheiro e sem motivo valem 1. Justificativa obrigatória a partir de 3 pontos ou R$ 100.</div></div></div>
+      <div class="cx-lista" id="listaCasos">${lista.map(cartao).join('')||'<div class="empty">Nada nesta situação no período.</div>'}</div>
+    </section>
+    <section class="panel"><div class="panel-head"><div><h3>Fora da curva</h3><div class="hint">Cancelado ÷ lançado, sem trocas de mesa nem correções. Destaque quando a taxa passa de 2× a média do período e o cancelado soma pelo menos R$ 50.</div></div></div>
+      <div class="cx-tabs" id="tabsDim">${[['dia','Por dia'],['hora','Por hora'],['turno','Por turno'],['semana','Dia da semana'],['lancou','Por funcionário']].map(([k,r])=>`<button data-dim="${k}" class="${k===DIMENSAO?'ativo':''}">${r}</button>`).join('')}</div>
+      <div class="table-wrap" id="tabelaFora">${tabelaFora()}</div>
+    </section>`;
+  document.getElementById('btnAtualizar').addEventListener('click',carregar);
+  document.getElementById('fDias').addEventListener('change',e=>{filtros.dias=Number(e.target.value);carregar();});
+  document.getElementById('fSituacao').addEventListener('change',e=>{filtros.situacao=e.target.value;render();});
+  document.querySelectorAll('#tabsDim button').forEach(b=>b.addEventListener('click',()=>{DIMENSAO=b.dataset.dim;render();}));
+  document.querySelectorAll('[data-justificar]').forEach(b=>b.addEventListener('click',()=>justificar(b.dataset.justificar)));
+  document.querySelectorAll('[data-revisar]').forEach(b=>b.addEventListener('click',()=>revisar(b.dataset.id,b.dataset.revisar)));
+}
+
+function cartao(c){
+  const nivel=c.pontos>=3?'alto':c.pontos>=1?'medio':'';
+  const titulo=c.tipo==='mesa'?`Mesa inteira cancelada${c.mesa?' · '+esc(c.mesa):''}`:`${esc(c.produto)}${c.quantidade&&Number(c.quantidade)!==1?' × '+Number(c.quantidade).toLocaleString('pt-BR'):''}`;
+  const detalhe=c.tipo==='mesa'?`<div class="cx-meta">${esc(c.produto||'')}</div>`:'';
+  const tempos=c.tipo==='mesa'
+    ?`aberta ${hora(c.lancado_em)} · cancelada ${hora(c.cancelado_em)} (${c.minutos??'—'} min)`
+    :`lançado ${hora(c.lancado_em)} · cancelado ${hora(c.cancelado_em)} (${c.minutos??'—'} min)${c.min_ate_pagamento!=null?(Number(c.min_ate_pagamento)<0?` · ${Math.abs(Number(c.min_ate_pagamento)).toLocaleString('pt-BR')} min depois de começar a pagar`:` · ${Number(c.min_ate_pagamento).toLocaleString('pt-BR')} min antes do pagamento`):''}`;
+  const pessoas=`lançou <b>${esc(c.lancou||'—')}</b> · cancelou ${esc(c.cancelou||'—')}${c.autorizou?` · autorizou ${esc(c.autorizou)}`:' · sem autorização'}${c.motivo?` · motivo ${esc(c.motivo)}`:''}`;
+  const sinais=(c.sinais||[]).map(s=>`<span class="status ${s.startsWith('corrigido')?'ok':nivel==='alto'?'bad':'warn'}">${esc(s)}</span>`).join('');
+  let just='';
+  if(c.justificativa){
+    just=`<div class="cx-just"><b>Justificativa</b> de ${esc(c.justificado_por_nome||'—')} em ${quando(c.justificado_em)}: ${esc(c.justificativa)}</div>`;
+  }else if(c.exige_justificativa&&!c.revisao){
+    just=`<div class="cx-form"><textarea id="j_${esc(c.id)}" class="field" placeholder="O que aconteceu? Ex.: cliente reclamou do ponto e o prato voltou para a cozinha."></textarea><button class="button" data-justificar="${esc(c.id)}">Justificar</button></div>`;
+  }
+  let rev='';
+  if(c.revisao){
+    rev=`<div class="cx-meta"><span class="status ${c.revisao==='suspeito'?'bad':'ok'}">${c.revisao==='suspeito'?'Suspeito':'Procedente'}</span> por ${esc(c.revisado_por_nome||'—')} em ${quando(c.revisado_em)}${c.revisao_obs?' · '+esc(c.revisao_obs):''}${revisor()?` <button class="button secondary" data-revisar="" data-id="${esc(c.id)}">Desfazer</button>`:''}</div>`;
+  }else if(revisor()&&(c.justificativa||c.exige_justificativa)){
+    rev=`<div class="cx-acoes"><button class="button secondary" data-revisar="procedente" data-id="${esc(c.id)}">Procedente</button><button class="button secondary" data-revisar="suspeito" data-id="${esc(c.id)}">Suspeito</button></div>`;
+  }
+  return `<div class="cx-caso ${nivel}">
+    <div class="cx-topo"><div class="cx-titulo">${titulo}</div><div class="cx-valor">${rs(c.valor)}</div></div>
+    ${detalhe}
+    <div class="cx-meta">${dia(c.data_turno)} · ${esc(c.turno||'—')} · ${tempos}${c.pontos?` · <b>${c.pontos} ponto${c.pontos>1?'s':''}</b>`:''}</div>
+    <div class="cx-meta">${pessoas}</div>
+    ${sinais?`<div class="cx-sinais">${sinais}</div>`:''}
+    ${just}${rev}
+  </div>`;
+}
+
+const SEMANA=['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
+function chave(dim,r,ehCaso){
+  if(dim==='dia')return String(r.data_turno).slice(0,10);
+  if(dim==='hora'){const h=ehCaso?(r.lancado_em?Number(String(r.lancado_em).slice(11,13)):null):r.hora;return h==null?null:String(h).padStart(2,'0')+'h';}
+  if(dim==='turno')return r.turno||'—';
+  if(dim==='semana')return SEMANA[new Date(`${String(r.data_turno).slice(0,10)}T12:00:00`).getDay()];
+  return r.lancou||'—';
+}
+function tabelaFora(){
+  const lan=new Map(),can=new Map(),qtd=new Map();
+  RESUMO.forEach(r=>{const k=chave(DIMENSAO,r,false);if(k!=null)lan.set(k,(lan.get(k)||0)+Number(r.valor||0));});
+  CASOS.filter(c=>!corrigido(c)).forEach(c=>{const k=chave(DIMENSAO,c,true);if(k==null)return;can.set(k,(can.get(k)||0)+Number(c.valor||0));qtd.set(k,(qtd.get(k)||0)+1);});
+  const totLan=[...lan.values()].reduce((a,b)=>a+b,0),totCan=[...can.values()].reduce((a,b)=>a+b,0);
+  const media=totLan?totCan/totLan:0;
+  let linhas=[...lan.entries()].filter(([,v])=>v>=(DIMENSAO==='lancou'?1000:0)).map(([k,v])=>{const c=can.get(k)||0;const taxa=v?c/v:0;return{k,v,c,n:qtd.get(k)||0,taxa,x:media?taxa/media:0};});
+  if(DIMENSAO==='dia')linhas.sort((a,b)=>b.k.localeCompare(a.k));
+  else if(DIMENSAO==='hora')linhas.sort((a,b)=>a.k.localeCompare(b.k));
+  else if(DIMENSAO==='semana')linhas.sort((a,b)=>SEMANA.indexOf(a.k)-SEMANA.indexOf(b.k));
+  else linhas.sort((a,b)=>b.x-a.x);
+  if(!linhas.length)return '<div class="empty">Sem lançamentos no período.</div>';
+  return `<table class="data-table"><thead><tr><th>${{dia:'Dia',hora:'Hora do lançamento',turno:'Turno',semana:'Dia da semana',lancou:'Quem lançou'}[DIMENSAO]}</th><th class="right">Lançado</th><th class="right">Cancelado</th><th class="right">Casos</th><th class="right">Taxa</th><th class="right">× média</th></tr></thead><tbody>${linhas.map(l=>{const fora=l.x>=2&&l.c>=50;return`<tr><td>${DIMENSAO==='dia'?dia(l.k):esc(l.k)}</td><td class="right">${rs(l.v)}</td><td class="right">${rs(l.c)}</td><td class="right">${l.n}</td><td class="right">${pct(l.taxa*100)}</td><td class="right${fora?' cx-fora':''}">${l.x.toLocaleString('pt-BR',{maximumFractionDigits:1})}×</td></tr>`;}).join('')}<tr><td><b>Média do período</b></td><td class="right"><b>${rs(totLan)}</b></td><td class="right"><b>${rs(totCan)}</b></td><td></td><td class="right"><b>${pct(media*100)}</b></td><td class="right">1×</td></tr></tbody></table>`;
+}
+
+async function justificar(id){
+  const campo=document.getElementById('j_'+id);
+  const texto=(campo?.value||'').trim();
+  if(texto.length<10){toast('Descreva o que aconteceu (mínimo de 10 caracteres).',true);campo?.focus();return;}
+  const {error}=await sb.rpc('justificar_cancelamento',{p_id:id,p_justificativa:texto});
+  if(error){toast('Não registrou: '+error.message,true);return;}
+  toast('Justificativa registrada.');
+  carregar();
+}
+
+async function revisar(id,revisao){
+  let obs=null;
+  if(revisao==='suspeito'){
+    obs=window.prompt('Observação para o registro (opcional):','');
+    if(obs===null)return;
+  }
+  const {error}=await sb.rpc('revisar_cancelamento',{p_id:id,p_revisao:revisao||null,p_obs:obs});
+  if(error){toast('Não revisou: '+error.message,true);return;}
+  toast(revisao?'Revisão registrada.':'Revisão desfeita.');
+  carregar();
+}
+
+(async()=>{
+  const auth=await SirFisherAuth.requireRole(sb);
+  if(!auth)return;
+  PAPEL=auth.role;
+  await carregar();
+})();
+</script>
+</body>
+</html>

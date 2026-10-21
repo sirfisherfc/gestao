@@ -354,6 +354,34 @@ Importador `scripts/importacao/api_saipos_vendas.py`; tabelas
   `app_conciliacao_saipos_pendencia`). Rotina: `importacao-saipos.yml`,
   05:30 de Fortaleza; exige o secret `SAIPOS_API_TOKEN` no GitHub.
 
+## Saipos: rotina Cancelamentos (21/10/2026)
+
+O mesmo importador baixa `sales_items` e `sales_status_histories` de cada dia
+e grava em `saipos_cancelamento` e `saipos_lancamento_resumo` (migration
+`20261021030000`). Regras em `scripts/importacao/saipos_cancelamentos.py`:
+
+- **Não é cancelamento:** item apagado com `id_sale_to` (troca de mesa).
+- **Correção:** item apagado e o mesmo produto relançado na mesma mesa logo
+  em seguida; zero ponto, sem justificativa.
+- **`done_at` não é preparo:** é o fechamento da mesa. "Provavelmente
+  servido" = bebida cancelada 10+ min ou comida 40+ min após lançar.
+- **Mesa trocada:** pagamento e fechamento vêm da venda de destino.
+- **Pontos do item:** provavelmente servido 2; depois de começar a pagar 2;
+  até 15 min antes de pagar 1; 60+ min após lançar 1; mesa paga em dinheiro
+  1; sem motivo 1. Justificativa obrigatória com 3+ pontos ou R$ 100+.
+- **Mesa inteira cancelada:** justificativa quando aberta há 30+ min ou com
+  R$ 100+. Mesa sem itens (aberta por engano) é ignorada.
+- Análise de 01/09–20/10/2026: 228 cancelamentos (R$ 6.221,30, 2,1% do
+  lançado), 43 exigindo justificativa (R$ 1.484,50). 234 de 239 itens foram
+  cancelados no login "Caixa" e nenhum teve autorização registrada.
+
+Página `cancelamentos.html` (Rotinas): gerente justifica
+(`justificar_cancelamento`); admin e sócio marcam procedente ou suspeito
+(`revisar_cancelamento`), o que trava a justificativa. A seção "Fora da
+curva" compara a taxa por dia, hora, turno, dia da semana e funcionário.
+O importador só atualiza os dados Saipos; justificativa e revisão nunca são
+sobrescritas, e um caso já tratado não é apagado.
+
 ## Segurança
 
 - Chaves e senhas ficam só no `.env` ignorado; o certificado fica fora dos

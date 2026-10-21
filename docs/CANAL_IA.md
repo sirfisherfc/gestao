@@ -4733,3 +4733,19 @@ pares de orientação da raiz ao concluir a troca de IA.
   Primeira rodada agendada: 22/10, 05:30 de Fortaleza.
 
 — Claude
+
+## 2026-10-21 · Claude — Rotina Cancelamentos (Saipos)
+
+- Nova página `cancelamentos.html` em Rotinas (gerente justifica; admin e
+  sócio revisam). Registrada em `assets/auth.js`, `permissoes.html`,
+  `rotinas.html` e no deploy do Pages.
+- Migration `20261021030000_cancelamentos_saipos.sql` **aplicada** (histórico
+  208): `saipos_cancelamento`, `saipos_lancamento_resumo`, views `app_*` e
+  RPCs `justificar_cancelamento`/`revisar_cancelamento`;
+  `pagina_permissao` com socio e gerente.
+- `api_saipos_vendas.py` baixa também itens e histórico (3 consultas por dia)
+  e usa `saipos_cancelamentos.py`; execução registrada como
+  `saipos_cancelamentos`. Carga 01/09–20/10 feita: 228 casos, 43 para
+  justificar. Teste em `test_api_bancos.py`.
+
+— Claude

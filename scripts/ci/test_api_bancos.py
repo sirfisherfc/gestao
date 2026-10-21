@@ -615,6 +615,50 @@ def test_saipos_vendas() -> None:
     esperar_erro(ValidacaoErro, "ainda não fechou", api_saipos_vendas.dias_do_periodo, date(2026, 10, 20), date(2026, 10, 20), date(2026, 10, 20))
 
 
+def test_saipos_cancelamentos() -> None:
+    import saipos_cancelamentos as sc
+
+    def item(id_item, produto, criado, apagado=None, **extra):
+        return {"id_sale_item": id_item, "desc_sale_item": produto, "unit_price": 20, "quantity": 1,
+                "created_at": f"2026-10-18T{criado}:00", "deleted": "Y" if apagado else "N",
+                "deleted_at": f"2026-10-18T{apagado}:00" if apagado else None, "created_by": 1, "deleted_by": 9,
+                "id_store_cancellation_reason": 5, **extra}
+
+    vendas = {
+        1: {"id_sale": 1, "shift_date": "2026-10-18", "canceled": "N", "desc_sale": "10",
+            "payments": [{"desc_store_payment_type": "Dinheiro", "payment_amount": 40, "created_at": "2026-10-18T21:10:00"}]},
+        2: {"id_sale": 2, "shift_date": "2026-10-18", "canceled": "Y", "desc_sale": "11", "payments": []},
+        3: {"id_sale": 3, "shift_date": "2026-10-18", "canceled": "N", "payments": []},
+    }
+    itens = {
+        1: [
+            item(10, "Chope Brahma", "20:00", "21:00"),  # servido, perto do pagamento, dinheiro
+            item(11, "Filé", "20:00", "20:02"),  # correção: relançado logo depois
+            item(12, "Filé", "20:03"),
+            item(13, "Suco", "20:00", "20:01", id_sale_to=3),  # troca de mesa
+        ],
+        2: [item(20, "Edimburger", "18:00", "20:30"), item(21, "Edimburger", "18:00", "20:30")],
+    }
+    status = {2: [{"desc_store_sale_status": "Cancelados", "created_at": "2026-10-18T20:30:00",
+                   "desc_cancellation_reason": "Cliente desistiu do pedido",
+                   "user": {"id_user": 9, "full_name": "Caixa"}}]}
+    nomes = sc.nomes_usuarios(status)
+    cancelamentos, resumo = sc.montar(vendas, itens, status, nomes)
+    por_id = {c["id"]: c for c in cancelamentos}
+    if set(por_id) != {"item:10", "item:11", "mesa:2"}:
+        raise AssertionError(f"cancelamentos errados: {sorted(por_id)}")
+    chope = por_id["item:10"]
+    if not chope["exige_justificativa"] or "provavelmente servido" not in chope["sinais"] or "mesa pagou em dinheiro" not in chope["sinais"]:
+        raise AssertionError(f"chope servido e cancelado antes do pagamento deveria pedir justificativa: {chope}")
+    if por_id["item:11"]["pontos"] != 0 or por_id["item:11"]["exige_justificativa"]:
+        raise AssertionError("item relançado em seguida é correção, não caso de risco")
+    mesa = por_id["mesa:2"]
+    if not mesa["exige_justificativa"] or mesa["minutos"] != 150 or mesa["cancelou"] != "Caixa":
+        raise AssertionError(f"mesa cancelada 150 min depois deveria pedir justificativa: {mesa}")
+    if round(sum(r["valor"] for r in resumo), 2) != 100.0:
+        raise AssertionError("resumo lançado deveria somar os itens sem a troca de mesa")
+
+
 def main() -> int:
     test_stone_requisicao()
     test_stone_cabecalho_e_erros()
@@ -626,8 +670,9 @@ def main() -> int:
     test_bb_token_e_paginas()
     test_bb_blocos_e_gravacao()
     test_saipos_vendas()
+    test_saipos_cancelamentos()
     test_cli_sem_credenciais()
-    print("API_BANCOS_TESTS_OK stone=3 recebiveis=1 pix=1 pix_extrato=1 saipos=1 bb=3 cli=2")
+    print("API_BANCOS_TESTS_OK stone=3 recebiveis=1 pix=1 pix_extrato=1 saipos=2 bb=3 cli=2")
     return 0
 
 

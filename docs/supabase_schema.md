@@ -1406,6 +1406,31 @@ lado, Dinheiro/Fiado) e lista dos pagamentos sem par. Gate
 `usuario_pode_acessar_pagina('conciliacao.html')`; `select` só para
 `authenticated`.
 
+## Cancelamentos Saipos (20261021030000)
+
+### saipos_cancelamento
+PK `id` (`item:<id_sale_item>` ou `mesa:<id_sale>`). Dados da Saipos (tipo,
+dia/turno, mesa, produto, valor, horários, minutos, minutos até o pagamento,
+quem lançou/cancelou/autorizou, motivo), `sinais`, `pontos` e
+`exige_justificativa`, gravados por `api_saipos_vendas.py`. Campos humanos:
+`justificativa`/`justificado_por`/`justificado_em` e
+`revisao` (`procedente`/`suspeito`)/`revisao_obs`/`revisado_por`/`revisado_em`.
+RLS ligado, sem acesso direto.
+
+### saipos_lancamento_resumo
+Valor e itens lançados por `data_turno`, `turno`, `hora` e `lancou` (sem
+trocas de mesa); base da taxa de cancelamento.
+
+### app_saipos_cancelamento / app_saipos_lancamento_resumo
+Gate `usuario_pode_acessar_pagina('cancelamentos.html')`; `select` só para
+`authenticated`. Nomes de quem justificou/revisou por
+`private.nome_exibicao_usuario`.
+
+### RPCs
+`justificar_cancelamento(p_id, p_justificativa)`: quem acessa a página; texto
+com 10+ caracteres; bloqueado depois da revisão.
+`revisar_cancelamento(p_id, p_revisao, p_obs)`: admin ou sócio; `null` desfaz.
+
 ## Observações
 - O front-end autenticado usa views `app_*` e RPCs protegidas; tabelas internas
   não são expostas para leitura anônima.
