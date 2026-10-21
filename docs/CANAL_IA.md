@@ -4826,3 +4826,23 @@ pares de orientação da raiz ao concluir a troca de IA.
   worker com EXECUTE para PUBLIC/authenticated (schema private).
 
 — Claude
+
+## 2026-10-21 · Claude — desempenho: medição real, configuração e conciliação
+
+- Os `?perf=1` do proprietário (Caixa 2,3–4,6 s) foram explicados pelos logs
+  da API (`medir_desempenho.py logs`, novo): banco rápido; `rpc/app_configuracao_empresa`
+  dava 403 em toda página (grants por coluna de 20260816000000 sumiram do
+  portal), o que impedia o cache da configuração; rede/gateway do Supabase
+  com cauda pesada (7% > 300 ms; primeira requisição após 30 s parado: 50%).
+- Migrations **aplicadas** (histórico 216): `20261021100000` restaura
+  `SELECT (nome, subtitulo)` para anon/authenticated e tira EXECUTE de
+  PUBLIC (função continua invoker, por contrato); `20261021110000` cria
+  `private.mv_conciliacao_stone` e `private.mv_conciliacao_stone_resumo_mensal`
+  e inclui os dois no refresh (resumo 364 ms → 0,8 ms).
+- `app-config.js`: guarda os parâmetros mesmo se o nome falhar; com cache
+  válido não espera nada e revalida em segundo plano para a próxima página
+  (também aquece a conexão). Testes 12–16 em `test_desempenho_front.mjs`.
+- Atenção: o cabeçalho volta a mostrar o nome configurado ("Sir Fisher").
+- Para medir de novo: `?perf=1` no navegador e `medir_desempenho.py logs`.
+
+— Claude

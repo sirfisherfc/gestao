@@ -34,7 +34,17 @@ python scripts/diagnostico/medir_desempenho.py paginas --repeticoes 3 --saida an
 python scripts/diagnostico/medir_desempenho.py checksums public.painel_resumo_mensal public.projecao_despesa_fixa
 python scripts/diagnostico/medir_desempenho.py pgss salvar retrato.json
 python scripts/diagnostico/medir_desempenho.py pgss delta retrato.json
+python scripts/diagnostico/medir_desempenho.py logs --horas 2 --aberturas 8
 ```
+
+**Nos logs da API (tempo real dos navegadores, sem pedir nada a ninguém):**
+`logs` agrupa as requisições do painel por abertura de página e separa, para
+cada uma, o tempo no PostgREST (banco) do tempo fora dele (rede e gateway do
+Supabase). Usa a credencial de gestão do workspace e não lê IP, usuário nem
+cabeçalhos de autenticação. Referência de 21/10/2026: fora do PostgREST,
+mediana ~60 ms e ~7% acima de 300 ms; a primeira requisição de uma abertura
+depois de 30 s a 5 min parado passa de 300 ms em metade das vezes (conexão
+fria, fora do nosso controle no plano Free).
 
 - `consultas`: tempo no servidor de cada consulta das páginas prioritárias.
 - `paginas`: reproduz as rodadas e a concorrência de cada página.

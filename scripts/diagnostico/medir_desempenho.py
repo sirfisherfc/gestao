@@ -12,13 +12,16 @@ Uso (na pasta ``gestao``, com ``DATABASE_URL`` no ``.env``)::
     python scripts/diagnostico/medir_desempenho.py checksums public.painel_resumo_mensal ...
     python scripts/diagnostico/medir_desempenho.py pgss salvar retrato.json
     python scripts/diagnostico/medir_desempenho.py pgss delta retrato.json
+    python scripts/diagnostico/medir_desempenho.py logs [--horas 2] [--aberturas 8]
 
 ``consultas``: tempo de execução no servidor (EXPLAIN ANALYZE) de cada consulta
 das páginas prioritárias. ``paginas``: reproduz as rodadas sequenciais de cada
 página com a mesma concorrência do navegador e mede o relógio de parede (uma
 ida e volta por consulta). ``checksums``: md5 do resultado ordenado, para provar
 igualdade antes e depois de uma mudança. ``pgss``: retrato e delta do
-``pg_stat_statements`` sem resetar as estatísticas.
+``pg_stat_statements`` sem resetar as estatísticas. ``logs``: tempo real de cada
+requisição dos navegadores, pelos logs da API do Supabase, agrupado por
+abertura de página (separa o tempo no PostgREST do tempo de rede e gateway).
 """
 
 from __future__ import annotations
@@ -250,6 +253,74 @@ def cmd_pgss(args) -> None:
         print(f"{rotulo:42s} {papel:13s} chamadas {d['calls']:6d}  média {d['total'] / d['calls']:8.0f} ms")
 
 
+LOGS_SQL = """
+select timestamp,
+  log_attributes['request.method'] as metodo,
+  log_attributes['request.path'] as caminho,
+  toInt32OrZero(log_attributes['response.status_code']) as status,
+  toInt32OrZero(log_attributes['response.origin_time']) as origem,
+  toInt32OrZero(log_attributes['response.headers.x_envoy_upstream_service_time']) as upstream
+from logs
+where source = 'edge_logs'
+  and log_attributes['request.path'] like '/rest/v1/%'
+  and log_attributes['request.headers.x_client_info'] like '{cliente}%'
+order by timestamp
+limit 5000
+"""
+
+
+def cmd_logs(args) -> None:
+    """Tempo real das requisições dos navegadores, pelos logs da API do Supabase.
+
+    Usa a credencial de gestão já configurada no workspace (SUPABASE_ACCESS_TOKEN
+    ou reservas/.env.local) e só lê: método, caminho, status e tempos. IP,
+    usuário e cabeçalhos de autenticação não são consultados.
+    """
+    import urllib.parse
+    import urllib.request
+    from datetime import timezone
+
+    sys.path.insert(0, str(ROOT.parent / "site" / "tools" / "analytics"))
+    from supabase_credentials import PORTAL_REF, access_token
+
+    versao = re.search(r"supabase-js@([0-9.]+)", (ROOT / "index.html").read_text(encoding="utf-8"))
+    cliente = "supabase-js/" + (versao.group(1) if versao else "")
+    fim = datetime.now(timezone.utc)
+    ini = fim - timedelta(hours=min(args.horas, 24))
+    fmt = "%Y-%m-%dT%H:%M:%S.000Z"
+    query = urllib.parse.urlencode({"sql": LOGS_SQL.format(cliente=cliente),
+                                    "iso_timestamp_start": ini.strftime(fmt), "iso_timestamp_end": fim.strftime(fmt)})
+    pedido = urllib.request.Request(
+        f"https://api.supabase.com/v1/projects/{PORTAL_REF}/analytics/endpoints/logs?{query}",
+        headers={"Authorization": "Bearer " + access_token()})
+    with urllib.request.urlopen(pedido, timeout=90) as resposta:
+        dados = json.load(resposta)
+    if dados.get("error"):
+        raise SystemExit("Logs indisponíveis: " + json.dumps(dados["error"])[:300])
+    linhas = dados.get("result", [])
+    momento = lambda l: datetime.fromisoformat(str(l["timestamp"]).replace("Z", ""))
+    grupos: list[list[dict]] = []
+    for linha in linhas:
+        if not grupos or (momento(linha) - momento(grupos[-1][-1])).total_seconds() > 3:
+            grupos.append([])
+        grupos[-1].append(linha)
+    fora = lambda l: max(0, l["origem"] - l["upstream"]) if l["upstream"] > 0 else None
+    for grupo in grupos[-args.aberturas:]:
+        t0 = momento(grupo[0])
+        fim_grupo = max((momento(l) - t0).total_seconds() * 1000 + l["origem"] for l in grupo)
+        print(f"\n=== {str(grupo[0]['timestamp'])[:19]} UTC  {len(grupo)} requisições  até a última resposta: {fim_grupo:.0f} ms")
+        for l in grupo:
+            dt = (momento(l) - t0).total_seconds() * 1000
+            extra = fora(l)
+            print(f"  +{dt:6.0f} ms  {l['metodo']:7s} {l['caminho'][:50]:50s} {l['status']}  total {l['origem']:5d} ms"
+                  + (f"  PostgREST {l['upstream']:5d} ms  fora {extra:5d} ms" if extra is not None else ""))
+    valores = sorted(v for v in (fora(l) for l in linhas) if v is not None)
+    if valores:
+        p = lambda q: valores[min(len(valores) - 1, int(q * len(valores)))]
+        acima = 100 * sum(1 for v in valores if v > 300) / len(valores)
+        print(f"\nfora do PostgREST (rede e gateway): mediana {p(.5)} ms, p90 {p(.9)} ms, p99 {p(.99)} ms, acima de 300 ms {acima:.1f}%")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="comando", required=True)
@@ -269,6 +340,10 @@ def main() -> int:
     p.add_argument("modo", choices=["salvar", "delta"])
     p.add_argument("arquivo")
     p.set_defaults(func=cmd_pgss)
+    p = sub.add_parser("logs")
+    p.add_argument("--horas", type=int, default=2)
+    p.add_argument("--aberturas", type=int, default=8)
+    p.set_defaults(func=cmd_logs)
     args = parser.parse_args()
     args.func(args)
     return 0

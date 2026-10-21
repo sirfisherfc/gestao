@@ -135,6 +135,39 @@ primeira chamada numa conexão nova também planeja mais devagar (~0,3 s a mais
 no Calendário), e o PostgREST fecha conexões ociosas. O que confirma a
 experiência real é medir com `?perf=1` no PC e no celular.
 
+## Medição real nos navegadores (21/10/2026, à noite)
+
+Três aberturas do Caixa com `?perf=1` (uma com Ctrl+Shift+R) deram 2,3–4,6 s,
+acima do previsto. Os logs da API do Supabase (`medir_desempenho.py logs`)
+mostraram, requisição por requisição:
+
+- **O banco já não era o gargalo:** no PostgREST, as consultas do Caixa
+  levaram 10–430 ms.
+- **`app_configuracao_empresa` respondia 403 em toda página.** Os grants por
+  coluna do desenho original tinham sumido do portal. Sem essa resposta, o
+  `app-config.js` nunca guardava a configuração, e toda página pagava uma
+  rodada a mais antes de liberar o acesso. Corrigido em `20261021100000`; o
+  cabeçalho volta a mostrar o nome configurado ("Sir Fisher").
+- **Rede e gateway do Supabase:** fora do PostgREST, mediana de 62 ms, mas
+  7% das requisições passam de 300 ms (p99 1,6 s; máximo 4,2 s, sem nova
+  tentativa do gateway). A primeira requisição de cada abertura é a mais
+  afetada: 24% acima de 300 ms, e metade quando o painel ficou de 30 s a
+  5 min parado (conexão fria). A medição 2 (4,6 s) foi isso: requisições de
+  8–81 ms no banco levaram 1,6–2,6 s no total.
+- A verificação CORS (`OPTIONS`) vale 1 h por endereço; só pesa na primeira
+  visita da hora e no Ctrl+Shift+R.
+
+O que mudou em seguida:
+
+1. `app-config.js` guarda os parâmetros mesmo se só o nome falhar, sem
+   guardar o nome genérico. Com o cache válido, a página não espera nenhuma
+   consulta: usa o que tem e busca em segundo plano os valores para a
+   próxima página. Essa consulta também abre cedo a conexão fria. A página
+   atual nunca muda de valor no meio do caminho, e uma recarga forçada dos
+   parâmetros não é sobrescrita (testes em `test_desempenho_front.mjs`).
+2. Conciliação Stone com snapshots (`20261021110000`): resumo mensal 364 ms →
+   0,8 ms e detalhe 324 ms → 45 ms, com conteúdo idêntico.
+
 ## Achados fora do escopo
 
 - Em 13/10, três tarefas da fila terminaram com erro nos validadores
