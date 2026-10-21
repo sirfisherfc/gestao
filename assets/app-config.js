@@ -41,6 +41,10 @@
   let current = fallback;
   let settings = settingsFallback;
   let cachedAt = 0;
+  // O nome so entra no cache depois de lido do servidor: o generico nunca e
+  // guardado como se fosse o nome configurado.
+  let empresaConfirmada = false;
+  let geracao = 0;
 
   // Configuracao publica da empresa (sem dado financeiro): vale entre abas com
   // o mesmo TTL curto, para uma aba nova nao repetir as duas consultas.
@@ -54,7 +58,10 @@
       if (!cached || typeof cached !== 'object') return;
       const nome = String(cached.current?.nome || '').trim();
       const subtitulo = String(cached.current?.subtitulo || '').trim();
-      if (nome && subtitulo) current = Object.freeze({ nome, subtitulo });
+      if (nome && subtitulo) {
+        current = Object.freeze({ nome, subtitulo });
+        empresaConfirmada = true;
+      }
       if (cached.settings && typeof cached.settings === 'object') {
         settings = Object.freeze(Object.assign({}, settingsFallback, cached.settings));
       }
@@ -69,7 +76,7 @@
       cachedAt = Date.now();
       cacheStore()?.setItem(CACHE_KEY, JSON.stringify({
         savedAt: cachedAt,
-        current,
+        current: empresaConfirmada ? current : null,
         settings
       }));
     } catch (_error) {
@@ -113,38 +120,77 @@
     document.title = current.nome + (separator >= 0 ? document.title.slice(separator) : '');
   }
 
+  // Devolve o nome e os parametros lidos (null quando a consulta falha), sem
+  // mexer no que a pagina ja esta usando.
+  async function consultar(client) {
+    const settled = await Promise.allSettled([
+      client.rpc('app_configuracao_empresa'),
+      client.rpc('app_configuracao_operacional')
+    ]);
+    const empresa = settled[0].status === 'fulfilled'
+      ? settled[0].value
+      : { data: null, error: settled[0].reason };
+    const operacional = settled[1].status === 'fulfilled'
+      ? settled[1].value
+      : { data: null, error: settled[1].reason };
+    const row = Array.isArray(empresa.data) ? empresa.data[0] : empresa.data;
+    const op = Array.isArray(operacional.data) ? operacional.data[0] : operacional.data;
+    let lidos = null;
+    if (!operacional.error && op) {
+      const parametros = op.parametros && typeof op.parametros === 'object' ? op.parametros : {};
+      lidos = Object.freeze(Object.assign({}, settingsFallback, parametros, {
+        unidade: String(op.unidade_nome || settingsFallback.unidade).trim() || settingsFallback.unidade,
+        unidadeCodigo: String(op.unidade_codigo || settingsFallback.unidadeCodigo).trim() || settingsFallback.unidadeCodigo
+      }));
+    }
+    return { empresa: !empresa.error && row ? normalized(row) : null, settings: lidos };
+  }
+
+  // Com o cache valido, a pagina segue com os valores guardados e a leitura
+  // nova fica para a proxima pagina. Ela tambem abre cedo a conexao com o
+  // Supabase, que costuma estar fria quando o painel fica alguns segundos
+  // parado (logs da API, 21/10/2026).
+  function revalidarParaProximaPagina(client) {
+    const minhaGeracao = geracao;
+    consultar(client).then((lido) => {
+      // Uma recarga forcada (parametros salvos) vale mais que esta leitura.
+      if (!lido.settings || minhaGeracao !== geracao) return;
+      const empresa = lido.empresa || (empresaConfirmada ? current : null);
+      try {
+        cacheStore()?.setItem(CACHE_KEY, JSON.stringify({
+          savedAt: Date.now(), current: empresa, settings: lido.settings
+        }));
+      } catch (_error) {
+        // Cache e apenas uma otimizacao.
+      }
+    }).catch(() => {});
+  }
+
   async function load(force) {
+    const client = window.SirFisherSupabase;
     if (!force && cachedAt && Date.now() - cachedAt < CACHE_TTL_MS) {
       apply();
+      if (client) revalidarParaProximaPagina(client);
       return current;
     }
     if (force) {
+      geracao += 1;
       cachedAt = 0;
       try { cacheStore()?.removeItem(CACHE_KEY); } catch (_error) {}
     }
-    const client = window.SirFisherSupabase;
     if (client) {
-      const settled = await Promise.allSettled([
-        client.rpc('app_configuracao_empresa'),
-        client.rpc('app_configuracao_operacional')
-      ]);
-      const empresa = settled[0].status === 'fulfilled'
-        ? settled[0].value
-        : { data: null, error: settled[0].reason };
-      const operacional = settled[1].status === 'fulfilled'
-        ? settled[1].value
-        : { data: null, error: settled[1].reason };
-      const row = Array.isArray(empresa.data) ? empresa.data[0] : empresa.data;
-      if (!empresa.error && row) current = normalized(row);
-      const op = Array.isArray(operacional.data) ? operacional.data[0] : operacional.data;
-      if (!operacional.error && op) {
-        const parametros = op.parametros && typeof op.parametros === 'object' ? op.parametros : {};
-        settings = Object.freeze(Object.assign({}, settingsFallback, parametros, {
-          unidade: String(op.unidade_nome || settingsFallback.unidade).trim() || settingsFallback.unidade,
-          unidadeCodigo: String(op.unidade_codigo || settingsFallback.unidadeCodigo).trim() || settingsFallback.unidadeCodigo
-        }));
+      const lido = await consultar(client);
+      if (lido.empresa) {
+        current = lido.empresa;
+        empresaConfirmada = true;
       }
-      if (!empresa.error && row && !operacional.error && op) saveCache();
+      // Os parametros sao o que as paginas calculam; sem eles nada e guardado.
+      // Uma falha so do nome nao pode mais obrigar toda pagina a repetir as
+      // duas consultas (era o efeito do 403 corrigido em 20261021100000).
+      if (lido.settings) {
+        settings = lido.settings;
+        saveCache();
+      }
     }
     apply();
     return current;

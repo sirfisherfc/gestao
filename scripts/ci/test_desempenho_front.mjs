@@ -280,3 +280,82 @@ test('gerente busca o mes certo quando o painel abre em outro mes',async()=>{
   assert.equal(outroMes.length,5,'deveria buscar as cinco consultas do mes aberto');
   assert.equal(vm.runInContext('renders',c),1);
 });
+
+const configSource=readFileSync(new URL('../../assets/app-config.js',import.meta.url),'utf8');
+
+// respostas[nome] pode ser um valor ou uma promessa ainda pendente.
+function paginaComConfig(local,respostas){
+  const chamadas=[];
+  const c=vm.createContext({localStorage:local,Date,JSON,Object,Number,String,Array,
+    document:{title:'Painel · Caixa',readyState:'complete',querySelectorAll:()=>[],addEventListener(){}},
+    SirFisherSupabase:{rpc:nome=>{chamadas.push(nome);return Promise.resolve(respostas[nome]??{data:null,error:{message:'sem resposta'}});}}});
+  c.window=c;
+  vm.runInContext(configSource,c);
+  return {c,chamadas,pronto:vm.runInContext('window.SirFisherApp.ready',c),
+    numero:chave=>vm.runInContext(`window.SirFisherApp.number(${JSON.stringify(chave)},0)`,c)};
+}
+
+const operacional=valor=>({data:[{unidade_codigo:'PRAIA',unidade_nome:'Praia',parametros:{caixa_saldo_minimo:valor}}],error:null});
+const empresa=nome=>({data:[{nome,subtitulo:'Gestao'}],error:null});
+const pendente=()=>new Promise(()=>{});
+
+test('falha so do nome ainda guarda os parametros e nao guarda o nome generico',async()=>{
+  const local=storage();
+  const primeira=paginaComConfig(local,{app_configuracao_empresa:{data:null,error:{message:'permission denied'}},
+    app_configuracao_operacional:operacional(5)});
+  await primeira.pronto;
+  const salvo=JSON.parse(local.getItem('finance_panel_config_v1'));
+  assert.ok(salvo,'configuracao deveria ficar em cache');
+  assert.equal(salvo.current,null,'nome generico nao pode ser guardado');
+  assert.equal(salvo.settings.caixa_saldo_minimo,5);
+});
+
+test('com cache valido a pagina nao espera consulta nenhuma',async()=>{
+  const local=storage();
+  await paginaComConfig(local,{app_configuracao_empresa:empresa('Empresa Teste'),app_configuracao_operacional:operacional(5)}).pronto;
+  const segunda=paginaComConfig(local,{app_configuracao_empresa:pendente(),app_configuracao_operacional:pendente()});
+  await segunda.pronto;
+  assert.equal(vm.runInContext('window.SirFisherApp.current().nome',segunda.c),'Empresa Teste');
+  assert.equal(segunda.numero('caixa_saldo_minimo'),5);
+  assert.equal(segunda.chamadas.length,2,'revalidacao deveria sair em segundo plano');
+});
+
+test('revalidacao guarda os valores novos so para a proxima pagina',async()=>{
+  const local=storage();
+  await paginaComConfig(local,{app_configuracao_empresa:empresa('Empresa Teste'),app_configuracao_operacional:operacional(5)}).pronto;
+  const segunda=paginaComConfig(local,{app_configuracao_empresa:empresa('Empresa Teste'),app_configuracao_operacional:operacional(9)});
+  await segunda.pronto;
+  await tick();
+  assert.equal(segunda.numero('caixa_saldo_minimo'),5,'a pagina atual nao muda no meio do caminho');
+  assert.equal(JSON.parse(local.getItem('finance_panel_config_v1')).settings.caixa_saldo_minimo,9);
+  const terceira=paginaComConfig(local,{app_configuracao_empresa:pendente(),app_configuracao_operacional:pendente()});
+  await terceira.pronto;
+  assert.equal(terceira.numero('caixa_saldo_minimo'),9);
+});
+
+test('revalidacao atrasada nao sobrescreve uma recarga forcada',async()=>{
+  const local=storage();
+  await paginaComConfig(local,{app_configuracao_empresa:empresa('Empresa Teste'),app_configuracao_operacional:operacional(5)}).pronto;
+  let liberaAntiga;
+  const antiga=new Promise(resolve=>{liberaAntiga=resolve;});
+  const respostas={app_configuracao_empresa:empresa('Empresa Teste'),app_configuracao_operacional:antiga};
+  const pagina=paginaComConfig(local,respostas);
+  await pagina.pronto;
+  respostas.app_configuracao_operacional=operacional(7);
+  await vm.runInContext('window.SirFisherApp.reload()',pagina.c);
+  liberaAntiga(operacional(3));
+  await tick();
+  assert.equal(JSON.parse(local.getItem('finance_panel_config_v1')).settings.caixa_saldo_minimo,7);
+});
+
+test('sem os parametros nada e guardado e a pagina seguinte consulta de novo',async()=>{
+  const local=storage();
+  const primeira=paginaComConfig(local,{app_configuracao_empresa:empresa('Empresa Teste'),
+    app_configuracao_operacional:{data:null,error:{message:'falha'}}});
+  await primeira.pronto;
+  assert.equal(local.getItem('finance_panel_config_v1'),null);
+  const segunda=paginaComConfig(local,{app_configuracao_empresa:empresa('Empresa Teste'),app_configuracao_operacional:operacional(5)});
+  await segunda.pronto;
+  assert.equal(segunda.chamadas.length,2);
+  assert.equal(segunda.numero('caixa_saldo_minimo'),5);
+});
