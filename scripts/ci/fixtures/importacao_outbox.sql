@@ -41,8 +41,12 @@ insert into public.fonte_financeira values('stone_extrato',1,true);
 create table public.log_carga(fontes text);
 create table private.refresh_test(chamadas integer not null);
 insert into private.refresh_test values(0);
+create table private.recalculo_test(data_min date, data_max date);
 create function public.recalcular_saldo_fechamento(date,date,integer)
-returns table(mensagem text) language sql as $$select 'Teste sintetico'::text;$$;
+returns table(mensagem text) language sql as $$
+  insert into private.recalculo_test values ($1, $2);
+  select 'Teste sintetico'::text;
+$$;
 create function public.refresh_painel() returns void language plpgsql as $$
 begin
   if current_setting('test.fail_refresh',true)='on' then raise exception 'Falha sintetica'; end if;
@@ -124,10 +128,20 @@ do $$ begin
   update cron.job set active=false where jobname='sirfisher-processar-recalculo-saldo';
   perform private.garantir_worker_recalculo_saldo();
   assert (select active from cron.job where jobname='sirfisher-processar-recalculo-saldo'), 'Worker nao reativado';
+  -- Uma classificacao manual pendente junto com as duas importacoes: entra
+  -- no mesmo refresh, mas nao amplia o periodo do recalculo.
+  insert into private.fila_recalculo_saldo(data_min,data_max,somente_refresh)
+    values('2026-08-15','2026-08-15',true);
   perform private.processar_fila_recalculo_saldo();
-  assert (select count(*)=1 from private.fila_recalculo_saldo where situacao='pendente'), 'Worker perdeu tarefa seguinte';
-  perform private.processar_fila_recalculo_saldo();
-  assert (select count(*)=2 from private.fila_recalculo_saldo where situacao='concluido'), 'Conclusao nao ficou consultavel';
+  assert (select count(*)=0 from private.fila_recalculo_saldo where situacao='pendente'), 'Worker deixou tarefa pendente para tras';
+  assert (select count(*)=3 from private.fila_recalculo_saldo where situacao='concluido'), 'Conclusao nao ficou consultavel';
+  assert (select chamadas=1 from private.refresh_test), 'Pendentes nao foram agrupadas num refresh so';
+  assert (select count(*)=1 and min(data_min)='2026-09-01' from private.recalculo_test),
+    'Recalculo repetido ou fora do periodo das importacoes';
+  assert (select mensagem='Painel atualizado.' from private.fila_recalculo_saldo where somente_refresh),
+    'Tarefa de refresh perdeu a propria mensagem';
+  assert (select bool_and(mensagem='Teste sintetico') from private.fila_recalculo_saldo where not somente_refresh),
+    'Importacao perdeu a mensagem do recalculo';
   assert (select count(*)=1 from cron.job), 'Worker nao desagendou';
   perform private.garantir_worker_recalculo_saldo();
   assert (select count(*)=1 from cron.job), 'Fila vazia armou worker';
@@ -139,8 +153,9 @@ do $$ begin
   perform private.processar_fila_recalculo_saldo();
   assert (select count(*)=1 from private.fila_recalculo_saldo where situacao='erro'), 'Erro do worker oculto';
   -- A falha de um objeto nao pode mais desfazer o que ja tinha atualizado:
-  -- duas chamadas boas antes desta, mais esta, que falhou depois de trabalhar.
-  assert (select chamadas=3 from private.refresh_test),
+  -- uma chamada boa antes desta (as tres tarefas juntas), mais esta, que
+  -- falhou depois de trabalhar.
+  assert (select chamadas=2 from private.refresh_test),
     'Worker desfez o trabalho ja concluido ao registrar a falha';
   assert (select mensagem like '%mv_fluxo_caixa_diario%'
           from private.fila_recalculo_saldo where situacao='erro'),

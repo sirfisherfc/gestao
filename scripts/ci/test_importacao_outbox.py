@@ -18,8 +18,10 @@ MIGRATIONS = ROOT / 'supabase/migrations'
 OUTBOX = '20260905000000_importacao_recalculo_duravel.sql'
 RESILIENTE = '20260921010000_refresh_painel_resiliente.sql'
 SEQUENCE_REPAIR = '20260908000000_repara_sequencias_pos_migracao.sql'
+# Worker vigente: processa todas as tarefas pendentes numa execucao.
+AGRUPA = '20261021080000_fila_recalculo_agrupa_pendentes.sql'
 # Migrations posteriores ao OUTBOX que ja entram na cadeia montada abaixo.
-ENCADEADAS = {OUTBOX, RESILIENTE}
+ENCADEADAS = {OUTBOX, RESILIENTE, AGRUPA}
 # Migrations posteriores que citam os objetos cobertos sem redefini-los
 # (revisadas: so mencionam o nome em comentario ou mexem em outro objeto).
 SEM_EFEITO_NA_CADEIA = {
@@ -28,6 +30,9 @@ SEM_EFEITO_NA_CADEIA = {
     # Redefine a resiliente so para incluir private.mv_dre_mensal; a fixture
     # troca a resiliente pela sintetica, entao a cadeia testada nao muda.
     '20261006000000_dre_mensal_materializada.sql',
+    # Redefine a resiliente para atualizar os snapshots de corte e vendas
+    # Stone; pelo mesmo motivo acima, a cadeia testada nao muda.
+    '20261021070000_snapshots_corte_e_vendas_stone.sql',
 }
 
 
@@ -67,6 +72,7 @@ alter table private.fila_recalculo_saldo
 """
     migration = read(OUTBOX)
     resiliente = read(RESILIENTE)
+    agrupa = read(AGRUPA)
     # O banco descartavel nao tem as materialized views reais, entao a
     # resiliente vira sintetica depois de instalada. Ela conta chamadas e sabe
     # falhar: e assim que o teste prova que uma falha de objeto nao apaga o
@@ -94,7 +100,7 @@ $sintetico$;
         read('20260784000000_importacao_web_protecoes_do_python.sql'),
         read('20260818050000_importacao_web_usa_fontes.sql'),
         # Rodar duas vezes valida idempotencia pelo catalogo efetivo.
-        migration, migration, resiliente, resiliente,
+        migration, migration, resiliente, resiliente, agrupa, agrupa,
         refresh_sintetico, checks,
     ])
 

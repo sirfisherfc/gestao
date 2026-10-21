@@ -1094,9 +1094,9 @@ no repositório.
 - Propósito: enfileirar e acompanhar o recálculo assíncrono do saldo depois de
   uma importação ou manutenção. A fila privada guarda somente período, estado
   e mensagem técnica. O executor pesado funciona sob demanda: cada solicitação liga
-  temporariamente `sirfisher-processar-recalculo-saldo`, que processa uma
-  tarefa por vez, atualiza os snapshots e remove o próprio agendamento quando a
-  fila esvazia. A migration inicial enfileira uma recomposição desde o começo
+  temporariamente `sirfisher-processar-recalculo-saldo`, que processa todas
+  as tarefas pendentes numa execução (desde `20261021080000`), atualiza os
+  snapshots e remove o próprio agendamento quando a fila esvazia. A migration inicial enfileira uma recomposição desde o começo
   do ano para recuperar automaticamente dados já gravados antes da correção.
 - Criadas em `20260758000000_recalculo_saldo_assincrono.sql`; agendamento
   convertido para sob demanda em
@@ -1432,6 +1432,53 @@ Gate `usuario_pode_acessar_pagina('cancelamentos.html')`; `select` só para
 `justificar_cancelamento(p_id, p_justificativa)`: quem acessa a página; texto
 com 10+ caracteres; bloqueado depois da revisão.
 `revisar_cancelamento(p_id, p_revisao, p_obs)`: admin ou sócio; `null` desfaz.
+
+## Desempenho do painel: snapshots e fila (20261021050000–20261021090000)
+
+Medição, causas e plano em `docs/DESEMPENHO_PAINEL.md`. Todas aplicadas em
+21/10/2026 (histórico 214), com md5 idêntico antes e depois em 27 objetos
+(views, Calendário de três meses como admin e as `app_*` das páginas).
+
+- **Índices** (`20261021050000`): `raw_stone_vendas(data_venda)`,
+  `raw_stone_recebiveis(data_vencimento)` e `(data_venda)`,
+  `raw_stone_extrato(data_hora)`. Servem a `max()`/`min()` de `corte_venda`,
+  `recebimento_projetado` e `fato_financeiro` e aos recortes por vencimento.
+- **`saldo_mensal_calculado`** (`20261021060000`): `real_mes` e `projecao_mes`
+  são `AS MATERIALIZED`. Sem isso, cada mês reavaliava `caixa_real_diario`
+  (55 s). A view passou a ser versionada nessa migration.
+- **`private.mv_corte_caixa_base`** (`20261021070000`): uma linha com
+  `max(data_caixa)` de `fato_financeiro`. `public.corte_caixa` lê o snapshot
+  e continua calculando "ontem" ao vivo, então a virada do dia não depende de
+  job.
+- **`private.mv_venda_stone_dia`** (`20261021070000`): vendas Stone líquidas de
+  cancelamento por dia, stonecode e produto, com a mesma regra de
+  `recebimento_stone_net`. `public.venda_diaria` e a CTE `vendas_stone` de
+  `listar_calendario_financeiro` leem dela e aplicam ao vivo as flags de fonte
+  (`stone_vendas`) e de conta (`stone_conta`). Dinheiro, Fundopay e Pix do BB
+  continuam ao vivo. `recebimento_stone_net` não mudou e segue para os demais
+  leitores.
+- **Ordem do refresh**: `private.refresh_painel_resiliente()` atualiza os dois
+  snapshots antes de tudo (o saldo por conta e o fluxo os leem), cada um na
+  própria subtransação, e roda com `work_mem=16MB` só na função. Isso evita
+  ~470 MB de disco temporário por refresh na `mv_conciliacao_contabil`.
+  Medido depois: refresh completo 28,5 s, sem arquivo temporário novo.
+- **Atraso de dado**: corte e vendas Stone avançam ao fim do refresh disparado
+  pela carga, como DRE, saldo e fluxo. Quem criar uma carga nova de
+  `raw_stone_vendas`, `raw_stone_recebiveis` ou das fontes de
+  `fato_financeiro` precisa chamar `refresh_painel()` ou enfileirar a fila,
+  como as cargas atuais já fazem.
+- **Fila** (`20261021080000`): o worker trava todas as tarefas pendentes e roda
+  o recálculo uma vez, a partir da menor data das tarefas de importação; as
+  tarefas só de refresh não ampliam o período. Cada tarefa recebe a própria
+  situação e mensagem. Fixture: `scripts/ci/fixtures/importacao_outbox.sql`.
+- **`projecao_despesa_fixa`** (`20261021090000`): `realizado_mes` filtra a
+  competência a partir do mês do corte (os meses anteriores nunca casavam na
+  junção final). Tentativas de levar o mesmo limite à CTE `media` pioraram o
+  plano (subconsulta: 1,2 s; função de parâmetro no filtro: 14 s). Não repetir.
+- **Etapa não aplicada (decisão)**: um snapshot de `fato_financeiro` para as
+  views do painel tornaria o cartão do gerente e a bonificação ~3× mais
+  rápidos, mas atrasaria a classificação manual nas projeções. Ficou fora
+  porque o pedido exige que ações manuais apareçam na hora.
 
 ## Observações
 - O front-end autenticado usa views `app_*` e RPCs protegidas; tabelas internas
