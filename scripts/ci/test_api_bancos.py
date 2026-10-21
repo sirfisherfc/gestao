@@ -374,6 +374,36 @@ def test_pix_stone() -> None:
         raise AssertionError(f"pedido do arquivo Pix com URL errada: {fake.pedidos[0].full_url}")
 
 
+def test_pix_extrato() -> None:
+    from datetime import datetime
+    from decimal import Decimal
+
+    import api_stone_pix_extrato as pe
+
+    if not pe.eh_venda_pix("Transação", Decimal("10"), "***.123.456-**"):
+        raise AssertionError("crédito Transação com pagador é venda Pix")
+    if pe.eh_venda_pix("Pix", Decimal("10"), "***.123.456-**") or pe.eh_venda_pix("Transação", Decimal("10"), "Desconhecido"):
+        raise AssertionError("transferência Pix e crédito interno não são venda")
+    creditos = [
+        pe.CreditoPix("h1", datetime(2026, 9, 7, 19, 42, 50), Decimal("29.80"), "pluggy"),
+        pe.CreditoPix("h2", datetime(2026, 9, 7, 19, 43, 10), Decimal("29.80"), "pluggy"),
+        pe.CreditoPix("h3", datetime(2026, 9, 7, 20, 0, 0), Decimal("5.00"), "pluggy"),
+    ]
+    vendas = [
+        pe.VendaPix("E1", datetime(2026, 9, 7, 19, 43), Decimal("29.80")),
+        pe.VendaPix("E2", datetime(2026, 9, 7, 19, 42), Decimal("29.80")),
+        pe.VendaPix("E3", datetime(2026, 9, 7, 21, 0), Decimal("7.00")),
+    ]
+    pares, sobras, sem_credito = pe.casar(creditos, vendas)
+    if sorted((c.dedup_hash, v.stone_id) for c, v, _ in pares) != [("h1", "E2"), ("h2", "E1")]:
+        raise AssertionError(f"Pix de mesmo valor deveria casar pelo minuto mais próximo: {pares}")
+    if [c.dedup_hash for c in sobras] != ["h3"] or [v.stone_id for v in sem_credito] != ["E3"]:
+        raise AssertionError("sobras do casamento Pix erradas")
+    linha = pe.linha_venda(creditos[0], "37889047000168")
+    if linha["stone_id"] != "EXTRATO-h1" or str(linha["data_venda"]) != "2026-09-07 19:42:00" or linha["produto"] != "Pix QRcode":
+        raise AssertionError(f"linha de venda Pix do extrato fora do padrão do CSV: {linha}")
+
+
 VARIAVEIS_BB = {
     "BB_AMBIENTE": "homologacao",
     "BB_CLIENT_ID": "id-teste",
@@ -515,11 +545,12 @@ def main() -> int:
     test_stone_baixar_periodo()
     test_recebiveis_stone()
     test_pix_stone()
+    test_pix_extrato()
     test_bb_configuracao()
     test_bb_token_e_paginas()
     test_bb_blocos_e_gravacao()
     test_cli_sem_credenciais()
-    print("API_BANCOS_TESTS_OK stone=3 recebiveis=1 pix=1 bb=3 cli=2")
+    print("API_BANCOS_TESTS_OK stone=3 recebiveis=1 pix=1 pix_extrato=1 bb=3 cli=2")
     return 0
 
 

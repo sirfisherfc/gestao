@@ -4644,3 +4644,20 @@ pares de orientação da raiz ao concluir a troca de IA.
   integração existir.
 
 — Claude
+
+## 2026-10-20 · Claude — Pix de vendas pelo extrato (comparação)
+
+- Achado: no extrato Stone, Pix de venda = crédito `Transação`; Pix de
+  transferência = `Pix`. Rótulos iguais no CSV e na Pluggy.
+- Novo `scripts/importacao/api_stone_pix_extrato.py`, **somente comparação**:
+  setembro 528/528 casados por valor e minuto (±1); outubro 349/349 mais 23
+  vendas Pix de 19–20/10 que só a Pluggy tinha. Créditos internos com pagador
+  `Desconhecido` excluídos. Teste em `test_api_bancos.py`.
+- Sem identificador do Pix no extrato: gravar exige virada do CSV de vendas
+  para Pix (sem duplicar). Decisão do proprietário: seguir com o que temos e
+  deixar as opções abertas até o 403 da Conciliação sair (ele espera ~24h).
+  Webhook/Edge Function continuam como alternativa, não publicados.
+- Chave nova da Conciliação ("chave2", tipo correto) também recebe 403;
+  caso enviado à Stone (aloparceiro@stone.com.br).
+
+— Claude

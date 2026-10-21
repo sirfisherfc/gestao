@@ -9,7 +9,7 @@ mudar as tabelas nem as regras do painel.
 |---|---|---|
 | Recebíveis Stone (`raw_stone_recebiveis`) | Stone, API de Conciliação | importador provado; gravação autorizada; rotina no GitHub aguarda segredos e a chave voltar a responder |
 | Vendas Stone com cartão | Stone, API de Conciliação | mapeamento provado; grava junto com o Pix do mesmo dia |
-| Vendas Stone Pix (23% do faturamento Stone) | Stone, arquivo Pix por webhook | código pronto; falta publicar a Edge Function e receber o primeiro arquivo |
+| Vendas Stone Pix (23% do faturamento Stone) | extrato Stone pela Pluggy (preferido) ou arquivo Pix por webhook | extrato: comparação provada, gravação aguarda a virada do CSV de vendas; webhook: código pronto, não publicado |
 | Vendas Stone Voucher (0,8%) | nenhuma | a Stone não entrega Voucher por API; segue pelo CSV |
 | Extrato BB (`raw_bb`) | BB, API Extratos | baixador pronto; faltam contrato, aplicativo e certificado |
 | Extrato Stone (`raw_stone_extrato`) | Stone, API da Conta Stone | sem acesso de cliente; a Stone pede parceria comercial |
@@ -43,7 +43,25 @@ Segredos em Settings > Secrets and variables > Actions, com os valores do
 `gestao/.env`: `DATABASE_URL`, `SUPABASE_URL` e `STONE_CONCILIACAO_API_KEY`.
 Sem eles, o primeiro passo da rotina falha avisando qual falta.
 
-## Pix pela API: o que falta
+## Pix pelo extrato (caminho preferido)
+
+No extrato Stone, Pix de venda na maquininha é crédito `Transação` e Pix de
+transferência é `Pix`. `scripts/importacao/api_stone_pix_extrato.py` compara
+esses créditos com as vendas Pix do CSV, sem gravar:
+
+- setembro/2026: 528 de 528 casados por valor, no mesmo minuto ou com 1 minuto
+  de diferença; os 4 créditos internos de madrugada com pagador
+  `Desconhecido` ficam de fora;
+- 1–20/10/2026: 349 de 349 casados, mais 23 vendas Pix de 19–20/10 que só o
+  extrato da Pluggy tinha.
+
+O extrato não traz o identificador do Pix, então a venda gravada por aqui teria
+`stone_id` `EXTRATO-<dedup_hash>` e não casaria com a mesma venda vinda do CSV.
+Gravar exige uma virada: a partir de uma data, o CSV de vendas deixa de gravar
+Pix (proteção como a do extrato Pluggy). Faz sentido quando o cartão também
+vier pela conciliação; até lá o CSV de vendas continua por causa do cartão.
+
+## Pix pela API de Conciliação (alternativa, webhook)
 
 1. Publicar `supabase/functions/stone-webhook` com `verify_jwt = false` e
    cadastrar o segredo `STONE_WEBHOOK_TOKEN` na função. O mesmo valor vai no
