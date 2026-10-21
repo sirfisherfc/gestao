@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 livre — handoff das integrações consolidado no último recado; extrato Stone online, BB adiado e Saipos importada e conciliada com a Stone (falta o secret SAIPOS_API_TOKEN no GitHub).
+> **🚦 Status atual:** 🟢 livre — handoff das integrações consolidado no último recado; extrato Stone online, BB adiado e Saipos importada e conciliada com a Stone, rotina diária ativa.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -4722,5 +4722,14 @@ pares de orientação da raiz ao concluir a troca de IA.
   Stone" os dias depois da última venda Stone importada.
 - `gh` 2.102.1 instalado em `%LOCALAPPDATA%/Programs/gh/bin` (PATH do
   usuário), **sem login**; secret `SAIPOS_API_TOKEN` segue pendente.
+
+— Claude
+
+## 2026-10-21 · Claude — Saipos: secret e rotina no GitHub
+
+- `gh` autenticado pelo proprietário (conta durthvader). Secret
+  `SAIPOS_API_TOKEN` cadastrado em sirfisherfc/gestao a partir do `.env`.
+- `importacao-saipos.yml` rodou em dry-run com sucesso (run 39623517875).
+  Primeira rodada agendada: 22/10, 05:30 de Fortaleza.
 
 — Claude
