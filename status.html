@@ -34,7 +34,7 @@ function fmtDate(value){return value?new Date(value).toLocaleString('pt-BR',{dat
 function fmtDay(value){if(!value)return'—';return new Date(`${value}T12:00:00`).toLocaleDateString('pt-BR');}
 function statusInfo(value){if(value==='em dia')return['Em dia','ok'];if(value==='atenção')return['Atenção','warn'];if(value==='encerrada')return['Encerrada','neutral'];return[value==='atrasada'?'Atrasada':'Sem carga','bad'];}
 function esperar(ms){return new Promise(resolve=>setTimeout(resolve,ms));}
-const FONTES_INTEGRACAO={stone_recebiveis:'Recebíveis Stone',stone_pix:'Pix Stone',stone_vendas:'Vendas Stone'};
+const FONTES_INTEGRACAO={stone_recebiveis:'Recebíveis Stone',stone_pix:'Pix Stone',stone_vendas:'Vendas Stone',saipos_vendas:'Vendas Saipos'};
 const DIAS_INTEGRACAO=7;
 function isoDia(data){return `${data.getFullYear()}-${String(data.getMonth()+1).padStart(2,'0')}-${String(data.getDate()).padStart(2,'0')}`;}
 const GITHUB='https://github.com/';

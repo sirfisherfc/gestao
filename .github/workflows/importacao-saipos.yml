@@ -1,0 +1,56 @@
+name: Vendas Saipos e conciliação com a Stone
+
+# A Saipos recomenda consultar a partir das 05:00 de Brasília (dados D+1).
+# 05:30 em Fortaleza. Cada rodada baixa os últimos 7 dias do turno e refaz o
+# casamento com as vendas Stone que chegaram depois.
+on:
+  schedule:
+    - cron: '30 8 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Conferir sem gravar no banco'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: vendas-saipos
+  cancel-in-progress: false
+
+jobs:
+  vendas:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      SAIPOS_API_TOKEN: ${{ secrets.SAIPOS_API_TOKEN }}
+      DRY_RUN: ${{ inputs.dry_run || false }}
+      TZ: America/Fortaleza
+      PYTHONIOENCODING: utf-8
+    steps:
+      - name: Verificar configuracao privada
+        shell: bash
+        run: |
+          for nome in DATABASE_URL SAIPOS_API_TOKEN; do
+            [ -n "${!nome}" ] || { echo "Configuracao privada ausente: $nome"; exit 1; }
+          done
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Dependencias
+        run: python -m pip install -q -r requirements.txt
+      - name: Importar e conciliar
+        shell: bash
+        run: |
+          args=()
+          if [ "$DRY_RUN" = "true" ]; then args+=(--dry-run); fi
+          status=0
+          python scripts/importacao/api_saipos_vendas.py "${args[@]}" > saida-saipos.log 2>&1 || status=$?
+          # O repositorio e publico: nenhuma venda ou valor financeiro no log.
+          grep -E '^(ERRO|AVISO)' saida-saipos.log || true
+          if [ "$status" = 0 ]; then echo 'Importacao concluida. Consulte Conciliacao e Status no Gestao.'; fi
+          exit "$status"

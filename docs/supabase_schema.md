@@ -1380,6 +1380,30 @@ movimento real da casa.
   `api_stone_pix.py` lê e marca `processado_em`.
 - RLS ligado e sem policy; `select, insert, update` só para `service_role`.
 
+## Saipos (20261021000000)
+
+### saipos_venda
+Uma linha por venda da API de Dados Saipos (`id_sale`): loja, `data_turno`,
+turno, criação/alteração, `cancelada`, tipo e total. Gravada por
+`api_saipos_vendas.py` como dono; RLS ligado, sem acesso direto.
+
+### saipos_pagamento
+Pagamentos de cada venda (PK `id_sale, origem, ordem`): origem `pos`
+(transação da maquininha) ou `forma` (lançado no caixa), categoria, valor,
+horário, código de autorização e `entra_conciliacao`. `stone_id` (único),
+`casamento` (`codigo` ou `valor_horario`) e `diferenca_min` guardam o par em
+`raw_stone_vendas`, refeito a cada importação.
+
+### conciliacao_saipos_stone_base
+View interna (sem grant): vendas Stone da casa, aprovadas, no dia do turno
+(`data_venda - 8 h`), a partir do primeiro dia Saipos, com o `id_sale` casado.
+
+### app_conciliacao_saipos_dia / app_conciliacao_saipos_pendencia
+Resumo diário (Stone, casadas por código e por valor/horário, sem par de cada
+lado, Dinheiro/Fiado) e lista dos pagamentos sem par. Gate
+`usuario_pode_acessar_pagina('conciliacao.html')`; `select` só para
+`authenticated`.
+
 ## Observações
 - O front-end autenticado usa views `app_*` e RPCs protegidas; tabelas internas
   não são expostas para leitura anônima.

@@ -139,13 +139,46 @@ async function renderMes(anoMes){
 
     <div class="notice"><b>Etapa bancária:</b> ainda não há uma chave confirmada ligando cada parcela Stone ao lançamento do extrato. O painel não faz pareamento aproximado por data/valor para evitar falsos positivos; o extrato continua monitorado em Qualidade.</div>
     <section class="panel"><div class="panel-head"><div><h3>Distribuição no mês</h3><div class="hint">Quantidade por situação em ${esc(nomeMes(anoMes))}.</div></div></div><div class="chart-box"><canvas id="conciliationChart"></canvas></div></section>
-    <section class="panel"><div class="panel-head"><div><h3>Casos para revisar</h3><div class="hint">Até 300 registros que precisam de atenção neste mês (Pix/Voucher esperado não entra aqui), ordenados pela data de referência.</div></div></div><div class="table-wrap"><table class="data-table"><thead><tr><th>STONE ID</th><th>Data</th><th>Situação</th><th class="right">Venda</th><th class="right">Recebível bruto</th><th class="right">Recebível líquido</th><th class="right">Diferença</th></tr></thead><tbody>${(details||[]).map(row=>{const [label,klass]=statusInfo(row.situacao);return`<tr><td class="mono">${esc(row.stone_id||'—')}</td><td>${fmtDay(row.mes_referencia)}</td><td><span class="status ${klass}">${esc(label)}</span></td><td class="right">${rs(row.bruto_venda)}</td><td class="right">${rs(row.bruto_receb)}</td><td class="right">${rs(row.liquido_receb)}</td><td class="right">${rs(row.diferenca_bruto)}</td></tr>`;}).join('')||'<tr><td colspan="7" class="empty">Nenhum caso para revisar neste mês.</td></tr>'}</tbody></table></div></section>`;
+    <section class="panel"><div class="panel-head"><div><h3>Casos para revisar</h3><div class="hint">Até 300 registros que precisam de atenção neste mês (Pix/Voucher esperado não entra aqui), ordenados pela data de referência.</div></div></div><div class="table-wrap"><table class="data-table"><thead><tr><th>STONE ID</th><th>Data</th><th>Situação</th><th class="right">Venda</th><th class="right">Recebível bruto</th><th class="right">Recebível líquido</th><th class="right">Diferença</th></tr></thead><tbody>${(details||[]).map(row=>{const [label,klass]=statusInfo(row.situacao);return`<tr><td class="mono">${esc(row.stone_id||'—')}</td><td>${fmtDay(row.mes_referencia)}</td><td><span class="status ${klass}">${esc(label)}</span></td><td class="right">${rs(row.bruto_venda)}</td><td class="right">${rs(row.bruto_receb)}</td><td class="right">${rs(row.liquido_receb)}</td><td class="right">${rs(row.diferenca_bruto)}</td></tr>`;}).join('')||'<tr><td colspan="7" class="empty">Nenhum caso para revisar neste mês.</td></tr>'}</tbody></table></div></section>
+    <div id="saiposSection"><div class="loading">Conciliando Saipos e Stone…</div></div>`;
 
   document.getElementById('reloadConciliation').addEventListener('click',loadReconciliation);
+  renderSaipos(inicio,prox,renderSeq);
   if(chart)chart.destroy();
   const colors={'ok':'#2E7D5B','venda sem recebível':'#C94C4C','recebível sem venda':'#D6A84F','cancelado/estornado':'#9aa6b2','sem recebível esperado (Pix/Voucher)':'#00A6A6'};
   const chartData=linhaMes.slice().sort((a,b)=>Number(b.qtd)-Number(a.qtd));
   chart=new Chart(document.getElementById('conciliationChart'),{type:'bar',data:{labels:chartData.map(row=>statusInfo(row.situacao)[0]),datasets:[{data:chartData.map(row=>Number(row.qtd||0)),backgroundColor:chartData.map(row=>colors[row.situacao]||'#00A6A6'),borderRadius:5}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:context=>Number(context.raw).toLocaleString('pt-BR')}}},scales:{y:{beginAtZero:true,ticks:{callback:value=>Number(value).toLocaleString('pt-BR')}},x:{grid:{display:false}}}}});
+}
+
+// Saipos x Stone: cada pagamento do PDV casado com a venda Stone pelo código
+// de autorização ou por valor e horário (api_saipos_vendas.py). O dia é o do
+// turno da Saipos.
+async function renderSaipos(inicio,prox,renderSeq){
+  const [dias,pend]=await Promise.all([
+    sb.from('app_conciliacao_saipos_dia').select('*').gte('data_turno',inicio).lt('data_turno',prox).order('data_turno',{ascending:false}),
+    sb.from('app_conciliacao_saipos_pendencia').select('*').gte('data_turno',inicio).lt('data_turno',prox).order('horario',{ascending:false}).limit(300),
+  ]);
+  if(renderSeq!==RENDER_SEQ)return;
+  const box=document.getElementById('saiposSection');
+  if(!box)return;
+  if(dias.error||pend.error){box.innerHTML='<div class="erro">Não foi possível carregar a conciliação Saipos.</div>';return;}
+  const linhas=dias.data||[];
+  if(!linhas.length){box.innerHTML='<div class="notice">Sem vendas da Saipos importadas neste mês.</div>';return;}
+  const soma=campo=>linhas.reduce((t,r)=>t+Number(r[campo]||0),0);
+  const stone=soma('qtd_stone'),semSaipos=soma('qtd_stone_sem_saipos'),semStone=soma('qtd_saipos_sem_stone');
+  const taxa=stone?(stone-semSaipos)/stone*100:0;
+  const n=v=>Number(v||0).toLocaleString('pt-BR');
+  box.innerHTML=`
+    <div class="page-intro"><div><h2>Saipos × Stone</h2><p>Cada pagamento do PDV casado com a venda Stone: cartão na maquininha pelo código de autorização; Pix e lançamentos do caixa por valor e horário. Dinheiro e Fiado ficam fora.</p></div></div>
+    <div class="summary-grid">
+      <div class="summary-card"><div class="label">Vendas Stone</div><div class="value">${n(stone)}</div></div>
+      <div class="summary-card"><div class="label">Casadas pelo código</div><div class="value">${n(soma('qtd_por_codigo'))}</div></div>
+      <div class="summary-card"><div class="label">Casadas por valor e horário</div><div class="value">${n(soma('qtd_por_valor_horario'))}</div></div>
+      <div class="summary-card"><div class="label">Stone conciliada</div><div class="value">${pct(taxa)}</div></div>
+      <div class="summary-card"><div class="label">Sem par</div><div class="value" style="color:${semSaipos+semStone>0?'var(--red)':'inherit'}">${n(semSaipos+semStone)}</div></div>
+    </div>
+    <section class="panel"><div class="panel-head"><div><h3>Por dia</h3><div class="hint">Data do turno da Saipos (o turno da noite vai até 08:00 do dia seguinte).</div></div></div><div class="table-wrap"><table class="data-table"><thead><tr><th>Dia</th><th class="right">Stone</th><th class="right">Pelo código</th><th class="right">Valor e horário</th><th class="right">Stone sem Saipos</th><th class="right">Saipos sem Stone</th><th class="right">Dinheiro/Fiado</th></tr></thead><tbody>${linhas.map(r=>`<tr><td>${fmtDay(r.data_turno)}</td><td class="right">${n(r.qtd_stone)} · ${rs(r.valor_stone)}</td><td class="right">${n(r.qtd_por_codigo)}</td><td class="right">${n(r.qtd_por_valor_horario)}</td><td class="right">${Number(r.qtd_stone_sem_saipos)?`<span class="status bad">${n(r.qtd_stone_sem_saipos)} · ${rs(r.valor_stone_sem_saipos)}</span>`:'—'}</td><td class="right">${Number(r.qtd_saipos_sem_stone)?`<span class="status warn">${n(r.qtd_saipos_sem_stone)} · ${rs(r.valor_saipos_sem_stone)}</span>`:'—'}</td><td class="right">${rs(r.valor_dinheiro_fiado)}</td></tr>`).join('')}</tbody></table></div></section>
+    <section class="panel"><div class="panel-head"><div><h3>Pagamentos sem par</h3><div class="hint">Stone sem Saipos: cobrado na maquininha sem venda lançada no PDV (ou venda cancelada). Saipos sem Stone: lançado no caixa sem transação Stone correspondente. Até 300, mais recentes primeiro.</div></div></div><div class="table-wrap"><table class="data-table"><thead><tr><th>Dia</th><th>Horário</th><th>Situação</th><th>Forma</th><th class="right">Valor</th><th>Referência</th></tr></thead><tbody>${(pend.data||[]).map(r=>`<tr><td>${fmtDay(r.data_turno)}</td><td>${r.horario?new Date(r.horario).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}):'—'}</td><td><span class="status ${r.lado==='Stone sem Saipos'?'bad':'warn'}">${esc(r.lado)}</span></td><td>${esc(r.forma||'—')}</td><td class="right">${rs(r.valor)}</td><td class="mono">${esc(r.referencia||'—')}</td></tr>`).join('')||'<tr><td colspan="6" class="empty">Tudo casado neste mês.</td></tr>'}</tbody></table></div></section>`;
 }
 
 (async()=>{const auth=await SirFisherAuth.requireRole(sb);if(auth)await loadReconciliation();})();

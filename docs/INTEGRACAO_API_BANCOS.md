@@ -241,6 +241,7 @@ página Status como origem `github`. Qualidade e deploy Pages aprovados.
 | `STONE_STONECODES` | opcional; lista separada por vírgula |
 | `STONE_WEBHOOK_TOKEN` | token da URL do webhook Pix; o mesmo valor fica nos segredos da Edge Function |
 | `SUPABASE_URL` | já existente; base da URL do webhook |
+| `SAIPOS_API_TOKEN` | token da API de Dados Saipos, sem o prefixo `Bearer` |
 | `BB_AMBIENTE` | `homologacao` (padrão) ou `producao` |
 | `BB_CLIENT_ID`, `BB_CLIENT_SECRET` | credenciais OAuth da aplicação |
 | `BB_DEVELOPER_APP_KEY` | `developer_application_key` da aplicação |
@@ -313,6 +314,36 @@ CSV não pode entrar de novo pela API.
   Só gravar quando o mês bater sem diferença.
 - **Agendamento:** decidido em 20/10/2026, GitHub Actions (ver "Rotina diária").
 
+## Saipos: vendas do PDV e conciliação com a Stone (21/10/2026)
+
+API de Dados Saipos (`https://data.saipos.io/v1`, `Authorization: Bearer`),
+token da loja 37889047000168 (`id_store` 49581), contratado a R$ 59,90/mês.
+Importador `scripts/importacao/api_saipos_vendas.py`; tabelas
+`saipos_venda`/`saipos_pagamento` (migration `20261021000000`).
+
+- Consulta `search_sales` por `shift_date`, **um dia por vez**: 15 dias numa
+  consulta deram HTTP 504 (pool da Saipos). 502/503/504 e falhas de rede
+  têm até 3 novas tentativas (5, 20 e 60 s). Limite: 500 consultas em 5 min.
+- Pagamento conciliável = transação da maquininha integrada (origem `pos`)
+  ou forma lançada no caixa sem transação igual (origem `forma`). A forma
+  que repete a transação da maquininha não entra duas vezes. Dinheiro,
+  Fiado e vendas canceladas ficam fora.
+- Casamento com `raw_stone_vendas` (Praia e Pix, status `Aprovada`):
+  1. `authorization_code` = `stone_id` (cartão na maquininha);
+  2. Pix na maquininha: mesmo valor e categoria, até 5 min (o código "A..."
+     da Saipos não é o E2E da Stone);
+  3. lançamento no caixa: mesmo valor, até 30 min, mesma categoria de
+     preferência; aceita outra categoria se não houver par.
+- Dia de comparação = data do turno; o turno Manhã começa às 08:00, então a
+  venda Stone da madrugada vai para o dia anterior.
+- Cada rodada baixa os últimos 7 dias e refaz o casamento do período, pois
+  as vendas Stone podem chegar depois (`--so-conciliar` refaz sem consultar).
+- Prova 12–18/10/2026: 518 de 529 vendas Stone casadas; cartão na
+  maquininha 338/338 pelo código, com valores idênticos.
+- Painel: Conciliação > "Saipos × Stone" (`app_conciliacao_saipos_dia` e
+  `app_conciliacao_saipos_pendencia`). Rotina: `importacao-saipos.yml`,
+  05:30 de Fortaleza; exige o secret `SAIPOS_API_TOKEN` no GitHub.
+
 ## Segurança
 
 - Chaves e senhas ficam só no `.env` ignorado; o certificado fica fora dos
@@ -323,6 +354,8 @@ CSV não pode entrar de novo pela API.
   `scripts/importacao/api-*/`, ignorada pelo Git.
 
 ## Fontes
+
+- Saipos, API de Dados: <https://saipos-data-api.readme.io/reference/introducao>
 
 - Stone, acesso de cliente à Conciliação:
   <https://conciliacao.stone.com.br/reference/overview-da-api-cliente-stone>

@@ -25,6 +25,7 @@ sys.path.insert(0, str(IMPORT_DIR))
 
 import api_bb_extrato
 import api_cliente
+import api_saipos_vendas
 import api_stone_conciliacao
 import api_stone_recebiveis
 from importacao_core import ErroOperacional, ValidacaoErro
@@ -543,6 +544,50 @@ def test_cli_sem_credenciais() -> None:
             raise AssertionError(f"{script} sem credencial deveria sair com 3 citando {variavel}: {resultado.stdout}{resultado.stderr}")
 
 
+def test_saipos_vendas() -> None:
+    from datetime import datetime
+    from decimal import Decimal
+
+    bruta = {
+        "id_sale": 1, "id_store": 9, "shift_date": "2026-10-18", "created_at": "2026-10-18T12:00:00",
+        "updated_at": None, "canceled": "N", "id_sale_type": 3, "total_amount": 80,
+        "store_shift": {"desc_store_shift": "Manha"},
+        "payments": [
+            {"desc_store_payment_type": "Dinheiro", "payment_amount": 10, "created_at": "2026-10-18T12:00:00"},
+            {"desc_store_payment_type": "Crédito", "payment_amount": 40, "created_at": "2026-10-18T12:00:00"},
+            {"desc_store_payment_type": "Pix", "payment_amount": 30, "created_at": "2026-10-18T12:01:00"},
+        ],
+        "payment_transaction_smartpos": [
+            {"payment_method": "CRÉDITO", "payment_amount": 40, "approved": True, "cancelled": False,
+             "authorization_code": "391", "id_transaction": "7", "created_at": "2026-10-18T12:00:30"},
+        ],
+    }
+    venda, pagamentos = api_saipos_vendas.ler_venda(bruta)
+    if venda["cancelada"] or venda["data_turno"].isoformat() != "2026-10-18":
+        raise AssertionError("venda Saipos lida errado")
+    resumo = [(p.origem, p.categoria, p.entra_conciliacao) for p in pagamentos]
+    # A forma Crédito é a mesma transação da maquininha e não se repete.
+    if resumo != [("pos", "credito", True), ("forma", "dinheiro", False), ("forma", "pix", True)]:
+        raise AssertionError(f"pagamentos Saipos montados errado: {resumo}")
+    cancelada, itens = api_saipos_vendas.ler_venda({**bruta, "canceled": "Y"})
+    if not cancelada["cancelada"] or any(p.entra_conciliacao for p in itens):
+        raise AssertionError("venda cancelada não pode entrar na conciliação")
+
+    stone = [
+        api_saipos_vendas.VendaStone("391", datetime(2026, 10, 18, 12, 0), "credito", Decimal("40.00")),
+        api_saipos_vendas.VendaStone("E1", datetime(2026, 10, 18, 12, 3), "pix", Decimal("30.00")),
+        api_saipos_vendas.VendaStone("E2", datetime(2026, 10, 18, 12, 2), "debito", Decimal("30.00")),
+        api_saipos_vendas.VendaStone("X", datetime(2026, 10, 18, 15, 0), "credito", Decimal("12.00")),
+    ]
+    api_saipos_vendas.conciliar(pagamentos, stone)
+    casados = {(p.categoria, p.stone_id, p.casamento) for p in pagamentos if p.stone_id}
+    if casados != {("credito", "391", "codigo"), ("pix", "E1", "valor_horario")}:
+        raise AssertionError(f"conciliação Saipos x Stone errada: {casados}")
+    if api_saipos_vendas.categoria("Débito Pré-pago") != "debito" or api_saipos_vendas.categoria("Pix QRcode") != "pix":
+        raise AssertionError("categoria de pagamento errada")
+    esperar_erro(ValidacaoErro, "ainda não fechou", api_saipos_vendas.dias_do_periodo, date(2026, 10, 20), date(2026, 10, 20), date(2026, 10, 20))
+
+
 def main() -> int:
     test_stone_requisicao()
     test_stone_cabecalho_e_erros()
@@ -553,8 +598,9 @@ def main() -> int:
     test_bb_configuracao()
     test_bb_token_e_paginas()
     test_bb_blocos_e_gravacao()
+    test_saipos_vendas()
     test_cli_sem_credenciais()
-    print("API_BANCOS_TESTS_OK stone=3 recebiveis=1 pix=1 pix_extrato=1 bb=3 cli=2")
+    print("API_BANCOS_TESTS_OK stone=3 recebiveis=1 pix=1 pix_extrato=1 saipos=1 bb=3 cli=2")
     return 0
 
 
