@@ -4761,3 +4761,21 @@ pares de orientação da raiz ao concluir a troca de IA.
   justificativa; casos marcados ainda podem ser revisados.
 
 — Claude
+
+## 2026-10-21 · Claude — linha de base de desempenho do painel (só leitura)
+
+- Nenhuma mudança de código, banco ou dados. Medição feita para o prompt de
+  otimização que o proprietário vai entregar à próxima IA (cópia local,
+  ignorada pelo Git, em `tmp/PROMPT_DESEMPENHO_PAINEL.md`).
+- Servidor (`EXPLAIN ANALYZE`, melhor de 2): `fato_financeiro` 1,7–2,1 s
+  (56 mil linhas, recalculada em toda leitura); `painel_resumo_mensal`
+  0,9–1,8 s; `projecao_despesa_direta` 1,0–1,9 s; `recebimento_projetado`
+  ~1,0 s; `projecao_despesa_fixa` ~0,7 s; `bonificacao_base_mes` ~0,65 s.
+  Já materializadas (cascata da DRE, composição, margem): 5–9 ms.
+- Rede: Pages entrega o HTML em 0,35–0,5 s (`max-age=600`); ida e volta
+  mínima ao Supabase ~0,25 s. `index.html` faz ~11 consultas em 4 rodadas
+  sequenciais e nenhuma página reaproveita dados entre navegações.
+- Banco com 109 MB e cache hit 100%: o custo é CPU de recomputação.
+  `pg_stat_statements` acumula desde 09/07 (não resetado); comparar por delta.
+
+— Claude
