@@ -4970,3 +4970,35 @@ em `scripts/cardapio/catalogo_inicial.py` (cabeçalho e notas por produto).
   (23 de 29, iguais no HEAD) — não é regressão desta mudança.
 
 — Claude
+
+## 2026-10-22 · Codex — diagnóstico e solução proposta da automação Stone
+
+- Proprietário pediu investigação antes de resolver e uma solução para que
+  somente Voucher permaneça fora da automação. Registrei problema, evidências,
+  pedido reformulado, ordem de execução, decisões faltantes e critérios em
+  `docs/INTEGRACAO_API_BANCOS.md`, seção de diagnóstico/solução proposta.
+- **Somente diagnóstico/documentação nesta entrega; solução não implantada.**
+  Leitura no portal confirmou arquivos Pix e controle de 21/10 recebidos e
+  processados; não houve escrita financeira, novo teste/chamada Stone,
+  Pluggy/Saipos, novo cadastro ou mudança de agenda.
+- Lacunas confirmadas: baixa de parcelas antigas não é atualizada pela carga
+  atual; Pix após timeout não retoma; recuperação de download/callback; dia
+  vazio falha no núcleo; completude não pode se basear na última data/execução.
+- Acervo privado de XML contém liquidações de capturas anteriores. CSV e XML
+  têm material de cancelamentos, mas a equivalência do mesmo caso ainda não
+  está provada; chargeback/antecipação da Praia precisam contrato/exemplo.
+- Link 173835323 continua excluído por decisão anterior. XMLs vazios disponíveis
+  são posteriores aos movimentos históricos do CSV: **não comprovam perda no
+  mesmo dia**, nem autorizam prometer cobertura atual ou reativar consultas.
+- Recomenda-se evoluir controlador/filas existentes: baixas com origem e
+  atualização restrita; recuperação por cache; calendário de dias esperados;
+  conclusão por etapa incluindo refresh; saúde/prazo/frescor da origem visíveis.
+  Não desfazer reservas/pausas de acesso automaticamente para tentar de novo.
+- Pergunta opcional de prazo apresentada ao proprietário; 10h é apenas meta
+  proposta enquanto não houver resposta. Separar dia civil do turno Saipos
+  08h–08h. Alerta externo/canal e cobertura do link ainda precisam definição.
+- Documentação oficial conferida: GitHub pode atrasar/descartar agendamento;
+  Meu Pluggy atualiza a origem a cada 24h; HTTP 403 significa acesso proibido,
+  não prova por si só bloqueio por volume. Repositórios e pares raiz conferidos.
+
+— Codex

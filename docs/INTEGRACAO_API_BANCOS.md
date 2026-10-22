@@ -36,6 +36,140 @@ mudar as tabelas nem as regras do painel.
   CSV. A Saipos continua reconsultando sete dias para recuperar falhas e
   alterações; sua conciliação lê a Stone no banco, sem chamar a API Stone.
 
+## Diagnóstico e solução proposta para fechar a automação (22/10/2026)
+
+**Estado: diagnóstico e desenho, ainda não implementados.** Escopo: vendas
+cartão/Pix, recebíveis e suas baixas, extrato e atualização dos derivados do
+painel. Voucher fica separado, explicitamente fora deste fechamento. Um
+workflow ativo ou verde não é prova de cobertura de todos os dados.
+
+### Problema real e evidências
+
+- O controlador só processa ontem. Pix entregue depois dos 35 minutos de
+  espera fica guardado, mas não volta à carga automaticamente. Também faltam
+  recuperação do download após um aviso e preferência por um arquivo válido
+  quando um callback posterior contém erro.
+- O XML contém liquidações de capturas anteriores. O importador usa essas
+  liquidações apenas ao montar capturas presentes no lote e insere com
+  `ON CONFLICT DO NOTHING`. Portanto não baixa parcelas antigas já gravadas.
+  A leitura dos XML privados existentes confirmou pagamentos de capturas
+  anteriores, sem nenhuma nova consulta à Stone. Não confundir crédito no
+  extrato com baixa conciliada da parcela.
+- Um dia comprovadamente sem cartão e sem Pix chega à importação com lista
+  vazia, que o núcleo recusa. Deve existir conclusão `sem_movimento` baseada
+  nos arquivos válidos, sem inventar venda para avançar datas.
+- Cancelamentos de cartão/Pix, chargebacks e códigos não mapeados podem
+  recusar a carga inteira. Há exemplos privados de cancelamento total e
+  parcial da Praia; não houve chargeback nos XML disponíveis. Não generalizar
+  regras de outras casas ou inventar equivalência sem comprovação.
+- O link 173835323 está ativo no faturamento, mas excluído da API por decisão
+  anterior do proprietário. Há movimentos históricos nos CSV e XML vazios de
+  datas posteriores. Isso **não prova perda de movimento na mesma data**, nem
+  comprova cobertura atual. O escopo deve registrá-lo como integração a
+  confirmar, sem reativação silenciosa nem novas sondagens.
+- Consulta somente leitura ao portal confirmou arquivos de 21/10 recebidos e
+  processados e logs de sucesso de vendas/recebíveis desse dia. Não houve nova
+  chamada Stone, Pluggy ou Saipos, nem alteração financeira nesta auditoria.
+
+### Pedido reformulado
+
+Automatizar a coleta, importação, conferência e publicação das vendas cartão
+e Pix, recebíveis com baixas e extrato Stone, mantendo Voucher como exceção
+separada. Controlar cada dia e fonte esperados, recuperar pendências com os
+arquivos privados sem repetir pedidos, preservar o histórico, registrar
+divergências e informar atraso ou bloqueio. Só declarar fechamento quando as
+etapas e o refresh estiverem concluídos. Nenhum dado pode ser inventado para
+apresentar uma atualização aparente.
+
+### Solução e ordem de execução
+
+1. **Baixas auditáveis.** Processar os eventos de liquidação por Stone ID,
+   parcela e conta mesmo sem captura no arquivo do dia. Atualizar apenas os
+   campos comprovados pelo evento, com proveniência e transação. Preservar
+   campos de captura, taxas e valores que o evento não confirme; comparar
+   valor líquido/data e impedir duplicação ou regressão por arquivo antigo.
+   Eventos sem parcela conhecida viram pendência para conciliar após recuperar
+   a captura. Validar contra XML/CSV privados antes de escrita real.
+2. **Recuperação por arquivos.** Separar aquisição de processamento. O
+   processamento retoma datas pendentes pelo XML privado e fila Pix, inclusive
+   depois do timeout e com as consultas Stone suspensas. Reprocessar não
+   significa pedir o arquivo de novo. Um arquivo íntegro prevalece sobre outro
+   callback com erro. Download do link já recebido precisa de controle próprio
+   e respeito à validade do endereço, sem novo pedido Pix automático.
+3. **Calendário e controle de conclusão.** Registrar cada dia esperado desde
+   uma data de início, por fonte/CNPJ/stonecode, incluindo dias sem movimento.
+   Separar pedido, recebimento, validação, gravação, conciliação e refresh.
+   Detectar tanto dias solicitados incompletos quanto dias nunca iniciados por
+   falha de agenda. Não usar apenas `max(data_venda)` ou a última execução verde
+   como prova de completude. Ausência de arquivo não equivale a zero vendas.
+4. **Aquisição com limites.** Preservar reserva antes da rede, PK única e
+   nenhum pedido repetido em paralelo. Para dias nunca solicitados, usar fila
+   persistente e orçamento explícito, sem varredura indiscriminada do histórico.
+   Recusa de acesso (401/403), limite (429), indisponibilidade (5xx), timeout
+   com resultado incerto e erro de layout devem ter diagnósticos diferentes.
+   Não apagar reservas ou liberar repetição só pela idade da pendência.
+5. **Cobertura financeira.** Validar cancelamentos totais/parciais com os
+   exemplos existentes; confirmar regras de parcelamento, estorno Pix,
+   chargeback, antecipação e novos códigos usando contrato e exemplos
+   comprováveis. Partes independentes podem avançar, mas uma etapa afetada não
+   pode ser marcada como concluída. Resolver a cobertura do link antes de
+   prometer que somente Voucher continuará manual.
+6. **Verificação de saúde e publicação.** Rodadas de recuperação consultam o
+   banco, não sondam a Stone. A verificação mostra até qual dia cada fonte foi
+   conferida, idade da atualização da origem, o que falta e o motivo. Só
+   marcar conclusão após conciliação e refresh; falha após commit deve retomar
+   essas etapas sem reinserir valores. Aumentar consultas ao proxy não adianta
+   uma sincronização da origem que ainda não ocorreu.
+
+### Decisões e informações que faltam
+
+- Prazo operacional para D+1: 10h foi apresentado como primeira opção, ainda
+  sem confirmação do proprietário. É meta proposta, não prazo garantido.
+- Separar dia civil financeiro de turno Saipos (08h a 08h). Se houve venda na
+  madrugada de hoje atribuída ao turno de ontem, seu arquivo Stone de hoje só
+  estará disponível amanhã; não prometer turno inteiramente conciliado antes.
+- Confirmar fonte e tratamento do link de pagamento sem contrariar a decisão
+  anterior de não consultá-lo; não há prova recente com movimento nesse código.
+- Exemplos/contrato dos eventos não presentes no acervo da Praia, especialmente
+  chargeback e antecipação. Os exemplos de cancelamento em XML e CSV não foram
+  comprovados como o mesmo caso; falta esse cruzamento para validar a regra
+  monetária. A falta de exemplos não autoriza ignorar eventos.
+- Definir destinatário e canal de alerta ativo, além do Status existente. Não
+  enviar mensagens externas nem contratar serviços sem autorização específica.
+- Confirmar prazo/validade e forma de renovação do consentimento Pluggy e
+  comportamento de entrega/reentrega de arquivos durante incidentes. Incidentes
+  de autenticação podem exigir intervenção do titular mesmo com automação.
+
+### Critérios verificáveis de conclusão
+
+- Cada dia esperado desde a virada tem resultado por fonte e unidade; nenhum
+  buraco fica oculto pela existência de dados em uma data posterior.
+- Reexecutar, receber callback duplicado ou reiniciar após commit não duplica
+  vendas, parcelas, baixas ou dinheiro no extrato.
+- Liquidação de venda antiga atualiza a parcela correta, com trilha da origem,
+  sem trocar valores/status sem prova e sem regredir por evento fora de ordem.
+- Pix tardio conclui um dia antigo com zero novos pedidos de arquivo Stone;
+  recusa anterior não impede processar dados que já estejam disponíveis.
+- Dia vazio comprovado termina `sem_movimento`; aviso com erro não esconde
+  arquivo válido. Falha de download, callback ou refresh tem teste de recuperação.
+- Totais e quantidades conferem com os arquivos; saldo importado fecha com o
+  extrato. Conciliação Saipos aponta diferenças reais sem ajustar à força.
+- Meta de atualização e atraso da origem são visíveis; fonte atrasada ou
+  inacessível gera pendência explícita, jamais indicação de fechamento falso.
+- Ciclos agendados reais comprovam funcionamento sem PC e sem operação manual,
+  além dos testes sem rede de falhas, concorrência, dia vazio e retomada.
+
+A confiabilidade depende também dos provedores: o GitHub documenta atrasos e
+possível descarte de jobs agendados; o Meu Pluggy informa atualização da origem
+a cada 24h. Uma garantia rígida de horário exigiria resolver essas dependências,
+não apenas mudar o cron. A solução deve garantir rastreabilidade, controle de
+completude e recuperação segura; indisponibilidade externa precisa aparecer.
+
+Referências: [agendamento GitHub](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule),
+[atualização Meu Pluggy](https://meu.pluggy.ai/api-guide),
+[erros Stone](https://conciliacao.stone.com.br/reference/mensagens-de-erro) e
+[limites Stone](https://conciliacao.stone.com.br/reference/rate-limit).
+
 ## Diagnóstico inicial de 22/10/2026 (antes da ativação acima)
 
 - Às 14:43 de Fortaleza, uma única requisição do arquivo de 21/10 para
