@@ -5062,4 +5062,10 @@ Continuação da entrada anterior, com novas decisões do proprietário.
 - Trabalho em worktree separado; alterações/migration de cardápio da outra
   tarefa preservadas. Não inclui credencial, CSV/XML nem dados brutos.
 
+- Verificação publicada: Pages e execução de cache na nuvem
+  `39848077869` aprovados, sem nova aquisição Stone. O primeiro CI encontrou
+  um problema no bootstrap do teste SQL descartável (COMMIT explícito dentro
+  da conexão psycopg); teste corrigido para gerenciar a transação pela conexão.
+  A implantação e o ensaio no portal já usavam a fronteira correta.
+
 — Codex

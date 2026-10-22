@@ -78,7 +78,12 @@ def main():
             create table stone_conta(stonecode text,ativa boolean,entra_faturamento boolean);
             create table stone_pix_arquivo(id uuid primary key);
             create function usuario_tem_papel(text[]) returns boolean language sql as $$select false$$;''')
-        with conn.cursor() as cur: cur.execute(MIGRATION.read_text(encoding='utf-8-sig'))
+        sql=MIGRATION.read_text(encoding='utf-8-sig').strip()
+        assert sql.startswith('begin;') and sql.endswith('commit;')
+        # A conexão controla o commit. Executar COMMIT dentro da string deixa
+        # o estado do psycopg diferente do servidor e derruba as tabelas temp.
+        with conn,conn.cursor() as cur:
+            cur.execute(sql[len('begin;'):-len('commit;')])
         with conn,conn.cursor() as cur:
             casos=verificar(cur)
         print(f'STONE_BAIXAS_SQL_OK cases={casos} production=0')
