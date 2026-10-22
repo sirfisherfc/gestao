@@ -5069,3 +5069,23 @@ Continuação da entrada anterior, com novas decisões do proprietário.
   A implantação e o ensaio no portal já usavam a fronteira correta.
 
 — Codex
+
+## 2026-10-22 · Codex — limpeza dos temporários da entrega
+
+- A pedido do proprietário, removidos pelo Git os worktrees temporários
+  `SirFisher-status-saipos-20261022` e `SirFisher-stone-fechamento-20261022`,
+  após confirmar árvores limpas e nenhum commit exclusivo. Removidas também
+  as branches locais incorporadas `codex/status-saipos` e
+  `codex/stone-fechamento`; commits publicados preservados na `main`.
+- Caches gerados e XML duplicado saíram com os worktrees. Cópia local do XML
+  no projeto principal preservada, com igualdade previamente conferida por
+  SHA256. Nenhuma consulta bancária ou alteração em produção nesta limpeza.
+- O Git removeu as cópias de trabalho, mas deixou pequenos resíduos em
+  `.git/worktrees` por falha de permissão do OneDrive. A revisão automática
+  bloqueou, por política, a remoção direta desses metadados e da CLI
+  descartável em `Temp/sirfisher-stone-tools`; ambos foram preservados.
+  `git worktree list` já mostra somente o projeto principal.
+- Demais temporários de outros trabalhos, credenciais, backups e dados
+  originais preservados. Único arquivo versionado alterado: este registro.
+
+— Codex
