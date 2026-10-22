@@ -35,12 +35,12 @@ Regras aplicadas, sem excecao:
      rascunho (`publicar=False`), fora dos publicados.
 
 Decisoes do proprietario em 22/10/2026, na revisao do impresso no Canva:
-saem Crispy Spicy Chicken, Marine Sandwich, Budweiser 600 e Cachaca Premium
-(nao sao mais vendidos); entram Corona 600 e Adicional Salada. Ficam
-confirmados 355 mL na Spaten Longneck, 300 g na Bolinha de Peixe e 120 g no
-Fisher Burger. O impresso passou a usar os nomes do cadastro (London,
+saem Crispy Spicy Chicken, Marine Sandwich, Budweiser 600, Cachaca Premium
+e Smirnoff Ice (nao sao mais vendidos); entram Corona 600 e Adicional Salada.
+Ficam confirmados 200 g nos dois Fish & Chips, 355 mL na Spaten Longneck,
+300 g na Bolinha de Peixe e 120 g no Fisher Burger. O impresso passou a usar os nomes do cadastro (London,
 Patinha) e ganhou os simbolos de CRUSTACEOS na patinha e de PEIXE na bolinha.
-"Farota" era erro de digitacao de "farofa". Sao 79 publicados.
+"Farota" era erro de digitacao de "farofa". Sao 78 publicados.
 
 Saida: catalogo_inicial.json, consumido por gerar_migration.py (semente do
 banco) e por exportar_snapshot.py (copia publica derivada da publicacao).
@@ -311,13 +311,15 @@ def alimentar_dividir(extra=None):
 # 1. Fish & Chips (2 registros do TXT)
 # ==========================================================================
 
-PORCAO_FISH_DIVERGENTE = porcao(
-    texto=None,
-    estado="divergente",
-    divergencia="Cardápio HTML: 150 g. Cardápio impresso: 200 g.",
-    nota="Peso em conferência com a cozinha.",
+PORCAO_FISH = porcao(
+    texto="200 g",
+    principal={"valor": 200, "unidade": "g", "alcance": "indefinido"},
+    nota=NOTA_PESO_IN_NATURA,
     fontes=["HTML", "PDF"],
 )
+
+NOTA_PESO_FISH = ("O HTML dizia 150 g e o impresso 200 g. Em 22/10/2026 o "
+                  "proprietário confirmou 200 g.")
 
 p("sir-fisher-fish-n-chips", "fish-and-chips",
   "Sir Fisher — Fish & Chips",
@@ -329,7 +331,7 @@ p("sir-fisher-fish-n-chips", "fish-and-chips",
   detalhe="Nossa interpretação do clássico Fish & Chips: a pescada amarela é "
           "envolta em uma crosta de farinha panko, garantindo textura crocante "
           "por fora e suculência por dentro. Acompanhado de batatas palito.",
-  porcao_=PORCAO_FISH_DIVERGENTE,
+  porcao_=PORCAO_FISH,
   alimentar_=alimentar(["PEIXE", "GLÚTEN", "OVO"]),
   foto={"base": "prato", "larguras": [800, 1200],
         "alt": "Filés de peixe empanados com batatas fritas, servidos em uma "
@@ -340,10 +342,11 @@ p("sir-fisher-fish-n-chips", "fish-and-chips",
   termos=["peixe", "pescada amarela", "panko", "empanado", "batata frita",
           "fish and chips"],
   etiquetas=["do-mar", "classico-da-casa"],
-  pendencias=["porcao", "foto"],
+  pendencias=["foto"],
   fontes=["TXT", "HTML", "PDF"],
   notas=["O TXT e o HTML trazem o selo “Mais Pedido!”. É uma alegação de "
-         "popularidade sem dado de vendas: não foi publicada."])
+         "popularidade sem dado de vendas: não foi publicada.",
+         NOTA_PESO_FISH])
 
 p("london-fish-n-chips", "fish-and-chips",
   "London — Fish & Chips",
@@ -356,18 +359,18 @@ p("london-fish-n-chips", "fish-and-chips",
           "fermentada na cerveja e frito até atingir a perfeição dourada. "
           "Acompanhado de batatas crocantes, inspirado nas barracas à "
           "beira-mar das praias inglesas.",
-  porcao_=PORCAO_FISH_DIVERGENTE,
+  porcao_=PORCAO_FISH,
   alimentar_=alimentar(["PEIXE", "GLÚTEN", "OVO"]),
   foto={"base": "london-fish-and-chips-sir-fisher", "larguras": [440, 660],
         "alt": "Peixe frito em massa dourada na cerveja, servido com batatas fritas crocantes", "estado": "conferido"},
   termos=["peixe", "cerveja", "massa", "batata frita", "fish and chips",
           "original"],
   etiquetas=["do-mar", "classico-da-casa"],
-  pendencias=["porcao"],
   fontes=["TXT", "HTML", "PDF"],
   notas=["O cardápio impresso chamava esta versão de “Original — Fish N’ "
          "Chips”. Em 22/10/2026 o proprietário alinhou o impresso ao "
-         "cadastro: London — Fish & Chips."])
+         "cadastro: London — Fish & Chips.",
+         NOTA_PESO_FISH])
 
 # ==========================================================================
 # 2. Petiscos e porcoes (15 registros do TXT)
@@ -984,16 +987,6 @@ p("moscow-mule", "coqueteis", "Moscow Mule", 2600,
   notas=["O impresso acrescenta refrigerante de limão à composição. Ficha a "
          "confirmar antes de alterar a descrição."])
 
-p("smirnoff-ice", "coqueteis", "Smirnoff Ice", 1500,
-  porcao_=porcao(texto="275 mL", total={"valor": 275, "unidade": "mL"},
-                 fontes=["HTML", "PDF"]),
-  alimentar_=alimentar(estado="sem_simbolos", pagina=2),
-  termos=["smirnoff", "ice", "vodka", "long neck"],
-  etiquetas=["bebida", "com-alcool"],
-  fontes=["TXT", "HTML", "PDF"],
-  notas=["Bebida pronta listada entre os coquetéis nas fontes. Mantida na "
-         "mesma categoria do cadastro."])
-
 # ==========================================================================
 # 8. Bebidas sem alcool (9 registros do TXT)
 # ==========================================================================
@@ -1208,6 +1201,16 @@ p("embalagem-viagem", "extras", "Embalagem para Viagem", 300, sub="apoio",
 # Candidatos (so no impresso, em rascunho): nenhum desde 22/10/2026, quando o
 # proprietario confirmou a Corona 600 e o Adicional Salada.
 
+# Produtos que deixaram de ser vendidos. Saem do catalogo, mas o rascunho do
+# banco guarda o registro: a migration de realinhamento os marca como
+# arquivados em vez de apagar a linha.
+RETIRADOS = [
+    {"id": _id, "em": "2026-10-22",
+     "motivo": "Não é mais vendido (decisão do proprietário)."}
+    for _id in ("crispy-spicy-chicken", "marine-sandwich", "budweiser-600",
+                "cachaca-premium", "smirnoff-ice")
+]
+
 # ==========================================================================
 # Fotografias sem produto correspondente
 # ==========================================================================
@@ -1294,9 +1297,9 @@ def faixa_preco(prod):
 # --------------------------------------------------------------------------
 
 
-# Os 81 do cadastro de 22/09/2026, menos os 4 que sairam e mais os 2
+# Os 81 do cadastro de 22/09/2026, menos os 5 que sairam e mais os 2
 # confirmados pelo proprietario em 22/10/2026.
-PUBLICAVEIS_ESPERADOS = 79
+PUBLICAVEIS_ESPERADOS = 78
 
 
 def verificar():
@@ -1368,6 +1371,7 @@ def montar():
         "categorias": CATEGORIAS,
         "produtos": produtos,
         "fotos_sem_destino": FOTOS_SEM_DESTINO,
+        "retirados": RETIRADOS,
         "contagem_por_categoria": contagem,
         "total_publicavel": len([x for x in PRODUTOS if x["publicar"]]),
         "total_rascunho": len([x for x in PRODUTOS if not x["publicar"]]),

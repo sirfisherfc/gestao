@@ -34,8 +34,6 @@ houver resposta, o portal não mostra o dado.
 
 | Produto | Assunto | O que cada fonte diz | O que o cliente vê hoje |
 |---|---|---|---|
-| Sir Fisher — Fish & Chips | Porção | Cardápio HTML: 150 g. Cardápio impresso: 200 g. | “Porção em conferência” |
-| London — Fish & Chips | Porção | Cardápio HTML: 150 g. Cardápio impresso: 200 g. | “Porção em conferência” |
 | London — Fish & Chips | Nome | Cadastro e HTML: “London”. Impresso: “Original”. A descrição coincide. | “London — Fish & Chips” |
 | Patinha de Caranguejo | Nome | Cadastro: “Patinha de caranguejo”. Impresso: “PATA DE CARANGUEJO”. | “Patinha de Caranguejo” |
 | Sherlock Holmes Gin | Receita | HTML: Monster. Impresso: Red Bull Zero e xarope de gengibre. | “gin com energético e gengibre”, sem marca |
@@ -54,11 +52,11 @@ Alho…”) foram completados pelo HTML e pelo impresso, que coincidem.
 
 ## 2. Campos pendentes, por produto
 
-23 produtos têm ao menos um campo a confirmar.
+22 produtos têm ao menos um campo a confirmar.
 
 | Campo | Produtos | Quantos |
 |---|---|---:|
-| Porção | Sir Fisher — Fish & Chips, London — Fish & Chips, NewCastle, Filé Mignon Trinchado, Camarão alho e óleo, Calabresa Acebolada com Fritas, Margarita, Pacote de Gelo | 8 |
+| Porção | NewCastle, Filé Mignon Trinchado, Camarão alho e óleo, Calabresa Acebolada com Fritas, Margarita, Pacote de Gelo | 6 |
 | Rendimento | Filé Mignon, Picanha Importada, Filé de Peixe Grelhado, Carne de Sol Acebolada, Peito de Frango com Ervas, Picanha Suína | 6 |
 | Opções | Pasteizinhos, Macaxeira Frita ou Batata Frita | 2 |
 | Classificação | Corona Zero Longneck, Sumo de Limão | 2 |
@@ -127,7 +125,7 @@ ingredientes dos fornecedores.
 | Pacote de Gelo | — | não revisado | — |
 | Embalagem para Viagem | — | não revisado | — |
 
-Sem marcações no impresso (49 itens, quase todos bebidas e sobremesas): Brownie de Chocolate, Brownie com Sorvete, Café Expresso, Chope Brahma, Spaten Longneck, Stella Artois Longneck, Corona Longneck, Corona Zero Longneck, Spaten 600, Original 600, Stella Artois 600, Corona 600, Stella Pure Gold 600, Caipirinha, Caipiroska, Caipifruta, Gin Tônica, Melancita, Sherlock Holmes Gin, Tropicall, Margarita, Fitzgerald, Moscow Mule, Smirnoff Ice, Água sem gás, Água com gás, Água de Coco, Água Tônica, Refrigerante lata, Suco Copo, Energético Red Bull, Soda Italiana, Sumo de Limão, Teacher's, Black & White, Red Label, Black Label, Rum, Campari, Martini, Vodka Nacional, Vodka Skyy, Vodka Absolut, Gin Nacional, Gin Gordon's, Aperol, Conhaque, Cachaça Nacional, Cachaça Ypióca 150.
+Sem marcações no impresso (48 itens, quase todos bebidas e sobremesas): Brownie de Chocolate, Brownie com Sorvete, Café Expresso, Chope Brahma, Spaten Longneck, Stella Artois Longneck, Corona Longneck, Corona Zero Longneck, Spaten 600, Original 600, Stella Artois 600, Corona 600, Stella Pure Gold 600, Caipirinha, Caipiroska, Caipifruta, Gin Tônica, Melancita, Sherlock Holmes Gin, Tropicall, Margarita, Fitzgerald, Moscow Mule, Água sem gás, Água com gás, Água de Coco, Água Tônica, Refrigerante lata, Suco Copo, Energético Red Bull, Soda Italiana, Sumo de Limão, Teacher's, Black & White, Red Label, Black Label, Rum, Campari, Martini, Vodka Nacional, Vodka Skyy, Vodka Absolut, Gin Nacional, Gin Gordon's, Aperol, Conhaque, Cachaça Nacional, Cachaça Ypióca 150.
 
 ### Alegações do impresso que **não** foram publicadas
 
@@ -230,12 +228,11 @@ Gestão → Rotinas → Cardápio.
 
 ## 7. Ordem sugerida para a conferência
 
-1. **Preços.** São 79. É o que impede o cardápio de ir ao ar. Conferir
+1. **Preços.** São 78. É o que impede o cardápio de ir ao ar. Conferir
    contra o PDV, não contra o impresso.
 2. **Disponibilidade.** Marcar o que não existe mais. A ação é imediata e
    não precisa de publicação.
-3. **As 2 divergências de porção.** Principalmente os dois Fish & Chips
-   (150 g × 200 g).
+3. **Divergências de porção:** nenhuma registrada.
 4. **Alcance dos pesos.** “300 g” é da proteína, do prato montado, cru ou
    pronto? O rodapé do impresso diz “peso in natura”; confirmar onde vale.
 5. **Rendimento dos pratos para compartilhar.** Nenhuma fonte diz quantas

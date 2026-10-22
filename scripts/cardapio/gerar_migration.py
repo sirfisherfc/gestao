@@ -14,6 +14,7 @@ so acontece quando a linha ainda esta como veio da carga -- marcada por
 reprocessa as migrations do zero, continua passando sem atropelar producao.
 """
 
+import argparse
 import json
 import os
 
@@ -44,12 +45,29 @@ def js(valor):
 
 
 def main():
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--realinhar", metavar="ARQUIVO",
+                    help="gera uma migration nova (nome do arquivo em "
+                         "supabase/migrations) que realinha o rascunho com o "
+                         "catalogo atual, em vez de reescrever a carga inicial")
+    args = ap.parse_args()
+    realinhar = bool(args.realinhar)
+    destino_arquivo = (os.path.join(os.path.dirname(DESTINO), args.realinhar)
+                       if realinhar else DESTINO)
+
     with open(ORIGEM, encoding="utf-8") as arq:
         cat = json.load(arq)
 
     linhas = []
     w = linhas.append
 
+    if realinhar:
+        w("-- Realinhamento do rascunho do cardapio com catalogo_inicial.json")
+        w("-- (%s). Reaplica a carga com as mesmas guardas, preserva foto enviada"
+          % cat["gerado_em"])
+        w("-- pelo painel (foto com url), arquiva os produtos retirados e nao")
+        w("-- altera o estado do catalogo nem publica nada.")
+        w("--")
     w("-- Carga inicial do cardapio: os 81 registros do cadastro, reconciliados")
     w("-- com o cardapio HTML e com o cardapio impresso em %s." % cat["gerado_em"])
     w("--")
@@ -153,6 +171,12 @@ def main():
                       "ordem", "inclui", "opcoes", "porcao", "alimentar",
                       "foto", "termos", "etiquetas", "publicar", "pendencias",
                       "fontes", "notas_internas"):
+            if campo == "foto" and realinhar:
+                # Foto enviada pelo painel vive no Storage e chega com url:
+                # vale mais que a foto antiga do site registrada no catalogo.
+                w("  foto = case when public.cardapio_produto.foto ? 'url'")
+                w("              then public.cardapio_produto.foto else excluded.foto end,")
+                continue
             w("  %s = excluded.%s," % (campo, campo))
         w("  atualizado_em = now()")
         w("where %s = any(public.cardapio_produto.fontes);" % lit(MARCA))
@@ -192,14 +216,27 @@ def main():
             w("  preco_centavos = excluded.preco_centavos, ordem = excluded.ordem;")
 
     w("")
-    w("-- O catalogo nasce em conferencia. O portal avisa o cliente enquanto")
-    w("-- precos, porcoes e informacao alimentar nao forem confirmados pela casa.")
-    w("update public.cardapio_estado set valor = 'em_conferencia' where id;")
-    w("")
+    if realinhar:
+        retirados = cat.get("retirados", [])
+        if retirados:
+            w("-- Produtos retirados: arquivados, nunca apagados. A publicacao ja")
+            w("-- ignora produto arquivado.")
+            for r in retirados:
+                w("--   %s (%s): %s" % (r["id"], r["em"], r["motivo"]))
+            w("update public.cardapio_produto")
+            w("   set arquivado = true, atualizado_em = now()")
+            w(" where id in (%s)" % ", ".join(lit(r["id"]) for r in retirados))
+            w("   and not arquivado;")
+            w("")
+    else:
+        w("-- O catalogo nasce em conferencia. O portal avisa o cliente enquanto")
+        w("-- precos, porcoes e informacao alimentar nao forem confirmados pela casa.")
+        w("update public.cardapio_estado set valor = 'em_conferencia' where id;")
+        w("")
     w("commit;")
     w("")
 
-    destino = os.path.abspath(DESTINO)
+    destino = os.path.abspath(destino_arquivo)
     with open(destino, "w", encoding="utf-8", newline="\n") as arq:
         arq.write("\n".join(linhas))
 

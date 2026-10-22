@@ -329,9 +329,12 @@ def main():
     w("   contra o PDV, não contra o impresso.")
     w("2. **Disponibilidade.** Marcar o que não existe mais. A ação é imediata e")
     w("   não precisa de publicação.")
-    w("3. **As %d divergências de porção.** Principalmente os dois Fish & Chips"
-      % len([p for p in prods if p["porcao"].get("divergencia")]))
-    w("   (150 g × 200 g).")
+    divergentes = [p["nome"] for p in prods if p["porcao"].get("divergencia")]
+    if divergentes:
+        w("3. **As %d divergências de porção:** %s."
+          % (len(divergentes), ", ".join(divergentes)))
+    else:
+        w("3. **Divergências de porção:** nenhuma registrada.")
     w("4. **Alcance dos pesos.** “300 g” é da proteína, do prato montado, cru ou")
     w("   pronto? O rodapé do impresso diz “peso in natura”; confirmar onde vale.")
     w("5. **Rendimento dos pratos para compartilhar.** Nenhuma fonte diz quantas")

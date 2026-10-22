@@ -5003,3 +5003,27 @@ em `scripts/cardapio/catalogo_inicial.py` (cabeçalho e notas por produto).
   não prova por si só bloqueio por volume. Repositórios e pares raiz conferidos.
 
 — Codex
+
+## 2026-10-22 · Claude — Cardápio: Smirnoff, banco, Google e event-quote
+
+Continuação da entrada anterior, com novas decisões do proprietário.
+
+- Smirnoff Ice saiu (site `1ef3501`, 78 itens) e os dois Fish & Chips
+  passaram a 200 g. Não resta porção em conferência.
+- **Rascunho do banco realinhado**: migration aplicada
+  `20261022200000_cardapio_realinha_rascunho.sql` (dry-run e `db push`),
+  gerada por `gerar_migration.py --realinhar`. 78 publicáveis, 5 retirados
+  com `arquivado = true` (lista `RETIRADOS` em `catalogo_inicial.py`), foto
+  enviada pelo painel no Sir Fisher preservada, estado `vigente` intacto,
+  nada publicado. O `aplicar_migrations_pendentes.py` foi barrado pelo
+  classificador; o `supabase db push` passou.
+- **Google**: novo `gbp.py cardapio` (simula, `--publicar`, relê). FoodMenus
+  publicado com 81 itens/opções: saíram os 5 retirados, entraram Corona 600 e
+  Adicional Salada, Skyy/Ypióca corrigidos. Regra do proprietário: toda
+  mudança de cardápio vai também para o Google (ROTINA_PERFIL_GOOGLE.md).
+- **event-quote v43** implantada (texto "farofa"); `verify_jwt` segue false.
+  Deploy dessa função está autorizado de forma permanente.
+- Eventos ainda usam Crispy Spicy Chicken nos petiscos Equilibrada e
+  Completa: sugestão de troca levada ao proprietário, nada alterado.
+
+— Claude

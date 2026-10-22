@@ -161,14 +161,18 @@
    "inclui": [],
    "opcoes": [],
    "porcao": {
-    "texto": null,
-    "principal": null,
+    "texto": "200 g",
+    "principal": {
+     "valor": 200,
+     "unidade": "g",
+     "alcance": "indefinido"
+    },
     "total": null,
     "unidades": null,
     "rende_pessoas": null,
-    "estado": "divergente",
-    "divergencia": "Cardápio HTML: 150 g. Cardápio impresso: 200 g.",
-    "nota": "Peso em conferência com a cozinha.",
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": "O cardápio impresso informa “peso in natura”. Alcance por prato ainda em conferência.",
     "fontes": [
      "HTML",
      "PDF"
@@ -210,7 +214,6 @@
     "classico-da-casa"
    ],
    "pendencias": [
-    "porcao",
     "foto"
    ],
    "fontes": [
@@ -219,7 +222,8 @@
     "PDF"
    ],
    "notas_internas": [
-    "O TXT e o HTML trazem o selo “Mais Pedido!”. É uma alegação de popularidade sem dado de vendas: não foi publicada."
+    "O TXT e o HTML trazem o selo “Mais Pedido!”. É uma alegação de popularidade sem dado de vendas: não foi publicada.",
+    "O HTML dizia 150 g e o impresso 200 g. Em 22/10/2026 o proprietário confirmou 200 g."
    ],
    "publicar": true,
    "disponivel": true,
@@ -246,14 +250,18 @@
    "inclui": [],
    "opcoes": [],
    "porcao": {
-    "texto": null,
-    "principal": null,
+    "texto": "200 g",
+    "principal": {
+     "valor": 200,
+     "unidade": "g",
+     "alcance": "indefinido"
+    },
     "total": null,
     "unidades": null,
     "rende_pessoas": null,
-    "estado": "divergente",
-    "divergencia": "Cardápio HTML: 150 g. Cardápio impresso: 200 g.",
-    "nota": "Peso em conferência com a cozinha.",
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": "O cardápio impresso informa “peso in natura”. Alcance por prato ainda em conferência.",
     "fontes": [
      "HTML",
      "PDF"
@@ -293,16 +301,15 @@
     "do-mar",
     "classico-da-casa"
    ],
-   "pendencias": [
-    "porcao"
-   ],
+   "pendencias": [],
    "fontes": [
     "TXT",
     "HTML",
     "PDF"
    ],
    "notas_internas": [
-    "O cardápio impresso chamava esta versão de “Original — Fish N’ Chips”. Em 22/10/2026 o proprietário alinhou o impresso ao cadastro: London — Fish & Chips."
+    "O cardápio impresso chamava esta versão de “Original — Fish N’ Chips”. Em 22/10/2026 o proprietário alinhou o impresso ao cadastro: London — Fish & Chips.",
+    "O HTML dizia 150 g e o impresso 200 g. Em 22/10/2026 o proprietário confirmou 200 g."
    ],
    "publicar": true,
    "disponivel": true,
@@ -4079,76 +4086,6 @@
    "indice_busca": "de drink e espuma gengibre gengibre. limao moscow mule suco vodka vodka,"
   },
   {
-   "id": "smirnoff-ice",
-   "categoria": "coqueteis",
-   "subgrupo": null,
-   "nome": "Smirnoff Ice",
-   "nome_original": "Smirnoff Ice",
-   "descritor": null,
-   "descricao": null,
-   "detalhe": null,
-   "preco_centavos": 1500,
-   "preco_estado": "declarado",
-   "variantes": [],
-   "adicionais": [],
-   "inclui": [],
-   "opcoes": [],
-   "porcao": {
-    "texto": "275 mL",
-    "principal": null,
-    "total": {
-     "valor": 275,
-     "unidade": "mL"
-    },
-    "unidades": null,
-    "rende_pessoas": null,
-    "estado": "declarado",
-    "divergencia": null,
-    "nota": null,
-    "fontes": [
-     "HTML",
-     "PDF"
-    ]
-   },
-   "alimentar": {
-    "declarados": [],
-    "fonte": "Sir Fisher Praia.pdf, página 2",
-    "estado": "sem_simbolos",
-    "divergencias": [],
-    "alegacoes": [],
-    "confirmado_cozinha": [],
-    "contato_cruzado": []
-   },
-   "foto": null,
-   "termos": [
-    "smirnoff",
-    "ice",
-    "vodka",
-    "long neck"
-   ],
-   "etiquetas": [
-    "bebida",
-    "com-alcool"
-   ],
-   "pendencias": [],
-   "fontes": [
-    "TXT",
-    "HTML",
-    "PDF"
-   ],
-   "notas_internas": [
-    "Bebida pronta listada entre os coquetéis nas fontes. Mantida na mesma categoria do cadastro."
-   ],
-   "publicar": true,
-   "disponivel": true,
-   "ordem": 47,
-   "preco": {
-    "tipo": "exato",
-    "centavos": 1500
-   },
-   "indice_busca": "ice long neck smirnoff vodka"
-  },
-  {
    "id": "agua-sem-gas",
    "categoria": "sem-alcool",
    "subgrupo": null,
@@ -4206,7 +4143,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 48,
+   "ordem": 47,
    "preco": {
     "tipo": "exato",
     "centavos": 500
@@ -4272,7 +4209,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 49,
+   "ordem": 48,
    "preco": {
     "tipo": "exato",
     "centavos": 600
@@ -4338,7 +4275,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 50,
+   "ordem": 49,
    "preco": {
     "tipo": "exato",
     "centavos": 500
@@ -4403,7 +4340,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 51,
+   "ordem": 50,
    "preco": {
     "tipo": "exato",
     "centavos": 600
@@ -4480,7 +4417,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 52,
+   "ordem": 51,
    "preco": {
     "tipo": "exato",
     "centavos": 800
@@ -4559,7 +4496,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 53,
+   "ordem": 52,
    "preco": {
     "tipo": "exato",
     "centavos": 1100
@@ -4624,7 +4561,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 54,
+   "ordem": 53,
    "preco": {
     "tipo": "exato",
     "centavos": 1600
@@ -4701,7 +4638,7 @@
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 55,
+   "ordem": 54,
    "preco": {
     "tipo": "exato",
     "centavos": 1500
@@ -4771,7 +4708,7 @@
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 56,
+   "ordem": 55,
    "preco": {
     "tipo": "exato",
     "centavos": 300
@@ -4840,7 +4777,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 57,
+   "ordem": 56,
    "preco": {
     "tipo": "exato",
     "centavos": 800
@@ -4908,7 +4845,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 58,
+   "ordem": 57,
    "preco": {
     "tipo": "exato",
     "centavos": 800
@@ -4977,7 +4914,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 59,
+   "ordem": 58,
    "preco": {
     "tipo": "exato",
     "centavos": 1200
@@ -5046,7 +4983,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 60,
+   "ordem": 59,
    "preco": {
     "tipo": "exato",
     "centavos": 1700
@@ -5120,7 +5057,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 61,
+   "ordem": 60,
    "preco": {
     "tipo": "exato",
     "centavos": 800
@@ -5189,7 +5126,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 62,
+   "ordem": 61,
    "preco": {
     "tipo": "exato",
     "centavos": 800
@@ -5264,7 +5201,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 63,
+   "ordem": 62,
    "preco": {
     "tipo": "exato",
     "centavos": 700
@@ -5332,7 +5269,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 64,
+   "ordem": 63,
    "preco": {
     "tipo": "exato",
     "centavos": 700
@@ -5401,7 +5338,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 65,
+   "ordem": 64,
    "preco": {
     "tipo": "exato",
     "centavos": 900
@@ -5469,7 +5406,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 66,
+   "ordem": 65,
    "preco": {
     "tipo": "exato",
     "centavos": 1500
@@ -5537,7 +5474,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 67,
+   "ordem": 66,
    "preco": {
     "tipo": "exato",
     "centavos": 1000
@@ -5606,7 +5543,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 68,
+   "ordem": 67,
    "preco": {
     "tipo": "exato",
     "centavos": 1200
@@ -5675,7 +5612,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 69,
+   "ordem": 68,
    "preco": {
     "tipo": "exato",
     "centavos": 800
@@ -5742,7 +5679,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 70,
+   "ordem": 69,
    "preco": {
     "tipo": "exato",
     "centavos": 700
@@ -5810,7 +5747,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 71,
+   "ordem": 70,
    "preco": {
     "tipo": "exato",
     "centavos": 600
@@ -5880,7 +5817,7 @@
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 72,
+   "ordem": 71,
    "preco": {
     "tipo": "exato",
     "centavos": 1000
@@ -5951,7 +5888,7 @@
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 73,
+   "ordem": 72,
    "preco": {
     "tipo": "exato",
     "centavos": 300
@@ -6021,7 +5958,7 @@
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 74,
+   "ordem": 73,
    "preco": {
     "tipo": "exato",
     "centavos": 1200
@@ -6081,7 +6018,7 @@
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 75,
+   "ordem": 74,
    "preco": {
     "tipo": "exato",
     "centavos": 1900
@@ -6152,7 +6089,7 @@
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 76,
+   "ordem": 75,
    "preco": {
     "tipo": "exato",
     "centavos": 3000
@@ -6222,7 +6159,7 @@
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 77,
+   "ordem": 76,
    "preco": {
     "tipo": "exato",
     "centavos": 2000
@@ -6291,7 +6228,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 78,
+   "ordem": 77,
    "preco": {
     "tipo": "exato",
     "centavos": 300
@@ -6313,6 +6250,33 @@
    "encaminhamento": "Manter fora do catálogo do cardápio."
   }
  ],
+ "retirados": [
+  {
+   "id": "crispy-spicy-chicken",
+   "em": "2026-10-22",
+   "motivo": "Não é mais vendido (decisão do proprietário)."
+  },
+  {
+   "id": "marine-sandwich",
+   "em": "2026-10-22",
+   "motivo": "Não é mais vendido (decisão do proprietário)."
+  },
+  {
+   "id": "budweiser-600",
+   "em": "2026-10-22",
+   "motivo": "Não é mais vendido (decisão do proprietário)."
+  },
+  {
+   "id": "cachaca-premium",
+   "em": "2026-10-22",
+   "motivo": "Não é mais vendido (decisão do proprietário)."
+  },
+  {
+   "id": "smirnoff-ice",
+   "em": "2026-10-22",
+   "motivo": "Não é mais vendido (decisão do proprietário)."
+  }
+ ],
  "contagem_por_categoria": {
   "fish-and-chips": 2,
   "petiscos": 14,
@@ -6320,11 +6284,11 @@
   "para-dividir": 6,
   "sobremesas": 3,
   "cervejas": 10,
-  "coqueteis": 11,
+  "coqueteis": 10,
   "sem-alcool": 9,
   "doses": 16,
   "extras": 6
  },
- "total_publicavel": 79,
+ "total_publicavel": 78,
  "total_rascunho": 0
 }

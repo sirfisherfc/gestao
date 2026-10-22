@@ -25,6 +25,7 @@ Comandos:
   fotos       importa na ficha, por URL, as fotos publicas que ainda nao estao la
   post        cria uma postagem na ficha
   metricas    buscas, visualizacoes e acoes (API de desempenho)
+  cardapio    sincroniza o cardapio (FoodMenus) com o cardapio publico do site
 
 Credenciais: GOOGLE_OAUTH_CLIENT_ID, GOOGLE_OAUTH_CLIENT_SECRET e
 GOOGLE_OAUTH_REFRESH_TOKEN, lidas das variaveis de ambiente (rotina na nuvem)
@@ -54,6 +55,9 @@ SAIDA = RAIZ / "tmp" / "gbp"
 PASTA_FOTOS = RAIZ.parent / "site" / "Fotos"
 PASTA_PUBLICA = RAIZ.parent / "site" / "assets" / "img" / "perfil-google"
 URL_PUBLICA = "https://www.sirfisher.com.br/assets/img/perfil-google/"
+# Cardapio publico do site e o gerador que o converte para FoodMenus.
+CARDAPIO_SITE = RAIZ.parent / "site" / "cardapio" / "dados" / "cardapio.json"
+GERADOR_CARDAPIO = RAIZ.parent / "site" / "tools" / "analytics" / "build_google_menu.py"
 
 CONTA = "accounts/107942180782668171719"
 LOCAL = "locations/12889581244809183683"
@@ -928,6 +932,63 @@ def cmd_checar(args):
         print(f"- {t}")
 
 
+# ----------------------------------------------------------------- cardapio
+
+def itens_cardapio(menus):
+    """{nome exibido: preco em reais} de todos os itens e opcoes do FoodMenus."""
+    def preco(attr):
+        p = (attr or {}).get("price") or {}
+        return round(int(p.get("units", 0)) + int(p.get("nanos", 0)) / 1e9, 2)
+    itens = {}
+    for menu in menus.get("menus", []):
+        for secao in menu.get("sections", []):
+            for item in secao.get("items", []):
+                itens[item["labels"][0]["displayName"]] = preco(item.get("attributes"))
+                for opcao in item.get("options", []):
+                    itens[opcao["labels"][0]["displayName"]] = preco(opcao.get("attributes"))
+    return itens
+
+
+def cmd_cardapio(args):
+    """Toda mudanca de cardapio tambem vai para o Google: o site e a origem."""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("build_google_menu", GERADOR_CARDAPIO)
+    gerador = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(gerador)
+    dados = json.loads(Path(args.origem).read_text(encoding="utf-8"))
+    novo = gerador.build_menu(dados)
+
+    url = f"{V4}/{CONTA}/{LOCAL}/foodMenus"
+    atual = api("GET", url)
+    antes, depois = itens_cardapio(atual), itens_cardapio(novo)
+    saem = sorted(set(antes) - set(depois))
+    entram = sorted(set(depois) - set(antes))
+    precos = sorted(n for n in set(antes) & set(depois) if antes[n] != depois[n])
+    print(f"Google hoje: {len(antes)} itens/opcoes | site: {len(depois)}")
+    for rotulo, nomes in (("saem", saem), ("entram", entram)):
+        for n in nomes:
+            print(f"  {rotulo}: {n}")
+    for n in precos:
+        print(f"  preco: {n}: {antes[n]:.2f} -> {depois[n]:.2f}")
+    if not (saem or entram or precos):
+        print("  nomes e precos ja coincidem (descricoes podem mudar)")
+
+    if not args.publicar:
+        print("\n(simulacao: nada publicado; use --publicar)")
+        return 0
+    SAIDA.mkdir(parents=True, exist_ok=True)
+    copia = SAIDA / f"cardapio-antes-{dt.datetime.now():%Y%m%d-%H%M%S}.json"
+    copia.write_text(json.dumps(atual, ensure_ascii=False, indent=1), encoding="utf-8")
+    api("PATCH", url + "?updateMask=menus", {"name": f"{CONTA}/{LOCAL}/foodMenus", **novo})
+    relido = itens_cardapio(api("GET", url))
+    divergentes = sorted(n for n in set(relido) | set(depois) if relido.get(n) != depois.get(n))
+    registrar("cardapio", {"itens": len(antes), "saem": saem, "precos": precos},
+              {"itens": len(relido), "entram": entram}, {"copia_anterior": str(copia)})
+    print(f"cardapio publicado e relido: {len(relido)} itens/opcoes"
+          + (f"; conferir: {divergentes}" if divergentes else ""))
+    return 1 if divergentes else 0
+
+
 # ----------------------------------------------------------------- main
 
 def main():
@@ -998,6 +1059,10 @@ def main():
     s.add_argument("--dias", type=int, default=28)
     s.add_argument("--palavras", type=int, default=0)
 
+    s = sub.add_parser("cardapio")
+    s.add_argument("--origem", default=str(CARDAPIO_SITE))
+    s.add_argument("--publicar", action="store_true")
+
     args = p.parse_args()
     if args.cmd == "responder" and not (args.lote or (args.id and (args.texto or args.arquivo))):
         p.error("responder: informe id com --texto/--arquivo, ou --lote")
@@ -1009,7 +1074,7 @@ def main():
         "instagram": cmd_instagram,
         "preparar-fotos": cmd_preparar_fotos, "descartar-foto": cmd_descartar_foto,
         "publicar-fotos": cmd_publicar_fotos, "fotos": cmd_fotos,
-        "post": cmd_post, "metricas": cmd_metricas,
+        "post": cmd_post, "metricas": cmd_metricas, "cardapio": cmd_cardapio,
     }
     try:
         return comandos[args.cmd](args) or 0

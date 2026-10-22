@@ -130,8 +130,15 @@ o torna imediatamente indisponível, mesmo com a janela de recuperação.
 | Segunda-feira | Fotos novas do Instagram @sirfisherfc | `instagram --dias 8`, revisão, `instagram --publicar --itens ...` |
 | Sob demanda, no PC | Fotos da caixa de entrada `site/Fotos/` | `preparar-fotos`, revisão, `publicar-fotos --publicar` |
 | Dia 1 do mês | Números do mês contra o mês anterior | `metricas --dias 28 --palavras 25` |
+| A cada mudança de cardápio | Cardápio (FoodMenus) igual ao do site, depois de publicar o site | `cardapio`, revisão, `cardapio --publicar` |
 
 Todos os comandos simulam por padrão e só publicam com `--publicar`.
+
+O `cardapio` monta os itens a partir de `site/cardapio/dados/cardapio.json`
+com `site/tools/analytics/build_google_menu.py`, mostra o que entra, sai e
+muda de preço, guarda o cardápio anterior em `tmp/gbp/` e relê o resultado.
+Decisão do proprietário em 22/10/2026: toda alteração de cardápio vai também
+para o Google.
 
 ## Respostas às avaliações
 
