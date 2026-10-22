@@ -4920,3 +4920,27 @@ pares de orientação da raiz ao concluir a troca de IA.
   conferência real de 21/10. CI também executa os três novos testes.
 
 — Codex
+
+## 2026-10-22 · Codex — Saipos agrupada no histórico do Status
+
+- Pedido do proprietário: concentrar os registros Saipos para facilitar a
+  leitura. `status.html` mostra um resumo por execução: vendas/cancelamentos,
+  período e quantidade de dias, resultado, vendas novas, casos para justificar
+  e um único link do GitHub. Os resultados e mensagens de cada dia ficam em
+  `Ver detalhes por dia`, recolhido por padrão e com controle HTML nativo.
+- Agrupamento usa origem, URL e timestamp exato da transação do registrador;
+  preserva execuções manuais e reruns distintos. Agrupa antes do limite de
+  20 execuções, para a semana Saipos não esconder as outras fontes.
+- Erro em qualquer dia destaca o resumo como erro; a tabela de pendências
+  segue por dia/fonte, sem alterar seu cálculo. Vendas novas e exigência de
+  justificativa são métricas diferentes e não são somadas entre si.
+- Alteração somente de apresentação. Consulta existente, registros, janela
+  de sete dias e importadores preservados; nenhuma chamada Saipos/Stone.
+- Testes fictícios em `scripts/ci/test_status_integracoes.mjs` (também no CI):
+  semana com 14 registros, totais separados, erros, escape HTML, ausência de
+  movimento, valores desconhecidos, reruns, manuais, outras fontes e limite.
+  Navegador do aplicativo indisponível nesta sessão; teste visual não executado.
+- Trabalho feito em worktree separado, preservando as alterações concorrentes
+  do cardápio nos checkouts principais de gestão/site. Sem arquivos sensíveis.
+
+— Codex

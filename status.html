@@ -18,6 +18,14 @@
 <script src="assets/auth.js"></script>
 <script src="assets/safe-dom.js"></script>
 <script src="assets/accessibility.js"></script>
+<style>
+.integration-meta{display:block;font-size:11px;line-height:1.4;color:var(--muted);margin-top:3px}
+.integration-details{padding:0 8px 8px;border-left:2px solid var(--border)}
+.integration-details>summary{cursor:pointer;padding:7px 0;color:var(--header);font-size:11px;font-weight:700}
+.integration-details>summary:focus-visible{outline:2px solid var(--header);outline-offset:3px}
+.integration-details[open]>summary{margin-bottom:5px}
+.integration-details .data-table{font-size:11px;min-width:580px}
+</style>
 </head>
 <body>
 <div class="app">
@@ -41,6 +49,73 @@ const DIAS_INTEGRACAO=7;
 function isoDia(data){return `${data.getFullYear()}-${String(data.getMonth()+1).padStart(2,'0')}-${String(data.getDate()).padStart(2,'0')}`;}
 const GITHUB='https://github.com/';
 function linkExecucao(url){return url&&url.startsWith(GITHUB)?`<a href="https://github.com/${esc(url.slice(GITHUB.length))}" target="_blank" rel="noopener">ver no GitHub</a>`:'—';}
+
+// O registrador grava uma rodada Saipos inteira na mesma transação: data/hora
+// exata + origem + link distinguem inclusive reexecuções do mesmo run no GitHub.
+// Agrupar antes de limitar evita que os sete dias escondam as outras fontes.
+function agruparExecucoesIntegracao(rows){
+  const saida=[],saipos=new Map();
+  rows.forEach((row,indice)=>{
+    if(!['saipos_vendas','saipos_cancelamentos'].includes(row.fonte)){
+      saida.push({...row,itens:[row],saipos:false});return;
+    }
+    const instante=row.executado_em||`sem-data:${row.id||indice}`;
+    const chave=JSON.stringify([row.origem||'manual',row.execucao_url||'',instante]);
+    let grupo=saipos.get(chave);
+    if(!grupo){grupo={...row,itens:[],saipos:true};saipos.set(chave,grupo);saida.push(grupo);}
+    grupo.itens.push(row);
+  });
+  return saida.map(grupo=>{
+    if(!grupo.saipos)return grupo;
+    const dias=[...new Set(grupo.itens.map(r=>r.dia_referencia).filter(Boolean))].sort();
+    const erros=grupo.itens.filter(r=>r.situacao==='erro');
+    const somar=fonte=>{
+      const valores=grupo.itens.filter(r=>r.fonte===fonte&&r.linhas_novas!=null).map(r=>Number(r.linhas_novas)).filter(Number.isFinite);
+      return valores.length?valores.reduce((a,b)=>a+b,0):null;
+    };
+    return {...grupo,dias,
+      situacao:erros.length?'erro':grupo.itens.every(r=>r.situacao==='sem_movimento')?'sem_movimento':'ok',
+      dias_erro:new Set(erros.map(r=>r.dia_referencia).filter(Boolean)).size,
+      vendas_novas:somar('saipos_vendas'),para_justificar:somar('saipos_cancelamentos'),
+    };
+  });
+}
+
+function resultadoIntegracao(row){
+  const label=row.situacao==='ok'?'OK':row.situacao==='sem_movimento'?'Sem movimento':'Erro';
+  return `<span class="status ${row.situacao==='erro'?'bad':'ok'}">${label}</span>`;
+}
+
+function resumoIntegracao(row){
+  const numero=valor=>valor==null?'—':Number(valor).toLocaleString('pt-BR');
+  if(!row.saipos){
+    const valor=numero(row.linhas_novas);
+    if(row.linhas_novas==null)return'—';
+    return row.fonte==='saipos_cancelamentos'?`${valor} para justificar`:`${valor} ${Number(row.linhas_novas)===1?'linha nova':'linhas novas'}`;
+  }
+  const partes=[];
+  if(row.itens.some(r=>r.fonte==='saipos_vendas'))partes.push(`${numero(row.vendas_novas)} ${row.vendas_novas===1?'venda nova':'vendas novas'}`);
+  // O importador registra aqui casos que exigem justificativa, não o total
+  // de cancelamentos nem novas vendas. Mantê-los separados evita somas falsas.
+  if(row.itens.some(r=>r.fonte==='saipos_cancelamentos'))partes.push(`${numero(row.para_justificar)} para justificar`);
+  return partes.join('<br>');
+}
+
+function renderExecucaoIntegracao(row){
+  const fonte=esc(FONTES_INTEGRACAO[row.fonte]||row.fonte);
+  if(!row.saipos)return `<tr><td>${fmtDate(row.executado_em)}</td><td>${fonte}</td><td>${fmtDay(row.dia_referencia)}</td><td>${esc(row.stonecode||'—')}</td><td>${resultadoIntegracao(row)}</td><td class="right">${resumoIntegracao(row)}</td><td>${linkExecucao(row.execucao_url)}</td></tr>`;
+  const tipos=[];
+  if(row.itens.some(r=>r.fonte==='saipos_vendas'))tipos.push('Vendas');
+  if(row.itens.some(r=>r.fonte==='saipos_cancelamentos'))tipos.push('Cancelamentos');
+  const inicio=row.dias[0],fim=row.dias[row.dias.length-1];
+  const periodo=inicio===fim?fmtDay(inicio):`${fmtDay(inicio)} a ${fmtDay(fim)}`;
+  const quantidade=`${row.dias.length} ${row.dias.length===1?'dia':'dias'}`;
+  const alerta=row.dias_erro?`<span class="integration-meta">${row.dias_erro} ${row.dias_erro===1?'dia com erro':'dias com erro'}</span>`:'';
+  const detalhes=row.itens.slice().sort((a,b)=>String(b.dia_referencia).localeCompare(String(a.dia_referencia))||a.fonte.localeCompare(b.fonte))
+    .map(item=>`<tr><td>${fmtDay(item.dia_referencia)}</td><td>${esc(FONTES_INTEGRACAO[item.fonte])}</td><td>${resultadoIntegracao(item)}</td><td class="right">${resumoIntegracao(item)}</td><td>${esc(item.mensagem||'—')}</td></tr>`).join('');
+  return `<tr><td>${fmtDate(row.executado_em)}</td><td><b>Saipos</b><span class="integration-meta">${tipos.join(' e ')}</span></td><td>${periodo}<span class="integration-meta">${quantidade}</span></td><td>—</td><td>${resultadoIntegracao(row)}${alerta}</td><td class="right">${resumoIntegracao(row)}</td><td>${linkExecucao(row.execucao_url)}</td></tr>
+    <tr><td colspan="7"><details class="integration-details"><summary>Ver detalhes por dia (${row.itens.length} registros)</summary><div class="table-wrap"><table class="data-table"><thead><tr><th>Dia</th><th>Fonte</th><th>Resultado</th><th class="right">Resumo</th><th>Observação</th></tr></thead><tbody>${detalhes}</tbody></table></div></details></td></tr>`;
+}
 
 // Cada rodada da rotina grava uma linha por fonte, dia e stonecode. Vale a
 // tentativa mais recente: um dia que falhou e depois foi importado some da
@@ -77,11 +152,11 @@ async function loadIntegracoes(){
   const fonte=row=>esc(FONTES_INTEGRACAO[row.fonte]||row.fonte);
   const intro=ultima?`Última execução: ${fmtDate(ultima.executado_em)} (${ultima.origem==='github'?'rotina do GitHub':'manual'}).`:'Nenhuma execução registrada ainda.';
   const linhasPendencias=pendencias.map(row=>`<tr><td><b>${fonte(row)}</b></td><td>${fmtDay(row.dia_referencia)}</td><td>${esc(row.stonecode||'—')}</td><td><span class="status ${row.situacao==='erro'?'bad':'warn'}">${row.situacao==='erro'?'Erro':'Sem execução'}</span></td><td>${esc(row.mensagem||'—')}</td><td>${fmtDate(row.executado_em)}</td><td>${linkExecucao(row.execucao_url)}</td></tr>`).join('');
-  const recentes=rows.slice(0,20).map(row=>{const ok=row.situacao!=='erro';return`<tr><td>${fmtDate(row.executado_em)}</td><td>${fonte(row)}</td><td>${fmtDay(row.dia_referencia)}</td><td>${esc(row.stonecode||'—')}</td><td><span class="status ${ok?'ok':'bad'}">${row.situacao==='ok'?'OK':row.situacao==='sem_movimento'?'Sem movimento':'Erro'}</span></td><td class="right">${row.linhas_novas==null?'—':Number(row.linhas_novas).toLocaleString('pt-BR')}</td><td>${linkExecucao(row.execucao_url)}</td></tr>`;}).join('');
-  alvo.innerHTML=`<div class="panel-head"><div><h3>Integrações automáticas</h3><div class="hint">${intro} Pendências dos últimos ${DIAS_INTEGRACAO} dias: dias com erro na tentativa mais recente ou sem nenhuma tentativa. A rotina tenta de novo os dias recentes a cada execução.</div></div></div>
+  const recentes=agruparExecucoesIntegracao(rows).slice(0,20).map(renderExecucaoIntegracao).join('');
+  alvo.innerHTML=`<div class="panel-head"><div><h3>Integrações automáticas</h3><div class="hint">${intro} Pendências dos últimos ${DIAS_INTEGRACAO} dias: dias com erro na tentativa mais recente ou sem nenhuma tentativa.</div></div></div>
     <div class="table-wrap"><table class="data-table"><thead><tr><th>Fonte</th><th>Dia</th><th>Stonecode</th><th>Estado</th><th>Motivo</th><th>Última tentativa</th><th>Execução</th></tr></thead><tbody>${linhasPendencias||'<tr><td colspan="7" class="empty">Nenhuma pendência.</td></tr>'}</tbody></table></div>
-    <div class="panel-head"><div><h3>Últimas execuções</h3></div></div>
-    <div class="table-wrap"><table class="data-table"><thead><tr><th>Quando</th><th>Fonte</th><th>Dia</th><th>Stonecode</th><th>Resultado</th><th class="right">Linhas novas</th><th>Execução</th></tr></thead><tbody>${recentes||'<tr><td colspan="7" class="empty">Nenhuma execução registrada.</td></tr>'}</tbody></table></div>`;
+    <div class="panel-head"><div><h3>Últimas execuções</h3><div class="hint">Saipos aparece uma vez por execução, com vendas e cancelamentos juntos. Abra os detalhes para ver cada dia.</div></div></div>
+    <div class="table-wrap"><table class="data-table"><thead><tr><th>Quando</th><th>Fonte</th><th>Dia / período</th><th>Stonecode</th><th>Resultado</th><th class="right">Resumo</th><th>Execução</th></tr></thead><tbody>${recentes||'<tr><td colspan="7" class="empty">Nenhuma execução registrada.</td></tr>'}</tbody></table></div>`;
 }
 
 async function aguardarRecalculo(id,onWait){
