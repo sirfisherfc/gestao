@@ -392,8 +392,11 @@ def test_pix_stone() -> None:
             api_stone_pix.cadastrar_webhook("k", atualizar=True)
     if fake.pedidos[0].get_method() != "POST" or fake_put.pedidos[0].get_method() != "PUT":
         raise AssertionError("cadastro usa POST e atualização usa PUT")
-    if json.loads(fake.pedidos[0].data)["url"].count("token=tok") != 1:
-        raise AssertionError("corpo do cadastro deveria levar a URL com o token")
+    cadastro = json.loads(fake.pedidos[0].data)
+    if set(cadastro) != {"url"} or cadastro["url"].count("token=tok") != 1:
+        raise AssertionError("cadastro mínimo deve enviar só a URL privada, sem headers opcionais")
+    with ambiente(SUPABASE_URL="https://ref.supabase.co", STONE_WEBHOOK_TOKEN="k" * 80), rede([]):
+        esperar_erro(ValidacaoErro, "100 caracteres", api_stone_pix.cadastrar_webhook, "k")
     with rede([RespostaFake(b"")]) as fake:
         api_stone_pix.solicitar("k", "37889047000168", date(2026, 9, 7))
     if fake.pedidos[0].full_url != "https://conciliation.stone.com.br/v2/merchant/37889047000168/conciliation-file/pix/2026-09-07":

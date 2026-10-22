@@ -35,6 +35,15 @@ jobs:
       - name: Bank API downloaders without network
         run: python scripts/ci/test_api_bancos.py
 
+      - name: Stone Pix webhook authentication and background delivery without network
+        run: node scripts/ci/test_stone_webhook.mjs
+
+      - name: Stone XML and Pix sales mapping without network
+        run: python scripts/ci/test_stone_vendas.py
+
+      - name: Stone daily request persistence and cache without network
+        run: python scripts/ci/test_stone_rotina.py
+
       - name: Pluggy connection, pagination and credential protection
         run: |
           python -m pip install -q -r requirements.txt

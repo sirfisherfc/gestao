@@ -3,7 +3,40 @@
 Objetivo: trocar a exportação manual de CSV por download automático, sem
 mudar as tabelas nem as regras do painel.
 
-## Diagnóstico e consulta única em 22/10/2026
+## Em produção: cartão e Pix direto da Stone (22/10/2026)
+
+- Webhook `stone-webhook` publicado no portal e cadastrado na Stone (HTTP
+  201). Solicitação única do Pix de 21/10 aceita com HTTP 202; os 13 Pix foram
+  recebidos e baixados no banco privado. Não usar os Pix da Saipos como venda
+  Stone nem criar IDs sintéticos do extrato.
+- `api_stone_vendas.py` importa juntos o cartão XML e o Pix CSV. STONE ID do
+  cartão = `AcquirerTransactionKey`; Pix = `pix_transaction__e2e_id` (32
+  caracteres), preservando a deduplicação com o CSV do Portal. Valores Pix em
+  centavos e `created_at` UTC convertido para Fortaleza: prova real dos nove
+  créditos já no extrato, mesmos valores e minutos. Os quatro Pix da noite
+  ainda ausentes da Pluggy vieram pelo webhook.
+- Carga de 21/10 concluída: 38 cartões + 13 Pix = 51 vendas; 49 novas e duas
+  preservadas. As 51 conciliam com os 51 pagamentos da Saipos; quantidade e
+  soma conferidas. Recebíveis atualizados (36 novas parcelas). `refresh_painel`
+  executado e reprocessamento conferido com zero vendas novas.
+- `api_stone_rotina.py` executa um dia fechado por vez. O controle
+  `private.stone_api_controle` reserva cada pedido antes da rede e guarda o
+  XML; Pix recebido fica em `stone_pix_arquivo`. Reexecutar usa esses arquivos;
+  não baixa uma semana da Stone nem repete pedidos após timeout. 401/403/429
+  suspendem novas consultas até revisão do responsável. Não limpar o controle
+  para tentar novamente sem diagnosticar a recusa.
+- O cadastro da URL tem limite de **100 caracteres**. Token privado com 24
+  caracteres aleatórios, guardado no `.env` e nos segredos da função, mantém
+  a URL dentro do limite. Nunca publicar a URL completa, logs de requests ou
+  segredos. O receptor exige token, valida CNPJ/data/HTTPS e responde ao aviso
+  antes de baixar o CSV em segundo plano. Testes fictícios cobrem autenticação
+  e download sem enviar a chave de serviço ao endereço do arquivo.
+- Cartão/Pix com cancelamento ou código ainda sem regra validada recusam a
+  carga de vendas inteira, para conferência com o CSV. Voucher continua no
+  CSV. A Saipos continua reconsultando sete dias para recuperar falhas e
+  alterações; sua conciliação lê a Stone no banco, sem chamar a API Stone.
+
+## Diagnóstico inicial de 22/10/2026 (antes da ativação acima)
 
 - Às 14:43 de Fortaleza, uma única requisição do arquivo de 21/10 para
   o stonecode 770398216 retornou **HTTP 200**, com XML validado. Sem repetição,
@@ -55,21 +88,30 @@ mudar as tabelas nem as regras do painel.
 
 ## Rotina diária no GitHub Actions
 
-`.github/workflows/importacao-diaria.yml` roda às 04:43 e às 09:43 de
-Fortaleza e reprocessa os últimos 3 dias, ou quantos forem pedidos na
-execução manual (Actions > Importação diária por API > Run workflow). A
-carga não duplica, então um dia que falhou entra na rodada seguinte. Não
-roda à meia-noite porque o arquivo de um dia só existe a partir das 4h do
-dia seguinte.
+`.github/workflows/importacao-diaria.yml` tem uma rodada diária agendada às
+**06:10 de Fortaleza** (`10 9 * * *`). O GitHub pode atrasar a execução. A
+rodada processa somente ontem, com um download XML por stonecode e um pedido
+Pix por CNPJ, quando ainda faltarem; guarda o resultado no banco privado. O
+XML exige D+1 após 05h, e o Pix, D+1 após 03h. O webhook aguarda a geração do
+arquivo, não recebe cada pagamento em tempo real.
+
+Execução manual: Actions > Importação diária por API > Run workflow. Campo
+`dia` opcional (AAAA-MM-DD; vazio = ontem); `dry_run` confere sem consultas
+Stone ou gravação. Um dia com vendas e recebíveis já importados termina com
+**zero consultas**. Não usar o antigo campo `dias` nem fazer cargas em lote
+para sondar acesso. Enquanto a Stone prepara o Pix, a rotina consulta só a
+fila do nosso banco, sem novos pedidos à Stone.
 
 O repositório é público, então o log do Actions também é. A rotina escreve
 no log só as linhas de erro; o detalhe fica em `integracao_execucao`.
 
 Segredos em Settings > Secrets and variables > Actions, com os valores do
-`gestao/.env`: `DATABASE_URL`, `SUPABASE_URL` e `STONE_CONCILIACAO_API_KEY`.
-Sem eles, o primeiro passo da rotina falha avisando qual falta.
+`gestao/.env`: `DATABASE_URL` e `STONE_CONCILIACAO_API_KEY` (já cadastrados).
+`SUPABASE_URL` está fixada no workflow para o portal público correto; não é
+segredo. O token do webhook só é necessário no receptor e no cadastro, não
+na rotina diária. Não guardar XML/CSV em caches ou artifacts do Actions.
 
-## Pix pelo extrato (caminho preferido)
+## Pix pelo extrato (comparação; fonte de vendas substituída pelo webhook)
 
 No extrato Stone, Pix de venda na maquininha é crédito `Transação` e Pix de
 transferência é `Pix`. `scripts/importacao/api_stone_pix_extrato.py` compara
@@ -87,21 +129,21 @@ Gravar exige uma virada: a partir de uma data, o CSV de vendas deixa de gravar
 Pix (proteção como a do extrato Pluggy). Faz sentido quando o cartão também
 vier pela conciliação; até lá o CSV de vendas continua por causa do cartão.
 
-## Pix pela API de Conciliação (alternativa, webhook)
+## Pix pela API de Conciliação (webhook implantado)
 
-1. Publicar `supabase/functions/stone-webhook` com `verify_jwt = false` e
-   cadastrar o segredo `STONE_WEBHOOK_TOKEN` na função. O mesmo valor vai no
-   `gestao/.env`. Sem o segredo, a função recusa tudo com 401.
-2. `python scripts/importacao/api_stone_pix.py --cadastrar-webhook`. A Stone
-   testa a URL antes de salvar.
-3. `python scripts/importacao/api_stone_pix.py --solicitar --de 2026-09-01 --ate 2026-09-07`
-   e depois `--analisar` no mesmo período. A análise diz qual coluna casa com
-   o STONE ID das vendas Pix do CSV (esperado: `pix_transaction__e2e_id`,
-   formato `E` + 31 caracteres), se o valor vem em reais ou centavos, o fuso de
-   `created_at` e se o terminal bate.
-4. Com o mapeamento confirmado, criar `api_stone_vendas.py`: grava cartão e
-   Pix de um dia só quando os dois arquivos daquele dia chegaram, para
-   `corte_venda` não avançar com dia incompleto. Entrar na rotina diária.
+1. Receptor e cadastro **já concluídos**. Não cadastrá-los novamente para
+   testar esta entrega. Reimplantação, se necessária:
+   `python scripts/implantacao/implantar_stone_webhook.py --aplicar`.
+   Destino validado por credencial local; só altera esta função e seus segredos
+   `STONE_WEBHOOK_TOKEN`/`STONE_PIX_DOCUMENT`, preservando as demais funções.
+2. Rotina normal: `python scripts/importacao/api_stone_rotina.py`. Para um
+   dia específico, `--dia AAAA-MM-DD`; `--dry-run` não consulta a Stone.
+3. Arquivos já recebidos: `python scripts/importacao/api_stone_vendas.py
+   --de AAAA-MM-DD --dry-run`. Sem `--dry-run`, importa, concilia com a Saipos
+   já no banco e atualiza o painel. Só prossegue com cartão e Pix do dia.
+4. `api_stone_pix.py --solicitar` também respeita o controle persistente de
+   pedidos. Não usar a função Python de rede `solicitar()` diretamente fora
+   da rotina/controlador. `--analisar` continua disponível para comparações.
 
 ## Passo a passo do proprietário
 

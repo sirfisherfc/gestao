@@ -4875,3 +4875,48 @@ pares de orientação da raiz ao concluir a troca de IA.
   está disponível nesta máquina; a validação completa de JavaScript fica no CI.
 
 — Codex
+
+## 2026-10-22 · Codex — webhook Pix ativado e painel atualizado até 21/10
+
+- Proprietário esclareceu que esperava o webhook Pix direto, já planejado.
+  Entregue no portal: `stone-webhook` ativo, autenticação privada e CNPJ/data
+  validados; cadastro Stone **201**, pedido Pix de 21/10 **202** e callback real
+  recebido com CSV íntegro. **O arquivo Pix de 21/10 foi solicitado uma vez**;
+  o XML veio do teste único anterior, sem novo download Stone.
+- Cadastro retornou 400 antes da correção do limite de 100 caracteres da URL.
+  Token privado ajustado para 24 caracteres aleatórios no `.env` ignorado e
+  nos secrets da função; nenhuma URL com token, chave ou CSV foi publicada.
+  Receptor e helpers testados sem rede. Não cadastrar novamente para conferir.
+- Novo `api_stone_vendas.py`: cartão XML + Pix CSV do mesmo dia, valores em
+  centavos, UTC→Fortaleza e identificadores Stone ID/E2E compatíveis com o CSV
+  do Portal. Validação real: os nove Pix já no extrato casaram por valor e
+  minuto; os quatro da noite ainda ausentes da Pluggy chegaram pelo webhook.
+- **Painel atualizado**: 21/10 tem 38 cartões + 13 Pix = 51 vendas (49 novas,
+  duas preservadas). Todos os **51/51 pagamentos Saipos conciliados**, sem par
+  pendente nesse dia. Soma e quantidade conferidas contra os arquivos reais.
+  Recebíveis: 36 novas parcelas. Refresh executado; dry-run posterior = zero
+  vendas novas. Não houve uso de Pix Saipos ou IDs sintéticos do extrato.
+- Migration **aplicada** `20261022183000` (histórico 217): controle/cache
+  `private.stone_api_controle`, PK por tipo/identificador/dia, RLS e nenhum
+  acesso PUBLIC/anon/authenticated. Ensaio SQL com rollback validou reserva
+  única e permissões antes da implantação. Nenhuma tabela das reservas mudou.
+- `api_stone_rotina.py`: um dia fechado por rodada; reserva antes da rede,
+  cache XML privado, Pix por webhook, nenhum retry automático de pedidos;
+  401/403/429 suspendem chamadas até diagnóstico. A CLI Pix também usa esse
+  controle. Cache de 21/10 persistido com zero chamadas; reexecução da rotina
+  detectou vendas/recebíveis prontos e fez **zero consultas Stone**.
+- `importacao-diaria.yml`: uma rodada agendada às 06:10 de Fortaleza, só
+  ontem, campos manuais `dia`/`dry_run`. Chave da Conciliação agora cadastrada
+  no GitHub com stdin seguro; não exige token do webhook na rotina. Arquivos
+  financeiros não vão para artifacts/cache/logs públicos do Actions.
+- Saipos: sete dias são janela de recuperação/alterações, não sete falhas.
+  São três consultas por dia e dois registros por dia (vendas/cancelamentos).
+  Sua rotina não consulta a API Stone. Janela existente preservada.
+- Limites mantidos: dia atual Stone só fecha em D+1; Voucher depende do CSV;
+  cancelamentos/códigos de vendas ainda sem regra conferida recusam a carga,
+  sem adivinhar valores/status. Ver `docs/INTEGRACAO_API_BANCOS.md`.
+- Validação: testes sem rede de bancos, vendas, webhook (16 casos no Node da
+  ferramenta), controle de pedidos/cache e SQL com rollback; idempotência e
+  conferência real de 21/10. CI também executa os três novos testes.
+
+— Codex

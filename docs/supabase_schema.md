@@ -1511,3 +1511,24 @@ Nenhuma linha historica foi alterada. A funcao e invoker, search_path fixo,
 sem acesso anon/authenticated; service_role tem EXECUTE explicito. A importacao
 Python conecta como dono, usa a tabela raw existente e o log integracao_execucao.
 Regras, deduplicacao e verificacoes em docs/INTEGRACAO_API_BANCOS.md.
+
+## Pedidos únicos Stone e recebimento Pix (2026-10-22)
+
+Migration `20261022183000` aplicada no portal (histórico 217): tabela
+`private.stone_api_controle`, chave primária `(tipo, identificador, dia)`.
+Tipos `xml` (stonecode) e `pix` (CNPJ); estados reservado/aceito/recebido/erro/
+resolvido, resposta HTTP e conteúdo XML privado. A reserva é confirmada antes
+da chamada externa: execução concorrente ou timeout não gera outro pedido.
+Recusas 401/403/429 suspendem novas chamadas automáticas; liberação exige
+diagnóstico e revisão explícita do registro pelo responsável.
+
+RLS habilitada; PUBLIC, anon e authenticated sem privilégios. Somente os
+scripts Python conectados como proprietário usam o controle; schema private
+não exposto na Data API. A Edge Function `stone-webhook` usa a tabela existente
+`public.stone_pix_arquivo`, com os grants SELECT/INSERT/UPDATE de service_role
+da migration `20261020000000`, sem acesso anon/authenticated à tabela.
+
+O receptor exige token privado e CNPJ configurado, recebe o aviso e baixa o CSV
+em segundo plano. `api_stone_vendas.py` grava cartão XML e Pix CSV juntos em
+`raw_stone_vendas`, deduplicando pelo Stone ID/E2E, reconcilia a Saipos já no
+banco e chama `refresh_painel()`. Não altera as regras das views financeiras.

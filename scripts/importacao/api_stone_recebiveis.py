@@ -8,8 +8,8 @@ categoria)`` e as convenções do CSV. A equivalência foi provada em 20/10/2026
 com setembro inteiro: as 1.638 parcelas do CSV e da API têm as mesmas chaves,
 valores e datas.
 
-As vendas continuam no CSV: o arquivo da API não traz Pix nem Voucher, e
-gravar só o cartão adiantaria ``corte_venda`` com dias incompletos.
+As vendas são processadas por ``api_stone_vendas.py``, que exige também o
+arquivo Pix entregue pelo webhook. Voucher continua dependendo do CSV.
 """
 
 from __future__ import annotations

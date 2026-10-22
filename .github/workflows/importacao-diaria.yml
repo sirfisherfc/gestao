@@ -1,29 +1,19 @@
 name: Importação diária por API
 
-# Importa no painel os dados que os bancos entregam por API. Cada rodada
-# reprocessa os últimos dias: a carga não duplica linhas, então um dia que
-# falhou entra sozinho na rodada seguinte. Resultado de cada dia na página
-# Status > Integrações automáticas.
-#
-# Horário: o arquivo de conciliação da Stone de um dia só sai a partir das 4h
-# do dia seguinte (o Pix, das 3h). Rodar à meia-noite pegaria só o dia
-# anterior a ontem. 04:43 e 09:43 em Fortaleza (UTC-3); a segunda rodada
-# refaz o que a primeira não conseguiu.
-#
-# Repositório público: o log do Actions é público. Os scripts gravam o
-# detalhe no banco e o log mostra só as linhas de erro.
-
+# Um dia por rodada, às 06:10 de Fortaleza. XML e pedidos Pix ficam no banco
+# privado; repetir o workflow reaproveita arquivos sem repetir chamadas Stone.
 on:
-  # Agendamento pausado em 20/10/2026: a chave da Conciliação Stone responde
-  # 403 e STONE_CONCILIACAO_API_KEY ainda não está nos Secrets. Para religar,
-  # descomentar as duas linhas abaixo depois que --verificar voltar a passar.
-  # schedule:
-  #   - cron: "43 7,12 * * *"
+  schedule:
+    - cron: '10 9 * * *'
   workflow_dispatch:
     inputs:
-      dias:
-        description: "Quantos dias para trás reprocessar (1 = só ontem)"
-        default: "3"
+      dia:
+        description: 'Dia fechado (AAAA-MM-DD); vazio = ontem'
+        default: ''
+      dry_run:
+        description: 'Conferir sem consultar a Stone nem gravar'
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -35,39 +25,36 @@ concurrency:
 jobs:
   stone:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     env:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
-      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_URL: https://lucpxoynpvogkvzepagi.supabase.co
       STONE_CONCILIACAO_API_KEY: ${{ secrets.STONE_CONCILIACAO_API_KEY }}
-      DIAS: ${{ github.event.inputs.dias || '3' }}
+      DIA: ${{ inputs.dia }}
+      DRY_RUN: ${{ inputs.dry_run || false }}
       TZ: America/Fortaleza
       PYTHONIOENCODING: utf-8
     steps:
       - name: Segredos cadastrados
+        shell: bash
         run: |
           for nome in DATABASE_URL STONE_CONCILIACAO_API_KEY; do
-            [ -n "${!nome}" ] || { echo "Segredo $nome não cadastrado em Settings > Secrets and variables > Actions"; exit 1; }
+            [ -n "${!nome}" ] || { echo "Segredo $nome não cadastrado"; exit 1; }
           done
-
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-
       - name: Dependências
         run: python -m pip install -q -r requirements.txt
-
-      - name: Recebíveis Stone
+      - name: Cartão, Pix por webhook e recebíveis
+        shell: bash
         run: |
-          case "$DIAS" in ''|*[!0-9]*) echo "dias inválido"; exit 2;; esac
-          de=$(date -d "-${DIAS} day" +%F)
-          ate=$(date -d "-1 day" +%F)
+          args=()
+          if [ -n "$DIA" ]; then args+=(--dia "$DIA"); fi
+          if [ "$DRY_RUN" = "true" ]; then args+=(--dry-run); fi
           status=0
-          python scripts/importacao/api_stone_recebiveis.py --baixar --de "$de" --ate "$ate" > saida.log 2>&1 || status=$?
-          grep -E "^(ERRO|AVISO|  sem arquivo)" saida.log || true
-          echo "recebíveis Stone de $de a $ate: código $status"
-          exit $status
+          python scripts/importacao/api_stone_rotina.py "${args[@]}" > saida-stone.log 2>&1 || status=$?
+          # Log público: não publicar XML, CSV, credenciais ou valores.
+          grep -E '^(ERRO|AVISO|STONE_)' saida-stone.log || true
+          exit "$status"

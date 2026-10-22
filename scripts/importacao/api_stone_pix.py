@@ -5,7 +5,7 @@ O arquivo de conciliação de cartão não traz Pix (23% do faturamento Stone em
 jul-set/2026). A Stone entrega o Pix por outro caminho:
 
 1. Cadastrar uma vez a URL do webhook: a Edge Function ``stone-webhook``,
-   protegida pelo token ``STONE_WEBHOOK_TOKEN`` na própria URL.
+   protegida pelo token privado ``STONE_WEBHOOK_TOKEN`` na URL.
 2. A partir das 3h do dia seguinte, pedir o CSV do dia com
    ``POST .../merchant/{cnpj}/conciliation-file/pix/{AAAA-MM-DD}``.
 3. Em até 30 minutos a Stone avisa o webhook com um link pré-assinado; a
@@ -75,7 +75,12 @@ def url_webhook() -> str:
 
 
 def cadastrar_webhook(chave: str, *, atualizar: bool = False) -> None:
-    corpo = json.dumps({"url": url_webhook()}).encode("utf-8")
+    # Cadastro mínimo documentado: headers opcionais têm contrato ambíguo.
+    # A URL com token é privada e nunca deve aparecer em logs ou documentação.
+    url = url_webhook()
+    if len(url) > 100:
+        raise ValidacaoErro("a URL privada do webhook deve ter no máximo 100 caracteres; use token seguro de 24 caracteres")
+    corpo = json.dumps({"url": url}).encode("utf-8")
     requisitar(URL_WEBHOOK, metodo="PUT" if atualizar else "POST", cabecalhos=_cabecalhos(chave), corpo=corpo, mensagens=MENSAGENS)
 
 
@@ -112,7 +117,7 @@ class FilaPix:
             )
             return [ArquivoPix(*linha) for linha in cur.fetchall()]
 
-    def aguardar(self, pedidos: list[tuple[str, date]], desde: datetime, minutos: int) -> dict[tuple[str, date], ArquivoPix]:
+    def aguardar(self, pedidos: list[tuple[str, date]], desde: datetime | None, minutos: int) -> dict[tuple[str, date], ArquivoPix]:
         """Espera o aviso de cada pedido feito depois de ``desde``."""
         limite = time.monotonic() + minutos * 60
         prontos: dict[tuple[str, date], ArquivoPix] = {}
@@ -120,7 +125,7 @@ class FilaPix:
             for pedido in pedidos:
                 if pedido in prontos:
                     continue
-                recentes = [item for item in self.arquivos(*pedido) if item.recebido_em >= desde]
+                recentes = [item for item in self.arquivos(*pedido) if desde is None or item.recebido_em >= desde]
                 if recentes and (recentes[0].conteudo or recentes[0].erro):
                     prontos[pedido] = recentes[0]
             if len(prontos) == len(pedidos) or time.monotonic() >= limite:
@@ -267,17 +272,17 @@ def fluxo() -> None:
         if not documentos:
             raise ValidacaoErro("nenhum CNPJ encontrado para pedir o Pix")
         if opcoes.solicitar:
-            desde = datetime.now(timezone.utc) - timedelta(seconds=5)
+            from api_stone_rotina import Controle, pedir_pix
             pedidos = []
-            for documento in documentos:
-                for dia in dias:
-                    try:
-                        solicitar(chave, documento, dia)
+            controle = Controle()
+            try:
+                for documento in documentos:
+                    for dia in dias:
+                        pedir_pix(controle, fila, chave, documento, dia)
                         pedidos.append((documento, dia))
-                        print(f"  Pix {dia}: pedido aceito")
-                    except ErroHttp as exc:
-                        print(f"  Pix {dia}: ERRO {exc}")
-            prontos = fila.aguardar(pedidos, desde, opcoes.aguardar) if pedidos else {}
+                prontos = fila.aguardar(pedidos, None, opcoes.aguardar) if pedidos else {}
+            finally:
+                controle.fechar()
             for documento, dia in pedidos:
                 arquivo = prontos.get((documento, dia))
                 situacao = "CSV recebido" if arquivo and arquivo.conteudo else (arquivo.erro if arquivo else "sem aviso no prazo")
