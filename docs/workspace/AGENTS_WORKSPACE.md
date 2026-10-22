@@ -87,6 +87,22 @@
   a rota de leitura; implantações dependem do pedido e preservam autenticação,
   segredos e os outros sistemas. Ferramentas MCP de leitura continuam sem escrita.
 
+## MCP do Google Analytics
+
+- Em 22/10/2026, o usuário autorizou preparar o MCP oficial do Google Analytics
+  para uso persistente, com as ferramentas de consulta e sem login a cada uso.
+- Quando precisar de Analytics, conferir se `google_analytics` já está
+  cadastrado no Codex local. Se faltar neste PC, executar
+  `python site/tools/analytics/configurar_mcp.py`, sem pedir nova autorização.
+  O instalador reutiliza o `service_account.json` privado existente e mantém
+  as dependências em `LOCALAPPDATA`, separadas dos relatórios e do OneDrive.
+- Não copiar a chave para configurações, documentação ou chat. Não habilitar
+  `--allow-write`. O cadastro é local a cada PC e persiste nas sessões futuras;
+  um cliente já aberto pode precisar de um reinício para carregar o servidor.
+- Cadastro e lista de ferramentas não comprovam acesso ao Google. Antes de
+  pedir login ou nova credencial, validar uma consulta real com o acesso atual.
+  Search Console, Perfil da Empresa e operação continuam nas rotinas próprias.
+
 ## Instruções de cada projeto
 
 - Ler `README.md`, `AGENTS.md` e `CLAUDE.md` do projeto, quando existirem.

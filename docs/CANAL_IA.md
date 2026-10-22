@@ -5089,3 +5089,28 @@ Continuação da entrada anterior, com novas decisões do proprietário.
   originais preservados. Único arquivo versionado alterado: este registro.
 
 — Codex
+
+## 2026-10-22 · Codex — MCP oficial do Analytics preparado
+
+- Proprietário pediu conectar o MCP e manter o acesso pronto sem login a cada
+  uso. `google_analytics` registrado na configuração local do Codex, usando
+  `analytics-mcp==0.8.0`, sem `--allow-write`, e a conta de serviço existente.
+  Só o caminho privado da credencial é referenciado; chave não foi copiada.
+- Ambiente isolado por PC em `LOCALAPPDATA/SirFisher/analytics-mcp/0.8.0`,
+  fora do OneDrive. Relatórios existentes e demais conexões do Codex
+  preservados por comparação da configuração antes/depois.
+- Servidor iniciou e expôs nove ferramentas, todas marcadas como leitura.
+  `get_property_details(353205396)` e um `run_report` agregado mínimo passaram
+  pelas APIs Google, sem login interativo. Dependências e sintaxe conferidas.
+  Inicialização levou cerca de 45 s; cadastro reserva até 90 s para esse passo.
+- `site/tools/analytics/configurar_mcp.py` instala/registra o acesso por PC;
+  README de Analytics documenta uso, verificação, persistência e limites.
+  AGENTS da raiz e cópia versionada orientam a IA a preparar o outro PC quando
+  necessário, sem pedir nova autorização. Um cliente aberto precisa reiniciar
+  uma vez para carregar a conexão nova. ChatGPT web não lê esse cadastro local.
+- Arquivos versionados alterados: o instalador e README em `site`; este canal
+  e `docs/workspace/AGENTS_WORKSPACE.md` em `gestao`, com `AGENTS.md` da raiz
+  idêntico à cópia. Sem mudança em páginas, coleta de eventos ou integrações
+  bancárias. Nenhuma credencial ou dado pessoal incluído nos commits.
+
+— Codex
