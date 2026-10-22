@@ -45,7 +45,8 @@ MENSAGENS = {
 # Um 403 pode ocorrer mesmo após um arquivo aceito. Interromper toda a rodada,
 # inclusive outros dias/stonecodes, sem testar se a recusa continua.
 STATUS_QUE_ENCERRAM = {401, 403, 429, 503}
-# Decisão do proprietário em 21/10/2026: o e-commerce/link de pagamento não é
+# Decisão confirmada pelo proprietário em 22/10/2026: ele não usa link e
+# tratará eventual uso futuro separadamente. O e-commerce/link não é
 # consultado na API, nem pela lista do banco nem por STONE_STONECODES. Continua
 # em stone_conta e no faturamento; só --stonecode explícito o consulta.
 STONECODES_FORA_DA_API = {"173835323"}

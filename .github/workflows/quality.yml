@@ -32,6 +32,9 @@ jobs:
       - name: Status integrations grouped by Saipos execution without network
         run: node scripts/ci/test_status_integracoes.mjs
 
+      - name: Stone closing coverage and pending-day presentation without network
+        run: node scripts/ci/test_status_fechamento.mjs
+
       - name: Importer dry-runs
         run: python scripts/ci/test_importacao.py
 
@@ -46,6 +49,9 @@ jobs:
 
       - name: Stone daily request persistence and cache without network
         run: python scripts/ci/test_stone_rotina.py
+
+      - name: Stone closing recovery and receivable settlements without network
+        run: python scripts/ci/test_stone_fechamento.py
 
       - name: Pluggy connection, pagination and credential protection
         run: |
@@ -128,6 +134,17 @@ jobs:
             -c 'drop database if exists sirfisher_parsers_test' \
             -c 'create database sirfisher_parsers_test'
           python scripts/ci/test_paridade_parsers.py
+
+      - name: Stone receivable settlement transactions in disposable PostgreSQL
+        env:
+          PGHOST: 127.0.0.1
+          PGPORT: '5432'
+          PGDATABASE: sirfisher_stone_test
+          PGUSER: postgres
+          STONE_SQL_DISPOSABLE: '1'
+        run: |
+          psql -h 127.0.0.1 -U postgres -d postgres -c 'create database sirfisher_stone_test'
+          python scripts/ci/test_stone_baixas_sql.py
 
       - name: Recurring pending periods in disposable PostgreSQL
         env:

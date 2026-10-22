@@ -3,6 +3,87 @@
 Objetivo: trocar a exportação manual de CSV por download automático, sem
 mudar as tabelas nem as regras do painel.
 
+## Fechamento D+1 implantado (22/10/2026)
+
+- Escopo atual: operação Praia, cartão/Pix, parcelas e baixas, extrato e
+  atualização do painel. **Voucher fica separado.** O proprietário confirmou
+  que **não usa link de pagamento**; eventual uso futuro será separado. O
+  173835323 permanece fora da coleta e do fechamento, sem alterar o histórico.
+- Prazo: dia civil D até **23h59 de D+1 em Fortaleza**. Turno Saipos 08h–08h
+  pode incluir a madrugada do dia civil seguinte; isso continua explícito.
+- `stone_fechamento.py` registra etapas privadas por dia: vendas, recebíveis,
+  baixas, painel e extrato. Saúde e Status geram o calendário desde 21/10,
+  incluindo dias sem execução, e mostram o último dia **contíguo** concluído.
+  Falta de arquivo nunca significa dia sem movimento. Dias vazios comprovados
+  pelos dois arquivos encerram normalmente, sem inventar linhas financeiras.
+- `api_stone_baixas.py` aplica liquidações de capturas anteriores, conferindo
+  unidade/conta, identificadores, bruto e líquido em centavos. XML preserva sua
+  precisão de seis casas. Altera só status/datas comprovadas; não muda valores,
+  taxas ou dados da captura. Identidade de pagamento/carteira/parcela, versão,
+  hash e antes/depois ficam em `private.stone_baixa_evento`, na mesma transação.
+  Conflitos ficam pendentes e não se resolvem automaticamente por replay.
+- Migration `20261022200001` aplicada e registrada no portal, após ensaio SQL
+  com rollback. Controles privados com RLS e sem acesso de anon/authenticated;
+  `app_stone_fechamento` expõe só metadados administrativos e grants explícitos.
+  Avisos de view definer/RLS sem policy seguem o padrão intencional do projeto.
+- Rotina de 21/10 executada **somente pelo cache**: 63 liquidações conferidas,
+  38 baixas novas; reexecução de conferência = zero atualizações e zero
+  divergências. Cartão/Pix/recebíveis/painel confirmados. Nenhuma nova chamada
+  à API Stone. Uma conferência Pluggy encontrou saldo consistente e zero novos;
+  o relógio de sincronização da origem ainda era de 21/10, então o extrato
+  ficou corretamente aguardando uma origem posterior ao encerramento do dia.
+
+### Agenda publicada e limites
+
+| Horário de Fortaleza | Operação |
+|---|---|
+| 06h10 e 18h10 | Coleta limitada de arquivos nunca pedidos e recuperação |
+| 11h10, 16h10 e 23h10 | Recuperação estrita pelo cache/fila privada, sem rede bancária |
+| 00h10 | Verificação somente leitura; atraso gera saída de erro do workflow |
+| 00h43, 09h43 e 21h43 | Conferência/importação do extrato pela Pluggy |
+
+Cada rodada de aquisição permite **no máximo um XML e um pedido Pix novos**.
+A reserva persistida antecede a rede; timeout, erro ou rodada paralela não
+liberam repetição. Dias nunca iniciados entram em ordem, com o mesmo orçamento.
+401/403, 429, 5xx e resultado incerto têm mensagens distintas no fechamento.
+Não apagar reservas nem usar novo dia/stonecode para testar uma recusa.
+
+Pix tardio retoma em outra rodada. Um aviso já salvo impede outro POST mesmo
+sem controle anterior; callback recente com erro não esconde conteúdo válido.
+Novo arquivo válido de dia já processado reabre a conferência das vendas.
+Quando há aviso sem CSV, o modo de aquisição pode recuperar o endereço já
+recebido: máximo dois GETs por CNPJ/dia, intervalo mínimo de 1h, timeout de20s,
+limite de5MB, HTTPS e nenhum redirecionamento/credencial bancária. Link expirado
+permanece pendente, sem novo POST automático.
+
+Comandos:
+
+```text
+python scripts/importacao/api_stone_rotina.py --saude
+python scripts/importacao/api_stone_rotina.py --somente-cache --aguardar 0
+python scripts/importacao/api_stone_rotina.py --dia 2026-10-21 --somente-cache
+```
+
+`--dry-run` e `--saude` só leem. `--somente-cache` não consulta Stone/Pluggy/
+Saipos nem baixa link. `--recuperar-downloads` permite apenas o GET limitado do
+arquivo anunciado, sem repetir a solicitação. Saúde/cache dispensam chave
+Stone. O resultado aparece em **Status > Fechamento automático Stone**, sem
+apagar o histórico anterior de erros. O alerta ativo usa os mecanismos já
+existentes do GitHub; nenhum e-mail/WhatsApp externo foi configurado ou enviado.
+
+O extrato só conclui dias dentro do período realmente consultado e com
+`lastUpdatedAt` posterior ao dia, saldo conferido e refresh concluído. Não usa
+o horário da consulta nem edição de metadados como prova de sincronização.
+Autorização expirada, indisponibilidade externa e eventos ainda sem regra
+(chargeback, antecipação, certos cancelamentos) são pendências explícitas.
+Capturas com FeeType diferente do regime MDR conferido, antecipação ou tarifa
+adicional não validada são recusadas, preservando a classificação financeira.
+
+Validação: testes sem rede de retomada, orçamento, Pix, dia vazio, SLA e baixas;
+SQL real com rollback para idempotência/precedência/conflitos/transação; testes
+do Status para cobertura, escape HTML e paginação. Os próximos arquivos novos
+e sincronizações da origem serão processados pela agenda, sem sondagens extras.
+
 ## Em produção: cartão e Pix direto da Stone (22/10/2026)
 
 - Webhook `stone-webhook` publicado no portal e cadastrado na Stone (HTTP
@@ -38,7 +119,7 @@ mudar as tabelas nem as regras do painel.
 
 ## Diagnóstico e solução proposta para fechar a automação (22/10/2026)
 
-**Estado: diagnóstico e desenho, ainda não implementados.** Escopo: vendas
+**Registro do diagnóstico anterior à implantação descrita acima.** Escopo: vendas
 cartão/Pix, recebíveis e suas baixas, extrato e atualização dos derivados do
 painel. Voucher fica separado, explicitamente fora deste fechamento. Um
 workflow ativo ou verde não é prova de cobertura de todos os dados.
@@ -234,10 +315,10 @@ Referências: [agendamento GitHub](https://docs.github.com/en/actions/reference/
 
 ## Rotina diária no GitHub Actions
 
-`.github/workflows/importacao-diaria.yml` tem uma rodada diária agendada às
-**06:10 de Fortaleza** (`10 9 * * *`). O GitHub pode atrasar a execução. A
-rodada processa somente ontem, com um download XML por stonecode e um pedido
-Pix por CNPJ, quando ainda faltarem; guarda o resultado no banco privado. O
+`.github/workflows/importacao-diaria.yml` tem aquisição às **06h10 e18h10**,
+retomada estrita do cache às **11h10,16h10 e23h10** e saúde às **00h10**, em
+Fortaleza. O GitHub pode atrasar a execução. A rotina recupera dias desde21/10,
+limitando novos pedidos por rodada e guardando arquivos no banco privado. O
 XML exige D+1 após 05h, e o Pix, D+1 após 03h. O webhook aguarda a geração do
 arquivo, não recebe cada pagamento em tempo real.
 

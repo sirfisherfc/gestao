@@ -136,11 +136,19 @@ BAT nem no dispatcher: roda todo dia pelo GitHub Actions
 não, fica em `integracao_execucao` (`integracao_log.py`) e aparece em
 Status > Integrações automáticas.
 
-`api_stone_pix.py` cuida do Pix, que a Stone entrega por webhook (Edge
-Function `stone-webhook`): cadastra o webhook, pede o arquivo e compara com o
-painel. Vendas Stone continuam pelo CSV até o mapeamento do Pix ser
-confirmado com um arquivo real; o Voucher não existe na API. Detalhes:
-`docs/INTEGRACAO_API_BANCOS.md`.
+`api_stone_pix.py` cuida do Pix recebido por `stone-webhook`.
+`api_stone_vendas.py` importa cartão XML e Pix do mesmo dia, com identificadores
+compatíveis com o CSV. `api_stone_baixas.py` baixa parcelas de vendas antigas
+com liquidação comprovada, sem alterar valores/taxas da captura e com auditoria.
+Voucher e link de pagamento ficam separados por decisão do proprietário.
+
+`api_stone_rotina.py` orquestra datas pendentes desde21/10/2026, sem repetir
+pedidos já reservados. `--somente-cache` recupera arquivos privados sem rede
+bancária; `--saude` e `--dry-run` só leem e dispensam chave Stone. O fechamento
+fica no Status, com prazo até23h59 deD+1 em Fortaleza e conferência por etapa,
+incluindo dias sem movimento. `--recuperar-downloads` permite GET limitado do
+endereço Pix já recebido; não equivale a repetir o POST da solicitação.
+Agenda, validações, guardas e limitações: `docs/INTEGRACAO_API_BANCOS.md`.
 
 ### Extrato Stone pelo Meu Pluggy
 

@@ -139,6 +139,7 @@ def fluxo():
     parser.add_argument("--stonecode", action="append")
     parser.add_argument("--pasta", type=Path, default=conciliacao.PASTA_PADRAO)
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument('--sem-refresh-painel',action='store_true')
     op = parser.parse_args()
     carregar_env()
     url = _database_url()
@@ -180,9 +181,10 @@ def fluxo():
     finally:
         banco.fechar()
         fila.fechar()
-    importar_registros(registros=registros, tabela="raw_stone_vendas", colunas=COLUNAS,
-        conflito="(stone_id)", montar_linha=lambda r, conta: [conta]+[r[c] for c in COLUNAS[1:]],
-        fonte_log="Vendas Stone (API cartão + Pix)", periodo=(op.de, dias[-1]), fonte_chave="stone_vendas")
+    if registros:
+        importar_registros(registros=registros, tabela="raw_stone_vendas", colunas=COLUNAS,
+            conflito="(stone_id)", montar_linha=lambda r, conta: [conta]+[r[c] for c in COLUNAS[1:]],
+            fonte_log="Vendas Stone (API cartão + Pix)", periodo=(op.de, dias[-1]), fonte_chave="stone_vendas")
     # Saipos já está no banco: refazer o casamento não consulta sua API.
     import api_saipos_vendas as saipos
     conn = saipos._conectar()
@@ -191,7 +193,8 @@ def fluxo():
             saipos.reconciliar_periodo(cur, op.de-timedelta(days=1), dias[-1])
     finally:
         conn.close()
-    atualizar_painel()
+    if not op.sem_refresh_painel:
+        atualizar_painel()
     fila = pix.FilaPix()
     try:
         for arquivo in arquivos:
@@ -199,7 +202,8 @@ def fluxo():
     finally:
         fila.fechar()
     por_dia = Counter(r["data_venda"].date() for r in novas)
-    integracao_log.registrar([integracao_log.Execucao("stone_vendas", d, None, "ok", por_dia[d],
+    dias_com_vendas = {r['data_venda'].date() for r in registros}
+    integracao_log.registrar([integracao_log.Execucao("stone_vendas", d, None, "ok" if d in dias_com_vendas else "sem_movimento", por_dia[d],
         "Cartão XML e Pix webhook recebidos; vendas atualizadas e conciliadas") for d in dias])
     print("STONE_VENDAS_IMPORT_OK cartão e Pix gravados; conciliação e painel atualizados.")
 

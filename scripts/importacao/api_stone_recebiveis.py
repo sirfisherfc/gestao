@@ -132,7 +132,10 @@ def _data(valor: str | None, contexto: str) -> date:
 
 def _decimal(valor: str | None, contexto: str) -> Decimal:
     try:
-        return Decimal(valor or "")
+        numero=Decimal(valor or "")
+        if not numero.is_finite():
+            raise InvalidOperation
+        return numero
     except InvalidOperation as exc:
         raise ValueError(f"{contexto} inválido") from exc
 
@@ -145,6 +148,16 @@ def _contagem(eventos, nome: str) -> int:
 
 
 def _ler_captura(transacao, stonecode: str, origem: tuple[str, date]) -> Captura:
+    # Só a tarifa MDR foi conferida na operação atual. Não classificar
+    # antecipação/unificado como MDR nem zerar seus componentes por ausência de regra.
+    for item in transacao.iter():
+        nome=local(item.tag);valor=(item.text or '').strip()
+        if nome=='FeeType' and valor and valor!='1':
+            raise ValueError('tipo de tarifa Stone ainda não validado; conferir taxas antes da carga')
+        if nome=='AdvancedReceivableOriginalPaymentDate' and valor:
+            raise ValueError('captura antecipada exige regra validada antes da carga')
+        if nome in ('AdvanceRateAmount','SaleFee') and valor and _decimal(valor,nome)!=ZERO:
+            raise ValueError('tarifa adicional exige regra validada antes da carga')
     stone_id = texto(transacao, "AcquirerTransactionKey")
     parcelas = []
     for grupo in filhos(transacao, "Installments"):
@@ -157,6 +170,8 @@ def _ler_captura(transacao, stonecode: str, origem: tuple[str, date]) -> Captura
             ))
     if not stone_id or not parcelas:
         raise ValueError("captura sem chave ou sem parcelas")
+    if len({p.numero for p in parcelas})!=len(parcelas) or any(p.numero<1 or p.bruto<=0 or p.liquido<0 or p.liquido>p.bruto for p in parcelas):
+        raise ValueError('parcelas da captura inválidas ou duplicadas')
     return Captura(
         stone_id=stone_id,
         stonecode=stonecode,

@@ -194,7 +194,8 @@ def executar(*, dry_run: bool, inicio: date | None = None) -> int:
     if inicio < desde or inicio > hoje:
         raise ErroOperacional("período fora da data de virada configurada")
     cliente = Cliente()
-    conferir_item(cliente.item(item_id))
+    item = cliente.item(item_id)
+    conferir_item(item)
     contas = [x for x in cliente.contas(item_id) if x.get("id") == conta_id]
     if len(contas) != 1 or contas[0].get("currencyCode") != "BRL":
         raise ErroOperacional("conta Stone configurada não está disponível em BRL")
@@ -242,6 +243,10 @@ def executar(*, dry_run: bool, inicio: date | None = None) -> int:
                 cur.fetchall()
             cur.execute("insert into log_carga(fontes) values ('Extrato Stone')")
     atualizar_painel()  # Falha posterior ao commit é recuperada mesmo sem novos na próxima rodada.
+    from stone_fechamento import registrar_extrato
+    # lastUpdatedAt é o relógio da sincronização; updatedAt da conta pode
+    # refletir só a edição de metadados e não deve provar fechamento sozinho.
+    registrar_extrato(item.get('lastUpdatedAt'),inicio=inicio)
     return len(novos)
 
 

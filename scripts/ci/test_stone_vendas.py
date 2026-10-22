@@ -55,6 +55,10 @@ def main():
     v.conferir_existentes([p], {E2E: p})
     rejeita(v.conferir_existentes, [p], {E2E: {**p, "valor_bruto": Decimal("30")}})
     rejeita(v.ler_cartao, XML.replace(b"<BrandId>2</BrandId>", b"<BrandId>99</BrandId>"), "123", DIA, DOC)
+    # Tarifa diferente do MDR conferido não pode ser reclassificada como MDR.
+    for campo in (b'<FeeType>2</FeeType>',b'<AdvanceRateAmount>1</AdvanceRateAmount>',
+                  b'<SaleFee>1</SaleFee>',b'<AdvancedReceivableOriginalPaymentDate>20261121</AdvancedReceivableOriginalPaymentDate>'):
+        rejeita(v.ler_cartao,XML.replace(b'<NumberOfInstallments>',campo+b'<NumberOfInstallments>'),"123",DIA,DOC)
     print("STONE_VENDAS_TESTS_OK valores=centavos fuso=UTC-3 dedup=StoneID_E2E parcelas=2 network=0")
 
 

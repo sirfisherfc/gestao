@@ -5027,3 +5027,39 @@ Continuação da entrada anterior, com novas decisões do proprietário.
   Completa: sugestão de troca levada ao proprietário, nada alterado.
 
 — Claude
+
+## 2026-10-22 · Codex — fechamento Stone D+1 executado
+
+- Usuário autorizou executar o plano e confirmou: não usa link de pagamento;
+  se voltar a usar, tratará separado. 173835323 e Voucher fora do fechamento,
+  histórico preservado. Prazo23h59 deD+1 em Fortaleza.
+- Migration aplicada/registrada `20261022200001`: checkpoints privados por
+  dia/etapa, eventos privados de baixa, resumo `app_stone_fechamento` só admin,
+  e contador de recuperação de download Pix. RLS/revokes/grants explícitos.
+  Ensaio transacional de8casos com rollback passou antes da implantação.
+- Baixas verificam NSU/parcela/conta, valores, PaymentId/carteira e precedência
+  por parcela; alteração de status/datas e auditoria na mesma transação.
+  Valores/taxas da captura preservados. 21/10:63eventos conferidos,38baixas
+  novas,zero pendências; conferência posterior:zero atualizações. Sem novo GET/
+  POST na APIStone; XML restaurado do controle privado e Pix já existente.
+- Controlador separa etapas, retoma dias antigos/cache/refresh, trata dia vazio
+  e mantém a reserva mesmo após erro. Callback com conteúdo válido prevalece;
+  aviso sem conteúdo também impede novo POST. Retry do GET já recebido tem
+  limite por CNPJ/dia,20s,5MB,HTTPS/sem redirect, sem credencial bancária.
+- Capturas com FeeType/antecipação/tarifa adicional ainda sem regra passam a
+  recusar a carga. Demais eventos não validados continuam como pendência,
+  sem inventar taxa ou apagar cancelamento. Não alegar suporte universal.
+- Agenda: aquisição limitada06h10/18h10; cache11h10/16h10/23h10; saúde00h10;
+  Pluggy00h43/09h43/21h43. Última data contígua e faltas aparecem no Status.
+  GitHub registra erro após prazo; nenhum canal externo novo foi configurado.
+- Uma execução Pluggy conferiu648movimentos,zero novos e saldo consistente.
+  lastUpdatedAt da origem ainda21/10; portanto extrato segue aguardando novo
+  snapshot posterior ao encerramento do dia, sem fechamento artificial.
+- Validações unitárias, SQL/rollback, contratos financeiros/acesso/frontend,
+  Status e qualidade estática executadas. Navegador do aplicativo sem abas
+  disponíveis; conferência visual não executada. Advisors: somente os avisos
+  intencionais do padrão app_* e RLS sem policy nos controles privados.
+- Trabalho em worktree separado; alterações/migration de cardápio da outra
+  tarefa preservadas. Não inclui credencial, CSV/XML nem dados brutos.
+
+— Codex

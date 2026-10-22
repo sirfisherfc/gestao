@@ -26,6 +26,10 @@ import json
 import re
 import sys
 import time
+import ipaddress
+import urllib.request
+import urllib.error
+import urllib.parse
 from collections import Counter
 from dataclasses import dataclass
 from datetime import date, datetime, timedelta, timezone
@@ -59,6 +63,44 @@ class ArquivoPix:
     conteudo: str | None
     url_arquivo: str | None
     erro: str | None
+
+
+def escolher_arquivo(arquivos):
+    """Um callback inválido mais recente não esconde conteúdo íntegro anterior."""
+    return next((a for a in arquivos if a.conteudo is not None and not a.erro), None)
+
+
+def baixar_csv_recebido(url):
+    """GET limitado do arquivo já anunciado, sem credenciais e sem redirects."""
+    try:
+        endereco=urllib.parse.urlsplit(url)
+        host=endereco.hostname or ''
+        invalido=(endereco.scheme!='https' or endereco.username or endereco.password or endereco.port not in (None,443)
+                  or '.' not in host or host.endswith(('.local','.internal')) or host.endswith('.supabase.co'))
+        try:
+            ipaddress.ip_address(host)
+            invalido=True
+        except ValueError:
+            pass
+        if invalido: raise ValueError
+    except ValueError as exc:
+        raise ErroOperacional('endereço do arquivo Pix não permitido') from exc
+    class SemRedirect(urllib.request.HTTPRedirectHandler):
+        def redirect_request(self,*args,**kwargs): return None
+    opener=urllib.request.build_opener(SemRedirect())
+    try:
+        with opener.open(urllib.request.Request(url,headers={'Accept':'text/csv'}),timeout=20) as resposta:
+            if resposta.status!=200: raise ErroHttp(resposta.status,'download do CSV com resposta incompleta')
+            dados=resposta.read(5_000_001)
+        if len(dados)>5_000_000:
+            raise ErroOperacional('CSV Pix excede o tamanho permitido')
+        texto=dados.decode('utf-8-sig')
+        ler_csv(texto)  # HTML/erro vazio não pode ser salvo como um CSV pronto.
+        return texto
+    except urllib.error.HTTPError as exc:
+        raise ErroHttp(exc.code,f'download do CSV respondeu HTTP {exc.code}') from None
+    except (urllib.error.URLError,TimeoutError,UnicodeDecodeError):
+        raise ErroOperacional('falha ao baixar o CSV Pix') from None
 
 
 def _so_digitos(valor: object) -> str:
@@ -112,10 +154,17 @@ class FilaPix:
         with self.conn.cursor() as cur:
             cur.execute(
                 "select id::text, documento, data_referencia, recebido_em, conteudo, url_arquivo, erro "
-                "from stone_pix_arquivo where documento = %s and data_referencia = %s order by recebido_em desc;",
+                "from stone_pix_arquivo where documento = %s and data_referencia = %s order by recebido_em desc,id desc;",
                 (documento, dia),
             )
             return [ArquivoPix(*linha) for linha in cur.fetchall()]
+
+    def dias_prontos_nao_processados(self, documento):
+        with self.conn.cursor() as cur:
+            cur.execute('select data_referencia from (select distinct on(data_referencia) data_referencia,processado_em '
+                        'from stone_pix_arquivo where documento=%s and conteudo is not null and erro is null '
+                        'order by data_referencia,recebido_em desc,id desc) a where processado_em is null', (documento,))
+            return {r[0] for r in cur.fetchall()}
 
     def aguardar(self, pedidos: list[tuple[str, date]], desde: datetime | None, minutos: int) -> dict[tuple[str, date], ArquivoPix]:
         """Espera o aviso de cada pedido feito depois de ``desde``."""
@@ -126,7 +175,10 @@ class FilaPix:
                 if pedido in prontos:
                     continue
                 recentes = [item for item in self.arquivos(*pedido) if desde is None or item.recebido_em >= desde]
-                if recentes and (recentes[0].conteudo or recentes[0].erro):
+                valido = escolher_arquivo(recentes)
+                if valido:
+                    prontos[pedido] = valido
+                elif recentes and recentes[0].erro:
                     prontos[pedido] = recentes[0]
             if len(prontos) == len(pedidos) or time.monotonic() >= limite:
                 return prontos
@@ -137,13 +189,47 @@ class FilaPix:
             return arquivo.conteudo
         if not arquivo.url_arquivo:
             raise ErroOperacional(f"aviso Pix {arquivo.data_referencia} sem link nem conteúdo ({arquivo.erro or 'sem detalhe'})")
-        texto = requisitar(arquivo.url_arquivo, mensagens={403: "link do arquivo Pix expirado; peça o arquivo de novo"}).corpo.decode("utf-8-sig")
+        texto = baixar_csv_recebido(arquivo.url_arquivo)
         with self.conn.cursor() as cur:
             cur.execute(
                 "update stone_pix_arquivo set conteudo = %s, baixado_em = now(), erro = null where id = %s;",
                 (texto, arquivo.id),
             )
         return texto
+
+    def recuperar_download(self, documento, dia):
+        """No máximo dois GETs de recuperação, separados por 1h; nunca POST Pix."""
+        for arquivo in self.arquivos(documento,dia):
+            if arquivo.conteudo is not None or not arquivo.url_arquivo:
+                continue
+            if 'HTTP 403' in (arquivo.erro or ''):
+                continue  # Endereço expirado não se recupera com novo pedido.
+            with self.conn, self.conn.cursor() as cur:
+                cur.execute('select pg_advisory_xact_lock(hashtextextended(%s,0))',
+                            (f'stone-pix-download:{documento}:{dia}',))
+                cur.execute('select coalesce(sum(tentativas_download),0),max(ultima_tentativa_download) '
+                            'from stone_pix_arquivo where documento=%s and data_referencia=%s', (documento,dia))
+                tentativas,ultima=cur.fetchone()
+                if tentativas>=2 or (ultima and datetime.now(ultima.tzinfo)-ultima<timedelta(hours=1)):
+                    return
+                cur.execute('update stone_pix_arquivo set tentativas_download=tentativas_download+1,'
+                            'ultima_tentativa_download=now() where id=%s and conteudo is null '
+                            "and tentativas_download<2 and (ultima_tentativa_download is null or ultima_tentativa_download<now()-interval '1 hour') "
+                            "and recebido_em>now()-interval '20 hours' returning id", (arquivo.id,))
+                reservado = cur.fetchone()
+            if not reservado:
+                continue
+            try:
+                self.conteudo(arquivo)
+                return
+            except ErroHttp as exc:
+                with self.conn.cursor() as cur:
+                    cur.execute('update stone_pix_arquivo set erro=%s where id=%s',
+                                (f'download do CSV respondeu HTTP {exc.status}',arquivo.id))
+            except (ErroOperacional,ValidacaoErro):
+                with self.conn.cursor() as cur:
+                    cur.execute('update stone_pix_arquivo set erro=%s where id=%s',('falha ao recuperar download do CSV',arquivo.id))
+            return  # Um único GET por rodada, mesmo com callbacks duplicados.
 
     def marcar_processado(self, arquivo: ArquivoPix) -> None:
         with self.conn.cursor() as cur:

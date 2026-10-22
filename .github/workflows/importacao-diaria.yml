@@ -1,10 +1,13 @@
 name: Importação diária por API
 
-# Um dia por rodada, às 06:10 de Fortaleza. XML e pedidos Pix ficam no banco
-# privado; repetir o workflow reaproveita arquivos sem repetir chamadas Stone.
+# Aquisição às 06:10/18:10 de Fortaleza; retomadas internas às11:10/16:10/23:10.
+# Cada aquisição permite só um XML e um Pix NUNCA pedidos. Repetições e
+# recuperações usam arquivos privados; nunca repetir um pedido reservado.
 on:
   schedule:
-    - cron: '10 9 * * *'
+    - cron: '10 9,21 * * *'
+    - cron: '10 2,14,19 * * *'
+    - cron: '10 3 * * *' # Verificação às00:10, depois do prazo do dia anterior.
   workflow_dispatch:
     inputs:
       dia:
@@ -12,6 +15,10 @@ on:
         default: ''
       dry_run:
         description: 'Conferir sem consultar a Stone nem gravar'
+        type: boolean
+        default: false
+      somente_cache:
+        description: 'Recuperar somente arquivos já guardados, sem rede bancária'
         type: boolean
         default: false
 
@@ -32,13 +39,15 @@ jobs:
       STONE_CONCILIACAO_API_KEY: ${{ secrets.STONE_CONCILIACAO_API_KEY }}
       DIA: ${{ inputs.dia }}
       DRY_RUN: ${{ inputs.dry_run || false }}
+      SOMENTE_CACHE: ${{ inputs.somente_cache || github.event.schedule == '10 2,14,19 * * *' }}
+      SO_SAUDE: ${{ github.event.schedule == '10 3 * * *' }}
       TZ: America/Fortaleza
       PYTHONIOENCODING: utf-8
     steps:
       - name: Segredos cadastrados
         shell: bash
         run: |
-          for nome in DATABASE_URL STONE_CONCILIACAO_API_KEY; do
+          for nome in DATABASE_URL; do
             [ -n "${!nome}" ] || { echo "Segredo $nome não cadastrado"; exit 1; }
           done
       - uses: actions/checkout@v4
@@ -53,6 +62,8 @@ jobs:
           args=()
           if [ -n "$DIA" ]; then args+=(--dia "$DIA"); fi
           if [ "$DRY_RUN" = "true" ]; then args+=(--dry-run); fi
+          if [ "$SOMENTE_CACHE" = "true" ]; then args+=(--somente-cache); else args+=(--recuperar-downloads); fi
+          if [ "$SO_SAUDE" = "true" ]; then args+=(--saude); fi
           status=0
           python scripts/importacao/api_stone_rotina.py "${args[@]}" > saida-stone.log 2>&1 || status=$?
           # Log público: não publicar XML, CSV, credenciais ou valores.

@@ -2,10 +2,10 @@ name: Extrato Stone via Meu Pluggy
 
 # Consulta e importa na nuvem. O PC do proprietario pode estar desligado.
 # Meu Pluggy sincroniza a origem diariamente; nunca solicitar PATCH do proxy.
-# 00:43 e 09:43 em Fortaleza. A segunda rodada recupera indisponibilidades.
+# 00:43, 09:43 e21:43 em Fortaleza. Rodada noturna confere a meta D+1.
 on:
   schedule:
-    - cron: '43 3,12 * * *'
+    - cron: '43 0,3,12 * * *'
   workflow_dispatch:
     inputs:
       dry_run:
