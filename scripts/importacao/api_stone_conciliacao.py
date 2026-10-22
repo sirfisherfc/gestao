@@ -36,14 +36,15 @@ MENSAGENS = {
     400: "data de referência ausente ou inválida",
     401: "chave recusada; confira STONE_CONCILIACAO_API_KEY no .env",
     403: (
-        "acesso negado; a chave cobre só os stonecodes do CNPJ que a criou. "
-        "Se o stonecode funcionou em outro dia, tente este de novo mais tarde"
+        "acesso negado; confira o CNPJ/stonecode e o acesso da chave com a Stone. "
+        "Não repita a consulta em sequência"
     ),
     429: "limite da Stone: 7 consultas por hora para o mesmo stonecode e dia; tente mais tarde",
     503: "a Stone está atualizando os arquivos; tente de novo depois das 4h (Brasília)",
 }
-# Sem estes, insistir só gasta a cota de 7 consultas por hora do mesmo dia.
-STATUS_QUE_ENCERRAM = {401, 429, 503}
+# Um 403 pode ocorrer mesmo após um arquivo aceito. Interromper toda a rodada,
+# inclusive outros dias/stonecodes, sem testar se a recusa continua.
+STATUS_QUE_ENCERRAM = {401, 403, 429, 503}
 # Decisão do proprietário em 21/10/2026: o e-commerce/link de pagamento não é
 # consultado na API, nem pela lista do banco nem por STONE_STONECODES. Continua
 # em stone_conta e no faturamento; só --stonecode explícito o consulta.
@@ -231,8 +232,7 @@ def verificar(chave: str, stonecodes: list[str], layout: str, hoje: date) -> Non
     print(f"Chave aceita pela Stone para o stonecode {stonecode}.")
     print(f"  arquivo de {ontem}: {resumo.texto()}")
     print(f"  layout informado no arquivo: {resumo.layout or '(não informado)'}")
-    if len(stonecodes) > 1:
-        print(f"  outros stonecodes a baixar: {', '.join(stonecodes[1:])}")
+    print("  verificação encerrada após uma única consulta; nenhum outro stonecode consultado")
 
 
 def baixar_periodo(
@@ -245,14 +245,9 @@ def baixar_periodo(
     """
     falhas: list[tuple[str, date, str]] = []
     pendentes = [(stonecode, dia) for stonecode in stonecodes for dia in dias]
-    descartar_stonecode = None
     for indice, (stonecode, dia) in enumerate(pendentes):
         if indice == 0 or pendentes[indice - 1][0] != stonecode:
             print(f"\n== Stonecode {stonecode} ==")
-            aceito = False
-        if stonecode == descartar_stonecode:
-            falhas.append((stonecode, dia, falhas[-1][2]))
-            continue
         destino = pasta / stonecode / f"{dia.isoformat()}.xml"
         if destino.exists() and not sobrescrever:
             print(f"  {dia}: já baixado, pulado")
@@ -263,14 +258,10 @@ def baixar_periodo(
             print(f"  {dia}: ERRO {exc}")
             falhas.append((stonecode, dia, str(exc)))
             if exc.status in STATUS_QUE_ENCERRAM:
-                falhas.extend((codigo, data, str(exc)) for codigo, data in pendentes[indice + 1:])
+                mensagem = f"não consultado: rodada interrompida após {exc}"
+                falhas.extend((codigo, data, mensagem) for codigo, data in pendentes[indice + 1:])
                 return falhas
-            # 403 logo na primeira consulta indica stonecode de outro CNPJ;
-            # depois de um dia aceito, a Stone também nega dias avulsos.
-            if exc.status == 403 and not aceito:
-                descartar_stonecode = stonecode
             continue
-        aceito = True
         salvar_atomico(destino, dados)
         print(f"  {dia}: {resumo.texto()}")
     return falhas

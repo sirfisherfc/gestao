@@ -3,6 +3,32 @@
 Objetivo: trocar a exportação manual de CSV por download automático, sem
 mudar as tabelas nem as regras do painel.
 
+## Diagnóstico e consulta única em 22/10/2026
+
+- Às 14:43 de Fortaleza, uma única requisição do arquivo de 21/10 para
+  o stonecode 770398216 retornou **HTTP 200**, com XML validado. Sem repetição,
+  redirecionamento ou consulta a outro stonecode. O XML ficou na pasta privada
+  já ignorada pelo Git; não houve importação nem alteração de dados no banco.
+  Esse sucesso pontual não comprova resolução permanente do 403 intermitente.
+- O histórico registra cerca de 120 consultas na carga de 20/10 e cinco testes
+  em 21/10. Volume é uma hipótese para a recusa, ainda sem confirmação da Stone.
+  Não repetir esses testes nem usar outro dia/stonecode para sondar o bloqueio.
+- O baixador agora interrompe toda a rodada no primeiro 403, mesmo que um
+  arquivo anterior tenha sido aceito. Os alvos restantes ficam como
+  **não consultados**, distinguindo pendências de novas requisições. A mesma
+  distinção vale para as interrupções por 401, 429 e 503. Os testes são sem rede.
+- As linhas de 22/10 às 10:58 no Status correspondem a uma execução Saipos:
+  sete dias de vendas e sete de cancelamentos, todos com o mesmo link do
+  Actions. A conciliação usa as vendas Stone já no banco; não consulta a Stone.
+- As vendas Stone de 21/10 no banco terminavam às **10:29**, importadas antes
+  do encerramento do dia. A Saipos já continha o turno completo de 21/10.
+  O Pluggy atualiza `raw_stone_extrato`, não `raw_stone_vendas`. O importador
+  automático de vendas Stone (cartão + Pix e deduplicação com o CSV) continua
+  pendente; baixar o XML ou atualizar recebíveis não preenche essa tabela.
+- O agendamento de `importacao-diaria.yml` permanece pausado desde 20/10, e
+  `STONE_CONCILIACAO_API_KEY` segue ausente dos Secrets do GitHub. Um teste
+  bem-sucedido não religa a rotina nem significa que as vendas foram atualizadas.
+
 ## Situação em 20/10/2026
 
 | Fonte no painel | API | Estado |
@@ -89,7 +115,11 @@ vier pela conciliação; até lá o CSV de vendas continua por causa do cartão.
    Conciliação Stone"**.
 3. Copiar a chave e colar no `gestao/.env`, sem enviá-la por chat:
    `STONE_CONCILIACAO_API_KEY=<chave>`.
-4. Testar: `python scripts/importacao/api_stone_conciliacao.py --verificar`.
+4. Quando for solicitado um diagnóstico, executar **uma única vez**:
+   `python scripts/importacao/api_stone_conciliacao.py --verificar --stonecode 770398216`.
+   O comando consulta somente o arquivo de ontem desse stonecode. Não repetir
+   em sequência nem consultar outros alvos após um erro. O teste de 22/10 já
+   foi feito; não executá-lo novamente para conferir este registro.
 
 Feito em 20/10/2026 com a chave "chaveapi-sirfisher". Ela funciona para
 770398216 (Praia) e 173835323 (link de pagamento). O 140366173 (Imprensa)
@@ -104,11 +134,12 @@ do banco ou de `STONE_STONECODES`. Segue em `stone_conta` e no faturamento;
 só um `--stonecode 173835323` explícito o consulta.
 Incidente de 20/10/2026: depois de cerca de 120 consultas em uma hora, a
 chave passou a receber 403 em todos os dias dos dois stonecodes, inclusive
-dias baixados com sucesso minutos antes. Um 403 não é 401: a chave continua
-reconhecida, mas sem permissão para os stonecodes. Conferir no site da Stone
-se a chave segue ativa e com os stonecodes; se estiver, perguntar à Stone se
-há bloqueio por volume. Em operação normal a rotina faz poucas consultas por
-dia: 3 dias × 2 stonecodes, pulando o que já baixou.
+dias baixados com sucesso minutos antes. O 403 informa uma recusa de acesso;
+sozinho não confirma chave válida, CNPJ incorreto ou bloqueio por volume.
+Conferir no site da Stone se a chave segue ativa e com os stonecodes; se
+estiver, perguntar à Stone se há bloqueio por volume. Desde 22/10, um 403
+encerra toda a rodada sem consultar outros dias ou stonecodes. O agendamento
+continua pausado; o padrão atual exclui o link de pagamento.
 
 Limites documentados pela Stone: o arquivo de um dia sai no dia seguinte a
 partir das 4h (HTTP 503 antes disso), e cada combinação de stonecode e dia

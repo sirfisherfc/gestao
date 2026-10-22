@@ -4846,3 +4846,32 @@ pares de orientação da raiz ao concluir a troca de IA.
 - Para medir de novo: `?perf=1` no navegador e `medir_desempenho.py logs`.
 
 — Claude
+
+## 2026-10-22 · Codex — Stone: teste único e interrupção no 403
+
+- Pedido do proprietário: explicar as execuções seguidas e o dia 21 incompleto,
+  com **um único teste** para evitar nova sequência de consultas.
+- Teste real já concluído às **14:43 de Fortaleza**: exatamente uma requisição
+  do arquivo de 21/10/2026, stonecode 770398216, layout XML2_4; **HTTP 200** e
+  cabeçalho XML validado. Sem retry/redirecionamento, outro dia ou stonecode.
+  XML e marcador do teste ficaram ignorados pelo Git. **Não testar novamente**
+  para validar esta entrega; o sucesso pontual não garante fim da intermitência.
+- Auditoria somente leitura no portal: vendas Stone de 21/10 param às 10:29,
+  após carga manual ainda na manhã de 21/10; Saipos já contém o turno de 21/10.
+  Pluggy atualiza extrato, não vendas. A automação de vendas Stone completa,
+  com Pix/deduplicação do CSV, continua pendente; teste não importou dados.
+- As 14 linhas Saipos às 10:58 de 22/10 pertencem à mesma execução do Actions
+  (39791447637): sete dias de vendas e sete de cancelamentos. Não são novas
+  consultas à Stone. O erro de recebíveis exibido é de 20/10, não deste teste.
+- `api_stone_conciliacao.py`: primeiro 403 agora interrompe toda a rodada,
+  inclusive após um sucesso. Pendências registradas como "não consultado";
+  removida a orientação de tentar novamente. Testes sem rede cobrem 403
+  inicial/após sucesso, outros stonecodes, cache e `--verificar` com uma consulta.
+- Agendamento direto segue pausado; chave da Conciliação ausente dos Secrets.
+  Histórico anterior registra ~120 consultas em 20/10 e cinco testes em 21/10;
+  relação entre volume e 403 continua hipótese, sem confirmação da Stone.
+- Validação local: `test_api_bancos.py` e `test_importacao.py` passaram sem
+  consultas reais; `check_project.py` e `git diff --check` passaram. Node não
+  está disponível nesta máquina; a validação completa de JavaScript fica no CI.
+
+— Codex

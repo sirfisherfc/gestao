@@ -181,13 +181,12 @@ def test_stone_baixar_periodo() -> None:
         existente.parent.mkdir(parents=True)
         existente.write_bytes(b"antigo")
         dias = [date(2026, 10, 18), date(2026, 10, 19)]
-        # Stonecode 1: dia 18 já existe; dia 19 dá 403 e encerra só ele.
-        # Stonecode 2: dia 18 baixa normalmente, dia 19 também.
-        respostas = [403, RespostaFake(xml_segundo.replace(b"20261019", b"20261018")), RespostaFake(xml_segundo)]
+        # Arquivo em cache não consome consulta; os demais são salvos normalmente.
+        respostas = [RespostaFake(XML_STONE), RespostaFake(xml_segundo.replace(b"20261019", b"20261018")), RespostaFake(xml_segundo)]
         with rede(respostas) as fake:
             falhas = api_stone_conciliacao.baixar_periodo("k", ["123456789", "555"], dias, "XML2_4", pasta, False)
-        if [(codigo, dia) for codigo, dia, _ in falhas] != [("123456789", date(2026, 10, 19))] or len(fake.pedidos) != 3:
-            raise AssertionError(f"esperado 1 falha e 3 pedidos, veio {falhas} e {len(fake.pedidos)}")
+        if falhas or len(fake.pedidos) != 3:
+            raise AssertionError(f"esperado cache preservado, sem falhas e 3 pedidos: {falhas}, {len(fake.pedidos)}")
         if existente.read_bytes() != b"antigo":
             raise AssertionError("arquivo já baixado não deveria ser substituído sem --sobrescrever")
         if not (pasta / "555" / "2026-10-19.xml").exists():
@@ -195,16 +194,38 @@ def test_stone_baixar_periodo() -> None:
         if list(pasta.rglob("*.parcial")):
             raise AssertionError("gravação atômica deixou arquivo temporário")
 
-        # 429 encerra a rodada: o dia consultado e os pendentes entram como falha.
-        with rede([429]) as fake:
-            falhas = api_stone_conciliacao.baixar_periodo("k", ["777", "888"], dias, "XML2_4", pasta, False)
-        if len(fake.pedidos) != 1 or len(falhas) != 4 or "7 consultas por hora" not in falhas[-1][2]:
-            raise AssertionError(f"429 deveria encerrar e marcar os 4 dias pendentes: {falhas}")
-        # 403 na primeira consulta descarta o stonecode inteiro, sem novos pedidos.
-        with rede([403]) as fake:
-            falhas = api_stone_conciliacao.baixar_periodo("k", ["999"], dias, "XML2_4", pasta, False)
-        if len(fake.pedidos) != 1 or len(falhas) != 2:
-            raise AssertionError(f"403 inicial deveria marcar os 2 dias com um só pedido: {falhas}")
+        # Recusas encerram a rodada inteira; outro stonecode não vira novo teste.
+        for status in (401, 403, 429, 503):
+            with rede([status]) as fake:
+                falhas = api_stone_conciliacao.baixar_periodo("k", ["777", "888"], dias, "XML2_4", pasta, False)
+            if len(fake.pedidos) != 1 or len(falhas) != 4:
+                raise AssertionError(f"{status} deveria encerrar os 4 alvos com um só pedido: {falhas}")
+            if "não consultado" in falhas[0][2] or any("não consultado" not in falha[2] for falha in falhas[1:]):
+                raise AssertionError("o registro deve distinguir o erro recebido dos alvos não consultados")
+
+        # Um sucesso anterior não autoriza insistir depois de um 403.
+        dias = [date(2026, 10, 19), date(2026, 10, 20), date(2026, 10, 21)]
+        with rede([RespostaFake(XML_STONE), 403]) as fake:
+            falhas = api_stone_conciliacao.baixar_periodo("k", ["123456789", "555"], dias, "XML2_4", pasta, True)
+        if len(fake.pedidos) != 2 or len(falhas) != 5:
+            raise AssertionError(f"403 após sucesso deveria encerrar os demais dias/stonecodes: {falhas}")
+        if not (pasta / "123456789" / "2026-10-19.xml").is_file():
+            raise AssertionError("arquivo aceito antes do 403 deve ser preservado")
+        if any("não consultado" not in falha[2] for falha in falhas[1:]):
+            raise AssertionError("os alvos posteriores ao 403 não podem parecer novas consultas")
+
+
+def test_stone_verificar_unico() -> None:
+    # O diagnóstico consulta só o primeiro stonecode, sem baixar outros ou salvar.
+    for resposta in (RespostaFake(XML_STONE), 403):
+        with rede([resposta]) as fake, mock.patch.object(api_stone_conciliacao, "salvar_atomico") as salvar:
+            argumentos = ("k", ["123456789", "555"], "XML2_4", date(2026, 10, 20))
+            if isinstance(resposta, int):
+                esperar_erro(ErroOperacional, "HTTP 403", api_stone_conciliacao.verificar, *argumentos)
+            else:
+                api_stone_conciliacao.verificar(*argumentos)
+            if len(fake.pedidos) != 1 or salvar.called:
+                raise AssertionError("--verificar deve fazer exatamente uma consulta, sem salvar")
 
 
 def xml_conciliacao(dia: str, transacoes: str = "", liquidacoes: str = "") -> bytes:
@@ -663,6 +684,7 @@ def main() -> int:
     test_stone_requisicao()
     test_stone_cabecalho_e_erros()
     test_stone_baixar_periodo()
+    test_stone_verificar_unico()
     test_recebiveis_stone()
     test_pix_stone()
     test_pix_extrato()
@@ -672,7 +694,7 @@ def main() -> int:
     test_saipos_vendas()
     test_saipos_cancelamentos()
     test_cli_sem_credenciais()
-    print("API_BANCOS_TESTS_OK stone=3 recebiveis=1 pix=1 pix_extrato=1 saipos=2 bb=3 cli=2")
+    print("API_BANCOS_TESTS_OK stone=4 recebiveis=1 pix=1 pix_extrato=1 saipos=2 bb=3 cli=2")
     return 0
 
 
