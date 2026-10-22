@@ -4994,9 +4994,10 @@ em `scripts/cardapio/catalogo_inicial.py` (cabeçalho e notas por produto).
   atualização restrita; recuperação por cache; calendário de dias esperados;
   conclusão por etapa incluindo refresh; saúde/prazo/frescor da origem visíveis.
   Não desfazer reservas/pausas de acesso automaticamente para tentar de novo.
-- Pergunta opcional de prazo apresentada ao proprietário; 10h é apenas meta
-  proposta enquanto não houver resposta. Separar dia civil do turno Saipos
-  08h–08h. Alerta externo/canal e cobertura do link ainda precisam definição.
+- Proprietário respondeu à pergunta de prazo: **até o fim do dia seguinte**
+  (23h59 de D+1, Fortaleza). Meta incorporada ao desenho, sem mudar cron.
+  Separar dia civil do turno Saipos 08h–08h. Alerta externo/canal e cobertura
+  do link ainda precisam definição.
 - Documentação oficial conferida: GitHub pode atrasar/descartar agendamento;
   Meu Pluggy atualiza a origem a cada 24h; HTTP 403 significa acesso proibido,
   não prova por si só bloqueio por volume. Repositórios e pares raiz conferidos.

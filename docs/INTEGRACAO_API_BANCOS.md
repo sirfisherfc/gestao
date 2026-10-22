@@ -121,10 +121,19 @@ apresentar uma atualização aparente.
    essas etapas sem reinserir valores. Aumentar consultas ao proxy não adianta
    uma sincronização da origem que ainda não ocorreu.
 
+Meta operacional confirmada pelo proprietário: dia civil D fechado até
+**23h59 de D+1 em America/Fortaleza**. Manter aquisição inicial às 06h10;
+propor retomadas dos arquivos privados durante o dia e conferência final antes
+do prazo. Para o extrato, avaliar uma rodada à noite, além das duas atuais,
+sempre verificando o frescor da origem. Os horários de retomada são desenho,
+não mudanças já publicadas. Prazo vencido com fonte indisponível deve indicar
+atraso e causa; não converter a meta em garantia de disponibilidade externa.
+
 ### Decisões e informações que faltam
 
-- Prazo operacional para D+1: 10h foi apresentado como primeira opção, ainda
-  sem confirmação do proprietário. É meta proposta, não prazo garantido.
+- Prazo operacional **definido**: até o fim do dia seguinte (23h59 em
+  Fortaleza), conforme resposta do proprietário em 22/10. Falta medir o frescor
+  efetivo das fontes para verificar se atendem consistentemente à meta.
 - Separar dia civil financeiro de turno Saipos (08h a 08h). Se houve venda na
   madrugada de hoje atribuída ao turno de ontem, seu arquivo Stone de hoje só
   estará disponível amanhã; não prometer turno inteiramente conciliado antes.
@@ -156,6 +165,9 @@ apresentar uma atualização aparente.
   extrato. Conciliação Saipos aponta diferenças reais sem ajustar à força.
 - Meta de atualização e atraso da origem são visíveis; fonte atrasada ou
   inacessível gera pendência explícita, jamais indicação de fechamento falso.
+- Dia civil D concluído até 23h59 de D+1 em Fortaleza quando os arquivos
+  estiverem disponíveis; ultrapassar o prazo gera atraso identificável. Turno
+  que cruza a meia-noite tem janela distinta, sem antecipar dados da Stone.
 - Ciclos agendados reais comprovam funcionamento sem PC e sem operação manual,
   além dos testes sem rede de falhas, concorrência, dia vazio e retomada.
 
