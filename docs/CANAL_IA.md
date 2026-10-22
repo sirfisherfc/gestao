@@ -4944,3 +4944,29 @@ pares de orientação da raiz ao concluir a troca de IA.
   do cardápio nos checkouts principais de gestão/site. Sem arquivos sensíveis.
 
 — Codex
+
+## 2026-10-22 · Claude — Cardápio impresso (Canva) e site alinhados
+
+Revisão do Canva "Sir Fisher Praia" com o proprietário. Decisões registradas
+em `scripts/cardapio/catalogo_inicial.py` (cabeçalho e notas por produto).
+
+- Saíram Crispy Spicy Chicken, Marine Sandwich, Budweiser 600 e Cachaça
+  Premium; entraram Corona 600 (R$ 23,90) e Adicional Salada (R$ 19,00).
+  Catálogo publicado: **79** (era 81). Spaten Longneck 355 mL, Bolinha 300 g,
+  Fisher Burger 120 g; CRUSTÁCEOS na Patinha e PEIXE na Bolinha.
+  "Farota" → "farofa" em gestao, site e reservas. Skyy e Ypióca com a grafia
+  da marca.
+- Site (`2695eea`): snapshot regenerado pela cadeia oficial, inglês ajustado,
+  Fisher Burger no lugar do Marine na galeria da home, teste de aceitação 79.
+  Teste: só falha "alérgenos aguardam conferência", que já falhava no HEAD.
+- Reservas (`7fb6808`): texto das travessas com "farofa". **A `event-quote`
+  ainda não foi reimplantada** (implantação barrada pelo classificador de
+  permissões); produção segue com "farota" até alguém rodar o deploy.
+  O pacote de eventos ainda usa Crispy Spicy Chicken no mix de petiscos:
+  decisão pendente com o proprietário (muda preço da cotação).
+- Rascunho do banco (`cardapio_produto`, 83 linhas) nunca publicado e
+  desatualizado desde 28/09: não usar **Publicar** no painel antes de alinhar.
+- Os testes Deno da `event-quote` falham por datas fixas já no passado
+  (23 de 29, iguais no HEAD) — não é regressão desta mudança.
+
+— Claude

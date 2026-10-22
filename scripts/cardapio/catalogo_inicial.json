@@ -1,5 +1,5 @@
 {
- "gerado_em": "2026-09-29",
+ "gerado_em": "2026-10-22",
  "estado_catalogo": "em_conferencia",
  "nota_estado": "Catálogo reconciliado a partir do cadastro, do cardápio HTML e do cardápio impresso. Nenhum preço, porção ou declaração alimentar foi confirmado pela cozinha ou pela operação até esta data.",
  "moeda": "BRL",
@@ -84,7 +84,7 @@
   {
    "id": "para-dividir",
    "nome": "Pratos para compartilhar",
-   "resumo": "Servidos na travessa, com arroz, batata frita (ou macaxeira), salada, farota e molho artesanal.",
+   "resumo": "Servidos na travessa, com arroz, batata frita (ou macaxeira), salada, farofa e molho artesanal.",
    "grupo": "comer",
    "subgrupos": []
   },
@@ -294,8 +294,7 @@
     "classico-da-casa"
    ],
    "pendencias": [
-    "porcao",
-    "nome"
+    "porcao"
    ],
    "fontes": [
     "TXT",
@@ -303,7 +302,7 @@
     "PDF"
    ],
    "notas_internas": [
-    "O cardápio impresso chama esta versão de “Original — Fish N’ Chips”. A descrição coincide, mas o nome não foi trocado sem confirmação da operação."
+    "O cardápio impresso chamava esta versão de “Original — Fish N’ Chips”. Em 22/10/2026 o proprietário alinhou o impresso ao cadastro: London — Fish & Chips."
    ],
    "publicar": true,
    "disponivel": true,
@@ -352,13 +351,12 @@
    "alimentar": {
     "declarados": [
      "GLÚTEN",
-     "LACTOSE"
+     "LACTOSE",
+     "CRUSTÁCEOS"
     ],
     "fonte": "Sir Fisher Praia.pdf, página 1",
     "estado": "declarado_no_impresso",
-    "divergencias": [
-     "O nome e a descrição citam caranguejo, mas o impresso não traz o símbolo de CRUSTÁCEOS neste bloco. Divergência registrada para conferência: a ausência do símbolo não indica ausência do ingrediente."
-    ],
+    "divergencias": [],
     "alegacoes": [],
     "confirmado_cozinha": [],
     "contato_cruzado": []
@@ -381,17 +379,14 @@
    "etiquetas": [
     "do-mar"
    ],
-   "pendencias": [
-    "alimentar",
-    "nome"
-   ],
+   "pendencias": [],
    "fontes": [
     "TXT",
     "HTML",
     "PDF"
    ],
    "notas_internas": [
-    "O impresso usa “PATA DE CARANGUEJO”; o cadastro usa “Patinha de caranguejo”. Nome de exibição mantido conforme o cadastro."
+    "O impresso usava “PATA DE CARANGUEJO” e não trazia o símbolo de CRUSTÁCEOS. Em 22/10/2026 o proprietário adotou “Patinha” nos dois e mandou incluir o símbolo."
    ],
    "publicar": true,
    "disponivel": true,
@@ -418,17 +413,20 @@
    "inclui": [],
    "opcoes": [],
    "porcao": {
-    "texto": "6 unidades",
+    "texto": "6 unidades / 300 g",
     "principal": null,
-    "total": null,
+    "total": {
+     "valor": 300,
+     "unidade": "g"
+    },
     "unidades": {
      "quantidade": 6,
      "rotulo": "bolinhas"
     },
     "rende_pessoas": null,
-    "estado": "parcial",
-    "divergencia": "Peso divergente — TXT e HTML: 300 g. Cardápio impresso: 200 g.",
-    "nota": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": "O cardápio impresso informa “peso in natura”. Alcance por prato ainda em conferência.",
     "fontes": [
      "TXT",
      "HTML",
@@ -438,13 +436,12 @@
    "alimentar": {
     "declarados": [
      "GLÚTEN",
-     "LACTOSE"
+     "LACTOSE",
+     "PEIXE"
     ],
     "fonte": "Sir Fisher Praia.pdf, página 1",
     "estado": "declarado_no_impresso",
-    "divergencias": [
-     "A descrição cita pescada amarela, mas o impresso não traz o símbolo de PEIXE neste bloco. Divergência registrada para conferência."
-    ],
+    "divergencias": [],
     "alegacoes": [],
     "confirmado_cozinha": [],
     "contato_cruzado": []
@@ -467,16 +464,15 @@
    "etiquetas": [
     "do-mar"
    ],
-   "pendencias": [
-    "porcao",
-    "alimentar"
-   ],
+   "pendencias": [],
    "fontes": [
     "TXT",
     "HTML",
     "PDF"
    ],
-   "notas_internas": [],
+   "notas_internas": [
+    "O impresso dizia 200 g e não trazia o símbolo de PEIXE. Em 22/10/2026 o proprietário confirmou 300 g, como no TXT e no HTML, e mandou incluir o símbolo."
+   ],
    "publicar": true,
    "disponivel": true,
    "ordem": 3,
@@ -931,90 +927,6 @@
    "indice_busca": "2 a camarao camaroes carne com crocantes dez escolher. especial especial. molho pasteis pasteizinho pasteizinhos pastel queijo queijos sabor"
   },
   {
-   "id": "crispy-spicy-chicken",
-   "categoria": "petiscos",
-   "subgrupo": "terra",
-   "nome": "Crispy Spicy Chicken",
-   "nome_original": "Crispy Spicy Chicken",
-   "descritor": "rolinhos de frango empanados recheados com queijo",
-   "descricao": "Marinado em especiarias e frito na hora. Acompanha molho cremoso.",
-   "detalhe": null,
-   "preco_centavos": 3700,
-   "preco_estado": "declarado",
-   "variantes": [],
-   "adicionais": [],
-   "inclui": [
-    "Molho cremoso"
-   ],
-   "opcoes": [],
-   "porcao": {
-    "texto": "200 g",
-    "principal": null,
-    "total": {
-     "valor": 200,
-     "unidade": "g"
-    },
-    "unidades": null,
-    "rende_pessoas": null,
-    "estado": "parcial",
-    "divergencia": "O impresso descreve “4 grandes rolinhos” e não informa peso. As duas informações podem se somar; confirmar a apresentação vigente.",
-    "nota": "O cardápio impresso informa “peso in natura”. Alcance por prato ainda em conferência.",
-    "fontes": [
-     "TXT",
-     "HTML",
-     "PDF"
-    ]
-   },
-   "alimentar": {
-    "declarados": [
-     "GLÚTEN",
-     "LACTOSE"
-    ],
-    "fonte": "Sir Fisher Praia.pdf, página 1",
-    "estado": "declarado_no_impresso",
-    "divergencias": [],
-    "alegacoes": [],
-    "confirmado_cozinha": [],
-    "contato_cruzado": []
-   },
-   "foto": {
-    "base": "crispy-spicy-chicken-sir-fisher",
-    "larguras": [
-     440,
-     660
-    ],
-    "alt": "Tiras de frango crocantes e levemente apimentadas, servidas com molho especial",
-    "estado": "conferido"
-   },
-   "termos": [
-    "frango",
-    "queijo",
-    "empanado",
-    "apimentado",
-    "rolinho"
-   ],
-   "etiquetas": [
-    "da-terra"
-   ],
-   "pendencias": [
-    "porcao"
-   ],
-   "fontes": [
-    "TXT",
-    "HTML",
-    "PDF"
-   ],
-   "notas_internas": [],
-   "publicar": true,
-   "disponivel": true,
-   "ordem": 9,
-   "preco": {
-    "tipo": "exato",
-    "centavos": 3700
-   },
-   "indice_busca": "acompanha apimentado chicken com cremoso cremoso. crispy de e em empanado empanados especiarias frango frito hora. marinado molho na queijo recheados rolinho rolinhos spicy"
-  },
-  {
    "id": "file-mignon-trinchado",
    "categoria": "petiscos",
    "subgrupo": "terra",
@@ -1094,11 +1006,11 @@
     "PDF"
    ],
    "notas_internas": [
-    "Produto distinto do “Filé Mignon” dos pratos para compartilhar (R$ 90,00), que vem com arroz, salada, farota e molho."
+    "Produto distinto do “Filé Mignon” dos pratos para compartilhar (R$ 90,00), que vem com arroz, salada, farofa e molho."
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 10,
+   "ordem": 9,
    "preco": {
     "tipo": "exato",
     "centavos": 8400
@@ -1178,7 +1090,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 11,
+   "ordem": 10,
    "preco": {
     "tipo": "exato",
     "centavos": 1800
@@ -1260,7 +1172,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 12,
+   "ordem": 11,
    "preco": {
     "tipo": "exato",
     "centavos": 4700
@@ -1342,7 +1254,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 13,
+   "ordem": 12,
    "preco": {
     "tipo": "exato",
     "centavos": 2900
@@ -1431,7 +1343,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 14,
+   "ordem": 13,
    "preco": {
     "tipo": "exato",
     "centavos": 4600
@@ -1524,7 +1436,7 @@
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 15,
+   "ordem": 14,
    "preco": {
     "tipo": "exato",
     "centavos": 2700
@@ -1609,7 +1521,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 16,
+   "ordem": 15,
    "preco": {
     "tipo": "exato",
     "centavos": 4200
@@ -1642,14 +1554,18 @@
    "inclui": [],
    "opcoes": [],
    "porcao": {
-    "texto": null,
-    "principal": null,
+    "texto": "120 g de peixe",
+    "principal": {
+     "valor": 120,
+     "unidade": "g",
+     "alcance": "proteina"
+    },
     "total": null,
     "unidades": null,
     "rende_pessoas": null,
-    "estado": "parcial",
-    "divergencia": "As fontes citam 120 g sem dizer se é o total das duas fatias ou o peso de cada uma.",
-    "nota": "Peso em conferência com a cozinha.",
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": "O cardápio impresso informa “peso in natura”. Alcance por prato ainda em conferência.",
     "fontes": [
      "TXT",
      "HTML",
@@ -1690,20 +1606,19 @@
    "etiquetas": [
     "do-mar"
    ],
-   "pendencias": [
-    "porcao"
-   ],
+   "pendencias": [],
    "fontes": [
     "TXT",
     "HTML",
     "PDF"
    ],
    "notas_internas": [
-    "O sanduíche custa R$ 37,00. O adicional de batata (R$ 9,90) é a primeira oferta estruturada no HTML e nunca deve ser lido como preço do produto."
+    "O sanduíche custa R$ 37,00. O adicional de batata (R$ 9,90) é a primeira oferta estruturada no HTML e nunca deve ser lido como preço do produto.",
+    "As fontes citavam 120 g sem dizer se era o total das duas fatias. Em 22/10/2026 o proprietário confirmou 120 g."
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 17,
+   "ordem": 16,
    "preco": {
     "tipo": "exato",
     "centavos": 3700
@@ -1799,103 +1714,12 @@
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 18,
+   "ordem": 17,
    "preco": {
     "tipo": "exato",
     "centavos": 3700
    },
    "indice_busca": "120 a adicionar alface alface, bacon bacon. batata batatas blend bovino brioche brioche, capital carne carne, cheddar cheddar. com composto crocante, da de e edimburger em escocia especial fatias fresco, frita fritas g generosas hamburguer homenagem macio, maionese o pao por presta sanduiche servido tomate tomate, um"
-  },
-  {
-   "id": "marine-sandwich",
-   "categoria": "sanduiches",
-   "subgrupo": null,
-   "nome": "Marine Sandwich",
-   "nome_original": "Marine Sandwich",
-   "descritor": "camarões salteados com cream cheese empanado",
-   "descricao": "Com molho aioli, alface e pepino, em pão brioche.",
-   "detalhe": null,
-   "preco_centavos": 4600,
-   "preco_estado": "declarado",
-   "variantes": [],
-   "adicionais": [
-    {
-     "nome": "Adicionar batata frita",
-     "preco_centavos": 990,
-     "fontes": [
-      "HTML",
-      "PDF"
-     ],
-     "estado": "declarado"
-    }
-   ],
-   "inclui": [],
-   "opcoes": [],
-   "porcao": {
-    "texto": null,
-    "principal": null,
-    "total": null,
-    "unidades": null,
-    "rende_pessoas": null,
-    "estado": "ausente",
-    "divergencia": null,
-    "nota": "Nenhuma fonte informa peso ou quantidade.",
-    "fontes": []
-   },
-   "alimentar": {
-    "declarados": [
-     "GLÚTEN",
-     "CRUSTÁCEOS",
-     "OVO",
-     "LACTOSE"
-    ],
-    "fonte": "Sir Fisher Praia.pdf, página 1",
-    "estado": "declarado_no_impresso",
-    "divergencias": [],
-    "alegacoes": [],
-    "confirmado_cozinha": [],
-    "contato_cruzado": []
-   },
-   "foto": {
-    "base": "marine-sandwich-sir-fisher",
-    "larguras": [
-     440,
-     660
-    ],
-    "alt": "Sanduíche em pão brioche coberto de camarões salteados",
-    "estado": "conferido"
-   },
-   "termos": [
-    "camarao",
-    "sanduiche",
-    "cream cheese",
-    "aioli",
-    "brioche",
-    "frutos do mar"
-   ],
-   "etiquetas": [
-    "do-mar"
-   ],
-   "pendencias": [
-    "porcao"
-   ],
-   "fontes": [
-    "TXT",
-    "HTML",
-    "PDF"
-   ],
-   "notas_internas": [
-    "O impresso não cita o pepino presente no cadastro. Omissão não retira o ingrediente.",
-    "Preço do sanduíche: R$ 46,00. Adicional de batata em separado."
-   ],
-   "publicar": true,
-   "disponivel": true,
-   "ordem": 19,
-   "preco": {
-    "tipo": "exato",
-    "centavos": 4600
-   },
-   "indice_busca": "adicionar aioli aioli, alface batata batatas brioche brioche. camarao camaroes cheese com cream do e em empanado frita fritas frutos mar marine molho pao pepino, salteados sanduiche sandwich"
   },
   {
    "id": "file-mignon-dividir",
@@ -1924,7 +1748,7 @@
     "Arroz",
     "Batata frita ou macaxeira",
     "Salada",
-    "Farota",
+    "Farofa",
     "Molho artesanal"
    ],
    "opcoes": [
@@ -1982,7 +1806,7 @@
     "para dividir",
     "compartilhar",
     "arroz",
-    "farota"
+    "farofa"
    ],
    "etiquetas": [
     "para-compartilhar"
@@ -2000,12 +1824,12 @@
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 20,
+   "ordem": 18,
    "preco": {
     "tipo": "exato",
     "centavos": 9000
    },
-   "indice_busca": "aipim alho ao arroz artesanal batata batatas carne com compartilhar dividir e extra farota file frita fritas macaxeira madeira mandioca mignon molho oleo oleo. ou para preparado salada suculento,"
+   "indice_busca": "aipim alho ao arroz artesanal batata batatas carne com compartilhar dividir e extra farofa file frita fritas macaxeira madeira mandioca mignon molho oleo oleo. ou para preparado salada suculento,"
   },
   {
    "id": "picanha-importada",
@@ -2034,7 +1858,7 @@
     "Arroz",
     "Batata frita ou macaxeira",
     "Salada",
-    "Farota",
+    "Farofa",
     "Molho artesanal"
    ],
    "opcoes": [
@@ -2093,7 +1917,7 @@
     "para dividir",
     "compartilhar",
     "arroz",
-    "farota"
+    "farofa"
    ],
    "etiquetas": [
     "para-compartilhar"
@@ -2111,12 +1935,12 @@
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 21,
+   "ordem": 19,
    "preco": {
     "tipo": "exato",
     "centavos": 9900
    },
-   "indice_busca": "aipim arroz artesanal batata batatas carne charbroil compartilhar dividir e extra farota frita fritas grelhada importada importada, macaxeira mandioca molho no ou para picanha realcar sabor salada suculencia."
+   "indice_busca": "aipim arroz artesanal batata batatas carne charbroil compartilhar dividir e extra farofa frita fritas grelhada importada importada, macaxeira mandioca molho no ou para picanha realcar sabor salada suculencia."
   },
   {
    "id": "file-de-peixe-grelhado",
@@ -2145,7 +1969,7 @@
     "Arroz",
     "Batata frita ou macaxeira",
     "Salada",
-    "Farota",
+    "Farofa",
     "Molho artesanal"
    ],
    "opcoes": [
@@ -2204,7 +2028,7 @@
     "para dividir",
     "compartilhar",
     "arroz",
-    "farota"
+    "farofa"
    ],
    "etiquetas": [
     "para-compartilhar"
@@ -2222,12 +2046,12 @@
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 22,
+   "ordem": 20,
    "preco": {
     "tipo": "exato",
     "centavos": 8000
    },
-   "indice_busca": "aipim amarela arroz artesanal batata batatas cheio compartilhar de dividir e extra farota file frita fritas grelhado grelhado, leve macaxeira mandioca molho ou para peixe pescada sabor. salada"
+   "indice_busca": "aipim amarela arroz artesanal batata batatas cheio compartilhar de dividir e extra farofa file frita fritas grelhado grelhado, leve macaxeira mandioca molho ou para peixe pescada sabor. salada"
   },
   {
    "id": "carne-de-sol-acebolada",
@@ -2256,7 +2080,7 @@
     "Arroz",
     "Batata frita ou macaxeira",
     "Salada",
-    "Farota",
+    "Farofa",
     "Molho artesanal"
    ],
    "opcoes": [
@@ -2313,7 +2137,7 @@
     "para dividir",
     "compartilhar",
     "arroz",
-    "farota"
+    "farofa"
    ],
    "etiquetas": [
     "para-compartilhar"
@@ -2331,12 +2155,12 @@
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 23,
+   "ordem": 21,
    "preco": {
     "tipo": "exato",
     "centavos": 8800
    },
-   "indice_busca": "acebolada acompanhada aipim arroz artesanal batata batatas carne cebola cebolas compartilhar de dividir douradas. extra farota frita fritas macaxeira mandioca molho ou para primeira, salada sol"
+   "indice_busca": "acebolada acompanhada aipim arroz artesanal batata batatas carne cebola cebolas compartilhar de dividir douradas. extra farofa frita fritas macaxeira mandioca molho ou para primeira, salada sol"
   },
   {
    "id": "peito-de-frango-com-ervas",
@@ -2365,7 +2189,7 @@
     "Arroz",
     "Batata frita ou macaxeira",
     "Salada",
-    "Farota",
+    "Farofa",
     "Molho artesanal"
    ],
    "opcoes": [
@@ -2424,7 +2248,7 @@
     "para dividir",
     "compartilhar",
     "arroz",
-    "farota"
+    "farofa"
    ],
    "etiquetas": [
     "para-compartilhar"
@@ -2442,12 +2266,12 @@
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 24,
+   "ordem": 22,
    "preco": {
     "tipo": "exato",
     "centavos": 6200
    },
-   "indice_busca": "aipim arroz artesanal batata batatas charbroil charbroil. com compartilhar de dividir e ervas extra farota finas frango frita fritas grelhado macaxeira mandioca molho no ou para peito salada temperado"
+   "indice_busca": "aipim arroz artesanal batata batatas charbroil charbroil. com compartilhar de dividir e ervas extra farofa finas frango frita fritas grelhado macaxeira mandioca molho no ou para peito salada temperado"
   },
   {
    "id": "picanha-suina",
@@ -2476,7 +2300,7 @@
     "Arroz",
     "Batata frita ou macaxeira",
     "Salada",
-    "Farota",
+    "Farofa",
     "Molho artesanal"
    ],
    "opcoes": [
@@ -2535,7 +2359,7 @@
     "para dividir",
     "compartilhar",
     "arroz",
-    "farota"
+    "farofa"
    ],
    "etiquetas": [
     "para-compartilhar"
@@ -2553,12 +2377,12 @@
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 25,
+   "ordem": 23,
    "preco": {
     "tipo": "exato",
     "centavos": 6700
    },
-   "indice_busca": "aipim arroz artesanal batata batatas charbroil charbroil. compartilhar dividir extra farota frita fritas grelhada macaxeira mandioca molho no ou para picanha porco salada suina"
+   "indice_busca": "aipim arroz artesanal batata batatas charbroil charbroil. compartilhar dividir extra farofa frita fritas grelhada macaxeira mandioca molho no ou para picanha porco salada suina"
   },
   {
    "id": "brownie-de-chocolate",
@@ -2620,7 +2444,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 26,
+   "ordem": 24,
    "preco": {
     "tipo": "exato",
     "centavos": 1000
@@ -2688,7 +2512,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 27,
+   "ordem": 25,
    "preco": {
     "tipo": "exato",
     "centavos": 1800
@@ -2764,7 +2588,7 @@
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 28,
+   "ordem": 26,
    "preco": {
     "tipo": "exato",
     "centavos": 500
@@ -2830,7 +2654,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 29,
+   "ordem": 27,
    "preco": {
     "tipo": "exato",
     "centavos": 1090
@@ -2853,13 +2677,16 @@
    "inclui": [],
    "opcoes": [],
    "porcao": {
-    "texto": null,
+    "texto": "355 mL",
     "principal": null,
-    "total": null,
+    "total": {
+     "valor": 355,
+     "unidade": "mL"
+    },
     "unidades": null,
     "rende_pessoas": null,
-    "estado": "divergente",
-    "divergencia": "Volume divergente — HTML: 355 mL. Cardápio impresso: 300 mL.",
+    "estado": "declarado",
+    "divergencia": null,
     "nota": null,
     "fontes": [
      "HTML",
@@ -2884,18 +2711,18 @@
    "etiquetas": [
     "bebida"
    ],
-   "pendencias": [
-    "porcao"
-   ],
+   "pendencias": [],
    "fontes": [
     "TXT",
     "HTML",
     "PDF"
    ],
-   "notas_internas": [],
+   "notas_internas": [
+    "O HTML dizia 355 mL e o impresso 300 mL. Em 22/10/2026 o proprietário confirmou 355 mL e o impresso foi corrigido."
+   ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 30,
+   "ordem": 28,
    "preco": {
     "tipo": "exato",
     "centavos": 1190
@@ -2961,7 +2788,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 31,
+   "ordem": 29,
    "preco": {
     "tipo": "exato",
     "centavos": 1290
@@ -3027,7 +2854,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 32,
+   "ordem": 30,
    "preco": {
     "tipo": "exato",
     "centavos": 1490
@@ -3097,7 +2924,7 @@
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 33,
+   "ordem": 31,
    "preco": {
     "tipo": "exato",
     "centavos": 1490
@@ -3163,7 +2990,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 34,
+   "ordem": 32,
    "preco": {
     "tipo": "exato",
     "centavos": 1940
@@ -3229,82 +3056,12 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 35,
+   "ordem": 33,
    "preco": {
     "tipo": "exato",
     "centavos": 1940
    },
    "indice_busca": "600 cerveja garrafa original"
-  },
-  {
-   "id": "budweiser-600",
-   "categoria": "cervejas",
-   "subgrupo": null,
-   "nome": "Budweiser 600",
-   "nome_original": "Budweiser 600",
-   "descritor": "garrafa",
-   "descricao": null,
-   "detalhe": null,
-   "preco_centavos": 1840,
-   "preco_estado": "declarado",
-   "variantes": [],
-   "adicionais": [],
-   "inclui": [],
-   "opcoes": [],
-   "porcao": {
-    "texto": "600 mL",
-    "principal": null,
-    "total": {
-     "valor": 600,
-     "unidade": "mL"
-    },
-    "unidades": null,
-    "rende_pessoas": null,
-    "estado": "declarado",
-    "divergencia": null,
-    "nota": null,
-    "fontes": [
-     "HTML",
-     "PDF"
-    ]
-   },
-   "alimentar": {
-    "declarados": [],
-    "fonte": "Sir Fisher Praia.pdf, página 2",
-    "estado": "sem_simbolos",
-    "divergencias": [],
-    "alegacoes": [],
-    "confirmado_cozinha": [],
-    "contato_cruzado": []
-   },
-   "foto": null,
-   "termos": [
-    "budweiser 600",
-    "cerveja",
-    "garrafa"
-   ],
-   "etiquetas": [
-    "bebida"
-   ],
-   "pendencias": [
-    "vigencia"
-   ],
-   "fontes": [
-    "TXT",
-    "HTML",
-    "PDF"
-   ],
-   "notas_internas": [
-    "Consta no TXT e no HTML, mas não foi encontrado no cardápio impresso. Ausência em uma fonte não retira o produto do cadastro."
-   ],
-   "publicar": true,
-   "disponivel": true,
-   "ordem": 36,
-   "preco": {
-    "tipo": "exato",
-    "centavos": 1840
-   },
-   "indice_busca": "600 budweiser cerveja garrafa"
   },
   {
    "id": "stella-artois-600",
@@ -3365,12 +3122,77 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 37,
+   "ordem": 34,
    "preco": {
     "tipo": "exato",
     "centavos": 2140
    },
    "indice_busca": "600 artois cerveja garrafa stella"
+  },
+  {
+   "id": "corona-600",
+   "categoria": "cervejas",
+   "subgrupo": null,
+   "nome": "Corona 600",
+   "nome_original": "Corona 600",
+   "descritor": "garrafa",
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 2390,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": "600 mL",
+    "principal": null,
+    "total": {
+     "valor": 600,
+     "unidade": "mL"
+    },
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "declarado",
+    "divergencia": null,
+    "nota": null,
+    "fontes": [
+     "PDF"
+    ]
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "sem_simbolos",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "corona 600",
+    "cerveja",
+    "garrafa"
+   ],
+   "etiquetas": [
+    "bebida"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "PDF"
+   ],
+   "notas_internas": [
+    "Estava só no impresso, a R$ 23,90. Em 22/10/2026 o proprietário confirmou que a Corona 600 é vendida e que a Budweiser 600 saiu do cardápio."
+   ],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 35,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 2390
+   },
+   "indice_busca": "600 cerveja corona garrafa"
   },
   {
    "id": "stella-pure-gold-600",
@@ -3440,7 +3262,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 38,
+   "ordem": 36,
    "preco": {
     "tipo": "exato",
     "centavos": 2390
@@ -3469,7 +3291,7 @@
      "estado": "declarado"
     },
     {
-     "nome": "Ypioca 150",
+     "nome": "Ypióca 150",
      "preco_centavos": 2200,
      "fontes": [
       "HTML",
@@ -3530,7 +3352,7 @@
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 39,
+   "ordem": 37,
    "preco": {
     "tipo": "faixa",
     "min": 1800,
@@ -3561,7 +3383,7 @@
      "estado": "declarado"
     },
     {
-     "nome": "Sky",
+     "nome": "Skyy",
      "preco_centavos": 2200,
      "fontes": [
       "HTML",
@@ -3614,6 +3436,7 @@
     "limao",
     "absolut",
     "sky",
+    "skyy",
     "drink",
     "coquetel"
    ],
@@ -3630,14 +3453,14 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 40,
+   "ordem": 38,
    "preco": {
     "tipo": "faixa",
     "min": 2000,
     "max": 2800,
     "centavos": 2000
    },
-   "indice_busca": "a absolut acucar caipirinha, caipiroska com coquetel da drink e escolha limao limao, nacional releitura sky vodka vodka."
+   "indice_busca": "a absolut acucar caipirinha, caipiroska com coquetel da drink e escolha limao limao, nacional releitura sky skyy vodka vodka."
   },
   {
    "id": "caipifruta",
@@ -3661,7 +3484,7 @@
      "estado": "declarado"
     },
     {
-     "nome": "Sky",
+     "nome": "Skyy",
      "preco_centavos": 2400,
      "fontes": [
       "HTML",
@@ -3740,14 +3563,14 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 41,
+   "ordem": 39,
    "preco": {
     "tipo": "faixa",
     "min": 2200,
     "max": 3000,
     "centavos": 2200
    },
-   "indice_busca": "(polpa) a abacaxi abacaxi, absolut acerola acerola, acucar caipifruta caja caja, caju caju, da de drink e escolha escolha. fruta fruta. manga maracuja maracuja, morango nacional o ou polpa sabor sky sua vodka vodka,"
+   "indice_busca": "(polpa) a abacaxi abacaxi, absolut acerola acerola, acucar caipifruta caja caja, caju caju, da de drink e escolha escolha. fruta fruta. manga maracuja maracuja, morango nacional o ou polpa sabor skyy sua vodka vodka,"
   },
   {
    "id": "gin-tonica",
@@ -3830,7 +3653,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 42,
+   "ordem": 40,
    "preco": {
     "tipo": "faixa",
     "min": 2100,
@@ -3901,7 +3724,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 43,
+   "ordem": 41,
    "preco": {
     "tipo": "exato",
     "centavos": 2700
@@ -3973,7 +3796,7 @@
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 44,
+   "ordem": 42,
    "preco": {
     "tipo": "exato",
     "centavos": 2900
@@ -4042,7 +3865,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 45,
+   "ordem": 43,
    "preco": {
     "tipo": "exato",
     "centavos": 2700
@@ -4097,19 +3920,18 @@
     "com-alcool"
    ],
    "pendencias": [
-    "porcao",
-    "vigencia"
+    "porcao"
    ],
    "fontes": [
     "TXT",
     "HTML"
    ],
    "notas_internas": [
-    "Consta no TXT e no HTML, mas não foi encontrado no cardápio impresso. Ausência em uma fonte não retira o produto."
+    "Não estava no impresso. Em 22/10/2026 o proprietário confirmou que continua à venda e mandou incluí-la também no impresso."
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 46,
+   "ordem": 44,
    "preco": {
     "tipo": "exato",
     "centavos": 2900
@@ -4177,7 +3999,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 47,
+   "ordem": 45,
    "preco": {
     "tipo": "exato",
     "centavos": 2300
@@ -4249,7 +4071,7 @@
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 48,
+   "ordem": 46,
    "preco": {
     "tipo": "exato",
     "centavos": 2600
@@ -4319,7 +4141,7 @@
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 49,
+   "ordem": 47,
    "preco": {
     "tipo": "exato",
     "centavos": 1500
@@ -4384,7 +4206,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 50,
+   "ordem": 48,
    "preco": {
     "tipo": "exato",
     "centavos": 500
@@ -4450,7 +4272,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 51,
+   "ordem": 49,
    "preco": {
     "tipo": "exato",
     "centavos": 600
@@ -4516,7 +4338,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 52,
+   "ordem": 50,
    "preco": {
     "tipo": "exato",
     "centavos": 500
@@ -4581,7 +4403,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 53,
+   "ordem": 51,
    "preco": {
     "tipo": "exato",
     "centavos": 600
@@ -4658,7 +4480,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 54,
+   "ordem": 52,
    "preco": {
     "tipo": "exato",
     "centavos": 800
@@ -4737,7 +4559,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 55,
+   "ordem": 53,
    "preco": {
     "tipo": "exato",
     "centavos": 1100
@@ -4802,7 +4624,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 56,
+   "ordem": 54,
    "preco": {
     "tipo": "exato",
     "centavos": 1600
@@ -4879,7 +4701,7 @@
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 57,
+   "ordem": 55,
    "preco": {
     "tipo": "exato",
     "centavos": 1500
@@ -4949,7 +4771,7 @@
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 58,
+   "ordem": 56,
    "preco": {
     "tipo": "exato",
     "centavos": 300
@@ -5018,7 +4840,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 59,
+   "ordem": 57,
    "preco": {
     "tipo": "exato",
     "centavos": 800
@@ -5086,7 +4908,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 60,
+   "ordem": 58,
    "preco": {
     "tipo": "exato",
     "centavos": 800
@@ -5155,7 +4977,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 61,
+   "ordem": 59,
    "preco": {
     "tipo": "exato",
     "centavos": 1200
@@ -5224,7 +5046,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 62,
+   "ordem": 60,
    "preco": {
     "tipo": "exato",
     "centavos": 1700
@@ -5298,7 +5120,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 63,
+   "ordem": 61,
    "preco": {
     "tipo": "exato",
     "centavos": 800
@@ -5367,7 +5189,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 64,
+   "ordem": 62,
    "preco": {
     "tipo": "exato",
     "centavos": 800
@@ -5442,7 +5264,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 65,
+   "ordem": 63,
    "preco": {
     "tipo": "exato",
     "centavos": 700
@@ -5510,7 +5332,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 66,
+   "ordem": 64,
    "preco": {
     "tipo": "exato",
     "centavos": 700
@@ -5521,8 +5343,8 @@
    "id": "vodka-sky",
    "categoria": "doses",
    "subgrupo": null,
-   "nome": "Vodka Sky",
-   "nome_original": "Vodka Sky",
+   "nome": "Vodka Skyy",
+   "nome_original": "Vodka Skyy",
    "descritor": null,
    "descricao": null,
    "detalhe": null,
@@ -5562,6 +5384,7 @@
    "termos": [
     "vodka",
     "sky",
+    "skyy",
     "dose",
     "destilado"
    ],
@@ -5578,12 +5401,12 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 67,
+   "ordem": 65,
    "preco": {
     "tipo": "exato",
     "centavos": 900
    },
-   "indice_busca": "destilado dose sky vodka"
+   "indice_busca": "destilado dose sky skyy vodka"
   },
   {
    "id": "vodka-absolut",
@@ -5646,7 +5469,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 68,
+   "ordem": 66,
    "preco": {
     "tipo": "exato",
     "centavos": 1500
@@ -5714,7 +5537,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 69,
+   "ordem": 67,
    "preco": {
     "tipo": "exato",
     "centavos": 1000
@@ -5783,7 +5606,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 70,
+   "ordem": 68,
    "preco": {
     "tipo": "exato",
     "centavos": 1200
@@ -5852,7 +5675,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 71,
+   "ordem": 69,
    "preco": {
     "tipo": "exato",
     "centavos": 800
@@ -5919,7 +5742,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 72,
+   "ordem": 70,
    "preco": {
     "tipo": "exato",
     "centavos": 700
@@ -5987,7 +5810,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 73,
+   "ordem": 71,
    "preco": {
     "tipo": "exato",
     "centavos": 600
@@ -5998,8 +5821,8 @@
    "id": "cachaca-ypioca-150",
    "categoria": "doses",
    "subgrupo": null,
-   "nome": "Cachaça Ypioca 150",
-   "nome_original": "Cachaça Ypioca 150",
+   "nome": "Cachaça Ypióca 150",
+   "nome_original": "Cachaça Ypióca 150",
    "descritor": null,
    "descricao": null,
    "detalhe": null,
@@ -6057,94 +5880,12 @@
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 74,
+   "ordem": 72,
    "preco": {
     "tipo": "exato",
     "centavos": 1000
    },
    "indice_busca": "150 cachaca destilado dose ypioca"
-  },
-  {
-   "id": "cachaca-premium",
-   "categoria": "doses",
-   "subgrupo": null,
-   "nome": "Cachaça Premium",
-   "nome_original": "Cachaça Premium",
-   "descritor": null,
-   "descricao": null,
-   "detalhe": null,
-   "preco_centavos": 1200,
-   "preco_estado": "declarado",
-   "variantes": [],
-   "adicionais": [],
-   "inclui": [],
-   "opcoes": [
-    {
-     "texto": "Batista (3 anos em barril de carvalho, MG), Gogó da Ema (2 anos em barril de bálsamo, AL), Matriarca (2 anos em barril de umburana, BA) ou Caipira 5 Estrelas (1 ano em barril de cerejeira, ES)",
-     "estado": "declarado"
-    }
-   ],
-   "porcao": {
-    "texto": "Dose de 50 mL",
-    "principal": null,
-    "total": {
-     "valor": 50,
-     "unidade": "mL"
-    },
-    "unidades": null,
-    "rende_pessoas": null,
-    "estado": "declarado",
-    "divergencia": null,
-    "nota": null,
-    "fontes": [
-     "HTML",
-     "PDF"
-    ]
-   },
-   "alimentar": {
-    "declarados": [],
-    "fonte": "Sir Fisher Praia.pdf, página 2",
-    "estado": "sem_simbolos",
-    "divergencias": [],
-    "alegacoes": [],
-    "confirmado_cozinha": [],
-    "contato_cruzado": []
-   },
-   "foto": null,
-   "termos": [
-    "cachaca",
-    "premium",
-    "batista",
-    "gogo da ema",
-    "matriarca",
-    "caipira 5 estrelas",
-    "envelhecida",
-    "dose",
-    "destilado"
-   ],
-   "etiquetas": [
-    "bebida",
-    "com-alcool"
-   ],
-   "pendencias": [
-    "opcoes"
-   ],
-   "fontes": [
-    "TXT",
-    "HTML",
-    "PDF"
-   ],
-   "notas_internas": [
-    "Quatro rótulos sob um mesmo preço, conforme o cadastro. Disponibilidade por rótulo a confirmar com o bar."
-   ],
-   "publicar": true,
-   "disponivel": true,
-   "ordem": 75,
-   "preco": {
-    "tipo": "exato",
-    "centavos": 1200
-   },
-   "indice_busca": "(1 (2 (3 5 al), ano anos ba) balsamo, barril batista cachaca caipira carvalho, cerejeira, da de destilado dose em ema envelhecida es) estrelas gogo matriarca mg), ou premium umburana,"
   },
   {
    "id": "molho-extra",
@@ -6210,7 +5951,7 @@
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 76,
+   "ordem": 73,
    "preco": {
     "tipo": "exato",
     "centavos": 300
@@ -6280,12 +6021,72 @@
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 77,
+   "ordem": 74,
    "preco": {
     "tipo": "exato",
     "centavos": 1200
    },
    "indice_busca": "adicional arroz de extra porcao"
+  },
+  {
+   "id": "adicional-salada",
+   "categoria": "extras",
+   "subgrupo": "comestiveis",
+   "nome": "Adicional Salada",
+   "nome_original": "Adicional Salada",
+   "descritor": "porção adicional de salada",
+   "descricao": null,
+   "detalhe": null,
+   "preco_centavos": 1900,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": null,
+    "principal": null,
+    "total": null,
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "ausente",
+    "divergencia": null,
+    "nota": null,
+    "fontes": []
+   },
+   "alimentar": {
+    "declarados": [],
+    "fonte": null,
+    "estado": "nao_revisado",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": null,
+   "termos": [
+    "salada",
+    "adicional",
+    "extra"
+   ],
+   "etiquetas": [
+    "adicional"
+   ],
+   "pendencias": [],
+   "fontes": [
+    "PDF"
+   ],
+   "notas_internas": [
+    "Estava só no impresso (R$ 19,00, página 1), fora do cadastro. Em 22/10/2026 o proprietário confirmou o item e o preço para o site."
+   ],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 75,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 1900
+   },
+   "indice_busca": "adicional de extra porcao salada"
   },
   {
    "id": "rolha",
@@ -6351,7 +6152,7 @@
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 78,
+   "ordem": 76,
    "preco": {
     "tipo": "exato",
     "centavos": 3000
@@ -6421,7 +6222,7 @@
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 79,
+   "ordem": 77,
    "preco": {
     "tipo": "exato",
     "centavos": 2000
@@ -6490,149 +6291,18 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 80,
+   "ordem": 78,
    "preco": {
     "tipo": "exato",
     "centavos": 300
    },
    "indice_busca": "delivery embalagem levar marmita para viagem"
-  },
-  {
-   "id": "adicional-salada",
-   "categoria": "extras",
-   "subgrupo": "comestiveis",
-   "nome": "Adicional Salada",
-   "nome_original": "Adicional Salada",
-   "descritor": "porção adicional de salada",
-   "descricao": null,
-   "detalhe": null,
-   "preco_centavos": 1900,
-   "preco_estado": "somente_impresso",
-   "variantes": [],
-   "adicionais": [],
-   "inclui": [],
-   "opcoes": [],
-   "porcao": {
-    "texto": null,
-    "principal": null,
-    "total": null,
-    "unidades": null,
-    "rende_pessoas": null,
-    "estado": "ausente",
-    "divergencia": null,
-    "nota": null,
-    "fontes": []
-   },
-   "alimentar": {
-    "declarados": [],
-    "fonte": null,
-    "estado": "nao_revisado",
-    "divergencias": [],
-    "alegacoes": [],
-    "confirmado_cozinha": [],
-    "contato_cruzado": []
-   },
-   "foto": null,
-   "termos": [
-    "salada",
-    "adicional",
-    "extra"
-   ],
-   "etiquetas": [
-    "adicional"
-   ],
-   "pendencias": [
-    "vigencia",
-    "preco"
-   ],
-   "fontes": [
-    "PDF"
-   ],
-   "notas_internas": [
-    "Aparece apenas no cardápio impresso (R$ 19,00, página 1). Não está entre os 81 registros do cadastro. Fica em rascunho até a operação confirmar existência e preço vigente."
-   ],
-   "publicar": false,
-   "disponivel": true,
-   "ordem": 81,
-   "preco": {
-    "tipo": "exato",
-    "centavos": 1900
-   },
-   "indice_busca": "adicional de extra porcao salada"
-  },
-  {
-   "id": "corona-600",
-   "categoria": "cervejas",
-   "subgrupo": null,
-   "nome": "Corona 600",
-   "nome_original": "Corona 600",
-   "descritor": "garrafa",
-   "descricao": null,
-   "detalhe": null,
-   "preco_centavos": null,
-   "preco_estado": "ausente",
-   "variantes": [],
-   "adicionais": [],
-   "inclui": [],
-   "opcoes": [],
-   "porcao": {
-    "texto": "600 mL",
-    "principal": null,
-    "total": {
-     "valor": 600,
-     "unidade": "mL"
-    },
-    "unidades": null,
-    "rende_pessoas": null,
-    "estado": "declarado",
-    "divergencia": null,
-    "nota": null,
-    "fontes": [
-     "PDF"
-    ]
-   },
-   "alimentar": {
-    "declarados": [],
-    "fonte": "Sir Fisher Praia.pdf, página 2",
-    "estado": "sem_simbolos",
-    "divergencias": [],
-    "alegacoes": [],
-    "confirmado_cozinha": [],
-    "contato_cruzado": []
-   },
-   "foto": null,
-   "termos": [
-    "corona",
-    "cerveja",
-    "garrafa"
-   ],
-   "etiquetas": [
-    "bebida"
-   ],
-   "pendencias": [
-    "vigencia",
-    "preco"
-   ],
-   "fontes": [
-    "PDF"
-   ],
-   "notas_internas": [
-    "Aparece no grupo de garrafas 600 mL do impresso, mas não consta no cadastro, que tem Budweiser 600 nessa faixa. Preço não importado do impresso. Fica em rascunho para decisão da operação."
-   ],
-   "publicar": false,
-   "disponivel": true,
-   "ordem": 82,
-   "preco": {
-    "tipo": "ausente",
-    "centavos": null
-   },
-   "indice_busca": "600 cerveja corona garrafa"
   }
  ],
  "fotos_sem_destino": [
   {
    "arquivo": "peixe-empanado-sir-fisher",
-   "observado": "Travessa de compartilhar com filés de peixe empanados, arroz, batata frita e farota.",
+   "observado": "Travessa de compartilhar com filés de peixe empanados, arroz, batata frita e farofa.",
    "motivo": "Nenhum prato do cadastro corresponde: o peixe dos pratos para compartilhar é grelhado, não empanado. Não foi atribuída a nenhum produto para não ilustrar um prato com a foto de outro.",
    "encaminhamento": "Confirmar com a operação se existe (ou existiu) uma versão empanada do prato para compartilhar."
   },
@@ -6645,16 +6315,16 @@
  ],
  "contagem_por_categoria": {
   "fish-and-chips": 2,
-  "petiscos": 15,
-  "sanduiches": 3,
+  "petiscos": 14,
+  "sanduiches": 2,
   "para-dividir": 6,
   "sobremesas": 3,
   "cervejas": 10,
   "coqueteis": 11,
   "sem-alcool": 9,
-  "doses": 17,
-  "extras": 5
+  "doses": 16,
+  "extras": 6
  },
- "total_publicavel": 81,
- "total_rascunho": 2
+ "total_publicavel": 79,
+ "total_rascunho": 0
 }

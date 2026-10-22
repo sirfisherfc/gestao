@@ -26,13 +26,21 @@ Regras aplicadas, sem excecao:
 
   1. Divergencia entre fontes nunca e resolvida por automatismo. Fica marcada
      como `divergente` e o campo deixa de ser exibido como fato.
-  2. Omissao em uma fonte nao apaga o dado de outra (o impresso nao citar o
-     pepino do Marine Sandwich nao retira o pepino).
+  2. Omissao em uma fonte nao apaga o dado de outra (o impresso nao citar as
+     batatas do NewCastle nao retira o acompanhamento).
   3. Adicional nunca vira preco do produto.
   4. Simbolo alimentar so e transcrito quando visivel e com legenda clara.
      Ausencia de simbolo nao vira ausencia de alergeno.
   5. Produto que so existe em uma fonte complementar entra como candidato em
-     rascunho (`publicar=False`), fora dos 81.
+     rascunho (`publicar=False`), fora dos publicados.
+
+Decisoes do proprietario em 22/10/2026, na revisao do impresso no Canva:
+saem Crispy Spicy Chicken, Marine Sandwich, Budweiser 600 e Cachaca Premium
+(nao sao mais vendidos); entram Corona 600 e Adicional Salada. Ficam
+confirmados 355 mL na Spaten Longneck, 300 g na Bolinha de Peixe e 120 g no
+Fisher Burger. O impresso passou a usar os nomes do cadastro (London,
+Patinha) e ganhou os simbolos de CRUSTACEOS na patinha e de PEIXE na bolinha.
+"Farota" era erro de digitacao de "farofa". Sao 79 publicados.
 
 Saida: catalogo_inicial.json, consumido por gerar_migration.py (semente do
 banco) e por exportar_snapshot.py (copia publica derivada da publicacao).
@@ -42,7 +50,7 @@ import json
 import os
 import unicodedata
 
-HOJE = "2026-09-29"
+HOJE = "2026-10-22"
 
 # --------------------------------------------------------------------------
 # Avisos do catalogo
@@ -123,7 +131,7 @@ CATEGORIAS = [
         "nome": "Pratos para compartilhar",
         "resumo": (
             "Servidos na travessa, com arroz, batata frita (ou macaxeira), "
-            "salada, farota e molho artesanal."
+            "salada, farofa e molho artesanal."
         ),
         "grupo": "comer",
         "subgrupos": [],
@@ -269,7 +277,7 @@ ADICIONAL_BATATA = [{
 }]
 
 ACOMPANHA_DIVIDIR = [
-    "Arroz", "Batata frita ou macaxeira", "Salada", "Farota",
+    "Arroz", "Batata frita ou macaxeira", "Salada", "Farofa",
     "Molho artesanal",
 ]
 
@@ -355,11 +363,11 @@ p("london-fish-n-chips", "fish-and-chips",
   termos=["peixe", "cerveja", "massa", "batata frita", "fish and chips",
           "original"],
   etiquetas=["do-mar", "classico-da-casa"],
-  pendencias=["porcao", "nome"],
+  pendencias=["porcao"],
   fontes=["TXT", "HTML", "PDF"],
-  notas=["O cardápio impresso chama esta versão de “Original — Fish N’ "
-         "Chips”. A descrição coincide, mas o nome não foi trocado sem "
-         "confirmação da operação."])
+  notas=["O cardápio impresso chamava esta versão de “Original — Fish N’ "
+         "Chips”. Em 22/10/2026 o proprietário alinhou o impresso ao "
+         "cadastro: London — Fish & Chips."])
 
 # ==========================================================================
 # 2. Petiscos e porcoes (15 registros do TXT)
@@ -374,42 +382,34 @@ p("patinha-de-caranguejo", "petiscos",
   porcao_=porcao(texto="10 unidades",
                  unidades={"quantidade": 10, "rotulo": "patas"},
                  fontes=["TXT", "PDF"]),
-  alimentar_=alimentar(
-      ["GLÚTEN", "LACTOSE"],
-      divergencias=["O nome e a descrição citam caranguejo, mas o impresso "
-                    "não traz o símbolo de CRUSTÁCEOS neste bloco. "
-                    "Divergência registrada para conferência: a ausência do "
-                    "símbolo não indica ausência do ingrediente."]),
+  alimentar_=alimentar(["GLÚTEN", "LACTOSE", "CRUSTÁCEOS"]),
   foto={"base": "patinha-de-caranguejo-sir-fisher", "larguras": [440, 660],
         "alt": "Patinhas de caranguejo empanadas e crocantes, servidas com batatas fritas e molho da casa", "estado": "conferido"},
   termos=["caranguejo", "patinha", "empanado", "frutos do mar"],
   etiquetas=["do-mar"],
-  pendencias=["alimentar", "nome"],
   fontes=["TXT", "HTML", "PDF"],
-  notas=["O impresso usa “PATA DE CARANGUEJO”; o cadastro usa “Patinha de "
-         "caranguejo”. Nome de exibição mantido conforme o cadastro."])
+  notas=["O impresso usava “PATA DE CARANGUEJO” e não trazia o símbolo de "
+         "CRUSTÁCEOS. Em 22/10/2026 o proprietário adotou “Patinha” nos "
+         "dois e mandou incluir o símbolo."])
 
 p("bolinha-de-peixe-cremosa", "petiscos",
   "Bolinha de Peixe Cremosa", 4400, sub="mar",
   descricao="Seis bolinhas de pescada amarela com recheio cremoso de cream "
             "cheese.",
-  porcao_=porcao(texto="6 unidades",
+  porcao_=porcao(texto="6 unidades / 300 g",
+                 total={"valor": 300, "unidade": "g"},
                  unidades={"quantidade": 6, "rotulo": "bolinhas"},
-                 estado="parcial",
-                 divergencia="Peso divergente — TXT e HTML: 300 g. Cardápio "
-                             "impresso: 200 g.",
+                 nota=NOTA_PESO_IN_NATURA,
                  fontes=["TXT", "HTML", "PDF"]),
-  alimentar_=alimentar(
-      ["GLÚTEN", "LACTOSE"],
-      divergencias=["A descrição cita pescada amarela, mas o impresso não traz "
-                    "o símbolo de PEIXE neste bloco. Divergência registrada "
-                    "para conferência."]),
+  alimentar_=alimentar(["GLÚTEN", "LACTOSE", "PEIXE"]),
   foto={"base": "bolinha-de-peixe-cremosa-sir-fisher", "larguras": [440, 660],
         "alt": "Bolinhas de peixe cremosas empanadas e douradas, servidas com molho artesanal", "estado": "conferido"},
   termos=["peixe", "pescada amarela", "cream cheese", "bolinha"],
   etiquetas=["do-mar"],
-  pendencias=["porcao", "alimentar"],
-  fontes=["TXT", "HTML", "PDF"])
+  fontes=["TXT", "HTML", "PDF"],
+  notas=["O impresso dizia 200 g e não trazia o símbolo de PEIXE. Em "
+         "22/10/2026 o proprietário confirmou 300 g, como no TXT e no HTML, "
+         "e mandou incluir o símbolo."])
 
 p("newcastle", "petiscos",
   "NewCastle", 6000, sub="mar",
@@ -513,27 +513,6 @@ p("pasteizinhos", "petiscos",
          "Os três sabores são opções de um mesmo registro, com preço único. "
          "Não foram desdobrados em produtos separados."])
 
-p("crispy-spicy-chicken", "petiscos",
-  "Crispy Spicy Chicken", 3700, sub="terra",
-  descritor="rolinhos de frango empanados recheados com queijo",
-  descricao="Marinado em especiarias e frito na hora. Acompanha molho cremoso.",
-  inclui=["Molho cremoso"],
-  porcao_=porcao(texto="200 g",
-                 total={"valor": 200, "unidade": "g"},
-                 estado="parcial",
-                 divergencia="O impresso descreve “4 grandes rolinhos” e não "
-                             "informa peso. As duas informações podem se "
-                             "somar; confirmar a apresentação vigente.",
-                 nota=NOTA_PESO_IN_NATURA,
-                 fontes=["TXT", "HTML", "PDF"]),
-  alimentar_=alimentar(["GLÚTEN", "LACTOSE"]),
-  foto={"base": "crispy-spicy-chicken-sir-fisher", "larguras": [440, 660],
-        "alt": "Tiras de frango crocantes e levemente apimentadas, servidas com molho especial", "estado": "conferido"},
-  termos=["frango", "queijo", "empanado", "apimentado", "rolinho"],
-  etiquetas=["da-terra"],
-  pendencias=["porcao"],
-  fontes=["TXT", "HTML", "PDF"])
-
 p("file-mignon-trinchado", "petiscos",
   "Filé Mignon Trinchado", 8400, sub="terra",
   descricao="Filé mignon acebolado, servido com batata frita ou macaxeira "
@@ -553,7 +532,7 @@ p("file-mignon-trinchado", "petiscos",
   pendencias=["porcao"],
   fontes=["TXT", "HTML", "PDF"],
   notas=["Produto distinto do “Filé Mignon” dos pratos para compartilhar "
-         "(R$ 90,00), que vem com arroz, salada, farota e molho."])
+         "(R$ 90,00), que vem com arroz, salada, farofa e molho."])
 
 p("caldo-de-peixe", "petiscos",
   "Caldo de Peixe", 1800, sub="mar",
@@ -668,11 +647,10 @@ p("fisher-burger", "sanduiches",
           "perfeita, dispostas em pão brioche. Complementado por picles e um "
           "molho especial.",
   adicionais=ADICIONAL_BATATA,
-  porcao_=porcao(texto=None,
-                 estado="parcial",
-                 divergencia="As fontes citam 120 g sem dizer se é o total das "
-                             "duas fatias ou o peso de cada uma.",
-                 nota="Peso em conferência com a cozinha.",
+  porcao_=porcao(texto="120 g de peixe",
+                 principal={"valor": 120, "unidade": "g",
+                            "alcance": "proteina"},
+                 nota=NOTA_PESO_IN_NATURA,
                  fontes=["TXT", "HTML", "PDF"]),
   alimentar_=alimentar(["GLÚTEN", "PEIXE", "OVO", "LACTOSE"]),
   foto={"base": "fisher-burger-sir-fisher", "larguras": [440, 660],
@@ -680,11 +658,12 @@ p("fisher-burger", "sanduiches",
   termos=["hamburguer", "sanduiche", "peixe", "pescada amarela", "brioche",
           "empanado"],
   etiquetas=["do-mar"],
-  pendencias=["porcao"],
   fontes=["TXT", "HTML", "PDF"],
   notas=["O sanduíche custa R$ 37,00. O adicional de batata (R$ 9,90) é a "
          "primeira oferta estruturada no HTML e nunca deve ser lido como "
-         "preço do produto."])
+         "preço do produto.",
+         "As fontes citavam 120 g sem dizer se era o total das duas fatias. "
+         "Em 22/10/2026 o proprietário confirmou 120 g."])
 
 p("edimburger", "sanduiches",
   "Edimburger", 3700,
@@ -709,26 +688,6 @@ p("edimburger", "sanduiches",
   fontes=["TXT", "HTML", "PDF"],
   notas=["Preço do sanduíche: R$ 37,00. O adicional de batata é informação "
          "separada."])
-
-p("marine-sandwich", "sanduiches",
-  "Marine Sandwich", 4600,
-  descritor="camarões salteados com cream cheese empanado",
-  descricao="Com molho aioli, alface e pepino, em pão brioche.",
-  adicionais=ADICIONAL_BATATA,
-  porcao_=porcao(estado="ausente",
-                 nota="Nenhuma fonte informa peso ou quantidade."),
-  alimentar_=alimentar(["GLÚTEN", "CRUSTÁCEOS", "OVO", "LACTOSE"]),
-  foto={"base": "marine-sandwich-sir-fisher", "larguras": [440, 660],
-        "alt": "Sanduíche em pão brioche coberto de camarões salteados",
-        "estado": "conferido"},
-  termos=["camarao", "sanduiche", "cream cheese", "aioli", "brioche",
-          "frutos do mar"],
-  etiquetas=["do-mar"],
-  pendencias=["porcao"],
-  fontes=["TXT", "HTML", "PDF"],
-  notas=["O impresso não cita o pepino presente no cadastro. Omissão não "
-         "retira o ingrediente.",
-         "Preço do sanduíche: R$ 46,00. Adicional de batata em separado."])
 
 # ==========================================================================
 # 4. Pratos para compartilhar (6 registros do TXT)
@@ -787,7 +746,7 @@ for _id, _nome, _preco, _desc_curto, _desc, _foto, _alt, _termos, _extra in DIVI
       alimentar_=alimentar_dividir(_extra),
       foto={"base": _foto, "larguras": [440, 660], "alt": _alt,
             "estado": "conferido"},
-      termos=_termos + ["para dividir", "compartilhar", "arroz", "farota"],
+      termos=_termos + ["para dividir", "compartilhar", "arroz", "farofa"],
       etiquetas=["para-compartilhar"],
       pendencias=["rendimento"],
       fontes=["TXT", "HTML", "PDF"],
@@ -833,8 +792,7 @@ p("cafe-expresso", "sobremesas", "Café Expresso", 500,
 
 CERVEJAS = [
     ("chope-brahma", "Chope Brahma", 1090, 300, "chope", None),
-    ("spaten-longneck", "Spaten Longneck", 1190, None, "long neck",
-     "Volume divergente — HTML: 355 mL. Cardápio impresso: 300 mL."),
+    ("spaten-longneck", "Spaten Longneck", 1190, 355, "long neck", None),
     ("stella-artois-longneck", "Stella Artois Longneck", 1290, 330,
      "long neck", None),
     ("corona-longneck", "Corona Longneck", 1490, 330, "long neck", None),
@@ -842,8 +800,8 @@ CERVEJAS = [
      None),
     ("spaten-600", "Spaten 600", 1940, 600, "garrafa", None),
     ("original-600", "Original 600", 1940, 600, "garrafa", None),
-    ("budweiser-600", "Budweiser 600", 1840, 600, "garrafa", None),
     ("stella-artois-600", "Stella Artois 600", 2140, 600, "garrafa", None),
+    ("corona-600", "Corona 600", 2390, 600, "garrafa", None),
     ("stella-pure-gold-600", "Stella Pure Gold 600", 2390, 600, "garrafa",
      None),
 ]
@@ -852,6 +810,8 @@ for _id, _nome, _preco, _ml, _formato, _div in CERVEJAS:
     _pend = []
     _notas = []
     _aleg = []
+    # A Corona 600 veio so do impresso; as demais estao nas tres fontes.
+    _fontes = ["PDF"] if _id == "corona-600" else ["TXT", "HTML", "PDF"]
     if _div:
         _porcao = porcao(texto=None, estado="divergente", divergencia=_div,
                          fontes=["HTML", "PDF"])
@@ -859,7 +819,8 @@ for _id, _nome, _preco, _ml, _formato, _div in CERVEJAS:
     else:
         _porcao = porcao(texto="%d mL" % _ml,
                          total={"valor": _ml, "unidade": "mL"},
-                         fontes=["HTML", "PDF"])
+                         fontes=["PDF"] if _id == "corona-600"
+                         else ["HTML", "PDF"])
     if _id == "stella-pure-gold-600":
         _aleg = [{
             "texto": "PURO MALTE, SEM GLÚTEN E COM 17% MENOS CALORIAS",
@@ -871,11 +832,14 @@ for _id, _nome, _preco, _ml, _formato, _div in CERVEJAS:
                     "cervejas.",
         }]
         _pend.append("alegacao")
-    if _id == "budweiser-600":
-        _notas.append("Consta no TXT e no HTML, mas não foi encontrado no "
-                      "cardápio impresso. Ausência em uma fonte não retira o "
-                      "produto do cadastro.")
-        _pend.append("vigencia")
+    if _id == "spaten-longneck":
+        _notas.append("O HTML dizia 355 mL e o impresso 300 mL. Em 22/10/2026 "
+                      "o proprietário confirmou 355 mL e o impresso foi "
+                      "corrigido.")
+    if _id == "corona-600":
+        _notas.append("Estava só no impresso, a R$ 23,90. Em 22/10/2026 o "
+                      "proprietário confirmou que a Corona 600 é vendida e "
+                      "que a Budweiser 600 saiu do cardápio.")
     if _id == "corona-zero-longneck":
         _notas.append("O impresso escreve “CORONA ZERO% LONGNECK”. A "
                       "classificação como bebida sem álcool depende de "
@@ -890,7 +854,7 @@ for _id, _nome, _preco, _ml, _formato, _div in CERVEJAS:
       termos=[_nome.lower(), "cerveja", _formato],
       etiquetas=["bebida"],
       pendencias=_pend,
-      fontes=["TXT", "HTML", "PDF"],
+      fontes=_fontes,
       notas=_notas)
 
 # ==========================================================================
@@ -908,7 +872,7 @@ P300 = lambda: porcao(texto="300 mL", total={"valor": 300, "unidade": "mL"},
 p("caipirinha", "coqueteis", "Caipirinha", 1800,
   descritor="limão, açúcar e cachaça",
   detalhe="Clássica combinação de limão, açúcar e cachaça, refrescante e cheia de sabor. Escolha a cachaça.",
-  variantes=[var("Cachaça nacional", 1800), var("Ypioca 150", 2200)],
+  variantes=[var("Cachaça nacional", 1800), var("Ypióca 150", 2200)],
   porcao_=P300(),
   alimentar_=alimentar(estado="sem_simbolos", pagina=2),
   termos=["caipirinha", "cachaca", "limao", "ypioca", "drink", "coquetel"],
@@ -919,11 +883,11 @@ p("caipirinha", "coqueteis", "Caipirinha", 1800,
 p("caipiroska", "coqueteis", "Caipiroska", 2000,
   descritor="limão, açúcar e vodka",
   detalhe="Releitura da caipirinha, com limão, açúcar e vodka. Escolha a vodka.",
-  variantes=[var("Vodka nacional", 2000), var("Sky", 2200),
+  variantes=[var("Vodka nacional", 2000), var("Skyy", 2200),
              var("Absolut", 2800)],
   porcao_=P300(),
   alimentar_=alimentar(estado="sem_simbolos", pagina=2),
-  termos=["caipiroska", "vodka", "limao", "absolut", "sky", "drink",
+  termos=["caipiroska", "vodka", "limao", "absolut", "sky", "skyy", "drink",
           "coquetel"],
   etiquetas=["bebida", "com-alcool"],
   fontes=["TXT", "HTML", "PDF"])
@@ -931,7 +895,7 @@ p("caipiroska", "coqueteis", "Caipiroska", 2000,
 p("caipifruta", "coqueteis", "Caipifruta", 2200,
   descritor="vodka, açúcar e polpa de fruta",
   detalhe="Vodka, açúcar e o sabor de fruta da sua escolha. Escolha a vodka e a fruta.",
-  variantes=[var("Vodka nacional", 2200), var("Sky", 2400),
+  variantes=[var("Vodka nacional", 2200), var("Skyy", 2400),
              var("Absolut", 3000)],
   opcoes=[{"texto": "Abacaxi, acerola, caju, cajá, maracujá, morango ou "
                     "manga (polpa)", "estado": "declarado"}],
@@ -993,10 +957,10 @@ p("margarita", "coqueteis", "Margarita", 2900,
   alimentar_=alimentar(estado="sem_simbolos", pagina=2),
   termos=["margarita", "tequila", "triple sec", "limao", "drink"],
   etiquetas=["bebida", "com-alcool"],
-  pendencias=["porcao", "vigencia"],
+  pendencias=["porcao"],
   fontes=["TXT", "HTML"],
-  notas=["Consta no TXT e no HTML, mas não foi encontrado no cardápio "
-         "impresso. Ausência em uma fonte não retira o produto."])
+  notas=["Não estava no impresso. Em 22/10/2026 o proprietário confirmou "
+         "que continua à venda e mandou incluí-la também no impresso."])
 
 p("fitzgerald", "coqueteis", "Fitzgerald", 2300,
   descritor="gin, limão, açúcar e bitter artesanal",
@@ -1140,7 +1104,7 @@ DOSES = [
     ("martini", "Martini", 700, "Bianco ou Rosato", ["martini", "bianco",
                                                      "rosato", "vermute"]),
     ("vodka-nacional", "Vodka Nacional", 700, None, ["vodka", "nacional"]),
-    ("vodka-sky", "Vodka Sky", 900, None, ["vodka", "sky"]),
+    ("vodka-sky", "Vodka Skyy", 900, None, ["vodka", "sky", "skyy"]),
     ("vodka-absolut", "Vodka Absolut", 1500, None, ["vodka", "absolut"]),
     ("gin-nacional", "Gin Nacional", 1000, None, ["gin", "nacional"]),
     ("gin-gordons", "Gin Gordon's", 1200, None, ["gin", "gordons",
@@ -1149,14 +1113,8 @@ DOSES = [
     ("conhaque", "Conhaque", 700, None, ["conhaque"]),
     ("cachaca-nacional", "Cachaça Nacional", 600, None, ["cachaca",
                                                          "nacional"]),
-    ("cachaca-ypioca-150", "Cachaça Ypioca 150", 1000, None,
+    ("cachaca-ypioca-150", "Cachaça Ypióca 150", 1000, None,
      ["cachaca", "ypioca"]),
-    ("cachaca-premium", "Cachaça Premium", 1200,
-     "Batista (3 anos em barril de carvalho, MG), Gogó da Ema (2 anos em "
-     "barril de bálsamo, AL), Matriarca (2 anos em barril de umburana, BA) ou "
-     "Caipira 5 Estrelas (1 ano em barril de cerejeira, ES)",
-     ["cachaca", "premium", "batista", "gogo da ema", "matriarca",
-      "caipira 5 estrelas", "envelhecida"]),
 ]
 
 for _id, _nome, _preco, _opcao, _termos in DOSES:
@@ -1165,10 +1123,6 @@ for _id, _nome, _preco, _opcao, _termos in DOSES:
     if _id == "cachaca-ypioca-150":
         _notas.append("O “150” faz parte do nome comercial da cachaça. Não é "
                       "a medida da dose, que é de 50 mL como nas demais.")
-    if _id == "cachaca-premium":
-        _notas.append("Quatro rótulos sob um mesmo preço, conforme o cadastro. "
-                      "Disponibilidade por rótulo a confirmar com o bar.")
-        _pend.append("opcoes")
     p(_id, "doses", _nome, _preco,
       descricao=None,
       opcoes=[{"texto": _opcao, "estado": "declarado"}] if _opcao else [],
@@ -1208,6 +1162,15 @@ p("arroz-extra", "extras", "Arroz Extra", 1200, sub="comestiveis",
   notas=["O impresso traz o mesmo item como “ADICIONAL ARROZ R$ 12,00”, na "
          "página dos pratos. Mesmo registro, não duplicado."])
 
+p("adicional-salada", "extras", "Adicional Salada", 1900, sub="comestiveis",
+  descritor="porção adicional de salada",
+  alimentar_=alimentar(estado="nao_revisado"),
+  termos=["salada", "adicional", "extra"],
+  etiquetas=["adicional"],
+  fontes=["PDF"],
+  notas=["Estava só no impresso (R$ 19,00, página 1), fora do cadastro. Em "
+         "22/10/2026 o proprietário confirmou o item e o preço para o site."])
+
 p("rolha", "extras", "Rolha", 3000, sub="cobrancas",
   descritor="taxa para consumir bebida trazida pelo cliente",
   alimentar_=alimentar(estado="nao_revisado"),
@@ -1242,38 +1205,8 @@ p("embalagem-viagem", "extras", "Embalagem para Viagem", 300, sub="apoio",
   etiquetas=["servico"],
   fontes=["TXT", "HTML"])
 
-# ==========================================================================
-# Candidatos: existem no impresso, nao estao nos 81 registros do cadastro.
-# Entram como rascunho, fora da publicacao, para a operacao decidir.
-# ==========================================================================
-
-p("adicional-salada", "extras", "Adicional Salada", 1900, sub="comestiveis",
-  descritor="porção adicional de salada",
-  alimentar_=alimentar(estado="nao_revisado"),
-  termos=["salada", "adicional", "extra"],
-  etiquetas=["adicional"],
-  pendencias=["vigencia", "preco"],
-  fontes=["PDF"],
-  publicar=False,
-  preco_estado="somente_impresso",
-  notas=["Aparece apenas no cardápio impresso (R$ 19,00, página 1). Não está "
-         "entre os 81 registros do cadastro. Fica em rascunho até a operação "
-         "confirmar existência e preço vigente."])
-
-p("corona-600", "cervejas", "Corona 600", None,
-  descritor="garrafa",
-  porcao_=porcao(texto="600 mL", total={"valor": 600, "unidade": "mL"},
-                 fontes=["PDF"]),
-  alimentar_=alimentar(estado="sem_simbolos", pagina=2),
-  termos=["corona", "cerveja", "garrafa"],
-  etiquetas=["bebida"],
-  pendencias=["vigencia", "preco"],
-  fontes=["PDF"],
-  publicar=False,
-  preco_estado="ausente",
-  notas=["Aparece no grupo de garrafas 600 mL do impresso, mas não consta no "
-         "cadastro, que tem Budweiser 600 nessa faixa. Preço não importado do "
-         "impresso. Fica em rascunho para decisão da operação."])
+# Candidatos (so no impresso, em rascunho): nenhum desde 22/10/2026, quando o
+# proprietario confirmou a Corona 600 e o Adicional Salada.
 
 # ==========================================================================
 # Fotografias sem produto correspondente
@@ -1283,7 +1216,7 @@ FOTOS_SEM_DESTINO = [
     {
         "arquivo": "peixe-empanado-sir-fisher",
         "observado": "Travessa de compartilhar com filés de peixe empanados, "
-                     "arroz, batata frita e farota.",
+                     "arroz, batata frita e farofa.",
         "motivo": "Nenhum prato do cadastro corresponde: o peixe dos pratos "
                   "para compartilhar é grelhado, não empanado. Não foi "
                   "atribuída a nenhum produto para não ilustrar um prato com "
@@ -1361,13 +1294,18 @@ def faixa_preco(prod):
 # --------------------------------------------------------------------------
 
 
+# Os 81 do cadastro de 22/09/2026, menos os 4 que sairam e mais os 2
+# confirmados pelo proprietario em 22/10/2026.
+PUBLICAVEIS_ESPERADOS = 79
+
+
 def verificar():
     erros = []
     publicados = [x for x in PRODUTOS if x["publicar"]]
 
-    if len(publicados) != 81:
-        erros.append("Esperados 81 registros publicáveis, encontrados %d."
-                     % len(publicados))
+    if len(publicados) != PUBLICAVEIS_ESPERADOS:
+        erros.append("Esperados %d registros publicáveis, encontrados %d."
+                     % (PUBLICAVEIS_ESPERADOS, len(publicados)))
 
     ids = [x["id"] for x in PRODUTOS]
     if len(ids) != len(set(ids)):

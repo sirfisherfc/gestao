@@ -5,7 +5,7 @@ de `scripts/cardapio/catalogo_inicial.json`. Não editar à mão: corrija o
 catálogo (ou o próprio cardápio, em Gestão → Rotinas → Cardápio) e gere
 de novo.
 
-O catálogo foi reconciliado em 2026-09-22 a partir de três fontes:
+O catálogo foi reconciliado em 2026-10-22 a partir de três fontes:
 
 | Fonte | O que é | Peso que recebeu |
 |---|---|---|
@@ -36,17 +36,11 @@ houver resposta, o portal não mostra o dado.
 |---|---|---|---|
 | Sir Fisher — Fish & Chips | Porção | Cardápio HTML: 150 g. Cardápio impresso: 200 g. | “Porção em conferência” |
 | London — Fish & Chips | Porção | Cardápio HTML: 150 g. Cardápio impresso: 200 g. | “Porção em conferência” |
-| Bolinha de Peixe Cremosa | Porção | Peso divergente — TXT e HTML: 300 g. Cardápio impresso: 200 g. | “6 unidades” |
-| Crispy Spicy Chicken | Porção | O impresso descreve “4 grandes rolinhos” e não informa peso. As duas informações podem se somar; confirmar a apresentação vigente. | “200 g” |
-| Fisher Burger | Porção | As fontes citam 120 g sem dizer se é o total das duas fatias ou o peso de cada uma. | “—” |
-| Spaten Longneck | Porção | Volume divergente — HTML: 355 mL. Cardápio impresso: 300 mL. | “Porção em conferência” |
 | London — Fish & Chips | Nome | Cadastro e HTML: “London”. Impresso: “Original”. A descrição coincide. | “London — Fish & Chips” |
 | Patinha de Caranguejo | Nome | Cadastro: “Patinha de caranguejo”. Impresso: “PATA DE CARANGUEJO”. | “Patinha de Caranguejo” |
 | Sherlock Holmes Gin | Receita | HTML: Monster. Impresso: Red Bull Zero e xarope de gengibre. | “gin com energético e gengibre”, sem marca |
 | Moscow Mule | Receita | O impresso acrescenta refrigerante de limão, que o cadastro não cita. | a descrição do cadastro |
-| Marine Sandwich | Ingrediente | Cadastro e HTML citam pepino; o impresso não cita. Omissão não retira ingrediente. | com pepino |
 | NewCastle | Acompanhamento | Cadastro e HTML citam batatas; o impresso não cita acompanhamento. | com porção de batatas |
-| Budweiser 600 | Vigência | Está no cadastro e no HTML, mas não foi encontrado no impresso. | publicado normalmente |
 | Margarita | Vigência | Está no cadastro e no HTML, mas não foi encontrado no impresso. | publicado normalmente |
 | Corona Zero Longneck | Classificação | O impresso escreve “CORONA ZERO%”. Se for sem álcool, merece etiqueta própria. | só entre as cervejas |
 | Sumo de Limão | Classificação | O impresso lista em BEBIDAS com 50 mL, mas pode ser complemento de drink. | entre as bebidas sem álcool |
@@ -60,21 +54,18 @@ Alho…”) foram completados pelo HTML e pelo impresso, que coincidem.
 
 ## 2. Campos pendentes, por produto
 
-33 produtos têm ao menos um campo a confirmar.
+23 produtos têm ao menos um campo a confirmar.
 
 | Campo | Produtos | Quantos |
 |---|---|---:|
-| Porção | Sir Fisher — Fish & Chips, London — Fish & Chips, Bolinha de Peixe Cremosa, NewCastle, Crispy Spicy Chicken, Filé Mignon Trinchado, Camarão alho e óleo, Calabresa Acebolada com Fritas… | 13 |
+| Porção | Sir Fisher — Fish & Chips, London — Fish & Chips, NewCastle, Filé Mignon Trinchado, Camarão alho e óleo, Calabresa Acebolada com Fritas, Margarita, Pacote de Gelo | 8 |
 | Rendimento | Filé Mignon, Picanha Importada, Filé de Peixe Grelhado, Carne de Sol Acebolada, Peito de Frango com Ervas, Picanha Suína | 6 |
-| Vigência do produto | Budweiser 600, Margarita, Adicional Salada, Corona 600 | 4 |
-| Informação alimentar | Patinha de Caranguejo, Bolinha de Peixe Cremosa, Molho Extra | 3 |
-| Opções | Pasteizinhos, Macaxeira Frita ou Batata Frita, Cachaça Premium | 3 |
-| Nome | London — Fish & Chips, Patinha de Caranguejo | 2 |
+| Opções | Pasteizinhos, Macaxeira Frita ou Batata Frita | 2 |
 | Classificação | Corona Zero Longneck, Sumo de Limão | 2 |
 | Descrição | Sherlock Holmes Gin, Moscow Mule | 2 |
-| Preço | Adicional Salada, Corona 600 | 2 |
 | Foto | Sir Fisher — Fish & Chips | 1 |
 | Alegação a conferir | Stella Pure Gold 600 | 1 |
+| Informação alimentar | Molho Extra | 1 |
 | Regra de cobrança | Rolha | 1 |
 
 ## 3. Matriz de declarações alimentares, com proveniência
@@ -107,14 +98,13 @@ ingredientes dos fornecedores.
 |---|---|---|---|
 | Sir Fisher — Fish & Chips | PEIXE, GLÚTEN, OVO | declarado no impresso | — |
 | London — Fish & Chips | PEIXE, GLÚTEN, OVO | declarado no impresso | — |
-| Patinha de Caranguejo | GLÚTEN, LACTOSE | declarado no impresso | O nome e a descrição citam caranguejo, mas o impresso não traz o símbolo de CRUSTÁCEOS neste bloco. Divergência registrada para conferência: a ausência do símbolo não indica ausência do ingrediente. |
-| Bolinha de Peixe Cremosa | GLÚTEN, LACTOSE | declarado no impresso | A descrição cita pescada amarela, mas o impresso não traz o símbolo de PEIXE neste bloco. Divergência registrada para conferência. |
+| Patinha de Caranguejo | GLÚTEN, LACTOSE, CRUSTÁCEOS | declarado no impresso | — |
+| Bolinha de Peixe Cremosa | GLÚTEN, LACTOSE, PEIXE | declarado no impresso | — |
 | NewCastle | CRUSTÁCEOS, GLÚTEN, OVO | declarado no impresso | — |
 | Crocante de Carne de Sol com Abóbora | GLÚTEN, OVO, LACTOSE | declarado no impresso | — |
 | Crocante de Calabresa e Alho Poró | GLÚTEN, OVO, LACTOSE | declarado no impresso | — |
 | Big Ben Fries | GLÚTEN, OVO, CORANTES | declarado no impresso | — |
 | Pasteizinhos | LACTOSE, CRUSTÁCEOS, GLÚTEN | declarado no impresso | Os símbolos são do bloco com os três sabores. O impresso não separa as marcações por sabor. |
-| Crispy Spicy Chicken | GLÚTEN, LACTOSE | declarado no impresso | — |
 | Filé Mignon Trinchado | GLÚTEN | declarado no impresso | — |
 | Caldo de Peixe | GLÚTEN, PEIXE, OVO | declarado no impresso | — |
 | Camarão alho e óleo | GLÚTEN, CRUSTÁCEOS | declarado no impresso | — |
@@ -124,7 +114,6 @@ ingredientes dos fornecedores.
 | Isca de Peixe | GLÚTEN, PEIXE, OVO, LACTOSE | declarado no impresso | — |
 | Fisher Burger | GLÚTEN, PEIXE, OVO, LACTOSE | declarado no impresso | — |
 | Edimburger | GLÚTEN, OVO, LACTOSE | declarado no impresso | — |
-| Marine Sandwich | GLÚTEN, CRUSTÁCEOS, OVO, LACTOSE | declarado no impresso | — |
 | Filé Mignon | GLÚTEN, OVO | declarado no impresso | Os símbolos estão no prato completo. O impresso não diz se vêm da proteína, do molho ou de um acompanhamento. |
 | Picanha Importada | GLÚTEN, OVO | declarado no impresso | Os símbolos estão no prato completo. O impresso não diz se vêm da proteína, do molho ou de um acompanhamento. |
 | Filé de Peixe Grelhado | GLÚTEN, OVO, PEIXE | declarado no impresso | Os símbolos estão no prato completo. O impresso não diz se vêm da proteína, do molho ou de um acompanhamento. |
@@ -133,12 +122,12 @@ ingredientes dos fornecedores.
 | Picanha Suína | GLÚTEN, OVO | declarado no impresso | Os símbolos estão no prato completo. O impresso não diz se vêm da proteína, do molho ou de um acompanhamento. |
 | Molho Extra | — | não revisado | — |
 | Arroz Extra | — | não revisado | — |
+| Adicional Salada | — | não revisado | — |
 | Rolha | — | não revisado | — |
 | Pacote de Gelo | — | não revisado | — |
 | Embalagem para Viagem | — | não revisado | — |
-| Adicional Salada | — | não revisado | — |
 
-Sem marcações no impresso (51 itens, quase todos bebidas e sobremesas): Brownie de Chocolate, Brownie com Sorvete, Café Expresso, Chope Brahma, Spaten Longneck, Stella Artois Longneck, Corona Longneck, Corona Zero Longneck, Spaten 600, Original 600, Budweiser 600, Stella Artois 600, Stella Pure Gold 600, Caipirinha, Caipiroska, Caipifruta, Gin Tônica, Melancita, Sherlock Holmes Gin, Tropicall, Margarita, Fitzgerald, Moscow Mule, Smirnoff Ice, Água sem gás, Água com gás, Água de Coco, Água Tônica, Refrigerante lata, Suco Copo, Energético Red Bull, Soda Italiana, Sumo de Limão, Teacher's, Black & White, Red Label, Black Label, Rum, Campari, Martini, Vodka Nacional, Vodka Sky, Vodka Absolut, Gin Nacional, Gin Gordon's, Aperol, Conhaque, Cachaça Nacional, Cachaça Ypioca 150, Cachaça Premium, Corona 600.
+Sem marcações no impresso (49 itens, quase todos bebidas e sobremesas): Brownie de Chocolate, Brownie com Sorvete, Café Expresso, Chope Brahma, Spaten Longneck, Stella Artois Longneck, Corona Longneck, Corona Zero Longneck, Spaten 600, Original 600, Stella Artois 600, Corona 600, Stella Pure Gold 600, Caipirinha, Caipiroska, Caipifruta, Gin Tônica, Melancita, Sherlock Holmes Gin, Tropicall, Margarita, Fitzgerald, Moscow Mule, Smirnoff Ice, Água sem gás, Água com gás, Água de Coco, Água Tônica, Refrigerante lata, Suco Copo, Energético Red Bull, Soda Italiana, Sumo de Limão, Teacher's, Black & White, Red Label, Black Label, Rum, Campari, Martini, Vodka Nacional, Vodka Skyy, Vodka Absolut, Gin Nacional, Gin Gordon's, Aperol, Conhaque, Cachaça Nacional, Cachaça Ypióca 150.
 
 ### Alegações do impresso que **não** foram publicadas
 
@@ -156,7 +145,6 @@ recusa salvar um adicional que custe igual ou mais que o produto.
 |---|---|---|
 | Fisher Burger | R$ 37,00 | Adicionar batata frita R$ 9,90 |
 | Edimburger | R$ 37,00 | Adicionar batata frita R$ 9,90 |
-| Marine Sandwich | R$ 46,00 | Adicionar batata frita R$ 9,90 |
 | Filé Mignon | R$ 90,00 | Arroz extra R$ 12,00 |
 | Picanha Importada | R$ 99,00 | Arroz extra R$ 12,00 |
 | Filé de Peixe Grelhado | R$ 80,00 | Arroz extra R$ 12,00 |
@@ -166,9 +154,9 @@ recusa salvar um adicional que custe igual ou mais que o produto.
 
 | Produto com variantes | Faixa exibida na lista | Opções |
 |---|---|---|
-| Caipirinha | R$ 18,00 a R$ 22,00 | Cachaça nacional R$ 18,00, Ypioca 150 R$ 22,00 |
-| Caipiroska | R$ 20,00 a R$ 28,00 | Vodka nacional R$ 20,00, Sky R$ 22,00, Absolut R$ 28,00 |
-| Caipifruta | R$ 22,00 a R$ 30,00 | Vodka nacional R$ 22,00, Sky R$ 24,00, Absolut R$ 30,00 |
+| Caipirinha | R$ 18,00 a R$ 22,00 | Cachaça nacional R$ 18,00, Ypióca 150 R$ 22,00 |
+| Caipiroska | R$ 20,00 a R$ 28,00 | Vodka nacional R$ 20,00, Skyy R$ 22,00, Absolut R$ 28,00 |
+| Caipifruta | R$ 22,00 a R$ 30,00 | Vodka nacional R$ 22,00, Skyy R$ 24,00, Absolut R$ 30,00 |
 | Gin Tônica | R$ 21,00 a R$ 23,00 | Gin nacional R$ 21,00, Gordon's R$ 23,00 |
 
 ## 5. Produtos que existem só numa fonte
@@ -177,14 +165,10 @@ Não foram excluídos nem promovidos. Ficam como decisão da operação.
 
 | Produto | Situação | Encaminhamento |
 |---|---|---|
-| Adicional Salada | Rascunho, fora do portal | Aparece apenas no cardápio impresso (R$ 19,00, página 1). Não está entre os 81 registros do cadastro. Fica em rascunho até a operação confirmar existência e preço vigente. |
-| Corona 600 | Rascunho, fora do portal | Aparece no grupo de garrafas 600 mL do impresso, mas não consta no cadastro, que tem Budweiser 600 nessa faixa. Preço não importado do impresso. Fica em rascunho para decisão da operação. |
-| Budweiser 600 | Publicado | Consta no TXT e no HTML, mas não foi encontrado no cardápio impresso. Ausência em uma fonte não retira o produto do cadastro. |
-| Margarita | Publicado | Consta no TXT e no HTML, mas não foi encontrado no cardápio impresso. Ausência em uma fonte não retira o produto. |
 
 ## 6. Fotografias
 
-Das 12 fotos de produto disponíveis em `site/assets/img/`, 34 foram
+Das 12 fotos de produto disponíveis em `site/assets/img/`, 32 foram
 atribuídas depois de inspeção visual. Nenhum prato recebeu a foto de
 outro para tapar buraco: quem não tem foto aparece com o brasão, num
 tratamento igual para todos.
@@ -202,7 +186,6 @@ tratamento igual para todos.
 | Crocante de Calabresa e Alho Poró | `crocante-calabresa-sir-fisher` | conferida |
 | Big Ben Fries | `big-ben-fries-sir-fisher` | conferida |
 | Pasteizinhos | `pasteizinhos-sir-fisher` | conferida |
-| Crispy Spicy Chicken | `crispy-spicy-chicken-sir-fisher` | conferida |
 | Filé Mignon Trinchado | `file-mignon-trinchado-sir-fisher` | conferida |
 | Caldo de Peixe | `caldo-de-peixe-sir-fisher` | conferida |
 | Camarão alho e óleo | `camarao-alho-e-oleo-sir-fisher` | conferida |
@@ -212,13 +195,12 @@ tratamento igual para todos.
 | Isca de Peixe | `isca-de-peixe-sir-fisher` | conferida |
 | Fisher Burger | `fisher-burger-sir-fisher` | conferida |
 | Edimburger | `edimburger-sir-fisher` | conferida |
-| Marine Sandwich | `marine-sandwich-sir-fisher` | conferida |
-| Filé Mignon | `file-mignon-sir-fisher` | conferida |
-| Picanha Importada | `picanha-importada-sir-fisher` | conferida |
-| Filé de Peixe Grelhado | `peixe-grelhado-sir-fisher` | conferida |
-| Carne de Sol Acebolada | `carne-de-sol-sir-fisher` | conferida |
-| Peito de Frango com Ervas | `peito-de-frango-sir-fisher` | conferida |
-| Picanha Suína | `picanha-suina-sir-fisher` | conferida |
+| Filé Mignon | `file-mignon-para-dividir-sir-fisher` | conferida |
+| Picanha Importada | `picanha-importada-para-dividir-sir-fisher` | conferida |
+| Filé de Peixe Grelhado | `peixe-grelhado-para-dividir-sir-fisher` | conferida |
+| Carne de Sol Acebolada | `carne-de-sol-para-dividir-sir-fisher` | conferida |
+| Peito de Frango com Ervas | `peito-de-frango-para-dividir-sir-fisher` | conferida |
+| Picanha Suína | `picanha-suina-para-dividir-sir-fisher` | conferida |
 | Brownie de Chocolate | `brownie-de-chocolate-sir-fisher` | conferida |
 | Brownie com Sorvete | `brownie-com-sorvete-sir-fisher` | conferida |
 | Café Expresso | `cafe-expresso-sir-fisher` | conferida |
@@ -230,7 +212,7 @@ tratamento igual para todos.
 
 ### Fotos existentes sem produto correspondente
 
-- **`peixe-empanado-sir-fisher`** — Travessa de compartilhar com filés de peixe empanados, arroz, batata frita e farota. Nenhum prato do cadastro corresponde: o peixe dos pratos para compartilhar é grelhado, não empanado. Não foi atribuída a nenhum produto para não ilustrar um prato com a foto de outro. *Confirmar com a operação se existe (ou existiu) uma versão empanada do prato para compartilhar.*
+- **`peixe-empanado-sir-fisher`** — Travessa de compartilhar com filés de peixe empanados, arroz, batata frita e farofa. Nenhum prato do cadastro corresponde: o peixe dos pratos para compartilhar é grelhado, não empanado. Não foi atribuída a nenhum produto para não ilustrar um prato com a foto de outro. *Confirmar com a operação se existe (ou existiu) uma versão empanada do prato para compartilhar.*
 - **`almoco-executivo-sir-fisher`** — Cliente à mesa com prato de almoço executivo. Pertence ao almoço executivo, que tem página própria e não faz parte destes 81 registros. *Manter fora do catálogo do cardápio.*
 
 ### Pratos a fotografar (0)
@@ -248,19 +230,17 @@ Gestão → Rotinas → Cardápio.
 
 ## 7. Ordem sugerida para a conferência
 
-1. **Preços.** São 81. É o que impede o cardápio de ir ao ar. Conferir
+1. **Preços.** São 79. É o que impede o cardápio de ir ao ar. Conferir
    contra o PDV, não contra o impresso.
 2. **Disponibilidade.** Marcar o que não existe mais. A ação é imediata e
    não precisa de publicação.
-3. **As 6 divergências de porção.** Principalmente os dois Fish & Chips
-   (150 g × 200 g) e a Bolinha de Peixe (300 g × 200 g).
+3. **As 2 divergências de porção.** Principalmente os dois Fish & Chips
+   (150 g × 200 g).
 4. **Alcance dos pesos.** “300 g” é da proteína, do prato montado, cru ou
    pronto? O rodapé do impresso diz “peso in natura”; confirmar onde vale.
 5. **Rendimento dos pratos para compartilhar.** Nenhuma fonte diz quantas
    pessoas servem. Enquanto não houver resposta, o portal não afirma nada.
 6. **Informação alimentar.** Ficha técnica e ingredientes dos
-   fornecedores, incluindo óleo e equipamento compartilhados. Resolver as
-   duas divergências de símbolo (Patinha de Caranguejo sem CRUSTÁCEOS,
-   Bolinha de Peixe sem PEIXE).
+   fornecedores, incluindo óleo e equipamento compartilhados.
 7. **Fotos** dos 0 pratos que faltam.
 8. **Marcar como conferido** no editor. O aviso sai do portal.

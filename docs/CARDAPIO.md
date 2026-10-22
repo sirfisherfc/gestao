@@ -332,7 +332,7 @@ Em `scripts/cardapio/`:
 
 | Script | O que faz |
 |---|---|
-| `catalogo_inicial.py` | A reconciliação das três fontes, com proveniência e estado de revisão por campo. Gera `catalogo_inicial.json`. Valida: 81 publicáveis, nenhum adicional mais caro que o produto, porção divergente sem texto, declaração alimentar sem fonte. |
+| `catalogo_inicial.py` | A reconciliação das três fontes, com proveniência e estado de revisão por campo. Gera `catalogo_inicial.json`. Valida: 79 publicáveis (81 até 22/10/2026), nenhum adicional mais caro que o produto, porção divergente sem texto, declaração alimentar sem fonte. |
 | `gerar_migration.py` | `catalogo_inicial.json` → migration de carga. |
 | `exportar_snapshot.py` | Publicação → cópia pública. `--do-banco` em produção; sem argumento, usa a semente (modo bootstrap). Recusa a exportação se algum campo interno vazar. |
 | `gerar_conferencia.py` | Gera `docs/CARDAPIO_CONFERENCIA.md`. |
@@ -354,7 +354,7 @@ cd site && python -m http.server 8777
 # abrir http://127.0.0.1:8777/tools/cardapio/teste-aceitacao.html
 ```
 
-Cobre o que não pode regredir: os 81 registros na página; nome, preço, porção e
+Cobre o que não pode regredir: os 79 registros na página; nome, preço, porção e
 descrição na própria listagem; adicional nunca como preço; faixa de preço nas
 variantes; porção divergente sem número; nenhuma etiqueta “sem glúten” ou
 “vegano” publicada; nenhum “serve N pessoas”; atalhos de categoria; busca sem
