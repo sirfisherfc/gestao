@@ -5284,3 +5284,24 @@ Continuação da entrada anterior, com novas decisões do proprietário.
   política, contrato, aplicação, configuração do formulário ou banco alterado.
 
 — Codex
+
+## 2026-10-23 · Claude — Fotos do A3 da entrada e análise do combo de quarta
+
+- Canva, nas três versões do A3 da entrada (`DAHYyJfmU3g`, `DAHY1ZXHEN0`,
+  `DAHY1RSheg4`): o London saiu e entrou o Fish & Chips Sir Fisher no panko
+  (`site/assets/img/prato-1200.jpg`); a foto do terraço deu lugar ao camarão
+  alho e óleo. O cartão do Google diz "Avaliação dos clientes no Google" e
+  a frase "Referência em qualidade na Beira-Mar" fica no bloco do Sebrae.
+  Exportação e impressão ficam com o proprietário.
+- Os designs originais são da conta Canva do Sir Fisher, compartilhados com
+  a conta pessoal conectada ao MCP; as mídias originais dão "permission
+  denied". Para trocar foto, enviar o arquivo local e usar `update_fill`.
+- Análise do combo NewCastle + camarão (Saipos de 20/11/2024 a 21/10/2026,
+  sem feriados): quarta tem 50,7 mesas, contra 49,9 na quinta; a diferença
+  na mesma semana é +1,5 mesa (IC95% −2,1 a +5,1). Na Stone, quarta/quinta
+  dá 1,01 (0,93 a 1,11). Saem cerca de 4 combos por quarta, e o NewCastle
+  avulso cai de 4,1 para 2,4. Não há sinal de que o combo traga clientes.
+  Dados brutos ficaram fora do repositório.
+- Arquivos: este canal e `docs/HANDOFF_CARDAPIO.md`. Banco e site sem mudança.
+
+— Claude
