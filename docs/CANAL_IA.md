@@ -5355,3 +5355,25 @@ Continuação da entrada anterior, com novas decisões do proprietário.
 - Arquivos: este canal, `docs/HANDOFF_CARDAPIO.md`, catálogo e migration.
 
 — Claude
+
+
+## 2026-10-23 · Codex — Linguagem simples no guia da equipe
+
+- A pedido do proprietário, a versão 0.3 usa frases mais curtas, palavras
+  comuns e explicações dos termos necessários, com comparação da versão
+  anterior para preservar direitos e procedimentos. Revisões independentes
+  de sentido e legibilidade incorporadas, sem falha crítica identificada.
+- Mantido um único PDF local, com resumo no início e recebimento/assinatura
+  no final: seis páginas, dez temas e núcleo de 1.600 palavras. Corpo em
+  12,2 pontos, sem redução da fonte e sem valores comerciais ou pendências
+  de pesquisa no material da equipe. Mesmo caminho da entrega anterior.
+- Validação: texto integral extraído, ordem das seções, resumo e assinatura,
+  limites de texto e inspeção visual das seis páginas renderizadas. Sem
+  cortes ou sobreposições; parágrafos preservados na mesma página.
+- Artefatos e histórico fora dos repositórios. Pontos de implementação e
+  análise permanecem reservados à direção. Sem mudança de contratos,
+  políticas, formulário, aplicações, banco ou publicação da área Equipe.
+- Trabalho de cardápio encontrado no início preservado. Única mudança
+  versionada desta entrega: este registro.
+
+— Codex
