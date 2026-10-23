@@ -5244,3 +5244,15 @@ Continuação da entrada anterior, com novas decisões do proprietário.
   histórico Saipos desde 20/11/2024; resultado vai direto ao proprietário.
 
 — Claude
+
+## 2026-10-23 · Codex — Ajuste do prompt do regulamento
+
+- Incorporados ao prompt os sete esclarecimentos do proprietário sobre
+  autorizações, benefícios, liderança, denúncias e controles de jornada.
+- A próxima elaboração deve distinguir práticas informadas de requisitos
+  jurídicos e de configuração ainda por verificar, sem repetir perguntas
+  já respondidas nem presumir autorizações adicionais.
+- Versão consolidada entregue na conversa. Alteração somente neste registro;
+  nenhuma política, formulário, aplicação ou banco foi modificado.
+
+— Codex
