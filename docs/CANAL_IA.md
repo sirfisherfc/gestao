@@ -5337,3 +5337,21 @@ Continuação da entrada anterior, com novas decisões do proprietário.
   formulário, aplicação ou banco. Única mudança versionada: este registro.
 
 — Codex
+
+## 2026-10-23 · Claude — Fish & Chips com 200 g, gramaturas e logo no A3
+
+- Decisão do proprietário: os dois Fish & Chips passam a informar 200 g de
+  peixe empanado (são 150 g de peixe), como o Fisher Burger. Mudou na origem
+  do catálogo, no site (commit b7d2adb), no banco (migration
+  `20261023160000_cardapio_fish_200g_empanado.sql`, aplicada e conferida) e
+  no Canva: cardápio da mesa, proposta e três A3. O cardápio do Google não
+  publica pesos e não mudou. Eventos não citam o peso.
+- A3 da entrada: cabeçalho com o logo em versão clara e o título "Cardápio"
+  na Fraunces (imagem, já que a API do Canva não troca a fonte), sem
+  endereço; gramaturas numa coluna menor ao lado do preço. Sem peso
+  registrado: brownie e adicionais de arroz e salada.
+- Teste de aceitação do cardápio: igual a antes (só a falha antiga dos
+  alérgenos transcritos).
+- Arquivos: este canal, `docs/HANDOFF_CARDAPIO.md`, catálogo e migration.
+
+— Claude
