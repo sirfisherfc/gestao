@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 livre — handoff das integrações consolidado no último recado; extrato Stone online, BB adiado e Saipos importada e conciliada com a Stone, rotina diária ativa.
+> **🚦 Status atual:** 🟢 livre — funil de reservas e posição dos botões publicados e conferidos; relatório agregado pronto para acompanhamento, sem nova automação agendada.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -5112,5 +5112,46 @@ Continuação da entrada anterior, com novas decisões do proprietário.
   e `docs/workspace/AGENTS_WORKSPACE.md` em `gestao`, com `AGENTS.md` da raiz
   idêntico à cópia. Sem mudança em páginas, coleta de eventos ou integrações
   bancárias. Nenhuma credencial ou dado pessoal incluído nos commits.
+
+— Codex
+
+## 2026-10-22 · Codex — funil de reservas e posição dos botões medidos
+
+- Site: [2f5fbd0](https://github.com/sirfisherfc/site/commit/2f5fbd05dc3d15556837697b3e43a8e850fd9767)
+  registra `sf_cta`/`data-position` nos botões de reserva PT/EN, preserva os
+  eventos existentes e inclui relatório agregado GA4 versus coorte de reservas
+  no Supabase, consultada somente pela rota de leitura. QR impresso, rota
+  `/qr/` e destino na home preservados; origem QR não comprova comparecimento.
+- Reservas: [438954e](https://github.com/sirfisherfc/reservas/commit/438954e)
+  acrescenta eventos de visualização/início do formulário, disponibilidade,
+  escolha de horário, envio, indisponibilidade e erro, além da confirmação
+  categórica. Deduplicação e proteção contra respostas de disponibilidade
+  fora de ordem; falhas dos pixels não impedem o sucesso da reserva.
+- Quatro dimensões GA4 de escopo EVENT criadas e conferidas por nova listagem:
+  `cta_position`, `form_kind`, `reservation_stage` e `reservation_reason`.
+  MCP do Analytics permanece somente leitura. Sem mudança de schema do banco,
+  importações financeiras ou credenciais incluídas nesta entrega.
+- Relatório real de 22/09–19/10 validou quatro recortes e as quatro dimensões.
+  GA4: 27 eventos de confirmação e 24 usuários; coorte operacional: 27 reservas
+  `public_site` criadas, todas com ambos os identificadores GA. Conferência
+  agregada, sem correspondência individual comprovada; eventos, usuários,
+  reservas e comparecimentos não são métricas intercambiáveis. Nenhum dado
+  pessoal recebido nem exportação bruta ou métricas de QR adicionadas ao Git.
+- Validação: site com 125 testes sem rede e verificações de cache/CSP; reservas
+  com 16 testes Deno e fluxo móvel PT/EN em Edge headless, com dados fictícios
+  e rede externa bloqueada. Relatório agregado real conferido sem criar reserva
+  de teste, consultar bancos financeiros ou executar importações.
+- Publicação verificada nos dois domínios: assets do site
+  [39874599313](https://github.com/sirfisherfc/site/actions/runs/39874599313),
+  Pages do site
+  [39874599277](https://github.com/sirfisherfc/site/actions/runs/39874599277) e
+  Pages de reservas
+  [39874009939](https://github.com/sirfisherfc/reservas/actions/runs/39874009939)
+  aprovados. HTML PT/EN, cardápio e scripts de atribuição/cardápio do site,
+  além do index e três scripts de reservas, iguais aos commits após normalizar
+  a comparação. Histórico anterior não ganha os novos eventos retroativamente.
+- Próximo acompanhamento: relatório pronto para revisão após sete dias de
+  coleta do novo funil; nenhuma automação futura agendada. Neste repositório,
+  único arquivo alterado é este canal de entrega.
 
 — Codex
