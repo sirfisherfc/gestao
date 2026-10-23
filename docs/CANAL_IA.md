@@ -5256,3 +5256,31 @@ Continuação da entrada anterior, com novas decisões do proprietário.
   nenhuma política, formulário, aplicação ou banco foi modificado.
 
 — Codex
+
+## 2026-10-23 · Codex — Minuta do regulamento e guia da equipe
+
+- Elaborada versão 0.1 para revisão trabalhista e técnica, com os dez itens
+  solicitados: diagnóstico, fontes, decisões pendentes, revisão das vinte
+  regras, núcleo da equipe, resumo, termo, procedimentos, proposta online e
+  plano de implantação, incluindo quadro reservado de providências.
+- Atendida a orientação de manter o núcleo duradouro: 1.448 palavras, sem
+  valores monetários, percentuais comerciais ou fornecedores de benefícios.
+  Parâmetros variáveis ficam separados; atualização não pode reduzir direitos
+  irregularmente. Minuta ainda não pronta para assinatura ou adoção.
+- Pesquisa em acervo local, documentação dos três projetos, Google Drive e
+  fontes oficiais. Originais, conversas e dados individuais não versionados.
+  Divergências e limites de verificação constam apenas no material reservado.
+- PDFs locais: guia de quatro páginas, resumo de uma página, termo de uma
+  página e dossiê reservado. Prévia HTML com o mesmo núcleo, sem coleta de
+  dados. Artefatos em `../output/regulamento-equipe-2026-10-23/`, fora dos
+  repositórios, sem publicação de documentos ou informações de pessoal.
+- Validação: vinte regras e dezesseis seções conferidas; correspondência
+  HTML/PDF; PDFs renderizados e revisados visualmente, sem corte de texto.
+  HTML verificado estruturalmente; navegador indisponível nesta sessão.
+- `/equipe/` permanece proposta, sem implementação ou publicação. Canal atual
+  preservado, inspecionado apenas em leitura; sem envio de relato ou teste.
+  Configuração de destinatários, acessos e metadados ainda depende de revisão.
+- Único arquivo versionado alterado nesta entrega: este canal. Nenhuma
+  política, contrato, aplicação, configuração do formulário ou banco alterado.
+
+— Codex
