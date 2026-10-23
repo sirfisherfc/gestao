@@ -8,9 +8,9 @@
    "id": "alergenos",
    "tipo": "alimentar",
    "titulo": "Sobre alérgenos",
-   "texto": "As marcações de cada prato foram transcritas do cardápio impresso e ainda não foram conferidas com a cozinha. Elas não substituem uma ficha técnica. Antes de pedir, fale com a equipe sobre alergias e restrições.",
-   "fonte": "Sir Fisher Praia.pdf, rodapé da página 1",
-   "citacao": "ALÉRGICOS: PODE CONTER CAMARÃO E GLÚTEN.",
+   "texto": "As marcações de cada prato foram transcritas do cardápio impresso e ainda não foram conferidas com a cozinha. Elas não substituem uma ficha técnica. Todos os fritos usam o mesmo óleo; a pedido, fritamos em panela separada. Antes de pedir, fale com a equipe sobre alergias e restrições.",
+   "fonte": "Canva Sir Fisher Praia, rodapé da página 1 (22/10/2026)",
+   "citacao": "TEM ALERGIA? AVISE ANTES DO PEDIDO: OS FRITOS USAM O MESMO ÓLEO (PEIXE, CRUSTÁCEOS, GLÚTEN, OVO) E PODEMOS FRITAR EM PANELA SEPARADA.",
    "estado": "declarado_no_impresso"
   }
  ],
@@ -161,18 +161,18 @@
    "inclui": [],
    "opcoes": [],
    "porcao": {
-    "texto": "200 g",
+    "texto": "150 g de peixe",
     "principal": {
-     "valor": 200,
+     "valor": 150,
      "unidade": "g",
-     "alcance": "indefinido"
+     "alcance": "proteina"
     },
     "total": null,
     "unidades": null,
     "rende_pessoas": null,
     "estado": "declarado",
     "divergencia": null,
-    "nota": "O cardápio impresso informa “peso in natura”. Alcance por prato ainda em conferência.",
+    "nota": "O cardápio impresso informa pesos aproximados. Alcance por prato ainda em conferência.",
     "fontes": [
      "HTML",
      "PDF"
@@ -223,7 +223,7 @@
    ],
    "notas_internas": [
     "O TXT e o HTML trazem o selo “Mais Pedido!”. É uma alegação de popularidade sem dado de vendas: não foi publicada.",
-    "O HTML dizia 150 g e o impresso 200 g. Em 22/10/2026 o proprietário confirmou 200 g."
+    "O HTML dizia 150 g e o impresso 200 g. Em 22/10/2026 o proprietário explicou: 150 g de peixe, 200 g empanado, e decidiu publicar 150 g em todos os canais."
    ],
    "publicar": true,
    "disponivel": true,
@@ -250,18 +250,18 @@
    "inclui": [],
    "opcoes": [],
    "porcao": {
-    "texto": "200 g",
+    "texto": "150 g de peixe",
     "principal": {
-     "valor": 200,
+     "valor": 150,
      "unidade": "g",
-     "alcance": "indefinido"
+     "alcance": "proteina"
     },
     "total": null,
     "unidades": null,
     "rende_pessoas": null,
     "estado": "declarado",
     "divergencia": null,
-    "nota": "O cardápio impresso informa “peso in natura”. Alcance por prato ainda em conferência.",
+    "nota": "O cardápio impresso informa pesos aproximados. Alcance por prato ainda em conferência.",
     "fontes": [
      "HTML",
      "PDF"
@@ -309,7 +309,7 @@
    ],
    "notas_internas": [
     "O cardápio impresso chamava esta versão de “Original — Fish N’ Chips”. Em 22/10/2026 o proprietário alinhou o impresso ao cadastro: London — Fish & Chips.",
-    "O HTML dizia 150 g e o impresso 200 g. Em 22/10/2026 o proprietário confirmou 200 g."
+    "O HTML dizia 150 g e o impresso 200 g. Em 22/10/2026 o proprietário explicou: 150 g de peixe, 200 g empanado, e decidiu publicar 150 g em todos os canais."
    ],
    "publicar": true,
    "disponivel": true,
@@ -433,7 +433,7 @@
     "rende_pessoas": null,
     "estado": "declarado",
     "divergencia": null,
-    "nota": "O cardápio impresso informa “peso in natura”. Alcance por prato ainda em conferência.",
+    "nota": "O cardápio impresso informa pesos aproximados. Alcance por prato ainda em conferência.",
     "fontes": [
      "TXT",
      "HTML",
@@ -518,7 +518,7 @@
     "rende_pessoas": null,
     "estado": "declarado",
     "divergencia": null,
-    "nota": "O cardápio impresso informa “peso in natura”. Alcance por prato ainda em conferência.",
+    "nota": "O cardápio impresso informa pesos aproximados. Alcance por prato ainda em conferência.",
     "fontes": [
      "TXT",
      "HTML",
@@ -607,7 +607,7 @@
     "rende_pessoas": null,
     "estado": "declarado",
     "divergencia": null,
-    "nota": "O cardápio impresso informa “peso in natura”. Alcance por prato ainda em conferência.",
+    "nota": "O cardápio impresso informa pesos aproximados. Alcance por prato ainda em conferência.",
     "fontes": [
      "TXT",
      "HTML",
@@ -692,7 +692,7 @@
     "rende_pessoas": null,
     "estado": "declarado",
     "divergencia": null,
-    "nota": "O cardápio impresso informa “peso in natura”. Alcance por prato ainda em conferência.",
+    "nota": "O cardápio impresso informa pesos aproximados. Alcance por prato ainda em conferência.",
     "fontes": [
      "TXT",
      "HTML",
@@ -774,7 +774,7 @@
     "rende_pessoas": null,
     "estado": "declarado",
     "divergencia": null,
-    "nota": "O cardápio impresso informa “peso in natura”. Alcance por prato ainda em conferência.",
+    "nota": "O cardápio impresso informa pesos aproximados. Alcance por prato ainda em conferência.",
     "fontes": [
      "TXT",
      "HTML",
@@ -966,7 +966,7 @@
     "rende_pessoas": null,
     "estado": "declarado",
     "divergencia": null,
-    "nota": "O cardápio impresso informa “peso in natura”. Alcance por prato ainda em conferência. O impresso não delimita se os 300 g são da carne ou do prato montado.",
+    "nota": "O cardápio impresso informa pesos aproximados. Alcance por prato ainda em conferência. O impresso não delimita se os 300 g são da carne ou do prato montado.",
     "fontes": [
      "TXT",
      "HTML",
@@ -1131,7 +1131,7 @@
     "rende_pessoas": null,
     "estado": "declarado",
     "divergencia": null,
-    "nota": "O cardápio impresso informa “peso in natura”. Alcance por prato ainda em conferência.",
+    "nota": "O cardápio impresso informa pesos aproximados. Alcance por prato ainda em conferência.",
     "fontes": [
      "TXT",
      "HTML",
@@ -1301,7 +1301,7 @@
     "rende_pessoas": null,
     "estado": "declarado",
     "divergencia": null,
-    "nota": "O cardápio impresso informa “peso in natura”. Alcance por prato ainda em conferência. O impresso não delimita se os 250 g são da calabresa ou do prato montado.",
+    "nota": "O cardápio impresso informa pesos aproximados. Alcance por prato ainda em conferência. O impresso não delimita se os 250 g são da calabresa ou do prato montado.",
     "fontes": [
      "TXT",
      "HTML",
@@ -1392,7 +1392,7 @@
     "rende_pessoas": null,
     "estado": "declarado",
     "divergencia": null,
-    "nota": "O cardápio impresso informa “peso in natura”. Alcance por prato ainda em conferência.",
+    "nota": "O cardápio impresso informa pesos aproximados. Alcance por prato ainda em conferência.",
     "fontes": [
      "TXT",
      "HTML",
@@ -1478,7 +1478,7 @@
     "rende_pessoas": null,
     "estado": "declarado",
     "divergencia": null,
-    "nota": "O cardápio impresso informa “peso in natura”. Alcance por prato ainda em conferência.",
+    "nota": "O cardápio impresso informa pesos aproximados. Alcance por prato ainda em conferência.",
     "fontes": [
      "TXT",
      "HTML",
@@ -1561,18 +1561,18 @@
    "inclui": [],
    "opcoes": [],
    "porcao": {
-    "texto": "120 g de peixe",
+    "texto": "120 g de peixe empanado",
     "principal": {
      "valor": 120,
      "unidade": "g",
-     "alcance": "proteina"
+     "alcance": "indefinido"
     },
     "total": null,
     "unidades": null,
     "rende_pessoas": null,
     "estado": "declarado",
     "divergencia": null,
-    "nota": "O cardápio impresso informa “peso in natura”. Alcance por prato ainda em conferência.",
+    "nota": "O cardápio impresso informa pesos aproximados. Alcance por prato ainda em conferência.",
     "fontes": [
      "TXT",
      "HTML",
@@ -1621,7 +1621,7 @@
    ],
    "notas_internas": [
     "O sanduíche custa R$ 37,00. O adicional de batata (R$ 9,90) é a primeira oferta estruturada no HTML e nunca deve ser lido como preço do produto.",
-    "As fontes citavam 120 g sem dizer se era o total das duas fatias. Em 22/10/2026 o proprietário confirmou 120 g."
+    "As fontes citavam 120 g sem dizer se era o total das duas fatias. Em 22/10/2026 o proprietário explicou: 100 g de peixe, 120 g empanado, e decidiu publicar 120 g em todos os canais."
    ],
    "publicar": true,
    "disponivel": true,
@@ -1669,7 +1669,7 @@
     "rende_pessoas": null,
     "estado": "declarado",
     "divergencia": null,
-    "nota": "O cardápio impresso informa “peso in natura”. Alcance por prato ainda em conferência.",
+    "nota": "O cardápio impresso informa pesos aproximados. Alcance por prato ainda em conferência.",
     "fontes": [
      "TXT",
      "HTML",
@@ -1777,7 +1777,7 @@
     "rende_pessoas": null,
     "estado": "declarado",
     "divergencia": null,
-    "nota": "O cardápio impresso informa “peso in natura”. Alcance por prato ainda em conferência. O impresso não informa quantas pessoas o prato serve.",
+    "nota": "O cardápio impresso informa pesos aproximados. Alcance por prato ainda em conferência. O impresso não informa quantas pessoas o prato serve.",
     "fontes": [
      "PDF"
     ]
@@ -1887,7 +1887,7 @@
     "rende_pessoas": null,
     "estado": "declarado",
     "divergencia": null,
-    "nota": "O cardápio impresso informa “peso in natura”. Alcance por prato ainda em conferência. O impresso não informa quantas pessoas o prato serve.",
+    "nota": "O cardápio impresso informa pesos aproximados. Alcance por prato ainda em conferência. O impresso não informa quantas pessoas o prato serve.",
     "fontes": [
      "PDF"
     ]
@@ -1998,7 +1998,7 @@
     "rende_pessoas": null,
     "estado": "declarado",
     "divergencia": null,
-    "nota": "O cardápio impresso informa “peso in natura”. Alcance por prato ainda em conferência. O impresso não informa quantas pessoas o prato serve.",
+    "nota": "O cardápio impresso informa pesos aproximados. Alcance por prato ainda em conferência. O impresso não informa quantas pessoas o prato serve.",
     "fontes": [
      "PDF"
     ]
@@ -2109,7 +2109,7 @@
     "rende_pessoas": null,
     "estado": "declarado",
     "divergencia": null,
-    "nota": "O cardápio impresso informa “peso in natura”. Alcance por prato ainda em conferência. O impresso não informa quantas pessoas o prato serve.",
+    "nota": "O cardápio impresso informa pesos aproximados. Alcance por prato ainda em conferência. O impresso não informa quantas pessoas o prato serve.",
     "fontes": [
      "PDF"
     ]
@@ -2218,7 +2218,7 @@
     "rende_pessoas": null,
     "estado": "declarado",
     "divergencia": null,
-    "nota": "O cardápio impresso informa “peso in natura”. Alcance por prato ainda em conferência. O impresso não informa quantas pessoas o prato serve.",
+    "nota": "O cardápio impresso informa pesos aproximados. Alcance por prato ainda em conferência. O impresso não informa quantas pessoas o prato serve.",
     "fontes": [
      "PDF"
     ]
@@ -2329,7 +2329,7 @@
     "rende_pessoas": null,
     "estado": "declarado",
     "divergencia": null,
-    "nota": "O cardápio impresso informa “peso in natura”. Alcance por prato ainda em conferência. O impresso não informa quantas pessoas o prato serve.",
+    "nota": "O cardápio impresso informa pesos aproximados. Alcance por prato ainda em conferência. O impresso não informa quantas pessoas o prato serve.",
     "fontes": [
      "PDF"
     ]

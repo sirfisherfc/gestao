@@ -37,10 +37,15 @@ Regras aplicadas, sem excecao:
 Decisoes do proprietario em 22/10/2026, na revisao do impresso no Canva:
 saem Crispy Spicy Chicken, Marine Sandwich, Budweiser 600, Cachaca Premium
 e Smirnoff Ice (nao sao mais vendidos); entram Corona 600 e Adicional Salada.
-Ficam confirmados 200 g nos dois Fish & Chips, 355 mL na Spaten Longneck,
-300 g na Bolinha de Peixe e 120 g no Fisher Burger. O impresso passou a usar os nomes do cadastro (London,
-Patinha) e ganhou os simbolos de CRUSTACEOS na patinha e de PEIXE na bolinha.
-"Farota" era erro de digitacao de "farofa". Sao 78 publicados.
+Ficam confirmados 355 mL na Spaten Longneck e 300 g na Bolinha de Peixe. Nos
+pesos dos empanados o proprietario decidiu publicar o mesmo numero em todos
+os canais: 150 g nos dois Fish & Chips (peso do peixe; empanado chega a
+200 g) e 120 g no Fisher Burger (peixe empanado; sao 100 g de peixe). O
+impresso passou a usar os nomes do cadastro (London, Patinha) e ganhou os
+simbolos de CRUSTACEOS na patinha e de PEIXE na bolinha. "Farota" era erro de
+digitacao de "farofa". O rodape de alergia passou a dizer que os fritos usam o
+mesmo oleo e que a cozinha frita em panela separada a pedido. Sao 78
+publicados.
 
 Saida: catalogo_inicial.json, consumido por gerar_migration.py (semente do
 banco) e por exportar_snapshot.py (copia publica derivada da publicacao).
@@ -57,12 +62,13 @@ HOJE = "2026-10-22"
 # --------------------------------------------------------------------------
 
 AVISO_ALERGENOS_IMPRESSO = (
-    "ALÉRGICOS: PODE CONTER CAMARÃO E GLÚTEN."
+    "TEM ALERGIA? AVISE ANTES DO PEDIDO: OS FRITOS USAM O MESMO ÓLEO (PEIXE, "
+    "CRUSTÁCEOS, GLÚTEN, OVO) E PODEMOS FRITAR EM PANELA SEPARADA."
 )
 
 NOTA_PESO_IN_NATURA = (
-    "O cardápio impresso informa “peso in natura”. Alcance por prato ainda em "
-    "conferência."
+    "O cardápio impresso informa pesos aproximados. Alcance por prato ainda "
+    "em conferência."
 )
 
 AVISOS = [
@@ -73,10 +79,11 @@ AVISOS = [
         "texto": (
             "As marcações de cada prato foram transcritas do cardápio impresso "
             "e ainda não foram conferidas com a cozinha. Elas não substituem "
-            "uma ficha técnica. Antes de pedir, fale com a equipe sobre "
-            "alergias e restrições."
+            "uma ficha técnica. Todos os fritos usam o mesmo óleo; a pedido, "
+            "fritamos em panela separada. Antes de pedir, fale com a equipe "
+            "sobre alergias e restrições."
         ),
-        "fonte": "Sir Fisher Praia.pdf, rodapé da página 1",
+        "fonte": "Canva Sir Fisher Praia, rodapé da página 1 (22/10/2026)",
         "citacao": AVISO_ALERGENOS_IMPRESSO,
         "estado": "declarado_no_impresso",
     },
@@ -312,14 +319,15 @@ def alimentar_dividir(extra=None):
 # ==========================================================================
 
 PORCAO_FISH = porcao(
-    texto="200 g",
-    principal={"valor": 200, "unidade": "g", "alcance": "indefinido"},
+    texto="150 g de peixe",
+    principal={"valor": 150, "unidade": "g", "alcance": "proteina"},
     nota=NOTA_PESO_IN_NATURA,
     fontes=["HTML", "PDF"],
 )
 
 NOTA_PESO_FISH = ("O HTML dizia 150 g e o impresso 200 g. Em 22/10/2026 o "
-                  "proprietário confirmou 200 g.")
+                  "proprietário explicou: 150 g de peixe, 200 g empanado, e "
+                  "decidiu publicar 150 g em todos os canais.")
 
 p("sir-fisher-fish-n-chips", "fish-and-chips",
   "Sir Fisher — Fish & Chips",
@@ -650,9 +658,9 @@ p("fisher-burger", "sanduiches",
           "perfeita, dispostas em pão brioche. Complementado por picles e um "
           "molho especial.",
   adicionais=ADICIONAL_BATATA,
-  porcao_=porcao(texto="120 g de peixe",
+  porcao_=porcao(texto="120 g de peixe empanado",
                  principal={"valor": 120, "unidade": "g",
-                            "alcance": "proteina"},
+                            "alcance": "indefinido"},
                  nota=NOTA_PESO_IN_NATURA,
                  fontes=["TXT", "HTML", "PDF"]),
   alimentar_=alimentar(["GLÚTEN", "PEIXE", "OVO", "LACTOSE"]),
@@ -666,7 +674,8 @@ p("fisher-burger", "sanduiches",
          "primeira oferta estruturada no HTML e nunca deve ser lido como "
          "preço do produto.",
          "As fontes citavam 120 g sem dizer se era o total das duas fatias. "
-         "Em 22/10/2026 o proprietário confirmou 120 g."])
+         "Em 22/10/2026 o proprietário explicou: 100 g de peixe, 120 g "
+         "empanado, e decidiu publicar 120 g em todos os canais."])
 
 p("edimburger", "sanduiches",
   "Edimburger", 3700,
