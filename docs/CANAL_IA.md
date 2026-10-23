@@ -5377,3 +5377,32 @@ Continuação da entrada anterior, com novas decisões do proprietário.
   versionada desta entrega: este registro.
 
 — Codex
+
+## 2026-10-23 · Codex — Código de ética e regulamento no link existente
+
+- A pedido do proprietário, atualizado o PDF já compartilhado em
+  `OneDrive/Sir Fisher/RH/Geral/Código de Ética e Conduta.pdf`, mantendo o
+  arquivo e seus identificadores. Linktree preservado, sem alterar seus
+  botões. Cópia original arquivada localmente, fora dos repositórios.
+- Documento conjunto versão 1.0: nove páginas, resumo no início, código de
+  ética em linguagem simples, regulamento v0.3 integral e recebimento dos
+  dois textos com assinatura no final. Corpo em 12,2 pontos. Sem valores
+  monetários, percentuais comerciais, dados pessoais ou termos preenchidos.
+- Código original comparado por tema. Corrigidas referências a órgãos e
+  contatos sem comprovação, vigilância genérica da vida particular e
+  rotinas não demonstradas. Mantidos integridade, direitos, segurança,
+  privacidade, conflitos de interesse, registros e proteção dos relatos.
+  Mapa e limites da revisão permanecem reservados; não há declaração de
+  regularização das práticas trabalhistas ou dos documentos técnicos.
+- Código separado de três páginas e guia separado de seis páginas prontos
+  localmente para futura separação dos links pelo proprietário. Artefatos
+  em `../output/regulamento-equipe-2026-10-23/`, sem versionar PDFs/fontes.
+- Validação: texto integral das fontes, resumo/assinatura, navegação,
+  ausência de cortes e títulos órfãos; inspeção visual das nove páginas
+  conjuntas e três do código separado. Publicação confirmada pelo mesmo
+  link do portal: download público sem login, HTTP 200, nove páginas e
+  hash idêntico ao PDF validado. Identificadores OneDrive e NTFS mantidos.
+- Sem criação da área Equipe e sem mudança de aplicação, formulário,
+  contratos ou banco. Única mudança versionada nesta entrega: este registro.
+
+— Codex
