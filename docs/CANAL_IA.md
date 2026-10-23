@@ -5474,3 +5474,29 @@ Continuação da entrada anterior, com novas decisões do proprietário.
   `docs/HANDOFF_CARDAPIO.md`.
 
 — Claude
+
+## 2026-10-23 · Claude — Revisão de alinhamento e espaçamento da proposta
+
+- Bloco preto dos alérgenos afinado para 50 px, com 12 px de folga, e
+  contatos recentralizados no marrom.
+- Página 1:
+  - Petiscos, sanduíches, pratos para dividir e Família Real com espaço
+    igual entre itens. Antes de "Batata frita ou macaxeira" havia um vão
+    de 18 px, contra 4 a 6 nos outros itens.
+  - Um x de partida por coluna, preço na altura do nome e ícones de
+    alérgenos centrados no título.
+  - Cabeçalho da Família Real, que estava 10 px fora do centro, centralizado.
+  - Legendas das fotos com a mesma margem.
+- Página 2:
+  - Coquetéis com espaçamento igual, preço da margarita na linha do nome e
+    o degrau de 2 px do rum nos destilados corrigido.
+  - Sobremesas centradas no bloco e alinhadas às colunas dos destilados.
+- Junções: degraus de 1 a 4 px entre blocos e bordas onduladas das fotos
+  com moldura "recortada à mão" foram endireitados com sobreposição de
+  blocos retos, porque a API recusou trocar a moldura. O texto inclinado
+  "Veja a foto" desceu 12 px na primeira tentativa (o Canva posiciona
+  rotacionados pela caixa girada) e voltou ao lugar.
+- Conferido em exportações de 3200 px, com zoom nas junções. Arquivos:
+  este canal e `docs/HANDOFF_CARDAPIO.md`.
+
+— Claude
