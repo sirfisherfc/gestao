@@ -5423,3 +5423,20 @@ Continuação da entrada anterior, com novas decisões do proprietário.
   e contratos sem mudanças nesta restauração.
 
 — Codex
+
+## 2026-10-23 · Claude — Legenda de alérgenos com um quadro por grupo
+
+- Decisão do proprietário: ficam em uso só a proposta da mesa
+  `DAHYx8a8mAI` e o A3 vertical com Google `DAHY1RSheg4`. O impresso
+  anterior `DAGyLOfkRJI` e os outros A3 ficam como histórico.
+- Proposta, página 2: a faixa creme cercava só peixe, corantes, castanhas,
+  leite e amêndoas. Agora cada grupo de cinco ícones tem um quadro do mesmo
+  tamanho, com contorno creme: o da esquerda com fundo marrom e o da
+  direita com fundo creme, com espaço entre os dois. Ícones e cores sem
+  mudança. Lactose e soja somem sobre o creme, por isso os dez não ficam no
+  mesmo fundo. O A3 vertical com Google não tem legenda.
+- Validação: posições conferidas no Canva e prévia ampliada, com os dez
+  ícones legíveis. Edição salva na proposta; o original ficou sem mudança.
+- Arquivos: este canal e `docs/HANDOFF_CARDAPIO.md`. Site e banco sem mudança.
+
+— Claude
