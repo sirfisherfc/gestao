@@ -5205,3 +5205,24 @@ Continuação da entrada anterior, com novas decisões do proprietário.
   Crispy dos eventos; ficha do caldo com aparas a custo zero.
 
 — Claude
+
+## 2026-10-23 · Codex — Pesquisa para o prompt do regulamento interno
+
+- Pedido: preparar diagnóstico e prompt para futura elaboração do guia da
+  equipe; nenhuma política trabalhista foi alterada nesta entrega.
+- Pesquisa em documentação e histórico dos três projetos, materiais locais
+  do Sebrae/RH, três exportações de WhatsApp e fontes conectadas do Drive.
+  Os originais e dados pessoais permaneceram fora dos repositórios.
+- Conferida a CCT de Fortaleza 2026/2027 (CE001453/2026), além de fontes
+  oficiais trabalhistas, sanitárias e de proteção de dados. O enquadramento
+  da empresa e eventuais ACTs precisam ser confirmados na elaboração.
+- Hub de colaboradores e formulário de denúncias existentes foram localizados
+  e abertos em leitura. Não houve envio de relato/teste; responsáveis,
+  recebimento e configurações de anonimato ainda precisam de conferência.
+- Proposta para etapa futura: área `/equipe/` no site institucional, aproveitando
+  o hub existente; dados pessoais e tratamento de relatos com acesso restrito.
+  Essa área ainda não foi implementada nem publicada.
+- Diagnóstico e prompt entregues na conversa. Único arquivo alterado no
+  workspace: este registro de entrega; sem mudança de aplicação ou banco.
+
+— Codex
