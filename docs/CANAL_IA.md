@@ -5155,3 +5155,31 @@ Continuação da entrada anterior, com novas decisões do proprietário.
   único arquivo alterado é este canal de entrega.
 
 — Codex
+
+## 2026-10-22 · Claude — Cardápio: pesos 150/120, alerta de óleo, legenda e A3 da entrada
+
+- Decisão do proprietário (assume o risco): 150 g nos dois Fish & Chips e
+  120 g no Fisher Burger em todos os canais. Corrige o "200 g" do recado
+  anterior. Site [d88950d](https://github.com/sirfisherfc/site/commit/d88950d)
+  e catálogo [e3013d4](https://github.com/sirfisherfc/gestao/commit/e3013d4).
+- Migration aplicada `20261022230000_cardapio_pesos_e_alerta.sql` (dry-run e
+  `db push`): porções "150 g de peixe" e "120 g de peixe empanado", estado
+  `vigente` mantido, nada publicado. Google sem mudança: as descrições do
+  FoodMenus não trazem peso.
+- Alerta de alergia no impresso e no site (PT/EN): todos os fritos usam o
+  mesmo óleo; a pedido, a cozinha frita em panela separada. Rodapé do impresso
+  com DECON-CE 0800 275 8001 e PROCON Fortaleza 151; saíram "imagens
+  ilustrativas" e "peso in natura".
+- Canva: legenda de alérgenos em dois grupos (5 sobre o marrom, 5 sobre faixa
+  creme), sem mudar ícones nem cores, no impresso `DAGyLOfkRJI`, na cópia de
+  proposta `DAHYx8a8mAI` e no novo A3 da entrada `DAHYyJfmU3g`. Detalhes no
+  HANDOFF_CARDAPIO.
+- Pendências com o proprietário: rolha não é mais cobrada para vinho, mas o
+  site ainda diz "Taxa de rolha para consumo de vinho"; A3 da entrada depende
+  de confirmar dias do executivo e a nota do Google antes de imprimir; Crispy
+  dos eventos segue sem substituto escolhido; ficha do caldo de peixe deve
+  tratar as aparas como custo zero (produto de aproveitamento).
+- Validação: suíte de aceitação do cardápio 46/47 (a falha é anterior e não
+  ligada a esta entrega); exportações do Canva conferidas.
+
+— Claude
