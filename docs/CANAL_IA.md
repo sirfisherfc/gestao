@@ -5316,3 +5316,24 @@ Continuação da entrada anterior, com novas decisões do proprietário.
 - Arquivos: este canal e `docs/HANDOFF_CARDAPIO.md`. Banco e site sem mudança.
 
 — Claude
+
+## 2026-10-23 · Codex — Guia da equipe consolidado em um PDF
+
+- A pedido do proprietário, a versão 0.2 reúne resumo na primeira página,
+  regulamento e ciência/assinatura ao final, em um único PDF de cinco páginas.
+  Arquivo local: `../output/regulamento-equipe-2026-10-23/Sir-Fisher-Regulamento-e-Guia-da-Equipe.pdf`.
+- Núcleo reorganizado em dez temas, com 1.306 palavras, preservando as vinte
+  regras revisadas e a opção por não fixar valores e percentuais comerciais.
+  Removidos do material da equipe a faixa de minuta, avisos de publicação e
+  marcadores de pesquisa. Instruções práticas substituem remissões a políticas
+  cuja disponibilização ainda não foi comprovada.
+- Pontos de revisão trabalhista/técnica e implementação permanecem reservados
+  à direção. A consolidação não comprova regularização de práticas ou canal.
+  Arquivos da primeira entrega preservados como histórico, sem exclusão.
+- Validação: revisão do conteúdo, extração integral, ordem das seções,
+  resumo na primeira página, assinatura no final e inspeção visual das cinco
+  páginas renderizadas, sem corte de texto. Documento fora dos repositórios.
+- Sem publicação da área Equipe e sem alteração de contratos, políticas,
+  formulário, aplicação ou banco. Única mudança versionada: este registro.
+
+— Codex
