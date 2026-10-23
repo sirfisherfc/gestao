@@ -5406,3 +5406,20 @@ Continuação da entrada anterior, com novas decisões do proprietário.
   contratos ou banco. Única mudança versionada nesta entrega: este registro.
 
 — Codex
+
+## 2026-10-23 · Codex — Restauração do código de ética original
+
+- Correção expressa do proprietário: o código de ética antigo deveria ser
+  preservado. A substituição descrita na entrada anterior foi desfeita.
+- Restaurados os bytes exatos da edição original de 2024 no mesmo arquivo
+  `OneDrive/Sir Fisher/RH/Geral/Código de Ética e Conduta.pdf`, sem exclusão
+  ou renomeação. Identificador NTFS preservado; Linktree sem alteração.
+- Conferência por download público no mesmo link: HTTP 200, nove páginas
+  e hash idêntico à cópia original preservada antes da substituição.
+- Propostas conjuntas e de código revisado v1.0 ficam apenas no histórico
+  local, retiradas do uso atual. Orientação local de entrega corrigida.
+  Guia separado v0.3 preservado. Nenhum documento ou dado bruto versionado.
+- Única alteração versionada: este registro. Aplicações, formulário, banco
+  e contratos sem mudanças nesta restauração.
+
+— Codex
