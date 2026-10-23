@@ -39,8 +39,9 @@ saem Crispy Spicy Chicken, Marine Sandwich, Budweiser 600, Cachaca Premium
 e Smirnoff Ice (nao sao mais vendidos); entram Corona 600 e Adicional Salada.
 Ficam confirmados 355 mL na Spaten Longneck e 300 g na Bolinha de Peixe. Nos
 pesos dos empanados o proprietario decidiu publicar o mesmo numero em todos
-os canais: 150 g nos dois Fish & Chips (peso do peixe; empanado chega a
-200 g) e 120 g no Fisher Burger (peixe empanado; sao 100 g de peixe). O
+os canais: 200 g nos dois Fish & Chips (peixe empanado; sao 150 g de peixe,
+decisao de 23/10/2026) e 120 g no Fisher Burger (peixe empanado; sao 100 g
+de peixe). O
 impresso passou a usar os nomes do cadastro (London, Patinha) e ganhou os
 simbolos de CRUSTACEOS na patinha e de PEIXE na bolinha. "Farota" era erro de
 digitacao de "farofa". O rodape de alergia do impresso ficou curto por
@@ -319,15 +320,16 @@ def alimentar_dividir(extra=None):
 # ==========================================================================
 
 PORCAO_FISH = porcao(
-    texto="150 g de peixe",
-    principal={"valor": 150, "unidade": "g", "alcance": "proteina"},
+    texto="200 g de peixe empanado",
+    principal={"valor": 200, "unidade": "g", "alcance": "indefinido"},
     nota=NOTA_PESO_IN_NATURA,
     fontes=["HTML", "PDF"],
 )
 
-NOTA_PESO_FISH = ("O HTML dizia 150 g e o impresso 200 g. Em 22/10/2026 o "
-                  "proprietário explicou: 150 g de peixe, 200 g empanado, e "
-                  "decidiu publicar 150 g em todos os canais.")
+NOTA_PESO_FISH = ("O HTML dizia 150 g e o impresso 200 g. O proprietário "
+                  "explicou: 150 g de peixe, 200 g empanado. Em 23/10/2026 "
+                  "decidiu publicar 200 g (peixe empanado) em todos os canais, "
+                  "como o Fisher Burger, que informa o peso empanado.")
 
 p("sir-fisher-fish-n-chips", "fish-and-chips",
   "Sir Fisher — Fish & Chips",

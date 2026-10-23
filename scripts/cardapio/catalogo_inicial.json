@@ -161,11 +161,11 @@
    "inclui": [],
    "opcoes": [],
    "porcao": {
-    "texto": "150 g de peixe",
+    "texto": "200 g de peixe empanado",
     "principal": {
-     "valor": 150,
+     "valor": 200,
      "unidade": "g",
-     "alcance": "proteina"
+     "alcance": "indefinido"
     },
     "total": null,
     "unidades": null,
@@ -223,7 +223,7 @@
    ],
    "notas_internas": [
     "O TXT e o HTML trazem o selo “Mais Pedido!”. É uma alegação de popularidade sem dado de vendas: não foi publicada.",
-    "O HTML dizia 150 g e o impresso 200 g. Em 22/10/2026 o proprietário explicou: 150 g de peixe, 200 g empanado, e decidiu publicar 150 g em todos os canais."
+    "O HTML dizia 150 g e o impresso 200 g. O proprietário explicou: 150 g de peixe, 200 g empanado. Em 23/10/2026 decidiu publicar 200 g (peixe empanado) em todos os canais, como o Fisher Burger, que informa o peso empanado."
    ],
    "publicar": true,
    "disponivel": true,
@@ -250,11 +250,11 @@
    "inclui": [],
    "opcoes": [],
    "porcao": {
-    "texto": "150 g de peixe",
+    "texto": "200 g de peixe empanado",
     "principal": {
-     "valor": 150,
+     "valor": 200,
      "unidade": "g",
-     "alcance": "proteina"
+     "alcance": "indefinido"
     },
     "total": null,
     "unidades": null,
@@ -309,7 +309,7 @@
    ],
    "notas_internas": [
     "O cardápio impresso chamava esta versão de “Original — Fish N’ Chips”. Em 22/10/2026 o proprietário alinhou o impresso ao cadastro: London — Fish & Chips.",
-    "O HTML dizia 150 g e o impresso 200 g. Em 22/10/2026 o proprietário explicou: 150 g de peixe, 200 g empanado, e decidiu publicar 150 g em todos os canais."
+    "O HTML dizia 150 g e o impresso 200 g. O proprietário explicou: 150 g de peixe, 200 g empanado. Em 23/10/2026 decidiu publicar 200 g (peixe empanado) em todos os canais, como o Fisher Burger, que informa o peso empanado."
    ],
    "publicar": true,
    "disponivel": true,
