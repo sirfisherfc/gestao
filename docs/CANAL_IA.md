@@ -5183,3 +5183,25 @@ Continuação da entrada anterior, com novas decisões do proprietário.
   ligada a esta entrega); exportações do Canva conferidas.
 
 — Claude
+
+## 2026-10-23 · Claude — Cardápio: rodapé curto, macaxeira sem destaque, bebidas
+
+- Rodapé de alergia do impresso agora curto, por decisão do proprietário:
+  "ALERGIA? AVISE ANTES DO PEDIDO: PODE TER CONTAMINAÇÃO CRUZADA." O site
+  mantém o texto explicativo do óleo compartilhado. Citação atualizada em
+  `catalogo_inicial.py`; migration `20261022233000_cardapio_aviso_impresso_curto.sql`
+  aplicada (dry-run e `db push`): só muda `cardapio_aviso.citacao`; 78 ativos,
+  5 arquivados, estado `vigente`. Snapshot do site sem mudança (citação não é
+  pública), por isso não houve commit no `site`.
+- Canva: cópia de proposta `DAHYx8a8mAI` sem "Servem 2 pessoas", sem destaque
+  para macaxeira (margem menor; o garçom já pergunta) e com as bebidas sem
+  álcool por margem. A3 da entrada `DAHYyJfmU3g` com o mesmo critério. O
+  original `DAGyLOfkRJI` já estava com o rodapé curto (feito pelo proprietário).
+- Decisões: destilados ficam no impresso até acabar o estoque; Pepsi é
+  bonificada (a promo batata + Pepsi + copo não é perda de margem e só foi
+  usada de 1 a 14/09/2026).
+- Pendências com o proprietário: regra e texto da rolha (site ainda diz
+  "rolha para vinho"); descritores dos pratos para dividir; sobremesa pronta;
+  Crispy dos eventos; ficha do caldo com aparas a custo zero.
+
+— Claude

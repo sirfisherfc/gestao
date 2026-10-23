@@ -43,9 +43,10 @@ os canais: 150 g nos dois Fish & Chips (peso do peixe; empanado chega a
 200 g) e 120 g no Fisher Burger (peixe empanado; sao 100 g de peixe). O
 impresso passou a usar os nomes do cadastro (London, Patinha) e ganhou os
 simbolos de CRUSTACEOS na patinha e de PEIXE na bolinha. "Farota" era erro de
-digitacao de "farofa". O rodape de alergia passou a dizer que os fritos usam o
-mesmo oleo e que a cozinha frita em panela separada a pedido. Sao 78
-publicados.
+digitacao de "farofa". O rodape de alergia do impresso ficou curto por
+decisao do proprietario ("pode ter contaminacao cruzada"); o site continua
+explicando que os fritos usam o mesmo oleo e que a cozinha frita em panela
+separada a pedido. Sao 78 publicados.
 
 Saida: catalogo_inicial.json, consumido por gerar_migration.py (semente do
 banco) e por exportar_snapshot.py (copia publica derivada da publicacao).
@@ -62,8 +63,7 @@ HOJE = "2026-10-22"
 # --------------------------------------------------------------------------
 
 AVISO_ALERGENOS_IMPRESSO = (
-    "TEM ALERGIA? AVISE ANTES DO PEDIDO: OS FRITOS USAM O MESMO ÓLEO (PEIXE, "
-    "CRUSTÁCEOS, GLÚTEN, OVO) E PODEMOS FRITAR EM PANELA SEPARADA."
+    "ALERGIA? AVISE ANTES DO PEDIDO: PODE TER CONTAMINAÇÃO CRUZADA."
 )
 
 NOTA_PESO_IN_NATURA = (
