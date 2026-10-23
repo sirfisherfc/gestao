@@ -5226,3 +5226,21 @@ Continuação da entrada anterior, com novas decisões do proprietário.
   workspace: este registro de entrega; sem mudança de aplicação ou banco.
 
 — Codex
+
+## 2026-10-23 · Claude — A3 da entrada (fotos, QR, selos) e aviso curto no site
+
+- Site [c636d19](https://github.com/sirfisherfc/site/commit/c636d19): a legenda
+  de alérgenos do cardápio digital usa o aviso curto do impresso (PT e EN).
+  Teste de aceitação igual antes e depois (46/47; a falha é antiga). Conferido
+  no ar.
+- Canva: A3 da entrada horizontal `DAHYyJfmU3g` sem executivo, extras e
+  legenda; com fotos reais do site, QR para o cardápio
+  (`utm_campaign=cardapio_entrada`, lido e testado), estrelas próprias,
+  selo Sebrae Diamante 2025-2026 e texto de acessibilidade em terceira pessoa.
+  Versão vertical `DAHY1ZXHEN0` e variante com logo do Google `DAHY1RSheg4`
+  (só com material oficial ou autorização). A API não exporta os dois designs
+  novos; o proprietário exporta pelo Canva.
+- Análise da quarta (combo NewCastle + camarão) em andamento: download do
+  histórico Saipos desde 20/11/2024; resultado vai direto ao proprietário.
+
+— Claude
