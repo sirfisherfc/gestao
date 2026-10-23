@@ -5440,3 +5440,20 @@ Continuação da entrada anterior, com novas decisões do proprietário.
 - Arquivos: este canal e `docs/HANDOFF_CARDAPIO.md`. Site e banco sem mudança.
 
 — Claude
+
+## 2026-10-23 · Claude — Legenda de alérgenos numa faixa preta única
+
+- O proprietário recusou os dois quadros (marrom com contorno e creme) e
+  pediu um fundo único para os dez ícones: a cor cujo pior contraste é o
+  mais alto. Cores dos rótulos medidas na exportação em 4000 px.
+- Resultado: preto #000000. Pior caso LEITE 1,64:1 e AMÊNDOAS 2,27:1; os
+  outros oito ficam acima de 4:1. Para comparar, o pior caso seria LACTOSE
+  com 1,40:1 no creme e LEITE com 1,11:1 no marrom do rodapé. Nenhuma cor
+  única deixa os dez legíveis, porque os rótulos vão do azul-marinho ao
+  azul-claro.
+- Proposta `DAHYx8a8mAI`, página 2: faixa preta de 388 a 1440, ícones
+  espaçados por igual e o quadro creme removido. Salva e conferida na
+  exportação.
+- Arquivos: este canal e `docs/HANDOFF_CARDAPIO.md`. Site e banco sem mudança.
+
+— Claude
