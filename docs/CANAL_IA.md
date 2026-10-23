@@ -5457,3 +5457,20 @@ Continuação da entrada anterior, com novas decisões do proprietário.
 - Arquivos: este canal e `docs/HANDOFF_CARDAPIO.md`. Site e banco sem mudança.
 
 — Claude
+
+## 2026-10-23 · Claude — Rodapé da proposta em dois blocos
+
+- A pedido do proprietário, a faixa preta virou um bloco próprio, colado
+  abaixo do marrom e sem sobrepô-lo. Vai da coluna dos coquetéis até as
+  bordas direita e inferior da página. O bloco marrom termina onde o preto
+  começa.
+- Contatos centralizados em três colunas iguais, com os ícones simétricos
+  em torno do centro do bloco. Os dez ícones de alérgenos passaram para
+  100×50 e foram centralizados, espaçados por igual.
+- Bandeiras de cartão retiradas da mesa. Nenhuma lei que as exija foi
+  encontrada (a Lei CE 17.899/2022 trata só dos alérgenos), e o A3 da
+  entrada já as mostra.
+- Salvo e conferido em exportação de 4000 px. Arquivos: este canal e
+  `docs/HANDOFF_CARDAPIO.md`.
+
+— Claude
