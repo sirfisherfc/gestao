@@ -5305,3 +5305,14 @@ Continuação da entrada anterior, com novas decisões do proprietário.
 - Arquivos: este canal e `docs/HANDOFF_CARDAPIO.md`. Banco e site sem mudança.
 
 — Claude
+
+## 2026-10-23 · Claude — Edimburger no A3 da entrada
+
+- A pedido do proprietário, a terceira foto das três versões do A3 da
+  entrada deixou de ser o camarão alho e óleo, porque havia duas fotos de
+  camarão, e passou a ser o Edimburger. O quadro foi ajustado para mostrar a
+  bandeira. Saipos, 12 meses: NewCastle 2.659, Edimburger 1.839, Fisher
+  Burger 1.128, camarão alho e óleo avulso 1.005.
+- Arquivos: este canal e `docs/HANDOFF_CARDAPIO.md`. Banco e site sem mudança.
+
+— Claude
