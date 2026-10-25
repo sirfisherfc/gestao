@@ -14,9 +14,13 @@ Comandos:
   purgar           esvazia o cache da borda (raramente necessario: os assets
                    levam ?v=<hash> e o HTML expira em 10 min)
   desfazer-proxy   volta www e o dominio sem www para "somente DNS" (rollback)
+  robots           desliga o robots.txt gerenciado do Cloudflare; quem publica
+                   o robots.txt (com os mesmos rastreadores bloqueados)
+                   e o site. --religar devolve o bloco do Cloudflare (rollback)
 
 Credencial: CLOUDFLARE_API_TOKEN, da variavel de ambiente ou do gestao/.env
 (ignorado pelo Git). Nunca exibir, copiar para paginas nem versionar o valor.
+O comando robots precisa da permissao Zone > Bot Management > Edit no token.
 
 Uso:
   python scripts/cloudflare/cf.py diagnostico
@@ -221,14 +225,53 @@ def cmd_desfazer_proxy(args):
         print("Simulacao. Use --aplicar.")
 
 
+def cmd_robots(args):
+    # O site publica a lista de rastreadores bloqueados. Os dois campos abaixo
+    # controlam a geracao do robots.txt; as preferencias e outras protecoes da
+    # zona devem permanecer como estavam. Publique o site antes de desligar.
+    zid = zona_id()
+    antes = api("GET", f"/zones/{zid}/bot_management")
+    if not antes.get("success") or not isinstance(antes.get("result"), dict):
+        sys.exit(f"Sem acesso ao Bot Management (permissao no token?): {antes.get('errors')}")
+    antes = antes["result"]
+    alvo = bool(args.religar)
+    campos = ("is_robots_txt_managed", "bot_preference_sync_enabled")
+    for campo in campos:
+        print(f"  {campo}: {antes.get(campo)} -> {alvo}")
+    if not args.aplicar:
+        print("Simulacao. Use --aplicar.")
+        return
+    corpo = {c: alvo for c in campos if antes.get(c) != alvo}
+    if corpo:
+        if not conferir("robots.txt do Cloudflare", api("PUT", f"/zones/{zid}/bot_management", corpo)):
+            sys.exit("Nao foi possivel alterar o robots.txt gerenciado.")
+    resposta = api("GET", f"/zones/{zid}/bot_management")
+    if not resposta.get("success") or not isinstance(resposta.get("result"), dict):
+        sys.exit(f"Nao foi possivel conferir o robots.txt gerenciado: {resposta.get('errors')}")
+    depois = resposta["result"]
+    if any(depois.get(c) is not alvo for c in campos):
+        sys.exit("O robots.txt gerenciado nao ficou no estado solicitado; confira a zona.")
+    mudou = {k: (antes.get(k), depois.get(k)) for k in set(antes) | set(depois)
+             if k not in campos and antes.get(k) != depois.get(k)}
+    if mudou:
+        sys.exit(f"Outras configuracoes mudaram junto; confira a zona antes de continuar: {mudou}")
+    if not conferir("purga do robots.txt", api("POST", f"/zones/{zid}/purge_cache",
+                                            {"files": [f"https://{WWW}/robots.txt", f"https://{ZONA}/robots.txt"]})):
+        sys.exit("Configuracao conferida, mas a purga do robots.txt falhou; confira a resposta publica.")
+    print(f"Configuracao e purga conferidas. Confira a resposta publica: https://{WWW}/robots.txt")
+
+
 def main():
     parser = argparse.ArgumentParser(description="Cloudflare da zona sirfisher.com.br (simula por padrao).")
     sub = parser.add_subparsers(dest="comando", required=True)
     sub.add_parser("diagnostico").set_defaults(func=cmd_diagnostico)
-    for nome, func in (("site", cmd_site), ("purgar", cmd_purgar), ("desfazer-proxy", cmd_desfazer_proxy)):
+    for nome, func in (("site", cmd_site), ("purgar", cmd_purgar), ("desfazer-proxy", cmd_desfazer_proxy),
+                       ("robots", cmd_robots)):
         p = sub.add_parser(nome)
         p.add_argument("--aplicar", action="store_true", help="Altera a zona de verdade.")
         p.set_defaults(func=func)
+    sub.choices["robots"].add_argument("--religar", action="store_true",
+                                       help="Devolve o robots.txt gerenciado do Cloudflare.")
     args = parser.parse_args()
     args.func(args)
 
