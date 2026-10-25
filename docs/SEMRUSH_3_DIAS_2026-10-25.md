@@ -673,6 +673,36 @@ salvas no serviço.
   resolvida depois daquele snapshot. A permissão fornece acesso conforme
   as diretivas e os demais controles da rede; aparições e citações exigem
   observação própria.
+- **Nova autorização sobre os demais robôs de IA:** em 25/10, o usuário
+  decidiu permitir os 31 agentes do grupo restante, incluindo `GPTBot`,
+  `ClaudeBot` e `CCBot`, no conteúdo público do `www`. A lista anterior
+  tinha sido herdada da Cloudflare e preservada enquanto faltava essa
+  decisão específica. A liberação pode permitir também coleta para treino;
+  ela não garante menções, citações ou posições. O site
+  [`84cbb26`](https://github.com/sirfisherfc/site/commit/84cbb26a91be2ba81f2160e984b25f83712697b0)
+  publicou o novo robots, com Assets e Pages aprovados. A URL comum e a
+  versão com parâmetro de conferência responderam HTTP 200, com os mesmos
+  bytes do repositório e sitemap correto. A análise das diretivas permitiu
+  40 nomes de agentes em três caminhos públicos. As leituras HTTP usaram
+  `SirFisher-Audit`; a prova não reproduz uma visita autêntica dos provedores.
+  Na Cloudflare, a regra `7af7f90de3944407842037ebdd674f5d`,
+  `Robos IA: leitura das paginas publicas`, foi publicada, reaberta e
+  conferida como `Active`, na ordem 2 após a regra Semrush existente.
+  A expressão combina o host `www.sirfisher.com.br`, GET/HEAD, 15 caminhos
+  públicos conhecidos e o texto dos 31 user-agents anteriores, sem distinção
+  de maiúsculas. Ela pula somente a fase `http_request_sbfm`, com logs ligados.
+  As configurações de regras customizadas, rate limiting, Managed WAF e
+  autenticação foram preservadas; os demais subdomínios ficaram fora da
+  exceção. A regra Semrush foi preservada. O GET posterior de Bot Management
+  confirmou os mesmos campos globais, inclusive `ai_training=disallow` e
+  `ai_bots_protection=only_on_ad_pages`; a nova exceção tem o escopo descrito.
+  Ao publicar rotas fora dos 15 caminhos, revisar essa exceção. O rollback
+  consiste em desativar somente a nova regra na UI. Menções e AI Visibility
+  dependem das observações posteriores. O estado anterior continua registrado
+  no histórico e nos ZIPs congelados. Recibos JSON/TXT e a captura
+  `cloudflare-regra-ativa.png` ficam em
+  `output/liberacao-robos-ia-2026-10-25/`. Recibo do robots em
+  `output/liberacao-robos-ia-2026-10-25/robots-validacao-publica.json`.
 - **Reservas e eventos:** o site
   [`7c2b72c`](https://github.com/sirfisherfc/site/commit/7c2b72ca8ab4bbffecb7c51dcbdbe94f206892ca)
   publicou ajustes nos caminhos de grupos/eventos e na FAQ sobre posição

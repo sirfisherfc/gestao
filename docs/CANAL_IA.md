@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 livre — Instagram de leitura validado nas quatro CLIs; dados e correções de atribuição documentados.
+> **🚦 Status atual:** 🟢 livre — robots de IA liberados e exceção SBFM conferida nos 15 caminhos públicos do www; histórico e ZIPs preservados.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -131,5 +131,25 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
   sete handlers SDK, 113 Deno/site e 32 Deno/reservas. Artefatos agregados,
   recibos dos clientes e fontes em output/instagram-analytics-2026-10-25/ na
   raiz. Sem nova consulta Semrush, cobranca, app Meta ou agendamento.
+
+— Codex
+
+## 2026-10-25 · Codex — Nova decisão sobre robôs de IA
+
+- O usuário autorizou liberar os 31 agentes restantes no conteúdo público
+  do `www`, incluindo GPTBot, ClaudeBot e CCBot. O grupo anterior veio da
+  Cloudflare. Coleta para treino pode ocorrer; menções e posições exigem
+  observação própria.
+- Site `84cbb26` com robots publicado, CI/Pages aprovados e bytes públicos
+  iguais ao Git. Diretivas permitiram 40 nomes em três caminhos; GETs usaram
+  SirFisher-Audit, sem prova de visita autêntica dos provedores.
+- Cloudflare: regra `7af7f90de3944407842037ebdd674f5d` relida Active, ordem 2,
+  com host www, GET/HEAD, 15 caminhos e os 31 textos de user-agent. Skip só
+  `http_request_sbfm`, logs ligados; custom/rate/Managed WAF/autenticação e
+  outros hosts preservados. Regra SI e Bot Management globais ficaram iguais.
+  Ao publicar novas rotas, revisar a exceção. Recibos e rollback no adendo.
+- Adendo atualizado em `docs/SEMRUSH_3_DIAS_2026-10-25.md`; históricos e ZIPs
+  congelados preservados. Quality estático e diffcheck passaram. Esta tarefa
+  altera somente os dois documentos; root executa site e Cloudflare.
 
 — Codex
