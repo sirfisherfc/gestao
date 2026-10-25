@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🔴 Codex — documentação final Semrush; helper validado, base 8be6a3a. Root opera o painel Semrush.
+> **🚦 Status atual:** 🟢 livre — relatório e acervo SEO/IA concluídos; pendências reais registradas. Não publicar o diff externo do site sem reconciliar sua origem.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -17,51 +17,6 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
 **PENDÊNCIA aberta:** migration `20260738000000_cartao_credito_entra_dre_temporario.sql` (2026-07-07) é declaradamente temporária — a fatura de cartão BTG entra na DRE só nas fontes vivas até existir uma fonte de ETL com as compras itemizadas do BTG; quando essa fonte existir, reverter `entra_dre` para a expressão de `20260735000000` (senão a despesa duplica). Ver detalhes no `git log`/na própria migration.
 
 **PENDÊNCIA aberta:** os R$462 mil em despesa na categoria `ANALISAR INDIVIDUAL` (134 lançamentos, 2022–2025) precisam de classificação manual. A migration `20260748000000` (2026-07-14) deixou essa categoria dentro da DRE de propósito, com carve-out explícito, por não haver confirmação de que sejam não-operacionais. Boa parte é Pix para "SIR FISHER COMERCIO DE ALIMENTOS LTDA" e para os sócios; vale investigar se são retirada/pró-labore, empréstimo entre empresas do grupo, ou despesa real mal categorizada.
-
-## 2026-10-25 · Codex — Acervo Semrush e primeira etapa dos três dias
-
-- Pesquisa ampliada: 49 requisições, 676 linhas originais, 593 observações,
-  298 termos exatos em 300 pares palavra/base. Oito oportunidades por URL,
-  40 palavras e 16 prompts preparados. Corpus e manifesto privados em
-  `site/_materiais/revisao-seo-2026-10-25/semrush/`; não repetir chamadas salvas.
-- Dados e plano em `docs/SEMRUSH_3_DIAS_2026-10-25.md`; planilha privada em
-  `output/semrush-3-dias/sir-fisher-semrush-acervo-2026-10-25.xlsx` no workspace.
-  O relatório da auditoria inicial aponta para essa atualização.
-- Consumo confirmado: 11.650; exposição adicional sem metadata: até 2.600,
-  com custo esperado zero para respostas vazias. Saldo conservador estimado
-  35.650, sujeito a uso externo; saldo real ainda sem verificação. Reserva
-  de 4.900 e teto total preservados. Registro único: `semrush/consumo.json`.
-- Chave fornecida validou autenticação MCP e 14 ferramentas em teste gratuito;
-  somente arquivo privado ignorado. Saldo Standard respondeu HTTP 400.
-  O navegador integrado, Chrome e Edge ficaram indisponíveis nesta sessão.
-  Configuração de projeto, auditoria e acompanhamento está autorizada e
-  preparada; depende da conexão do navegador. Nenhuma agenda nova foi criada.
-- Site `f2614fb`: almoço individual e link do guia mais claros; caminhos de
-  grupos alinhados; eventos identificam Beira-Mar/Fortaleza; jornada EN mantém
-  idioma e remove direção fixa, sugestão de primeira fila e câmbio sem data.
-  108 testes Deno, 30 casos locais de navegador e dez percursos de teclado
-  passaram. Assets/Pages aprovados e seis arquivos públicos conferidos.
-  Os dez casos no domínio publicado também passaram.
-- Preços, catálogo, capacidades, gastos de campanha e assinatura preservados.
-  Sem dados pessoais nos artefatos. A coleta manual no salão segue adiada.
-  O acervo preparado não comprova tracking ou execução de prompts ativos.
-- Conferência posterior ao esclarecimento do proprietário: objetivo é melhorar
-  o site, SEO e presença em IA. Incorporei a leitura do commit `0af3d6d`, já
-  publicado por outra execução, e conferi as 13 URLs do sitemap no domínio
-  público: HTTP 200, canonical própria, um H1/title, ausência de noindex e
-  JSON-LD com sintaxe válida. Registrei o estado técnico no relatório Semrush.
-  Ganho de posição e novas citações em IA continuam sem medição.
-- Documentação oficial de IA conferida: falta verificar o controle de inclusão
-  no Search Console e os acessos dos IPs oficiais na CDN. OAI-SearchBot está
-  permitido pelo robots público; GPTBot e Google-Extended seguem bloqueados.
-  Os efeitos específicos e fontes estão no relatório. Nenhuma regra de
-  treinamento foi alterada nesta revisão.
-- Cardápio conferido antes/depois do JS: textos dos 78 itens e orientação de
-  alergia iguais. A indicação editorial continua só na prévia, por decisão
-  de 07/10; a suspeita inicial de ressalva ausente foi descartada. Nenhum
-  código do site mudou nesta conferência; prerender/assets/CSP passaram.
-
-— Codex
 
 ## 2026-10-25 · Claude — Site Audit da Semrush e robots.txt
 
@@ -104,5 +59,42 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
   auditoria, tracking e recursos de IA. Não reabrir pedido de credencial nem
   atribuir tarefa manual ao proprietário. Consumo e evidências finais serão
   registrados no fechamento, sem dados brutos ou mudanças financeiras.
+
+— Codex
+
+## 2026-10-25 · Codex — Fechamento SEO/IA, painel e acervo portátil
+
+- Resultado atual, sete pontos pedidos, reformulação, histórico, fontes e
+  checklist 26/27 em `docs/SEMRUSH_3_DIAS_2026-10-25.md`. Sem tarefa manual
+  para proprietário/recepção e sem novo agendamento no Codex.
+- Site `5918c99` e `2b04523`: links de almoço/cardápio, rota conforme origem,
+  pets e caminhos de grupos/eventos publicados, HTTP 200 e HTML conferido.
+  Nova auditoria real: Site Health 96, AI Search Health 99, zero erros e
+  vinte avisos. Métricas Semrush e CrUX mantidas com suas definições.
+- GSC: inclusão IA padrão confirmada no domínio; 2.672 impressões históricas
+  no recorte Web com base em texto, 77 dias. As 13 linhas de páginas têm outra
+  agregação e não correspondem às 13 URLs do sitemap. `/eventos/` recebeu
+  Indexação solicitada. O envio de `/reservas/` do www falhou duas vezes na
+  conexão ao reCAPTCHA; permanece pendente, sem contorno ou mudança no portal.
+- Google/Fortaleza/mobile/PT: 40 termos coletados, visibilidade 13,97%, oito
+  Top 10 e cinco Top 3, única data 25/10. Original Brasil preservado e cópia
+  identificada. ChatGPT/Fortaleza/PT: 12 prompts, três diretos e nove genéricos;
+  nove Mentioned (três diretos e seis genéricos), três Missed genéricos.
+  Os scores 74,33% e 68,84% da mesma tela foram preservados como divergência.
+- Backups API e UI, CSVs nativos/derivados e relatório no ZIP privado
+  `output/semrush-3-dias/sir-fisher-acervo-completo-2026-10-25.zip`, na raiz do
+  workspace. Hash e validações no sidecar `.verificacao.json`. API histórica
+  preservada com 78 relatórios; ledger atual com 79 e 21.070 unidades
+  confirmadas. UI confirmou saldo 28.830, reserva 4.900 e espaço 23.930 no
+  teto autorizado. A reserva histórica 2.900 sem metadata não virou débito
+  individual por chamada. Assinatura/recorrência só lidas: 31/10, US$199, ativa.
+- Duas alterações externas de `site/robots.txt` e `tools/analytics/README.md`
+  foram preservadas sem publicação por esta rodada. A origem da autorização
+  do toggle Google-Extended não foi confirmada. Público às 04:40 mantinha
+  Googlebot/OAI-SearchBot permitidos e GPTBot/Google-Extended bloqueados.
+- Helper/testes no histórico `8be6a3a`/`62975fc`, com onze regressões offline,
+  oito GBP, quality e CI/Pages aprovados. Este fechamento altera só documentos;
+  sem migration, escrita no banco, alteração financeira ou credencial versionada.
+  Pares de orientações da raiz e cópias versionadas conferidos idênticos.
 
 — Codex
