@@ -152,3 +152,59 @@ em celular e desktop, também passaram.
 A planilha tem oito abas, 11 tabelas com filtros e 783 links. A conferência
 reabriu o XLSX e comparou os dados com as fontes salvas; não encontrou erros
 de fórmula. As prévias foram revisadas. A interface do Excel não foi testada.
+
+## Conferência posterior do site publicado
+
+O objetivo confirmado pelo proprietário é melhorar o site, o SEO e a presença
+em respostas de IA. A pesquisa serve para escolher alterações no site e
+conferir o efeito depois da publicação.
+
+O commit `0af3d6d`, incorporado depois da primeira entrega, acrescentou o
+cardápio ao HTML inicial, com pratos, preços e H1. Também completou o endereço
+do organizador no Event do Réveillon, ajustou o arquivo robots, publicou
+`llms.txt` e acrescentou links para as regras de reserva. Esses ajustes foram
+conferidos no domínio público; os dois workflows desse commit passaram.
+
+Em nova leitura das 13 URLs do sitemap, todas responderam HTTP 200, declararam
+a própria canonical e tinham um H1 e um title. Não apareceu `noindex` nas metas
+ou cabeçalhos, e os blocos JSON-LD passaram no parse. Essa verificação cobre
+acesso HTTP, marcação básica e sintaxe; indexação e elegibilidade dos dados
+estruturados exigem as ferramentas dos buscadores. A evidência privada está em
+`site/_materiais/revisao-seo-2026-10-25/seo-ia-publicado-0af3d6d.json`.
+
+A configuração de acesso ao painel descrita acima refere-se à sessão Codex.
+O novo commit registra correções do Site Audit feitas em outra execução.
+O ganho de posição e as citações em respostas de IA depois das mudanças
+continuam sem medição nesta rodada.
+
+A conferência do cardápio comparou os textos públicos dos 78 itens e a
+orientação de alergia antes e depois do JavaScript: os textos são iguais.
+O aviso editorial permanece restrito à prévia, conforme decisão de 07/10.
+A suspeita inicial de que faltava uma ressalva pública foi descartada após
+ler essa regra e comparar os dois caminhos. Esta revisão preservou o código
+do site; prerender, assets e CSP passaram nas verificações existentes.
+
+### Controles de IA conferidos na documentação oficial
+
+O Google exige indexação, permissão de snippets e inclusão efetiva no controle
+**Configurações > IA generativa na Pesquisa**, no Search Console. Esse último
+valor da propriedade Sir Fisher ainda precisa ser conferido no painel. A
+documentação informa inclusão como padrão, com possibilidade de herança da
+propriedade superior. A sessão Codex continua sem navegador conectado.
+[Controle oficial](https://support.google.com/webmasters/answer/16908024?hl=en).
+
+O robots público permite `OAI-SearchBot` pelo grupo geral e bloqueia `GPTBot`.
+A OpenAI documenta permissões independentes para busca e treinamento; falta
+conferir o acesso dos IPs oficiais pelos controles da CDN.
+[Rastreadores OpenAI](https://developers.openai.com/api/docs/bots).
+
+O bloqueio gerenciado de `Google-Extended` limita treinamento e grounding no
+Gemini Apps/Vertex. Segundo o Google, esse controle não altera inclusão ou
+ranking na Pesquisa. A política foi preservada.
+[Rastreadores Google](https://developers.google.com/crawling/docs/crawlers-fetchers/google-common-crawlers#google-extended).
+
+O Google informa que `llms.txt` não participa da visibilidade ou classificação
+na Pesquisa. O arquivo continua como resumo auxiliar. As ações prioritárias
+são melhorar o acesso e as informações reais das páginas, conferir os controles
+dos buscadores e medir as aparições.
+[Guia oficial para IA na Pesquisa](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide).

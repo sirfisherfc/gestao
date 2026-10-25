@@ -99,5 +99,20 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
 - Preços, catálogo, capacidades, gastos de campanha e assinatura preservados.
   Sem dados pessoais nos artefatos. A coleta manual no salão segue adiada.
   O acervo preparado não comprova tracking ou execução de prompts ativos.
+- Conferência posterior ao esclarecimento do proprietário: objetivo é melhorar
+  o site, SEO e presença em IA. Incorporei a leitura do commit `0af3d6d`, já
+  publicado por outra execução, e conferi as 13 URLs do sitemap no domínio
+  público: HTTP 200, canonical própria, um H1/title, ausência de noindex e
+  JSON-LD com sintaxe válida. Registrei o estado técnico no relatório Semrush.
+  Ganho de posição e novas citações em IA continuam sem medição.
+- Documentação oficial de IA conferida: falta verificar o controle de inclusão
+  no Search Console e os acessos dos IPs oficiais na CDN. OAI-SearchBot está
+  permitido pelo robots público; GPTBot e Google-Extended seguem bloqueados.
+  Os efeitos específicos e fontes estão no relatório. Nenhuma regra de
+  treinamento foi alterada nesta revisão.
+- Cardápio conferido antes/depois do JS: textos dos 78 itens e orientação de
+  alergia iguais. A indicação editorial continua só na prévia, por decisão
+  de 07/10; a suspeita inicial de ressalva ausente foi descartada. Nenhum
+  código do site mudou nesta conferência; prerender/assets/CSP passaram.
 
 — Codex
