@@ -4,6 +4,11 @@ Data de referência: 25/10/2026, fuso America/Fortaleza. Este registro reúne a
 revisão atual e o histórico necessário para retomá-la. Datas de execução,
 publicação e períodos dos dados são identificados em cada trecho.
 
+A pesquisa Semrush foi ampliada depois desta primeira entrega. O acervo,
+os ajustes adicionais e a prestação de contas atual estão em
+[Semrush: acervo e execução de três dias](SEMRUSH_3_DIAS_2026-10-25.md).
+O consumo de 720 unidades descrito abaixo pertence à triagem inicial.
+
 ## Problema comercial e critérios
 
 O proprietário escolheu aumentar a visibilidade e conquistar novos clientes

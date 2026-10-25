@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 livre — revisão de SEO, descoberta local e conversão entregue; horários GBP, site e reservas publicados.
+> **🚦 Status atual:** 🟢 livre — acervo Semrush e primeira etapa entregues; configuração no painel depende do navegador conectado.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -17,32 +17,6 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
 **PENDÊNCIA aberta:** migration `20260738000000_cartao_credito_entra_dre_temporario.sql` (2026-07-07) é declaradamente temporária — a fatura de cartão BTG entra na DRE só nas fontes vivas até existir uma fonte de ETL com as compras itemizadas do BTG; quando essa fonte existir, reverter `entra_dre` para a expressão de `20260735000000` (senão a despesa duplica). Ver detalhes no `git log`/na própria migration.
 
 **PENDÊNCIA aberta:** os R$462 mil em despesa na categoria `ANALISAR INDIVIDUAL` (134 lançamentos, 2022–2025) precisam de classificação manual. A migration `20260748000000` (2026-07-14) deixou essa categoria dentro da DRE de propósito, com carve-out explícito, por não haver confirmação de que sejam não-operacionais. Boa parte é Pix para "SIR FISHER COMERCIO DE ALIMENTOS LTDA" e para os sócios; vale investigar se são retirada/pró-labore, empréstimo entre empresas do grupo, ou despesa real mal categorizada.
-
-## 2026-10-23 · Claude — Revisão de alinhamento e espaçamento da proposta
-
-- Bloco preto dos alérgenos afinado para 50 px, com 12 px de folga, e
-  contatos recentralizados no marrom.
-- Página 1:
-  - Petiscos, sanduíches, pratos para dividir e Família Real com espaço
-    igual entre itens. Antes de "Batata frita ou macaxeira" havia um vão
-    de 18 px, contra 4 a 6 nos outros itens.
-  - Um x de partida por coluna, preço na altura do nome e ícones de
-    alérgenos centrados no título.
-  - Cabeçalho da Família Real, que estava 10 px fora do centro, centralizado.
-  - Legendas das fotos com a mesma margem.
-- Página 2:
-  - Coquetéis com espaçamento igual, preço da margarita na linha do nome e
-    o degrau de 2 px do rum nos destilados corrigido.
-  - Sobremesas centradas no bloco e alinhadas às colunas dos destilados.
-- Junções: degraus de 1 a 4 px entre blocos e bordas onduladas das fotos
-  com moldura "recortada à mão" foram endireitados com sobreposição de
-  blocos retos, porque a API recusou trocar a moldura. O texto inclinado
-  "Veja a foto" desceu 12 px na primeira tentativa (o Canva posiciona
-  rotacionados pela caixa girada) e voltou ao lugar.
-- Conferido em exportações de 3200 px, com zoom nas junções. Arquivos:
-  este canal e `docs/HANDOFF_CARDAPIO.md`.
-
-— Claude
 
 ## 2026-10-23 · Codex — Resumo executivo do workspace
 
@@ -95,5 +69,35 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
   dados automáticos existentes, sem ficha, nova rotina ou carga para recepção.
   Execução recente da rotina GBP na nuvem e preços/alérgenos continuam com os
   limites descritos no relatório. Nenhuma campanha ou orçamento alterado.
+
+— Codex
+
+## 2026-10-25 · Codex — Acervo Semrush e primeira etapa dos três dias
+
+- Pesquisa ampliada: 49 requisições, 676 linhas originais, 593 observações,
+  298 termos exatos em 300 pares palavra/base. Oito oportunidades por URL,
+  40 palavras e 16 prompts preparados. Corpus e manifesto privados em
+  `site/_materiais/revisao-seo-2026-10-25/semrush/`; não repetir chamadas salvas.
+- Dados e plano em `docs/SEMRUSH_3_DIAS_2026-10-25.md`; planilha privada em
+  `output/semrush-3-dias/sir-fisher-semrush-acervo-2026-10-25.xlsx` no workspace.
+  O relatório da auditoria inicial aponta para essa atualização.
+- Consumo confirmado: 11.650; exposição adicional sem metadata: até 2.600,
+  com custo esperado zero para respostas vazias. Saldo conservador estimado
+  35.650, sujeito a uso externo; saldo real ainda sem verificação. Reserva
+  de 4.900 e teto total preservados. Registro único: `semrush/consumo.json`.
+- Chave fornecida validou autenticação MCP e 14 ferramentas em teste gratuito;
+  somente arquivo privado ignorado. Saldo Standard respondeu HTTP 400.
+  O navegador integrado, Chrome e Edge ficaram indisponíveis nesta sessão.
+  Configuração de projeto, auditoria e acompanhamento está autorizada e
+  preparada; depende da conexão do navegador. Nenhuma agenda nova foi criada.
+- Site `f2614fb`: almoço individual e link do guia mais claros; caminhos de
+  grupos alinhados; eventos identificam Beira-Mar/Fortaleza; jornada EN mantém
+  idioma e remove direção fixa, sugestão de primeira fila e câmbio sem data.
+  108 testes Deno, 30 casos locais de navegador e dez percursos de teclado
+  passaram. Assets/Pages aprovados e seis arquivos públicos conferidos.
+  Os dez casos no domínio publicado também passaram.
+- Preços, catálogo, capacidades, gastos de campanha e assinatura preservados.
+  Sem dados pessoais nos artefatos. A coleta manual no salão segue adiada.
+  O acervo preparado não comprova tracking ou execução de prompts ativos.
 
 — Codex
