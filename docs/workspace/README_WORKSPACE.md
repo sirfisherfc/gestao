@@ -16,6 +16,9 @@ seu proprio historico, remoto e deploy.
   ignorados pelo Git; os derivados publicados vivem no proprio site.
 - `site/tools/analytics/`: scripts de Analytics, Google Business Profile e
   midia. Credenciais e ambiente virtual continuam ignorados pelo Git.
+- `gestao/scripts/instagram_analytics/`: cliente oficial e MCP de leitura do
+  Instagram proprio, compartilhado pelas IAs. Configuracao, provas e limites
+  em `gestao/docs/INTEGRACAO_INSTAGRAM_ANALYTICS.md`.
 - `reservas/output/` e `reservas/tmp/`: artefatos locais gerados, ignorados
   pelo Git.
 - `gestao/_Backups/`: bundles locais de recuperacao do painel financeiro,

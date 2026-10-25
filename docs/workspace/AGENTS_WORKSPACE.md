@@ -103,6 +103,18 @@
   pedir login ou nova credencial, validar uma consulta real com o acesso atual.
   Search Console, Perfil da Empresa e operação continuam nas rotinas próprias.
 
+## Instagram e analise de reservas
+
+- O MCP local `instagram_analytics` usa o app/token existente da Meta e
+  oferece somente leitura do `@sirfisherfc`. Confirmar identidade; usar
+  cache, janelas de ate 30 dias e metricas com sua cobertura original.
+- Guia e estado real de cada cliente em
+  `gestao/docs/INTEGRACAO_INSTAGRAM_ANALYTICS.md`. Configuracao persistente
+  nao comprova leitura por uma sessao antiga; validar a ferramenta nela.
+- Manter origem declarada, origem medida e credito atribuido pela Meta
+  separados. Publicacao, Direct, comentarios individuais e anuncios ficam
+  fora deste servidor. Nao criar outra rotina recorrente ou pedir token no chat.
+
 ## Instruções de cada projeto
 
 - Ler `README.md`, `AGENTS.md` e `CLAUDE.md` do projeto, quando existirem.

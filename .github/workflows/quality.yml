@@ -35,6 +35,9 @@ jobs:
       - name: Google Business Profile holiday exceptions without network
         run: python -B scripts/gbp/test_feriados.py
 
+      - name: Instagram analytics read scope, cache and metric coverage without network
+        run: python -B -m unittest discover -s scripts/instagram_analytics -p 'test_*.py'
+
       - name: Status integrations grouped by Saipos execution without network
         run: node scripts/ci/test_status_integracoes.mjs
 

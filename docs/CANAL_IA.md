@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 livre — cardápio Google com atribuição, alvo EN coletado e acesso Semrush conferido; adendo concluído e ZIP anterior preservado.
+> **🚦 Status atual:** 🟢 livre — Instagram de leitura validado nas quatro CLIs; dados e correções de atribuição documentados.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -104,5 +104,32 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
 - Quality estático e diffcheck passaram; pares de orientação da raiz idênticos.
   Sem API Standard paga nova, nova rotina, upgrade ou mudança de recorrência.
   A coleta manual de clientes sem reserva continua adiada pelo usuário.
+
+— Codex
+
+## 2026-10-25 · Codex — Instagram analytics e continuidade das reservas
+
+- `scripts/instagram_analytics/`: cliente Meta v26.0, MCP stdio com sete
+  ferramentas fixas de leitura e coletor com cache/paginacao limitados.
+  Reaproveita `META_IG_TOKEN` pelo loader do GBP; nenhum segredo/config MCP
+  local ou dado bruto versionado. Guia em `docs/INTEGRACAO_INSTAGRAM_ANALYTICS.md`.
+- Conta @sirfisherfc e SYSTEM_USER validos comprovados por API; identidade,
+  publicacoes, nove metricas da conta, insights de posts e Stories lidos.
+  Codex, Claude Code, Qwen e Antigravity CLI executaram identidade com
+  refresh=true, duas leituras HTTP e cache=false. GUI configurada, sem
+  reiniciar tarefa ativa; validacao propria em nova sessao ainda pendente.
+- 23/09–22/10: Instagram em 17 das 28 reservas publicas criadas (60,7%).
+  Origem de bio/perfil permite medir canal, sem atribuir post especifico.
+  Credito Meta Ads indisponivel: os edges de contas retornaram listas vazias;
+  nao inferir zero Schedule, ausencia de anuncios ou causa do acesso.
+- Site `5988034` e reservas `f92378d`/`bf2f08d` publicados: TTL90 dias nas
+  duas copias; telefone internacional/data Meta corrigidos; IDs preservados.
+  Funcao send-openai-ads-conversions v22 ACTIVE, autenticacao igual e tres
+  modulos remotos iguais aos revisados. Sem SQL, worker/testevents em producao
+  ou escrita no Instagram. Valor legado Meta continua estimativa separada.
+- Validacoes locais: 20 testes do cliente, oito de seguranca independentes,
+  sete handlers SDK, 113 Deno/site e 32 Deno/reservas. Artefatos agregados,
+  recibos dos clientes e fontes em output/instagram-analytics-2026-10-25/ na
+  raiz. Sem nova consulta Semrush, cobranca, app Meta ou agendamento.
 
 — Codex

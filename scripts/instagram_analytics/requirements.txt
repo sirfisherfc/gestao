@@ -1,0 +1,2 @@
+# SDK oficial usado pelo servidor; o cliente de dados usa somente a stdlib.
+mcp==2.3.0

@@ -87,6 +87,17 @@ Este arquivo é a fonte canônica das instruções operacionais para qualquer IA
 - Views expostas na Data API **não podem referenciar `auth.users` diretamente** (aviso `auth_users_exposed`, esse sim deve ser corrigido sempre). Para exibir nome de usuário, usar `private.nome_exibicao_usuario(uuid)` (criada em 20260749000000).
 - Outros avisos aceitos, com motivo: `function_search_path_mutable` em `so_digitos` (adicionar `SET search_path` impediria o inlining de função usada linha a linha em views/joins — risco de timeout; o corpo só usa builtins do `pg_catalog`); `extension_in_public` para `unaccent` (mover a extensão pode quebrar `normaliza_nome`); `rls_enabled_no_policy` nível INFO (tabelas com RLS ligado e sem policy negam tudo por padrão — o acesso é via views/RPC).
 
+## Instagram proprio e analytics
+
+- O MCP local `instagram_analytics` le somente conteudo proprio e metricas
+  do `@sirfisherfc`, reutilizando `META_IG_TOKEN` pelo carregador do GBP.
+  Guia: `docs/INTEGRACAO_INSTAGRAM_ANALYTICS.md`.
+- Confirmar identidade antes de interpretar resultados. Usar o cache e ate
+  30 dias; nao somar alcances nem atribuir um post a reservas sem identificador.
+- O servidor oferece sete ferramentas fixas de leitura. Nao expor o comando
+  GBP que pode publicar nem rotas genericas. Token/configuracoes permanecem
+  privados; as permissoes amplas do token existente nao ampliam este escopo.
+
 ## Front-end
 
 - Manter compatibilidade com hospedagem estática no GitHub Pages.
