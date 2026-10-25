@@ -1,9 +1,11 @@
 # Handoff — experimento do ChatGPT Ads
 
-Referencia historica do experimento de setembro. O estado atual, as correcoes
-executadas e a proposta pendente de autorizacao estao em
+Referencia historica do experimento de setembro. As correcoes executadas e a
+retomada autorizada de 13 a 20/10/2026 estao em
 [Retomada controlada de 13/10/2026](RETOMADA_CHATGPT_ADS_2026-10-13.md).
-As janelas e permissoes de gasto abaixo nao autorizam a retomada de outubro.
+Os status e numeros abaixo pertencem ao experimento de setembro. Conferir o
+estado atual na plataforma. Uma nova retomada ou ampliacao exige autorizacao
+propria; as permissoes historicas nao renovam o investimento.
 
 ## Acesso e segurança
 

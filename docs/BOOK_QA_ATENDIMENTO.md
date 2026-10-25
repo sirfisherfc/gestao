@@ -18,6 +18,15 @@ pessoas, até 60 dias de antecedência, tolerância de 15 minutos. Se a configur
 mudar no painel, atualizar aqui. Os fatos batem com o Perfil do Google
 ([ROTINA_PERFIL_GOOGLE.md](ROTINA_PERFIL_GOOGLE.md)).
 
+Revisão de 25/10/2026: as respostas abaixo incorporam o cardápio próprio e
+os destinos atuais de eventos e Réveillon. A leitura pública da configuração
+de reservas confirmou os limites acima e o WhatsApp corporativo. Grupos de
+11 a 29 pessoas seguem para atendimento; eventos de 30 a 100 pessoas sentadas
+usam o configurador, com confirmação da equipe. Os números de conversas e os
+problemas descritos a seguir pertencem à exportação até setembro de 2026.
+A implantação das respostas e o tempo de atendimento atual ainda precisam
+ser conferidos nos canais; esta revisão atualiza a documentação.
+
 ## O que as conversas mostram
 
 **Assuntos mais frequentes**, em número de conversas nos três anos:
@@ -92,18 +101,17 @@ uma resposta; sem mandar para o link da bio quando a resposta cabe na mensagem.
 
 **Como reservo?**
 > Até 10 pessoas, direto pelo site: reservas.sirfisher.com.br. A confirmação chega
-> na hora. Para mais de 10 pessoas, fale com a gente no WhatsApp (85) 98854-4274
-> com data, horário e número de pessoas.
+> na hora. Para 11 a 29 pessoas, fale com a gente no WhatsApp (85) 98854-4274
+> com data, horário e número de pessoas. Para eventos de 30 a 100 pessoas
+> sentadas, consulte www.sirfisher.com.br/eventos/; a equipe confirma a proposta.
 
 **Consigo mesa de frente para o mar / para o pôr do sol?**
-> A gente sempre prioriza as reservas no lado do mar, mas só confirma no dia,
-> porque depende de a mesa ser liberada. Escreva o pedido no campo de observação da
-> reserva que a equipe já fica sabendo.
+> Escreva o pedido no campo de observação da reserva. A equipe confere as mesas
+> disponíveis no dia. A escolha da mesa depende dessa disponibilidade.
 
 **Não tem horário disponível no site para hoje.**
 > Reservas para o mesmo dia vão até as 15h30. Depois disso, ou se os horários já
-> estiverem lotados, atendemos por ordem de chegada. Chegando antes das 16h
-> costuma ter mesa.
+> estiverem lotados, atendemos por ordem de chegada, conforme a disponibilidade.
 
 **Com quanta antecedência posso reservar?**
 > Até 60 dias antes, pelo site: reservas.sirfisher.com.br
@@ -140,7 +148,8 @@ uma resposta; sem mandar para o link da bio quando a resposta cabe na mensagem.
 ### Cardápio e comida
 
 **Onde vejo o cardápio e os preços?**
-> Está no link da bio, na opção "Sir Fisher Praia", ou em www.sirfisher.com.br.
+> O cardápio está em www.sirfisher.com.br/cardapio/. Você também pode trocar
+> para inglês na página.
 
 **Servem almoço? E jantar?**
 > Servimos o dia todo. O almoço executivo é de segunda a sexta, das 10h às 14h,
@@ -149,13 +158,14 @@ uma resposta; sem mandar para o link da bio quando a resposta cabe na mensagem.
 
 **Qual o valor do executivo? / Tem executivo no sábado?**
 > O executivo é só de segunda a sexta, das 10h às 14h. As opções e os valores
-> estão no link da bio, em "Menu almoço".
+> estão em www.sirfisher.com.br/almoco-executivo/.
 
 **Os pratos para dividir servem quantas pessoas?**
 > Em média 2 pessoas.
 
 **Tem opção vegetariana?**
-> Temos sim! As opções vegetarianas estão no cardápio, no link da bio.
+> Consulte o cardápio em www.sirfisher.com.br/cardapio/. A equipe pode conferir
+> os ingredientes e o preparo com a cozinha antes do pedido.
 
 **Tenho alergia / restrição alimentar.**
 > Por segurança, fale diretamente com o gerente quando chegar. Ele confere com a
@@ -244,13 +254,16 @@ uma resposta; sem mandar para o link da bio quando a resposta cabe na mensagem.
 
 **Quero comemorar aniversário / fazer confraternização.**
 > Que ótimo! Até 10 pessoas, reserve pelo site: reservas.sirfisher.com.br. Para
-> mais gente, chame no WhatsApp (85) 98854-4274 com a data, o horário e o número de
-> pessoas.
+> 11 a 29 pessoas, chame no WhatsApp (85) 98854-4274 com a data, o horário e o
+> número de pessoas. Para 30 a 100 pessoas sentadas, consulte as opções em
+> www.sirfisher.com.br/eventos/; a equipe confirma a proposta.
 > *(Grupo grande deve ter retorno no mesmo dia. Ver problema 6.)*
 
 **Vocês fecham o espaço para evento ou casamento?**
-> Eventos são tratados pelo WhatsApp (85) 98854-4274. Mande a data, o horário, o
-> número de pessoas e o tipo de evento que a equipe te passa as opções.
+> Consulte www.sirfisher.com.br/eventos/ para montar uma proposta de 30 a 100
+> pessoas sentadas. A equipe confirma data e condições. Para outras necessidades,
+> fale no WhatsApp (85) 98854-4274 com data, horário, número de pessoas e tipo
+> de evento.
 
 **Pedido de casamento, surpresa, flores.**
 > Que lindo! Faça a reserva e nos avise o horário: a equipe prepara a melhor mesa
@@ -258,10 +271,9 @@ uma resposta; sem mandar para o link da bio quando a resposta cabe na mensagem.
 > pouco antes do pedido. Se quiser, entregamos as alianças na mesa.
 
 **Réveillon.**
-> *(Todo ano, a partir de outubro.)* Enquanto não houver informação: "Vamos
-> divulgar aqui no perfil em breve!" Depois: página no site com mesas, valores e
-> formas de pagamento, e WhatsApp corporativo (85) 98854-4274. Nunca o celular
-> pessoal.
+> As informações do Réveillon estão em www.sirfisher.com.br/reveillon/.
+> A página leva à consulta e à pré-reserva de mesas. Para dúvidas sobre a
+> proposta e o pagamento, fale no WhatsApp (85) 98854-4274.
 
 ### Outros
 
@@ -324,6 +336,8 @@ de 4):
 | jogo, tv, transmitir | Jogo |
 | música, ao vivo | Música |
 
-**Desligar a mensagem "Ficou com alguma dúvida?".** É do ManyChat, que ainda
-aparece como "Automation powered by @Manychat". Pior que não responder, porque o
-cliente acha que alguém vai atender.
+**Conferir a mensagem "Ficou com alguma dúvida?".** Na exportação de setembro,
+ela era enviada pelo ManyChat como resposta a perguntas diretas. A proposta é
+substituí-la por uma resposta útil e encaminhar os casos que exigem uma pessoa.
+Verificar a configuração atual antes de alterar; este book não comprova que a
+automação tenha sido desligada ou substituída.

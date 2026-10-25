@@ -1,5 +1,13 @@
 # Retomada controlada do ChatGPT Ads do Sir Fisher
 
+> Atualização de 25/10/2026: o teste terminou e a verificação de entrega
+> retornou campanha encerrada. O proprietário decidiu adiar o registro de
+> clientes sem reserva por falta de equipe. O procedimento de coleta abaixo
+> permanece como histórico; esta decisão suspende sua implantação. O
+> acompanhamento atual usa os dados automáticos existentes, com a cobertura
+> comercial limitada documentada em
+> [Revisão de SEO, descoberta local e conversão](REVISAO_SEO_LOCAL_CONVERSAO_2026-10-25.md).
+
 Preparado para Rogerio em 13 de outubro de 2026. A campanha de outubro foi
 corrigida e foi ativada com autorizacao do proprietario. A entrega anterior
 parou por esgotamento do orcamento; nao

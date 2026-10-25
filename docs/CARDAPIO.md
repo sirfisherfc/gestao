@@ -1,28 +1,46 @@
 # Cardápio — arquitetura, manutenção e migração
 
-O cardápio do Sir Fisher ganha **uma fonte só**: as tabelas `cardapio_*` no
-Supabase `portal`, editadas em **Gestão → Rotinas → Cardápio** e lidas pelo
-portal em `sirfisher.com.br/cardapio/`.
+Atualizado em 25/10/2026. A fonte editorial usada no site é o catálogo interno
+versionado. O pipeline atual está em
+[HANDOFF_CARDAPIO.md](HANDOFF_CARDAPIO.md), com as decisões mais recentes do
+proprietário e as pendências de preços, porções e alérgenos.
 
-> **O Hubt ainda é o cardápio oficial.** Por decisão do proprietário em
-> 22/09/2026, a home, o QR das mesas e as demais páginas continuam apontando
-> para o Hubt. O portal novo está no ar para revisão, mas nada leva até ele.
-> A virada, e o que ela exige, estão na [seção 6](#6-migração).
+```text
+scripts/cardapio/catalogo_inicial.py
+  → scripts/cardapio/catalogo_inicial.json
+  → scripts/cardapio/exportar_snapshot.py
+  → site/cardapio/dados/cardapio.json
+  → bloco CARDAPIO-DADOS em site/cardapio/index.html
+```
 
-Antes existiam três fontes que discordavam entre si — um TXT, a página HTML
-antiga e o Hubt. A lista do que cada uma dizia de diferente está em
+O cardápio próprio substituiu o Hubt. O cliente pode abri-lo pela home e pelas
+páginas comerciais, em português e inglês. O QR das mesas continua levando à
+home com origem `qr_code`; o cliente toca em “Cardápio”. O QR novo da entrada
+leva ao cardápio com a campanha externa `cardapio_entrada`.
+
+O painel mantém tabelas de rascunho e publicação no Supabase. O JavaScript do
+site pode conferir a view de publicação ativa `cardapio_publico`, depois de
+renderizar a cópia embutida. Essa capacidade não torna o rascunho fonte do
+site. Nas revisões de 22 e 23/10, o rascunho foi realinhado ao catálogo sem
+publicar uma nova versão pelo painel. Não trocar a fonte editorial ou exportar
+`--do-banco` como rotina de produção sem reconciliar uma publicação ativa
+com as decisões do catálogo versionado.
+
+As seções abaixo descrevem o contrato do painel e os cuidados de manutenção.
+A migração planejada em setembro foi superada pelo pipeline acima.
+As divergências das fontes históricas estão em
 [CARDAPIO_CONFERENCIA.md](CARDAPIO_CONFERENCIA.md).
 
 ---
 
 ## 1. As duas ideias que sustentam a estrutura
 
-### Rascunho não é o que está no ar
+### Rascunho e publicação no painel
 
-`cardapio_produto` é o que a operação edita. O portal **nunca** lê essa tabela.
-Ele lê `cardapio_publicacao`: uma fotografia imutável do catálogo, criada no
-momento em que alguém apertou *Publicar*. Uma linha por versão, nunca alterada
-depois.
+`cardapio_produto` guarda o que a operação edita no painel. O contrato de
+leitura pública do banco usa `cardapio_publicacao`: uma fotografia do catálogo
+criada ao apertar *Publicar*, com uma linha por versão. O site usa a cópia
+embutida e só pode consultar essa publicação por `cardapio_publico`.
 
 Isso resolve três coisas de uma vez: meia edição não vaza para a mesa;
 publicação que falha não derruba o que está no ar; e dá para voltar atrás.
@@ -155,18 +173,22 @@ set role anon;  update public.cardapio_produto set preco_centavos = 1;
 
 ---
 
-## 4. Rotina do dia a dia
+## 4. Operações do painel
 
 | Situação | O que fazer | Precisa publicar? |
 |---|---|---|
-| Acabou um item | **Marcar esgotado** na lista | Não. Vale na hora. |
+| Acabou um item | **Marcar esgotado** na lista | Atualiza a disponibilidade do banco; conferir uma publicação ativa e o efeito no site. |
 | Voltou a ter | **Voltou a ter** na lista | Não. |
 | Mudou preço | Editar → Salvar rascunho → **Publicar** | Sim. |
 | Foto nova | Editar → enviar foto → **Publicar** | Sim. |
 | Item novo | Editar/criar em rascunho → **Publicar** | Sim. |
 | Errou e quer voltar | **Versões publicadas** → Restaurar | A restauração já publica. |
 
-A tela mostra o tempo todo qual versão está no ar, quantos produtos foram
+As operações acima alteram o banco. Para atualizar a cópia estática usada no
+site, seguir o pipeline do início deste documento e o handoff; o botão do
+painel, isoladamente, não atualiza os arquivos publicados no GitHub Pages.
+
+A tela mostra qual versão do banco está ativa, quantos produtos foram
 alterados desde a publicação e quantos têm campo a conferir. Antes de publicar,
 aparece o resumo do que muda.
 
@@ -180,149 +202,47 @@ intacta. Catálogo vazio também é recusado.
 
 ---
 
-## 5. Como a mudança chega ao cliente
+## 5. Publicação usada no site
 
-Três caminhos, do mais rápido ao mais lento:
+Depois de uma alteração confirmada no catálogo:
 
-1. **Ao vivo.** O portal consulta `cardapio_publico` pouco depois de abrir e
-   quando a aba volta a ficar visível (a página esquecida aberta na mesa). Se
-   houver versão mais nova, aparece um aviso discreto com um botão — **nada se
-   move sozinho embaixo de quem está lendo**.
-2. **Cópia embutida.** `site/cardapio/index.html` carrega o catálogo embutido,
-   então a primeira pintura não espera requisição nenhuma. É gerada por
-   `exportar_snapshot.py`, derivada da mesma publicação — nunca uma segunda
-   base editada à mão.
-3. **Rodapé honesto.** Sem rede, o portal usa a cópia embutida e o rodapé diz
-   de quando ela é: *“Cardápio carregado da cópia salva em 22/09/2026.
-   Confirme preços e disponibilidade com a equipe.”*
+1. Rodar `catalogo_inicial.py` e `exportar_snapshot.py` pelo fluxo de arquivo.
+2. Conferir os 78 produtos e a ausência de campos internos nos derivados.
+3. Executar as verificações do cardápio, revisar a interface e publicar o site.
+4. Conferir os arquivos públicos e, pela decisão de 22/10/2026, simular e
+   publicar o FoodMenus com `scripts/gbp/gbp.py cardapio` e `--publicar`.
 
-Para atualizar a cópia estática depois de publicar:
+Para realinhar o rascunho no banco, usar uma migration nova gerada por
+`gerar_migration.py --realinhar`, conforme o handoff, preservando fotos enviadas
+pelo painel e itens arquivados. Isso não publica o rascunho no site.
 
-```bash
-cd gestao/scripts/cardapio
-SUPABASE_ANON_KEY=... python exportar_snapshot.py --do-banco
-# escreve site/cardapio/dados/cardapio.json e o bloco embutido no index.html
-# depois: commit e push no repositório do site
+O site renderiza primeiro o catálogo embutido. A leitura opcional de uma
+publicação ativa mais recente no banco pode oferecer um aviso de atualização;
+sem ela, o cliente continua com a cópia estática. Uma troca de fonte exige
+verificar versão, conteúdo e regras editoriais nas duas bases.
+
+## 6. Percurso do QR e atribuição
+
+O QR das mesas segue este caminho, por decisão do proprietário de 22/09/2026:
+
+```text
+QR das mesas → /qr/ → home com origem qr_code → botão Cardápio → /cardapio/
 ```
 
-Isso é opcional — o portal já busca a versão nova sozinho. Vale a pena quando a
-mudança é grande, para quem abrir sem rede também ver a versão certa.
+A publicação do cardápio próprio mudou o destino do botão. O redirecionamento
+continua abrindo a home. O QR novo da entrada usa
+`/cardapio/?utm_source=qr_code&utm_medium=offline&utm_campaign=cardapio_entrada`.
+As campanhas dos dois materiais devem continuar separadas no Analytics.
 
----
+Atribuição real de anúncio, Maps e QR precisa ser preservada no percurso.
+Usar `sf_origin` como contexto de navegação e `sf_cta` para a posição do botão.
+As UTMs artificiais de navegação interna foram removidas em 06/10; não criar
+`utm_source=site` e `utm_medium=organic` nos links internos.
 
-## 6. Migração
-
-### Estado atual: o Hubt continua sendo o cardápio oficial
-
-**Decisão do proprietário em 22/09/2026: a troca ainda não acontece.** O portal
-novo já está no ar em `/cardapio/`, mas nada aponta para ele. Quem chega pela
-home, pelo QR da mesa ou pelas páginas em inglês continua indo para o Hubt,
-exatamente como antes.
-
-O que isso significa na prática:
-
-| Endereço | Para onde vai hoje |
-|---|---|
-| `sirfisher.com.br/` | botões do cardápio → **Hubt** |
-| `sirfisher.com.br/qr/` (o QR das mesas) | → a home, como sempre foi |
-| `en/`, `fish-and-chips/`, `en/fish-and-chips/` | → **Hubt** |
-| `sirfisher.com.br/cardapio/` | **portal novo**, indexável e no sitemap |
-
-### O percurso pelo QR, por decisão do proprietário
-
-```
-QR impresso na mesa
-  └─ https://www.sirfisher.com.br/qr/        ← é isto que está gravado no código
-       └─ redireciona para a home, com utm_source=qr_code
-            └─ o cliente toca no botão "Cardápio"
-                 └─ o cardápio abre
-```
-
-**O `/qr/` continua levando à home. Quem abre o cardápio é o cliente, tocando
-no botão.** Decisão do proprietário em 22/09/2026: a rota do QR não deve pular
-a home. Isso vale também depois da virada — na virada muda o **destino do
-botão**, não o redirecionamento do QR.
-
-Não mexer em `qr/index.html` sem o proprietário pedir.
-
-O portal fica alcançável por link direto e pela busca, com o aviso *“Cardápio
-em conferência”* visível. É por ali que a casa revisa o resultado antes de
-decidir a troca.
-
-### Já feito
-
-- `/cardapio/` passou a servir o portal novo, no lugar da página HTML antiga.
-- **QR conferido, não presumido.** Os códigos impressos em
-  `site/assets/qr/qr-cardapio-sirfisher.png` e `.svg` foram decodificados em
-  22/09/2026: ambos codificam `https://www.sirfisher.com.br/qr/`, e não o
-  endereço do cardápio. Ou seja, **o destino final está do nosso lado** e
-  nenhuma virada exige reimprimir código. A rota continua abrindo a home, por
-  decisão do proprietário.
-- Dados estruturados `schema.org/Menu` gerados da própria publicação — variante
-  vira oferta com nome, adicional **não** vira oferta, item esgotado sai como
-  `SoldOut`.
-
-### A virada, quando for decidida
-
-São cinco edições, todas no repositório do site. **`qr/index.html` não entra
-na lista** — o QR continua levando à home, e quem abre o cardápio é o cliente,
-no botão.
-
-1. `index.html` → 3 links + o `hasMenu` dos dados estruturados.
-2. `en/index.html` → 3 links + `hasMenu`.
-3. `fish-and-chips/index.html` e `en/fish-and-chips/index.html` → 1 link cada.
-4. `privacidade/index.html` → o Hubt deixa de ser o terceiro que recebe o
-   cliente; entra o Supabase, que só é lido.
-5. Ao trocar, tirar `target="_blank" rel="noopener"` dos links: o cardápio
-   passa a ser do próprio site e não faz sentido abrir em outra aba.
-
-**Um detalhe de medição que só aparece depois da virada.** Hoje o `/qr/` manda
-`utm_source=qr_code` para a home, e é lá que a origem é registrada. Quando o
-botão passar a apontar para `./cardapio/`, o link não carrega esses parâmetros
-— o portal veria a visita como `direto` e a origem “veio do QR” se perderia no
-caminho entre uma página e outra.
-
-Duas saídas, ambas baratas:
-
-- Escrever os parâmetros direto no `href` do botão
-  (`./cardapio/?utm_source=site&utm_medium=organic&utm_content=botao_cardapio`),
-  que é o padrão já usado nos botões de reserva; ou
-- Repassar o que chegou na URL da home, como `assets/js/atribuicao.js` já faz
-  para `reservas.sirfisher.com.br` — basta incluir os links para `/cardapio/`
-  no seletor. Assim um acesso por QR continua identificável como QR, e não
-  vira “tráfego direto”.
-
-A segunda é a que preserva de verdade a origem, porque o anúncio ou o QR que
-trouxe a pessoa vence o padrão escrito na página.
-
-**Pré-requisitos da virada**, nesta ordem:
-
-- Conferir preços, variantes e disponibilidade — ver
-  [CARDAPIO_CONFERENCIA.md](CARDAPIO_CONFERENCIA.md).
-- Aplicar as duas migrations e rodar os testes de segurança da seção 3.
-- Publicar pelo botão da rotina e marcar o catálogo como conferido.
-
-### Fora do escopo
-
-**`almoco-executivo/index.html` aponta para outro cardápio do Hubt**,
-`sir-fisher-praia--almoco`. O almoço executivo **não** está entre os 81
-registros, então redirecioná-lo para `/cardapio/` mostraria o cardápio errado.
-Mesmo depois da virada, a dependência do Hubt só termina quando o almoço
-executivo for decidido: ou vira uma categoria com horário próprio, ou mantém
-link separado.
-
-### Ordem de aplicação
-
-1. `20260922000000_cardapio_catalogo.sql` — estrutura, segurança e RPCs.
-2. `20260922010000_cardapio_carga_inicial.sql` — os 81 registros, **como
-   rascunho**. A carga não publica nada: publicar é ato humano, depois de
-   alguém da casa olhar.
-3. Abrir Gestão → Rotinas → Cardápio, conferir e **Publicar**.
-4. Enquanto o estado for `em_conferencia`, o portal avisa o cliente.
-
-Reaplicar a carga é seguro: cada linha só é sobrescrita enquanto continuar
-marcada como `carga-inicial` em `fontes`. Depois que alguém editar, a carga
-respeita a edição.
+O plano antigo de setembro que mantinha o Hubt e previa uma futura virada
+fica no histórico Git. O almoço executivo também deve seguir o inventário e
+os links atuais do site; o plano antigo não comprova uma dependência atual
+do Hubt.
 
 ---
 
@@ -334,13 +254,13 @@ Em `scripts/cardapio/`:
 |---|---|
 | `catalogo_inicial.py` | A reconciliação das três fontes, com proveniência e estado de revisão por campo. Gera `catalogo_inicial.json`. Valida: 78 publicáveis (81 até 22/10/2026), nenhum adicional mais caro que o produto, porção divergente sem texto, declaração alimentar sem fonte. |
 | `gerar_migration.py` | `catalogo_inicial.json` → migration de carga. Com `--realinhar ARQUIVO`, gera uma migration nova que realinha o rascunho do banco, preserva foto enviada pelo painel e arquiva os produtos de `RETIRADOS`, sem mexer no estado nem publicar. |
-| `exportar_snapshot.py` | Publicação → cópia pública. `--do-banco` em produção; sem argumento, usa a semente (modo bootstrap). Recusa a exportação se algum campo interno vazar. |
+| `exportar_snapshot.py` | Catálogo de arquivo → cópia pública no pipeline atual. `--do-banco` é uma opção para uma publicação ativa reconciliada; não é a rotina adotada nesta revisão. Recusa campos internos no resultado. |
 | `gerar_conferencia.py` | Gera `docs/CARDAPIO_CONFERENCIA.md`. |
 
-Quando o banco estiver populado, **a montagem autoritativa é a do SQL**
-(`private.cardapio_montar_publicacao`). O `montar()` do Python só existe para o
-bootstrap, antes da primeira publicação. As duas aplicam as mesmas regras; se
-divergirem, o SQL vence.
+A montagem do SQL define o conteúdo da publicação do banco. O `montar()`
+Python define os derivados da fonte versionada usada no site. Antes de mudar
+para uma publicação do banco, comparar os resultados e resolver divergências
+conforme as decisões registradas no handoff.
 
 ---
 

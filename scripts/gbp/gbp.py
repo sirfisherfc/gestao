@@ -81,8 +81,19 @@ MASCARA_LOCAL = (
     "specialHours,serviceArea,openInfo,metadata,profile,moreHours"
 )
 
-# Dias em que a casa fecha. Nos demais feriados abre no horario normal.
+# Dias em que a casa fecha. Nos demais feriados usa o horario regular como
+# padrao, preservando as excecoes existentes e as decisoes datadas abaixo.
 FECHADO_MES_DIA = {(12, 24), (12, 25)}
+# Decisao do proprietario de 06/10/2026: funcionamento continuo antes e durante
+# o Reveillon. A data completa evita repetir a decisao em outros anos.
+HORARIOS_CONFIRMADOS = {
+    dt.date(2026, 12, 31): {
+        "startDate": {"year": 2026, "month": 12, "day": 31},
+        "endDate": {"year": 2027, "month": 1, "day": 1},
+        "openTime": {"hours": 9},
+        "closeTime": {"hours": 2},
+    },
+}
 FERIADOS_FIXOS = {
     (1, 1): "Confraternizacao universal",
     (3, 19): "Sao Jose (CE)",
@@ -392,25 +403,50 @@ def data_api(d):
     return {"year": d.year, "month": d.month, "day": d.day}
 
 
-def horarios_especiais(local, dias):
-    hoje = dt.date.today()
+def _periodo_comparavel(periodo):
+    """Compara horarios sem distinguir campos de tempo omitidos de zero."""
+    def tempo(campo):
+        valor = periodo.get(campo, {})
+        return tuple(valor.get(c, 0) for c in ("hours", "minutes", "seconds", "nanos"))
+    return (
+        periodo.get("startDate"), periodo.get("endDate", periodo.get("startDate")),
+        periodo.get("closed", False), tempo("openTime"), tempo("closeTime"),
+    )
+
+
+def horarios_especiais(local, dias, hoje=None):
+    # O PC e a rotina na nuvem podem usar outro fuso. Fortaleza e UTC-3.
+    if hoje is None:
+        hoje = dt.datetime.now(dt.timezone(dt.timedelta(hours=-3))).date()
     fim = hoje + dt.timedelta(days=dias)
     calculados = {}
     for d in feriados(hoje, fim):
-        if (d.month, d.day) in FECHADO_MES_DIA:
+        if d in HORARIOS_CONFIRMADOS:
+            calculados[d] = HORARIOS_CONFIRMADOS[d]
+        elif (d.month, d.day) in FECHADO_MES_DIA:
             calculados[d] = {"startDate": data_api(d), "endDate": data_api(d), "closed": True}
         else:
             abre, fecha = horas_do_dia(local, d)
             if abre:
                 calculados[d] = {"startDate": data_api(d), "endDate": data_api(d),
                                  "openTime": abre, "closeTime": fecha}
-    # Preserva excecoes futuras lancadas a mao que nao sejam feriados calculados.
+    # Uma data de feriado tambem pode ter um horario confirmado manualmente.
+    # Preserva os desvios do padrao, inclusive varios periodos no mesmo dia.
+    # As decisoes datadas acima prevalecem sobre uma copia regular equivocada.
     manter = []
+    existentes = {}
     for p in local.get("specialHours", {}).get("specialHourPeriods", []):
         s = p["startDate"]
         d = dt.date(s["year"], s["month"], s["day"])
-        if d >= hoje and d not in calculados:
-            manter.append(p)
+        if d >= hoje:
+            existentes.setdefault(d, []).append(p)
+    for d, periodos in existentes.items():
+        if d in HORARIOS_CONFIRMADOS and hoje <= d <= fim:
+            continue
+        padrao = calculados.get(d)
+        if padrao is None or len(periodos) != 1 or _periodo_comparavel(periodos[0]) != _periodo_comparavel(padrao):
+            manter.extend(periodos)
+            calculados.pop(d, None)
     periodos = manter + [calculados[d] for d in sorted(calculados)]
     periodos.sort(key=lambda p: (p["startDate"]["year"], p["startDate"]["month"], p["startDate"]["day"]))
     return {"specialHourPeriods": periodos}

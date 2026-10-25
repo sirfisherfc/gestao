@@ -134,6 +134,25 @@ o torna imediatamente indisponível, mesmo com a janela de recuperação.
 
 Todos os comandos simulam por padrão e só publicam com `--publicar`.
 
+O cálculo de feriados usa a data de Fortaleza e preserva horários manuais que
+divergem do horário regular, inclusive quando a data é um feriado. A decisão
+do proprietário de 06/10 para 31/12/2026 está registrada em
+`HORARIOS_CONFIRMADOS`, em `gbp.py`: abre às 9h de 31/12 e fecha às 2h de
+01/01/2027. O ano faz parte da regra; outro Réveillon exige uma decisão própria.
+Regressões offline: `python -B scripts/gbp/test_feriados.py`.
+Sem proveniência por campo no cadastro, a rotina preserva qualquer desvio
+existente do padrão como uma exceção a conferir, em vez de presumir sua origem.
+
+Na leitura de 25/10, a ficha havia voltado a encerrar em 22h15 no dia 31/12.
+A função antiga recalculava os feriados com o horário regular e substituía
+exceções na mesma data, o que reproduz essa perda. A causa de uma execução
+específica na nuvem não foi auditada. A correção enviada nesta revisão alterou
+somente o período de 31/12 e preservou os outros oito períodos especiais.
+O cadastro relido correspondeu ao plano. O Google sinalizou
+`pendingMask=specialHours` na primeira leitura de `getGoogleUpdated`; a
+releitura posterior confirmou 9h de 31/12 até 2h de 01/01, sem `pendingMask`
+ou `diffMask`. O processamento foi conferido pela API do Google.
+
 O `cardapio` monta os itens a partir de `site/cardapio/dados/cardapio.json`
 com `site/tools/analytics/build_google_menu.py`, mostra o que entra, sai e
 muda de preço, guarda o cardápio anterior em `tmp/gbp/` e relê o resultado.
@@ -240,9 +259,25 @@ Links fixos da ficha (atributos): o botão "Reservar" (`url_reservations`) vai
 direto para o sistema, sem passar pelo site:
 `https://reservas.sirfisher.com.br/?utm_source=google_maps&utm_medium=organic&utm_campaign=gbp_booking&utm_content=botao_reservar`
 (alterado em 30/09/2026; no painel de reservas essas reservas aparecem com
-origem `google_maps`). O "Cardápio" (`url_menu`) continua no Hubt.
-Nunca apontar para `/cardapio/`: o cardápio oficial continua sendo o do Hubt,
-por decisão do proprietário (ver `docs/CARDAPIO.md`).
+origem `google_maps`). O destino do "Cardápio" (`url_menu`) deve ser o
+cardápio próprio em `https://www.sirfisher.com.br/cardapio/`, com a atribuição
+externa real do Perfil da Empresa quando configurada. O cardápio próprio
+substituiu o Hubt. A orientação de 22/09 para manter o Hubt foi superada;
+seguir [HANDOFF_CARDAPIO.md](HANDOFF_CARDAPIO.md), atualizado em 23/10/2026.
+Conferir o valor atual da ficha antes de alterá-lo e reler depois da mudança.
+
+### Estado da rotina em 25/10/2026
+
+Neste PC, a consulta ao Agendador de Tarefas não encontrou a tarefa local
+`Sir Fisher - Perfil do Google`. O estado `Disabled` descrito acima foi
+observado em 13/10 e não descreve este PC. Não registrar outra tarefa para
+compensar essa ausência: a rotina na nuvem continua sendo a execução prevista.
+
+Os arquivos locais contêm um relatório de rotina de 28/09 e registros de
+publicação do FoodMenus em 22/10, com 81 entradas após cada publicação.
+Esses registros demonstram publicações pontuais; a execução diária na nuvem
+precisa ser conferida no histórico da rotina, com a data da última sessão e
+seu resultado. Nesta revisão documental, esse histórico não foi acessado.
 
 ## Fotos
 
