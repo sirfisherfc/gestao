@@ -1,5 +1,9 @@
 # Semrush: melhorias publicadas e acompanhamento local
 
+Atualizações posteriores ao acervo estão no
+[adendo da rodada adicional](#rodada-adicional-em-2510-após-o-fechamento-do-acervo).
+O ZIP entregue conserva o fechamento anterior como snapshot.
+
 Referência: 25/10/2026, America/Fortaleza. O site recebeu links mais claros
 para almoço e cardápio, orientação de rota conforme a origem, regra visível
 de pets e canais de grupos e eventos. As mudanças foram publicadas e
@@ -622,7 +626,7 @@ e cada pergunta, com as fontes e os fatos efetivamente devolvidos. O conjunto
 selecionado não representa todas as perguntas de clientes ou os resultados
 que cada pessoa receberá no ChatGPT.
 
-### Pendência externa preservada no site
+### Estado externo no fechamento do snapshot
 
 Outra execução deixou alterações locais em `site/robots.txt` e
 `site/tools/analytics/README.md`, incluindo uma mudança de `Google-Extended`.
@@ -657,3 +661,77 @@ não criou um agendamento no Codex. Novas conferências dependem de outra
 rodada de trabalho e do acesso aos dados disponíveis; não há promessa de
 execução automática. As coletas nativas da Semrush seguem as configurações
 salvas no serviço.
+
+## Rodada adicional em 25/10, após o fechamento do acervo
+
+- **Google-Extended:** o usuário confirmou a liberação e o site
+  [`bafeeaf`](https://github.com/sirfisherfc/site/commit/bafeeaf81897262b6bf01e457b3237e24b65cad7)
+  foi publicado e conferido no domínio às 05:09 de Fortaleza. Os outros
+  bloqueios do robots foram preservados. A purga atingiu somente
+  `https://www.sirfisher.com.br/robots.txt`; os dois controles gerenciados
+  continuaram desligados. A pendência descrita no fechamento anterior foi
+  resolvida depois daquele snapshot. A permissão fornece acesso conforme
+  as diretivas e os demais controles da rede; aparições e citações exigem
+  observação própria.
+- **Reservas e eventos:** o site
+  [`7c2b72c`](https://github.com/sirfisherfc/site/commit/7c2b72ca8ab4bbffecb7c51dcbdbe94f206892ca)
+  publicou ajustes nos caminhos de grupos/eventos e na FAQ sobre posição
+  da mesa, preservando as regras existentes e sem promessa de primeira fila.
+  Passaram 108 testes Deno, quatro verificadores e quatro casos de navegador
+  em 390/1440 px, além das verificações de JSON e links internos.
+  Assets e Pages concluíram com sucesso. As duas páginas públicas
+  responderam HTTP 200 e coincidiram com o HTML local, com e sem parâmetro
+  de conferência.
+- **Cardápio no Perfil da Empresa:** às 05:41 de Fortaleza, um PATCH somente
+  em `attributes/url_menu` publicou
+  `https://www.sirfisher.com.br/cardapio/?utm_source=google_maps&utm_medium=organic&utm_campaign=gbp_menu`.
+  A leitura posterior coincidiu com esse endereço. Os outros 60 atributos, os campos
+  da ficha e FoodMenus ficaram iguais. O destino respondeu HTTP 200, com
+  canonical `/cardapio/` sem parâmetros. A identificação permite separar
+  futuros acessos desse botão no Analytics; ainda faltam dados posteriores
+  para medir o resultado. Recibo agregado fora do Git em
+  `output/seo-rodada-adicional-2026-10-25/gbp-url-menu-recibo.json`.
+- **ChatGPT em inglês:** o alvo `Sir Fisher IA English Fortaleza`
+  (`31731868_5693988`, pasta `13982947`) foi configurado para Fortaleza,
+  English e quatro prompts já preparados, com email semanal desligado.
+  A primeira coleta terminou em 25/10: quatro linhas `Mentioned`, com três
+  perguntas genéricas e uma de marca. A tabela incluiu URLs próprias
+  `/en/`, `/en/fish-and-chips/` e `/reservas/`. As superfícies do painel
+  mostraram percentuais diferentes durante a consolidação; este registro
+  preserva as contagens por pergunta. Há uma data de referência e ainda
+  faltam observações posteriores para medir evolução ou efeito das mudanças.
+  O export nativo ficou desabilitado pelo Trial; snapshots e CSV derivado
+  preservam os resultados, sem upgrade de assinatura.
+- **On Page SEO Checker e WAF:** o painel existente mostrou inicialmente 28 ideias para
+  seis páginas. O detalhe da página EN de fish and chips informou HTTP 403
+  do rastreador e ideias gerais. Uma nova coleta de uma página terminou e
+  repetiu o bloqueio. Um evento Cloudflare às 05:46:13 de Fortaleza confirmou
+  `firewallManaged`, ação `block` e agente `SemrushBot-SI`, em IP da faixa
+  oficial da Semrush. Esse evento confirmou o bloqueio antes da exceção.
+  A regra foi identificada como
+  `Block AI bots on ad pages`, na fase `http_request_sbfm`.
+  Uma exceção foi publicada e relida `Active` na UI, limitada à faixa oficial
+  da Semrush, agente `SemrushBot-SI`, host `www`, métodos GET/HEAD, consulta
+  vazia e 13 páginas públicas mais robots/sitemap. Ela pula todas as regras
+  da fase `http_request_sbfm` apenas nesse conjunto, com logs ligados.
+  As demais proteções foram preservadas; não houve ampliação
+  do token ou de permissões da API. Às 05:53:47 de Fortaleza, um evento real
+  registrou `skip` na regra nova para esse rastreador. A recoleta posterior
+  da página EN de fish and chips deixou de mostrar HTTP 403 e passou a
+  apresentar cinco ideias com leitura do conteúdo. A prova de acesso vale
+  para essa página e esse recorte; outros caminhos exigem suas próprias
+  verificações. Bot Management e os dois controles de robots ficaram iguais.
+  Recibo em
+  `output/semrush-seguimento-2026-10-25/cloudflare-excecao-validacao-eventos.json`
+  e relatório em `onpage-en-fish-apos-excecao-dom.txt`, na mesma pasta.
+  O rollback consiste em desativar essa regra específica na UI, sem alterar
+  os controles gerais. Nenhuma proteção geral foi desligada e nenhuma
+  exceção baseada só em user-agent foi criada.
+  As sugestões gerais exigem evidência da
+  página antes de qualquer implementação, inclusive recomendações de schema.
+
+Esta rodada não fez novas consultas pagas à API Standard da Semrush. O ZIP
+`output/semrush-3-dias/sir-fisher-acervo-completo-2026-10-25.zip` conserva
+os mesmos bytes e o hash do sidecar original. Assinatura e recorrência
+permaneceram intactas. O acompanhamento usa dados automáticos existentes;
+o registro manual de clientes sem reserva continua adiado pelo usuário.

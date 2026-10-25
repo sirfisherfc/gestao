@@ -259,9 +259,18 @@ Links fixos da ficha (atributos): o botão "Reservar" (`url_reservations`) vai
 direto para o sistema, sem passar pelo site:
 `https://reservas.sirfisher.com.br/?utm_source=google_maps&utm_medium=organic&utm_campaign=gbp_booking&utm_content=botao_reservar`
 (alterado em 30/09/2026; no painel de reservas essas reservas aparecem com
-origem `google_maps`). O destino do "Cardápio" (`url_menu`) deve ser o
-cardápio próprio em `https://www.sirfisher.com.br/cardapio/`, com a atribuição
-externa real do Perfil da Empresa quando configurada. O cardápio próprio
+origem `google_maps`). O destino do "Cardápio" (`url_menu`) usa o
+cardápio próprio com a atribuição do Perfil da Empresa:
+`https://www.sirfisher.com.br/cardapio/?utm_source=google_maps&utm_medium=organic&utm_campaign=gbp_menu`.
+Esse valor foi publicado e relido no Google em 25/10/2026, às 05:41 de
+Fortaleza. A alteração atingiu somente `attributes/url_menu`; os outros
+60 atributos, os campos da ficha e FoodMenus ficaram iguais. O destino
+respondeu HTTP 200 e manteve a canonical `/cardapio/`, sem parâmetros.
+A identificação permite separar futuros acessos desse botão no Analytics;
+o resultado comercial depende dos dados automáticos que forem coletados.
+O recibo agregado está em
+`output/seo-rodada-adicional-2026-10-25/gbp-url-menu-recibo.json`, na raiz do
+workspace e fora do Git. O cardápio próprio
 substituiu o Hubt. A orientação de 22/09 para manter o Hubt foi superada;
 seguir [HANDOFF_CARDAPIO.md](HANDOFF_CARDAPIO.md), atualizado em 23/10/2026.
 Conferir o valor atual da ficha antes de alterá-lo e reler depois da mudança.

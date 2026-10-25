@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 livre — Google-Extended liberado e publicação conferida; relatório e ZIP anteriores preservados como snapshot.
+> **🚦 Status atual:** 🟢 livre — cardápio Google com atribuição, alvo EN coletado e acesso Semrush conferido; adendo concluído e ZIP anterior preservado.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -38,32 +38,7 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
 
 — Claude
 
-## 2026-10-25 · Codex — Verificação do helper Cloudflare
-
-- Preservei o comando `robots` de Claude e os dois controles, incorporados
-  em `8be6a3a` durante esta integração. O código agora exige sucesso do PUT,
-  do GET posterior, dos dois alvos e da purga; interrompe a conclusão se outro
-  campo mudar. Não há restauração automática da configuração completa.
-- Onze regressões offline em `scripts/cloudflare/test_robots.py`, incluídas
-  no workflow `quality`, cobrem recusas, respostas incompletas, divergências,
-  alteração de política, purga, simulação, repetição e rollback. Passaram os
-  onze testes, as oito regressões GBP e o quality local. Sem rede nos testes.
-- GET somente leitura às 03:02:59 de Fortaleza confirmou ambos os controles
-  gerenciados desligados e robots público HTTP 200 igual ao arquivo do site,
-  sem diretiva Content-Signal. A propagação foi confirmada. O nome aparece
-  apenas no comentário local. Não houve escrita Cloudflare por Codex.
-- O código conserva as preferências fora do payload. A leitura atual mostrou
-  `ai_training=disallow` e `ai_bots_protection=only_on_ad_pages`; os limites
-  da comparação antes/depois serão descritos no relatório.
-- Documentação final Semrush segue em trabalho. O navegador ficou disponível
-  depois da extração por API; root é o único operador do painel e confere
-  auditoria, tracking e recursos de IA. Não reabrir pedido de credencial nem
-  atribuir tarefa manual ao proprietário. Consumo e evidências finais serão
-  registrados no fechamento, sem dados brutos ou mudanças financeiras.
-
-— Codex
-
-## 2026-10-25 · Codex — Fechamento SEO/IA, painel e acervo portátil
+## 2026-10-25 · Codex — Fechamento SEO/IA, painel e acervo portátil (snapshot anterior)
 
 - Resultado atual, sete pontos pedidos, reformulação, histórico, fontes e
   checklist 26/27 em `docs/SEMRUSH_3_DIAS_2026-10-25.md`. Sem tarefa manual
@@ -97,5 +72,33 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
   oito GBP, quality e CI/Pages aprovados. Este fechamento altera só documentos;
   sem migration, escrita no banco, alteração financeira ou credencial versionada.
   Pares de orientações da raiz e cópias versionadas conferidos idênticos.
+
+— Codex
+
+## 2026-10-25 · Codex — Rodada adicional, cardápio Google e alvo EN
+
+- Documentei a atribuição em `docs/ROTINA_PERFIL_GOOGLE.md` e acrescentei
+  adendo em `docs/SEMRUSH_3_DIAS_2026-10-25.md`. O ZIP anterior conserva
+  os mesmos bytes/hash. Sem migration ou alteração financeira.
+- Google-Extended `bafeeaf` e site `7c2b72c` publicados e conferidos no
+  domínio. O segundo preserva regras e esclarece grupos/eventos e posição
+  de mesa. Passaram 108 Deno, quatro verificadores e quatro casos de navegador.
+- GBP: um PATCH somente em `url_menu` acrescentou UTM `gbp_menu`; leitura
+  real às 05:41 confirmou o destino. Outros 60 atributos, ficha e FoodMenus
+  iguais. HTTP 200 e canonical limpa. Recibo agregado em
+  `output/seo-rodada-adicional-2026-10-25/gbp-url-menu-recibo.json`, fora do Git.
+- ChatGPT/Fortaleza/English: `31731868_5693988`, quatro prompts coletados,
+  quatro Mentioned (três genéricos e um de marca). Linha de base de 25/10;
+  percentuais divergentes da consolidação não viraram taxa de mercado.
+  Export nativo bloqueado pelo Trial; snapshots e CSV derivado preservados.
+- On Page Checker: causa do 403 identificada na regra Block AI bots on ad
+  pages. Exceção restrita publicada e relida Active na UI, Skip de todas as
+  regras `http_request_sbfm` só no conjunto definido, com
+  logs. Evento real `skip` às 05:53:47 e recoleta EN fish comprovaram acesso;
+  o relatório passou a cinco ideias, sem 403. Bot Management/robots iguais.
+  A prova cobre essa página; detalhes, recibos e rollback no adendo.
+- Quality estático e diffcheck passaram; pares de orientação da raiz idênticos.
+  Sem API Standard paga nova, nova rotina, upgrade ou mudança de recorrência.
+  A coleta manual de clientes sem reserva continua adiada pelo usuário.
 
 — Codex
