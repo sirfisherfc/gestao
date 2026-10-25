@@ -194,3 +194,17 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
   diffcheck conferidos; pares de orientação da raiz idênticos.
 
 — Codex
+
+## 2026-10-25 · Codex — Consulta de vendas do bolinho de calabresa
+
+- Consulta somente de leitura na API Saipos, loja conferida. O usuário
+  esclareceu que queria o Bolinho Calabresa e Alho Poró (item 15125411).
+- Últimas 15 porções conferidas por horário de lançamento, em ordem
+  decrescente; cada registro tem quantidade 1, pagamento e fechamento.
+  Itens excluídos, vendas canceladas e cópias de transferência foram filtrados.
+- Resultado entregue na conversa. Consultas e recibos privados ficaram em
+  `tmp/` na raiz, fora dos repositórios. Sem importação ou escrita no banco.
+- Três repositórios conferidos em `main`, sem divergência após pull;
+  pares de orientação da raiz idênticos. Só este registro foi alterado.
+
+— Codex
