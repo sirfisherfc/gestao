@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 livre — rodada adicional Semrush documentada e plano Search preparado; site de2f863 publicado. Impresso Big Ben Fries continua pendente.
+> **🚦 Status atual:** 🟢 livre — ícones originais coloridos publicados no cardápio, site 8efb640. Impresso Big Ben Fries continua pendente.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -206,5 +206,23 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
   `tmp/` na raiz, fora dos repositórios. Sem importação ou escrita no banco.
 - Três repositórios conferidos em `main`, sem divergência após pull;
   pares de orientação da raiz idênticos. Só este registro foi alterado.
+
+— Codex
+
+## 2026-10-25 · Codex — Ícones originais do cardápio
+
+- Site `8efb640`: dez PNGs fornecidos pelo usuário copiados intactos, com
+  cores originais e nomes com hash. O recorte ocorre apenas na exibição.
+  Ícones de 24 px nos cards/detalhes e 32 px na legenda; fundo claro circular
+  mantém a leitura no tema escuro, sem filtros ou recoloração.
+- Nomes acessíveis, ficha e legenda PT/EN preservados, com 78 cards e 61
+  ícones. Declarações culinárias, preços, porções e JSON-LD ficaram iguais.
+- Passaram 113 Deno, quatro verificadores e 47 critérios no navegador, em
+  celular 375/390 px e desktop 1525 px. Assets/Pages concluídos; 28 GETs
+  públicos retornaram 200. Os PNGs publicados são idênticos às fontes;
+  HTML/CSS/JS conferem com o commit após normalizar quebras de linha.
+- Recibos privados em `output/alergenos-originais-2026-10-25/`, na raiz.
+  Gestão altera só este canal, com quality/diffcheck e pares raiz conferidos;
+  sem relatório novo ou alteração do banco. Históricos preservados.
 
 — Codex
