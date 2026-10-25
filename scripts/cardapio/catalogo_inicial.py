@@ -41,7 +41,7 @@ Ficam confirmados 355 mL na Spaten Longneck e 300 g na Bolinha de Peixe. Nos
 pesos dos empanados o proprietario decidiu publicar o mesmo numero em todos
 os canais: 200 g nos dois Fish & Chips (peixe empanado; sao 150 g de peixe,
 decisao de 23/10/2026) e 120 g no Fisher Burger (peixe empanado; sao 100 g
-de peixe). O
+de peixe). Em 25/10/2026 a Big Ben Fries passou de 200 g para 250 g. O
 impresso passou a usar os nomes do cadastro (London, Patinha) e ganhou os
 simbolos de CRUSTACEOS na patinha e de PEIXE na bolinha. "Farota" era erro de
 digitacao de "farofa". O rodape de alergia do impresso ficou curto por
@@ -490,8 +490,8 @@ p("big-ben-fries", "petiscos",
   "Big Ben Fries", 3300, sub="fritas",
   descritor="batata frita com cheddar cremoso e bacon",
   descricao=None,
-  porcao_=porcao(texto="200 g",
-                 total={"valor": 200, "unidade": "g"},
+  porcao_=porcao(texto="250 g",
+                 total={"valor": 250, "unidade": "g"},
                  nota=NOTA_PESO_IN_NATURA,
                  fontes=["TXT", "HTML", "PDF"]),
   alimentar_=alimentar(["GLÚTEN", "OVO", "CORANTES"]),
@@ -499,7 +499,10 @@ p("big-ben-fries", "petiscos",
         "alt": "Batatas fritas especiais Big Ben servidas com coberturas da casa", "estado": "conferido"},
   termos=["batata frita", "cheddar", "bacon", "fritas"],
   etiquetas=["da-terra", "para-compartilhar"],
-  fontes=["TXT", "HTML", "PDF"])
+  fontes=["TXT", "HTML", "PDF"],
+  notas=["TXT, HTML e impresso diziam 200 g. Em 25/10/2026 o proprietário "
+         "corrigiu para 250 g, a mesma porção da Macaxeira Frita ou Batata "
+         "Frita, em todos os canais."])
 
 p("pasteizinhos", "petiscos",
   "Pasteizinhos", 3700, sub="terra",

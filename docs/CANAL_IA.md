@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 livre — robots de IA liberados e exceção SBFM conferida nos 15 caminhos públicos do www; histórico e ZIPs preservados.
+> **🚦 Status atual:** 🟢 livre — Big Ben Fries corrigida para 250 g no site, banco e Google; impresso no Canva pendente.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -17,26 +17,6 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
 **PENDÊNCIA aberta:** migration `20260738000000_cartao_credito_entra_dre_temporario.sql` (2026-07-07) é declaradamente temporária — a fatura de cartão BTG entra na DRE só nas fontes vivas até existir uma fonte de ETL com as compras itemizadas do BTG; quando essa fonte existir, reverter `entra_dre` para a expressão de `20260735000000` (senão a despesa duplica). Ver detalhes no `git log`/na própria migration.
 
 **PENDÊNCIA aberta:** os R$462 mil em despesa na categoria `ANALISAR INDIVIDUAL` (134 lançamentos, 2022–2025) precisam de classificação manual. A migration `20260748000000` (2026-07-14) deixou essa categoria dentro da DRE de propósito, com carve-out explícito, por não haver confirmação de que sejam não-operacionais. Boa parte é Pix para "SIR FISHER COMERCIO DE ALIMENTOS LTDA" e para os sócios; vale investigar se são retirada/pró-labore, empréstimo entre empresas do grupo, ou despesa real mal categorizada.
-
-## 2026-10-25 · Claude — Site Audit da Semrush e robots.txt
-
-- Site `0af3d6d`: catálogo do cardápio escrito no HTML
-  (`site/tools/cardapio/prerenderizar.py`, no pre-commit e no workflow
-  `verificar-assets`), igual ao que o `cardapio.js` desenha; h1 da página;
-  `address` no organizer do Event do Réveillon; `llms.txt`; links para
-  `/reservas/`. Ao rodar `exportar_snapshot.py`, o commit no site regenera
-  o catálogo sozinho.
-- Site `5e94b8e` + Cloudflare: robots.txt gerenciado e Bot Preference Sync
-  desligados (`scripts/cloudflare/cf.py robots`, `--religar` desfaz; o token
-  agora tem Zone > Bot Management > Edit). Só o primeiro não bastava. A mesma lista de 32 robôs de treino de IA
-  ficou em `site/robots.txt`, inclusive `Google-Extended` (sem decisão do
-  proprietário para liberar). Demais opções de bots conferidas sem mudança.
-- Atualização posterior (Codex, 25/10/2026): o usuário autorizou expressamente a liberação de `Google-Extended` nesta conversa; site `bafeeaf` publicado e conferido no domínio, com os demais bloqueios preservados.
-- Validação: prerender/assets/CSP `--verificar`, teste de navegador e axe
-  sem problemas, marcação idêntica à do JS, CLS 0, páginas publicadas
-  conferidas. Pendente: nova rodada do Site Audit pelo proprietário.
-
-— Claude
 
 ## 2026-10-25 · Codex — Fechamento SEO/IA, painel e acervo portátil (snapshot anterior)
 
@@ -153,3 +133,18 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
   altera somente os dois documentos; root executa site e Cloudflare.
 
 — Codex
+
+## 2026-10-25 · Claude — Big Ben Fries com 250 g
+
+- Decisão do proprietário: Big Ben Fries tem 250 g, como a Macaxeira Frita
+  ou Batata Frita (TXT, HTML antigo e impresso diziam 200 g).
+- `scripts/cardapio/catalogo_inicial.py` (com nota) → JSON → snapshot do
+  site (`dcfb37f`; o pre-commit regenerou o catálogo pré-renderizado).
+- Migration `20261025170000_cardapio_big_ben_250g.sql` aplicada por
+  `aplicar_migrations_pendentes.py` (só ela pendente; 223 versões); banco
+  relido com 250 g. Não há publicação ativa em `cardapio_publico`.
+- Google: `gbp.py cardapio --publicar` relido; lá o item não leva porção.
+- Pendente: impresso no Canva (mesa `DAHYx8a8mAI` e A3 da entrada) ainda
+  com 200 g; sem conector do Canva nesta sessão.
+
+— Claude

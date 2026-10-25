@@ -764,10 +764,10 @@
    "inclui": [],
    "opcoes": [],
    "porcao": {
-    "texto": "200 g",
+    "texto": "250 g",
     "principal": null,
     "total": {
-     "valor": 200,
+     "valor": 250,
      "unidade": "g"
     },
     "unidades": null,
@@ -819,7 +819,9 @@
     "HTML",
     "PDF"
    ],
-   "notas_internas": [],
+   "notas_internas": [
+    "TXT, HTML e impresso diziam 200 g. Em 25/10/2026 o proprietário corrigiu para 250 g, a mesma porção da Macaxeira Frita ou Batata Frita, em todos os canais."
+   ],
    "publicar": true,
    "disponivel": true,
    "ordem": 7,
