@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 livre — levantamento Teknisa/Saipos concluído; migração do cardápio ainda não executada. Impresso Big Ben Fries continua pendente.
+> **🚦 Status atual:** 🟢 livre — auditoria adicional concluída; atualização do Teknisa aguarda três decisões comerciais e validação dos opcionais. Impresso Big Ben Fries continua pendente.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -265,5 +265,35 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
   fora do Git. Contagens, IDs, grupos ativos e cruzamento das definições
   conferidos; quality estático e diffcheck passaram. Apenas os dois
   documentos de gestão foram alterados; sem migration ou deploy de produto.
+
+— Codex
+
+## 2026-10-26 · Codex — Auditoria adicional antes da migração
+
+- O usuário condicionou a atualização do Teknisa à conferência de outras
+  inconsistências do Saipos. Auditoria offline dos 107 itens e 82 opções
+  não encontrou preços negativos, grupos vazios ou referências quebradas.
+  Os 103 itens após as quatro retiradas continuam preparados para migração.
+- Três decisões comerciais aguardam resposta: Rum/Martini em `1..1` e
+  obrigatoriedade do Molhos avulso; retirada de MOLHO EXTRA somente do
+  Gelo; cortesia em R$ 0,01 com as duas marcas ou Ypioca com acréscimo.
+  Regras compartilhadas precisam manter extras dos pratos opcionais e
+  Ypioca com R$ 4,00 de acréscimo na Caipirinha normal.
+- Macaxeira adicional R$ 9,99 foi preservada. London oferece Panko ou
+  massa de cerveja; ausência de SKU Sir Fisher separado é uma diferença
+  de modelagem. Café mantém dois IDs, sem deduplicação. O resumo de canais
+  da lista não exclui Totem, que também foi visto nos editores dos cafés.
+- `docs/TEKNISA_MIGRACAO_CARDAPIO.md` distingue os achados, as propostas
+  pendentes e as diferenças do Teknisa. Artefato local
+  `output/teknisa-2026-10-26/auditoria-saipos-adicional.json`, fora do Git.
+  Nenhum preço, opção, pedido ou cadastro do SaaS foi alterado.
+- Preparação somente de leitura dos formulários do Teknisa registrada em
+  `teknisa-opcionais-preparacao-ui.json`, na mesma pasta local. Foram vistos
+  tipo de observação, produto vinculado e mínimo global por produto;
+  ainda falta comprovar a reprodução de mínimos/máximos por subgrupo e
+  cobranças dos 118 vínculos. Todos os formulários foram cancelados.
+- Validações dos dados e diffcheck passaram. A atualização do Teknisa
+  permanece pendente das três respostas e da validação técnica; esta
+  entrega altera somente os dois documentos de gestão.
 
 — Codex

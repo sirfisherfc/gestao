@@ -5,6 +5,9 @@ abriu o Teknisa na unidade **0002 — SIR FISHER PRAIA**. Esta entrega
 registra as telas examinadas, a comparação com o Saipos e a seleção de
 103 itens para migrar. A migração ainda não foi executada: nenhum cadastro,
 preço ou configuração do Teknisa ou do Saipos foi alterado nesta etapa.
+A auditoria adicional identificou três decisões comerciais que aguardam
+resposta do usuário antes da execução: limites por produto, molho extra
+no Gelo e acréscimo do Drink Cortesia.
 
 Os valores e campos identificados como lidos foram observados na
 interface. As ações propostas nas tabelas e nas etapas finais ainda
@@ -49,6 +52,20 @@ e reler o resultado de cada ajuste autorizado.
 | Contábil e fiscal | Contas, parâmetros, qualificação do assinante, histórico e representante; NCM, NCM por Produto e integração de fechamento de cupom. |
 | Login e acesso | Configuração e política de login. Administração → Controle de Acesso: Operador, Perfil, Perfil Menu, Meu Perfil e ACL. |
 | Logs | Operações, Requisição, SQL e Configuração. |
+
+No formulário Adicionar Produto, os campos obrigatórios lidos foram
+Código da Árvore, Código do Produto, Nome e Unidade de Medida. O Nome
+aceita até 50 caracteres. O Tipo de Produto começa em Compra, enquanto
+o Filé Mignon existente foi lido como Estoque; a criação precisa usar o
+tipo adequado aos produtos de venda. O formulário foi cancelado vazio,
+sem gravação.
+
+O seletor de árvores mostrou a raiz `8 — CARDAPIO PRAIA` e a raiz
+`9 — CARDAPIO`. Sob `8`, apareceram os grupos do cardápio principal,
+bebidas com e sem álcool e adicionais. O nível exibido não apresentou
+executivos. A tabela de preço `001` e os vínculos do caixa lidos usam
+produtos da árvore `8`; os cadastros da árvore `9` devem ter sua
+finalidade conferida antes de qualquer alteração.
 
 A tela **Tabela Preço Geral**
 (`/man/#/man#register%2Fvnd42700_tabelaprecoGeral`) teve carregamento lento
@@ -156,6 +173,25 @@ ou serviço ainda precisam ser conferidos. Os nomes das abas identificam
 os pontos a examinar para associar escolhas a produtos e definir sua
 obrigatoriedade; o comportamento dessas escolhas ainda precisa ser
 validado no pedido.
+
+A preparação adicional abriu os formulários novos e os cancelou sem
+preencher ou salvar. Os campos úteis para a implementação foram:
+
+| Tela do Teknisa | O que foi observado | O que a leitura ainda não comprovou |
+| --- | --- | --- |
+| Observação | Código, Nome, Tipo Adicionar/Remover/Observação, Produto vinculado, nomes em inglês/espanhol, exibição no aplicativo, destaque no KDS e ordem. | A ficha nova não mostrou preço ou quantidade máxima. A forma de cobrar o produto vinculado ainda precisa ser validada. |
+| Observação por produto | Grade com Código, Nome e Quantidade Mínima de Observações. | A grade não mostrou mínimo e máximo separados por subgrupo nem preço de opcional. |
+| Grupo de Observações Obrigatórias | Nome obrigatório e aba Ocorrências Obrigatórias do Grupo. | A aba filha não apresentou conteúdo acessível antes de gravar; a regra de obrigatoriedade por grupo ainda precisa ser conferida. |
+| Grupo de Produtos Combinados | Código, Nome, Limite de seleção inicialmente `0` e Cor do Botão. | A ficha nova não mostrou mínimo, preço, produto vinculado ou impressão de cozinha. O significado do limite ainda precisa ser validado. |
+
+Essas leituras identificaram cadastros de observação e vínculos, mas
+ainda não comprovaram uma sequência completa para reproduzir os 118
+vínculos da seleção com mínimos, máximos e acréscimos do Saipos. A
+execução precisa conferir esse funcionamento em documentação técnica,
+em cadastro existente que permita leitura ou em validação adequada após
+a definição das regras comerciais. O arquivo local
+`output/teknisa-2026-10-26/teknisa-opcionais-preparacao-ui.json` preserva
+os campos lidos e os limites dessa preparação.
 
 ## Cadastros conferidos e pontos a revisar
 
@@ -403,8 +439,11 @@ também custa R$ 45,00, e o cadastro geral tem um London na série `9`.
 Esses nomes e preços ainda exigem conferir receita e vínculos antes de
 escolher o cadastro correspondente. O Sir Fisher Fish & Chips está no
 Teknisa e no site, mas não apareceu nos 107 itens ativos lidos do Saipos.
-Essa ausência foi registrada; as quatro retiradas explícitas do usuário
-não incluem esse prato.
+No Saipos, London tem a escolha obrigatória de uma massa: **Massa da Casa
+(Panko)** ou **Massa Cerveja (Original)**, sem acréscimo. Essa estrutura
+representa as duas massas em um produto. As quatro retiradas explícitas
+do usuário não incluem o Sir Fisher; a migração deve preservar a escolha
+de panko.
 
 Macaxeira e Batata Frita são itens separados no Saipos, ambos por
 R$ 27,00. A tabela do Teknisa tem Macaxeira ou Batata Frita por R$ 27,00,
@@ -415,8 +454,8 @@ finalidade precisa ser conferida antes de unificar vínculos.
 
 Dois IDs ativos de Café Expresso no Saipos, um em SOBREMESA e outro em
 Outros, custam R$ 5,00 e têm o mesmo candidato na tabela do Teknisa. A
-finalidade desses cadastros precisa ser conferida antes de unificar
-vínculos.
+seleção preserva os dois IDs e seus grupos. Esta migração não vai
+deduplicá-los; os vínculos precisam manter as funções desses grupos.
 
 ### Preços dos coquetéis: valores lidos e ações propostas
 
@@ -452,6 +491,58 @@ registra a conferência de hashes da captura e dos dados em três conjuntos:
 produtos, vínculos e opções. `saipos-evidencias-limites.json` registra a
 releitura dos limites atípicos. Foram validadas as contagens, a unicidade
 dos IDs e as correspondências das definições.
+
+## Auditoria adicional do Saipos antes da execução
+
+O usuário pediu uma nova conferência do Saipos antes de atualizar o
+Teknisa. A auditoria offline dos 107 itens e das 82 opções não encontrou
+preços negativos, grupos vazios, conjuntos obrigatórios sem opções,
+mínimos maiores que o máximo ou que a quantidade de opções, nem
+referências a definições ausentes. Também não encontrou IDs ou nomes de
+opção repetidos dentro de um mesmo conjunto.
+
+O preço base zero do Refrigerante está relacionado a uma escolha
+obrigatória de R$ 8,00, e os valores zero dos acompanhamentos incluídos
+estão previstos nas opções. A diferença entre MACAXEIRA R$ 9,99 e BATATA
+R$ 9,90 é um preço válido no cadastro; nesta etapa, R$ 9,99 será
+preservado. Os sete executivos Prime, o brownie de funcionário e os combos
+possuem nomes de uso próprios e permanecem separados na seleção.
+
+A [orientação oficial do Saipos sobre opcionais](https://intercom.help/meajuda-saipos/pt-BR/articles/17020505-cadastro-e-edicao-de-opcionais-criados-manualmente)
+explica o compartilhamento dos preços e limites entre os produtos que
+usam uma definição e reconhece opções repetidas na impressão. Por isso,
+a quantidade de nomes de opções, sozinha, não esclarece o efeito dos
+máximos `111` no pedido. A regra desejada para cada dose continua como
+decisão comercial a registrar.
+
+O resumo de canais da lista mostra Salão e Cardápio digital. Na leitura
+adicional dos editores, os dois cafés também estavam marcados para Totem
+Saipos, com Delivery e Pedido Online desmarcados. Ambos cobram serviço e
+imprimem em Cozinha 1, um diretamente e outro pela configuração da
+categoria. Esses campos não comprovam a finalidade histórica de cada ID;
+a seleção preserva os dois. A definição dos canais do Teknisa deve
+considerar o uso real da operação e os vínculos lidos em cada terminal.
+
+Três decisões foram apresentadas ao usuário antes da gravação no Teknisa:
+
+| Ponto observado no Saipos | Proposta aguardando resposta |
+| --- | --- |
+| Rum e Martini permitem até 111 escolhas de marca; Molhos avulso tem base zero e usa grupo opcional `0..10`, permitindo nenhuma escolha pelos campos do cadastro. | Usar `1..1` para Rum/Martini e exigir ao menos uma opção apenas na venda avulsa de Molhos. Manter os extras dos pratos em `0..10`. |
+| Gelo, ID `19440724`, tem o vínculo `19440727` com MOLHO EXTRA `1576146`. | Retirar somente esse vínculo do Gelo; preservar Salada, Adicional Ovo e os outros produtos que usam o grupo. |
+| Drink Cortesia, ID `19413680`, tem base R$ 0,01 e usa Caipirinha Praia `1599653`, com nacional a R$ 0,00 e Ypioca a R$ 4,00 de acréscimo. | Definir se as duas marcas da cortesia devem resultar em R$ 0,01 ou se Ypioca deve continuar em R$ 4,01. |
+
+As associações foram comprovadas na leitura dos cadastros. A intenção
+comercial e o comportamento no pedido ainda precisam da decisão e da
+validação indicadas. Para exigir molho no produto avulso, o Teknisa deve
+usar uma regra por produto ou um grupo separado: o grupo de extras também
+atende a pratos nos quais a compra de molho é opcional. Da mesma forma,
+uma regra própria da cortesia deve preservar o acréscimo de R$ 4,00 da
+Ypioca na Caipirinha normal.
+
+Os achados, os IDs e as propostas estão no arquivo local
+`output/teknisa-2026-10-26/auditoria-saipos-adicional.json`. A atualização
+do Teknisa aguarda essas respostas; nenhum cadastro do SaaS foi alterado
+nesta auditoria.
 
 ## Etapas para ajustar e conferir o cardápio
 
