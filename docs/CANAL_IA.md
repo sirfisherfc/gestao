@@ -115,8 +115,11 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
 - `reservation_cta_test.mjs` passou a cobrir `/jardim-japones/`. Os testes
   Deno rodaram no Node com um adaptador, porque o Deno não está neste PC.
 - Pendente com navegador: incluir `/jardim-japones/` nas duas exceções da
-  Cloudflare (robôs de IA e SemrushBot-SI) e corrigir a ficha do
-  TripAdvisor `d23922740`, que ainda aparece como "Barra Sol Sir Fisher".
+  Cloudflare (robôs de IA e SemrushBot-SI).
+- TripAdvisor `d23922740`: o proprietário conferiu em 27/10 que a ficha já se
+  chama "Sir Fisher" e está reivindicada. Só o endereço ainda tem
+  `Barra_Sol_Sir_Fisher`. Pendências reais: a categoria aparece como "bares e
+  pubs" (nº 20 de 82) e a ficha tem 11 avaliações com nota 3,9.
 - Site `49c9932`: a página do Jardim Japonês ganhou cinco fotos do Wikimedia
   Commons (CC BY-SA 4.0, com autor e licença na legenda), um CSS próprio com
   layout de desktop e uma faixa de destaque para o Sir Fisher, com reserva,

@@ -328,9 +328,12 @@ commit. O sitemap foi reenviado ao Search Console sem erros.
   licença em cada legenda. Também ganhou layout de desktop em `jardim.css` e
   a faixa "Atravesse a avenida" com fotos da casa e botões de reserva,
   cardápio e rota. No celular, uma barra fixa leva ao cardápio.
-- **TripAdvisor:** a ficha `d23922740` ainda aparece como "Barra Sol Sir
-  Fisher". A URL entrou no `sameAs` do Restaurant. A correção do nome e dos
-  dados depende do navegador conectado ao TripAdvisor.
+- **TripAdvisor:** a ficha `d23922740` já se chama "Sir Fisher" e está
+  reivindicada, conforme conferido pelo proprietário em 27/10. A leitura
+  inicial confundiu o nome com o endereço, que ainda tem
+  `Barra_Sol_Sir_Fisher`. A URL entrou no `sameAs` do Restaurant. Faltam
+  corrigir a categoria, que aparece como "bares e pubs" (nº 20 de 82), e
+  ampliar as avaliações: são 11, com nota 3,9.
 - **Cloudflare:** `/jardim-japones/` ainda não está nas exceções "Robos IA:
   leitura das paginas publicas" e da Semrush. O token da API não lê as regras,
   e a inclusão desse caminho depende da UI.
