@@ -277,3 +277,29 @@ Os ganhos demonstrados são a melhoria de apresentação e de orientação nas
 páginas publicadas, os recortes locais antes indisponíveis e a retenção dos
 dados para uso posterior. Vendas, comparecimentos adicionais e evolução de
 ranking causada pelas mudanças exigem observação própria após esta data.
+
+## Uso final em 27/10/2026
+
+Antes do cancelamento, as cotas restantes foram usadas. Evidências privadas em
+`output/semrush-final-2026-10-27/`, na raiz do workspace, com `LEIA-ME.md`.
+
+- **API Standard:** saldo de 26.400 a 0 unidades, conferido na tela de
+  assinatura. Há 21.080 unidades com resposta salva em 42 consultas: 35 com
+  dados e 7 `no_data` sem débito. Outras 120 foram de um teste. 5.200 unidades
+  foram consumidas sem dados salvos, porque a biblioteca MCP interrompeu o
+  primeiro lote antes da gravação. Quatro dessas cinco consultas foram refeitas.
+- **Banco de palavras-chave:** 415 palavras com volume, CPC, dificuldade,
+  intenção e tendência. Destas, 320 são de restaurante ou turismo e 227 citam
+  Fortaleza ou bairros. As de mais volume são turísticas: o que fazer em
+  Fortaleza (8.100), Jardim Japonês e Beira Mar.
+- **Google:** os 20 primeiros resultados para cinco buscas turísticas e de
+  restaurantes não incluem o sirfisher.com.br. Os primeiros lugares são de
+  TripAdvisor, guias de viagem, imprensa local e Instagram.
+- **Prompt Tracking:** cota de 50/50, com 26 perguntas genéricas em português e
+  8 em inglês. Em 27/10, duas perguntas em português deixaram de citar a casa:
+  almoço com preço e jantar com cardápio. As respostas usaram imprensa local e
+  TripAdvisor. As 4 em inglês continuaram citando a casa.
+
+A próxima cobrança exibida era 31/10/2026. A leitura das novas perguntas
+depende das coletas diárias até o cancelamento.
+

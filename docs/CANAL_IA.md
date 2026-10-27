@@ -18,21 +18,6 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
 
 **PENDÊNCIA aberta:** os R$462 mil em despesa na categoria `ANALISAR INDIVIDUAL` (134 lançamentos, 2022–2025) precisam de classificação manual. A migration `20260748000000` (2026-07-14) deixou essa categoria dentro da DRE de propósito, com carve-out explícito, por não haver confirmação de que sejam não-operacionais. Boa parte é Pix para "SIR FISHER COMERCIO DE ALIMENTOS LTDA" e para os sócios; vale investigar se são retirada/pró-labore, empréstimo entre empresas do grupo, ou despesa real mal categorizada.
 
-## 2026-10-25 · Claude — Big Ben Fries com 250 g
-
-- Decisão do proprietário: Big Ben Fries tem 250 g, como a Macaxeira Frita
-  ou Batata Frita (TXT, HTML antigo e impresso diziam 200 g).
-- `scripts/cardapio/catalogo_inicial.py` (com nota) → JSON → snapshot do
-  site (`dcfb37f`; o pre-commit regenerou o catálogo pré-renderizado).
-- Migration `20261025170000_cardapio_big_ben_250g.sql` aplicada por
-  `aplicar_migrations_pendentes.py` (só ela pendente; 223 versões); banco
-  relido com 250 g. Não há publicação ativa em `cardapio_publico`.
-- Google: `gbp.py cardapio --publicar` relido; lá o item não leva porção.
-- Pendente: impresso no Canva (mesa `DAHYx8a8mAI` e A3 da entrada) ainda
-  com 200 g; sem conector do Canva nesta sessão.
-
-— Claude
-
 ## 2026-10-27 · Codex — Cardápio Teknisa salvo e conferido
 
 - Entrega em `docs/TEKNISA_MIGRACAO_CARDAPIO.md`, unidade 0002/loja 0001.
@@ -122,3 +107,18 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
   recibo privado de QA para continuidade.
 
 — Codex
+
+## 2026-10-27 · Claude — Semrush: uso final das cotas
+
+- API Standard zerada (26.400 → 0). Banco de 415 palavras-chave e top 20 do
+  Google para 5 buscas em `output/semrush-final-2026-10-27/` (fora do Git).
+  5.200 unidades foram perdidas no primeiro lote; detalhes no `LEIA-ME.md`.
+- Prompt Tracking 50/50: 26 perguntas genéricas PT e 8 EN adicionadas
+  aos dois projetos de ChatGPT Fortaleza.
+- Resumo em `docs/SEMRUSH_MAXIMO_2026-10-25.md`. Nenhum arquivo do site
+  ou do banco foi alterado.
+- Pendente: ler as novas perguntas e exportar o painel antes de 31/10
+  (cobrança de US$ 199). O cancelamento é feito pelo proprietário.
+
+— Claude
+
