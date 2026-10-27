@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 livre — cadastros do cardápio Teknisa conferidos em 27/10/2026; três CESTs e testes locais pendentes antes da operação. Impresso Big Ben Fries continua pendente.
+> **🚦 Status atual:** 🟢 livre — oito operadores e cinco vendedores Teknisa conferidos na Praia em 27/10/2026. Testes físicos, três CESTs do cardápio e impresso Big Ben Fries seguem pendentes.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -32,32 +32,6 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
   com 200 g; sem conector do Canva nesta sessão.
 
 — Claude
-
-## 2026-10-26 · Codex — Teknisa e referência ativa do Saipos
-
-- Levantamento em `docs/TEKNISA_MIGRACAO_CARDAPIO.md`: módulos e telas
-  vistos no Teknisa, unidade 0002, grupos de CAIXA/POS e tabela 001 com
-  114 códigos. Recursos de menu, campos lidos e ações propostas estão
-  separados. Nenhum cadastro, configuração ou preço foi alterado.
-- Saipos: 12 grupos ativos, 107 IDs únicos, 57 produtos com opções,
-  121 vínculos e 20 conjuntos com 82 opções. Definições globais foram
-  relacionadas por IDs, nomes e preços das opções; limites e impressão
-  registrados. Máximos 111 de Rum/Martini exigem revisão na migração.
-- O usuário reafirmou as retiradas de Crispy, Marine, Smirnoff Ice e
-  Cachaças Premium. A seleção local tem 103 IDs, 54 produtos com opções,
-  118 vínculos e 19 conjuntos com 78 opções. Leitura original preservada;
-  nenhuma alteração no Saipos. O limite 222 de Premium ficou fora da seleção.
-- Comparação dos 103 com a tabela lida: 65 preços iguais, nove estruturas
-  ou correspondências para conferir e 29 sem correspondência direta nessa
-  tabela. Caipirinha Ypioca, Caipiroska Sky/Absolut e Gin Nacional/Gordon’s
-  têm diferenças documentadas. Executivos e opcionais estão preparados
-  para conferência dos vínculos e posterior gravação no Teknisa.
-- Artefatos e evidências locais em `output/teknisa-2026-10-26/`, na raiz,
-  fora do Git. Contagens, IDs, grupos ativos e cruzamento das definições
-  conferidos; quality estático e diffcheck passaram. Apenas os dois
-  documentos de gestão foram alterados; sem migration ou deploy de produto.
-
-— Codex
 
 ## 2026-10-27 · Codex — Cardápio Teknisa salvo e conferido
 
@@ -93,5 +67,28 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
   impressão e campos fiscais passou dentro da cobertura registrada.
   Diffcheck e pares de orientação da raiz conferidos. Só os dois documentos
   de gestão foram versionados; sem migration, SQL ou deploy de código.
+
+— Codex
+
+## 2026-10-27 · Codex — Equipe cadastrada para a Praia no Teknisa
+
+- Resultado em `docs/TEKNISA_ACESSOS_OPERACAO.md`. Oito operadores ativos,
+  somente na unidade 0002 Praia: três gerentes no grupo 02 ADM-SUPERVISOR
+  e cinco garçons no grupo 04 GARCOM. Dois novos e seis existentes, com
+  uma reativação. Consulta independente confirmou oito, sem divergências.
+- Cinco vendedores salvos e conferidos: quatro corrigidos em nome,
+  nome fantasia e unidade, com os demais campos preservados; um novo
+  vinculado ao operador aprovado. Taxas e comissão conferidas.
+- Legado Imprensa: uma unidade bloqueada e sua loja inativada, com zero
+  exclusões. Histórico preservado; Praia continua padrão, desbloqueada,
+  com sua única loja ativa, conforme releitura.
+- Recibos pessoais ficam em `output/teknisa-acessos-2026-10-27/`, fora dos
+  repositórios. A documentação usa contagens e funções; nenhuma credencial
+  foi coletada. Conferência de privacidade e diffcheck aprovados. Pares
+  de orientações da raiz iguais às cópias versionadas.
+- Pendentes os testes físicos de login, pedido com identificação do garçom,
+  autorização de gerente e impressão. As três pendências CEST do cardápio
+  continuam registradas no relatório de migração. Só os dois documentos
+  de gestão foram alterados; sem migration, SQL ou deploy de código.
 
 — Codex
