@@ -804,20 +804,17 @@ individual em Impostos do Produto permitiu salvar e reler o NCM, inclusive
 no cadastro global, preservando Tipo, Origem e Gênero vazios. O recibo é
 `teknisa-ncm-gelo-taxunit-prototipo.json`.
 
-A Rolha foi identificada pelo usuário como a taxa pela bebida trazida
-pelo cliente. O cadastro global recebeu Tipo `09 — Serviços` e Gênero
-`00 — SERVICO`, com NCM intencionalmente vazio. A interface aceitou a
-gravação e os valores persistiram ao sair e voltar ao cadastro. Os
-outros campos foram preservados. O recibo é
-`teknisa-rolha-fiscal-tipo-servico-execucao.json`. O [Guia EFD 3.2.2 da RFB, atualizado em 11/02/2026](https://sped.rfb.gov.br/estatico/74/D84DAAF7A4229EE5EFB705CCD7E7BA4D323CBE/Guia%20Pr%C3%A1tico%20EFD%20-%20Vers%C3%A3o%203.2.2.pdf)
-trata o Tipo `09` como Serviços e dispensa seu COD_NCM no registro 0200.
-Essa regra de escrituração e a gravação no cadastro ainda precisam ser
-conferidas no XML emitido pelo sistema, no contexto fiscal da loja.
-
-O [MOC oficial da NF-e/NFC-e, página 90](https://www.confaz.fazenda.gov.br/legislacao/arquivo-manuais/moc7-anexo-i-leiaute-e-rv.pdf)
-distingue as condições de `00` e `00000000`. O seletor NCM do Teknisa
-não ofereceu os oito zeros na consulta. Esse código não foi atribuído
-à Rolha. A pesquisa e os limites da interpretação estão em
+A Rolha é a taxa pela bebida trazida pelo cliente. Em 26/10/2026 ela
+foi gravada como serviço, com NCM vazio. Em 27/10/2026 o proprietário
+definiu que a Rolha é faturada como venda de gelo, que é o que a casa
+entrega nesse caso. O NCM vazio também tinha sido apontado ao proprietário
+como pendência. A Rolha recebeu o mesmo NCM do Gelo, `22019000`, em
+Impostos do Produto. No cadastro global passou a ter Gênero `22`, Tipo
+`04 — Produto acabado` e Origem `0 — Nacional`. O seletor de Tipo não
+oferece `00 — Mercadoria para Revenda`. CFOP `5102`, CSOSN `102` e
+PIS/COFINS `07` já eram iguais aos do Gelo. Os valores foram relidos após
+recarregar a página. O registro anterior, como serviço, está em
+`teknisa-rolha-fiscal-tipo-servico-execucao.json` e na pesquisa
 `teknisa-fiscal-pesquisa-embalagem-gelo-rolha.json`.
 
 A pesquisa das bebidas usa as posições da TIPI para cerveja/chope,
@@ -897,11 +894,49 @@ fiscal desses produtos.
 A recarga final percorreu **185 códigos únicos**. A auditoria confirmou
 os 48 cadastros de imposto por unidade, os 52 NCMs e os 23 CESTs
 executados, sem diferenças nos outros campos. Entre os 125 SKUs
-necessários, as mercadorias têm NCM; Rolha conserva a exceção de serviço
-descrita acima. Os três CESTs vazios constam como pendência na auditoria
+necessários, as mercadorias têm NCM. Nessa auditoria, a Rolha ainda
+estava como serviço; a correção de 27/10/2026 está descrita acima. Os três CESTs vazios constam como pendência na auditoria
 `teknisa-fiscal-menu-final-validacao.json`. A fonte recarregada é
 `teknisa-fiscal-final-grade-185.json`. Essa prova cobre os cadastros;
 o XML da emissão real ainda precisa ser conferido.
+
+## Correção de 27/10/2026: subgrupos não aparecem no PC nem na POS
+
+No primeiro uso, a POS mostrou o erro “Um ou mais produtos estão
+configurados para um grupo que não existe… PÁGINA DO GRUPO: 1 NÚMERO:
+02”. No PC, os refrigerantes não apareciam para lançar. O suporte
+Teknisa informou que a mensagem decorre de alteração incorreta no
+layout da POS.
+
+A causa são os oito subgrupos criados na migração: Refrigerante lata,
+Caipirinha, Caipiroska, Caipifruta, Gin Tônica, Dose de Rum, Dose de
+Martini e Molhos. Cada subgrupo ocupa uma posição de botão no grupo,
+mas a pré-visualização mostra essas posições vazias. O PC e a POS não
+exibem o subgrupo. A posição 1/02 do erro é a do subgrupo Caipirinha,
+em COQUETÉIS. O grupo 1/02, Quarta do Camarão, estava correto.
+
+Os 29 produtos dos subgrupos passaram a ter botões diretos, com SKU e
+preço próprios. Todos ficaram na página 1, com Tipo Produtos e DLV
+Não. Nenhum preço ou cadastro de produto mudou.
+
+| Grupo | Posições | Botões |
+| --- | --- | --- |
+| COQUETÉIS | 13–22 | Caipirinha Nacional e Ypioca 150; Caipiroska e Caipifruta Nacional, Sky e Absolut; Gin Tônica Nacional e Gordon's |
+| BEBIDAS | 06, 07, 09–13 | Guaraná, Guaraná Zero, Pepsi, Pepsi Black, Soda Limonada, Sukita Uva, Sukita Laranja |
+| DESTILADOS | 18–21 | Dose de Rum Bacardi e Montila; Dose de Martini Bianco e Rosato |
+| OUTROS | 10–17 | Molhos Alho, Rosé, Tártaro, Maionese, Mango Chutney, Barbecue, Ketchup e Ketchup de Goiabada |
+
+Os botões foram criados e relidos na POS `00002`. Depois, a ação
+“Exportar Configuração (Sobrepor apenas produtos)” copiou a POS para o
+CAIXA `00001`, com confirmação de sucesso. A pré-visualização do CAIXA
+mostrou os refrigerantes em BEBIDAS.
+
+Os subgrupos ainda precisam sair dos dois layouts. A exclusão foi
+bloqueada para o agente como ação irreversível. A TI orientou excluir
+primeiro todos os produtos de cada subgrupo e depois o subgrupo. Excluir
+só o subgrupo deixa registros internos órfãos e mantém o erro. Depois
+da limpeza, é preciso conferir no PC e na POS que o erro sumiu e que os
+29 botões aparecem.
 
 ## Conferências para encerrar a migração
 
