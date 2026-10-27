@@ -38,6 +38,9 @@ jobs:
       - name: Instagram analytics read scope, cache and metric coverage without network
         run: python -B -m unittest discover -s scripts/instagram_analytics -p 'test_*.py'
 
+      - name: Teknisa store product scope, batch writes and read-back without network
+        run: node --test scripts/teknisa/test_produtos_loja.mjs
+
       - name: Status integrations grouped by Saipos execution without network
         run: node scripts/ci/test_status_integracoes.mjs
 
