@@ -37,6 +37,35 @@ somente os três campos previstos mudaram. O recibo privado é
 O teste no aparelho ainda precisa comprovar a identificação do garçom
 ao registrar um pedido.
 
+### Gerentes também lançam pedidos e vendas
+
+Na conferência seguinte, o usuário confirmou que os gerentes precisam
+lançar pedidos e vender com o próprio acesso. Além das permissões do
+grupo de gerentes, foram conferidos os vínculos de vendedor: dois
+cadastros novos foram incluídos e um existente teve nome, nome fantasia
+e unidade corrigidos. O cadastro existente já apontava para o operador
+gerente correto; os outros campos foram preservados.
+
+Os três vendedores ficaram ligados aos próprios operadores e à Praia,
+sem limitar a um caixa específico. Taxa diária e comissão foram
+conferidas em zero. Após recarregar a página, os três registros foram
+relidos sem divergências. A equipe solicitada agora tem oito vínculos
+de vendedor: cinco de garçons e três de gerentes.
+
+Recibos privados: `vendas-gerentes-execucao3.json` e
+`vendas-gerentes-qa3.json`, na pasta de acessos. Nenhuma venda ou
+transação de pagamento foi executada durante a conferência.
+
+### Troca de senha pelo proprietário
+
+As senhas das maquininhas são alteradas em **Controle de Acesso →
+Operador → Ações → Alterar Senha PDV**. A tela de edição dos dados do
+operador não apresenta os campos dessa troca. O proprietário preenche
+Nova Senha e Confirmar Senha e clica em Salvar diretamente no sistema.
+Uma ficha foi preparada para essa intervenção. Nenhuma senha foi lida,
+preenchida ou alterada pelo agente; a troca depende da conclusão pelo
+proprietário.
+
 ## Unidade antiga e preservação da Praia
 
 Conforme a orientação do usuário, a unidade antiga Imprensa foi

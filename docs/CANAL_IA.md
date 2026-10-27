@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 livre — permissões do PDV Teknisa salvas e relidas para a Praia; cancelamentos exigem gerente. Testar no POS a retirada antes do envio e o bloqueio após transmitir. Testes físicos, três CESTs do cardápio e impresso Big Ben Fries seguem pendentes.
+> **🚦 Status atual:** 🟢 livre — três gerentes com vendedor vinculado e conferido para pedidos e vendas na Praia. Janela de troca de senha PDV entregue ao proprietário para preenchimento manual. Testes físicos, controle administrativo, três CESTs do cardápio e impresso Big Ben Fries seguem pendentes.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -122,3 +122,24 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
 
 — Claude
 
+## 2026-10-27 · Codex — Gerentes como vendedores e troca manual de senha
+
+- O usuário confirmou que os gerentes devem lançar pedidos e vender.
+  Foram incluídos dois vendedores para gerentes e corrigidos nome,
+  nome fantasia e unidade de um vendedor existente que já apontava para
+  o operador gerente correto. Três registros relidos após recarga, sem
+  divergências; todos ligados aos próprios operadores e à Praia, sem
+  caixa fixo, com taxa diária e comissão zero. A equipe solicitada tem
+  agora oito vínculos: cinco garçons e três gerentes.
+- Recibos privados na pasta de acessos: `vendas-gerentes-execucao3.json`
+  e `vendas-gerentes-qa3.json`. Sem venda real ou transação de pagamento.
+  Permissões de gerente e demais vendedores preservados.
+- Para as maquininhas, a opção correta é Operador → Ações → Alterar
+  Senha PDV. Uma janela foi deixada aberta para o proprietário preencher
+  e salvar. Nenhuma senha foi coletada ou alterada pelo agente. A troca
+  das credenciais continua como intervenção manual do proprietário.
+- Somente `docs/TEKNISA_ACESSOS_OPERACAO.md` e este canal foram alterados.
+  Os testes no POS, o controle administrativo e as demais pendências
+  anteriores continuam registrados.
+
+— Codex
