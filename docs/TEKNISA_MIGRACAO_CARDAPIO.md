@@ -1,17 +1,36 @@
-# Teknisa: acesso, cadastros e preparação do cardápio
+# Migração do cardápio Saipos para o Teknisa
 
-Levantamento concluído em 26/10/2026, pela interface do Chrome. A sessão
+Levantamento iniciado em 26/10/2026, pela interface do Chrome, com
+execução e conferências em 26 e 27/10/2026. A sessão
 abriu o Teknisa na unidade **0002 — SIR FISHER PRAIA**. Esta entrega
 registra as telas examinadas, a comparação com o Saipos e a seleção de
-103 itens para migrar. A migração ainda não foi executada: nenhum cadastro,
-preço ou configuração do Teknisa ou do Saipos foi alterado nesta etapa.
-A auditoria adicional identificou três decisões comerciais que aguardam
-resposta do usuário antes da execução: limites por produto, molho extra
-no Gelo e acréscimo do Drink Cortesia.
+103 itens aprovados para migração. O usuário aprovou as regras comerciais
+após a auditoria adicional e autorizou sua execução. Os cadastros comerciais
+foram salvos e conferidos; três CESTs e os testes nos aparelhos continuam
+pendentes. O Saipos permanece preservado como fonte da leitura original.
 
 Os valores e campos identificados como lidos foram observados na
-interface. As ações propostas nas tabelas e nas etapas finais ainda
-precisam ser executadas e conferidas no Teknisa.
+interface durante o levantamento. As gravações confirmadas constam na
+seção de execução. As demais ações ainda precisam ser realizadas e
+conferidas no Teknisa.
+
+**Estado atual da execução:** 45 SKUs novos salvos e conferidos por código,
+nome e unidade; três produtos da árvore Praia inativados; 159 linhas de
+preço relidas, após 48 inclusões e oito correções. Os sete executivos
+comuns e os sete Prime receberam seus preços e descrições. CAIXA e POS
+foram salvos e relidos com 12 grupos, oito subgrupos e 124 botões cada.
+Foram conferidos 494 vínculos de observação usados nos 48 SKUs do menu
+que têm perguntas. A loja recebeu a tabela 001 e os 125 SKUs necessários
+têm rota para a impressora ELGIN existente. A consulta fiscal recarregada
+confirmou 48 cadastros de imposto por unidade, 52 NCMs e 23 CESTs. Faltam
+os códigos de apoio para o CEST de Stella Puro Gold e das duas Sukitas.
+Antes de operar hoje, 27/10/2026, ainda é preciso resolver esses campos
+e testar carga, escolhas, preços, impressão e XML fiscal nos aparelhos.
+Nenhuma venda real foi criada.
+
+As seções de levantamento e comparação inicial conservam o diagnóstico
+anterior às gravações. A seção **Execução da migração** registra os
+resultados já salvos e as conferências que faltam para encerrar a tarefa.
 
 ## Acesso e alcance da leitura
 
@@ -30,7 +49,10 @@ não comprova sua configuração, sua permissão de gravação nem seu efeito no
 caixa. Para verificar isso será preciso abrir a configuração correspondente
 e reler o resultado de cada ajuste autorizado.
 
-## Recursos encontrados
+## Levantamento inicial dos recursos
+
+Este registro descreve as telas antes das gravações da migração. Contagens
+e ausências relatadas aqui correspondem àquela leitura inicial.
 
 | Área | O que apareceu na interface |
 | --- | --- |
@@ -193,7 +215,7 @@ a definição das regras comerciais. O arquivo local
 `output/teknisa-2026-10-26/teknisa-opcionais-preparacao-ui.json` preserva
 os campos lidos e os limites dessa preparação.
 
-## Cadastros conferidos e pontos a revisar
+## Cadastros na leitura inicial e encaminhamento
 
 O produto **Filé Mignon**, código `8.00.05.000.00`, foi aberto. Ele está
 ativo, tem tipo **Estoque** e preço de **R$ 90,00** na unidade `0002`,
@@ -202,33 +224,33 @@ tabela `001`. Nas configurações `00001 — PADRÃO CAIXA` e
 coincidem com o prato para compartilhar da referência local. O executivo
 de filé mignon tem outro preço, porção e acompanhamentos.
 
-A lista de produtos foi percorrida do começo ao fim. Nessa leitura, os
+A lista inicial de produtos foi percorrida do começo ao fim. Nessa leitura, os
 nomes exibidos não identificaram uma seção de executivos nem produtos com
-“executivo” ou “menu”. Ainda é preciso conferir vínculos por serviço e
-outros cadastros antes de concluir que os sete pratos estão ausentes.
+“executivo” ou “menu”. A execução posterior criou os sete executivos e os
+sete Prime com códigos próprios, conforme os recibos adiante.
 
 | Produto ou assunto | O que foi visto | Conferência necessária |
 | --- | --- | --- |
 | Big Ben Fries | Códigos `8.00.00.030.00` e `9.00.00.000.00`, com nomes semelhantes. | Verificar tipo, uso, preço e vínculo de cada código. A porção atual definida pelo proprietário é 250 g. |
 | Códigos iniciados por 8 e 9 | Há outros nomes semelhantes nas duas séries. | Entender a finalidade de cada série antes de desativar ou unificar produtos. |
-| Crispy Spicy Chicken | Códigos `8.00.00.040.00` e `9.00.00.030.00` listados; ainda vinculado a ENTRADAS no caixa. O Saipos o mantém ativo em APERITIVOS por R$ 37,00. | O usuário reafirmou a retirada em 26/10/2026. O item foi excluído da seleção de migração. Conferir os códigos e vínculos antes de aplicar a retirada no Teknisa. |
-| Marine Sandwich | Códigos `8.00.10.010.00` e `9.00.00.060.00` listados. O Saipos o mantém ativo em APERITIVOS por R$ 46,00. | O usuário reafirmou a retirada em 26/10/2026. O item foi excluído da seleção de migração. Conferir os códigos e vínculos antes de aplicar a retirada no Teknisa. |
-| Smirnoff Ice | Código `8.05.10.190.00` listado por R$ 15,00. O Saipos mantém ativo “Sminoff Ice” em COQUETÉIS pelo mesmo preço. | O usuário reafirmou a retirada em 26/10/2026. O item foi excluído da seleção de migração. Conferir os vínculos antes de aplicar a retirada no Teknisa. |
+| Crispy Spicy Chicken | Na leitura inicial, `8.00.00.040.00` e `9.00.00.030.00` estavam listados, com vínculo em ENTRADAS. O Saipos o mantém ativo por R$ 37,00. | Retirada reafirmada pelo usuário. O código Praia `8.00.00.040.00` já foi inativado e saiu da consulta da tabela 001; a conferência final dos layouts continua. O cadastro global da árvore 9 foi preservado. |
+| Marine Sandwich | Na leitura inicial, `8.00.10.010.00` e `9.00.00.060.00` estavam listados. O Saipos o mantém ativo por R$ 46,00. | Retirada reafirmada pelo usuário. O código Praia `8.00.10.010.00` já foi inativado e saiu da consulta da tabela 001; a conferência final dos layouts continua. O cadastro global da árvore 9 foi preservado. |
+| Smirnoff Ice | A leitura inicial encontrou `8.05.10.190.00` por R$ 15,00. O Saipos mantém ativo “Sminoff Ice” pelo mesmo preço. | Retirada reafirmada pelo usuário. O código Praia já foi inativado e saiu da consulta da tabela 001; a conferência final dos layouts continua. |
 | Cachaça Premium | “Dose de Cachaças Premium” está ativa no Saipos por R$ 12,00 e ainda não tem correspondência direta na tabela `001` lida. | O usuário reafirmou a retirada em 26/10/2026. O item foi excluído da seleção de migração. Conferir o cadastro geral para identificar eventuais vínculos de venda. |
 | Adicional Salada | Código `8.00.05.090.00` já existe; preço de R$ 19,00 confirmado na tabela `001` da unidade `0002`. | Conferir porção, vínculos e canais usados pela operação. |
 | Corona | Código `8.05.00.080.00`, com R$ 23,90 confirmado na tabela `001`, e um cadastro separado de longneck. | Conferir volume, vínculos e canais. A referência local e o Saipos ativo incluem Corona 600 mL por R$ 23,90. |
-| London / Original | `LONDON FISH AND CHIPS UN`, código `9.00.00.050.00`, e Original `8.00.00.090.00` listados. | Conferir receita e finalidade de cada código. A referência atual usa London — Fish & Chips. |
+| London / Original | `LONDON FISH AND CHIPS UN`, código `9.00.00.050.00`, e Original `8.00.00.090.00` listados. | O plano usa o London da árvore 9, com preço local de R$ 45,00 já salvo e relido na tabela 001. A escolha de massa e os vínculos seguem em conferência. |
 
-Esses registros combinam achados da lista e leituras específicas indicadas
-na tabela. O status dos itens antigos no cadastro de produto do Teknisa e
-o uso das duas séries de códigos ainda precisam ser conferidos.
+Esses registros combinam a lista inicial com as gravações já confirmadas.
+A raiz 8 identifica o CARDAPIO PRAIA; a raiz 9 é o CARDAPIO geral. Os quatro
+produtos reaproveitados da raiz 9 receberam somente preço local na tabela
+001, preservando seus nomes e estado ativo globais.
 
 ## Referências para comparar com o Saipos
 
-O Saipos mostra um total geral de 198 itens. Esse número inclui registros
-que ainda precisam passar pelos filtros definidos pelo usuário e não
-representa a quantidade de produtos a migrar. Um item ativo que pertença
-a um grupo inativo fica fora da referência desta tarefa.
+O Saipos mostrou um total geral de 198 itens antes dos filtros. A leitura
+dos grupos e itens ativos resultou nos 107 IDs abaixo. Um item ativo que
+pertença a um grupo inativo fica fora da referência desta tarefa.
 
 A leitura filtrada reuniu **12 grupos ativos, 107 vínculos e 107 IDs
 únicos**. Em 26/10/2026, o usuário respondeu **“Aplicar as retiradas já
@@ -275,8 +297,9 @@ Decisões recentes a preservar na migração:
   Budweiser 600, Cachaça Premium e Smirnoff Ice do cardápio publicado.
   Crispy, Marine, “Sminoff Ice” e “Dose de Cachaças Premium” continuam
   ativos no Saipos; em 26/10/2026, o usuário reafirmou sua retirada da
-  migração. Budweiser 600 não apareceu na seleção ativa lida. Conferir os
-  vínculos no Teknisa antes de aplicar as retiradas.
+  migração. Budweiser 600 não apareceu na seleção ativa lida. As três
+  inativações na árvore Praia já foram aplicadas; os layouts seguem em
+  conferência.
 - Manter Corona 600 mL por R$ 23,90 e Adicional Salada por R$ 19,00.
 - Spaten longneck: 355 mL. Bolinha de Peixe Cremosa: 300 g.
 - Fish & Chips Sir Fisher e London: 200 g de peixe empanado, preparados com
@@ -375,9 +398,10 @@ registrados os limites, a obrigatoriedade e o modo de impressão dos 121
 vínculos. As três definições globais adicionais ficaram fora desse
 mapeamento.
 
-Após as quatro retiradas, a seleção de migração contém **54 produtos com
+Após as quatro retiradas, a base anterior às novas regras comerciais contém **54 produtos com
 opções, 118 associações, 19 conjuntos e 78 opções nesses conjuntos**. A
-definição exclusiva de Cachaças Premium saiu dessa seleção.
+definição exclusiva de Cachaças Premium saiu dessa seleção. A base aprovada
+posteriormente passou a 53 produtos com opções e 117 associações.
 
 | Grupo de escolhas observado | Regra lida | Aplicação a conferir no Teknisa |
 | --- | --- | --- |
@@ -388,8 +412,8 @@ definição exclusiva de Cachaças Premium saiu dessa seleção.
 | Sabor Pastel | Uma escolha entre queijo, carne e camarão, sem acréscimo. | Configurar a escolha do sabor conforme o cadastro atual. |
 | Escolha a Massa | Uma escolha, com dois itens ativos. | Conferir a associação e o nome da massa ao migrar o produto correspondente. |
 | Polpa e destilados dos coquetéis | Os grupos usados exigem uma escolha; os acréscimos variam com o destilado. | Conferir o total do pedido após cada combinação. |
-| Doses Rum Praia, definição `1599364` | Mínimo `1`, máximo `111`; Bacardi ou Montila, sem acréscimo. | Revisar a intenção do limite antes de configurá-lo no novo sistema. |
-| Dose Martini Praia, definição `1599365` | Mínimo `1`, máximo `111`; Bianco ou Rosato, sem acréscimo. | Revisar a intenção do limite antes de configurá-lo no novo sistema. |
+| Doses Rum Praia, definição `1599364` | Mínimo `1`, máximo `111`; Bacardi ou Montila, sem acréscimo. | O usuário definiu `1..1`; conferir essa regra no novo sistema. |
+| Dose Martini Praia, definição `1599365` | Mínimo `1`, máximo `111`; Bianco ou Rosato, sem acréscimo. | O usuário definiu `1..1`; conferir essa regra no novo sistema. |
 
 Os máximos `111` de Rum e Martini e `222` de Cachaças Premium foram
 conferidos novamente no DOM e na tela, com rótulo e valor do campo
@@ -401,7 +425,12 @@ Os editores foram fechados com Cancelar. Nenhum pedido foi criado para
 testar a aplicação dessas regras. A migração deve validar a seleção no
 caixa, o preço final e a impressão da cozinha.
 
-## Comparação dos preços do Saipos com o Teknisa
+## Comparação inicial dos preços do Saipos com o Teknisa
+
+Esta comparação usa os 114 preços anteriores à migração. Os números
+65/9/29 registram o diagnóstico inicial dos 103 itens selecionados. O
+plano atual já relaciona os 103 itens aos cadastros e aos preços relidos,
+conforme o registro de execução.
 
 O cruzamento dos 107 IDs ativos lidos com os 114 códigos da tabela `001`
 do Teknisa encontrou 68 correspondências com preço igual, nove casos de
@@ -434,10 +463,9 @@ Os 29 itens da última linha se distribuem assim:
 | Prime | Os sete pratos PF com sufixo Prime. |
 | Promoções | COMBO 3+1 choppe Brahma. |
 
-O London ativo no Saipos custa R$ 45,00. Na tabela do Teknisa, Original
-também custa R$ 45,00, e o cadastro geral tem um London na série `9`.
-Esses nomes e preços ainda exigem conferir receita e vínculos antes de
-escolher o cadastro correspondente. O Sir Fisher Fish & Chips está no
+O London ativo no Saipos custa R$ 45,00. A execução escolheu o cadastro
+London `9.00.00.050.00` e confirmou esse preço na tabela local 001. O
+Original de R$ 45,00 permaneceu preservado. O Sir Fisher Fish & Chips está no
 Teknisa e no site, mas não apareceu nos 107 itens ativos lidos do Saipos.
 No Saipos, London tem a escolha obrigatória de uma massa: **Massa da Casa
 (Panko)** ou **Massa Cerveja (Original)**, sem acréscimo. Essa estrutura
@@ -446,39 +474,41 @@ do usuário não incluem o Sir Fisher; a migração deve preservar a escolha
 de panko.
 
 Macaxeira e Batata Frita são itens separados no Saipos, ambos por
-R$ 27,00. A tabela do Teknisa tem Macaxeira ou Batata Frita por R$ 27,00,
-além de linhas com valores diferentes usadas em outros contextos. A
-migração precisa preservar a porção pedida e seu preço. Patinha e Pata de
-Caranguejo aparecem em dois códigos do Teknisa, ambos por R$ 55,00; sua
-finalidade precisa ser conferida antes de unificar vínculos.
+R$ 27,00. A execução criou os códigos `8.00.15.081.00` e
+`8.00.15.082.00` para essas porções e confirmou R$ 27,00 em cada uma.
+Os componentes antigos foram preservados. O plano usa Patinha de
+Caranguejo `8.00.00.101.00`, a R$ 55,00, mantendo o outro cadastro
+existente fora desse vínculo.
 
 Dois IDs ativos de Café Expresso no Saipos, um em SOBREMESA e outro em
-Outros, custam R$ 5,00 e têm o mesmo candidato na tabela do Teknisa. A
-seleção preserva os dois IDs e seus grupos. Esta migração não vai
-deduplicá-los; os vínculos precisam manter as funções desses grupos.
+Outros, custam R$ 5,00. O plano preserva os dois acessos e usa o SKU
+`8.00.20.020.00` em ambos. A leitura final dos layouts precisa conferir
+essas duas posições.
 
-### Preços dos coquetéis: valores lidos e ações propostas
+### Preços dos coquetéis: base do Saipos e leitura inicial do Teknisa
 
 Os cálculos abaixo somam o preço base e o acréscimo do opcional lidos no
 Saipos. A conferência foi feita nos cadastros; o preço final aplicado em
-um pedido ainda precisa ser validado no Teknisa.
+um pedido ainda precisa ser validado no Teknisa. A terceira coluna
+preserva o levantamento inicial; a última registra os preços já salvos e
+relidos após recarga.
 
-| Produto e escolha | Base + acréscimo do Saipos | Linha lida na tabela do Teknisa | Ação proposta |
+| Produto e escolha | Base + acréscimo do Saipos | Leitura inicial do Teknisa | Preço conferido após a execução |
 | --- | ---: | ---: | --- |
-| Caipirinha com cachaça nacional | R$ 18,00 + R$ 0,00 = R$ 18,00 | Produto-base CAIPIRINHA em R$ 0,01. | Conferir a composição do produto e preservar o total de R$ 18,00. |
-| Caipirinha com Ypioca 150 | R$ 18,00 + R$ 4,00 = R$ 22,00 | CAIPIRINHA YPIOCA 150 em R$ 18,00. | Corrigir a correspondência ou o preço para que a escolha Ypioca 150 resulte em R$ 22,00. |
-| Caipiroska com vodka nacional | R$ 20,00 + R$ 0,00 = R$ 20,00 | Nacional em R$ 20,00. | Preservar esse valor e conferir o vínculo. |
-| Caipiroska com Sky | R$ 20,00 + R$ 2,00 = R$ 22,00 | Sky em R$ 28,00. | Corrigir os vínculos ou valores de Sky e Absolut, que estão invertidos na tabela lida. |
-| Caipiroska com Absolut | R$ 20,00 + R$ 8,00 = R$ 28,00 | Absolut em R$ 22,00. | Usar R$ 28,00 para a escolha Absolut após conferir os vínculos. |
-| Caipifruta com nacional, Sky ou Absolut | R$ 22,00 + R$ 0,00/R$ 2,00/R$ 8,00 = R$ 22,00/R$ 24,00/R$ 30,00. | Variantes em R$ 22,00/R$ 24,00/R$ 30,00. | Preservar os três totais e conferir a estrutura do produto-base e da polpa. |
-| Gin Tônica com gin nacional | R$ 21,00 + R$ 0,00 = R$ 21,00 | Nacional em R$ 23,00. | Corrigir os vínculos ou valores de Nacional e Gordon’s, que estão invertidos na tabela lida. |
-| Gin Tônica com Gordon’s | R$ 21,00 + R$ 2,00 = R$ 23,00 | Gordon’s em R$ 21,00. | Usar R$ 23,00 para a escolha Gordon’s após conferir os vínculos. |
+| Caipirinha com cachaça nacional | R$ 18,00 + R$ 0,00 = R$ 18,00 | Produto-base CAIPIRINHA em R$ 0,01. | Base corrigida para R$ 18,00. |
+| Caipirinha com Ypioca 150 | R$ 18,00 + R$ 4,00 = R$ 22,00 | CAIPIRINHA YPIOCA 150 em R$ 18,00. | Variante corrigida para R$ 22,00. |
+| Caipiroska com vodka nacional | R$ 20,00 + R$ 0,00 = R$ 20,00 | Nacional em R$ 20,00. | R$ 20,00 preservado; base genérica também corrigida para R$ 20,00. |
+| Caipiroska com Sky | R$ 20,00 + R$ 2,00 = R$ 22,00 | Sky em R$ 28,00. | Variante corrigida para R$ 22,00. |
+| Caipiroska com Absolut | R$ 20,00 + R$ 8,00 = R$ 28,00 | Absolut em R$ 22,00. | Variante corrigida para R$ 28,00. |
+| Caipifruta com nacional, Sky ou Absolut | R$ 22,00 + R$ 0,00/R$ 2,00/R$ 8,00 = R$ 22,00/R$ 24,00/R$ 30,00. | Variantes em R$ 22,00/R$ 24,00/R$ 30,00. | Variantes preservadas; base genérica corrigida para R$ 22,00. |
+| Gin Tônica com gin nacional | R$ 21,00 + R$ 0,00 = R$ 21,00 | Nacional em R$ 23,00. | Variante corrigida para R$ 21,00. |
+| Gin Tônica com Gordon’s | R$ 21,00 + R$ 2,00 = R$ 23,00 | Gordon’s em R$ 21,00. | Variante corrigida para R$ 23,00. |
 
-A tabela do Teknisa também tem uma linha chamada CAIPIRINHA VODKA SKY
-por R$ 22,00. O nome exige revisão ao relacionar os produtos, pois a
-definição ativa Caipirinha Praia do Saipos oferece cachaça nacional e
-Ypioca 150. Essas ações são propostas para a migração; nenhuma linha foi
-alterada.
+A tabela inicial também tem CAIPIRINHA VODKA SKY, código
+`8.05.10.020.00`, por R$ 22,00. Esse cadastro foi preservado e ficou fora
+dos fluxos do plano atual. O subgrupo Caipirinha usa cachaça nacional por
+R$ 18,00 e Ypioca 150 por R$ 22,00. Seus preços foram relidos; a montagem
+dos botões e a conferência no aparelho continuam em andamento.
 
 Os arquivos locais ficam em `output/teknisa-2026-10-26/`, na raiz do
 workspace, fora dos repositórios: `saipos-precos-ativos.json` preserva a
@@ -512,8 +542,8 @@ A [orientação oficial do Saipos sobre opcionais](https://intercom.help/meajuda
 explica o compartilhamento dos preços e limites entre os produtos que
 usam uma definição e reconhece opções repetidas na impressão. Por isso,
 a quantidade de nomes de opções, sozinha, não esclarece o efeito dos
-máximos `111` no pedido. A regra desejada para cada dose continua como
-decisão comercial a registrar.
+máximos `111` no pedido. O usuário definiu `1..1` para cada dose, conforme
+o registro das decisões abaixo.
 
 O resumo de canais da lista mostra Salão e Cardápio digital. Na leitura
 adicional dos editores, os dois cafés também estavam marcados para Totem
@@ -523,51 +553,379 @@ categoria. Esses campos não comprovam a finalidade histórica de cada ID;
 a seleção preserva os dois. A definição dos canais do Teknisa deve
 considerar o uso real da operação e os vínculos lidos em cada terminal.
 
-Três decisões foram apresentadas ao usuário antes da gravação no Teknisa:
+O usuário respondeu às três decisões antes da execução no Teknisa:
 
-| Ponto observado no Saipos | Proposta aguardando resposta |
+| Ponto observado no Saipos | Regra aprovada para o Teknisa |
 | --- | --- |
-| Rum e Martini permitem até 111 escolhas de marca; Molhos avulso tem base zero e usa grupo opcional `0..10`, permitindo nenhuma escolha pelos campos do cadastro. | Usar `1..1` para Rum/Martini e exigir ao menos uma opção apenas na venda avulsa de Molhos. Manter os extras dos pratos em `0..10`. |
+| Rum e Martini permitem até 111 escolhas de marca; Molhos avulso tem base zero e usa grupo opcional `0..10`, permitindo nenhuma escolha pelos campos do cadastro. | Usar `1..1` para Rum/Martini e `1..10` somente na venda avulsa de Molhos. Manter os extras dos pratos em `0..10`. |
 | Gelo, ID `19440724`, tem o vínculo `19440727` com MOLHO EXTRA `1576146`. | Retirar somente esse vínculo do Gelo; preservar Salada, Adicional Ovo e os outros produtos que usam o grupo. |
-| Drink Cortesia, ID `19413680`, tem base R$ 0,01 e usa Caipirinha Praia `1599653`, com nacional a R$ 0,00 e Ypioca a R$ 4,00 de acréscimo. | Definir se as duas marcas da cortesia devem resultar em R$ 0,01 ou se Ypioca deve continuar em R$ 4,01. |
+| Drink Cortesia, ID `19413680`, tem base R$ 0,01 e usa Caipirinha Praia `1599653`, com nacional a R$ 0,00 e Ypioca a R$ 4,00 de acréscimo. | Retirar Ypioca da cortesia. Manter apenas cachaça nacional, com preço base de R$ 0,01 e acréscimo zero. Preservar a Caipirinha normal com Ypioca por R$ 22,00. |
 
-As associações foram comprovadas na leitura dos cadastros. A intenção
-comercial e o comportamento no pedido ainda precisam da decisão e da
-validação indicadas. Para exigir molho no produto avulso, o Teknisa deve
+As associações foram comprovadas na leitura dos cadastros, e as decisões
+comerciais foram registradas. O comportamento no pedido ainda precisa
+ser validado no Teknisa. Para exigir molho no produto avulso, o sistema deve
 usar uma regra por produto ou um grupo separado: o grupo de extras também
 atende a pratos nos quais a compra de molho é opcional. Da mesma forma,
 uma regra própria da cortesia deve preservar o acréscimo de R$ 4,00 da
 Ypioca na Caipirinha normal.
 
-Os achados, os IDs e as propostas estão no arquivo local
-`output/teknisa-2026-10-26/auditoria-saipos-adicional.json`. A atualização
-do Teknisa aguarda essas respostas; nenhum cadastro do SaaS foi alterado
-nesta auditoria.
+Os achados originais estão no arquivo local
+`output/teknisa-2026-10-26/auditoria-saipos-adicional.json`. A base
+`saipos-base-migracao.json` foi preservada. A cópia
+`teknisa-migracao-aprovada.json` aplica as respostas do usuário com grupos
+separados para Molhos avulsos e Cachaça da cortesia, mantendo as regras
+compartilhadas dos demais produtos.
 
-## Etapas para ajustar e conferir o cardápio
+A base aprovada contém **103 itens, 53 com opções, 117 associações e 21
+conjuntos, com 87 ocorrências de opções e 78 IDs de opção de origem
+distintos**. A contagem de ocorrências inclui as opções reaproveitadas
+nos dois grupos separados. O Gelo deixou de ter associação de molho;
+a Caipirinha normal manteve as duas opções e seus acréscimos.
 
-1. Usar a seleção de 103 itens e os opcionais preparados, respeitando as
-   quatro retiradas decididas pelo usuário. Reconferir as fontes se houver
-   mudança na operação antes da implementação.
-2. Ler o significado dos códigos iniciados por 8 e 9, o tipo dos produtos
-   e seus vínculos com caixa, POS e serviços. Registrar qual cadastro será
-   usado em cada canal antes de corrigir possíveis duplicidades.
-3. Conferir os executivos já cadastrados. Criar somente os que faltarem,
-   com grupo próprio, descrição, preço, porção e vínculos corretos. Manter
-   separados o executivo de filé mignon, o prato para compartilhar e o
-   filé mignon trinchado.
-4. Conferir tabelas de preço, unidade e grupos exibidos no caixa e no POS.
-   Ajustar os produtos antigos e as medidas conforme a comparação.
-5. Conferir escolhas, adicionais e observações de cozinha. Examinar a regra
-   de horário do executivo e a promoção de terça antes de configurá-las.
-6. Reler os cadastros salvos e conferir sua exibição nos canais usados pela
-   equipe. Validar preços, escolhas e impressão da cozinha por um fluxo de
-   teste próprio, quando o ambiente oferecer esse recurso.
-7. Registrar os códigos alterados, os resultados e as pendências. Mudanças
-   no cardápio público também seguem a rotina existente de site e Google,
-   com comparação posterior dos dados publicados.
+## Execução da migração
 
-O levantamento e a comparação dos cadastros foram concluídos. Permanecem
-para a execução da migração a conferência dos vínculos no Teknisa, a
-gravação dos ajustes e os testes de pedido, preço e impressão. A seleção
-de 103 itens e os achados acima permitem preparar essa execução.
+Os cadastros comerciais foram concluídos e conferidos. Os arquivos locais
+`teknisa-mapeamento-produtos.json` e `teknisa-log-execucao.json` relacionam
+os 103 itens aprovados aos códigos e às gravações do Teknisa. Os recibos
+separam nós da árvore, SKUs, preços e vínculos. Um campo preenchido no
+planejamento continua pendente até aparecer em uma leitura do cadastro.
+
+| Lote confirmado | Leitura e evidência | Conferência restante |
+| --- | --- | --- |
+| Crispy `8.00.00.040.00`, Marine `8.00.10.010.00` e Smirnoff Ice `8.05.10.190.00` inativos na árvore 8. | Fichas salvas e relidas sem o marcador ativo. Os três códigos também deixaram a consulta da tabela 001 e os layouts CAIXA/POS. Recibos de produto e dos layouts finais. | A retirada não alterou o estado global dos cadastros da árvore 9. |
+| Sete executivos comuns na categoria `8.00.22 — MENU EXECUTIVO`, folhas e SKUs `.000.00` a `.006.00`. | UN/Estoque/fator 1,000; preços R$ 52/46/31/41/38/47/34 relidos por código na tabela 001. Complemento e descrição lidos nos sete cadastros. Recibos `teknisa-executivos-cadastro.json` e `teknisa-prime-descricoes.json`. | Canais e funcionamento do pedido. |
+| Sete Prime na categoria `8.00.23 — PRIME`, folhas e SKUs `.000.00` a `.006.00`. | Nomes e IDs próprios do Saipos preservados. Os mesmos sete preços foram confirmados após recarregar a tabela 001. Complemento e descrição copiados dos executivos correspondentes e relidos; nomes e KDS mantêm o sufixo Prime. Recibos `teknisa-prime-cadastro.json`, `teknisa-novos-precos.json` e `teknisa-prime-descricoes.json`. | Funcionamento do pedido. |
+| Layouts CAIXA `00001` e POS `00002`, unidade 0002/loja 0001. | Cada configuração tem 12 grupos, 95 botões diretos e oito subgrupos com 29 escolhas: 124 botões e 123 SKUs para os 103 fluxos da fonte. As grades recarregadas conferem com o plano. Recibos `teknisa-layout-caixa-consolidado-final.json` e `teknisa-layout-completo-pos.json`. | Conferir a exibição e a escolha nos aparelhos. O preview anterior não mostrou registros. DLV permaneceu Não nos 124 botões. |
+| 52 observações gratuitas, dez adicionais pagos e nove grupos obrigatórios. | Os 446 pares gratuitos em 42 SKUs e os 52 pares pagos em oito SKUs foram salvos e auditados após recarga, sem faltantes ou duplicados. Recibos `teknisa-opcionais-execucao.json`, `teknisa-gratuitos-auditoria-446.json` e `teknisa-pagos-execucao.json`. | Comprovar mínimo/máximo por grupo, cobrança e impressão no pedido. |
+| 494 vínculos de observação usados em 48 SKUs dos fluxos finais. | Os 498 pares salvos incluem quatro vínculos de protótipos nos pais genéricos de Rum/Martini, que ficaram fora do layout. A Cortesia recebeu apenas Cachaça Nacional. | Mínimos gerais e `QTMAXOBSERV` foram preservados. Os limites comerciais ainda exigem teste funcional. |
+| Duas cópias dos layouts: `00004 — COPIA LAYOUT CAIXA 26-10` e `00005 — COPIA LAYOUT POS 26-10`. | Doze grupos iguais à origem e 16 vínculos conferidos por cópia, cobrindo ADICIONAIS, EXECUTIVOS e PRIME. Ambas sem caixas associados. Recibo `teknisa-backups-layout.json`. | A restauração não foi executada. A conferência dos 16 vínculos tem essa cobertura; os demais botões não foram comparados individualmente nas cópias. |
+
+Os preços abaixo foram corrigidos na tabela `001`, unidade `0002`, e
+confirmados após recarregar a consulta:
+
+| Código | Produto ou escolha | Antes | Depois |
+| --- | --- | ---: | ---: |
+| `8.05.10.010.00` | Caipirinha Ypioca 150 | R$ 18,00 | R$ 22,00 |
+| `8.05.10.050.00` | Caipiroska Absolut | R$ 22,00 | R$ 28,00 |
+| `8.05.10.060.00` | Caipiroska Sky | R$ 28,00 | R$ 22,00 |
+| `8.05.10.110.00` | Gin Tônica Gordon’s | R$ 21,00 | R$ 23,00 |
+| `8.05.10.120.00` | Gin Tônica Nacional | R$ 23,00 | R$ 21,00 |
+| `8.05.10.000.00` | Caipirinha, preço base | R$ 0,01 | R$ 18,00 |
+| `8.05.10.030.00` | Caipiroska, preço base | R$ 0,01 | R$ 20,00 |
+| `8.05.10.070.00` | Caipifruta, preço base | R$ 0,01 | R$ 22,00 |
+
+Além dos sete preços dos executivos comuns, **41 inclusões de preço**
+foram confirmadas após recarga. Esse lote reúne os sete Prime, produtos
+de Outros/Promoções, Brownie de funcionário, bebidas novas, as porções
+separadas de Macaxeira/Batata a R$ 27 e os oito molhos pagos
+a R$ 3. Inclui preços locais para Salmon `9.00.00.090.00` a R$ 52,
+London `9.00.00.050.00` a R$ 45, Pepsi Black `9.05.05.060.00` e Soda
+Limonada `9.05.05.070.00` a R$ 8. Nome e estado ativo global desses
+cadastros compartilhados ficaram fora da edição de preço.
+
+A consulta desse lote contém **159 códigos**: os 114 iniciais, com três
+retirados, mais sete executivos comuns e 41 inclusões. Os oito preços
+existentes autorizados foram corrigidos; os outros 103 preços originais
+continuam iguais. Essa contagem de preços preservados é distinta da
+seleção de 103 produtos de origem. A conferência usa
+`teknisa-precos-readback-novos.json` e
+`teknisa-precos-persistidos-validacao.json`. Os 41 preços dessa frente
+estão confirmados; os vínculos de venda também foram relidos nos dois
+layouts. O pedido nos aparelhos ainda precisa ser conferido.
+
+A consulta integral do cadastro ativo encontrou **185 SKUs**, sendo 156
+da árvore 8 e 29 da árvore 9. A conferência independente confirmou os
+45 SKUs novos por código, nome e unidade de medida, encontrou os 123
+códigos usados pelo plano do menu e confirmou a ausência dos três itens
+retirados na árvore 8. Os recibos são
+`teknisa-catalogo-geral-ativo-final.json` e
+`teknisa-catalogo-final-validacao.json`.
+
+Os 14 executivos, comuns e Prime, têm o complemento “Executivo individual:
+150 g de proteína”. As descrições Prime reproduzem os campos lidos nos
+executivos correspondentes. O empanado conserva a descrição sem salada,
+conforme a origem lida. A imagem `teknisa-prime-descricao-suino-relida.jpg`
+registra um dos sete resultados conferidos.
+
+### Preço zero e opções cobradas
+
+O SKU `8.00.24.004.00 — Molhos` foi criado, mas a tabela 001 recusou o
+preço base R$ 0,00 com a mensagem “O preço deve ser maior que 0”. O
+formulário foi cancelado sem incluir um preço substituto. A imagem
+`teknisa-molhos-preco-zero-recusado.jpg` registra a validação.
+
+A execução usa um plano de subgrupos de tela que conduzem aos produtos
+com preço final: oito molhos de R$ 3, refrigerantes de R$ 8 e variantes
+completas dos coquetéis. A leitura do formulário mostrou Nome, Página,
+Posição e uma aba Produtos, que só fica disponível depois de salvar o
+subgrupo. Os oito subgrupos e suas escolhas foram salvos e relidos no
+CAIXA e no POS. O fluxo no aparelho ainda precisa ser testado. A montagem
+preserva as contas base + acréscimo do Saipos;
+um SKU com preço integral não pode ser usado como acréscimo sobre outro
+preço integral. Os SKUs de opção/variante servem ao fluxo e não ampliam
+a contagem dos 103 produtos principais da fonte.
+
+Os componentes antigos de R$ 0,01, como Macaxeira e molhos gratuitos,
+foram preservados. As opções pagas recebem códigos próprios. A
+Macaxeira adicional de R$ 9,99, as duas Sukitas de R$ 8 e as quatro
+variantes de Rum/Martini também tiveram seus preços relidos após recarga.
+Os oito molhos, a Macaxeira, as Sukitas e as variantes somam 15 SKUs de
+suporte. Eles preservam os preços integrais ou acréscimos da fonte; o
+funcionamento no pedido continua em conferência.
+
+O plano completo cobre os **103 itens da fonte** em 12 grupos: 95 acessos
+diretos e oito subgrupos, com 124 botões de produto e 123 SKUs distintos
+por configuração. Os subgrupos são Refrigerante, Rum, Martini,
+Caipirinha, Caipiroska, Caipifruta, Gin e Molhos. Os 124 preços esperados
+coincidem com os preços relidos na tabela 001. Cada escolha usa o preço
+final do seu SKU, sem somar novamente o preço base da fonte.
+
+Patinha usa `8.00.00.101.00`, a R$ 55. Os dois IDs de Café Expresso
+preservam seus acessos em SOBREMESA e Outros e usam o mesmo SKU
+`8.00.20.020.00`, a R$ 5. A relação está em
+`teknisa-plano-layout-completo.json` e
+`teknisa-mapeamento-produtos.json`; as conferências de cobertura e preço
+ficaram em `teknisa-plano-layout-cobertura-validacao.json` e
+`teknisa-plano-layout-precos-validacao.json`. Esses arquivos conferem o
+plano e os cadastros. A leitura dos layouts CAIXA e POS também confirmou
+esses totais, os nomes, códigos, posições e DLV Não, sem divergências
+comerciais.
+
+A ação nativa “Exportar Configuração (Sobrepor apenas produtos)” copiou
+o CAIXA `00001` para o único destino selecionado, POS `00002`, na unidade
+`0002`, loja `0001`. A interface confirmou a exportação. Após recarga
+integral, os 12 cabeçalhos e os 124 botões foram relidos no POS. Código,
+nome, vigência, equipamentos e recebimentos das duas configurações
+permaneceram iguais. CAIXA conserva o equipamento `001 — CAIXA 001`;
+POS conserva `002 — POS 001`, `003 — POS 002` e `004 — POS 003`.
+As cópias `00004` e `00005` ficaram fora dos destinos selecionados.
+
+A comparação registrou uma diferença de campo padrão nos 95 botões
+diretos: `NRLIMPRODCOM` aparece como `0` no CAIXA e vazio no POS.
+Esse campo trata de produtos dentro de promoção combinada. Sua
+equivalência funcional ainda não foi testada; ele não representa o
+mínimo/máximo dos opcionais. Os demais campos das 124 linhas conferem.
+Os resultados estão em `teknisa-copy-only-products-validacao.json` e
+na imagem `teknisa-pos-cardapio-final.jpg`.
+
+### Limites das escolhas e conferência do pedido
+
+Observação por produto apresentou erro com Nível Inicial 8, 1 e 4.
+Com o filtro vazio, a consulta passou a listar os produtos associados.
+O campo `NRQTDMINOBS` permite mínimo geral por produto no contexto de
+`01 — PRODUTOS`; os valores lidos permaneceram em 0.
+O campo `QTMAXOBSERV` foi visto vazio no PF Picanha, com o rótulo
+“Qtde Obs. Pedido igual ao Gestão de Vendas”. Seu efeito e sua relação
+com os grupos não foram demonstrados; nenhum valor foi alterado.
+
+O executor cadastrou os nove grupos obrigatórios e suas ocorrências.
+A interface lida ainda não comprovou o vínculo explícito desses grupos
+a cada SKU nem a reprodução dos mínimos/máximos do Saipos. Os 494 pares
+usados no menu confirmam os vínculos individuais. O plano
+completo conserva 117 relações entre produtos e conjuntos, que usam
+outra contagem. Pedido, impressão, regras de horário e limites de escolha
+continuam pendentes de teste funcional.
+
+O [manual oficial de integração Teknisa–iFood](https://ead.teknisa.com/wp-content/uploads/2025/11/Manual-Integracao-Teknisa-iFood.pdf)
+descreve acréscimos cobrados e observações gratuitas vinculadas a produtos.
+Essa referência orienta a investigação da cobrança; o comportamento
+precisa ser conferido no POS da unidade.
+
+### Carga dos aparelhos e impressão
+
+O usuário informou que o PC, o POS e a impressora já estão instalados e
+que pretende operar em 27/10/2026. A conferência final inclui o menu
+recebido por esses aparelhos, a tabela de preço ligada ao caixa e o
+roteamento dos produtos e observações para a cozinha.
+
+O exemplo do [manual oficial de integração Neemo](https://universidade.teknisa.com/wp-content/uploads/2025/12/RETAIL_INTEGRACAO_NEEMO_TEKNISA_INTNEETEKV03.pdf)
+orienta selecionar a tabela ativa e mostra a tabela 001 com Status
+Pendente e Situação Ativa. O rótulo Pendente, isoladamente, não permite
+concluir que os preços estejam bloqueados. O
+[guia oficial de implantação](https://www.teknisa.com/odhen-guia-express-middle)
+inclui a função Exportar Tabela de Preço entre os cadastros de venda.
+Na interface, Exportar Tabela de Preço mostrou uma cópia entre unidades
+e tabelas. O formulário foi cancelado. A leitura ainda não identificou
+um comando administrativo de carga para os aparelhos da Praia.
+
+Em **Cadastro Loja → Parametrização → Gestão de Vendas**, o campo Tabela
+Preço estava vazio. A tabela `001` foi selecionada, salva e confirmada
+após recarga integral e reabertura da loja `0001`. A tabela conserva seus
+159 preços. O recibo é `teknisa-loja-tabela-validacao.json`.
+
+O roteamento usado pela loja fica em **Produtos por Loja**. A leitura
+inicial encontrou 132 vínculos com ELGIN i9, porta USB, e nenhum vínculo
+em Produtos por Nível. Foram acrescentados 49 vínculos à impressora
+existente `00001 — ELGIN`. A consulta recarregada percorreu os 181
+registros até o fim e confirmou os 125 SKUs necessários, que incluem os
+123 códigos do menu e dois adicionais de hambúrguer. Os 132 vínculos
+anteriores foram preservados campo a campo. A conferência está em
+`teknisa-impressao-execucao.json`, `teknisa-impressao-readback-final.json`
+e `teknisa-impressao-validacao-final.json`.
+
+Esses vínculos confirmam o cadastro da rota. O teste de impressão física
+e a conferência das observações no papel ainda dependem dos aparelhos.
+Nenhuma venda real foi criada para testar a migração.
+
+### Ajustes e conferência fiscal
+
+A tela Impostos do Produto mostrou campos fiscais vazios nos novos
+executivos. A árvore do produto não completou esses campos nessa leitura.
+O usuário autorizou conferir cada lacuna na ordem: cadastro existente do
+Teknisa, Saipos e produto similar. Depois solicitou pesquisa na internet
+para corrigir NCM incompatível com a natureza dos produtos. Cada recibo
+registra a fonte usada e os campos autorizados.
+
+Os **48 cadastros de imposto por unidade** foram preenchidos e relidos
+após recarga: 34 usam o perfil de origem Comida e 14 o de Bebidas. A
+conferência percorreu 185 produtos, comparou os oito campos previstos
+nos 48 alvos e confirmou os outros 137 sem alterações nessa frente.
+Os resultados estão em `teknisa-fiscal-unidade-48-consolidado.json` e
+`teknisa-fiscal-unidade-final-185.json`. Essa gravação trata do imposto
+por unidade; o NCM e o Tipo do item ficam também no cadastro global.
+
+No cadastro global, **29 produtos de comida** receberam NCM `21069090`,
+Tipo `04 — Produto acabado`, Origem `0 — Nacional` e Gênero `21`.
+São os 14 executivos/Prime e outros 15 produtos de comida. Os recibos
+e suas auditorias são `teknisa-ncm-pf-prime-execucao14.json`,
+`teknisa-ncm-pf-prime-auditoria14.json`,
+`teknisa-ncm-extras-execucao15.json` e
+`teknisa-ncm-extras-auditoria15.json`. Uma leitura independente dos oito
+molhos e da macaxeira adicional, após recarga, confirmou os nove NCMs
+em `teknisa-ncm-molhos-macaxeira-readback9.json`.
+
+O usuário confirmou que a embalagem é de papelão liso e dobrável.
+O cadastro recebeu NCM `48192000`, Tipo `02 — Embalagem`, Origem `0`
+e Gênero `48`, com recarga e releitura no recibo
+`teknisa-ncm-embalagem-execucao1.json`. Essa estrutura corresponde à
+descrição do código na [TIPI oficial disponibilizada pela RFB em 2026](https://www.gov.br/receitafederal/pt-br/acesso-a-informacao/legislacao/documentos-e-arquivos/tipi.xlsx/view).
+O Gelo recebeu `22019000`, correspondente a gelo comum de água. A edição
+individual em Impostos do Produto permitiu salvar e reler o NCM, inclusive
+no cadastro global, preservando Tipo, Origem e Gênero vazios. O recibo é
+`teknisa-ncm-gelo-taxunit-prototipo.json`.
+
+A Rolha foi identificada pelo usuário como a taxa pela bebida trazida
+pelo cliente. O cadastro global recebeu Tipo `09 — Serviços` e Gênero
+`00 — SERVICO`, com NCM intencionalmente vazio. A interface aceitou a
+gravação e os valores persistiram ao sair e voltar ao cadastro. Os
+outros campos foram preservados. O recibo é
+`teknisa-rolha-fiscal-tipo-servico-execucao.json`. O [Guia EFD 3.2.2 da RFB, atualizado em 11/02/2026](https://sped.rfb.gov.br/estatico/74/D84DAAF7A4229EE5EFB705CCD7E7BA4D323CBE/Guia%20Pr%C3%A1tico%20EFD%20-%20Vers%C3%A3o%203.2.2.pdf)
+trata o Tipo `09` como Serviços e dispensa seu COD_NCM no registro 0200.
+Essa regra de escrituração e a gravação no cadastro ainda precisam ser
+conferidas no XML emitido pelo sistema, no contexto fiscal da loja.
+
+O [MOC oficial da NF-e/NFC-e, página 90](https://www.confaz.fazenda.gov.br/legislacao/arquivo-manuais/moc7-anexo-i-leiaute-e-rv.pdf)
+distingue as condições de `00` e `00000000`. O seletor NCM do Teknisa
+não ofereceu os oito zeros na consulta. Esse código não foi atribuído
+à Rolha. A pesquisa e os limites da interpretação estão em
+`teknisa-fiscal-pesquisa-embalagem-gelo-rolha.json`.
+
+A pesquisa das bebidas usa as posições da TIPI para cerveja/chope,
+refrigerante, rum, vermute e outras bebidas espirituosas. Os trechos
+literais e suas hierarquias estão em
+`rfb-tipi-bebidas-hierarquia-2026.json`. Os **12 NCMs de bebidas novas**
+foram salvos e relidos pela edição individual em Impostos do Produto,
+conforme `teknisa-ncm-bebidas-execucao12.json` e sua auditoria. Tipo,
+Origem e Gênero foram preservados nessa rota. O cadastro de apoio de
+Tipo não ofereceu `00 — Mercadoria para Revenda` nas buscas por nome
+e código. Uma tentativa no cadastro global exibiu Tipo obrigatório e
+foi cancelada. A importação foi apenas examinada, sem envio de arquivo.
+
+Também foram corrigidos os NCMs de **sete destilados existentes**:
+três vodkas para `22086000`, dois gins para `22085000` e duas cachaças
+para `22084000`. Campari e Aperol receberam `22089000`. São nove
+correções pontuais em produtos existentes, com preservação dos demais
+campos de imposto. Os recibos são
+`teknisa-ncm-destilados-legados-execucao7.json` e
+`teknisa-cest-destilados-aperitivos-execucao9.json`.
+
+O [fabricante de Campari](https://www.campari.com/pt-br/nossos-produtos/campari/)
+e o [fabricante de Aperol](https://www.aperol.com/pt-br/) identificam os
+produtos originais como aperitivos. O
+[DOU de 01/11/2010, página 45](https://www.gov.br/mme/pt-br/arquivos/do-01-11-2010-s1.pdf)
+também os identifica nominalmente em `2208.90.00`. Essa publicação foi
+usada como apoio histórico da identidade; os códigos foram cotejados
+com a TIPI e o Convênio atuais, sem transportar alíquotas do ato antigo.
+
+O [Convênio ICMS 142/18, Anexo III](https://www.confaz.fazenda.gov.br/legislacao/convenios/2018/CV142_18)
+sustenta os CESTs aplicados aos 13 destilados/aperitivos existentes:
+quatro uísques `02.016.00`, três vodkas `02.018.00`, dois gins
+`02.008.00`, duas cachaças `02.004.00` e os dois aperitivos
+`02.001.00`. O código anterior `02.025.00` não consta na lista atual
+consultada desse anexo. O mapa está em
+`teknisa-cest-ncm-legados-plano13.json`, com os recibos de execução
+dos quatro uísques e dos outros nove produtos.
+
+O Conhaque genérico conservou a classificação existente por falta de
+marca e composição. Para Beats Sense/Tropicall, o usuário autorizou
+seguir com produto similar: o CEST `02.023.00` foi escolhido por
+analogia à referência de Beats Senses na
+[Portaria SRE 9/2025 de São Paulo](https://legislacao.fazenda.sp.gov.br/Paginas/Portaria-SRE-9-de-2025.aspx).
+Essa referência histórica foi usada para identificar a categoria; seus
+preços e sua vigência não foram transferidos para a operação do Ceará.
+A nota ou o rótulo de Tropical ainda pode exigir revisão. Essa decisão
+não comprova que as duas variantes tenham a mesma composição.
+
+O conjunto fiscal prevê **26 associações de CEST**. Foram salvas 23:
+as 13 acima, nove bebidas novas e o Chope Brahma existente, corrigido
+de `03.021.00` para `03.023.00`. Os três produtos abaixo continuam
+com CEST vazio porque o seletor do Teknisa não oferece os dois códigos
+oficiais necessários:
+
+| Produto | SKU | CEST necessário |
+| --- | --- | --- |
+| Stella Puro Gold Longneck | `8.05.00.091.00` | `03.021.01` |
+| Sukita Uva | `8.10.05.091.00` | `03.010.02` |
+| Sukita Laranja | `8.10.05.092.00` | `03.010.02` |
+
+A implantação ou o suporte Teknisa precisa incluir **Cerveja em garrafa
+de vidro descartável** (`03.021.01`) e **Refrigerante em lata**
+(`03.010.02`) no cadastro de apoio. Depois, associar os três SKUs e
+reler o resultado. Foram examinados o seletor, os menus de Fiscal e
+Produto, as 27 Tabelas Gerais e o Cadastramento Automático de NCM por
+Produto. Não foi encontrado um fluxo nativo que permitisse incluir
+esses CESTs. Nenhum cadastro de apoio foi gravado. O recibo é
+`teknisa-cest-apoio-bloqueio3.json`.
+
+A cláusula 20 do Convênio exige informar CEST para as mercadorias dos
+anexos mesmo quando a operação não estiver sujeita à substituição
+tributária. A regra N23-10 do MOC consultado identifica o modelo 55;
+essa leitura não comprova uma rejeição específica da NFC-e modelo 65.
+Os três campos pendentes precisam ser resolvidos antes da operação
+fiscal desses produtos.
+
+A recarga final percorreu **185 códigos únicos**. A auditoria confirmou
+os 48 cadastros de imposto por unidade, os 52 NCMs e os 23 CESTs
+executados, sem diferenças nos outros campos. Entre os 125 SKUs
+necessários, as mercadorias têm NCM; Rolha conserva a exceção de serviço
+descrita acima. Os três CESTs vazios constam como pendência na auditoria
+`teknisa-fiscal-menu-final-validacao.json`. A fonte recarregada é
+`teknisa-fiscal-final-grade-185.json`. Essa prova cobre os cadastros;
+o XML da emissão real ainda precisa ser conferido.
+
+## Conferências para encerrar a migração
+
+1. Conservar a base aprovada de 103 itens e as quatro retiradas. Reconferir
+   a fonte somente se houver mudança na operação durante a implementação.
+2. Solicitar à implantação Teknisa os dois códigos de apoio CEST e
+   completar os três SKUs da tabela acima. Reler os campos e manter
+   a origem de cada preenchimento.
+3. Conferir no PC/POS os 12 grupos e as escolhas dos oito subgrupos já
+   salvos e auditados no cadastro. Verificar o recebimento da carga.
+4. Testar as regras de escolha, os adicionais e os totais do pedido.
+   Os vínculos de observação já foram conferidos no cadastro.
+   Examinar o horário do executivo e
+   a promoção de terça antes de configurar qualquer automatismo.
+5. Conferir nos aparelhos os preços da tabela 001 já vinculada à loja e
+   a rota ELGIN já cadastrada para os 125 SKUs necessários.
+6. Conferir a exibição no PC/POS e a impressão da cozinha por recurso de
+   teste próprio, quando o ambiente o oferecer. Preservar o caixa de venda
+   real durante essa validação.
+7. Conservar os recibos finais em `output/teknisa-2026-10-26/` e acrescentar
+   o resultado dos testes locais. A pasta mantém a data de início da tarefa.
+
+Em 27/10/2026, os cadastros comerciais, os layouts e os campos fiscais
+executados foram conferidos. A operação ainda depende dos três CESTs
+pendentes e dos testes de carga, pedido, preços, impressão e XML nos
+aparelhos. O registro de fechamento está em
+`teknisa-fechamento-2026-10-27.json`, junto dos recibos locais.
