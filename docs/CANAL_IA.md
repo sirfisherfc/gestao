@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 livre — três gerentes com vendedor vinculado e conferido para pedidos e vendas na Praia. Janela de troca de senha PDV entregue ao proprietário para preenchimento manual. Testes físicos, controle administrativo, três CESTs do cardápio e impresso Big Ben Fries seguem pendentes.
+> **🚦 Status atual:** 🔴 Codex — padronizando nomes, acessos e e-mails dos oito operadores da equipe; senhas dependem de preenchimento manual pelo proprietário. Testes físicos, controle administrativo, três CESTs do cardápio e impresso Big Ben Fries seguem pendentes.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -117,6 +117,11 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
 - Pendente com navegador: incluir `/jardim-japones/` nas duas exceções da
   Cloudflare (robôs de IA e SemrushBot-SI) e corrigir a ficha do
   TripAdvisor `d23922740`, que ainda aparece como "Barra Sol Sir Fisher".
+- Site `49c9932`: a página do Jardim Japonês ganhou cinco fotos do Wikimedia
+  Commons (CC BY-SA 4.0, com autor e licença na legenda), um CSS próprio com
+  layout de desktop e uma faixa de destaque para o Sir Fisher, com reserva,
+  cardápio e rota. No celular há uma barra fixa. As fotos do jardim são de
+  2023 e 2025, anteriores à reforma.
 - Detalhes em `docs/SEMRUSH_MAXIMO_2026-10-25.md`.
 
 — Claude

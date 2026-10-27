@@ -322,6 +322,12 @@ commit. O sitemap foi reenviado ao Search Console sem erros.
   página de rota.
 - **Pôr do sol:** "hoje" entrou no título, no H1, no rótulo e em uma pergunta
   frequente. A página já calculava o horário do dia.
+- **Jardim Japonês, segunda versão:** no site
+  [`49c9932`](https://github.com/sirfisherfc/site/commit/49c9932), a página
+  ganhou cinco fotos do Wikimedia Commons sob CC BY-SA 4.0, com autor e
+  licença em cada legenda. Também ganhou layout de desktop em `jardim.css` e
+  a faixa "Atravesse a avenida" com fotos da casa e botões de reserva,
+  cardápio e rota. No celular, uma barra fixa leva ao cardápio.
 - **TripAdvisor:** a ficha `d23922740` ainda aparece como "Barra Sol Sir
   Fisher". A URL entrou no `sameAs` do Restaurant. A correção do nome e dos
   dados depende do navegador conectado ao TripAdvisor.
