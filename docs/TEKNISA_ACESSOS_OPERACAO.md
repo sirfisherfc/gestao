@@ -56,15 +56,36 @@ Recibos privados: `vendas-gerentes-execucao3.json` e
 `vendas-gerentes-qa3.json`, na pasta de acessos. Nenhuma venda ou
 transação de pagamento foi executada durante a conferência.
 
+### Padronização dos dados dos operadores
+
+O proprietário definiu nomes completos e nomes de acesso pelo primeiro
+nome, em minúsculas e sem acentos. Os nomes completos dos oito operadores
+já conferiam. Dois nomes de acesso foram corrigidos e salvos; os outros
+seis já seguiam o padrão.
+
+O proprietário forneceu os e-mails pessoais reais. Os oito endereços
+foram preenchidos em fichas separadas e ficaram aguardando salvamento
+manual. Ao alterar o e-mail, o Teknisa pede confirmação para gerar e
+enviar uma senha provisória de validação. Essa confirmação foi cancelada
+durante a preparação; nenhum novo e-mail foi salvo pelo agente.
+
+Oito rascunhos foram conferidos pelo código, nome completo e nome de
+acesso, com o campo de e-mail preenchido a partir da lista recebida.
+Os recibos, a lista pessoal e as capturas ficam somente na pasta privada
+de acessos. E-mails pessoais e dados de nascimento não foram incluídos
+na documentação versionada.
+
 ### Troca de senha pelo proprietário
 
 As senhas das maquininhas são alteradas em **Controle de Acesso →
 Operador → Ações → Alterar Senha PDV**. A tela de edição dos dados do
 operador não apresenta os campos dessa troca. O proprietário preenche
 Nova Senha e Confirmar Senha e clica em Salvar diretamente no sistema.
-Uma ficha foi preparada para essa intervenção. Nenhuma senha foi lida,
-preenchida ou alterada pelo agente; a troca depende da conclusão pelo
-proprietário.
+As oito fichas de dados ficaram abertas, uma aba por pessoa, identificadas
+pelo nome. O proprietário deve salvar os dados e concluir a validação do
+e-mail; em seguida, usar a ação de senha PDV. Nenhuma senha foi lida,
+preenchida ou alterada pelo agente. A confirmação dos e-mails e a troca
+das senhas continuam pendentes da conclusão pelo proprietário.
 
 ## Unidade antiga e preservação da Praia
 

@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🔴 Codex — padronizando nomes, acessos e e-mails dos oito operadores da equipe; senhas dependem de preenchimento manual pelo proprietário. Testes físicos, controle administrativo, três CESTs do cardápio e impresso Big Ben Fries seguem pendentes.
+> **🚦 Status atual:** 🟢 livre — oito fichas de operadores preparadas e abertas para o proprietário salvar os e-mails e trocar as senhas. Dois nomes de acesso corrigidos e salvos. Testes físicos, controle administrativo, três CESTs do cardápio e impresso Big Ben Fries seguem pendentes.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -129,3 +129,27 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
 
 — Claude
 
+
+## 2026-10-27 · Codex — Padronização dos oito operadores e fichas abertas
+
+- Nomes completos dos oito conferidos. Dois nomes de acesso corrigidos e
+  salvos; seis já seguiam o padrão do primeiro nome em minúsculas e sem
+  acentos. Permissões, vendedores e demais campos preservados.
+- O proprietário forneceu e-mails pessoais reais. Oito fichas foram
+  preenchidas com os novos endereços. O salvamento dos e-mails pede
+  confirmação para gerar e enviar senha provisória; a confirmação foi
+  cancelada na preparação. Zero e-mails novos salvos pelo agente.
+- Conforme o pedido final, ficaram oito abas do Teknisa, uma por pessoa,
+  identificadas pelo nome. A tela extra foi fechada. O proprietário
+  conclui Salvar e a validação do e-mail e depois usa Ações → Alterar
+  Senha PDV. Zero senhas lidas, preenchidas ou alteradas pelo agente.
+- Rascunhos e organização das abas conferidos. Recibos privados na pasta
+  de acessos: `padronizacao-equipe-rascunhos8.json`,
+  `padronizacao-equipe-qa-rascunhos8.json` e
+  `padronizacao-equipe-abas-handoff8.json`. Nenhum dado de nascimento,
+  e-mail pessoal ou credencial foi incluído no Git.
+- A confirmação dos e-mails e a troca das senhas aguardam o proprietário.
+  Testes físicos, controle administrativo e pendências anteriores
+  permanecem nos relatórios. Somente dois documentos de gestão alterados.
+
+— Codex
