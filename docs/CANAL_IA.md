@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 livre — oito operadores e cinco vendedores Teknisa conferidos na Praia em 27/10/2026. Testes físicos, três CESTs do cardápio e impresso Big Ben Fries seguem pendentes.
+> **🚦 Status atual:** 🟢 livre — permissões do PDV Teknisa salvas e relidas para a Praia; cancelamentos exigem gerente. Testar no POS a retirada antes do envio e o bloqueio após transmitir. Testes físicos, três CESTs do cardápio e impresso Big Ben Fries seguem pendentes.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -90,5 +90,35 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
   autorização de gerente e impressão. As três pendências CEST do cardápio
   continuam registradas no relatório de migração. Só os dois documentos
   de gestão foram alterados; sem migration, SQL ou deploy de código.
+
+— Codex
+
+## 2026-10-27 · Codex — Permissões operacionais do PDV
+
+- Regras detalhadas em `docs/TEKNISA_ACESSOS_OPERACAO.md`. Em Controle de
+  Acesso ao Caixa, 23 permissões do grupo de garçons foram restringidas:
+  cancelamentos, devoluções e alterações de cobranças exigem gerente;
+  funções administrativas foram bloqueadas. Pedidos e recebimentos
+  permanecem liberados. O usuário confirmou que garçons podem abrir e
+  fechar o próprio caixa; essas permissões foram preservadas.
+- O usuário confirmou os três gerentes como autorizadores. Foi incluído
+  um vínculo com o grupo de gerentes, único autorizador dos garçons.
+  Os 47 campos do grupo de gerentes permaneceram iguais.
+- Releitura após recarregar a página: 47 permissões dos garçons e vínculo
+  conferidos, sem divergências. Recibos privados em
+  `output/teknisa-acessos-2026-10-27/permissoes-caixa-execucao.json` e
+  `permissoes-caixa-qa47.json`. Nenhuma credencial foi coletada.
+- Limite: a função Desistência do item (Balcão) continua liberada, mas a
+  tela não explica sua aplicação ao carrinho de mesas ou o limite por
+  etapa. Testar no aparelho a retirada antes do envio, a exigência de
+  gerente após transmitir e o recebimento com abertura/fechamento do
+  caixa. Nenhuma venda ou transação de pagamento foi executada.
+- Alteração externa feita pela interface do Teknisa; somente dois
+  documentos de gestão foram atualizados no workspace. Pendências
+  fiscais, impressão e impresso Big Ben Fries preservadas.
+- Controle do painel administrativo ainda requer revisão própria. A
+  conferência desta etapa cobre ações do PDV; não comprova restrições
+  por função no painel administrativo. Estado observado registrado no
+  recibo privado de QA para continuidade.
 
 — Codex

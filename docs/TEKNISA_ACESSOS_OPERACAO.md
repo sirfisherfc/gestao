@@ -47,6 +47,49 @@ A releitura confirmou a Praia desbloqueada e como unidade padrão, com
 sua única loja ativa. O recibo privado é
 `output/teknisa-2026-10-26/teknisa-imprensa-limpeza-execucao2.json`.
 
+## Permissões operacionais do PDV
+
+Em 27/10/2026, o usuário definiu que garçons podem lançar pedidos,
+receber pagamentos e abrir e fechar o próprio caixa. Cancelamentos de
+consumo dependem de gerente. O usuário confirmou os três gerentes como
+autorizadores do grupo de garçons.
+
+O ajuste foi feito em **Controle de Acesso ao Caixa**, em Parametrização
+de Vendas. A atribuição anterior dos operadores aos grupos já estava
+salva; esta etapa conferiu e restringiu as ações do PDV.
+O controle do painel administrativo requer uma revisão própria. A
+conferência desta etapa cobre as ações do PDV e não comprova restrições
+por função no painel administrativo. O estado observado ficou no recibo
+privado, para continuidade.
+
+| Ação | Garçom | Gerente |
+| --- | --- | --- |
+| Operar pedidos, observações e parcial da conta | Liberada | Liberada |
+| Receber pagamentos | Liberada | Liberada |
+| Abrir e fechar o próprio caixa | Liberada, conforme decisão do usuário | Liberada |
+| Cancelar cupom, item ou mesa/comanda; devolver item | Exige código e senha de gerente | Liberada |
+| Desconto, acréscimo e retirada de cobranças | Exige código e senha de gerente | Liberada |
+| Funções administrativas, incluindo sangria e administração TEF | Bloqueadas no grupo de garçons | Permissões anteriores preservadas |
+
+O grupo de gerentes ficou como único grupo autorizador dos garçons.
+Foram alteradas 23 permissões e incluído um vínculo de supervisão. A
+releitura após recarregar a página confirmou os 47 campos de permissões
+do grupo de garçons e o vínculo, sem divergências. Os 47 campos do grupo
+de gerentes foram preservados. Recibos e capturas ficam na pasta privada
+de acessos, incluindo `permissoes-caixa-execucao.json` e
+`permissoes-caixa-qa47.json`.
+
+A função **Desistência do item (Balcão)** foi mantida liberada. A tela de
+permissões não descreve em que momento o POS usa essa função nem se ela
+também se aplica ao carrinho de mesas. A retirada de rascunhos antes do
+envio e o bloqueio após a transmissão ainda precisam ser testados no
+aparelho. O cadastro salvo não comprova esse comportamento por etapa.
+
+Referências consultadas: [guia de implantação Odhen](https://www.teknisa.com/odhen-guia-express-middle),
+que inclui o Controle de Acesso do Caixa entre os cadastros de venda, e
+[manual Odhen POS](https://universidade.teknisa.com/wp-content/uploads/2025/04/14_ODHEN_POS_V1.pdf),
+que apresenta o carrinho, a transmissão de pedidos e as funções de mesa.
+
 ## Conferência nos aparelhos
 
 Os resultados acima comprovam os cadastros salvos. Antes da operação,
@@ -54,8 +97,10 @@ conferir no PC/POS:
 
 1. Login de cada função na unidade Praia.
 2. Pedido com identificação do garçom e gravação correta dos itens.
-3. Autorização de gerente nas ações que a operação exigir.
+3. Retirada de um item ainda no carrinho e tentativa de cancelamento
+   após enviar, exigindo a autorização de um dos gerentes.
 4. Impressão do pedido e das observações na cozinha.
+5. Recebimento e abertura/fechamento do próprio caixa pelo garçom.
 
 Esses testes físicos continuam pendentes. Credenciais não foram
 coletadas nesta tarefa. Nomes, logins, e-mails, PINs e senhas ficam
