@@ -303,3 +303,34 @@ Antes do cancelamento, as cotas restantes foram usadas. Evidências privadas em
 A próxima cobrança exibida era 31/10/2026. A leitura das novas perguntas
 depende das coletas diárias até o cancelamento.
 
+## Ajustes no site a partir das leituras de 27/10
+
+Commit do site
+[`35578bb`](https://github.com/sirfisherfc/site/commit/35578bb), publicado e
+conferido: as 10 URLs públicas responderam HTTP 200 com o mesmo conteúdo do
+commit. O sitemap foi reenviado ao Search Console sem erros.
+
+- **Eventos:** a página ganhou texto indexável sobre confraternização de fim
+  de ano, evento de empresa e aniversário. Inclui os passos até a proposta, o
+  caminho por tamanho de grupo, perguntas frequentes e schema FAQPage.
+  Usa só regras já publicadas no configurador.
+- **Jantar:** a home não usava a palavra. Descrição, abertura, horário e uma
+  pergunta frequente foram ajustados, em português e inglês.
+- **Jardim Japonês:** página nova em `/jardim-japones/`. Usa dados da Prefeitura
+  (Jusaku Fujita, 1.900 m², reforma de 9/7/2026) e a data de inauguração do
+  Conexão 085. O horário é o mesmo do guia. Há links do guia, da home e da
+  página de rota.
+- **Pôr do sol:** "hoje" entrou no título, no H1, no rótulo e em uma pergunta
+  frequente. A página já calculava o horário do dia.
+- **TripAdvisor:** a ficha `d23922740` ainda aparece como "Barra Sol Sir
+  Fisher". A URL entrou no `sameAs` do Restaurant. A correção do nome e dos
+  dados depende do navegador conectado ao TripAdvisor.
+- **Cloudflare:** `/jardim-japones/` ainda não está nas exceções "Robos IA:
+  leitura das paginas publicas" e da Semrush. O token da API não lê as regras,
+  e a inclusão desse caminho depende da UI.
+
+Validações: 116 testes de atribuição e CTAs, com o adaptador Node para os
+testes Deno, e 4 do pôr do sol. CSP e console sem erro em 7 páginas.
+Acessibilidade sem problema em celular e desktop, nos temas claro e escuro.
+Os três verificadores do CI passaram, e o Pages concluiu a publicação.
+
