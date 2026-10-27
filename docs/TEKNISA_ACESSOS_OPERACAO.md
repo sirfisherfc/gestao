@@ -142,6 +142,35 @@ que apresenta o carrinho, a transmissão de pedidos e as funções de mesa.
 
 ## Conferência nos aparelhos
 
+### Avisos relatados no POS em 27/10/2026
+
+As duas fotos enviadas pelo proprietário mostram ocorrências distintas:
+
+- Na seleção de filial: notas pendentes/rejeitadas desde **06/08/2026**,
+  com orientação para transmitir pela retaguarda. A foto não identifica
+  a filial, os documentos, o tipo fiscal nem o motivo das rejeições.
+  Conferir esses dados e o estado atual antes de qualquer retransmissão.
+  Não houve consulta da fila nem transmissão nesta investigação.
+- Ao solicitar a parcial: aviso de que não há impressora parametrizada
+  para essa função. O proprietário confirmou que a parcial deve sair
+  **na própria maquininha**. Conferir o caixa associado ao aparelho e
+  os parâmetros da impressora interna usados pela parcial. A rota de
+  produtos para a ELGIN não comprova essa configuração; as permissões
+  salvas anteriormente liberam a função, mas não configuram a impressora.
+
+O [guia oficial de implantação](https://www.teknisa.com/odhen-guia-express-middle)
+lista Cadastro de Caixa, Configuração do Terminal do Caixa e parâmetros
+de venda. Também descreve a consulta de transmissão de NFC-e em Vendas
+→ Operacional → Transmissão de NFC-e (Consumidor Final). Esse caminho é
+referência para a investigação; é necessário confirmar o documento e
+a rotina efetivamente usados pela filial antes de executar uma ação.
+
+A conexão de navegador disponível nesta sessão não encontrou navegadores
+conectados. Portanto, nenhum parâmetro do POS foi consultado ou alterado
+ao vivo. Permanecem pendentes a conferência da fila fiscal, a configuração
+da parcial na impressora interna e o teste físico de impressão. As fotos
+não permitem atribuir esses avisos a uma falha do Chrome.
+
 Os resultados acima comprovam os cadastros salvos. Antes da operação,
 conferir no PC/POS:
 
