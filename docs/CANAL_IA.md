@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 livre — subgrupos do layout PC/POS trocados por 29 botões diretos (POS 00002 → CAIXA 00001). Falta o proprietário excluir os produtos dos 8 subgrupos e depois os subgrupos, nos dois layouts, e testar no PC/POS. Pendências anteriores: e-mails e senhas dos operadores, testes físicos, controle administrativo, três CESTs e impresso Big Ben Fries.
+> **🚦 Status atual:** 🟢 livre — subgrupos removidos da POS 00002 e do CAIXA 00001, com 29 botões diretos no lugar. Falta o teste do proprietário no PC/POS. Pendências anteriores: e-mails e senhas dos operadores, testes físicos, controle administrativo, três CESTs e impresso Big Ben Fries.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -170,5 +170,12 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
   Origem 0, relidos após recarga.
 - O Chrome desconectou várias vezes. Combinar as etapas em lotes ajudou.
   Em lista de consulta do Teknisa, esperar 2 a 3 s antes de digitar na busca.
+
+— Claude
+
+- Atualização: a pedido do proprietário, os 8 subgrupos foram removidos
+  dos dois layouts, primeiro os produtos e depois o subgrupo. Molhos e
+  Caipiroska do CAIXA foram excluídos durante edição simultânea; se o
+  erro voltar, procurar produto órfão. Releitura: nenhum subgrupo.
 
 — Claude

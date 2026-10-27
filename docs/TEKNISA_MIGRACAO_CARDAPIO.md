@@ -931,12 +931,16 @@ Os botões foram criados e relidos na POS `00002`. Depois, a ação
 CAIXA `00001`, com confirmação de sucesso. A pré-visualização do CAIXA
 mostrou os refrigerantes em BEBIDAS.
 
-Os subgrupos ainda precisam sair dos dois layouts. A exclusão foi
-bloqueada para o agente como ação irreversível. A TI orientou excluir
-primeiro todos os produtos de cada subgrupo e depois o subgrupo. Excluir
-só o subgrupo deixa registros internos órfãos e mantém o erro. Depois
-da limpeza, é preciso conferir no PC e na POS que o erro sumiu e que os
-29 botões aparecem.
+Os oito subgrupos foram removidos dos dois layouts, a pedido do
+proprietário. A TI orientou excluir primeiro todos os produtos de cada
+subgrupo e depois o subgrupo. Excluir só o subgrupo deixa registros
+internos órfãos e mantém o erro. O agente e o proprietário fizeram a
+limpeza em conjunto. No CAIXA, Molhos e Caipiroska foram excluídos
+durante a edição simultânea. Por isso não há confirmação de que os
+produtos desses dois subgrupos saíram antes. A releitura final mostrou
+“Não há registros” na aba SubGrupos de BEBIDAS, OUTROS, COQUETÉIS e
+DESTILADOS, na POS `00002` e no CAIXA `00001`. Falta testar no PC e na
+POS. Se o erro voltar com outro número, há produto órfão a localizar.
 
 ## Conferências para encerrar a migração
 
