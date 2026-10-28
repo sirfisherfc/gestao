@@ -19,6 +19,9 @@ seu proprio historico, remoto e deploy.
 - `gestao/scripts/instagram_analytics/`: cliente oficial e MCP de leitura do
   Instagram proprio, compartilhado pelas IAs. Configuracao, provas e limites
   em `gestao/docs/INTEGRACAO_INSTAGRAM_ANALYTICS.md`.
+- `gestao/scripts/teknisa/`: ferramenta padrao para operacoes do Teknisa.
+  Guia em `gestao/scripts/teknisa/README.md`; consultar os comandos antes
+  de repetir a navegacao por registros no painel.
 - `reservas/output/` e `reservas/tmp/`: artefatos locais gerados, ignorados
   pelo Git.
 - `gestao/_Backups/`: bundles locais de recuperacao do painel financeiro,

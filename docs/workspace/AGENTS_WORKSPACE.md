@@ -115,6 +115,28 @@
   separados. Publicacao, Direct, comentarios individuais e anuncios ficam
   fora deste servidor. Nao criar outra rotina recorrente ou pedir token no chat.
 
+## Operação do Teknisa pela ferramenta compartilhada
+
+- Para tarefas no Teknisa, ler primeiro `gestao/scripts/teknisa/README.md`
+  e executar `node gestao/scripts/teknisa/teknisa.mjs comandos` na raiz.
+  Usar os comandos validados para consultas e alterações repetitivas.
+- Usar a interface para conhecer uma função nova, capturar a conexão da
+  sessão autorizada, conferir uma amostra ou investigar uma divergência.
+  Evitar repetir edição de registro em registro quando houver comando
+  validado. Ampliar a ferramenta ao validar uma operação nova.
+- Conferir o destino e a prévia antes de aplicar o pedido já autorizado.
+  Gravação validada, leitura validada e função ainda em preparação são
+  estados diferentes. Não habilitar escrita por inferência de um caminho.
+- Autenticação permanece em memória. Planos e recibos ficam em
+  `gestao/tmp/teknisa/`, ignorado pelo Git. Manter uma execução por unidade
+  e evitar alterações simultâneas nos dois PCs ou no painel.
+- Cadastros, produtos por loja e botões do caixa têm escopos próprios.
+  Vendas e comissão precisam de fonte, período e regra de cálculo
+  confirmados. Campo zerado ou dado ausente não comprova comissão zero.
+- Capacidades e configuração de impressão conferidas estão em
+  `gestao/docs/TEKNISA_INTEGRACAO_API.md`. O proprietário pede o resultado
+  em linguagem comum; consultar os códigos internos antes de solicitá-los.
+
 ## Instruções de cada projeto
 
 - Ler `README.md`, `AGENTS.md` e `CLAUDE.md` do projeto, quando existirem.

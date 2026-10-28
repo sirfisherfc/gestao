@@ -98,6 +98,29 @@ Este arquivo é a fonte canônica das instruções operacionais para qualquer IA
   GBP que pode publicar nem rotas genericas. Token/configuracoes permanecem
   privados; as permissoes amplas do token existente nao ampliam este escopo.
 
+## Teknisa: ferramenta de operação
+
+- Ler `scripts/teknisa/README.md` e executar
+  `node scripts/teknisa/teknisa.mjs comandos` antes de tarefas no Teknisa.
+  Usar a entrada única para as operações já validadas. A interface serve
+  para capturar a sessão, validar funções novas e conferir divergências.
+- Reaproveitar os módulos e os recibos; ampliar a ferramenta ao aprender
+  uma operação. Separar consulta, prévia e aplicação. Preservar os campos
+  fora do pedido e verificar o resultado com uma nova consulta.
+- Conferir organização, unidade e loja. O operador deve vir de contexto
+  ou de um `CDOPERADOR` observado numa gravação legítima; não inferir esse
+  código de `User-Id` ou `NRORG`. Guardar autenticação somente em memória.
+- Planos e recibos privados ficam em `tmp/teknisa/`, ignorado pelo Git.
+  Usar uma execução por unidade, sem editar simultaneamente por outra IA,
+  pelo painel ou no segundo PC. O bloqueio da ferramenta cobre o PC local.
+- Só ampliar a escrita após observar o contrato e conferir um caso real
+  autorizado. Produtos fictícios em produção não fazem parte desse fluxo.
+  Cadastro/edição de produto e preços ainda têm etapas a validar; consultar
+  o catálogo de capacidades e `docs/TEKNISA_INTEGRACAO_API.md`.
+- Para vendas e comissão, confirmar fonte, cobertura do período e regra.
+  Ausência de dados retorna indisponível e ausência de regra retorna valor
+  pendente. Evitar interpretar campo zero como acordo com a equipe.
+
 ## Front-end
 
 - Manter compatibilidade com hospedagem estática no GitHub Pages.

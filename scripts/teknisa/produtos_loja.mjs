@@ -1,5 +1,7 @@
 // Adaptador da API interna observada no Cadastro de Loja do Teknisa Retail.
 // O chamador fornece o transporte autenticado da sessão atual, sem gravar tokens.
+import { buildStoreProductSaveRow } from './normalizacao.mjs';
+export { buildStoreProductSaveRow } from './normalizacao.mjs';
 export const READ_PATH = '/backend_man/index.php/ger12300_cadloja_produtos';
 export const SAVE_PATH = `${READ_PATH}/save`;
 const DATASET = 'ger12300_cadloja_produtos';
@@ -82,26 +84,6 @@ function verify(before, after, expectedEnabled = new Set()) {
   }
 }
 
-function saveRow(row, operator, date) {
-  if (typeof row.CDARVPROD !== 'string' || typeof row.NMPRODUTO !== 'string') {
-    throw new Error('O vínculo está sem código de árvore ou nome de produto.');
-  }
-  // Normalização e metadados conferidos em uma gravação real pela interface.
-  return {
-    ...row,
-    CDARVPROD: row.CDARVPROD.replaceAll('.', ''),
-    NIVELINICIAL: '',
-    IDIMPCANITEM: 'S',
-    NMPRODINICIAL: row.NMPRODUTO,
-    CDPRODINICIAL: row.CDPRODUTO,
-    changed: true,
-    CDOPERADOR: operator,
-    DTATU: new Intl.DateTimeFormat('pt-BR', {
-      timeZone: 'America/Fortaleza', dateStyle: 'short', timeStyle: 'medium', hour12: false,
-    }).format(date).replace(',', ''),
-  };
-}
-
 /** request(path, body) deve retornar JSON e rejeitar HTTP inválido, sem logar credenciais. */
 export async function enableCancellationPrinting({
   request, target, operator, apply = false, batchSize = 25, now = () => new Date(), onBatch,
@@ -129,7 +111,7 @@ export async function enableCancellationPrinting({
     if (!rows.length) continue;
     const date = now();
     const result = await request(SAVE_PATH, {
-      dataset: rows.map(row => saveRow(row, operator, date)),
+      dataset: rows.map(row => buildStoreProductSaveRow({ ...row, IDIMPCANITEM: 'S' }, operator, date)),
       requestType: 'DataSet', origin: { ...ORIGIN },
     });
     if (!Array.isArray(result) || result.length) {

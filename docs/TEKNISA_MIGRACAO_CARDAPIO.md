@@ -765,6 +765,16 @@ e `teknisa-impressao-validacao-final.json`.
 
 Esses vínculos confirmam o cadastro da rota. O teste de impressão física
 e a conferência das observações no papel ainda dependem dos aparelhos.
+
+**Atualização de 27/10/2026:** os três cadastros Elgin existentes receberam
+nomes próprios, preservando o papel predominante dos códigos: `00001`
+Cozinha, `00003` Balcão e `00004` Bar; `00002` POS foi preservado. Os
+registros anteriores já incluíam os três destinos, embora os nomes fossem
+iguais. A nova conferência corrigiu 42 das 181 rotas: 82 ficaram na
+Cozinha, 67 no Balcão e 32 no Bar, segundo a divisão por preparo definida
+pelo proprietário. Guia e recibos em
+[Integração Teknisa](TEKNISA_INTEGRACAO_API.md). A impressão física continua
+pendente de teste.
 Nenhuma venda real foi criada para testar a migração.
 
 ### Ajustes e conferência fiscal

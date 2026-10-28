@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 livre — 181 vínculos da Praia com impressão de cancelamento marcada e relida; conector local salvo. Teste físico de impressão e pendências anteriores do POS preservados.
+> **🚦 Status atual:** 🟢 livre — ferramenta do Teknisa padronizada; impressão conferida nos 181 vínculos e vendas por garçom integradas. Teste físico, escrita de cadastro/preços e regra comercial de comissão pendentes conforme o guia.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -246,5 +246,36 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
   tela após recarga e testes locais integram a validação da entrega.
 - Sem migration. Teste de impressão no aparelho continua pendente.
   Pendências anteriores do POS preservadas.
+
+— Codex
+
+## 2026-10-27 · Codex — Ferramenta do Teknisa e impressão por preparo
+
+- Pedido analisado e reformulado em `docs/TEKNISA_PEDIDO_REFORMULADO.md`.
+  Entrada `scripts/teknisa/teknisa.mjs`, módulos de recursos, sessão,
+  planos, recibos e cálculos; guia em `scripts/teknisa/README.md`.
+- Raiz e gestão orientam as IAs a usar a ferramenta antes de repetir a
+  navegação. Cópias de AGENTS/README da raiz reconciliadas em workspace.
+- Conexão reconstruída após reinício do runtime; catálogo paginado com
+  185 produtos, tabela com 159 preços e impressoras consultados ao vivo.
+  Gravação de nomes e rotas executada pela ferramenta, com recibos em
+  `tmp/teknisa/`, ignorado. Autenticação permanece somente em memória.
+- Códigos preservados: `00001 COZINHA`, `00003 BALCAO`, `00004 BAR` e
+  `00002 POS`. A leitura anterior já tinha 82/79/20 vínculos nos três
+  códigos; a hipótese de todos em 00001 foi corrigida. Agora são
+  82/67/32, após 42 ajustes e 139 preservados, com cancelamento marcado
+  nos 181 e zero sem rota. Conexões e modelos das impressoras preservados.
+- O proprietário definiu Balcão para bebidas prontas, cervejas e doses;
+  Bar para preparados e sucos; Cozinha para alimentos. Fontes privadas
+  e resultado em `output/teknisa-impressoras-2026-10-27/`, na raiz.
+- 25 testes locais cobrem os lotes, falhas parciais, retomada, escopo,
+  recibos e comissão sem assumir regra. Workflow de qualidade atualizado.
+  Escrita de produtos/preços ainda exige contrato validado. O relatório
+  de produtividade por vendedor foi integrado e consultado de 01/10 a
+  27/10 (23 linhas, três vendedores), sem expor valores ou dados pessoais.
+  A comissão exige a regra comercial; os comandos explicitam esse limite.
+- Sem migration ou pedido de teste. A tela foi conferida após nova
+  consulta; teste físico pendente. Validações e publicação são relatadas
+  na entrega.
 
 — Codex
