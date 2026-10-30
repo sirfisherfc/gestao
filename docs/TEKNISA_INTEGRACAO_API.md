@@ -163,3 +163,14 @@ real mostrou apenas cobertura e formato.
   instruções e registros.
 - `docs/workspace/AGENTS_WORKSPACE.md` e `README_WORKSPACE.md`: espelhos
   dos arquivos `AGENTS.md` e `README.md` da raiz, também atualizados.
+
+## Opções do cardápio e novos contratos (30/10/2026)
+
+O comando `observacoes.vinculos.planejar` passou a incluir e retirar
+opções (acompanhamentos, molhos, sabores) por produto, com prévia,
+recibo, releitura e reversão. Foi usado nos ajustes de 30/10/2026: 27
+inclusões e 31 retiradas em 10 produtos, além de um produto alterado pela
+interface para observar o contrato. Os contratos de operador, vendedor,
+permissões do caixa, botões do layout e ativação de produto foram
+registrados no [guia da ferramenta](../scripts/teknisa/README.md), na
+seção "Contratos observados e ainda sem comando".

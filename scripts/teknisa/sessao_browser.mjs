@@ -1,4 +1,4 @@
-import { ALLOWED_PATHS, ORIGIN } from './recursos.mjs';
+import { ALLOWED_PATHS, WRITE_PATHS, ORIGIN } from './recursos.mjs';
 
 const authNames = ['Accept', 'Content-Type', 'OAuth-Hash', 'OAuth-KeepConnected', 'OAuth-Project', 'OAuth-Token', 'User-Id'];
 const safeError = code => Object.assign(new Error({
@@ -66,7 +66,7 @@ export function connectObservedSession({ cdp, observations, timeoutMs = 20000 })
       if (!ALLOWED_PATHS.includes(path)) throw new Error('Caminho fora dos recursos cadastrados.');
       const headers = credentials.get(path.split('/')[1]);
       if (!headers) throw new Error('Capture uma consulta do módulo do Teknisa que atende essa operação.');
-      const write = path.endsWith('/save');
+      const write = WRITE_PATHS.includes(path);
       if (!body || body.requestType !== (write ? 'DataSet' : 'FilterData')) throw new Error('Tipo de chamada incompatível com o caminho.');
       const started = performance.now();
       metrics.calls++; if (write) metrics.writes++;

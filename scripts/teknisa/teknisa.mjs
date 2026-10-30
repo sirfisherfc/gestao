@@ -5,6 +5,7 @@ import { preparePlan, applyPlan, prepareUndo } from './planos.mjs';
 import { createFileJournal } from './recibos.mjs';
 import { summarizeSellerSales, summarizeReportedSellerSales, calculateReportedCommission } from './vendas.mjs';
 import { buildRoutingUpdates } from './impressao.mjs';
+import { readOccurrences, readMandatoryGroups, readLinks, planLinks, applyLinks } from './observacoes.mjs';
 export { connectObservedSession, beginSessionCapture, finishSessionCapture } from './sessao_browser.mjs';
 
 export const COMMANDS = Object.freeze([
@@ -20,6 +21,9 @@ export const COMMANDS = Object.freeze([
   { name: 'loja.impressoras.planejar', status: 'validado', purpose: 'Preparar a rota de produção por produto.' },
   { name: 'impressao.organizar', status: 'validado', purpose: 'Preparar rotas por fonte do catálogo e regra Balcão/Cozinha/Bar.' },
   { name: 'loja.cancelamento.planejar', status: 'validado', purpose: 'Preparar impressão de cancelamento nos produtos escolhidos.' },
+  { name: 'observacoes.listar', status: 'leitura validada', purpose: 'Listar opções do cardápio (acompanhamentos, molhos, sabores) e grupos obrigatórios.' },
+  { name: 'observacoes.vinculos.listar', status: 'leitura validada', purpose: 'Mostrar as opções ligadas a cada produto.' },
+  { name: 'observacoes.vinculos.planejar', status: 'validado', purpose: 'Preparar inclusão ou retirada de opções por produto.' },
   { name: 'plano.aplicar', status: 'validado', purpose: 'Aplicar o plano salvo com recibo e releitura.' },
   { name: 'plano.reverter', status: 'validado em testes', purpose: 'Preparar uma reversão a partir de recibo concluído.' },
   { name: 'recibo.consultar', status: 'validado', purpose: 'Conferir progresso e falhas sem expor os dados completos.' },
@@ -95,16 +99,31 @@ export function createTeknisa({ request, target, operator, journal = createFileJ
           return { status: missing.length ? 'missing_fields' : 'ready_for_contract_validation', missing,
             next: 'Validar o cadastro pela interface com o primeiro produto real solicitado; incluir preço, impressão e caixa na conferência.' };
         }
+        case 'observacoes.listar': return { occurrences: await readOccurrences(request, target, args.group),
+          mandatoryGroups: await readMandatoryGroups(request, target, args.group) };
+        case 'observacoes.vinculos.listar': {
+          const links = await readLinks(request, target, args.group);
+          return args.search ? links.filter(item => item.name.toLowerCase().includes(String(args.search).toLowerCase())) : links;
+        }
+        case 'observacoes.vinculos.planejar': return planLinks({ request, target, changes: args.changes, journal, group: args.group });
         case 'plano.aplicar': {
           const receipt = await journal.load(args.planId);
-          if (['organization', 'branch', 'store'].some(field => target[field] !== undefined && receipt.plan.target[field] !== target[field])) throw new Error('O plano pertence a outro destino.');
+          if (['organization', 'branch', 'store'].some(field => target[field] !== undefined && receipt.plan.target[field] !== undefined && receipt.plan.target[field] !== target[field])) throw new Error('O plano pertence a outro destino.');
+          if (receipt.plan.kind === 'observacoes.vinculos') return applyLinks({ request, planId: args.planId, journal });
           return applyPlan({ request, planId: args.planId, journal, operator, batchSize: args.batchSize ?? 25 });
         }
-        case 'plano.reverter': return prepareUndo({ request, planId: args.planId, journal });
+        case 'plano.reverter': {
+          const receipt = await journal.load(args.planId);
+          if (receipt.plan.kind !== 'observacoes.vinculos') return prepareUndo({ request, planId: args.planId, journal });
+          if (receipt.status !== 'completed') throw new Error('A reversão exige um recibo concluído. Para falhas parciais, consulte o estado e retome o plano.');
+          return planLinks({ request, target: receipt.plan.target, group: receipt.plan.group, journal,
+            changes: receipt.plan.items.map(item => ({ productId: item.productId, add: item.remove, remove: item.add })) });
+        }
         case 'recibo.consultar': {
           const receipt = await journal.load(args.planId);
           return { planId: receipt.id, status: receipt.status, result: receipt.result, errorCode: receipt.errorCode,
-            batches: receipt.batches.map(batch => ({ index: batch.index, status: batch.status, requested: batch.keys.length, verified: batch.verified ?? 0 })) };
+            batches: receipt.batches.map(batch => ({ index: batch.index, status: batch.status, requested: batch.keys?.length ?? 1,
+              verified: batch.verified ?? (batch.status === 'verified' ? 1 : 0) })) };
         }
         case 'vendas.garcons.resumir': return summarizeSellerSales(args);
         case 'vendas.garcons.consultar':

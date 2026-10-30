@@ -978,3 +978,22 @@ executados foram conferidos. A operação ainda depende dos três CESTs
 pendentes e dos testes de carga, pedido, preços, impressão e XML nos
 aparelhos. O registro de fechamento está em
 `teknisa-fechamento-2026-10-27.json`, junto dos recibos locais.
+
+## Ajustes de cardápio de 30/10/2026
+
+Pedidos do proprietário, aplicados no grupo de observações `01` e nos
+layouts, com releitura de cada produto. Detalhes no recibo privado
+`output/teknisa-ajustes-2026-10-30/recibo.json`.
+
+| Pedido | O que foi feito |
+| --- | --- |
+| Arroz do prato para dois cobrava R$ 12 | Os seis pratos Para Dois não tinham opção de arroz e a equipe lançava o Adicional Arroz. Receberam Arroz Branco e Arroz de Brócolis como opções gratuitas. O Adicional Arroz (R$ 12) continua para o arroz extra. |
+| Molho dos aperitivos cobrava R$ 3 | Patinha de Caranguejo, Caldo de Peixe, Camarão Alho e Óleo e Bolinha de Peixe só tinham os molhos extras pagos (`55–62`). Receberam os oito molhos gratuitos (`05–12`) e perderam os pagos. O molho por fora continua nos botões de molho em OUTROS. Adicional Salada e Adicional Ovo mantêm os pagos. |
+| Batata ou macaxeira nos aperitivos | NewCastle, London, Calabresa com Fritas, Filé Mignon Trinchado e o combo de quarta já tinham as duas opções e o grupo obrigatório. A Patinha recebeu as duas. |
+| Suco de limão | Limão já estava ligado ao Suco Copo e no grupo obrigatório Sabor da Fruta. Nada foi alterado. |
+| Retirar o salmão | Botão Salmon and Chips removido dos layouts CAIXA e POS; Salmon and Chips e Salmon Sandwich inativados no cadastro. Os cardápios do site e do Google não tinham salmão. |
+| Letra maior na conta e na cozinha | Nenhum campo de fonte foi encontrado em loja, impressoras, modelo de impressora, parâmetros gerais e da filial ou periféricos do caixa. Pendente com o suporte Teknisa ou na ponte de impressão do PC. |
+
+Falta conferir no POS se a escolha de batata/macaxeira e o sabor limão
+aparecem ao lançar o item. Os cadastros estão corretos; se o aparelho não
+pedir a escolha, o próximo passo é a carga do POS ou o suporte Teknisa.

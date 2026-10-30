@@ -1,4 +1,5 @@
 import { createHash } from 'node:crypto';
+import { OBSERVATION_PATHS, OBSERVATION_WRITE_PATHS } from './observacoes.mjs';
 export const ORIGIN = 'https://retail.teknisa.com';
 const base = '/backend_man/index.php/';
 const origin = (containerName, widgetName, containerLabel, widgetLabel) => ({ containerName, widgetName, containerLabel, widgetLabel });
@@ -138,4 +139,6 @@ export async function readResource(request, name, target) {
   }
   throw new Error('A consulta ultrapassou o limite de páginas.');
 }
-export const ALLOWED_PATHS = Object.freeze(Object.values(RESOURCES).flatMap(spec => spec.writeValidated ? [spec.path, `${spec.path}/save`] : [spec.path]));
+export const WRITE_PATHS = Object.freeze([...Object.values(RESOURCES).filter(spec => spec.writeValidated).map(spec => `${spec.path}/save`), ...OBSERVATION_WRITE_PATHS]);
+export const ALLOWED_PATHS = Object.freeze([...Object.values(RESOURCES).map(spec => spec.path), ...Object.values(OBSERVATION_PATHS), ...WRITE_PATHS]
+  .filter((path, index, all) => all.indexOf(path) === index));

@@ -190,3 +190,33 @@ dados pessoais nos textos versionados e a integridade do diff.
 
 As pendências fiscais e os testes do cardápio constam em
 [Migração do cardápio](TEKNISA_MIGRACAO_CARDAPIO.md).
+
+## Ajustes de 30/10/2026
+
+O proprietário pediu os ajustes abaixo; todos foram relidos depois da
+gravação. Recibo privado: `output/teknisa-ajustes-2026-10-30/recibo.json`.
+
+- **Senha por e-mail de dois operadores (uma gerente e um garçom).** O
+  Teknisa só envia a senha provisória quando o e-mail do operador muda;
+  regravar o mesmo endereço não dispara o envio. Como os dois usam Gmail,
+  que ignora pontos no endereço, foi gravada a variante com ou sem ponto,
+  que chega à mesma caixa. As duas chamadas de validação retornaram OK.
+  Nenhuma senha foi lida ou digitada pelo agente.
+- **Login do caixa geral.** Reaproveitado o operador de um ex-garçom:
+  nome "Caixa Geral" e acesso genérico, no grupo `04 — GARCOM`, que abre e
+  fecha caixa e recebe, com cancelamentos dependentes de gerente. O grupo
+  `03 — OPERADOR DE CAIXA` foi descartado porque libera cancelamentos,
+  descontos e sangria sem gerente. A senha do PDV fica com o proprietário
+  (Operador → Ações → Alterar Senha PDV).
+- **Desvincular o garçom de logins reaproveitados.** Na ficha do operador o
+  vendedor fica bloqueado. O vínculo sai pelo Cadastro de Vendedor,
+  limpando o campo Operador. Feito nos vendedores de dois ex-funcionários,
+  ligados aos logins genéricos Extra e Caixa Geral. Os cadastros e o
+  histórico de vendas foram preservados; o nome do vendedor continua o da
+  pessoa, para a apuração por período.
+- **Liberar mesa sem gerente.** Em Controle de Acesso ao Caixa, grupo
+  `04 — GARCOM`, a permissão Liberar Mesa passou de "código e senha do
+  supervisor" para "Permite Acesso". As demais 46 permissões ficaram iguais.
+
+Falta testar no POS: reabrir uma mesa com parcial pedida e lançar um
+item com login de garçom; entrar com o login do caixa geral e abrir o caixa.

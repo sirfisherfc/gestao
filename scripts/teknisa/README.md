@@ -36,6 +36,7 @@ não foi validada.
 | Novo produto | Preparação dos dados; criação e vínculos ainda precisam de contrato validado |
 | Vendas por garçom | Consulta real por período de movimento do caixa, com valores oficiais separados |
 | Comissão | Calcula sobre a base e o percentual informados; regra ausente permanece pendente |
+| Opções por produto (observações) | Leitura, inclusão e retirada validadas em 30/10/2026 com releitura |
 
 ## Conectar uma sessão
 
@@ -103,6 +104,41 @@ A regra aprovada é: Balcão para bebidas prontas, cervejas e destilados;
 Bar para coquetéis e sucos preparados; Cozinha para alimentos. Café, soda
 italiana e sumo de limão acompanham o preparo no Bar. Produtos novos devem
 receber destino conferido. O estado ativo/inativo permanece preservado.
+
+## Opções do cardápio (observações)
+
+Acompanhamentos, molhos e sabores ficam em **Cadastro de Observação**,
+grupo `01 — PRODUTOS`. Observação do tipo `O` é gratuita; do tipo `A`
+cobra o produto ligado a ela (por exemplo, `55–62` são os molhos extras
+de R$ 3). O módulo `observacoes.mjs` lê e altera os vínculos por produto:
+
+```js
+await tool.run('observacoes.listar');              // opções e grupos obrigatórios
+await tool.run('observacoes.vinculos.listar', { search: 'patinha' });
+const preview = await tool.run('observacoes.vinculos.planejar', { changes: [
+  { productId: '8000010100', add: ['05', '06'], remove: ['55', '56'] },
+] });
+await tool.run('plano.aplicar', { planId: preview.planId });
+await tool.run('plano.reverter', { planId: preview.planId }); // nova prévia
+```
+
+`productId` é o `CDPRODUTO` da grade Observação por produto. A aplicação
+confere o estado de cada produto, grava, relê e para na primeira
+divergência. O produto precisa já constar em Observação por produto.
+
+## Contratos observados e ainda sem comando
+
+Capturados em 30/10/2026 numa operação real. Use-os como referência para
+o próximo comando; cada um exige releitura depois da gravação.
+
+| Operação | Caminho | Observação |
+| --- | --- | --- |
+| Operador: ler/gravar | `backend_acl/index.php/operator` e `/operator/save` | `requestType: DataSet`; a linha completa vai com `changed: true`. |
+| Enviar senha provisória por e-mail | `backend_acl/index.php/validateOperatorEmail` | Só ocorre quando o e-mail muda; filtros `EMAIL`, `CDOPERADOR`, `LANGUAGE`, `STYLE`. |
+| Vendedor: desvincular operador | `backend_man/index.php/vnd06400_cadvendedor/save` | Enviar origem com rótulos, `canSaveAddress`/`hasAddress` falsos e `IDTPENDEVEN`. Sem isso o servidor responde 500 **depois** de gravar. |
+| Permissões do caixa por grupo | `getPermissoes` (`requestType: Row`) e `vnd61000_controleAcesso/save` | A gravação inclui um campo posicional derivado das permissões; manter pela interface. |
+| Botão do layout CAIXA/POS | `vnd80600_configterminalcaixa_layoutProduto` e `/remove` | Ler com o filtro do grupo (`NRBUTTONAUX`, `IDTPBUTONAUX = 2`) e remover a linha lida. |
+| Produto: ativo/inativo | `backend_cadEst/index.php/saveProduct` (`requestType: Row`) | Linha com cerca de 250 campos; `IDPRODATIVPR = N` inativa. |
 
 ## Recibos e falhas
 
@@ -193,7 +229,7 @@ dos cancelamentos; o relatório usa as definições oficiais do sistema.
 Execute os testes com:
 
 ```text
-node --test scripts/teknisa/test_produtos_loja.mjs scripts/teknisa/test_ferramenta.mjs
+node --test scripts/teknisa/test_produtos_loja.mjs scripts/teknisa/test_ferramenta.mjs scripts/teknisa/test_observacoes.mjs
 ```
 
 Esta ferramenta usa a API interna observada do painel. O acesso oficial
