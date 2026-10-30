@@ -232,3 +232,28 @@ item com login de garçom; entrar com o login do caixa geral e abrir o caixa.
 - **Novo operador com acesso total:** cadastrado pelo proprietário (que
   definiu a senha), vinculado à Praia, ao grupo `01 — SÓCIO` e ao perfil
   "Administrador de sistema", sem validade, igual ao login do proprietário.
+
+### Painel web por perfil (30/10, noite)
+
+- **Estado encontrado:** o Controle de Acesso do painel está **desativado**
+  (título "Perfil de Acesso (Controle de Acesso Desativado)"). Só dois
+  operadores têm perfil ("Administrador de sistema": proprietário e o
+  operador novo). Com o controle desativado, perfil não restringe nada, e
+  a tela "Perfil de Acesso - Menu" fica somente leitura (`isEditable=false`).
+- **Feito:** criado o perfil "Gerente - Reposicao" (ID 12, não
+  administrador) e vinculados os três operadores do grupo
+  `02 — ADM - SUPERVISOR`, sem validade.
+- **Relatório indicado para reposição:** Vendas » Relatórios » Relatórios de
+  Produtos » "Produtos Vendidos (Venda Normal + Promoções)". Mostra código,
+  grupo, produto, quantidade, normal/promocional, notas e preço médio
+  unitário, sem total de faturamento. Filtro de loja: a cozinha e o bar
+  ficam em lojas diferentes.
+- **Pendente (decisão do proprietário):** ativar o controle de acesso. Ao
+  ativar, operadores sem perfil perdem o painel, inclusive o sócio do
+  grupo 01 e o operador SUPORTE do fornecedor. Depois, no perfil 12,
+  ocultar 45 itens irmãos do caminho até o relatório (lista calculada a
+  partir de `elementsListWidget`).
+- **Contratos:** `backend_acl/opergrupop` (grupo do operador),
+  `partnerAccessProfile` (perfis por parceiro), `acl_zhu_acl_element_rules/save`
+  com `{UNIQUE_ID, TYPE, RULE: "A"|"I", RULE_ID, GROUP_ID, ...}`. Clicar no
+  olho sem item selecionado envia a regra sem elemento e não grava nada útil.
