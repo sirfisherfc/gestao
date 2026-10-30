@@ -139,6 +139,12 @@ o próximo comando; cada um exige releitura depois da gravação.
 | Permissões do caixa por grupo | `getPermissoes` (`requestType: Row`) e `vnd61000_controleAcesso/save` | A gravação inclui um campo posicional derivado das permissões; manter pela interface. |
 | Botão do layout CAIXA/POS | `vnd80600_configterminalcaixa_layoutProduto` e `/remove` | Ler com o filtro do grupo (`NRBUTTONAUX`, `IDTPBUTONAUX = 2`) e remover a linha lida. |
 | Produto: ativo/inativo | `backend_cadEst/index.php/saveProduct` (`requestType: Row`) | Linha com cerca de 250 campos; `IDPRODATIVPR = N` inativa. |
+| Composição (grupos promocionais do produto) | `backend_cadEst/index.php/grupromocprod_grupopromoc`, filtro `CDPRODPROMOCAO`; retirada em `/remove` com `requestType: Row` e a linha lida | É o que monta as telas de escolha do POS nos 20 produtos de Promoção Combinada. Um `/remove` com `DataSet` respondeu 500 sem gravar. |
+| Produtos de um grupo promocional | `backend_man/index.php/vnd41000_grupoPromo_prod`, `/save` (`DataSet`, linha nova) e `/remove` (`DataSet`) | Grupos 06 a 11: sabores, acompanhamentos, adicionais e molhos. |
+| Nó da árvore de produto | `backend_cadEst/index.php/produto_para_arvore/save` (`Row`, `__is_new`) | Criar o nó nível 4 antes do produto, a partir do nó pai. |
+| Imposto por unidade | `backend_cadEst/index.php/ger01900_cadastroproduto_venda_imposto` e `/save` | Perfil Comida: ICMS 00, CFOP 5102, CSOSN 102, PIS/COFINS 99 sem incidência. |
+| Preço na tabela | `backend_man/index.php/vnd42400_tabelapreco_produto/save` | Resposta `isPlural.result = 1`; reler a tabela 001. |
+| Novo vínculo em Produtos por Loja | `backend_man/index.php/ger12300_cadloja_produtos/save` | Impressora e cancelamento definidos na inclusão. |
 
 ## Recibos e falhas
 

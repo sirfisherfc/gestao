@@ -997,3 +997,23 @@ layouts, com releitura de cada produto. Detalhes no recibo privado
 Falta conferir no POS se a escolha de batata/macaxeira e o sabor limão
 aparecem ao lançar o item. Os cadastros estão corretos; se o aparelho não
 pedir a escolha, o próximo passo é a carga do POS ou o suporte Teknisa.
+
+### Correção da tarde de 30/10/2026: grupos promocionais
+
+As fotos do POS mostraram que o arroz continuava cobrando R$ 12 e que o
+sabor limão não aparecia. A causa está em outro cadastro: os 20 produtos
+de **Promoção Combinada** (Composição do Produto) abrem telas de escolha
+montadas pelos **Grupos Promocionais**, e não só pelas observações.
+
+| Ponto | Correção relida |
+| --- | --- |
+| Prato para dois | A composição dos seis pratos exigia o grupo `08 — ADICIONAIS` (mínimo 1), com Adicional Arroz R$ 12 e Adicional Salada R$ 19. O grupo foi retirado das seis composições; ficaram `07 — ESCOLHA O ACOMPANHAMENTO` (1) e `11 — ESCOLHA SEU MOLHO` (0 a 6). O Adicional Arroz também saiu do grupo 08. |
+| Sabor do suco | O grupo `10 — ESCOLHA O SABOR` usa produtos de sabor de R$ 0,01 e não tinha limão. Foram criados o nó `8.11.00.007` e o produto `8.11.00.007.00 LIMAO` (UN, NCM 21069090, imposto por unidade no perfil Comida, preço R$ 0,01 na tabela 001, impressora BAR com cancelamento) e o produto entrou no grupo 10. |
+
+O grupo 10 também é usado pela Caipifruta (escolha obrigatória) e pelos
+Pasteizinhos (opcional); o limão passa a aparecer nesses dois. No grupo 07
+a Batata Frita custa R$ 9,90 e a Macaxeira R$ 0,01; falta confirmar no POS
+se a escolha da batata soma ao prato.
+
+Recebimento em dinheiro: o layout CAIXA (PC) tem À VISTA, débito, crédito
+e voucher; o layout POS tem só TEF. O dinheiro é recebido no PC.
