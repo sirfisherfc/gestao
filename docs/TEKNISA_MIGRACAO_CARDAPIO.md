@@ -1077,8 +1077,9 @@ Os grupos `02 — CANCELAMENTO` e `03 — DESCONTO` do Cadastro de Observação
 estavam vazios, e o PDV pedia o motivo digitado. Foram cadastrados e
 relidos:
 
-- Desconto: `01 CUPOM 2X1`, `02 CONSUMO SOCIO`, `03 VOUCHER / CORTESIA`,
-  `04 PERDA`, `05 OUTROS`.
+- Desconto: `01 CUPOM 2X1`, `02 CONSUMO SOCIO`, `03 MARKETING /
+  INFLUENCIADOR`, `04 DEVOLUCAO CLIENTE`, `05 PERDA`, `06 OUTROS`
+  (ajuste da mesma noite; edição com `__is_new: false` no mesmo `/save`).
 - Cancelamento: `01 LANCADO ERRADO`, `02 CLIENTE DESISTIU`,
   `03 DEMORA NO PREPARO`, `04 OUTROS`.
 
@@ -1086,5 +1087,5 @@ Gravação em `backend_man/index.php/vnd57000_cadastrodeobs_ocorrencias/save`,
 uma linha por chamada, tipo `O`. Falta conferir no PDV, depois da carga,
 se a lista aparece no desconto e no cancelamento, e se o desconto de 100%
 gera NFC-e aceita pela Sefaz com valor zero. Decisão do proprietário:
-consumo de sócio, voucher subsidiado e perda saem com desconto de 100%,
+consumo de sócio, marketing, devolução e perda saem com desconto,
 para baixar o estoque. Não foi criada forma de pagamento sem NFC-e.
