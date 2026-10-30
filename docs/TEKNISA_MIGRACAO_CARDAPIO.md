@@ -1017,3 +1017,27 @@ se a escolha da batata soma ao prato.
 
 Recebimento em dinheiro: o layout CAIXA (PC) tem À VISTA, débito, crédito
 e voucher; o layout POS tem só TEF. O dinheiro é recebido no PC.
+
+### Correção da noite de 30/10/2026: sabor do pastel na cozinha
+
+O pedido da Mesa 3 saiu na cozinha só com "Pasteizinhos", sem o sabor.
+O sabor é escolhido no grupo promocional `06 — ESCOLHA O SABOR` (Queijo,
+Carne e Camarão, mínimo e máximo 1), e cada sabor é um produto próprio.
+Os três produtos (`0000000085`, `0000000087`, `0000000089`) não estavam em
+**Produtos por Loja** da Praia; sem vínculo, não tinham impressora e o
+sabor não era impresso. Foram incluídos com impressora `00001 — COZINHA`
+e impressão de cancelamento; a loja passou de 182 para 185 vínculos.
+
+Conferência de todos os itens com escolha, na mesma noite:
+
+| Origem da escolha | Situação |
+| --- | --- |
+| Grupos promocionais 03 a 11 (20 produtos de Promoção Combinada) | Todos os produtos dos grupos estão na loja: caipirinhas, caipiroskas, caipifrutas e sabores de suco no BAR (cachaça nacional no BALCÃO); acompanhamentos, adicionais e molhos na COZINHA. Só os sabores do pastel faltavam. |
+| Observações com produto (tipo `A`, códigos 53 a 62) | Os dez produtos vinculados estão na COZINHA. |
+| Observações gratuitas (52) | Não têm produto próprio; saem como texto do item. |
+
+Pendências: os Pasteizinhos também têm o grupo `10 — ESCOLHA O SABOR`
+(sabores de suco, 0 a 6), que não faz sentido no pastel e aguarda decisão
+do proprietário. Original Fish n' Chips e Sir Fisher Fish n' Chips
+(`0000000091`, `0000000093`) também não estão na loja; se forem vendidos,
+não imprimem. Falta conferir um pedido real de pastel no papel.

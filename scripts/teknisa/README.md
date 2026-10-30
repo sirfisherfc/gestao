@@ -144,7 +144,7 @@ o próximo comando; cada um exige releitura depois da gravação.
 | Nó da árvore de produto | `backend_cadEst/index.php/produto_para_arvore/save` (`Row`, `__is_new`) | Criar o nó nível 4 antes do produto, a partir do nó pai. |
 | Imposto por unidade | `backend_cadEst/index.php/ger01900_cadastroproduto_venda_imposto` e `/save` | Perfil Comida: ICMS 00, CFOP 5102, CSOSN 102, PIS/COFINS 99 sem incidência. |
 | Preço na tabela | `backend_man/index.php/vnd42400_tabelapreco_produto/save` | Resposta `isPlural.result = 1`; reler a tabela 001. |
-| Novo vínculo em Produtos por Loja | `backend_man/index.php/ger12300_cadloja_produtos/save` | Impressora e cancelamento definidos na inclusão. |
+| Novo vínculo em Produtos por Loja | `backend_man/index.php/ger12300_cadloja_produtos/save` (`DataSet`, uma linha `__is_new` com `PRODUTOS`, `CDPRODUTO_SM`, `CDARVPROD_SM` e `NMPRODUTO_SM` em listas, `NRSEQIMPRPROD`, `IDIMPCANITEM`, `CDFILIAL`, `CDLOJA`, `NRORG`) | Impressora e cancelamento definidos na inclusão. Linha por produto, sem `PRODUTOS`, responde 200 com erro PHP e não grava. |
 
 ## Recibos e falhas
 
