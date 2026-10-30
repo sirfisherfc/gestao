@@ -248,11 +248,22 @@ item com login de garçom; entrar com o login do caixa geral e abrir o caixa.
   grupo, produto, quantidade, normal/promocional, notas e preço médio
   unitário, sem total de faturamento. Filtro de loja: a cozinha e o bar
   ficam em lojas diferentes.
-- **Pendente (decisão do proprietário):** ativar o controle de acesso. Ao
-  ativar, operadores sem perfil perdem o painel, inclusive o sócio do
-  grupo 01 e o operador SUPORTE do fornecedor. Depois, no perfil 12,
-  ocultar 45 itens irmãos do caminho até o relatório (lista calculada a
-  partir de `elementsListWidget`).
+- **Concluído (30/10, noite), com autorização do proprietário:**
+  1. O operador do sócio do grupo 01 entrou no perfil "Administrador de
+     sistema" (sem validade). O operador SUPORTE do fornecedor ficou de fora.
+  2. O perfil "Administrador de sistema" recebeu a marca **Administrador**
+     (antes desmarcada; sem ela o Teknisa recusa ativar o controle).
+  3. **Controle de Acesso ativado** e "Habilitar Parametrização do Controle
+     de Acesso por Perfil" ligada (sem ela a árvore fica só leitura).
+  4. No perfil 12, regras gravadas: "Produtos Vendidos (Venda Normal +
+     Promoções)" = visível (`A`) e "Painel de Controle" = oculto (`I`).
+- **Como funciona:** só itens finais (telas) recebem regra; pastas aparecem
+  quando algum item de dentro está visível. Sem regra, o item fica oculto
+  para perfil não administrador (olho cinza = oculto, azul = visível).
+  Operador sem perfil, como garçons e caixa, não tem tela no painel. PDV e
+  caixa usam outra permissão (Controle de Acesso ao Caixa) e não mudam.
+- **Pendente:** teste real com login de um gerente. Para desfazer: Perfil de
+  Acesso → Ações → Desativar Controle de Acesso.
 - **Contratos:** `backend_acl/opergrupop` (grupo do operador),
   `partnerAccessProfile` (perfis por parceiro), `acl_zhu_acl_element_rules/save`
   com `{UNIQUE_ID, TYPE, RULE: "A"|"I", RULE_ID, GROUP_ID, ...}`. Clicar no
