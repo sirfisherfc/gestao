@@ -343,3 +343,82 @@ testes Deno, e 4 do pôr do sol. CSP e console sem erro em 7 páginas.
 Acessibilidade sem problema em celular e desktop, nos temas claro e escuro.
 Os três verificadores do CI passaram, e o Pages concluiu a publicação.
 
+
+## Correções a partir da leitura final de 30/10/2026
+
+Fonte: leitura dos painéis em 30/10, último acesso antes do fim da
+assinatura (31/10). Dados privados em
+`output/semrush-ultimo-acesso-2026-10-30/`, na raiz do workspace.
+
+| Problema lido em 30/10 | Correção aplicada |
+| --- | --- |
+| Instagram (25%) e TripAdvisor (17,7%) com mais visibilidade que o site (12,2%) nos 40 termos do Google local; ficha TripAdvisor com 11 avaliações, nota 3,9 e categoria "bares e pubs" | Home ganhou o link "Avalie no TripAdvisor" (`data-position="tripadvisor"`), ao lado do link do Google. A troca de categoria depende do login do proprietário (passos abaixo). |
+| Home e guia da Beira-Mar disputando "restaurantes na beira mar fortaleza": a home estava em 10–11, e o guia assumiu a busca em 29–31 | Guia retitulado como "Guia da Beira-Mar de Fortaleza: o que fazer, horários e onde comer" (title, H1, og, headline e descrição), com link para a home como "restaurante na Beira-Mar de Fortaleza". |
+| "almoço executivo em fortaleza" caiu de 15 para 42; o ChatGPT respondeu "almoço de segunda a sexta com preço" usando O POVO, Sabores da Cidade e Kyte | Título "Almoço Executivo em Fortaleza, na Beira-Mar"; pergunta visível e no FAQPage com o preço de cada um dos sete pratos (R$ 31 a R$ 52); `llms.txt` com a faixa de preço. Pautas de imprensa abaixo. |
+| Maps fraco nos termos amplos (jantar, restaurante, almoço executivo, camarão, grupos: fora do top 20 em ~86% dos 14 pontos) | Perfil da Empresa: categorias secundárias Restaurante de peixe, Restaurante de almoço, Restaurante familiar e Bar (total 9) e nova descrição com camarão, executivo a partir de R$ 31, horário de jantar, faixas de grupo e vales-refeição. Publicado e relido em 30/10; backup em `tmp/gbp/retratos/20261030-174753/`. |
+| ChatGPT sem citar a casa para aniversário, romântico, vista, confraternização, evento corporativo, almoço de negócios, peixe e camarão | Home ganhou seção visível "Perguntas frequentes" com essas dez perguntas, espelhadas no FAQPage. Respostas só com fatos já publicados; sem afirmar "peixe fresco" nem condições para aniversário além das faixas de grupo. |
+
+Site: commit [`883a485`](https://github.com/sirfisherfc/site/commit/883a485).
+Testes Deno 120/120; acessibilidade das 3 páginas em celular/desktop e temas
+claro/escuro sem problemas; CSP/console sem erro nas páginas alteradas
+(`/conheca/` acusou um recurso externo recusado no teste local, sem relação
+com esta mudança). As quatro URLs foram conferidas no domínio, e o sitemap
+foi reenviado ao Search Console sem erros.
+
+O efeito só pode ser medido nas próximas coletas do GSC, do Perfil da Empresa
+e das menções em IA. Sem o Semrush, o Maps pode ser conferido manualmente nas
+buscas da tabela acima, a partir do mesmo ponto.
+
+### TripAdvisor: passos do proprietário
+
+1. Entrar na conta de proprietário em `tripadvisor.com.br/Owners` e abrir a
+   ficha `d23922740`.
+2. Na edição dos detalhes da listagem (o nome do menu muda com a versão do
+   painel), trocar o tipo para
+   restaurante, com culinárias "Frutos do mar", "Peixe", "Brasileira" e
+   "Britânica", refeições almoço e jantar e faixa de preço média.
+3. Conferir o endereço sem "Barra Sol" e o site `https://www.sirfisher.com.br/`.
+4. Pedir avaliações pelo link da home e pelo QR das mesas, se houver. O
+   TripAdvisor proíbe oferecer vantagem em troca de avaliação.
+
+### Pautas para imprensa e guias locais
+
+Prioridade pelas fontes que o ChatGPT citou em 30/10: ifortaleza.com (15
+perguntas), O POVO (12), IndicoMais Fortaleza (11), Sabores da Cidade
+(respostas de almoço com preço) e Restaurant Guru (5). Nenhum contato foi
+feito; os textos abaixo são para o proprietário enviar.
+
+**Pauta 1 – almoço executivo com preço (O POVO, Sabores da Cidade, IndicoMais)**
+
+> Assunto: Almoço executivo na Beira-Mar com sete pratos de R$ 31 a R$ 52
+>
+> O Sir Fisher, na Av. Beira Mar, 3421, em frente ao Jardim Japonês, serve
+> almoço executivo de segunda a sexta, das 10h às 14h, exceto feriados.
+> São sete pratos individuais com 150 g de proteína e acompanhamentos:
+> peito de frango (R$ 31), picanha suína (R$ 34), filé de peixe empanado
+> (R$ 38), filé de peixe grelhado (R$ 41), carne de sol (R$ 46), filé
+> mignon (R$ 47) e picanha importada (R$ 52). Às terças, das 11h às 14h,
+> na compra de um prato o segundo igual sai por conta da casa. A casa
+> aceita os principais vales-refeição e reserva a partir de uma pessoa.
+> Cardápio e fotos: https://www.sirfisher.com.br/almoco-executivo/
+
+**Pauta 2 – restaurantes com vista para o mar (IndicoMais, ifortaleza)**
+
+> O Sir Fisher fica de frente para o mar, na orla do Meireles, com mesas
+> voltadas para a Beira-Mar. Abre todos os dias às 9h e vai até 22h15 de
+> domingo a quinta e até 23h às sextas e sábados. O cardápio tem fish and
+> chips de pescada amarela, camarão alho e óleo, NewCastle (camarões no
+> panko), isca de peixe e pratos para compartilhar. Pets de pequeno e
+> médio porte nas mesas externas. Site: https://www.sirfisher.com.br/
+
+**Pauta 3 – confraternização de fim de ano (O POVO, Diário do Nordeste)**
+
+> Para confraternizações de 30 a 100 pessoas sentadas, o Sir Fisher tem
+> um configurador on-line: a empresa escolhe data, duração (3 a 6 horas),
+> petiscos, almoço ou jantar e bebidas, vê o valor estimado e pede a
+> proposta. Grupos de 11 a 29 pessoas são atendidos pelo WhatsApp
+> (85) 98854-4274. https://www.sirfisher.com.br/eventos/
+
+Nos diretórios (ifortaleza, Restaurant Guru, visiter-fortaleza), conferir se
+a casa está listada com nome, endereço, telefone (85) 98854-4274, horário e
+site iguais aos da ficha do Google; corrigir pelo formulário de cada um.
