@@ -1041,3 +1041,32 @@ Pendências: os Pasteizinhos também têm o grupo `10 — ESCOLHA O SABOR`
 do proprietário. Original Fish n' Chips e Sir Fisher Fish n' Chips
 (`0000000091`, `0000000093`) também não estão na loja; se forem vendidos,
 não imprimem. Falta conferir um pedido real de pastel no papel.
+
+Ajuste posterior na mesma noite: o grupo `10 — ESCOLHA O SABOR` (sucos)
+saiu da composição dos Pasteizinhos por decisão do proprietário; ficou só
+o grupo 06 (um sabor obrigatório).
+
+### Fechamento no PC de conta com adiantamento feito no POS (30/10/2026)
+
+A Mesa 2 recebeu um pagamento adiantado de R$ 101,47 no POS do garçom
+(`004 MASTER DEBITO TEF`). No PC, ao lançar desconto de R$ 60 e dinheiro
+de R$ 100, o PDV recusou o fechamento com "Não é possível inserir o valor
+NULL na coluna CDTIPORECE, tabela MOVCAIXA". Transferir itens, dar desconto
+e cancelar o adiantamento também falharam nessa mesa.
+
+Causa provável: as configurações de terminal usam tipos de recebimento
+diferentes. `00001 — PADRÃO CAIXA` (PC) tinha só `001`, `043` e `030` a
+`042`; `00002 — PADRÃO POS` usa os tipos TEF `002` a `018`. O PC não
+encontrava o tipo do adiantamento no seu layout.
+
+Correção: os 17 tipos do POS foram incluídos nos grupos do CAIXA e relidos
+(`018 PIX TEF` em À VISTA; `004`, `002`, `006`, `013`, `016` em Cartão
+Débito; `003`, `005`, `007`, `008`, `012`, `014`, `015` em Cartão
+Crédito; `009`, `010`, `011`, `017` em Voucher). Gravação em
+`backend_man/index.php/vnd80600_configterminalcaixa_layoutRec/save`, uma
+linha por chamada (`DataSet` com mais de uma linha é recusado);
+`CDGRUPO` acompanha a posição (`100 + posição`).
+
+O PC precisa receber a configuração nova (reabrir o PDV ou fazer a carga)
+antes de tentar fechar a Mesa 2 de novo. Se o erro continuar, o próximo
+passo é o suporte Teknisa, com a mesa 2 e o horário 18:06 de 30/10.
