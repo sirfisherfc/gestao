@@ -220,3 +220,15 @@ gravação. Recibo privado: `output/teknisa-ajustes-2026-10-30/recibo.json`.
 
 Falta testar no POS: reabrir uma mesa com parcial pedida e lançar um
 item com login de garçom; entrar com o login do caixa geral e abrir o caixa.
+
+### Complemento de 30/10/2026 (tarde)
+
+- **Fonte da cozinha:** por orientação do suporte Teknisa, o parâmetro
+  "Utiliza fonte expandida no cupom de produção" (Cadastro de Caixa →
+  Parâmetros → Frente Caixa (4), campo `IDUTILFONTEXP`) foi ativado nos
+  POS 001, 002 e 003; o CAIXA 001 já estava ativo e o TAA 001 ficou como
+  estava. Vale só para cupom de produção em Bematech/Elgin/Epson e exige
+  reabrir o app. Contrato: `vnd42300_cadcaixa_frentedecaixa4` e `/save`.
+- **Novo operador com acesso total:** cadastrado pelo proprietário (que
+  definiu a senha), vinculado à Praia, ao grupo `01 — SÓCIO` e ao perfil
+  "Administrador de sistema", sem validade, igual ao login do proprietário.
