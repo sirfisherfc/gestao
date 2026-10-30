@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 livre — ferramenta do Teknisa padronizada; impressão conferida nos 181 vínculos e vendas por garçom integradas. Teste físico, escrita de cadastro/preços e regra comercial de comissão pendentes conforme o guia.
+> **🚦 Status atual:** 🟢 livre — importação Stone destravada (UnionPay e horário da venda); testes físicos do Teknisa seguem pendentes conforme o guia.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -337,3 +337,21 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
   Nenhuma alteração operacional, venda, pagamento ou migration executada.
 
 — Codex
+
+## 2026-10-30 · Claude — Importação Stone travada em 23 e 25/10
+
+- Sintoma: "Importação diária por API / stone" falhando desde 29/10 com
+  código 3, pois 23/10 (vendas e recebíveis) e 25/10 (vendas) passaram
+  do prazo D+1. XML e Pix desses dias já estavam no cache do banco.
+- Causas: bandeira UnionPay (BrandId 5) apareceu pela primeira vez em
+  23/10 e recusava a carga; e vendas já importadas pelo CSV divergiam em
+  um minuto de `data_venda` (CSV usa a autorização; XML, a captura até
+  3 s depois). `api_stone_recebiveis.py` ganhou o código 5 e
+  `api_stone_vendas.py` aceita até 1 minuto de diferença; teste e
+  `docs/INTEGRACAO_API_BANCOS.md` atualizados.
+- Validação: `test_stone_vendas.py`, `test_stone_rotina.py` e
+  `test_stone_fechamento.py` OK; dry-run com o XML do cache: 45 e 71
+  vendas conferidas (nenhuma nova) e recebíveis de 23/10 válidos.
+  Sem migration. Rodada manual do workflow registrada abaixo do commit.
+
+— Claude

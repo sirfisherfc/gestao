@@ -29,6 +29,9 @@ COLUNAS = ["conta_id", "documento", "stonecode", "data_venda", "bandeira", "prod
            "desconto_antecipacao", "desconto_unificado", "n_cartao", "meio_captura",
            "n_serie", "ultimo_status", "data_ultimo_status"]
 ZERO = Decimal("0")
+# O CSV do Portal usa a hora da autorização; o XML, a da captura, até 3 s
+# depois. Truncadas no minuto, as duas podem diferir em um minuto.
+TOLERANCIA_HORARIO = timedelta(minutes=1)
 
 
 def linha_base(documento, **campos):
@@ -128,7 +131,11 @@ def conferir_existentes(linhas, existentes):
         if not atual:
             continue
         for campo in ("stonecode", "data_venda", "valor_bruto", "produto"):
-            if item[campo] != atual[campo]:
+            if campo == "data_venda" and item[campo] and atual[campo]:
+                diverge = abs(item[campo] - atual[campo]) > TOLERANCIA_HORARIO
+            else:
+                diverge = item[campo] != atual[campo]
+            if diverge:
                 raise ValidacaoErro(f"venda já importada diverge em {campo}; nenhuma gravação")
 
 

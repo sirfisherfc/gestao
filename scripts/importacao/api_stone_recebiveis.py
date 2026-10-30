@@ -40,9 +40,10 @@ from importacao_core import (
 
 
 # Códigos do arquivo de conciliação e os textos que o CSV usa para eles,
-# conferidos nas 1.508 vendas de setembro/2026. Código novo recusa a carga
-# até ser conferido; adivinhar o texto quebraria os filtros por bandeira.
-BANDEIRAS = {"1": "Visa", "2": "MasterCard", "3": "AmericanExpress", "171": "Elo"}
+# conferidos nas 1.508 vendas de setembro/2026; UnionPay (5) conferido com o
+# CSV da venda de 23/10/2026. Código novo recusa a carga até ser conferido;
+# adivinhar o texto quebraria os filtros por bandeira.
+BANDEIRAS = {"1": "Visa", "2": "MasterCard", "3": "AmericanExpress", "5": "UnionPay", "171": "Elo"}
 PRODUTOS = {"1": "Debito", "2": "Credito", "3": "Debito Pre-pago", "4": "Credito Pre-pago"}
 COLUNAS = [
     "conta_id", "documento", "stonecode", "categoria", "data_venda",

@@ -54,6 +54,11 @@ def main():
     rejeita(v.deduplicar, [p, {**p, "valor_bruto": Decimal("30")}])
     v.conferir_existentes([p], {E2E: p})
     rejeita(v.conferir_existentes, [p], {E2E: {**p, "valor_bruto": Decimal("30")}})
+    # CSV com a hora da autorização, um minuto antes da captura truncada.
+    v.conferir_existentes([cartao], {"0000123": {**cartao, "data_venda": datetime(2026, 10, 21, 19, 41)}})
+    rejeita(v.conferir_existentes, [cartao], {"0000123": {**cartao, "data_venda": datetime(2026, 10, 21, 19, 40)}})
+    unionpay = XML.replace(b"<BrandId>2</BrandId>", b"<BrandId>5</BrandId>")
+    assert v.ler_cartao(unionpay, "123", DIA, DOC)[0]["bandeira"] == "UnionPay"
     rejeita(v.ler_cartao, XML.replace(b"<BrandId>2</BrandId>", b"<BrandId>99</BrandId>"), "123", DIA, DOC)
     # Tarifa diferente do MDR conferido não pode ser reclassificada como MDR.
     for campo in (b'<FeeType>2</FeeType>',b'<AdvanceRateAmount>1</AdvanceRateAmount>',

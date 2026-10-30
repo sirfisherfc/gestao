@@ -581,7 +581,11 @@ gravado, somente leitura:
   e unificado zero; `entradas_brutas` = bruto. Cancelamento: valores
   negativos, data do evento, vencimento da cobrança e "Cancelamento Parcial"
   quando a devolução é menor que a venda.
-- **Códigos:** BrandId 1 Visa, 2 MasterCard, 3 AmericanExpress, 171 Elo;
+- **Horário:** o CSV grava a hora da autorização; `CaptureLocalDateTime` vem
+  de 0 a 3 s depois (setembro a outubro/2026). Na virada do minuto, a venda
+  do CSV fica um minuto antes; a conferência de vendas aceita essa diferença.
+- **Códigos:** BrandId 1 Visa, 2 MasterCard, 3 AmericanExpress, 5 UnionPay
+  (conferido com o CSV em 23/10/2026), 171 Elo;
   AccountType 1 Debito, 2 Credito, 3 Debito Pre-pago, 4 Credito Pre-pago.
   Código novo, chargeback e cancelamento de venda parcelada recusam a carga
   inteira, com orientação de usar o CSV do dia, até ganharem regra conferida.
