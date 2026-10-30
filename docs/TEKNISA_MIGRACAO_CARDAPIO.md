@@ -1070,3 +1070,21 @@ linha por chamada (`DataSet` com mais de uma linha é recusado);
 O PC precisa receber a configuração nova (reabrir o PDV ou fazer a carga)
 antes de tentar fechar a Mesa 2 de novo. Se o erro continuar, o próximo
 passo é o suporte Teknisa, com a mesa 2 e o horário 18:06 de 30/10.
+
+### Motivos de desconto e cancelamento (30/10/2026)
+
+Os grupos `02 — CANCELAMENTO` e `03 — DESCONTO` do Cadastro de Observação
+estavam vazios, e o PDV pedia o motivo digitado. Foram cadastrados e
+relidos:
+
+- Desconto: `01 CUPOM 2X1`, `02 CONSUMO SOCIO`, `03 VOUCHER / CORTESIA`,
+  `04 PERDA`, `05 OUTROS`.
+- Cancelamento: `01 LANCADO ERRADO`, `02 CLIENTE DESISTIU`,
+  `03 DEMORA NO PREPARO`, `04 OUTROS`.
+
+Gravação em `backend_man/index.php/vnd57000_cadastrodeobs_ocorrencias/save`,
+uma linha por chamada, tipo `O`. Falta conferir no PDV, depois da carga,
+se a lista aparece no desconto e no cancelamento, e se o desconto de 100%
+gera NFC-e aceita pela Sefaz com valor zero. Decisão do proprietário:
+consumo de sócio, voucher subsidiado e perda saem com desconto de 100%,
+para baixar o estoque. Não foi criada forma de pagamento sem NFC-e.
