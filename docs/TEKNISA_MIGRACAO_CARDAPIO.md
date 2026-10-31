@@ -1134,3 +1134,23 @@ O cálculo da Promoção Combinada ainda exige conferir no POS: um prato com
 escolhas incluídas, um sanduíche sem adicional e com cada adicional,
 Caipirinha Nacional a R$ 18 e Ypióca a R$ 22. Também falta conferir a
 impressão física. Nenhum pedido de teste ou pagamento foi criado.
+
+### 31/10/2026 — Conferência dos preços e nomes de bebidas
+
+Os 127 preços com código ou decisão explícita coincidem com a referência
+aprovada. A auditoria percorreu os 200 produtos ativos e os 175 preços da
+tabela 001. Identificou também 34 componentes internos, 25 cadastros sem
+preço normal, 13 correspondências de nome/porção a confirmar e o nome
+indevido “Caipirinha Vodka Sky”, código `8051002000`, cadastrado a R$ 22.
+
+O proprietário confirmou que esse produto não existe: Caipirinha usa
+cachaça. Skyy é uma alternativa de Caipiroska e continua válida na
+Caipifruta, conforme a resposta específica do proprietário. A existência
+do cadastro antigo não comprova uma oferta comercial válida. O grupo
+atual da Caipirinha permanece com Nacional e Ypióca. Nenhum cadastro,
+preço ou grupo foi alterado durante esta auditoria.
+
+A comparação entre os 77 produtos equivalentes do cardápio público e
+da aprovação de 26/10 encontrou valores finais iguais. As diferenças
+de cobertura e contexto, os cinco inativos consultados e a planilha
+estão na pasta privada `tmp/teknisa/auditoria-precos-2026-10-31/`.

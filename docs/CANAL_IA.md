@@ -41,6 +41,8 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
 
 — Codex
 
+
+
 ## 2026-10-27 · Codex — Permissões operacionais do PDV
 
 - Regras detalhadas em `docs/TEKNISA_ACESSOS_OPERACAO.md`. Em Controle de
@@ -414,5 +416,41 @@ O cálculo da Promoção Combinada ainda exige conferir no POS: um prato com
 escolhas incluídas, um sanduíche sem adicional e com cada adicional,
 Caipirinha Nacional a R$ 18 e Ypióca a R$ 22. Também falta conferir a
 impressão física. Nenhum pedido de teste ou pagamento foi criado.
+
+— Codex
+
+## 2026-10-31 · Codex — Conferência de preços do Teknisa
+
+Conferência somente de leitura na Praia, loja 0001, tabela 001. Foram
+consultados 200 produtos ativos, 175 preços e cinco cadastros inativos.
+Os 127 preços com referência explícita batem com a aprovação de 26/10
+e as decisões posteriores. Os demais registros foram separados em
+34 componentes internos, 25 cadastros sem preço normal na tabela,
+13 correspondências de nome/porção a confirmar e um cadastro indevido.
+
+Dos 25 sem preço, 24 ainda têm vínculo com a loja e exigem conferir o uso
+no caixa; o outro é o agrupador Molhos. A ausência de preço normal não
+foi convertida em valor zero nem classificada como divergência numérica.
+
+O proprietário confirmou que não existe “Caipirinha Vodka Sky”
+(`8051002000`, preço cadastrado R$ 22). Esse nome permanece assinalado
+para revisão; a conferência não alterou o cadastro. A Caipirinha usa
+cachaça. O proprietário também confirmou que a Skyy continua válida
+na Caipifruta, além da Caipiroska. Não inferir equivalência entre o
+cadastro antigo e a Caipiroska a partir do preço ou do nome.
+
+Os 77 produtos equivalentes do cardápio público e da base aprovada têm
+preços comerciais iguais. As diferenças encontradas são de cobertura,
+apresentação e contexto. Os sete executivos foram conferidos também
+na página pública de almoço. O catálogo embutido do site tem 78 itens;
+a view pública retornou zero publicações e o site usa a cópia embutida.
+
+Planilha com 200 registros e 28 linhas de diferenças entre referências,
+fontes e decisões guardadas em `tmp/teknisa/auditoria-precos-2026-10-31/`,
+ignorado pelo Git. A planilha teve as contagens e as diferenças conferidas,
+teste de alteração/restauração de um preço, busca de erros de fórmula
+e revisão visual das duas abas. Total de pedido e impressão no aparelho
+continuam pendentes do teste operacional. Nenhuma venda ou preço foi
+alterado nesta conferência.
 
 — Codex
