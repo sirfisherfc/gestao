@@ -372,3 +372,47 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
   (não alterado nesta tarefa).
 
 — Claude
+
+## 2026-10-31 · Codex — Escolhas do Teknisa em composição
+
+- Pedido do proprietário: migrar as escolhas dos produtos para
+  Composição/Grupo Promocional, com mínimo e máximo `1`; adicional dos
+  sanduíches em `0` a `1`, com acréscimo no preço.
+- Resultado relido: 200 produtos ativos e um inativo, 476 vínculos de
+  observação retirados, 11 grupos e 14 componentes criados. Restaram zero
+  vínculos de escolha no grupo `01`. Cancelamento `02` e desconto `03`
+  preservados.
+- A ferramenta guarda a prévia e o recibo antes de cada envio, confere
+  o cadastro após salvar e interrompe ao encontrar divergência. O
+  contrato completo de Produtos por Loja foi conferido pela interface
+  e documentado no README da ferramenta.
+- Validação: 82 testes locais passaram. A releitura dos 201 produtos,
+  23 grupos, 175 preços e 201 vínculos de loja bateu com o plano. Total
+  do pedido, impressão e atualização da comanda aguardam teste no aparelho.
+  Nenhuma venda, pagamento ou migration foi criada.
+
+Os registros anteriores, o plano e os recibos desta execução estão em
+`tmp/teknisa/migracao-escolhas-2026-10-31/`, ignorado pelo Git. O executor
+avançado exige uma execução por unidade. Sua chamada em lote fica fora
+da entrada única até coordenar o bloqueio com o das observações; os
+planos individuais de composição e componentes usam o bloqueio existente.
+
+Na conferência final, 48 produtos têm 118 vínculos de composição: 116
+obrigatórios em 1–1 e os dois adicionais dos sanduíches em 0–1. O Salmon
+permaneceu inativo. O caldo já havia recebido a retirada de oito vínculos
+de molho antes desta migração de 476 vínculos.
+
+A foto do POS mostrou Caipirinha Nacional a R$ 6. O grupo antigo apontava
+para a dose de cachaça. Foi criado um produto de Caipirinha Nacional a
+R$ 18, ligado com Ypióca a R$ 22 ao novo grupo 21. A dose avulsa continua
+a R$ 6. A cortesia usa o grupo 22 e um componente próprio a R$ 0,01. Os
+dois componentes de coquetel copiaram o perfil fiscal do drink de origem.
+Os 173 preços já existentes no retrato anterior permaneceram iguais.
+
+A releitura comprova preços de tabela, produtos escolhidos e limites.
+O cálculo da Promoção Combinada ainda exige conferir no POS: um prato com
+escolhas incluídas, um sanduíche sem adicional e com cada adicional,
+Caipirinha Nacional a R$ 18 e Ypióca a R$ 22. Também falta conferir a
+impressão física. Nenhum pedido de teste ou pagamento foi criado.
+
+— Codex

@@ -18,25 +18,29 @@ consulta os códigos internos e escolhe o comando correspondente.
 - “Prepare a correção do nome ou da descrição destes produtos.”
 - “Mostre vendas por garçom e comissão do mês, informando fonte e regra.”
 
-A criação/edição de produtos e a gravação de preços ainda exigem validar
-o contrato no primeiro caso real. A consulta por garçom usa o relatório
-oficial observado; a comissão exige percentual e base explícitos. O
+Os clientes especializados de composição e componentes foram validados
+em 31/10/2026. A edição geral de produtos e preços continua com aplicação
+bloqueada; os contratos validados têm o escopo descrito abaixo. A consulta
+por garçom usa o relatório oficial observado; a comissão exige percentual
+e base explícitos. O
 catálogo de comandos informa os limites e impede uma gravação que ainda
 não foi validada.
 
-## Capacidades da versão inicial
+## Capacidades conferidas
 
 | Função | Situação |
 | --- | --- |
-| Catálogo ativo, tabelas e preços | Leitura real conferida: 185 produtos e 159 preços na tabela da Praia |
+| Catálogo ativo, tabelas e preços | Em 31/10: 200 produtos ativos e 175 preços na tabela da Praia |
 | Cancelamento, nomes e rotas de impressora | Gravação e releitura validadas |
-| Organizar Balcão/Cozinha/Bar | Usado nesta entrega para conferir 181 vínculos e corrigir 42 |
+| Organizar Balcão/Cozinha/Bar | Em 27/10: 181 vínculos conferidos e 42 corrigidos |
 | Planos, recibos, retomada | Validados em testes e execução real; reversão validada em testes |
 | Edição de produto e preço | Prévia disponível; aplicação bloqueada até validar a gravação real |
-| Novo produto | Preparação dos dados; criação e vínculos ainda precisam de contrato validado |
+| Novo produto | Preparação geral; cliente especializado cria os componentes com modelos conferidos |
 | Vendas por garçom | Consulta real por período de movimento do caixa, com valores oficiais separados |
 | Comissão | Calcula sobre a base e o percentual informados; regra ausente permanece pendente |
-| Opções por produto (observações) | Leitura, inclusão e retirada validadas em 30/10/2026 com releitura |
+| Observações por produto | Leitura, inclusão e retirada validadas; escolhas do cardápio migradas para composição |
+| Composição: grupos, componentes, limites e tipo | Gravação e releitura validadas em 31/10/2026; 48 produtos e 118 vínculos conferidos |
+| Componentes alimentares e sabores de soda | Criação, imposto, preço e loja validados no cliente especializado |
 
 ## Conectar uma sessão
 
@@ -105,26 +109,90 @@ Bar para coquetéis e sucos preparados; Cozinha para alimentos. Café, soda
 italiana e sumo de limão acompanham o preparo no Bar. Produtos novos devem
 receber destino conferido. O estado ativo/inativo permanece preservado.
 
-## Opções do cardápio (observações)
+## Escolhas do cardápio
 
-Acompanhamentos, molhos e sabores ficam em **Cadastro de Observação**,
-grupo `01 — PRODUTOS`. Observação do tipo `O` é gratuita; do tipo `A`
-cobra o produto ligado a ela (por exemplo, `55–62` são os molhos extras
-de R$ 3). O módulo `observacoes.mjs` lê e altera os vínculos por produto:
+Decisão do proprietário em 31/10/2026: as escolhas do cardápio ficam em
+**Composição do Produto → Composição Padrão → Grupo Promocional**.
+Cada categoria exige uma escolha, com mínimo `1` e máximo `1`. Preserve
+as alternativas de cada prato ao migrar um vínculo.
+
+O adicional dos sanduíches usa mínimo `0` e máximo `1`; o item escolhido
+acrescenta seu preço ao pedido. Produtos sem escolha ficam sem grupo
+promocional. O caldo segue sem molhos, e o Dadinho segue sem escolha de
+acompanhamento.
+
+No **Cadastro de Observação**, preserve os grupos `02 — CANCELAMENTO` e
+`03 — DESCONTO`. O catálogo `01 — PRODUTOS` pode manter as definições
+históricas, com as escolhas desvinculadas dos produtos. A migração retira
+os vínculos; as definições continuam disponíveis para consulta.
+
+Os comandos `observacoes.*` continuam lendo e retirando vínculos, com
+prévia, recibo e releitura por produto. Uma nova escolha de cardápio deve
+seguir a composição definida acima.
 
 ```js
-await tool.run('observacoes.listar');              // opções e grupos obrigatórios
-await tool.run('observacoes.vinculos.listar', { search: 'patinha' });
-const preview = await tool.run('observacoes.vinculos.planejar', { changes: [
-  { productId: '8000010100', add: ['05', '06'], remove: ['55', '56'] },
-] });
+await tool.run('observacoes.vinculos.listar');
+const preview = await tool.run('observacoes.vinculos.planejar', {
+  group: '01',
+  changes: [{ productId, add: [], remove: oldChoiceCodes }],
+});
+// A composição substituta deve estar salva e conferida antes da retirada.
 await tool.run('plano.aplicar', { planId: preview.planId });
-await tool.run('plano.reverter', { planId: preview.planId }); // nova prévia
+await tool.run('recibo.consultar', { planId: preview.planId });
 ```
 
-`productId` é o `CDPRODUTO` da grade Observação por produto. A aplicação
-confere o estado de cada produto, grava, relê e para na primeira
-divergência. O produto precisa já constar em Observação por produto.
+Ao migrar, confira primeiro os produtos componentes, seus preços e seus
+vínculos com a loja e a impressora. Depois salve os grupos e os limites
+do prato, releia as escolhas e retire os vínculos antigos de observação.
+Escolhas feitas no produto principal devem evitar uma segunda pergunta
+igual nos seus componentes.
+
+O preço de `R$ 0,01` dos componentes internos segue o cadastro dos
+marcadores existentes. Esse valor isolado exige conferir o cálculo do
+pedido na Promoção Combinada. Teste o total de um prato com escolhas
+incluídas e de um sanduíche com adicional, além da impressão na cozinha.
+
+## Operar composição pela entrada única
+
+`teknisa.mjs` exporta `createCompositionClient`, `createComponentClient`,
+`createCardapioMigrationRunner` e `connectCompositionSession`. O transporte
+especializado recebe as capturas dos módulos MAN e CAD_EST. Cabeçalhos
+permanecem em memória. Contratos novos de escrita exigem corpo observado
+e releitura; o adaptador restringe os caminhos permitidos.
+
+Passe os clientes validados para `createTeknisa({ request, target,
+compositionClient, componentClient })`. O catálogo de
+comandos indica `configured` para cada dependência. A instância base usada
+como `observationTool` pelo executor pode compartilhar o diário privado.
+
+```js
+await tool.run('composicoes.vinculos.listar', { productId });
+await tool.run('composicoes.itens.listar', { groupId });
+const preview = await tool.run('composicoes.vinculos.planejar', {
+  changes: [{ productId, groupId, min: 1, max: 1 }],
+});
+await tool.run('plano.aplicar', { planId: preview.planId });
+```
+
+Também há prévias para criar grupos, incluir seus componentes, mudar o
+tipo para Promoção Combinada e retirar um grupo após conferir o substituto.
+`componentes.planejar` usa modelos completos e callbacks de leitura para
+produto, imposto, preço e loja. O cliente de componentes atende os perfis
+alimentares e sabores de soda conferidos na Praia; variantes de coquetel
+exigem o perfil fiscal do drink de origem.
+
+O executor avançado `createCardapioMigrationRunner` recebe uma ferramenta
+base atualizada, cujo destino precisa coincidir com o plano e o cliente
+de composição. `runBatch({ offset, size })` atende até três produtos.
+Ele salva tipos e vínculos, confere conjuntos e limites, retira as
+observações previstas e relê o resultado. Esse executor tem controle de
+concorrência por instância; a operação exige uma execução por unidade,
+incluindo o outro PC e o painel. O catálogo da entrada única mantém a
+migração em lote indisponível até coordenar o bloqueio da unidade com o
+bloqueio interno das observações. Os planos individuais de composição e
+componentes usam o bloqueio da unidade em `plano.aplicar`.
+
+Um plano interrompido exige consultar o recibo e preparar nova prévia.
 
 ## Contratos observados e ainda sem comando
 
@@ -139,12 +207,80 @@ o próximo comando; cada um exige releitura depois da gravação.
 | Permissões do caixa por grupo | `getPermissoes` (`requestType: Row`) e `vnd61000_controleAcesso/save` | A gravação inclui um campo posicional derivado das permissões; manter pela interface. |
 | Botão do layout CAIXA/POS | `vnd80600_configterminalcaixa_layoutProduto` e `/remove` | Ler com o filtro do grupo (`NRBUTTONAUX`, `IDTPBUTONAUX = 2`) e remover a linha lida. |
 | Produto: ativo/inativo | `backend_cadEst/index.php/saveProduct` (`requestType: Row`) | Linha com cerca de 250 campos; `IDPRODATIVPR = N` inativa. |
-| Composição (grupos promocionais do produto) | `backend_cadEst/index.php/grupromocprod_grupopromoc`, filtro `CDPRODPROMOCAO`; retirada em `/remove` com `requestType: Row` e a linha lida | É o que monta as telas de escolha do POS nos 20 produtos de Promoção Combinada. Um `/remove` com `DataSet` respondeu 500 sem gravar. |
+| Composição (grupos promocionais do produto) | `backend_cadEst/index.php/grupromocprod_grupopromoc`, filtro `CDPRODPROMOCAO`; retirada em `/remove` com `requestType: Row` e a linha lida | Os vínculos montam as escolhas do POS. Foram conferidos 48 produtos em 31/10; retirada usa `Row` com a linha completa lida. Um `/remove` com `DataSet` respondeu 500 sem gravar. |
 | Produtos de um grupo promocional | `backend_man/index.php/vnd41000_grupoPromo_prod`, `/save` (`DataSet`, linha nova) e `/remove` (`DataSet`) | Grupos 06 a 11: sabores, acompanhamentos, adicionais e molhos. |
 | Nó da árvore de produto | `backend_cadEst/index.php/produto_para_arvore/save` (`Row`, `__is_new`) | Criar o nó nível 4 antes do produto, a partir do nó pai. |
 | Imposto por unidade | `backend_cadEst/index.php/ger01900_cadastroproduto_venda_imposto` e `/save` | Perfil Comida: ICMS 00, CFOP 5102, CSOSN 102, PIS/COFINS 99 sem incidência. |
 | Preço na tabela | `backend_man/index.php/vnd42400_tabelapreco_produto/save` | Resposta `isPlural.result = 1`; reler a tabela 001. |
-| Novo vínculo em Produtos por Loja | `backend_man/index.php/ger12300_cadloja_produtos/save` (`DataSet`, uma linha `__is_new` com `PRODUTOS`, `CDPRODUTO_SM`, `CDARVPROD_SM` e `NMPRODUTO_SM` em listas, `NRSEQIMPRPROD`, `IDIMPCANITEM`, `CDFILIAL`, `CDLOJA`, `NRORG`) | Impressora e cancelamento definidos na inclusão. Linha por produto, sem `PRODUTOS`, responde 200 com erro PHP e não grava. |
+| Novo vínculo em Produtos por Loja | `backend_man/index.php/ger12300_cadloja_produtos/save` (`DataSet`, uma linha `__is_new` com `PRODUTOS`, `CDPRODUTO_SM`, `CDARVPROD_SM` e `NMPRODUTO_SM` em listas, `NRSEQIMPRPROD`, `IDIMPCANITEM`, `CDFILIAL`, `CDLOJA`, `NRORG`) | Corpo completo conferido em 31/10: intervalos vazios, `NIVELINICIAL: T`, listas de produtos, unidade/loja, impressora, cancelamento, operador observado e horário atual. Exemplo abaixo. Corpo incompleto pode retornar HTTP 200 sem gravar. |
+
+### Inclusão de componente em Produtos por Loja
+
+Contrato conferido em 31/10/2026 na unidade `0002 — SIR FISHER PRAIA`,
+loja `0001`. A seleção por lista também envia os campos de intervalo
+vazios e `NIVELINICIAL: 'T'`. Preserve o corpo completo capturado.
+
+Gravação: `POST /backend_man/index.php/ger12300_cadloja_produtos/save`.
+O exemplo abaixo representa um produto; os identificadores e o destino
+devem vir das leituras do cadastro.
+
+```js
+const body = {
+  dataset: [{
+    __createdLocal: true,
+    __is_new: true,
+    NMPRODINICIAL: '',
+    CDPRODINICIAL: '',
+    CDARVPROD: '',
+    NMPRODUTO: '',
+    NMPRODFINAL: '',
+    PRODUTOS: [product.CDPRODUTO],
+    CDPRODFINAL: '',
+    CDSETOR: '',
+    NMSETOR: '',
+    NRSEQIMPRPUXA: null,
+    NMIMPRPUXA: '',
+    NRSEQIMPRPROD: printer.code,
+    NMIMPRPROD: printer.name,
+    NRSEQIMPRPROD2: '',
+    NMIMPRPROD2: '',
+    NMIMPRPRODBKP: '',
+    NMIMPRPROD2BKP: '',
+    NMIMPRPUXABKP: '',
+    IDIMPCANITEM: 'S',
+    NIVELINICIAL: 'T',
+    changed: true,
+    CDARVPROD_SM: [product.CDARVPROD],
+    NMPRODUTO_SM: [product.NMPRODUTO],
+    CDPRODUTO_SM: [product.CDPRODUTO],
+    CDFILIAL: '0002',
+    CDLOJA: '0001',
+    NRORG: 5482,
+    CDOPERADOR: observedOperator,
+    DTATU: timestampInFortaleza,
+    NRSEQIMPPRDBKP: null,
+    NRSEQIMPPRD2BKP: null,
+    NRSEQIMPPUXABKP: null,
+  }],
+  requestType: 'DataSet',
+  origin: {
+    containerName: 'ger12300_cadloja',
+    widgetName: 'productByStoreWidget',
+    containerLabel: 'Cadastro de Loja',
+    widgetLabel: 'Produtos por Loja',
+  },
+};
+```
+
+Use `00001 — COZINHA` para os componentes alimentares e `00004 — BAR`
+para os sabores de soda, conforme os destinos conferidos nesta migração.
+`CDOPERADOR` vem de uma gravação legítima observada; mantenha esse valor
+independente de `NRORG`. Atualize `DTATU` para o horário da execução em
+America/Fortaleza.
+
+Depois de enviar, consulte Produtos por Loja e confirme o produto, a
+unidade, a loja, a impressora e `IDIMPCANITEM: 'S'`. Uma resposta HTTP
+200, sozinha, exige essa releitura antes de prosseguir.
 
 ## Recibos e falhas
 
@@ -225,8 +361,9 @@ testes e só então marque `writeValidated: true`. Os caminhos de escrita
 ficam restritos ao catálogo. Criação fictícia em produção não integra o
 fluxo de validação desta ferramenta.
 
-O próximo contrato necessário é o de criar/editar produtos e atualizar
-preços. Para menus laterais que não respondem ao clique por seletor,
+A criação especializada de componentes usa os contratos observados de
+produto, imposto, preço e loja. Alterações gerais de cadastro e preço
+continuam exigindo validação própria. Para menus laterais que não respondem ao clique por seletor,
 usar `getAXState()` e `click(índice)` da API documentada do navegador.
 Esse caminho abriu o filtro de Produtividade por Vendedor nesta entrega.
 Antes de calcular comissão, confirmar a base comercial e o tratamento
@@ -235,7 +372,7 @@ dos cancelamentos; o relatório usa as definições oficiais do sistema.
 Execute os testes com:
 
 ```text
-node --test scripts/teknisa/test_produtos_loja.mjs scripts/teknisa/test_ferramenta.mjs scripts/teknisa/test_observacoes.mjs
+node --test scripts/teknisa/test_*.mjs
 ```
 
 Esta ferramenta usa a API interna observada do painel. O acesso oficial

@@ -1,12 +1,18 @@
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
+import { randomUUID } from 'node:crypto';
 import { readResource } from './recursos.mjs';
 import { preparePlan, applyPlan, prepareUndo } from './planos.mjs';
 import { createFileJournal } from './recibos.mjs';
 import { summarizeSellerSales, summarizeReportedSellerSales, calculateReportedCommission } from './vendas.mjs';
 import { buildRoutingUpdates } from './impressao.mjs';
 import { readOccurrences, readMandatoryGroups, readLinks, planLinks, applyLinks } from './observacoes.mjs';
+import { summarizePlan as summarizeCompositionPlan } from './composicoes.mjs';
 export { connectObservedSession, beginSessionCapture, finishSessionCapture } from './sessao_browser.mjs';
+export { createCompositionClient, summarizePlan as summarizeCompositionPlan } from './composicoes.mjs';
+export { createComponentClient, createComponentPlan, applyComponentPlan } from './components.mjs';
+export { createCardapioMigrationRunner, createMigrationRunner } from './migrar-cardapio.mjs';
+export { connectCompositionSession } from './sessao-composicoes.mjs';
 
 export const COMMANDS = Object.freeze([
   { name: 'produtos.listar', status: 'leitura validada', purpose: 'Localizar produtos ativos por nome ou código.' },
@@ -21,9 +27,18 @@ export const COMMANDS = Object.freeze([
   { name: 'loja.impressoras.planejar', status: 'validado', purpose: 'Preparar a rota de produção por produto.' },
   { name: 'impressao.organizar', status: 'validado', purpose: 'Preparar rotas por fonte do catálogo e regra Balcão/Cozinha/Bar.' },
   { name: 'loja.cancelamento.planejar', status: 'validado', purpose: 'Preparar impressão de cancelamento nos produtos escolhidos.' },
-  { name: 'observacoes.listar', status: 'leitura validada', purpose: 'Listar opções do cardápio (acompanhamentos, molhos, sabores) e grupos obrigatórios.' },
-  { name: 'observacoes.vinculos.listar', status: 'leitura validada', purpose: 'Mostrar as opções ligadas a cada produto.' },
-  { name: 'observacoes.vinculos.planejar', status: 'validado', purpose: 'Preparar inclusão ou retirada de opções por produto.' },
+  { name: 'observacoes.listar', status: 'leitura validada', purpose: 'Listar o catálogo histórico de observações e seus grupos obrigatórios.' },
+  { name: 'observacoes.vinculos.listar', status: 'leitura validada', purpose: 'Mostrar as observações ligadas a cada produto.' },
+  { name: 'observacoes.vinculos.planejar', status: 'validado', purpose: 'Preparar inclusão ou retirada de observações por produto.' },
+  { name: 'composicoes.grupos.listar', client: 'compositionClient', status: 'leitura validada; cliente injetado', purpose: 'Listar os grupos promocionais cadastrados.' },
+  { name: 'composicoes.itens.listar', client: 'compositionClient', status: 'leitura validada; cliente injetado', purpose: 'Conferir os componentes de um grupo.' },
+  { name: 'composicoes.vinculos.listar', client: 'compositionClient', status: 'leitura validada; cliente injetado', purpose: 'Conferir os grupos e limites de um produto.' },
+  { name: 'composicoes.grupos.criar.planejar', client: 'compositionClient', status: 'validado; cliente injetado', purpose: 'Preparar um grupo novo pelo contrato observado.' },
+  { name: 'composicoes.itens.planejar', client: 'compositionClient', status: 'validado; cliente injetado', purpose: 'Preparar a inclusão de componentes em um grupo.' },
+  { name: 'composicoes.vinculos.planejar', client: 'compositionClient', status: 'validado; cliente injetado', purpose: 'Preparar a criação ou os limites dos grupos do produto.' },
+  { name: 'composicoes.vinculos.remover.planejar', client: 'compositionClient', status: 'validado; cliente injetado', purpose: 'Preparar a retirada de grupos após conferir seus substitutos.' },
+  { name: 'composicoes.tipos.planejar', client: 'compositionClient', status: 'validado; cliente injetado', purpose: 'Preparar somente o tipo Promoção Combinada dos produtos ativos.' },
+  { name: 'componentes.planejar', client: 'componentClient', status: 'validado; cliente injetado', purpose: 'Preparar componentes com imposto, preço e vínculo de loja observados.' },
   { name: 'plano.aplicar', status: 'validado', purpose: 'Aplicar o plano salvo com recibo e releitura.' },
   { name: 'plano.reverter', status: 'validado em testes', purpose: 'Preparar uma reversão a partir de recibo concluído.' },
   { name: 'recibo.consultar', status: 'validado', purpose: 'Conferir progresso e falhas sem expor os dados completos.' },
@@ -51,17 +66,92 @@ const updatesOf = args => {
   return args.updates;
 };
 
-export function createTeknisa({ request, target, operator, journal = createFileJournal() }) {
+const OPTIONAL_PLAN_METHODS = Object.freeze({
+  'composition-group-create': ['compositionClient', 'applyGroupCreation'],
+  'composition-group-items-add': ['compositionClient', 'applyGroupItems'],
+  'composition-parent-bindings': ['compositionClient', 'applyBindings'],
+  'composition-parent-bindings-remove': ['compositionClient', 'applyBindingRemovals'],
+  'composition-product-type': ['compositionClient', 'applyProductTypes'],
+  'new-menu-components': ['componentClient', 'apply'],
+});
+export function createTeknisa({ request, target, operator, journal = createFileJournal(),
+  compositionClient, componentClient, migrationRunner }) {
   if (typeof request !== 'function') throw new Error('Conecte uma sessão autenticada antes de usar a ferramenta.');
   target = Object.freeze(structuredClone(target));
+  if (migrationRunner && (!migrationRunner.target || !Object.isFrozen(migrationRunner.target)
+    || ['organization', 'branch', 'store'].some(key => migrationRunner.target[key] !== target[key])))
+    throw new Error('O executor avançado precisa expor um destino imutável igual ao da ferramenta.');
+  const clients = { compositionClient, componentClient, migrationRunner };
+  const client = name => {
+    const value = clients[name];
+    if (!value) throw new Error(`Configure ${name} com a sessão e os contratos validados antes de usar este comando.`);
+    if (value.target && ['organization', 'branch', 'store'].some(key => value.target[key] !== undefined && value.target[key] !== target[key]))
+      throw new Error('O cliente injetado pertence a outro destino.');
+    return value;
+  };
+  const commands = () => structuredClone(COMMANDS.map(entry => ({ ...entry,
+    ...(entry.client ? { configured: !!clients[entry.client] } : {}) })));
+  const assertPlanTarget = prepared => {
+    if (!prepared?.target || ['organization', 'branch', 'store'].some(key => prepared.target[key] !== undefined && prepared.target[key] !== target[key]))
+      throw new Error('O plano pertence a outro destino.');
+  };
+  const saveOptionalPlan = async prepared => {
+    assertPlanTarget(prepared);
+    if (!Object.hasOwn(OPTIONAL_PLAN_METHODS, prepared.kind)) throw new Error('Tipo de plano sem aplicação validada.');
+    const planId = prepared.id || randomUUID();
+    await journal.save({ id: planId, status: 'prepared', plan: prepared, batches: [] });
+    const summary = prepared.kind === 'new-menu-components'
+      ? { kind: prepared.kind, components: prepared.entries.length,
+        sample: prepared.entries.slice(0, 8).map(entry => ({ key: entry.definition.key, name: entry.definition.name, code: entry.definition.rawTreeCode })) }
+      : summarizeCompositionPlan(prepared);
+    return { ...summary, planId };
+  };
+  const applyOptionalPlan = async record => {
+    assertPlanTarget(record.plan);
+    if (record.status === 'completed') return record.result;
+    if (record.status !== 'prepared') throw new Error('Consulte a execução interrompida e prepare uma nova prévia antes de aplicar.');
+    const [clientName, method] = OPTIONAL_PLAN_METHODS[record.plan.kind];
+    const adapter = client(clientName);
+    if (typeof adapter[method] !== 'function') throw new Error('O cliente não oferece a aplicação validada deste plano.');
+    if (typeof journal.lock !== 'function') throw new Error('O diário precisa impedir gravações simultâneas na unidade.');
+    return journal.lock(target, async () => {
+      record.status = 'running'; await journal.save(record);
+      try {
+        const details = await adapter[method](record.plan);
+        if (details?.status !== 'completed') throw new Error('O cliente não confirmou a conclusão do plano.');
+        const entries = details.entries || [];
+        record.status = 'completed'; record.details = details;
+        record.batches = entries.map((entry, index) => ({ index: index + 1, status: entry.status,
+          keys: [entry.productId || entry.groupId || entry.definition?.key || String(index)], verified: entry.status === 'verified' ? 1 : 0 }));
+        record.result = { planId: record.id, status: 'completed',
+          verified: entries.filter(entry => entry.status === 'verified').length,
+          alreadyDesired: entries.filter(entry => ['already_desired', 'already_present'].includes(entry.status)).length };
+        await journal.save(record); return record.result;
+      } catch (error) { record.status = 'interrupted'; record.errorCode = error.code || 'INJECTED_CLIENT_FAILED';
+        await journal.save(record); throw error; }
+    });
+  };
   const read = (name, args = {}) => readResource(request, name, { ...target, ...args.scope });
   const plan = (name, args, updates) => preparePlan({ request, name, target: { ...target, ...args.scope }, updates, journal });
   return Object.freeze({
-    commands: () => structuredClone(COMMANDS),
+    target,
+    commands,
     async run(command, args = {}) {
-      if (command === 'comandos') return structuredClone(COMMANDS);
+      if (command === 'comandos') return commands();
       if (!COMMANDS.some(entry => entry.name === command)) throw new Error('Comando desconhecido. Use comandos para ver as funções cadastradas.');
       switch (command) {
+        case 'composicoes.grupos.listar': return selectPublic(await client('compositionClient').readGroups(),
+          ['CDGRUPROMOC', 'NMGRUPROMOC', 'IDATIVO'], args);
+        case 'composicoes.itens.listar': return selectPublic(await client('compositionClient').readGroupItems(args.groupId),
+          ['CDGRUPROMOC', 'CDPRODUTO', 'CDARVPROD', 'NMPRODUTO'], args);
+        case 'composicoes.vinculos.listar': return selectPublic(await client('compositionClient').readBindings(args.productId),
+          ['CDPRODPROMOCAO', 'CDGRUPROMOC', 'NMGRUPROMOC', 'QTPRGRUPROMIN', 'QTPRGRUPPROMOC'], args);
+        case 'composicoes.grupos.criar.planejar': return saveOptionalPlan(await client('compositionClient').previewGroupCreation({ groupId: args.groupId, name: args.name }));
+        case 'composicoes.itens.planejar': return saveOptionalPlan(await client('compositionClient').previewGroupItems({ groupId: args.groupId, productIds: args.productIds }));
+        case 'composicoes.vinculos.planejar': return saveOptionalPlan(await client('compositionClient').previewBindings(args.changes));
+        case 'composicoes.vinculos.remover.planejar': return saveOptionalPlan(await client('compositionClient').previewBindingRemovals(args.changes));
+        case 'composicoes.tipos.planejar': return saveOptionalPlan(await client('compositionClient').previewProductTypes(args.productIds));
+        case 'componentes.planejar': return saveOptionalPlan(await client('componentClient').preview(args.definitions));
         case 'produtos.listar': return selectPublic(await read('produtos', args), ['CDPRODUTO', 'CDARVPROD', 'NMPRODUTO', 'SGUNIDADE', 'IDESTOCOMP'], args);
         case 'precos.tabelas.listar': return selectPublic(await read('precos.tabelas', args), ['CDTABEPREC', 'NMTABEPREC', 'DTINIVGPREC', 'DTFINVGPREC', 'IDATIVO'], args);
         case 'precos.listar': return selectPublic(await read('precos', args), ['CDPRODUTO', 'CDARVPROD', 'NMPRODUTO', 'VRPRECITEM', 'VRPRECITEMDLV', 'VRPRECITEMCMD'], args);
@@ -109,11 +199,13 @@ export function createTeknisa({ request, target, operator, journal = createFileJ
         case 'plano.aplicar': {
           const receipt = await journal.load(args.planId);
           if (['organization', 'branch', 'store'].some(field => target[field] !== undefined && receipt.plan.target[field] !== undefined && receipt.plan.target[field] !== target[field])) throw new Error('O plano pertence a outro destino.');
+          if (Object.hasOwn(OPTIONAL_PLAN_METHODS, receipt.plan.kind)) return applyOptionalPlan(receipt);
           if (receipt.plan.kind === 'observacoes.vinculos') return applyLinks({ request, planId: args.planId, journal });
           return applyPlan({ request, planId: args.planId, journal, operator, batchSize: args.batchSize ?? 25 });
         }
         case 'plano.reverter': {
           const receipt = await journal.load(args.planId);
+          if (Object.hasOwn(OPTIONAL_PLAN_METHODS, receipt.plan.kind)) throw new Error('A reversão deste tipo exige uma nova prévia com o estado atual.');
           if (receipt.plan.kind !== 'observacoes.vinculos') return prepareUndo({ request, planId: args.planId, journal });
           if (receipt.status !== 'completed') throw new Error('A reversão exige um recibo concluído. Para falhas parciais, consulte o estado e retome o plano.');
           return planLinks({ request, target: receipt.plan.target, group: receipt.plan.group, journal,

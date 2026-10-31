@@ -1089,3 +1089,48 @@ se a lista aparece no desconto e no cancelamento, e se o desconto de 100%
 gera NFC-e aceita pela Sefaz com valor zero. Decisão do proprietário:
 consumo de sócio, marketing, devolução e perda saem com desconto,
 para baixar o estoque. Não foi criada forma de pagamento sem NFC-e.
+
+### 31/10/2026 — Escolhas em composição
+
+O proprietário definiu que as escolhas do cardápio devem ficar em
+Composição do Produto, nos Grupos Promocionais. Cada categoria usa
+mínimo `1` e máximo `1`. O adicional dos sanduíches usa `0` a `1` e
+acrescenta o preço do item escolhido ao pedido.
+
+- Conferência final: 200 produtos ativos e um inativo, 476 vínculos de
+  observação retirados e zero vínculos de escolha restantes no grupo
+  `01 — PRODUTOS`.
+- Criados 11 grupos e 14 componentes. Os conjuntos de molhos de cada
+  prato foram preservados;
+  escolhas iguais no prato e no componente foram tratadas para evitar
+  uma segunda pergunta.
+- Caldo sem molho e Dadinho sem acompanhamento. Os grupos
+  `02 — CANCELAMENTO` e `03 — DESCONTO` foram preservados; as definições
+  históricas do catálogo `01` podem permanecer sem vínculo com produtos.
+- Os componentes novos foram conferidos no cadastro, no imposto por
+  unidade, na tabela de preço e em Produtos por Loja. O corpo de inclusão
+  na loja mantém os intervalos vazios, `NIVELINICIAL: 'T'`, as listas de
+  produtos, o operador observado e o horário da execução.
+
+Os marcadores internos foram cadastrados a R$ 0,01, conforme os
+componentes existentes. Total do pedido, impressão e atualização da
+comanda aguardam teste no aparelho. Os preços dos produtos vendidos
+avulsos foram preservados.
+
+Na conferência final, 48 produtos têm 118 vínculos de composição: 116
+obrigatórios em 1–1 e os dois adicionais dos sanduíches em 0–1. O Salmon
+permaneceu inativo. O caldo já havia recebido a retirada de oito vínculos
+de molho antes desta migração de 476 vínculos.
+
+A foto do POS mostrou Caipirinha Nacional a R$ 6. O grupo antigo apontava
+para a dose de cachaça. Foi criado um produto de Caipirinha Nacional a
+R$ 18, ligado com Ypióca a R$ 22 ao novo grupo 21. A dose avulsa continua
+a R$ 6. A cortesia usa o grupo 22 e um componente próprio a R$ 0,01. Os
+dois componentes de coquetel copiaram o perfil fiscal do drink de origem.
+Os 173 preços já existentes no retrato anterior permaneceram iguais.
+
+A releitura comprova preços de tabela, produtos escolhidos e limites.
+O cálculo da Promoção Combinada ainda exige conferir no POS: um prato com
+escolhas incluídas, um sanduíche sem adicional e com cada adicional,
+Caipirinha Nacional a R$ 18 e Ypióca a R$ 22. Também falta conferir a
+impressão física. Nenhum pedido de teste ou pagamento foi criado.

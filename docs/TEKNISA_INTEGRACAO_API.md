@@ -124,9 +124,10 @@ do nome da rota. A paginação do catálogo foi percorrida pela ferramenta.
 O transporte foi reconstruído após reiniciar o runtime, com nova captura
 autorizada e cabeçalhos restritos à memória.
 
-A criação/edição de produtos e a alteração de preços oferecem preparação
-ou prévia. Seus contratos de escrita ainda precisam ser validados em um
-caso real solicitado, e a aplicação permanece bloqueada.
+A criação/edição geral de produtos e a alteração geral de preços oferecem
+preparação ou prévia, com aplicação bloqueada. Em 31/10/2026, foram
+validados os clientes especializados de composição e componentes, com os
+limites registrados no guia da ferramenta.
 
 A leitura de **Produtividade por Vendedor** foi integrada em
 `vendas.garcons.consultar`. O contrato observado é
@@ -174,3 +175,22 @@ interface para observar o contrato. Os contratos de operador, vendedor,
 permissões do caixa, botões do layout e ativação de produto foram
 registrados no [guia da ferramenta](../scripts/teknisa/README.md), na
 seção "Contratos observados e ainda sem comando".
+
+## Escolhas em composição (31/10/2026)
+
+A decisão do proprietário passou as escolhas para Composição Padrão /
+Grupo Promocional. A conferência completa encontrou 48 produtos com 118
+vínculos: 116 obrigatórios de uma escolha e dois adicionais opcionais dos
+sanduíches. Foram retirados 476 vínculos de observação do grupo 01; a nova
+consulta encontrou zero. Cancelamento e desconto foram preservados.
+
+Os módulos `composicoes.mjs`, `components.mjs`, `sessao-composicoes.mjs` e
+`migrar-cardapio.mjs` ampliam a entrada `teknisa.mjs`. Planos e recibos
+ficam privados. Gravações usam apenas contratos observados, preservam os
+demais campos e exigem releitura. A inclusão em Produtos por Loja usa o
+corpo completo documentado no README, incluindo os campos de intervalo.
+
+A Caipirinha Nacional passou a apontar para o drink de R$ 18; a dose de
+cachaça permanece R$ 6. Ypióca mantém R$ 22. Os preços de tabela foram
+relidos. O cálculo do total no POS e a impressão física aguardam teste no
+aparelho. Registro completo em `TEKNISA_MIGRACAO_CARDAPIO.md`.

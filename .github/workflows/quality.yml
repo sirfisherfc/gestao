@@ -39,7 +39,7 @@ jobs:
         run: python -B -m unittest discover -s scripts/instagram_analytics -p 'test_*.py'
 
       - name: Teknisa scope, receipts, printing and seller reports without network
-        run: node --test scripts/teknisa/test_produtos_loja.mjs scripts/teknisa/test_ferramenta.mjs scripts/teknisa/test_observacoes.mjs
+        run: node --test scripts/teknisa/test_*.mjs
 
       - name: Status integrations grouped by Saipos execution without network
         run: node scripts/ci/test_status_integracoes.mjs
