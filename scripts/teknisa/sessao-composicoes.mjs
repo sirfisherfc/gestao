@@ -1,6 +1,6 @@
 import { REQUEST_TYPES as COMPOSITION_REQUEST_TYPES } from './composicoes.mjs';
 
-export const SESSION_ADAPTER_VERSION = '2026-10-31.4';
+export const SESSION_ADAPTER_VERSION = '2026-10-31.5';
 
 const ORIGIN = 'https://retail.teknisa.com';
 const man = '/backend_man/index.php/';
@@ -45,6 +45,8 @@ export const DEFAULT_REQUEST_TYPES = Object.freeze({
 export const DEFAULT_READ_PATHS = Object.freeze(Object.keys(DEFAULT_REQUEST_TYPES).filter(path => DEFAULT_REQUEST_TYPES[path] === 'FilterData'));
 export const DEFAULT_WRITE_PATHS = Object.freeze(Object.keys(DEFAULT_REQUEST_TYPES).filter(path => DEFAULT_REQUEST_TYPES[path] !== 'FilterData'));
 const EXTENDABLE_WRITES = Object.freeze({
+  [man + 'saveProdFili']: 'Row',
+  [man + 'vnd80600_configterminalcaixa_layoutProduto/save']: 'DataSet',
   [PATHS.productSave]: 'Row',
   [PATHS.bindingRemove]: 'Row',
   [cad + 'prodgrupromoc_produto/save']: 'DataSet',

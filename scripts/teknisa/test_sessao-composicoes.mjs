@@ -8,8 +8,8 @@ const observed = (path, identity = 'same-account', prefix = 'cad') => ({ method:
     'User-Id': identity, 'Content-Type': 'application/json',
   },
 } } });
-test('version4 locally pins the observed write types independently of cached dependencies', () => {
-  assert.equal(SESSION_ADAPTER_VERSION, '2026-10-31.4');
+test('version5 locally pins the observed write types independently of cached dependencies', () => {
+  assert.equal(SESSION_ADAPTER_VERSION, '2026-10-31.5');
   for (const [path, type] of Object.entries({
     '/backend_cadEst/index.php/prodgrupromoc_produto/save': 'DataSet',
     '/backend_cadEst/index.php/grupromocprod_grupopromoc/remove': 'Row',
@@ -67,6 +67,18 @@ test('an observed read path can be registered without widening any writes', () =
   const rules = buildSessionRules([{ path, source: 'fixture captured read', body: { requestType: 'FilterData', filter: [] } }]);
   assert.equal(rules[path], 'FilterData');
   assert.equal(rules[path + '/save'], undefined);
+});
+
+test('photo writes stay disabled until the observed contract has a verified readback', () => {
+  for (const [path, body] of [
+    ['/backend_man/index.php/saveProdFili', { requestType: 'Row', row: { CDPRODUTO: '0000000073' } }],
+    ['/backend_man/index.php/vnd80600_configterminalcaixa_layoutProduto/save', { requestType: 'DataSet', dataset: [{ CDPRODUTO: '0000000073' }] }],
+  ]) {
+    const contract = { path, body, source: 'sanitized photo contract observed through authorized UI' };
+    assert.equal(DEFAULT_REQUEST_TYPES[path], undefined);
+    assert.throws(() => buildSessionRules([contract]), { code: 'UNVERIFIED_WRITE_CONTRACT' });
+    assert.equal(buildSessionRules([{ ...contract, readbackVerified: true }])[path], body.requestType);
+  }
 });
 test('the newly observed component price endpoint needs its full validated DataSet contract', () => {
   const path = '/backend_cadEst/index.php/vnd42400_tabelapreco_precoProd/save';

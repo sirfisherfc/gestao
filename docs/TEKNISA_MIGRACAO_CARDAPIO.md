@@ -1154,3 +1154,33 @@ A comparação entre os 77 produtos equivalentes do cardápio público e
 da aprovação de 26/10 encontrou valores finais iguais. As diferenças
 de cobertura e contexto, os cinco inativos consultados e a planilha
 estão na pasta privada `tmp/teknisa/auditoria-precos-2026-10-31/`.
+
+## Fotos do cardápio no Teknisa — 31/10/2026
+
+O proprietário autorizou usar as fotos existentes do cardápio. Dos
+78 itens do catálogo, 32 têm imagem e 46 não têm. Foram aplicadas
+27 imagens JPEG originais (660 × 825), com os bytes preservados,
+na galeria por unidade e nos botões comerciais de PC e POS.
+
+A conferência dos códigos usou o catálogo e os vínculos da loja.
+Patinha, Rolha e Embalagem têm CDPRODUTO igual ao código da árvore nas
+fontes; os demais códigos não foram deduzidos do SKU. O Fish n' Chips
+comercial 9000005000 recebeu a foto London, que representa sua opção de
+massa de cerveja. As escolhas de massa permanecem no cadastro.
+
+Cinco imagens ficaram fora: Sir Fisher antigo, fora do fluxo comercial
+atual; Macaxeira/Batata, cuja foto mostra peixe com fritas; Molhos, com
+vários sabores juntos; Arroz Extra, com foto de um prato completo; e
+Gelo, cuja embalagem fotografada não teve a unidade confirmada.
+As fotos de Filé Mignon Trinchado e Carne de Sol seguiram as associações
+publicadas desses produtos, sem reutilização em Executivo ou Prime.
+
+Resultado: 27 galerias e 56 botões conferidos, 28 no PC e 28 no POS.
+Um produto tem botão em dois grupos. No piloto pela interface, o limite
+vazio do botão NewCastle/PC virou 0. O lote preservou os demais valores,
+inclusive limites nulos. As configurações de cópia e TOTEM ficaram fora do lote.
+Planos, mapeamentos e recibos estão em `tmp/teknisa/fotos-2026-10-31/`
+e nos recibos privados da ferramenta, ignorados pelo Git.
+A consulta final reconheceu 27/27 galerias e 56/56 botões com o SHA256
+esperado. A prévia do painel não reproduz as imagens; a aparência final
+no PC/POS ainda exige conferir após a atualização dos aparelhos.

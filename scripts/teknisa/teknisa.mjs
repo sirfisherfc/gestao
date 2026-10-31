@@ -13,6 +13,8 @@ export { createCompositionClient, summarizePlan as summarizeCompositionPlan } fr
 export { createComponentClient, createComponentPlan, applyComponentPlan } from './components.mjs';
 export { createCardapioMigrationRunner, createMigrationRunner } from './migrar-cardapio.mjs';
 export { connectCompositionSession } from './sessao-composicoes.mjs';
+export { createPhotoClient, createPublicPhotoHasher } from './fotos.mjs';
+export { createLayoutPhotoClient, createPublicLayoutPhotoHasher } from './fotos-layout.mjs';
 
 export const COMMANDS = Object.freeze([
   { name: 'produtos.listar', status: 'leitura validada', purpose: 'Localizar produtos ativos por nome ou código.' },
@@ -39,6 +41,10 @@ export const COMMANDS = Object.freeze([
   { name: 'composicoes.vinculos.remover.planejar', client: 'compositionClient', status: 'validado; cliente injetado', purpose: 'Preparar a retirada de grupos após conferir seus substitutos.' },
   { name: 'composicoes.tipos.planejar', client: 'compositionClient', status: 'validado; cliente injetado', purpose: 'Preparar somente o tipo Promoção Combinada dos produtos ativos.' },
   { name: 'componentes.planejar', client: 'componentClient', status: 'validado; cliente injetado', purpose: 'Preparar componentes com imposto, preço e vínculo de loja observados.' },
+  { name: 'fotos.listar', client: 'photoClient', status: 'validado; cliente injetado', purpose: 'Consultar as imagens de um produto na unidade.' },
+  { name: 'fotos.planejar', client: 'photoClient', status: 'validado; cliente injetado', purpose: 'Preparar fotos aprovadas, conferir arquivos e preservar imagens existentes.' },
+  { name: 'fotos.layout.listar', client: 'layoutPhotoClient', status: 'validado; cliente injetado', purpose: 'Conferir as fotos dos botões de um grupo no PC ou POS.' },
+  { name: 'fotos.layout.planejar', client: 'layoutPhotoClient', status: 'validado; cliente injetado', purpose: 'Preparar as fotos dos botões existentes com os campos comerciais preservados.' },
   { name: 'plano.aplicar', status: 'validado', purpose: 'Aplicar o plano salvo com recibo e releitura.' },
   { name: 'plano.reverter', status: 'validado em testes', purpose: 'Preparar uma reversão a partir de recibo concluído.' },
   { name: 'recibo.consultar', status: 'validado', purpose: 'Conferir progresso e falhas sem expor os dados completos.' },
@@ -73,15 +79,17 @@ const OPTIONAL_PLAN_METHODS = Object.freeze({
   'composition-parent-bindings-remove': ['compositionClient', 'applyBindingRemovals'],
   'composition-product-type': ['compositionClient', 'applyProductTypes'],
   'new-menu-components': ['componentClient', 'apply'],
+  'product-photos': ['photoClient', 'apply'],
+  'layout-product-photos': ['layoutPhotoClient', 'apply'],
 });
 export function createTeknisa({ request, target, operator, journal = createFileJournal(),
-  compositionClient, componentClient, migrationRunner }) {
+  compositionClient, componentClient, migrationRunner, photoClient, layoutPhotoClient }) {
   if (typeof request !== 'function') throw new Error('Conecte uma sessão autenticada antes de usar a ferramenta.');
   target = Object.freeze(structuredClone(target));
   if (migrationRunner && (!migrationRunner.target || !Object.isFrozen(migrationRunner.target)
     || ['organization', 'branch', 'store'].some(key => migrationRunner.target[key] !== target[key])))
     throw new Error('O executor avançado precisa expor um destino imutável igual ao da ferramenta.');
-  const clients = { compositionClient, componentClient, migrationRunner };
+  const clients = { compositionClient, componentClient, migrationRunner, photoClient, layoutPhotoClient };
   const client = name => {
     const value = clients[name];
     if (!value) throw new Error(`Configure ${name} com a sessão e os contratos validados antes de usar este comando.`);
@@ -100,7 +108,11 @@ export function createTeknisa({ request, target, operator, journal = createFileJ
     if (!Object.hasOwn(OPTIONAL_PLAN_METHODS, prepared.kind)) throw new Error('Tipo de plano sem aplicação validada.');
     const planId = prepared.id || randomUUID();
     await journal.save({ id: planId, status: 'prepared', plan: prepared, batches: [] });
-    const summary = prepared.kind === 'new-menu-components'
+    const summary = ['product-photos', 'layout-product-photos'].includes(prepared.kind)
+      ? { kind: prepared.kind, photos: prepared.items.length,
+        alreadyDesired: prepared.items.filter(item => item.status === 'already_desired').length,
+        skipped: prepared.skipped?.length || 0 }
+      : prepared.kind === 'new-menu-components'
       ? { kind: prepared.kind, components: prepared.entries.length,
         sample: prepared.entries.slice(0, 8).map(entry => ({ key: entry.definition.key, name: entry.definition.name, code: entry.definition.rawTreeCode })) }
       : summarizeCompositionPlan(prepared);
@@ -152,6 +164,10 @@ export function createTeknisa({ request, target, operator, journal = createFileJ
         case 'composicoes.vinculos.remover.planejar': return saveOptionalPlan(await client('compositionClient').previewBindingRemovals(args.changes));
         case 'composicoes.tipos.planejar': return saveOptionalPlan(await client('compositionClient').previewProductTypes(args.productIds));
         case 'componentes.planejar': return saveOptionalPlan(await client('componentClient').preview(args.definitions));
+        case 'fotos.listar': return client('photoClient').readImages(args.productId);
+        case 'fotos.planejar': return saveOptionalPlan(await client('photoClient').preview(args.updates));
+        case 'fotos.layout.listar': return client('layoutPhotoClient').readGroup(args.scope);
+        case 'fotos.layout.planejar': return saveOptionalPlan(await client('layoutPhotoClient').preview({ groups: args.groups, updates: args.updates }));
         case 'produtos.listar': return selectPublic(await read('produtos', args), ['CDPRODUTO', 'CDARVPROD', 'NMPRODUTO', 'SGUNIDADE', 'IDESTOCOMP'], args);
         case 'precos.tabelas.listar': return selectPublic(await read('precos.tabelas', args), ['CDTABEPREC', 'NMTABEPREC', 'DTINIVGPREC', 'DTFINVGPREC', 'IDATIVO'], args);
         case 'precos.listar': return selectPublic(await read('precos', args), ['CDPRODUTO', 'CDARVPROD', 'NMPRODUTO', 'VRPRECITEM', 'VRPRECITEMDLV', 'VRPRECITEMCMD'], args);

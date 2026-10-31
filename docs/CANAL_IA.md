@@ -454,3 +454,27 @@ continuam pendentes do teste operacional. Nenhuma venda ou preço foi
 alterado nesta conferência.
 
 — Codex
+
+## 2026-10-31 · Codex — Fotos dos produtos no Teknisa
+
+Aplicadas 27 fotos originais do cardápio nas galerias da Praia e em
+56 botões (28 PC, 28 POS). Pilotos NewCastle feitos pela interface;
+gravação e arquivos públicos conferidos por SHA256. Leitura final:
+27/27 galerias e 56/56 botões já com os bytes esperados.
+
+Cinco imagens com destino/porção inadequados ficaram fora do lote;
+46 itens do cardápio não têm foto. Detalhes em TEKNISA_MIGRACAO_CARDAPIO.
+Os campos comerciais dos botões foram preservados. O piloto da própria
+UI normalizou o limite vazio de NewCastle/PC para 0; os demais limites
+foram preservados, inclusive valores nulos.
+
+Ferramenta compartilhada ampliada com fotos de galeria e de botão,
+clientes injetados, prévias, recibos por envio, bloqueio por unidade,
+proteção contra fontes alteradas e falhas ambíguas. Testes: 112 passaram.
+Contratos/recibos privados em tmp/teknisa; cabeçalhos só em memória.
+
+A prévia do painel mostra apenas nomes. Falta conferir a aparência nos
+aparelhos após receberem a atualização. Preços, composições e observações
+não foram editados nesta tarefa. Nenhuma venda de teste foi criada.
+
+— Codex

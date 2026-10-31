@@ -81,3 +81,24 @@ test('the facade refuses advanced runners without an immutable matching target',
   assert.throws(() => createTeknisa({ request, target, journal: journal(), migrationRunner: { target: Object.freeze({ ...target, store: '0002' }) } }), /destino imutável/);
   assert.throws(() => createTeknisa({ request, target, journal: journal(), migrationRunner: { target: { ...target } } }), /destino imutável/);
 });
+
+test('photo commands preserve private baselines and route through the persistent unit lock', async () => {
+  for (const [kind, clientName, command] of [
+    ['product-photos', 'photoClient', 'fotos.planejar'],
+    ['layout-product-photos', 'layoutPhotoClient', 'fotos.layout.planejar'],
+  ]) {
+    const store = journal(); let calls = 0;
+    const plan = { kind, id: randomUUID(), target, items: [{ status: 'missing', privateBaseline: 'private-photo-fixture' }] };
+    const tool = createTeknisa({ request, target, journal: store, [clientName]: { target,
+      preview: async () => structuredClone(plan), apply: async received => {
+        assert.deepEqual(received, plan); calls++;
+        return { status: 'completed', entries: [{ status: 'verified', productId: '0000000073' }] };
+      },
+    } });
+    const preview = await tool.run(command, { updates: [], groups: [] });
+    assert.doesNotMatch(JSON.stringify(preview), /private-photo-fixture/);
+    const result = await tool.run('plano.aplicar', { planId: preview.planId });
+    assert.equal(result.verified, 1); assert.deepEqual(store.locks, [target]);
+    await tool.run('plano.aplicar', { planId: preview.planId }); assert.equal(calls, 1);
+  }
+});

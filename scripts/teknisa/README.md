@@ -41,6 +41,7 @@ não foi validada.
 | Observações por produto | Leitura, inclusão e retirada validadas; escolhas do cardápio migradas para composição |
 | Composição: grupos, componentes, limites e tipo | Gravação e releitura validadas em 31/10/2026; 48 produtos e 118 vínculos conferidos |
 | Componentes alimentares e sabores de soda | Criação, imposto, preço e loja validados no cliente especializado |
+| Fotos de produto e de botão PC/POS | Inclusão e releitura dos bytes validadas; 27 produtos e 56 botões conferidos em 31/10 |
 
 ## Conectar uma sessão
 
@@ -193,6 +194,39 @@ bloqueio interno das observações. Os planos individuais de composição e
 componentes usam o bloqueio da unidade em `plano.aplicar`.
 
 Um plano interrompido exige consultar o recibo e preparar nova prévia.
+
+## Fotos dos produtos e dos botões
+
+`createPhotoClient` atende `fotos.listar` e `fotos.planejar`;
+`createLayoutPhotoClient` atende `fotos.layout.listar` e
+`fotos.layout.planejar`. Ambos são injetados em `createTeknisa`, e os
+planos usam `plano.aplicar`, diário privado e bloqueio da unidade.
+Configure `onCheckpoint` para salvar o recibo de cada envio e releitura.
+
+A prévia recebe arquivos JPEG com produto, caminho e SHA256 aprovados.
+O cliente compara os bytes da imagem pública, recusa uma imagem existente
+diferente, preserva os campos comerciais e interrompe chamadas ambíguas
+sem repetir o envio. Uma gravação pendente exige conferir o recibo e o
+estado atual antes de preparar outra execução.
+
+O escopo validado é organização 5482, unidade 0002, loja 0001. As imagens
+de botão cobrem as configurações 00001 e 00002, vigência 01/01/2026.
+Os clientes reutilizam botões existentes. Cópias de layout e TOTEM ficam
+fora desse comando. A galeria do produto e a imagem do botão têm campos
+próprios; aplicar em uma delas exige conferir a outra conforme o pedido.
+
+O transporte registra os contratos completos observados para
+`select_imgProd`/`saveProdFili` e
+`vnd80600_configterminalcaixa_layoutProduto`/`save`. A escrita continua
+bloqueada sem o contrato e a afirmação explícita de releitura conferida.
+Na resposta de `select_imgProd`, as linhas omitem CDPRODUTO. O recibo
+conserva o filtro completo observado; consultas de códigos distintos
+confirmaram a separação entre produtos. O operador `>=` permanece igual
+ao enviado pela interface.
+
+A prévia visual do painel mostra nomes, sem reproduzir as imagens dos
+botões. A conferência do cliente comprova a gravação e os arquivos;
+a apresentação no aparelho depende da atualização recebida por ele.
 
 ## Contratos observados e ainda sem comando
 

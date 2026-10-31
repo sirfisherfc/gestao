@@ -194,3 +194,28 @@ A Caipirinha Nacional passou a apontar para o drink de R$ 18; a dose de
 cachaça permanece R$ 6. Ypióca mantém R$ 22. Os preços de tabela foram
 relidos. O cálculo do total no POS e a impressão física aguardam teste no
 aparelho. Registro completo em `TEKNISA_MIGRACAO_CARDAPIO.md`.
+
+## Fotos conferidas em 31/10/2026
+
+A operação de fotos usa dois contratos MAN: galeria por produto/unidade,
+com leitura `select_imgProd` e gravação `saveProdFili` (`Row`), e imagem
+do botão, com `vnd80600_configterminalcaixa_layoutProduto` e `/save`
+(`DataSet`). O piloto NewCastle foi salvo pela interface nas duas telas,
+relido e comparado ao JPEG original pelos bytes. A galeria não preencheu
+o seletor de imagem do botão; ambos receberam o arquivo.
+
+Foram conferidos 27 produtos e 56 botões, sendo 28 em cada configuração
+PC/POS. Uma consulta final reconheceu todos como já preenchidos com o
+SHA256 aprovado. Os clientes `fotos.mjs` e `fotos-layout.mjs` estão
+disponíveis pela entrada compartilhada, com plano, bloqueio da unidade,
+recibo por envio e releitura. Só os contratos de escrita explicitamente
+observados e conferidos podem ampliar o transporte.
+
+Os filtros da galeria usam o operador enviado pela UI (`>=`), embora a
+resposta omita CDPRODUTO. Consultas a códigos distintos isolaram os
+registros. Cada recibo conserva o filtro e o produto solicitados.
+A imagem do botão preserva os campos de negócio da linha, incluindo
+cores, ordem e limite nulo. No piloto feito pela UI, o limite vazio do
+NewCastle/PC foi normalizado para 0. A data da vigência usa o formato da UI no envio.
+A prévia do painel mostra os nomes; falta conferir a apresentação física
+após os aparelhos receberem a atualização. Nenhuma venda foi criada.
