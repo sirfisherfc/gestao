@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🔴 Codex é o único editor de `ATENDIMENTO_INSTAGRAM.md`, `instagram-atendimento/CONHECIMENTO.md` e deste canal; base `adcfa97`. Aguarda contagens finais e fechamento da raiz para commit. Backend e interface têm responsáveis próprios.
+> **🚦 Status atual:** 🔴 Codex é o único editor de gestao e reservas para tratar mensagens canceladas; bases `4688980` e `ffc91d7`. Piloto/cron em OFF durante os testes e a revisão. Site tem responsável próprio.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.

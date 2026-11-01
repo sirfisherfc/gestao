@@ -1,6 +1,19 @@
 # Integração do atendimento em nuvem
 
-Fechamento dos testes de 01/11/2026: TEST continua restrito a uma conta
+Estado atual: piloto e cron fechados em OFF durante a correção de mensagens
+canceladas. Banco pausado, modelo/faturamento, dados e alertas false, responsável
+NULL; consumo e histórico preservados. Migration nova `20261101130005`
+recebe `is_deleted` como cancelamento por MID/remetente e guarda um registro
+mínimo para bloquear o original tardio. Invalida processamento/lease e retira
+texto e derivados exclusivos da mensagem. Fontes remanescentes do caso são
+recalculadas; pausa e trabalho humano continuam preservados. Aviso tentado
+não se rearma. IA ou envio já iniciados conservam custo/resultado mínimo,
+sem promessa de recolher o prompt ou a resposta. Testes usam dados fictícios;
+cancelamento real pela interface ainda não foi executado. Validação local:
+63 testes Node (47 atendimento + 8 instalador + 8 ativação), 37 PostgreSQL18
+e catálogo de 226 migrations. Revisão independente sem P0/P1/P2 pendente.
+
+Fechamento dos testes anteriores de 01/11/2026: TEST restrito a uma conta
 controlada. Seis envios e três chamadas de IA, incluindo o erro inicial de
 cozinha corrigido e retestado. Reserva orienta o portal sem confirmar mesa;
 pedido humano envia um único WhatsApp sem IA; reclamação em pausa não duplica;

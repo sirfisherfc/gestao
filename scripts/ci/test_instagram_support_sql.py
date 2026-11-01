@@ -29,6 +29,10 @@ create function pg_temp.safety(sender text, mid text, intent text) returns jsonb
  'recipient_id','17841439937145607','mid',$2,'text','Solicitacao sintetica.',
  'safety_intent',$3,'timestamp_ms',floor(extract(epoch from now())*1000)::bigint));
 $$;
+create function pg_temp.withdraw(sender text, mid text) returns jsonb language sql as $$
+ select public.ig_support_ingest(jsonb_build_object('kind','withdrawal','sender_id',$1,
+ 'recipient_id','17841439937145607','mid',$2,'timestamp_ms',floor(extract(epoch from now())*1000)::bigint));
+$$;
 """
 
 
@@ -47,7 +51,7 @@ class InstagramSupportSQL(unittest.TestCase):
             raise RuntimeError("Servidor de teste recusado.")
         cls.run_sql("drop schema if exists instagram_support cascade;")
         cls.run_sql((ROOT / "scripts/ci/fixtures/instagram_support.sql").read_text(encoding="utf-8"))
-        for suffix in ("durable_queue", "whatsapp_notice"):
+        for suffix in ("durable_queue", "whatsapp_notice", "withdrawal"):
             files = list((ROOT / "supabase/migrations").glob(f"*_instagram_support_{suffix}.sql"))
             if len(files) != 1:
                 raise RuntimeError("Migration Instagram ambigua.")
@@ -453,6 +457,179 @@ do $$ declare a jsonb; c jsonb; alert jsonb; begin
  perform pg_temp.check_it(public.ig_support_claim_alerts(gen_random_uuid(),1)='[]'::jsonb,'monthly alert cap');
  perform pg_temp.check_it(position('manager@example.invalid' in public.ig_support_control('cases')::text)=0,'no email in case UI');
  perform pg_temp.check_it(not(public.ig_support_control('status')->'settings' ? 'manager_auth_user_id'),'no manager identity in UI settings');
+end $$;
+""")
+
+    def test_withdrawal_before_original_and_sender_scope(self):
+        self.check_sql("""
+set local role service_role;
+do $$ begin
+ perform pg_temp.withdraw('100001','withdraw-first');
+ perform pg_temp.check_it(pg_temp.incoming('100001','withdraw-first')->>'status'='duplicate','late original blocked');
+ perform pg_temp.check_it(pg_temp.withdraw('100001','withdraw-first')->>'status'='withdrawn_duplicate','withdrawal idempotent');
+ perform pg_temp.check_it(public.ig_support_claim(gen_random_uuid(),1)='[]'::jsonb,'tombstone never processed');
+ perform pg_temp.incoming('100001','scope-original');
+ perform pg_temp.check_it(pg_temp.withdraw('100002','scope-original')->>'reason'='mid_sender_mismatch','wrong sender cannot cancel');
+ perform pg_temp.check_it((select withdrawn_at is null and text<>'' from instagram_support.events where mid='scope-original'),'other sender preserved');
+ perform pg_temp.check_it((select not human_paused from instagram_support.threads where sender_id='100001'),'unsend is not global optout');
+end $$;
+""")
+
+    def test_withdrawal_pending_claim_and_reserved_call(self):
+        for reserved in (False, True):
+            with self.subTest(reserved=reserved):
+                reserve = "perform public.ig_support_reserve_budget((a->>'event_id')::uuid,(a->>'lease')::uuid,2);" if reserved else ""
+                cost = "perform pg_temp.check_it((select spent_cents=2 and reserved_cents=0 from instagram_support.budget_months),'started call charged conservatively');" if reserved else "perform pg_temp.check_it((select count(*)=0 from instagram_support.budget_reservations),'zero model before reserve');"
+                self.check_sql(f"""
+set local role service_role;
+do $$ declare a jsonb;c jsonb;begin
+ perform pg_temp.incoming('100001','withdraw-work');a:=public.ig_support_claim(gen_random_uuid(),1)->0;
+ {reserve}
+ perform pg_temp.withdraw('100001','withdraw-work');
+ perform pg_temp.check_it(public.ig_support_reserve_budget((a->>'event_id')::uuid,(a->>'lease')::uuid,2)->>'allowed'='false','cancelled cannot reserve');
+ c:=public.ig_support_complete((a->>'event_id')::uuid,(a->>'lease')::uuid,'{{"intent":"HOURS"}}');
+ perform pg_temp.check_it(c->>'allowed'='false','old result cancelled');
+ perform pg_temp.check_it(public.ig_support_prepare_send((a->>'event_id')::uuid,(a->>'lease')::uuid,'Resposta antiga.',(a->>'thread_version')::bigint)->>'allowed'='false','old send cancelled');
+ perform pg_temp.check_it((select text='' and intent is null and reply_key is null and routing_reason is null and withdrawn_at is not null from instagram_support.events where mid='withdraw-work'),'content and derivations erased');
+ {cost}
+ perform pg_temp.check_it((select not human_paused from instagram_support.threads),'no new human pause');
+ perform pg_temp.check_it(pg_temp.incoming('100001','withdraw-new')->>'queued'='true','fresh message still accepted');
+end $$;
+""")
+
+    def test_withdrawal_old_sent_preserves_newer_work(self):
+        self.check_sql("""
+set local role service_role;
+do $$ declare a jsonb;b jsonb;c jsonb;o jsonb;begin
+ perform pg_temp.incoming('100001','withdraw-old');a:=public.ig_support_claim(gen_random_uuid(),1)->0;
+ c:=public.ig_support_complete((a->>'event_id')::uuid,(a->>'lease')::uuid,'{"intent":"HOURS"}');
+ o:=public.ig_support_prepare_send((a->>'event_id')::uuid,(a->>'lease')::uuid,'Horario revisado.',(c->>'thread_version')::bigint);
+ perform public.ig_support_finish_send((o->>'outbox_id')::uuid,(a->>'lease')::uuid,'sent','old-sent-mid');
+ perform pg_temp.incoming('100001','withdraw-newer');b:=public.ig_support_claim(gen_random_uuid(),1)->0;
+ perform pg_temp.withdraw('100001','withdraw-old');
+ c:=public.ig_support_complete((b->>'event_id')::uuid,(b->>'lease')::uuid,'{"intent":"HOURS"}');
+ perform pg_temp.check_it(c->>'allowed'='true','other event lease/version preserved');
+ perform pg_temp.check_it((select status='sent' and provider_mid='old-sent-mid' and text='' from instagram_support.outbox where id=(o->>'outbox_id')::uuid),'sent audit kept without content');
+end $$;
+""")
+
+    def test_withdrawal_urgency_source_restores_human(self):
+        self.check_sql("""
+set local role service_role;
+do $$ declare a jsonb;begin
+ perform pg_temp.safety('100001','source-human','HUMAN');
+ perform pg_temp.safety('100001','source-urgent','URGENCY');
+ perform pg_temp.withdraw('100001','source-urgent');
+ a:=public.ig_support_claim(gen_random_uuid(),1)->0;
+ perform pg_temp.check_it(a->>'handoff_ack'='true' and a->>'reply_key'='HUMAN','remaining human source governs notice');
+ perform pg_temp.check_it((select reason='human' and status='open' from instagram_support.cases),'shared case preserved');
+ perform pg_temp.check_it((select routing_reason='human' from instagram_support.events where mid='source-human'),'original source not overwritten by prior urgency');
+end $$;
+""")
+
+    def test_withdrawal_notice_can_move_only_before_any_attempt(self):
+        self.check_sql("""
+set local role service_role;
+do $$ declare a jsonb;b jsonb;begin
+ perform pg_temp.safety('100001','notice-source-a','HUMAN');a:=public.ig_support_claim(gen_random_uuid(),1)->0;
+ perform pg_temp.safety('100001','notice-source-b','URGENCY');
+ perform pg_temp.withdraw('100001','notice-source-a');
+ perform pg_temp.check_it(public.ig_support_prepare_send((a->>'event_id')::uuid,(a->>'lease')::uuid,'Antigo.',(a->>'thread_version')::bigint)->>'allowed'='false','old ACK invalidated');
+ b:=public.ig_support_claim(gen_random_uuid(),1)->0;
+ perform pg_temp.check_it(b->>'event_id'<>a->>'event_id' and b->>'reply_key'='URGENCY','only remaining source may send');
+ perform pg_temp.check_it((select count(*)=0 from instagram_support.budget_reservations),'no model for ACK');
+end $$;
+""")
+
+    def test_withdrawal_never_rearms_attempted_notice(self):
+        for outcome in ('sent', 'failed', 'uncertain'):
+            with self.subTest(outcome=outcome):
+                self.check_sql(f"""
+set local role service_role;
+do $$ declare a jsonb;o jsonb;begin
+ perform pg_temp.safety('100001','attempt-source-a','HUMAN');a:=public.ig_support_claim(gen_random_uuid(),1)->0;
+ o:=public.ig_support_prepare_send((a->>'event_id')::uuid,(a->>'lease')::uuid,'Aviso WhatsApp revisado.',(a->>'thread_version')::bigint);
+ perform public.ig_support_finish_send((o->>'outbox_id')::uuid,(a->>'lease')::uuid,'{outcome}',case when '{outcome}'='sent' then 'attempt-mid' else null end);
+ perform pg_temp.safety('100001','attempt-source-b','URGENCY');
+ perform pg_temp.withdraw('100001','attempt-source-a');
+ perform pg_temp.check_it((select notice_attempted from instagram_support.cases),'attempt marker permanent per case');
+ perform pg_temp.check_it(public.ig_support_claim(gen_random_uuid(),1)='[]'::jsonb,'no second notice after erase');
+ perform pg_temp.check_it((select count(*)=1 and bool_and(text='') from instagram_support.outbox),'one attempt, erased content');
+ perform pg_temp.check_it((select reason='urgency' from instagram_support.cases),'other source preserved');
+end $$;
+""")
+
+    def test_withdrawal_during_sending_retains_result_without_retry(self):
+        self.check_sql("""
+set local role service_role;
+do $$ declare a jsonb;c jsonb;o jsonb;begin
+ perform pg_temp.incoming('100001','withdraw-sending');a:=public.ig_support_claim(gen_random_uuid(),1)->0;
+ c:=public.ig_support_complete((a->>'event_id')::uuid,(a->>'lease')::uuid,'{"intent":"HOURS"}');
+ o:=public.ig_support_prepare_send((a->>'event_id')::uuid,(a->>'lease')::uuid,'Resposta revisada.',(c->>'thread_version')::bigint);
+ perform pg_temp.withdraw('100001','withdraw-sending');
+ perform pg_temp.check_it((select status='sending' and text='' from instagram_support.outbox),'started POST audit retained');
+ perform public.ig_support_finish_send((o->>'outbox_id')::uuid,(a->>'lease')::uuid,'sent','after-withdraw-mid');
+ perform pg_temp.check_it((select status='sent' and text='' and provider_mid='after-withdraw-mid' from instagram_support.outbox),'late result recorded');
+ perform pg_temp.check_it((select intent is null and reply_key is null and withdrawn_at is not null from instagram_support.events where mid='withdraw-sending'),'late result does not restore content');
+ perform pg_temp.check_it(public.ig_support_claim(gen_random_uuid(),1)='[]'::jsonb,'no retry');
+end $$;
+""")
+
+    def test_withdrawal_preserves_human_assignment_and_pause(self):
+        self.check_sql(f"""
+set local role service_role;
+do $$ declare a jsonb;begin
+ perform pg_temp.safety('100001','withdraw-assigned','HUMAN');a:=public.ig_support_claim(gen_random_uuid(),1)->0;
+ perform public.ig_support_control('assume',(a->>'thread_id')::uuid,'{{"actor_id":"{ACTOR}"}}');
+ perform pg_temp.withdraw('100001','withdraw-assigned');
+ perform pg_temp.check_it((select assigned_to='{ACTOR}' and reason='human_assumed' from instagram_support.cases),'manual work preserved');
+ perform pg_temp.check_it((select human_paused from instagram_support.threads),'existing human pause preserved');
+ perform pg_temp.check_it(public.ig_support_claim(gen_random_uuid(),1)='[]'::jsonb,'withdrawn ACK never follows assume');
+end $$;
+""")
+
+    def test_withdrawal_clears_only_target_sensitive_labels(self):
+        self.check_sql("""
+set local role service_role;
+do $$ begin
+ perform pg_temp.safety('100001','withdraw-only-allergy','ALLERGY');
+ perform pg_temp.withdraw('100001','withdraw-only-allergy');
+ perform pg_temp.check_it((select human_paused and pause_reason='message_withdrawn' from instagram_support.threads),'pause retained without allergy label');
+ perform pg_temp.check_it((select reason='message_withdrawn' and summary='' from instagram_support.cases),'case source label cleared');
+ perform pg_temp.check_it((select reason='message_withdrawn' and status='suppressed' from instagram_support.alerts),'alert audit retained without allergy label');
+ perform pg_temp.check_it((select routing_reason is null and intent is null and reply_key is null from instagram_support.events),'target derived labels cleared');
+end $$;
+""")
+
+    def test_withdrawal_removes_attempted_notice_derived_from_other_source(self):
+        for outcome in ('sent', 'failed', 'uncertain'):
+            with self.subTest(outcome=outcome):
+                self.check_sql(f"""
+set local role service_role;
+do $$ declare a jsonb;o jsonb;begin
+ perform pg_temp.safety('100001','derived-human','HUMAN');
+ perform pg_temp.safety('100001','derived-urgent','URGENCY');a:=public.ig_support_claim(gen_random_uuid(),1)->0;
+ o:=public.ig_support_prepare_send((a->>'event_id')::uuid,(a->>'lease')::uuid,'Orientacao urgente e WhatsApp.',(a->>'thread_version')::bigint);
+ perform public.ig_support_finish_send((o->>'outbox_id')::uuid,(a->>'lease')::uuid,'{outcome}',case when '{outcome}'='sent' then 'derived-sent-mid' else null end);
+ perform pg_temp.withdraw('100001','derived-urgent');
+ perform pg_temp.check_it((select reason='human' and notice_attempted from instagram_support.cases),'remaining source and attempt retained');
+ perform pg_temp.check_it((select status='{outcome}' and text='' from instagram_support.outbox),'attempt audit retained without removed derivation');
+ perform pg_temp.check_it((select routing_reason='human' and intent is null and reply_key is null from instagram_support.events where mid='derived-human'),'human source retained, derived urgent notice erased');
+ perform pg_temp.check_it(public.ig_support_claim(gen_random_uuid(),1)='[]'::jsonb,'no rearmed notice');
+end $$;
+""")
+
+    def test_withdrawal_of_lower_priority_source_preserves_urgency(self):
+        self.check_sql("""
+set local role service_role;
+do $$ begin
+ perform pg_temp.safety('100001','lower-allergy','ALLERGY');
+ perform pg_temp.safety('100001','higher-urgency','URGENCY');
+ perform pg_temp.withdraw('100001','lower-allergy');
+ perform pg_temp.check_it((select reason='urgency' from instagram_support.cases),'higher priority source preserved');
+ perform pg_temp.check_it((select human_paused and pause_reason='urgency' from instagram_support.threads),'stale lower priority label removed');
+ perform pg_temp.check_it((select routing_reason='urgency' and withdrawn_at is null from instagram_support.events where mid='higher-urgency'),'other source retained');
+ perform pg_temp.check_it((select reason='urgency' from instagram_support.alerts),'alert follows remaining source');
 end $$;
 """)
 
