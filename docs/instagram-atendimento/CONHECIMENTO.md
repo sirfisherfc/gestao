@@ -3,11 +3,15 @@
 Preparado em 01/11/2026. Base para atendimento humano e automação futura.
 Quatro FAQs fixas estão ativas no Instagram; o agente nativo de IA não
 apareceu no aplicativo conferido pelo proprietário. A integração própria
-foi implantada com fila, painel e callback, mantendo o agente desligado.
+foi implantada com fila, painel e callback; agora está em TEST para uma única
+conta controlada. Os clientes permanecem fora da lista autorizada.
 O teste por DM da conta controlada do proprietário foi autorizado. A
 primeira mensagem real chegou ao webhook, foi gravada e teve o username
-confirmado pela API oficial. Resposta IA e encaminhamento ainda aguardam
-teste real; o agente permanece desligado. Este arquivo
+confirmado pela API oficial. Horário, orientação de reserva, informação ausente
+e aviso de WhatsApp passaram no caminho real; uma classificação errada de
+cozinha foi corrigida com regra antes da IA e retestada. Pausa/intervenção
+humana e recuperação por cron também passaram somente com a conta controlada.
+O cron voltou a ficar inativo e os clientes continuam bloqueados. Este arquivo
 não ativa automações nem comprova carregamento
 integral desta base pelo modelo: a IA preparada escolhe um assunto por enum
 e o servidor usa textos revisados.
@@ -119,8 +123,8 @@ a pausa; retomar exige ação explícita e uma mensagem nova. Uma resposta cujo
 envio começou ainda pode chegar após a pausa. A fila não tem responsável
 padrão e os e-mails permanecem desligados; os acessos existentes foram preservados.
 O painel distingue aviso pendente, link enviado no Instagram e resultado
-incerto. Não afirma leitura nem atendimento no WhatsApp. Esse novo ACK está
-em validação e deve passar pela implantação OFF e pelo teste restrito.
+incerto. Não afirma leitura nem atendimento no WhatsApp. Esse novo ACK passou
+por testes locais, implantação OFF e envio real restrito, confirmado na interface.
 Evite pedir novamente informação já fornecida. Não exponha dados de outros clientes.
 
 ## Limites de execução
@@ -133,20 +137,23 @@ integração, dado ausente e resposta ambígua exigem explicar o próximo passo.
 As FAQs fixas oferecem respostas previamente salvas. A nova regra de
 Instagram para reserva está desligada e conserva 15 minutos de inatividade;
 a regra antiga foi mantida somente no Messenger. O acompanhamento conferido
-no filtro nativo foi manual. A fila própria está em nuvem, com modo `off`
-e pausa global restaurada após teste administrativo. A revisão WhatsApp remove
+no filtro nativo foi manual. A fila própria está em nuvem, com modo TEST para
+uma conta controlada, sem liberação para clientes. A revisão WhatsApp remove
 somente o responsável padrão do assistente, sem revogar acesso do portal.
 Atribuição nativa e transferência automática pela API ainda não foram
 demonstradas com uma conversa real; a FAQ oferece WhatsApp. A inscrição da Página
 foi corrigida de `name` para `messages,name`, com POST autorizado e GET de
 retorno; o objeto Instagram do app já tinha `messages` ativo.
 O app da Meta foi publicado em Live com autorização do proprietário e o
-aviso de eventos dummy antes de Live desapareceu. O agente permanece em
-`off`. Após a conclusão do vínculo pessoal autorizado para o teste,
+aviso de eventos dummy antes de Live desapareceu. O agente ficou inicialmente
+em `off`. Após a conclusão do vínculo pessoal autorizado para o teste,
 a primeira DM real da conta controlada gerou POST 200 e um evento/uma
 conversa na fila. A consulta de perfil retornou 200 e username exato.
-Pausa global ativa, sem IA, faturamento, alertas ou cron; lista restrita
-do teste ainda não aplicada. Não houve resposta automática nesse teste.
+Esse primeiro recebimento ocorreu com pausa global e gates fechados, sem
+resposta automática. Depois da revisão do aviso WhatsApp, o helper liberou
+TEST para uma única conta com perfil correspondente; runtime e banco conferidos,
+modelo/faturamento autorizados apenas nesse teste, cron/e-mails desligados.
+Na primeira leitura após ativar, zero envios ou chamadas e bootstrap terminal.
 Live não comprova Meta Review aprovado ou Advanced Access concedido.
 O proprietário autorizou a associação entre os dois perfis pessoais do
 teste. A tentativa de concluir o SSO pelo Instagram retornou erro da Meta.
@@ -169,8 +176,8 @@ total de R$50 preserva margem de R$5 sobre o teto do agente. Outros usos da
 mesma chave não entram nesse controle.
 
 Username e links de perfil foram implementados e publicados no painel;
-o GET do remetente real foi validado. Falta conferir a apresentação de um
-caso real no produto. Não há avatares. Conferir o username retornado pela
+o GET do remetente real e a apresentação do caso no produto foram validados
+com a conta controlada. Não há avatares. Conferir o username retornado pela
 API oficial com o IGSID do webhook; nome pode ser nulo e um ID numérico
 não é URL de conversa.
 

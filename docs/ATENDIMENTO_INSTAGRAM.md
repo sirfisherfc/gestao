@@ -19,7 +19,7 @@ comprova leitura de casos, resposta no horário ou compromisso de prazo.
 | Conta e credencial existentes | GET oficial autenticado confirmou @sirfisherfc e Página Sir Fisher. |
 | Mensagens e comentários | Permissões concedidas ao token: `instagram_manage_messages`, `instagram_manage_comments`, `pages_manage_metadata`, `pages_read_engagement`, `pages_messaging` e `pages_show_list`. Isso não comprova entrega ou envio de mensagens. |
 | MCP existente | Mantido somente para leitura de métricas. Não foi ampliado para Direct ou escrita. |
-| Webhook do app | Callback HTTPS e assinatura do objeto Instagram com `messages` validados. Primeira DM real da conta controlada recebida: POST 200 e um evento/uma conversa gravados. Nenhum envio de IA demonstrado ainda. |
+| Webhook do app | Callback HTTPS, HMAC e objeto Instagram/messages validados. DMs reais da conta controlada geraram respostas e MID confirmado; nenhum cliente fora do teste foi liberado. |
 | Inscrição da Página | A releitura da API encontrou somente `name`, apesar de a tela mostrar mensagens selecionadas. Após confirmar o contrato de Facebook Login, POST autorizado conservou `name` e incluiu `messages`; HTTP 200, `success=true` e GET de retorno com ambos os campos. Não foi adicionado objeto Page ao webhook do app por inferência. |
 | App da Meta | Publicado em Live com autorização do proprietário e estado relido. O aviso de testes dummy antes de Live desapareceu. Isso não ativa o agente nem comprova aprovação de Advanced Access ou Meta Review. |
 | Verificação empresarial | A Página pertence a empresa verificada. A tela oficial de Verificação do App confirmou 100%, com DeathStar no portfólio Sir Fisher e estado Verificado, sem alteração de vínculo. Isso satisfaz a comprovação empresarial conferida; não explica o Timeout. |
@@ -28,17 +28,17 @@ comprova leitura de casos, resposta no horário ou compromisso de prazo.
 | Base para o agente | Preparada em `instagram-atendimento/CONHECIMENTO.md`, com limites e fontes. |
 | FAQs nativas do Instagram | Quatro perguntas com respostas fixas salvas e ativas; textos em `BOOK_QA_ATENDIMENTO.md`. Não interpretam livremente outras perguntas. |
 | Regra de reserva | Instagram retirado da regra antiga, preservada no Messenger. Nova regra de Instagram com condições restritas e 15 minutos de inatividade salva e desligada, aguardando teste externo e validação da pausa humana. |
-| Atendimento humano | Atendimento manual retomado pela interface. Fluxo futuro confirmado pelo proprietário: um aviso para abrir o WhatsApp e enviar a mensagem por lá; caso e pausa ficam registrados. Revisão em testes locais, sem ativação; caso real e envio ainda aguardam validação. Acessos atuais da gerente preservados. |
+| Atendimento humano | Pedido de pessoa gerou um caso e pausa antes do único aviso WhatsApp sem IA. Reclamação durante a pausa atualizou o mesmo caso sem outro aviso. Texto e link conferidos na interface. Acessos da gerente preservados; sem responsável padrão/e-mail. |
 | Comentários | Seis publicações e nove comentários visíveis revisados; elogios ou reações sem perguntas. Nenhuma resposta publicada ou automação de comentário ativada. |
 | IA nativa | Não apareceu no aplicativo conferido pelo proprietário. Atendimento livre com IA ainda indisponível nesta conta. |
-| Integração em nuvem | Edge Function e fila privada implantadas; modo `off` e pausa global preservados. Funcionamento independe do Chrome. Não há ativação para clientes. |
-| Painel da equipe | Acesso autenticado pelo proprietário e consulta de estado conferidos. Alternância da pausa global testada mantendo `off`; pausa restaurada para `true`. Isso não testa entrega de mensagem. |
-| Identificação da conversa | GET único da User Profile API para o remetente real retornou 200 e username exato da conta controlada. Perfil e links implementados e publicados no painel; visualização de um caso real no produto ainda aguarda teste. Sem avatares. |
-| Testes | Testes locais de segurança e fila passaram; Gemini respondeu à pergunta sintética sem dados de clientes. Primeira DM real recebida e identidade validada. Resposta IA, deduplicação e encaminhamento humano pelo caminho real continuam sem validação; agente em `off`, com pausa global e demais controles fechados. |
+| Integração em nuvem | Código `9afafed` e migration do aviso único implantados; TEST somente para uma conta após Profile API/revisão. Recuperação por um ciclo real do cron passou, com HTTP200 e MID; voltou a inativo. Bootstrap sem replay. Clientes fora da lista bloqueados. |
+| Painel da equipe | Login, perfil, caso e link enviado conferidos. Encerrar manteve a pausa; retomar exigiu confirmação separada e não reenviou histórico. Dois casos de teste fechados; nenhuma reclamação real marcada como resolvida. |
+| Identificação da conversa | Profile API200/username exato; caso de teste mostrou perfil verificado e link real no painel. Sem avatares ou URL inventada de thread. |
+| Testes | 57 Node e 26 PostgreSQL18. Reais: horário, reserva sem confirmação, cozinha UNKNOWN após correção, aviso humano único, reclamação em pausa, encerrar/retomar, echo manual e recuperação cloud. Seis envios/três chamadas de IA; inclui o erro inicial de cozinha, corrigido e retestado. Sem e-mails ou bootstrap pendente. |
 
 ### Atendimento manual de 01/11/2026
 
-Na conferência mais recente, 114 pessoas receberam resposta manual, com
+Na conferência mais recente, 118 pessoas receberam resposta manual, com
 quatro complementos em conversas já contadas, e 13 grupos foram excluídos.
 Restaram sete pendências de identificação: seis registros anônimos e um
 sem identidade verificada após recuperar seis conversas nativas. A cobertura
@@ -134,9 +134,9 @@ HTTPS, validação da assinatura, inscrição de eventos, testes controlados,
 análise e acesso necessários e publicação do app. O receptor e as inscrições
 foram preparados. Depois da autorização do proprietário, o app foi
 publicado em **Live**, com estado confirmado após releitura. O agente de
-atendimento permanece em **`off`**, com pausa global.
-O recebimento da primeira DM real foi validado posteriormente, conforme o
-registro abaixo; o envio real por essa API ainda aguarda teste. Os caminhos
+atendimento permaneceu em **`off`** nessa etapa. Depois, o piloto restrito
+validou recebimento, envio, pausa humana e recuperação, conforme o estado atual.
+Os caminhos
 Facebook Login e Instagram Login exigem
 configurações próprias; uma condição de um caminho não comprova acesso no outro.
 
@@ -353,7 +353,7 @@ antes da ativação. Entrada oficial: https://www.facebook.com/business/ai .
 | Meta One para empresas | Essencial desde R$59/mês no Brasil, acima do teto. Não contratar. Core e Instagram Plus não comprovam acesso ao atendimento comercial. |
 | Manychat Pro com IA | US$39/mês, ou US$348 cobrados ao ano; 2.500 contatos ativos/mês, dois lugares no Inbox e excedentes. Acima do teto. Não contratar. |
 | Manychat Free | Modelo atual com 25 contatos ativos/mês e quatro automações. Conferir eventual plano legado existente; cobertura atual insuficiente para propor atendimento contínuo com IA. |
-| Integração própria por API | Preparada com o Supabase e a chave Gemini existentes, sem nova assinatura. Fila, limites, painel e callback implantados com agente desligado. Recomendada para piloto controlado após validar a DM real, os acessos da Meta e o tratamento de dados. Exige acompanhar falhas e cotas. |
+| Integração própria por API | Reusa Supabase e Gemini existentes, sem nova assinatura. Fila, limites, painel e callback implantados; piloto de uma conta passou por testes reais. Recomendada dentro do teto, com produção ainda condicionada ao escopo da Meta e à revisão. Exige acompanhar falhas e cotas. |
 
 Foi reutilizado o acesso existente ao Gemini, já usado em ferramenta de
 imagens. O teste inicial de texto público respondeu HTTP 200 com 61 tokens
@@ -460,8 +460,8 @@ WhatsApp oficial. O cliente deve abrir o link e enviar a mensagem por lá.
 A fila própria registra o caso e a pausa antes de um único aviso curto por
 caso ativo. Esse aviso usa texto revisado, sem IA; não afirma transferência,
 leitura ou aviso à equipe. Repetições não geram outro link. Não configurar
-responsável padrão ou e-mail neste fluxo. A revisão aguarda implantação OFF
-e teste restrito antes de qualquer cliente.
+responsável padrão ou e-mail neste fluxo. A revisão foi implantada OFF e
+passou por teste restrito. Clientes ainda não foram liberados.
 Cinco casos antigos foram conferidos com responsável e Acompanhar no filtro
 nativo. Esse registro preserva o histórico manual; o novo fluxo usa WhatsApp.
 A conferência atual dos ativos de Hêmile confirmou a permissão Mensagens no
@@ -492,11 +492,10 @@ WhatsApp. Uma urgência de maior prioridade antes do envio substitui a orientaç
 genérica. Pausa global ou intervenção manual cancelam avisos pendentes.
 Assumir e encerrar conservam a pausa; retomar é
 ação separada. Uma resposta cujo envio já começou pode chegar após a pausa.
-Tudo isso passou por testes locais; falta validar o encaminhamento com DM
-real e conferir o caso no painel da equipe. O enriquecimento com username
-e links foi implementado e publicado em `reservas`, commit `b119600`, com
-build aprovado. O GET real de perfil foi validado; a apresentação do caso
-no painel ainda aguarda teste. O recurso não cria atribuição nativa no
+O fluxo passou pelos testes locais e por DMs controlados, com pausa, aviso único
+e caso conferidos no painel. O enriquecimento com username e links foi
+publicado em `reservas`, e o GET real de perfil foi validado. A apresentação
+do caso foi conferida no produto. O recurso não cria atribuição nativa no
 Inbox da Meta nem exibe avatares.
 
 ## Conversas novas e antigas
@@ -555,22 +554,22 @@ pausa e a suspensão por conversa ainda não foram testadas com conta externa.
 | Conteúdo e interface | Quatro FAQs reabertas após recarga, com textos persistidos, Instagram selecionado, estado Ativado e Salvar desabilitado sem alterações. Nova regra de reserva, com 15 minutos de inatividade, salva e desligada. Isso não comprova entrega por todos os gatilhos. |
 | Atendimento real manual | Respostas enviadas e encaminhamentos conferidos pela interface. Retomada ainda em andamento; contagem final pendente. Histórico considerado; envio não comprova resolução. |
 | Modelo de IA isolado | Classificador Gemini 3.5 Flash-Lite: HTTP 200, `HOURS`, 297 tokens de entrada, dois de resposta, zero de pensamento, 299 totais. Pergunta sintética; nenhuma conversa de cliente. Paid e vínculo da chave conferidos na interface, com saldo ainda sem valor carregado. |
-| Nuvem e painel | Fila e Edge Function implantadas em `off`, app Instagram com `messages` e Página com `messages,name`. Primeira DM real recebeu POST 200 e gravou um evento/uma conversa. GET de perfil retornou 200 e username exato da conta controlada. Gerente configurada. Pausa global `true`; IA, faturamento, alertas e cron desabilitados. Perfil e links publicados; falta conferir caso real no painel. |
-| Fila humana | Encaminhamentos nativos conferidos após reabrir. A primeira rodada havia encontrado falhas de persistência descritas no histórico; o vínculo não foi presumido por um aviso de salvamento. Contagem final, leitura e conclusão pela gerente não comprovadas. Transferência automática pela integração ainda sem teste real concluído. |
+| Nuvem e painel | TEST exclusivo da conta controlada, perfil e caso conferidos no produto. Seis envios/três chamadas de IA. Sem manager/e-mails; cron recuperou um claim pré-IA por um ciclo e voltou a inativo. Sem bootstrap ou pendência. |
+| Fila humana | Caso+pausa antes de um único aviso WhatsApp sem IA; reclamação em pausa não duplicou. Encerrar/retomar separados; echo manual real causou nova pausa. Dois casos de teste fechados, sem registrar resolução de reclamação real. O link não confirma transferência nem atendimento no WhatsApp. |
 | Revisão de comentários | Seis publicações e nove comentários visíveis revisados, todos com elogios ou reações sem perguntas. Nenhuma resposta publicada; revisão não cobre todo o acervo de comentários. |
 | Alerta de mensagens sem resposta | Recurso inspecionado; somente Messenger selecionável, sem opção de Instagram. Tela cancelada sem salvar. Não cobre pendências do Instagram. |
 | Operações | Reservas, cancelamentos e pagamentos continuam pelos portais ou por pessoa. Nenhuma dessas operações foi executada pelo agente. |
-| Automação completa | App em Live e agente em `off`. Recebimento real e identidade da conta controlada validados. Falta demonstrar resposta, deduplicação e encaminhamento com pausa humana pelo caminho real. Lista restrita para esse teste ainda não aplicada; nenhuma ativação para clientes. Meta Review/Advanced Access não comprovados; necessidade efetiva de produção a confirmar no caminho atual. Comentários e Stories continuam com cobertura a verificar. |
+| Automação completa | App em Live e agente em TEST de uma conta. Recebimento, respostas, encaminhamento, pausa e recuperação validados nesse escopo; duplicatas e falhas também cobertas localmente. Clientes não liberados. Meta Review/Advanced Access de produção não comprovados. Comentários e Stories continuam com cobertura a verificar. |
 
-Os cenários acima são o roteiro para os testes ainda faltantes. Não atribuir
-aprovação geral ao roteiro por causa dos envios manuais. Testes reais devem
+Os resultados acima distinguem o piloto da produção ainda não liberada.
+Não atribuir aprovação geral por causa dos envios manuais. Testes reais devem
 usar conta controlada, sem mensagens de teste a clientes. Apresentar os
 resultados e o comportamento da nova regra antes de ativá-la. Os 15 minutos
 de inatividade não substituem a validação de pausa durante atendimento humano.
 
 ## Acompanhamento proposto
 
-Nos primeiros sete dias, a gerente revisa diariamente pendências e respostas
+Nos primeiros sete dias, a equipe revisa diariamente pendências e respostas
 automáticas. Registrar sem conteúdo pessoal: total de novas conversas,
 mediana/p90 até a primeira resposta útil, casos resolvidos automaticamente,
 encaminhamentos abertos/encerrados e erros por assunto.

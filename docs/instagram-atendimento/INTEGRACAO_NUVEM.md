@@ -1,6 +1,53 @@
 # Integração do atendimento em nuvem
 
-Revisão de 01/11/2026 em validação: migration
+Fechamento dos testes de 01/11/2026: TEST continua restrito a uma conta
+controlada. Seis envios e três chamadas de IA, incluindo o erro inicial de
+cozinha corrigido e retestado. Reserva orienta o portal sem confirmar mesa;
+pedido humano envia um único WhatsApp sem IA; reclamação em pausa não duplica;
+resposta manual real da Meta Suite gerou echo e pausa. O painel mostrou perfil,
+motivo e estado do link; encerrar manteve pausa e retomar exigiu outra confirmação.
+Os dois casos de teste foram fechados, sem marcar reclamação real como resolvida.
+Estado final: conversa retomada, zero pendências, e-mail/manager bloqueados.
+
+O Vault recebeu somente a cópia do segredo limitado do worker, via parâmetros
+separados do SQL, sem literal em query ou output. Um registro canônico com
+correspondência confirmada; outros segredos e jobs preservados. O job existente,
+owner postgres, já tinha recuperação e guard de fila vazia. Foi autorizado um
+único ciclo para recuperar claim genuíno expirado antes da IA, após mensagem
+nova controlada. Resultado: cron succeeded, um POST `/drain` HTTP 200 às
+12:04:02,483 UTC, UNKNOWN/sent/MID confirmado, uma resposta e zero nova IA.
+O tempo de 65,413s inclui hold e espera intencionais. Job e `cron_enabled`
+voltaram a false. Com fila vazia, o tick executa a recuperação SQL e termina
+sem invocar a Edge Function. Não foi criada migration ou rotina adicional.
+
+O header do worker fica descriptografado temporariamente na fila pg_net para
+papéis LOGIN; o token tem escopo limitado e não é service_role/PAT. Filas pg_net
+são UNLOGGED e suas respostas duram 6h por padrão, enquanto events/outbox são
+duráveis. Conferir job SQL, HTTP e fila/outbox; succeeded sozinho não comprova
+entrega. Free não oferece SLA nem garantia de que cron impedirá pausa.
+
+Metadados às 11:52:56 UTC: zero incoming fora da conta de teste. Sem Profile API
+de cliente, IA, envio ou ampliação de lista por esse diagnóstico. O zero não
+comprova a causa nem o escopo liberado para produção.
+
+Correção `9afafed` publicada e TEST reativado para a mesma conta após health
+OFF e novo `--check`. A pergunta de cozinha inicialmente foi classificada
+como HOURS e reprovada. O novo guard usa UNKNOWN antes do modelo; o reteste
+real gerou sent/MID confirmado em 4,550s, sem nova IA (duas chamadas anteriores,
+três envios acumulados). 57 testes Node aprovados. A cozinha continua sem
+horário confirmado; a resposta explica essa falta e oferece o próximo passo.
+
+Estado posterior à revisão: TEST aplicado com autorização exclusiva para
+uma conta controlada. Helper `--check` real aprovado e `--apply` confirmou
+username correspondente, listas e interseção de uma conta, runtime/banco
+TEST e bootstrap pendente zero. Health 200 confirmou estado efetivo, dados
+aprovados somente no teste e pausa global false. Limites R$45/2.000 gerações/
+2 centavos e validade de 30 dias conferidos. Sem responsável, alertas ou cron.
+Leitura inicial: zero outbox/modelo/casos, sem drain. A primeira FAQ nova
+resultou em HOURS, sent e MID confirmado pela Meta: 298 tokens de entrada,
+dois de saída, uma chamada/um envio, sem caso ou pausa humana.
+
+Revisão de 01/11/2026 aplicada em OFF: migration
 `20261101102855_instagram_support_whatsapp_notice.sql`, criada pela CLI
 2.122.0 após conferir a versão máxima. Acrescenta `cases.handoff_notice_event_id`
 com FK de retenção e índice único. Recria ingest, claim, complete, prepare_send,
@@ -9,7 +56,7 @@ somente `service_role`. Não altera tabelas dos outros sistemas.
 
 O fluxo atual solicitado é IA no Instagram e atendimento humano por link
 ao WhatsApp oficial. O caso e a pausa são gravados antes de um único aviso
-curado por caso ativo, sem classificador nem reserva paga. O cliente precisa
+revisado por caso ativo, sem classificador nem reserva paga. O cliente precisa
 abrir o link e enviar a mensagem por lá. O painel acompanha o envio do link
 no Instagram, sem afirmar leitura ou atendimento no WhatsApp.
 
@@ -24,8 +71,17 @@ implantação anterior, que esta revisão substitui para o atendimento.
 
 Validação local desta revisão: 40 testes Node do atendimento, oito do
 instalador OFF, oito do helper TEST e 26 contratos reais PostgreSQL18,
-incluindo concorrência e o SQL real de ativação. A implantação continua
-pendente até revisão. O helper TEST é separado, não aceita live e não chama
+incluindo concorrência e o SQL real de ativação. A revisão independente
+aprovou o conjunto; commit gestao `613d6a0` e backend reservas `281e2e7`.
+A versão foi registrada no histórico na mesma transação. As funções públicas
+dos outros sistemas mantiveram definição/grants. Server-only/invoker e OFF
+foram conferidos, com responsável NULL, modelo/faturamento, alertas e cron
+desligados. Security Advisor: dez INFO esperados de RLS sem policy privada,
+zero WARN/ERROR do atendimento. Edge versão 7 ACTIVE preservou 28 segredos.
+Health 200 confirmou modo OFF real, anônimo/segredo errado 403, vazio assinado
+200/zero eventos e assinatura incorreta 401. O helper --check real passou
+com um remetente e perfil correspondente; nenhum envio foi iniciado.
+O helper TEST é separado, não aceita live e não chama
 drain. Depois do deploy OFF, exige revisão antes de liberar apenas a conta
 controlada com username confirmado. Não reproduz bootstrap nem liga cron.
 
@@ -80,10 +136,9 @@ A chave `service_role` e os segredos permanecem fora do navegador.
 A consulta somente de leitura ao portal encontrou um cadastro da gerente
 com admin ativo, autenticação vinculada e e-mail presente. O servidor já
 tem os grants de leitura necessários em `app_users`; nenhum grant foi
-acrescentado ao cadastro. `settings.manager_auth_user_id` começa NULL.
-O responsável pela implantação resolve o identificador no banco e o
-configura sem gravar UUID ou e-mail real em arquivos versionados.
-Esse vínculo foi concluído em 01/11/2026; ele não habilita envio de avisos.
+acrescentado ao cadastro. O fluxo atual mantém `settings.manager_auth_user_id`
+NULL e e-mails desligados. A revisão substituiu o vínculo anterior sem alterar
+os acessos existentes. Não executar lookup ou nova atribuição pessoal neste fluxo.
 
 ## Fluxo e estados
 
@@ -92,8 +147,9 @@ Esse vínculo foi concluído em 01/11/2026; ele não habilita envio de avisos.
    evento e roteamento na mesma transação, deduplicando o MID antes do ACK.
 2. `safety_intent` em uma das categorias permitidas pausa a conversa e cria
    o caso imediatamente. Uma mensagem seguinte não apaga um pedido de
-   pessoa ou uma alergia. Nessa rota conservadora, a equipe responde;
-   não há ACK automático nem chamada de IA.
+   pessoa ou uma alergia. O worker reserva somente o aviso único do caso
+   ativo e envia o link do WhatsApp com texto revisado, sem IA. A conversa
+   permanece pausada e o cliente precisa enviar a mensagem por lá.
 3. O worker obtém uma lease por conversa. Mensagem nova muda a versão e
    invalida resultado antigo. O worker reserva orçamento antes de Gemini.
 4. A conclusão limpa o texto do cliente. Pergunta desconhecida permite
@@ -214,7 +270,7 @@ python -B scripts/ci/test_instagram_support_sql.py
 ```
 
 O workflow Quality também usa banco dedicado no serviço PostgreSQL 15.
-A execução local em PostgreSQL 18 aprovou 17 testes; a checagem estática e
+Na primeira execução da base, PostgreSQL 18 aprovou 17 testes; a checagem estática e
 o catálogo de 224 migrations também passaram. O servidor local descartável
 foi encerrado após os testes. A aplicação ao portal conferiu apenas os
 objetos e os modos seguros; o backend e os provedores ainda exigem os
@@ -249,29 +305,9 @@ o conteúdo existente seja conferido. A migration já contém BEGIN/COMMIT e
 NOTIFY para recarregar o schema do PostgREST; não a envolver em outra
 transação incompleta. Confirmar a versão, os objetos, grants e modos depois.
 
-Para vincular a gerente sem imprimir identidade ou e-mail, executar depois
-da implantação e revisar somente a contagem e os flags retornados:
-
-```sql
-do $manager$
-declare v_ids uuid[];
-begin
-  select array_agg(auth_user_id) into v_ids
-  from public.app_users
-  where active and role='admin' and auth_user_id is not null
-    and translate(lower(coalesce(name,'')),'êéèë','eeee') like '%hemile%';
-  if coalesce(array_length(v_ids,1),0)<>1 then
-    raise exception 'Cadastro da gerente ausente ou ambiguo; revisar.';
-  end if;
-  update instagram_support.settings
-    set manager_auth_user_id=v_ids[1],alerts_enabled=false,updated_at=now()
-    where singleton;
-end;
-$manager$;
-```
-
-Esse lookup não concede acesso nem altera `app_users`. Ainda não habilita
-modelo, aviso ou Direct. O responsável pela implantação confere a modalidade
+O responsável padrão permanece NULL. Os clientes abrem o WhatsApp pelo link;
+não configurar e-mail ou uma nova atribuição pessoal neste fluxo. Os acessos
+existentes de `app_users` permanecem preservados. O responsável confere a modalidade
 de faturamento/privacidade do Gemini antes de preencher os flags de aprovação
 e `pricing_valid_until`; o painel não possui esse comando.
 

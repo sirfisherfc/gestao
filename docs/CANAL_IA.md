@@ -785,7 +785,7 @@ de CI aprovadas e HTTP 200. Username e links de perfil do painel foram
 implementados e publicados em reservas, commit `b119600`, com build
 aprovado; GET do remetente real validado, apresentação do caso no produto
 ainda pendente. Sem avatares.
-Na última conferência manual, 114 pessoas receberam resposta, com quatro
+Na última conferência manual, 118 pessoas receberam resposta, com quatro
 complementos em conversas já contadas, e 13 grupos foram excluídos. Sete
 pendências de identificação: seis registros anônimos e um sem identidade
 verificada após recuperar seis conversas nativas. A cobertura permanece
@@ -817,9 +817,52 @@ cancelam avisos pendentes; envio incerto não se repete automaticamente.
 Validação local: 40 testes Node do atendimento/painel, oito do instalador
 OFF, oito do helper restrito e 26 testes reais PostgreSQL18. Incluem o pedido
 literal «Como falo com uma pessoa?» sem modelo e a pausa global durante a IA.
-Revisão e implantação OFF ainda em andamento. O helper TEST aguarda revisão
+Revisão independente aprovada e implantação OFF concluída. Gestao `613d6a0`,
+reservas `281e2e7`, migration `20261101102855` registrada atomicamente e Edge 7
+ACTIVE, com 28 segredos preservados. Health 200 confirmou OFF real, pausa ativa,
+dados e alertas false; anônimo/segredo errado 403; vazio assinado 200/zero eventos;
+assinatura inválida 401. Security Advisor sem WARN/ERROR do atendimento;
+funções dos outros sistemas preservadas. O helper --check real confirmou
+remetente único e perfil exato. Nenhum drain ou Direct foi enviado.
+O helper TEST aguarda revisão
 separada antes de aplicar; exige remetente único privado, inbound assinado,
 Profile API com username exato e os limites de R$45 + R$5 de margem.
+Após esse `--check`, a coordenação autorizou e foi aplicado TEST para uma
+única conta controlada. Health confirmou TEST efetivo, dados aprovados somente
+no teste, listas e interseção de uma conta e pausa global false. Limites R$45/
+2.000 gerações/2 centavos e validade de 30 dias conferidos. Leitura inicial:
+zero outbox/modelo/casos/bootstrap pendente; o helper não chamou drain.
+Depois, a primeira FAQ nova gerou HOURS, sent/MID confirmado pela Meta,
+298 tokens de entrada e dois de saída. Uma chamada/um envio, sem caso e sem
+pausa humana. Os outros cenários reais continuam em teste.
+O teste seguinte de cozinha reprovou HOURS. O agente foi fechado em OFF,
+com histórico e custo preservados. Correção `9afafed`, revisada e 57 Node verdes,
+força UNKNOWN antes de chamar o modelo para cozinha/último pedido sem fonte.
+Implantação OFF e novo check aprovados; TEST reaberto para a mesma conta.
+Reteste real: UNKNOWN, sent/MID confirmado, 4,550s e zero nova chamada de IA.
+Reserva para quatro passou com portal/corte/tolerância, sem confirmar mesa.
+Pedido humano criou caso+pausa e enviou um único WhatsApp sem IA; reclamação
+seguinte manteve o caso e não duplicou resposta. Painel mostrou perfil verificado
+e estado do link. Encerrar/retomar foram ações separadas sem replay. A resposta
+manual da Meta Suite gerou echo e nova pausa. Os dois casos de teste foram
+fechados, sem registrar reclamação real como resolvida.
+
+O Vault recebeu um único segredo limitado do worker por parâmetros HTTPS
+separados do SQL; correspondência confirmada e demais entradas preservadas.
+O job existente, owner postgres, foi usado por um ciclo de recuperação de
+claim pré-IA expirado com mensagem nova da conta controlada: succeeded,
+um POST `/drain` HTTP 200 às 12:04:02,483 UTC e UNKNOWN/sent/MID confirmado.
+Contadores finais: seis envios/três chamadas de IA, zero casos abertos,
+pendências, e-mails ou bootstrap. Conversa retomada; job e flag desligados.
+O tempo de 65,413s inclui retenção e espera intencionais do cron.
+
+O guard existente evita Edge sem fila; lease pré-IA volta à fila, enquanto
+envio incerto fica para conferência sem reenvio cego. O header pg_net usa
+somente o segredo limitado, não service_role/PAT, e fica temporariamente
+descriptografado para papéis LOGIN. Não alterar filas/grants dos outros sistemas.
+Free sem SLA e com pausa por inatividade continua uma limitação conhecida.
+Metadados às 11:52:56 UTC não mostraram incoming fora do owner; não houve leitura
+de perfil de cliente, IA, envio ou mudança de lista nesse diagnóstico.
 Cron, e-mails e clientes continuam desligados. As quatro FAQs nativas ficam
 ativas durante o teste; desligar respostas duplicadas antes da produção.
 Meta Review de produção segue pendente e não foi usado modo live do agente.
