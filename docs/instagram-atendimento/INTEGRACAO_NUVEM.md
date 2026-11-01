@@ -1,5 +1,14 @@
 # Integração do atendimento em nuvem
 
+Continuidade após WhatsApp conferida no proprietário: um aviso, uma FAQ de
+endereço e nenhum aviso repetido no mesmo caso, sem pausa automática.
+Aviso em 4,620 s e FAQ em 5,397 s entre recebimento e conclusão no banco;
+duas observações, sem SLA. Encerramento explícito pelo painel preservou a
+conversa sem pausa e não repetiu tarefa. Leitura final: oito envios/quatro
+chamadas acumulados, zero casos abertos, três fechados e zero pendências.
+TEST1, cron único e gates públicos false preservados. Teste controlado;
+nenhum identificador ou texto privado neste registro.
+
 Estado atual: TEST retomado para a mesma conta controlada, com único cron
 existente ativo. Clientes permanecem bloqueados. Durante a correção de mensagens
 canceladas, o piloto e o cron ficaram em OFF, com consumo/histórico preservados.

@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 gestao/reservas publicados com continuidade após WhatsApp no TEST1 e cron único. Pausas reais preservadas; gates públicos fechados. Ensaio real da continuidade pendente na conta controlada. Site e recibos UI têm responsáveis próprios.
+> **🚦 Status atual:** 🟢 gestao/reservas publicados; continuidade após WhatsApp passou no TEST1 real e cron único. Pausas reais preservadas; gates públicos fechados. Oito envios/quatro chamadas acumulados, caso de teste encerrado e sem pendências. Site e recibos UI têm responsáveis próprios.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -134,13 +134,32 @@ horários da casa preservados. BOOK/CONHECIMENTO/AGENTS e painel alinhados.
 
 81 Node (65+8+8), 42 contratos PostgreSQL18 + duas guardas e catálogo227
 aprovados; revisão independente sem P1/P2 aberto. Actions/Pages dos dois
-commits passaram; painel/módulo200 e cópias novas presentes. Ensaio real
-da continuidade ainda pendente. Site `42a9ee6` já publicado pela coordenação;
+commits passaram; painel/módulo200 e cópias novas presentes. Site `42a9ee6` já publicado pela coordenação;
 FAQs nativas e regra de reserva OFF sem horário humano conferidas na UI.
 
 Conexão Facebook e credenciais preservadas. A alternativa Instagram Login
 requer app Empresa separado com autorização específica ainda pendente.
 Consentimento público Gemini Paid/Supabase e prova fora dos papéis continuam
 pendentes; mudar modo não libera esses gates. Não ativar IA pública.
+
+— Codex
+
+## 2026-11-01 · Codex — Continuidade conferida na conta controlada
+
+A coordenação enviou pedido humano, FAQ de endereço e novo pedido humano no
+mesmo caso. Servidor e interface confirmaram um aviso de WhatsApp, uma FAQ
+respondida e nenhum segundo aviso. A conversa permaneceu sem pausa e o caso
+aberto até o encerramento explícito pelo painel autenticado. O aviso não
+continha horário humano, prazo ou afirmação de pausa. A FAQ nativa Instagram
+ficou temporariamente desligada no ensaio; a coordenação cuida de restaurá-la.
+
+O aviso levou 4,620 s e a FAQ 5,397 s entre recebimento e conclusão no banco.
+São duas observações do teste, sem SLA. Aviso sem modelo; FAQ usou uma chamada
+de classificação. Contadores finais: oito envios/quatro chamadas acumulados,
+zero pendências, zero casos abertos e três fechados. Encerrar preservou a
+conversa sem pausa, sem replay. TEST/interseção1, cron único ativo e ambos
+gates públicos false foram conferidos novamente. Nenhum envio, drain ou
+alteração operacional foi executado pelo observador; nenhum identificador
+ou texto privado consta neste registro. O encerramento era de um caso de teste.
 
 — Codex
