@@ -1,11 +1,39 @@
 # Integração do atendimento em nuvem
 
-Gemini segue exclusivo do proprietário adulto. A escolha pública está
-pendente entre OpenAI API proposta até R$45, sem acesso habilitado, e FAQ
-por regras gratuita ainda não implementada. A restrição etária de API Client
+Gemini segue exclusivo do proprietário adulto. Em 01/11/2026 o proprietário
+escolheu preparar OpenAI API com teto de R$45/mês. Preparação e testes locais
+autorizados; cobrança e envio de mensagens de clientes à OpenAI exigem
+apresentação e autorização antes da ativação. A restrição etária de API Client
 dos [termos Gemini, consultados em 01/11/2026](https://ai.google.dev/gemini-api/terms)
 permanece mesmo em Paid; consentimento genérico não resolve esse requisito.
-Novo app Meta Empresa aguarda autorização específica; DeathStar preservado.
+O app separado **Sir Fisher Atendimento**, ID `1442419914069550`, foi criado
+no portfólio Sir Fisher após autorização da criação, dos termos e confirmação
+de identidade pelo proprietário. Ainda não publicado nem conectado ao servidor.
+DeathStar preservado. A UI do app novo oferece somente Login Unificado;
+configuração `1665840125059739` reduzida e salva com `instagram_basic` e
+`instagram_manage_messages`. FC aceito como testador após autorização da
+declaração. Login para gerar credencial aguarda clique manual na janela
+Meta Business Suite que não respondeu à automação. A criação não comprova
+aprovação da Meta ou entrega pública.
+
+Código OpenAI `147e91d` preparado e instalado na Edge 30 em OFF. Depois da
+conferência e inclusão da chave desligada, o runtime final é Edge 32 ACTIVE.
+O mesmo Gemini TEST1 e cron único foram restaurados; oito
+envios/quatro chamadas, zero pendências e gates públicos false preservados.
+Chave de serviço OpenAI criada após autorização, restrita ao endpoint
+Responses, validade Nunca confirmada, guardada no arquivo canônico privado
+e nos segredos do portal com releitura por digest. Nenhuma chave no Git ou
+chat; arquivo ignorado e sem regras locais de acesso amplo. OpenAI permanece
+desligada e não recebeu chamadas. O saldo da API observado foi US$0,00;
+nenhum cartão, compra ou benefício de créditos ativado.
+
+94 Node e revisão independente aprovados. Projeção lexical fechada envia
+apenas constantes públicas ao modelo, sem texto original ou IDs. A
+cobertura é restrita: palavras/escopos desconhecidos seguem ao WhatsApp.
+Saudação simples tem resposta local sem modelo; o SQL real foi conferido
+compatível, sem DDL novo. Ainda falta ensaio real de “Oi”. Para o teste
+OpenAI futuro, atualizar `settings.model` além das flags próprias, crédito
+e autorizações; o helper de ativação atual permanece exclusivo de Gemini.
 
 Continuidade após WhatsApp conferida no proprietário: um aviso, uma FAQ de
 endereço e nenhum aviso repetido no mesmo caso, sem pausa automática.

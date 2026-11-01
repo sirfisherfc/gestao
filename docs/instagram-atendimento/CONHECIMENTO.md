@@ -1,11 +1,13 @@
 # Informações para o assistente virtual do Sir Fisher
 
-Gemini permanece só no TEST1 do proprietário adulto. A ampliação depende
-da escolha entre OpenAI API proposta com teto R$45, sem acesso configurado,
-e FAQ por regras gratuita, ainda não implementada. Os [termos Gemini](https://ai.google.dev/gemini-api/terms)
+Gemini permanece só no TEST1 do proprietário adulto. O proprietário escolheu
+preparar OpenAI API com teto de R$45/mês em 01/11/2026. Preparação e testes
+locais estão autorizados; cobrança e envio de mensagens de clientes à OpenAI
+precisam ser apresentados para autorização antes da ativação. Os [termos Gemini](https://ai.google.dev/gemini-api/terms)
 consultados em 01/11/2026 restringem API Clients provavelmente acessados por
 menores de 18; Paid e consentimento genérico não fornecem exceção na cláusula.
-Não habilitar público, novo provedor ou router antes da decisão e validação.
+Não habilitar público ou trocar o provedor ativo antes das validações,
+credenciais corretas e autorizações de tratamento e ativação correspondentes.
 
 Preparado em 01/11/2026. Base para atendimento humano e automação futura.
 Quatro FAQs fixas estão ativas no Instagram; o agente nativo de IA não

@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 gestao/reservas livres. Gemini só no TEST1 do proprietário adulto, cron único e gates públicos fechados. Oito envios/quatro chamadas, sem pendências. Escolha entre OpenAI API proposta e FAQ por regras ainda pendente; nenhuma nova integração habilitada.
+> **🚦 Status atual:** 🟢 gestao/reservas livres. OpenAI preparada/chave restrita guardada, ainda desligada. Gemini TEST1 na Edge32/cron único, oito envios/quatro chamadas e zero pendências. App Meta novo criado, FC testador aceito; geração de token aguarda clique manual no login Meta. Público desligado.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -62,6 +62,7 @@ desmarcado; ausência apenas como sugestão, regra nova IG de reserva OFF.
 Nenhuma alteração foi salva nessa conferência.
 
 — Codex
+
 
 ## 2026-11-01 · Codex — Declarações confirmadas e vídeo pendente
 
@@ -218,5 +219,54 @@ FAQ após WhatsApp, 81 Node/44 SQL, Edge 27 e oito envios/quatro chamadas
 acumulados no piloto. Não houve novo deploy, chamada de modelo ou ativação
 pública nesta etapa. TEST do proprietário adulto permanece; app Empresa e
 escolha do modelo público continuam pendentes nas perguntas já apresentadas.
+
+— Codex
+
+## 2026-11-01 · Codex — OpenAI preparada e novo app Meta criado
+
+O proprietário escolheu OpenAI até R$45/mês e autorizou criar/configurar
+Sir Fisher Atendimento, aceitar os termos do cadastro e confirmar sua
+identidade. App `1442419914069550` criado no portfólio Sir Fisher. A UI
+atual oferece Login Unificado para apps novos. Configuração `1665840125059739`
+salva com somente instagram_basic/manage_messages. FC foi convidado e aceito
+como testador após autorização específica da conexão e da declaração do
+convite. Website, domínio, privacidade, exclusão e categoria foram salvos
+e conferidos após recarga. DeathStar preservado; novo app não publicado.
+
+Gerar token abriu uma janela Meta Business Suite com o administrador já
+conectado. Dois métodos documentados de clique retornaram tempo limite sem
+avançar. Foi solicitado ao proprietário clicar apenas em Continuar nessa
+janela; ainda aguarda resposta. A alternativa Windows foi interrompida antes
+da UI: o guia da habilidade proíbe automatizar diálogos de autenticação.
+Não houve nova tentativa por outro mecanismo. Não repetir cadastro/convite ou supor token
+emitido. Não há credencial Meta nova guardada nem novo webhook conectado.
+
+OpenAI: projeto exclusivo criado, Standard e modelo GPT-5.6 Luna preparados.
+Chave de serviço autorizada, gerada com validade Nunca e restrita ao endpoint
+Responses antes do uso: UI Write, demais capacidades None e nível Restricted
+relido. Guardada em reservas/.env.local ignorado e nos segredos do portal com
+digest relido, sem expor valor. ACL local sem regras amplas de acesso.
+Saldo API US$0,00 observado; nenhum pagamento, crédito comprado ou benefício
+ativado. Zero chamadas OpenAI; mensagens de clientes não enviadas ao provedor.
+
+Reservas `147e91d` publicado/Pages aprovado: 94 Node, revisão independente
+com P2 semântico corrigido, sintaxe e diff limpos. Projeção envia somente
+constantes públicas, sem texto original/IDs; qualquer escopo incerto segue
+ao WhatsApp localmente. Cobertura lexical restrita, sem alegar compreensão
+geral. GREETING local já é compatível com SQL real, sem DDL novo. OpenAI
+futura exige settings.model correto, flags próprias, validação de crédito
+e autorização de tratamento/ativação. Helper atual ativa somente Gemini.
+
+Coordenação instalou as quatro fontes em OFF na Edge 30 ACTIVE, conferiu
+estado e restaurou o mesmo Gemini TEST1/cron único. Após as configurações,
+o runtime final relido é Edge 32 ACTIVE, com oito envios/quatro
+chamadas e zero pendências preservados. OpenAI e público desligados. Nenhuma
+migration ou alteração dos sistemas financeiros/reservas. “Oi” ainda sem
+ensaio real; o efeito local é verificado pelos testes e inspeção do SQL.
+
+Site `4043409` publicou a preparação OpenAI sem anunciar ativação. Duas
+verificações passaram; HTTP 200 e nova cópia pública confirmados. Credenciais
+e recibos operacionais ficam privados em tmp/. A análise Meta para clientes
+fora dos papéis ainda é necessária e não foi enviada nesta etapa.
 
 — Codex

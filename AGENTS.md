@@ -104,9 +104,11 @@ Este arquivo é a fonte canônica das instruções operacionais para qualquer IA
   [termos Gemini consultados em 01/11/2026](https://ai.google.dev/gemini-api/terms)
   restringem API Clients provavelmente acessados por menores de 18; Paid
   e consentimento genérico não fornecem exceção nessa cláusula. A escolha
-  pendente é OpenAI API proposta com teto R$45 ou FAQ por regras gratuita,
-  ainda sem implementação. Não configurar provedor/router nem liberar
-  dados públicos antes dessa decisão e das validações correspondentes.
+  confirmada pelo proprietário em 01/11/2026 é preparar OpenAI API
+  com teto de R$45/mês. A preparação e os testes locais estão autorizados;
+  qualquer cobrança e envio de mensagens de clientes à OpenAI precisam ser
+  apresentados para autorização antes da ativação. Não inferir liberação
+  pública a partir dessa escolha ou do piloto Gemini.
 - Atendimento humano deve indicar somente o WhatsApp oficial, sem horário
   de atendimento ou promessa de prazo. Preservar horários da casa e regras
   de reserva verificadas. Não presumir que a equipe esteja atendendo no Direct.

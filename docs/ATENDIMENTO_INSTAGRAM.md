@@ -32,15 +32,47 @@ comprova leitura de casos, resposta no horário ou compromisso de prazo.
 | Atendimento humano | Pedido de pessoa registra caso e um aviso WhatsApp sem IA. O aviso permite responder à próxima dúvida no Instagram. Pausas manuais, echo sem conciliação e envio incerto conservam seus controles. Sem horário humano, prazo, responsável padrão ou e-mail. |
 | Comentários | Seis publicações e nove comentários visíveis revisados; elogios ou reações sem perguntas. Nenhuma resposta publicada ou automação de comentário ativada. |
 | IA nativa | Não apareceu no aplicativo conferido pelo proprietário. Atendimento livre com IA ainda indisponível nesta conta. |
-| Integração em nuvem | Edge 27 ACTIVE, migration `20261101161022` aplicada e TEST exclusivo do proprietário adulto retomado após conferência. Um único cron ativo; zero pendências. Gates de dados públicos e entrega pública continuam false. |
+| Integração em nuvem | Código OpenAI preparado no servidor, runtime final Edge 32 ACTIVE após instalação e configuração; TEST Gemini do proprietário adulto restaurado. Um único cron ativo, oito envios/quatro chamadas e zero pendências preservados. OpenAI e atendimento público continuam desligados. |
 | Painel da equipe | Login, perfil, caso e link conferidos. Encerrar preserva a pausa vigente; retomar é separado. Três casos controlados fechados, zero abertos; nenhuma reclamação real marcada como resolvida. |
 | Identificação da conversa | Profile API200/username exato; caso de teste mostrou perfil verificado e link real no painel. Sem avatares ou URL inventada de thread. |
-| Testes | 81 Node, 44 verificações SQL e catálogo com 227 verificações aprovados. Ensaio real mais recente: WhatsApp em 4,620 s, FAQ de endereço posterior em 5,397 s e novo pedido humano sem repetir aviso. Oito envios/quatro chamadas acumulados. Observações do piloto, sem SLA ou prova de atendimento público. Saudação “Oi” ainda sem medida automática real. |
+| Testes | 94 Node aprovados na preparação OpenAI e revisão independente; 44 verificações SQL anteriores preservadas. Catálogo real confirmou GREETING compatível sem DDL. Ensaio real anterior: WhatsApp em 4,620 s, FAQ posterior em 5,397 s e novo pedido humano sem repetir aviso. Oito envios/quatro chamadas acumulados. Observações do piloto, sem SLA ou prova de atendimento público. Saudação “Oi” ainda sem medida automática real. |
 | Sonda externa sem IA | Envio e recebimento na Primary aceita conferidos no Instagram. Duas leituras do banco e logs oficiais: zero evento/POST correspondente. Perfil fora da lista, sem Profile API/modelo/resposta; causa de transporte ainda em aberto. |
 | Triagem de spam novo | Filtro PT/EN publicado antes de fila/caso/ACK/Gemini. Spam claro sem resposta, sem IA e sem apagar/bloquear. Relatos e pedidos legítimos preservados; testes locais e revisão independente aprovados. Presente na Edge 27, no mesmo TEST exclusivo e cron. Sem medição de cobertura total. |
 | Meta Review | Configurações 100%, ícone/categoria/descrição/Website e instruções salvos; instruções reabertas e credenciais vazias. Vídeo, dependências, declarações e entrega geral pendentes. Detalhes adicionais do analista são opcionais no guia de app próprio. Rascunho não enviado. |
-| Alternativa de conexão | Instagram Login exige app Empresa. DeathStar é do tipo Nenhum; o novo app proposto Sir Fisher Atendimento aguarda autorização específica após bloqueio da revisão automática. Não foi criado. |
-| Modelo para clientes | Gemini restrito ao proprietário adulto devido aos termos de idade. Escolha pendente: OpenAI API com teto proposto de R$45/mês ou FAQ gratuita por regras. Nenhuma das alternativas foi implementada ou ativada para clientes. |
+| Novo aplicativo Meta | Sir Fisher Atendimento, ID `1442419914069550`, criado no portfólio Sir Fisher após autorização da criação, dos termos e verificação de identidade pelo proprietário. A UI exige Login Unificado para apps novos. Configuração `1665840125059739` salva apenas com `instagram_basic` e `instagram_manage_messages`. FC aceito como testador após autorização da declaração. Privacidade, exclusão, domínio, categoria e Website salvos e conferidos após recarga. Login para gerar credencial ainda em preparação; DeathStar preservado. |
+| Modelo para clientes | Proprietário escolheu OpenAI com teto de R$45/mês. Projeto exclusivo criado, processamento padrão e modelo GPT-5.6 Luna selecionados. Chave de serviço autorizada, criada, restrita ao endpoint Responses e guardada no arquivo privado e nos segredos do servidor. Zero chamadas OpenAI; saldo da API observado em US$0,00, sem compra ou pagamento adicionado. Tratamento de mensagens de clientes e ativação pública continuam pendentes. |
+
+### Preparação OpenAI e conexão Meta em 01/11/2026
+
+O adaptador publicado em reservas `147e91d` recebe somente temas de um
+vocabulário público revisado. O servidor reconstrói o pedido à API com
+constantes, `store:false`, modelo fixo e saída por assunto permitido.
+O modelo não recebe texto original, histórico ou identificadores de cliente.
+Palavras desconhecidas, números, negações, relações temporais e combinações
+incertas seguem ao WhatsApp localmente. A cobertura é restrita e ainda
+precisa de medição com a conta conectada. Não se trata de compreensão geral
+de texto livre. A saudação simples tem resposta local sem modelo.
+
+94 testes Node e revisão independente aprovados após corrigir ambiguidades
+de promoção, bolo/pet, reserva já existente e saudação com letras desconhecidas.
+O orçamento conserva reserva de dois centavos antes da chamada, R$45/mês,
+limite de gerações e verificação de uso retornado. OpenAI tem consentimentos
+separados do piloto Gemini; nenhum deles foi ativado nesta preparação.
+
+A chave tem somente o endpoint Responses em Write na UI, com as demais
+capacidades em None. A interface mostra duas permissões selecionadas para
+esse nível, sem outro controle Read/Write. Nenhuma chamada ao modelo foi
+feita para supor que o faturamento ou a disponibilidade do modelo funcionam.
+O benefício de créditos da assinatura ChatGPT não foi confirmado nas telas
+consultadas; não depender dele para funcionamento contínuo.
+
+A tela atual da Meta informa que Login do Instagram não está disponível
+para apps novos e oferece Login Unificado. A configuração criada foi
+reduzida antes de qualquer credencial: apenas perfil e mensagens. Os
+guias atuais do Login Unificado exigem análise e acesso avançado para
+clientes sem função no app. Criar o aplicativo não comprova essa aprovação.
+O novo acesso será preparado com emissão desligada, separado de DeathStar;
+identidade, assinatura e entrega precisam de teste antes de trocar o emissor.
 
 ### Auditoria de seis meses e rodada atual de 01/11/2026
 
@@ -429,7 +461,7 @@ antes da ativação. Entrada oficial: https://www.facebook.com/business/ai .
 | Meta One para empresas | Essencial desde R$59/mês no Brasil, acima do teto. Não contratar. Core e Instagram Plus não comprovam acesso ao atendimento comercial. |
 | Manychat Pro com IA | US$39/mês, ou US$348 cobrados ao ano; 2.500 contatos ativos/mês, dois lugares no Inbox e excedentes. Acima do teto. Não contratar. |
 | Manychat Free | Modelo atual com 25 contatos ativos/mês e quatro automações. Conferir eventual plano legado existente; cobertura atual insuficiente para propor atendimento contínuo com IA. |
-| Integração própria por API | Reusa Supabase, fila, limites, painel e callback existentes. Recomendada com OpenAI API, teto proposto de R$45/mês, ainda sem escolha/configuração. FAQ por regras gratuita é alternativa sem modelo, ainda não implementada. Produção depende da conexão Meta, das condições do provedor e de teste externo. Exige acompanhar falhas e cotas. |
+| Integração própria por API | Reusa Supabase, fila, limites, painel e callback existentes. OpenAI escolhida com teto de R$45/mês, código preparado e chave restrita guardada. Produção depende de concluir a conexão e análise Meta, verificar créditos/custo e obter autorização para tratamento e ativação. Nenhuma chamada OpenAI ou compra foi feita. Exige acompanhar falhas e cotas. |
 
 O piloto reutilizou o acesso existente ao Gemini, já usado em ferramenta de
 imagens. O teste inicial de texto público respondeu HTTP 200 com 61 tokens
@@ -479,8 +511,9 @@ e no banco. Paid Services e a correspondência da chave foram conferidos;
 essa conferência não autoriza enviar textos de clientes em geral. Por ora, o
 teste autorizado usa somente a conta controlada do proprietário adulto.
 A política publicada em [Privacidade](https://www.sirfisher.com.br/privacidade/)
-descreve esse limite, a escolha pública pendente e o pedido manual de exclusão.
-A atualização `dc17549` foi publicada com verificações aprovadas e HTTP 200.
+descreve esse limite, a preparação da OpenAI escolhida e o pedido manual de exclusão.
+A atualização `4043409` foi publicada com verificações aprovadas; HTTP 200
+e a nova cópia de preparação OpenAI foram conferidos na página pública.
 
 As FAQs nativas indicam o WhatsApp oficial sem horário humano, preservando
 o teto. Se a IA nativa aparecer, conferir recursos, custos e testes antes de
@@ -711,7 +744,12 @@ Consulta em **01/11/2026**:
   restrito ao proprietário adulto; não foi liberado ao público.
 - [Meta: criar app Instagram](https://developers.facebook.com/documentation/instagram-platform/create-an-instagram-app)
   e [mensagens com Instagram Login](https://developers.facebook.com/documentation/instagram-platform/instagram-api-with-instagram-login/messaging-api).
-  Alternativa depende de app Empresa e teste de entrega fora do perfil controlado.
+  Referências do caminho anterior; a UI atual dos apps novos oferece Login Unificado.
+- [Meta: início do Login Unificado](https://developers.facebook.com/documentation/instagram-platform/instagram-api-with-unified-login/get-started),
+  [autenticação](https://developers.facebook.com/documentation/instagram-platform/instagram-api-with-unified-login/authentication)
+  e [permissões](https://developers.facebook.com/documentation/instagram-platform/instagram-api-with-unified-login/permissions),
+  consultados em 01/11/2026. Configuração mínima confirmada na UI; análise e
+  acesso avançado continuam exigidos para clientes fora dos papéis.
 - [OpenAI: modelo proposto](https://developers.openai.com/api/docs/models/gpt-5.6-luna),
   [dados da API](https://developers.openai.com/api/docs/guides/your-data)
   e [proteção de menores](https://developers.openai.com/api/docs/guides/safety-checks/under-18-api-guidance).
