@@ -27,6 +27,15 @@ problemas descritos a seguir pertencem à exportação até setembro de 2026.
 A implantação das respostas e o tempo de atendimento atual ainda precisam
 ser conferidos nos canais; esta revisão atualiza a documentação.
 
+Revisão para o assistente virtual em 01/11/2026: o proprietário confirmou o
+WhatsApp corporativo acima e a gerente de atendimento, das 7h às 21h. Os dias
+da semana ainda precisam de confirmação. Configuração e testes do agente
+estão registrados em [ATENDIMENTO_INSTAGRAM.md](ATENDIMENTO_INSTAGRAM.md).
+Para carregar a base em uma IA, usar os textos e limites de
+[instagram-atendimento/CONHECIMENTO.md](instagram-atendimento/CONHECIMENTO.md).
+As respostas deste book que dependem de ação da equipe exigem encaminhamento
+registrado; informar o resultado somente depois de verificá-lo.
+
 ## O que as conversas mostram
 
 **Assuntos mais frequentes**, em número de conversas nos três anos:
@@ -117,9 +126,12 @@ uma resposta; sem mandar para o link da bio quando a resposta cabe na mensagem.
 > Até 60 dias antes, pelo site: reservas.sirfisher.com.br
 
 **Quero mudar ou cancelar minha reserva.**
-> Obrigado por avisar! Me diga o nome da reserva, a data e o horário que eu ajusto
-> aqui.
-> *(Encaminhar para a equipe. Nunca responder com a mensagem genérica.)*
+> Para cancelar, use o link recebido no e-mail da reserva. Para alterar ou se
+> precisar de ajuda com o cancelamento, fale com a equipe no WhatsApp
+> (85) 98854-4274.
+> *(O assistente só confirma alteração ou cancelamento após verificar o
+> resultado no sistema. Um nome informado no Direct não autoriza consultar
+> ou divulgar dados da reserva.)*
 
 **Qual a tolerância de atraso?**
 > Seguramos a mesa por 15 minutos depois do horário da reserva. Se for atrasar
@@ -278,9 +290,11 @@ uma resposta; sem mandar para o link da bio quando a resposta cabe na mensagem.
 ### Outros
 
 **Esqueci um objeto aí.**
-> Que pena! Me diga o que era, o dia, o horário e a mesa que eu verifico com a
-> equipe e te retorno.
-> *(Sempre retornar, mesmo que não seja encontrado.)*
+> A equipe precisa conferir o objeto no restaurante. Você pode falar com a
+> gerente pelo WhatsApp (85) 98854-4274 e informar o objeto, o dia e o horário
+> da visita.
+> *(Quando houver fila integrada e o caso estiver registrado, informar que
+> foi encaminhado. A equipe acompanha e encerra a pendência.)*
 
 **Vagas / currículo.**
 > Obrigado pelo interesse! Envie seu currículo para sir.fisher@outlook.com.
@@ -296,10 +310,10 @@ uma resposta; sem mandar para o link da bio quando a resposta cabe na mensagem.
 
 A automação nunca responde sozinha a:
 
-- **Reclamação de atendimento ou de cobrança.** Por exemplo: pagamento cobrado duas
-  vezes, garçom desconfiando se a conta foi paga, atendimento desigual. Primeiro
-  pedir desculpas e pedir o contato; depois um sócio liga. Voucher só por decisão
-  do Rogério.
+- **Reclamação de atendimento ou de cobrança.** Acolher e encaminhar para a
+  gerente. Um sócio pode ser envolvido pela equipe. Voucher só por decisão do
+  Rogério. O assistente informa apenas o encaminhamento que conseguiu registrar;
+  a equipe decide sobre ligação, compensação e estorno.
 - **Alergia ou restrição alimentar.**
 - **Grupo acima de 10 pessoas, evento, casamento, réveillon.**
 - **Objeto esquecido.**

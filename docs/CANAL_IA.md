@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 livre — importação Stone destravada (UnionPay e horário da venda); testes físicos do Teknisa seguem pendentes conforme o guia.
+> **🚦 Status atual:** 🟢 livre — preparação do atendimento Instagram documentada; configuração e testes na Meta continuam pendentes.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -38,6 +38,29 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
   autorização de gerente e impressão. As três pendências CEST do cardápio
   continuam registradas no relatório de migração. Só os dois documentos
   de gestão foram alterados; sem migration, SQL ou deploy de código.
+
+— Codex
+
+## 2026-11-01 · Codex — Preparação do atendimento Instagram
+
+- Criados `docs/ATENDIMENTO_INSTAGRAM.md` e
+  `docs/instagram-atendimento/CONHECIMENTO.md`. Conta e permissões de
+  mensagens/comentários confirmadas por GET oficial com a credencial
+  existente. MCP de métricas preservado. Listas de assinaturas vazias para
+  o app consultado; leitura atual de conversas sem amostra válida.
+- Conferida em memória amostra histórica de 80 das 2.056 conversas do
+  export de setembro, sem copiar dados pessoais. Book preserva cobertura
+  histórica; foram corrigidas promessas de alteração de reserva, retorno
+  e ligação que o agente ainda não consegue executar.
+- Proprietário confirmou gerente 7h–21h e WhatsApp corporativo; dias de
+  atendimento pendentes. Começar gratuito, teto R$50/mês. Priorizar Meta
+  Business Agent nativo se elegível/gratuito. Meta One empresarial desde
+  R$59 e Manychat Pro US$39/mês ultrapassam o teto; sem contratação.
+- Conteúdo e roteiro de 16 cenários preparados; teste no produto,
+  configuração, pausa, encaminhamento e ativação ainda pendentes.
+  Controle do Chrome teve bloqueio técnico por URL na rodada anterior.
+- `check_project.py --require-node` e `git diff --check` aprovados.
+  Sem migration, reserva, pagamento, mensagem a cliente ou deploy de agente.
 
 — Codex
 
