@@ -1,8 +1,9 @@
 # Integração do atendimento em nuvem
 
-Estado atual: piloto e cron fechados em OFF durante a correção de mensagens
-canceladas. Banco pausado, modelo/faturamento, dados e alertas false, responsável
-NULL; consumo e histórico preservados. Migration nova `20261101130005`
+Estado atual: TEST retomado para a mesma conta controlada, com único cron
+existente ativo. Clientes permanecem bloqueados. Durante a correção de mensagens
+canceladas, o piloto e o cron ficaram em OFF, com consumo/histórico preservados.
+Responsável NULL e e-mails desligados. Migration nova `20261101130005`
 recebe `is_deleted` como cancelamento por MID/remetente e guarda um registro
 mínimo para bloquear o original tardio. Invalida processamento/lease e retira
 texto e derivados exclusivos da mensagem. Fontes remanescentes do caso são
@@ -12,6 +13,22 @@ sem promessa de recolher o prompt ou a resposta. Testes usam dados fictícios;
 cancelamento real pela interface ainda não foi executado. Validação local:
 63 testes Node (47 atendimento + 8 instalador + 8 ativação), 37 PostgreSQL18
 e catálogo de 226 migrations. Revisão independente sem P0/P1/P2 pendente.
+
+Gestao `5f6a80a`, reservas `85abd70`. Migration aplicada e registrada na mesma
+transação, após cópia privada prévia. Funções/grants públicos dos outros sistemas
+preservados; invoker/servidor conferidos. Security Advisor: dez INFO privados,
+zero WARN/ERROR do atendimento. Edge 15 ACTIVE em OFF preservou 29 segredos;
+health OFF200, anônimo/segredo errado403, vazio assinado200/zero, adulterado401,
+challenge correto e controle anônimo403. Depois, `--check` real e helper retomaram
+somente a mesma conta privada com perfil correspondente, interseção1 e bootstrap0.
+Job único `sirfisher-instagram-support-drain`, owner postgres, ativo a cada minuto,
+Vault único e flag true. Leitura final: zero pendências, conta sem pausa, seis
+envios/três chamadas anteriores, sem novo processamento nesta implantação.
+
+A sonda externa foi enviada e recebida na Primary aceita do Instagram. Duas
+leituras do banco e a janela oficial de logs não trouxeram evento/POST.
+Nenhum perfil externo foi consultado, enviado ao modelo ou liberado. A causa
+de ausência no webhook continua em aberto; não atribuir somente a Pedidos/Review.
 
 Fechamento dos testes anteriores de 01/11/2026: TEST restrito a uma conta
 controlada. Seis envios e três chamadas de IA, incluindo o erro inicial de

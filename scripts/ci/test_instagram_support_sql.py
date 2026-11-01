@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from concurrent.futures import ThreadPoolExecutor
+import ipaddress
 import json
 import os
 from pathlib import Path
@@ -36,6 +37,48 @@ $$;
 """
 
 
+def verified_test_destination(info, environment):
+    """Apenas o banco descartavel local ou o service Docker explicito do Actions."""
+    if environment.get("IG_SUPPORT_SQL_DISPOSABLE") != "1":
+        return False
+    if environment.get("PGHOST") not in {"127.0.0.1", "localhost", "::1"}:
+        return False
+    if environment.get("PGDATABASE") != "sirfisher_ig_support_test":
+        return False
+    database, separator, address = info.partition("|")
+    if not separator or database != "sirfisher_ig_support_test":
+        return False
+    try:
+        server = ipaddress.ip_address(address)
+    except ValueError:
+        return False
+    if server.is_loopback:
+        return True
+    return (environment.get("GITHUB_ACTIONS") == "true"
+            and environment.get("IG_SUPPORT_SQL_CONTAINER") == "1"
+            and environment.get("PGPORT") == "5432"
+            and server in ipaddress.ip_network("172.16.0.0/12"))
+
+
+class TestDestinationGuard(unittest.TestCase):
+    def test_local_destination_requires_exact_database_and_loopback_client(self):
+        env = {"PGHOST": "127.0.0.1", "PGDATABASE": "sirfisher_ig_support_test", "IG_SUPPORT_SQL_DISPOSABLE": "1"}
+        self.assertTrue(verified_test_destination("sirfisher_ig_support_test|127.0.0.1", env))
+        for info, overrides in [("portal|127.0.0.1", {}), ("sirfisher_ig_support_test|127.0.0.1", {"PGHOST": "remote.invalid"}),
+                                ("sirfisher_ig_support_test|127.0.0.1", {"PGDATABASE": "portal"}),
+                                ("sirfisher_ig_support_test|127.0.0.1", {"IG_SUPPORT_SQL_DISPOSABLE": "0"}), ("invalid", {})]:
+            self.assertFalse(verified_test_destination(info, {**env, **overrides}))
+
+    def test_docker_destination_requires_actions_explicit_optin_port_and_private_network(self):
+        env = {"PGHOST": "127.0.0.1", "PGPORT": "5432", "PGDATABASE": "sirfisher_ig_support_test",
+               "GITHUB_ACTIONS": "true", "IG_SUPPORT_SQL_CONTAINER": "1", "IG_SUPPORT_SQL_DISPOSABLE": "1"}
+        self.assertTrue(verified_test_destination("sirfisher_ig_support_test|172.18.0.2", env))
+        for overrides in [{"GITHUB_ACTIONS": "false"}, {"IG_SUPPORT_SQL_CONTAINER": "0"}, {"PGPORT": "65437"}, {"PGHOST": "172.18.0.2"}]:
+            self.assertFalse(verified_test_destination("sirfisher_ig_support_test|172.18.0.2", {**env, **overrides}))
+        for address in ("203.0.113.2", "172.15.0.2", "172.32.0.2"):
+            self.assertFalse(verified_test_destination("sirfisher_ig_support_test|" + address, env))
+
+
 class InstagramSupportSQL(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -47,7 +90,7 @@ class InstagramSupportSQL(unittest.TestCase):
         if not cls.psql:
             raise RuntimeError("psql ausente; configure IG_SUPPORT_PSQL.")
         info = cls.run_sql("select current_database() || '|' || host(inet_server_addr())").strip()
-        if info not in {"sirfisher_ig_support_test|127.0.0.1", "sirfisher_ig_support_test|::1"}:
+        if not verified_test_destination(info, os.environ):
             raise RuntimeError("Servidor de teste recusado.")
         cls.run_sql("drop schema if exists instagram_support cascade;")
         cls.run_sql((ROOT / "scripts/ci/fixtures/instagram_support.sql").read_text(encoding="utf-8"))

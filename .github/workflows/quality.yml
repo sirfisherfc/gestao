@@ -217,6 +217,7 @@ jobs:
           PGDATABASE: sirfisher_ig_support_test
           PGUSER: postgres
           IG_SUPPORT_SQL_DISPOSABLE: '1'
+          IG_SUPPORT_SQL_CONTAINER: '1'
         run: |
           psql -h 127.0.0.1 -U postgres -d postgres -c 'create database sirfisher_ig_support_test'
           python scripts/ci/test_instagram_support_sql.py

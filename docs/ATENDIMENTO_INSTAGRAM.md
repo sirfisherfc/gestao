@@ -27,24 +27,29 @@ comprova leitura de casos, resposta no horário ou compromisso de prazo.
 | Amostra histórica | Originais de 28/09/2026 lidos em memória; resumo abaixo, sem dados pessoais. |
 | Base para o agente | Preparada em `instagram-atendimento/CONHECIMENTO.md`, com limites e fontes. |
 | FAQs nativas do Instagram | Quatro perguntas com respostas fixas salvas e ativas; textos em `BOOK_QA_ATENDIMENTO.md`. Não interpretam livremente outras perguntas. |
+| Outras automações nativas | Auditoria final sem alteração: resposta automática ativa só no Messenger, Instagram desmarcado, texto original preservado. Ausência aparece como sugestão. Não há resposta instantânea ativa no Instagram nessa conferência; FAQs precisam ser desligadas antes da produção. |
 | Regra de reserva | Instagram retirado da regra antiga, preservada no Messenger. Nova regra de Instagram com condições restritas e 15 minutos de inatividade salva e desligada, aguardando teste externo e validação da pausa humana. |
 | Atendimento humano | Pedido de pessoa gerou um caso e pausa antes do único aviso WhatsApp sem IA. Reclamação durante a pausa atualizou o mesmo caso sem outro aviso. Texto e link conferidos na interface. Acessos da gerente preservados; sem responsável padrão/e-mail. |
 | Comentários | Seis publicações e nove comentários visíveis revisados; elogios ou reações sem perguntas. Nenhuma resposta publicada ou automação de comentário ativada. |
 | IA nativa | Não apareceu no aplicativo conferido pelo proprietário. Atendimento livre com IA ainda indisponível nesta conta. |
-| Integração em nuvem | Código `9afafed` e migration do aviso único implantados; TEST somente para uma conta após Profile API/revisão. Recuperação por um ciclo real do cron passou, com HTTP200 e MID; voltou a inativo. Bootstrap sem replay. Clientes fora da lista bloqueados. |
+| Integração em nuvem | Correção de mensagens canceladas `85abd70`/migration `20261101130005` implantada em OFF e conferida. Mesmo TEST exclusivo retomado após check, com único cron ativo. Recuperação real anterior passou com HTTP200/MID. Bootstrap sem replay e clientes bloqueados. |
 | Painel da equipe | Login, perfil, caso e link enviado conferidos. Encerrar manteve a pausa; retomar exigiu confirmação separada e não reenviou histórico. Dois casos de teste fechados; nenhuma reclamação real marcada como resolvida. |
 | Identificação da conversa | Profile API200/username exato; caso de teste mostrou perfil verificado e link real no painel. Sem avatares ou URL inventada de thread. |
-| Testes | 57 Node e 26 PostgreSQL18. Reais: horário, reserva sem confirmação, cozinha UNKNOWN após correção, aviso humano único, reclamação em pausa, encerrar/retomar, echo manual e recuperação cloud. Seis envios/três chamadas de IA; inclui o erro inicial de cozinha, corrigido e retestado. Sem e-mails ou bootstrap pendente. |
+| Testes | 63 Node e 37 PostgreSQL18; catálogo226. Reais: horário, reserva sem confirmação, cozinha UNKNOWN após correção, aviso humano único, reclamação em pausa, encerrar/retomar, echo manual e recuperação cloud. Seis envios/três chamadas anteriores; cancelamento real ainda pendente. Sem e-mails ou bootstrap. |
+| Sonda externa sem IA | Envio e recebimento na Primary aceita conferidos no Instagram. Duas leituras do banco e logs oficiais: zero evento/POST correspondente. Perfil fora da lista, sem Profile API/modelo/resposta; causa de transporte ainda em aberto. |
+| Meta Review | Configurações100%, ícone/categoria/descrição/Website e instruções salvos; instruções reabertas e campos de credenciais vazios. Vídeo, acesso do analista, dependências e declarações pendentes. Rascunho não enviado. |
 
 ### Atendimento manual de 01/11/2026
 
-Na conferência mais recente, 118 pessoas receberam resposta manual, com
-quatro complementos em conversas já contadas, e 13 grupos foram excluídos.
-Restaram sete pendências de identificação: seis registros anônimos e um
-sem identidade verificada após recuperar seis conversas nativas. A cobertura
-continua parcial, com mensagens antigas ainda por revisar. O fechamento e as atribuições aguardam a
-conferência final. Resposta enviada ou atribuição persistida não comprova
-que a solicitação foi resolvida ou lida pela gerente.
+Na conferência final, 118 pessoas receberam resposta manual, com quatro
+complementos em conversas já contadas, e 13 grupos foram excluídos. Duas
+conversas já contadas receberam três mensagens adicionais de retorno.
+O recorte do topo da Primary mostrou oito linhas e zero não lidas; Pedidos
+e ocultos estavam vazios no filtro conferido, sem rascunho pendente. Dois
+casos do export sem identidade atual segura foram preservados. O histórico
+continua com cobertura parcial.
+Não foram contados testes como clientes. Resposta enviada não comprova
+resolução do pedido ou atendimento posterior no WhatsApp.
 
 ### Histórico da primeira rodada operacional de 01/11/2026
 
@@ -251,19 +256,36 @@ causa da falta de entrega.
 O agente permanece desligado. A solicitação de `instagram_manage_messages`
 foi preparada como rascunho na interface de análise, sem envio ou mudança
 de acesso.
-Na configuração básica do app, a categoria de negócios e páginas foi salva.
-O ícone oficial continua pendente. O proprietário autorizou habilitar
+Na etapa inicial da configuração básica, a categoria de negócios e páginas
+foi salva e o ícone ficou pendente. O proprietário autorizou habilitar
 temporariamente o acesso a arquivos locais para enviar o logo, mas a
 política do navegador bloqueou a abertura de `chrome://extensions`, por
-aceitar apenas HTTP e HTTPS. Nenhuma permissão foi ativada. O bloqueio não
-será contornado por aplicativo nativo, CDP, terminal ou outro navegador.
-O próximo passo previsto é o proprietário selecionar manualmente o arquivo
-na própria interface da Meta, após a preparação do formulário.
+aceitar apenas HTTP e HTTPS. Nenhuma permissão foi alterada pelo agente
+nesse bloqueio. Depois, o proprietário habilitou o acesso pela interface e
+o upload oficial foi salvo e conferido após recarga.
 A referência Application
 Picture v26.0 permite leitura e proíbe publicação e atualização nessa
 borda; a lista de parâmetros graváveis do nó Application também não oferece
 campo de imagem. Nenhum POST de upload foi tentado por hipótese. Um novo
 aceite com efeito jurídico não foi dado.
+
+Estado posterior do rascunho: configurações100%, ícone/categoria/descrição e
+plataforma Website salvos. Instruções do analista salvas e reabertas com os
+dois textos correspondentes; credenciais vazias. O texto declara TEST exclusivo
+do proprietário e acesso do analista ainda por compatibilizar. Faltam vídeo,
+dependências e declarações legais/de tratamento antes de enviar Review.
+Nenhum novo perfil ou acesso foi liberado e a solicitação não foi enviada.
+Os campos de fornecedores/países ficaram sem alteração: entidade contratual
+Google e lista completa de países, incluindo suporte remoto, exigem conferência.
+O DPA padrão atual do Supabase cita Pte Ltd, sujeito ao contrato aplicável.
+
+A leitura do AI Studio mostrou um estado com carregamento persistente;
+logs/contribuição continuam sem confirmação. O Paid foi conferido, e a política
+Google informa retenção de 55 dias para abuso, separada de logs opcionais de
+projeto. As atualizações públicas do site `6a65d42` e `5f03fce` descrevem o
+piloto exclusivo, WhatsApp sem transferência automática do histórico e DB em
+São Paulo sem afirmar que toda execução Edge fica no Brasil. Nenhum cliente
+fora da conta controlada foi enviado ao modelo.
 
 Na consulta visual do roteamento do Business Suite, apareceu um app de
 listagens locais e somente controles de Messenger, sem controle de
@@ -540,7 +562,7 @@ pausa e a suspensão por conversa ainda não foram testadas com conta externa.
 | Disponibilidade ou API fora do ar | Oferece consulta no portal, sem afirmar vaga. |
 | Alteração/cancelamento | Link seguro ou gerente; sem executar por nome. |
 | Comprovante/pagamento | Pede conferência humana; sem afirmar quitação. |
-| Reclamação e pedido de pessoa | Atribui, sinaliza e pausa; confirma somente ações verificadas. |
+| Reclamação e pedido de pessoa | Caso e pausa antes do aviso único de WhatsApp; cliente abre o link e envia por lá. Sem atribuição pessoal ou promessa de transferência. |
 | Fora do horário humano | Informa 7h–21h e não promete resposta imediata. |
 | Evento repetido/automação antiga | Uma resposta útil por evento; sem resposta concorrente. |
 | Resposta a Story e comentário | Verifica cada cobertura e janela separadamente. |
@@ -552,9 +574,9 @@ pausa e a suspensão por conversa ainda não foram testadas com conta externa.
 | Camada | Resultado e limite |
 | --- | --- |
 | Conteúdo e interface | Quatro FAQs reabertas após recarga, com textos persistidos, Instagram selecionado, estado Ativado e Salvar desabilitado sem alterações. Nova regra de reserva, com 15 minutos de inatividade, salva e desligada. Isso não comprova entrega por todos os gatilhos. |
-| Atendimento real manual | Respostas enviadas e encaminhamentos conferidos pela interface. Retomada ainda em andamento; contagem final pendente. Histórico considerado; envio não comprova resolução. |
+| Atendimento real manual | 118 pessoas, 13 grupos e quatro complementos; retornos na mesma conversa separados. Recorte atual sem não lidas; cobertura histórica parcial e dois casos sem identidade segura preservados. Envio não comprova resolução. |
 | Modelo de IA isolado | Classificador Gemini 3.5 Flash-Lite: HTTP 200, `HOURS`, 297 tokens de entrada, dois de resposta, zero de pensamento, 299 totais. Pergunta sintética; nenhuma conversa de cliente. Paid e vínculo da chave conferidos na interface, com saldo ainda sem valor carregado. |
-| Nuvem e painel | TEST exclusivo da conta controlada, perfil e caso conferidos no produto. Seis envios/três chamadas de IA. Sem manager/e-mails; cron recuperou um claim pré-IA por um ciclo e voltou a inativo. Sem bootstrap ou pendência. |
+| Nuvem e painel | TEST exclusivo da conta controlada, perfil e caso conferidos no produto. Seis envios/três chamadas anteriores. Sem manager/e-mails; único cron ativo após recuperação real e correção OFF. Sem bootstrap ou pendência. |
 | Fila humana | Caso+pausa antes de um único aviso WhatsApp sem IA; reclamação em pausa não duplicou. Encerrar/retomar separados; echo manual real causou nova pausa. Dois casos de teste fechados, sem registrar resolução de reclamação real. O link não confirma transferência nem atendimento no WhatsApp. |
 | Revisão de comentários | Seis publicações e nove comentários visíveis revisados, todos com elogios ou reações sem perguntas. Nenhuma resposta publicada; revisão não cobre todo o acervo de comentários. |
 | Alerta de mensagens sem resposta | Recurso inspecionado; somente Messenger selecionável, sem opção de Instagram. Tela cancelada sem salvar. Não cobre pendências do Instagram. |
@@ -623,6 +645,8 @@ Consulta em **01/11/2026**:
   [limites](https://ai.google.dev/gemini-api/docs/rate-limits)
   e [faturamento](https://ai.google.dev/gemini-api/docs/billing).
 - [Google: termos Paid Services do Gemini](https://ai.google.dev/gemini-api/terms#paid-services).
+- [Google: uso e retenção para abuso](https://ai.google.dev/gemini-api/docs/usage-policies).
+- [Supabase: DPA](https://supabase.com/legal/dpa).
 - [Supabase: preços e cotas](https://supabase.com/pricing),
   [cobrança por organização](https://supabase.com/docs/guides/platform/billing-on-supabase)
   e [Management API oficial](https://api.supabase.com/api/v1/).

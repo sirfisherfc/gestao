@@ -11,7 +11,9 @@ confirmado pela API oficial. Horário, orientação de reserva, informação aus
 e aviso de WhatsApp passaram no caminho real; uma classificação errada de
 cozinha foi corrigida com regra antes da IA e retestada. Pausa/intervenção
 humana e recuperação por cron também passaram somente com a conta controlada.
-O cron voltou a ficar inativo e os clientes continuam bloqueados. Este arquivo
+A correção de mensagens canceladas passou em testes fictícios e foi implantada
+em OFF; o mesmo TEST exclusivo foi retomado com o único cron de recuperação ativo.
+O teste real de cancelamento continua pendente. Os clientes continuam bloqueados. Este arquivo
 não ativa automações nem comprova carregamento
 integral desta base pelo modelo: a IA preparada escolhe um assunto por enum
 e o servidor usa textos revisados.
