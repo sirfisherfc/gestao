@@ -1551,3 +1551,8 @@ A outbox de alertas resolve o destino de um admin ativo no servidor e
 limita as tentativas mensais. Nenhum segredo ou endereço real é seedado.
 Contratos, limites e testes em
 [INTEGRACAO_NUVEM.md](instagram-atendimento/INTEGRACAO_NUVEM.md).
+O cadastro admin ativo da gerente foi vinculado por lookup único em
+01/11/2026, sem novo grant. Modo off, pausa e bloqueios de modelo/avisos/cron
+permanecem. Advisors oficiais consultados pela Management API não retornaram
+WARN/ERROR para esse componente; INFO privados de RLS e desempenho estão
+registrados no guia, sem alterar os avisos dos outros sistemas.

@@ -12,6 +12,12 @@ de custo estavam zerados; os objetos protegidos dos outros sistemas
 mantiveram o mesmo fingerprint de definição e grants. Nenhum segredo ou
 destinatário foi configurado nesta aplicação.
 
+Depois dessa aplicação, um lookup único de cadastro ativo/admin vinculou
+a gerente em `settings`, sem criar usuário ou conceder papel novo.
+A leitura confirmou `manager_configured=true`, com modo off, pausa global,
+modelo/faturamento, avisos e cron ainda bloqueados. Nenhum caso ou alerta
+foi criado. O identificador e o e-mail da gerente não foram versionados.
+
 A Edge Function correspondente é
 mantida no repositório `reservas`, em `supabase/functions/instagram-support/`.
 O proprietário da tarefa revisa os dois projetos antes de implantar.
@@ -48,6 +54,7 @@ tem os grants de leitura necessários em `app_users`; nenhum grant foi
 acrescentado ao cadastro. `settings.manager_auth_user_id` começa NULL.
 O responsável pela implantação resolve o identificador no banco e o
 configura sem gravar UUID ou e-mail real em arquivos versionados.
+Esse vínculo foi concluído em 01/11/2026; ele não habilita envio de avisos.
 
 ## Fluxo e estados
 
@@ -264,3 +271,24 @@ responder a cada evento, evitando duplicidade entre fornecedores.
   mudanças relevantes de TLS e segurança; nenhuma alteração desses
   componentes foi feita nesta preparação.
 - [Google: preço do modelo](https://ai.google.dev/gemini-api/docs/pricing).
+
+## Advisors dos objetos novos
+
+Os comandos MCP de security/performance para o portal foram negados por
+permissão do conector. A mesma leitura oficial foi concluída com HTTP 200
+pela Management API e o PAT já existente, sem reconexão nem mudança de
+escopo. Foram apresentados somente os achados de `instagram_support`
+e das RPCs novas; os avisos dos outros sistemas não foram alterados.
+
+- Segurança: dez INFO de [RLS sem policy](https://supabase.com/docs/guides/database/database-linter?lint=0008_rls_enabled_no_policy).
+  Esse estado é intencional no schema privado: os clientes não têm USAGE,
+  grants ou EXECUTE, e somente service_role com BYPASSRLS usa o componente.
+- Desempenho: quatro INFO de [FK sem índice](https://supabase.com/docs/guides/database/database-linter?lint=0001_unindexed_foreign_keys)
+  (`budget_reservations.month`, `cases.event_id`, `control_audit.thread_id`
+  e `outbox.thread_id`) e sete INFO de
+  [índice ainda sem uso](https://supabase.com/docs/guides/database/database-linter?lint=0005_unused_index),
+  em tabelas recém-criadas e sem eventos. Nenhum índice foi retirado.
+
+Não apareceram WARN ou ERROR para os objetos novos. Os INFO de desempenho
+ficam registrados para revisão quando houver carga medida; essa consulta
+não comprova desempenho de atendimento em produção.
