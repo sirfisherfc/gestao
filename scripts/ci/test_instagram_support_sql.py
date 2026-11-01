@@ -123,6 +123,7 @@ class InstagramSupportSQL(unittest.TestCase):
 
     def test_permissions_and_disabled_defaults(self):
         self.check_sql("""
+select pg_temp.check_it((select rolbypassrls from pg_roles where rolname='service_role'),'server role matches Supabase');
 select pg_temp.check_it((select mode='off' and paused and not model_usage_allowed and not billing_verified and not alerts_enabled and manager_auth_user_id is null from instagram_support.settings),'defaults');
 select pg_temp.check_it((select count(*)=1 and not bool_or(active) from cron.job where jobname='sirfisher-instagram-support-drain'),'cron disabled');
 select pg_temp.check_it(not has_schema_privilege('anon','instagram_support','USAGE'),'anon schema');

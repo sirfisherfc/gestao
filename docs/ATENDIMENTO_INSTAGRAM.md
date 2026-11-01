@@ -37,7 +37,7 @@ comprova leitura de casos, resposta no horário ou compromisso de prazo.
 | Identificação da conversa | Profile API200/username exato; caso de teste mostrou perfil verificado e link real no painel. Sem avatares ou URL inventada de thread. |
 | Testes | 63 Node e 37 PostgreSQL18; catálogo226. Reais: horário, reserva sem confirmação, cozinha UNKNOWN após correção, aviso humano único, reclamação em pausa, encerrar/retomar, echo manual e recuperação cloud. Seis envios/três chamadas anteriores; cancelamento real ainda pendente. Sem e-mails ou bootstrap. |
 | Sonda externa sem IA | Envio e recebimento na Primary aceita conferidos no Instagram. Duas leituras do banco e logs oficiais: zero evento/POST correspondente. Perfil fora da lista, sem Profile API/modelo/resposta; causa de transporte ainda em aberto. |
-| Meta Review | Configurações100%, ícone/categoria/descrição/Website e instruções salvos; instruções reabertas e campos de credenciais vazios. Vídeo, acesso do analista, dependências e declarações pendentes. Rascunho não enviado. |
+| Meta Review | Configurações 100%, ícone/categoria/descrição/Website e instruções salvos; instruções reabertas e credenciais vazias. Vídeo, dependências, declarações e entrega geral pendentes. Detalhes adicionais do analista são opcionais no guia de app próprio. Rascunho não enviado. |
 
 ### Atendimento manual de 01/11/2026
 
@@ -272,7 +272,8 @@ aceite com efeito jurídico não foi dado.
 Estado posterior do rascunho: configurações100%, ícone/categoria/descrição e
 plataforma Website salvos. Instruções do analista salvas e reabertas com os
 dois textos correspondentes; credenciais vazias. O texto declara TEST exclusivo
-do proprietário e acesso do analista ainda por compatibilizar. Faltam vídeo,
+do proprietário. O guia de app próprio trata detalhes de verificação como opcionais
+e orienta deixar credenciais vazias; acesso adicional depende de pedido da Meta. Faltam vídeo,
 dependências e declarações legais/de tratamento antes de enviar Review.
 Nenhum novo perfil ou acesso foi liberado e a solicitação não foi enviada.
 Os campos de fornecedores/países ficaram sem alteração: entidade contratual

@@ -222,6 +222,9 @@ Meta Review de produção segue pendente e não foi usado modo live do agente.
   PostgreSQL18 e catálogo226 aprovados. A guarda de destino do runner recebeu
   opt-in estrito para o service Docker do GitHub, mantendo host loopback/banco
   dedicado e identidade lida; dois testes de recusas adicionais aprovados.
+  O fixture confere esse banco antes de ajustar somente BYPASSRLS da role
+  fictícia compartilhada pelos DBs de CI. Reproduzido sem esse atributo:
+  os 37 contratos e duas guardas passaram. Nenhuma alteração cloud.
 - Edge 15 ACTIVE foi implantada OFF preservando 29 segredos. Health 200/OFF e
   autenticação/HMAC vazio passaram. Outros sistemas mantiveram definição/grants;
   Advisor: zero WARN/ERROR do atendimento. Depois do check real, o mesmo TEST de uma conta foi
@@ -232,9 +235,11 @@ Meta Review de produção segue pendente e não foi usado modo live do agente.
   no webhook nas leituras consultadas. Sem perfil/IA/envio para esse remetente.
   Causa em aberto. Cancelamento real ainda não testado; sem exclusão na interface.
 - Meta: configuração 100%, ícone/categoria/descrição/Website e instruções salvos;
-  formulário reaberto com credenciais vazias. Vídeo, acesso do analista, dependências,
+  formulário reaberto com credenciais vazias. Vídeo, dependências,
   tratamento/países e aceites legais pendentes. Review não enviado. Logs e
   contribuição do AI Studio sem confirmação por carregamento incompleto.
+  O guia de app próprio trata detalhes do analista como opcionais; acesso
+  adicional será considerado se a Meta solicitar, sem convite obrigatório inferido.
 - Caixa manual: 118 pessoas, 13 grupos e quatro complementos; três retornos em duas conversas
   já contadas separados. Recorte atual sem não lidas/Pedidos/ocultos/rascunhos;
   histórico parcial e dois casos sem identidade segura preservados. Envio não
