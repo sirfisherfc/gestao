@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 gestao/reservas publicados; continuidade após WhatsApp passou no TEST1 real e cron único. Pausas reais preservadas; gates públicos fechados. Oito envios/quatro chamadas acumulados, caso de teste encerrado e sem pendências. Site e recibos UI têm responsáveis próprios.
+> **🚦 Status atual:** 🟢 gestao/reservas livres. Gemini só no TEST1 do proprietário adulto, cron único e gates públicos fechados. Oito envios/quatro chamadas, sem pendências. Escolha entre OpenAI API proposta e FAQ por regras ainda pendente; nenhuma nova integração habilitada.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -151,7 +151,8 @@ mesmo caso. Servidor e interface confirmaram um aviso de WhatsApp, uma FAQ
 respondida e nenhum segundo aviso. A conversa permaneceu sem pausa e o caso
 aberto até o encerramento explícito pelo painel autenticado. O aviso não
 continha horário humano, prazo ou afirmação de pausa. A FAQ nativa Instagram
-ficou temporariamente desligada no ensaio; a coordenação cuida de restaurá-la.
+ficou temporariamente desligada no ensaio; a coordenação restaurou o FC e
+confirmou os canais Instagram e Messenger marcados na FAQ nativa.
 
 O aviso levou 4,620 s e a FAQ 5,397 s entre recebimento e conclusão no banco.
 São duas observações do teste, sem SLA. Aviso sem modelo; FAQ usou uma chamada
@@ -161,5 +162,23 @@ conversa sem pausa, sem replay. TEST/interseção1, cron único ativo e ambos
 gates públicos false foram conferidos novamente. Nenhum envio, drain ou
 alteração operacional foi executado pelo observador; nenhum identificador
 ou texto privado consta neste registro. O encerramento era de um caso de teste.
+
+— Codex
+
+## 2026-11-01 · Codex — Escolha do modelo público pendente
+
+Gemini permanece no proprietário adulto. Os [termos oficiais](https://ai.google.dev/gemini-api/terms),
+vigentes desde 23/03/2026 e consultados em 01/11, restringem API Clients
+provavelmente acessados por menores de 18. Paid ou consentimento genérico
+não resolvem essa condição para ampliar o atendimento a todos os clientes.
+Preferência perguntada: OpenAI API proposta com teto R$45, sem chave,
+configuração ou chamada de modelo, ou FAQ gratuita por regras, ainda não
+implementada. As condições de dados e proteção de menores do eventual
+provedor também precisam ser cumpridas; não inferir acesso já habilitado.
+
+Novo app Meta Empresa aguarda autorização específica após bloqueio da
+revisão automática; DeathStar preservado. FC e FAQs nativas IG/Messenger
+restaurados pela coordenação após o ensaio. Esta entrega altera apenas
+documentos: nenhum provedor, router, segredo, consentimento ou runtime mudou.
 
 — Codex

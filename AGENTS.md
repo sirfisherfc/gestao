@@ -98,8 +98,15 @@ Este arquivo é a fonte canônica das instruções operacionais para qualquer IA
   GBP que pode publicar nem rotas genericas. Token/configuracoes permanecem
   privados; as permissoes amplas do token existente nao ampliam este escopo.
 
-## Atendimento Instagram: regra de spam
+## Atendimento Instagram: modelo, WhatsApp e spam
 
+- O Gemini permanece limitado ao TEST1 do proprietário adulto. Os
+  [termos Gemini consultados em 01/11/2026](https://ai.google.dev/gemini-api/terms)
+  restringem API Clients provavelmente acessados por menores de 18; Paid
+  e consentimento genérico não fornecem exceção nessa cláusula. A escolha
+  pendente é OpenAI API proposta com teto R$45 ou FAQ por regras gratuita,
+  ainda sem implementação. Não configurar provedor/router nem liberar
+  dados públicos antes dessa decisão e das validações correspondentes.
 - Atendimento humano deve indicar somente o WhatsApp oficial, sem horário
   de atendimento ou promessa de prazo. Preservar horários da casa e regras
   de reserva verificadas. Não presumir que a equipe esteja atendendo no Direct.

@@ -1,5 +1,12 @@
 # Integração do atendimento em nuvem
 
+Gemini segue exclusivo do proprietário adulto. A escolha pública está
+pendente entre OpenAI API proposta até R$45, sem acesso habilitado, e FAQ
+por regras gratuita ainda não implementada. A restrição etária de API Client
+dos [termos Gemini, consultados em 01/11/2026](https://ai.google.dev/gemini-api/terms)
+permanece mesmo em Paid; consentimento genérico não resolve esse requisito.
+Novo app Meta Empresa aguarda autorização específica; DeathStar preservado.
+
 Continuidade após WhatsApp conferida no proprietário: um aviso, uma FAQ de
 endereço e nenhum aviso repetido no mesmo caso, sem pausa automática.
 Aviso em 4,620 s e FAQ em 5,397 s entre recebimento e conclusão no banco;
