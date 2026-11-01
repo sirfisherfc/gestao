@@ -13,7 +13,9 @@ cozinha foi corrigida com regra antes da IA e retestada. Pausa/intervenção
 humana e recuperação por cron também passaram somente com a conta controlada.
 A correção de mensagens canceladas passou em testes fictícios e foi implantada
 em OFF; o mesmo TEST exclusivo foi retomado com o único cron de recuperação ativo.
-O teste real de cancelamento continua pendente. Os clientes continuam bloqueados. Este arquivo
+O cancelamento específico foi autorizado e passou com pausa global/cron OFF:
+callback real, marca de retirada, zero novas respostas ou IA. TEST e cron foram
+restaurados. O agente responde somente à conta controlada. Este arquivo
 não ativa automações nem comprova carregamento
 integral desta base pelo modelo: a IA preparada escolhe um assunto por enum
 e o servidor usa textos revisados.
@@ -128,6 +130,23 @@ O painel distingue aviso pendente, link enviado no Instagram e resultado
 incerto. Não afirma leitura nem atendimento no WhatsApp. Esse novo ACK passou
 por testes locais, implantação OFF e envio real restrito, confirmado na interface.
 Evite pedir novamente informação já fornecida. Não exponha dados de outros clientes.
+
+## Spam e pedidos legítimos
+
+Spam inequívoco não recebe resposta ou aviso humano e não usa o modelo. A
+regra de mensagens novas verifica sinais fortes de falsa verificação, venda
+direta de engajamento, convite de apostas e golpe/corrente com recompensa,
+antes da fila. O Instagram conserva a mensagem; o agente não bloqueia ou apaga.
+Texto e MID filtrados não são gravados nessa triagem; só há contagem agregada
+de eventos, que pode incluir reentregas.
+
+Priorize quem relata um golpe ou pede ajuda com cobrança, reclamação, urgência
+real ou atendimento humano. “Fale com nosso atendente” em uma falsa ameaça
+continua sendo parte do golpe. Links, currículos, cardápio, fornecedores e
+propostas comerciais comuns seguem o atendimento. Mídia sem texto e mensagens
+ambíguas exigem conferência; não prometer detecção perfeita. Regra manual e
+limites em `../BOOK_QA_ATENDIMENTO.md`. O filtro persiste no código em nuvem e
+nos documentos versionados, independentemente da sessão de navegador.
 
 ## Limites de execução
 

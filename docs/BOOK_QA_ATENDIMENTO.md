@@ -101,8 +101,46 @@ prospecção e spam, que receberam só a resposta automática ou nenhuma.
    pelo menos 4 casos de grupos de 14 a 35 pessoas que voltaram ao Direct dizendo
    que o WhatsApp não respondeu.
 7. **Spam de "plataforma de jogos PG" e golpe de influenciador.** Esse spam é
-   frequente desde 2025 e chega até em grupos criados para o perfil. Ignorar, não
-   clicar em links e bloquear.
+   frequente desde 2025 e chega até em grupos criados para o perfil. A triagem
+   atual de mensagens novas está definida abaixo; bloqueio ou exclusão não fazem
+   parte da automação.
+
+## Triagem de spam para mensagens novas
+
+Regra de 01/11/2026: spam inequívoco fica sem resposta e sem uso de IA. O
+conteúdo permanece no Instagram. A integração verifica assinatura/ativos e
+aplica o filtro antes de gravar tarefa, criar caso ou reservar aviso de WhatsApp.
+O texto e o MID do evento filtrado não entram na fila; somente a contagem
+agregada de eventos ignorados é registrada. Essa contagem pode incluir
+reentregas e não representa pessoas únicas ou pedidos resolvidos.
+
+Os sinais fortes cobrem falsa verificação da Meta com ameaça à conta e pedido
+de ação, venda direta de seguidores/curtidas, convite de apostas com bônus,
+promessa de multiplicar dinheiro por Pix e correntes com recompensa. Há padrões
+conservadores em português e inglês. Uma palavra como “link”, “desconto”,
+“pagamento” ou “urgente” isolada não basta para descartar.
+
+O relato do cliente tem prioridade: “recebi esse golpe, é de vocês?”, cobrança
+contestada, reclamação própria, urgência real e pedido de pessoa seguem o fluxo
+de atendimento. O trecho de uma ameaça copiada pelo cliente não vira urgência
+médica só porque contém “urgente”. No golpe inequívoco, “fale com nosso atendente”
+é parte da oferta e não equivale a um pedido do cliente. Cardápio, reserva,
+currículo, fornecedor e proposta comercial comum continuam elegíveis, inclusive
+quando incluem link. Um caso duvidoso segue para conferência humana.
+
+Para atendimento manual, leia a mensagem recente e seu contexto antes de
+classificar. Ignore a oferta claramente indesejada e preserve o histórico;
+não envie respostas de cortesia, não abra links de verificação e não peça dados
+ao remetente. Uma proposta legítima ou relato de golpe precisa de leitura da
+equipe. Use as fontes oficiais da casa e o WhatsApp já confirmado quando houver
+pedido de atendimento humano. Não bloquear ou excluir mensagens por esta regra.
+
+O filtro tem limites: mídia sem texto, outras línguas, grafias disfarçadas e
+mensagens ambíguas podem seguir ao atendimento. Ele não lê todo o histórico do
+Instagram nem demonstra uma taxa de cobertura. Echo de resposta humana e
+cancelamento de envio preservam seus protocolos. A regra fica no código em
+nuvem e nestes documentos; não depende da sessão de Chrome ou deste computador.
+O agente continua restrito à conta de teste enquanto a produção aguarda liberação.
 
 ## Respostas prontas
 

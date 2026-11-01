@@ -9,10 +9,20 @@ mínimo para bloquear o original tardio. Invalida processamento/lease e retira
 texto e derivados exclusivos da mensagem. Fontes remanescentes do caso são
 recalculadas; pausa e trabalho humano continuam preservados. Aviso tentado
 não se rearma. IA ou envio já iniciados conservam custo/resultado mínimo,
-sem promessa de recolher o prompt ou a resposta. Testes usam dados fictícios;
-cancelamento real pela interface ainda não foi executado. Validação local:
+sem promessa de recolher o prompt ou a resposta. Validação local da correção:
 63 testes Node (47 atendimento + 8 instalador + 8 ativação), 37 PostgreSQL18
 e catálogo de 226 migrations. Revisão independente sem P0/P1/P2 pendente.
+
+Em 01/11/2026, após autorização específica, uma única mensagem de teste do
+proprietário foi enviada e cancelada na interface. O ensaio usou pausa global
+e cron OFF, sem lease ou chamada de IA. A entrada única foi capturada em RAM,
+ignored e com texto já vazio pela pausa, antes do cancelamento. O mesmo MID
+recebeu a marca de retirada; texto/derivados vazios, zero novo caso/reserva/envio.
+Histórico manteve seis envios/três chamadas. Depois do sinal da coordenação,
+o mesmo TEST exclusivo e único cron foram restaurados, com health200 e leitura
+fresca sem interferência. O MID não foi gravado em arquivo/log do operador.
+A prova cobre entrega real de `is_deleted` sob pausa; races e limpeza de
+trabalho ativo permanecem cobertas pelos contratos locais.
 
 Gestao `5f6a80a`, reservas `85abd70`. Migration aplicada e registrada na mesma
 transação, após cópia privada prévia. Funções/grants públicos dos outros sistemas

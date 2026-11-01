@@ -35,7 +35,7 @@ comprova leitura de casos, resposta no horário ou compromisso de prazo.
 | Integração em nuvem | Correção de mensagens canceladas `85abd70`/migration `20261101130005` implantada em OFF e conferida. Mesmo TEST exclusivo retomado após check, com único cron ativo. Recuperação real anterior passou com HTTP200/MID. Bootstrap sem replay e clientes bloqueados. |
 | Painel da equipe | Login, perfil, caso e link enviado conferidos. Encerrar manteve a pausa; retomar exigiu confirmação separada e não reenviou histórico. Dois casos de teste fechados; nenhuma reclamação real marcada como resolvida. |
 | Identificação da conversa | Profile API200/username exato; caso de teste mostrou perfil verificado e link real no painel. Sem avatares ou URL inventada de thread. |
-| Testes | 63 Node e 37 PostgreSQL18; catálogo226. Reais: horário, reserva sem confirmação, cozinha UNKNOWN após correção, aviso humano único, reclamação em pausa, encerrar/retomar, echo manual e recuperação cloud. Seis envios/três chamadas anteriores; cancelamento real ainda pendente. Sem e-mails ou bootstrap. |
+| Testes | 76 Node no filtro de spam; 37 contratos PostgreSQL18 anteriores preservados e catálogo226. Reais: horário, reserva, cozinha corrigida, aviso humano, pausa/retomada, echo manual, recuperação e cancelamento específico sob pausa global. Seis envios/três chamadas anteriores, sem novo gasto no cancelamento. |
 | Sonda externa sem IA | Envio e recebimento na Primary aceita conferidos no Instagram. Duas leituras do banco e logs oficiais: zero evento/POST correspondente. Perfil fora da lista, sem Profile API/modelo/resposta; causa de transporte ainda em aberto. |
 | Meta Review | Configurações 100%, ícone/categoria/descrição/Website e instruções salvos; instruções reabertas e credenciais vazias. Vídeo, dependências, declarações e entrega geral pendentes. Detalhes adicionais do analista são opcionais no guia de app próprio. Rascunho não enviado. |
 
@@ -286,9 +286,13 @@ da captura/CDP enquanto o BrowserUse resolvia uma resposta de documento pausada.
 O mesmo ocorreu na aba existente e em uma nova, conforme a documentação.
 A gravação não iniciou. Nenhuma pergunta de demonstração, caso, chamada de IA
 ou gravação de clientes foi gerada nessa tentativa. O vídeo continua pendente.
-O cancelamento real da mensagem específica de teste aguarda resposta ao pedido
-de autorização. Foi preparado somente um roteiro sequencial com pausa global
-e cron desligado durante a prova; nenhuma dessas mudanças foi executada.
+Depois da autorização específica, uma única mensagem de teste do proprietário
+foi enviada e cancelada pela coordenação. Com pausa global e cron OFF, o
+servidor capturou a entrada única em memória e confirmou a retirada do mesmo
+MID, com texto/derivados vazios e sem novo caso, envio ou IA. O texto já havia
+sido esvaziado pela pausa. O mesmo TEST exclusivo/cron foi restaurado e passou
+no health200 e na leitura fresca. Isso comprova callback real sob pausa;
+concorrência e cancelamento de trabalho ativo seguem os contratos locais.
 Os campos de fornecedores/países ficaram sem alteração: entidade contratual
 Google e lista completa de países, incluindo suporte remoto, exigem conferência.
 O DPA padrão atual do Supabase cita Pte Ltd, sujeito ao contrato aplicável.

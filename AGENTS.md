@@ -98,6 +98,23 @@ Este arquivo é a fonte canônica das instruções operacionais para qualquer IA
   GBP que pode publicar nem rotas genericas. Token/configuracoes permanecem
   privados; as permissoes amplas do token existente nao ampliam este escopo.
 
+## Atendimento Instagram: regra de spam
+
+- Para novas mensagens, aplicar o filtro conservador de
+  `../reservas/supabase/functions/instagram-support/policy.mjs` antes de Gemini,
+  caso e aviso humano. Spam inequívoco fica sem resposta, sem gasto de IA e
+  sem exclusão/bloqueio automático no Instagram. Texto/MID descartados pelo
+  filtro não entram na fila; o contador agregado pode incluir reentregas.
+- Priorizar o relato real de golpe, cobrança contestada, reclamação própria,
+  urgência real e pedido explícito de pessoa. Distinguir o pedido do cliente
+  de frases como “fale com nosso atendente” dentro de falsa verificação.
+  Links, cardápio, currículos, fornecedores e propostas comuns continuam
+  elegíveis. Em dúvida, preservar e encaminhar para leitura humana.
+- Consultar `docs/BOOK_QA_ATENDIMENTO.md` e `docs/instagram-atendimento/CONHECIMENTO.md`.
+  A persistência vem do código implantado e das regras versionadas; não depende
+  de o operador manter Chrome aberto. Não prometer triagem perfeita ou uma
+  porcentagem sem medição. Echo e cancelamento de envio mantêm seus protocolos.
+
 ## Teknisa: ferramenta de operação
 
 - Ler `scripts/teknisa/README.md` e executar
