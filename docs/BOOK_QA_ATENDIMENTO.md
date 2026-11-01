@@ -407,6 +407,12 @@ não transfere o histórico nem avisa a equipe por si só. Não informar horári
 humano ou prometer prazo de resposta. A atualização da cópia nativa é conferida
 separadamente pela coordenação; os horários da casa permanecem válidos.
 
+No agente em nuvem, indicar WhatsApp mantém a próxima FAQ elegível no
+Instagram. Um caso ativo recebe um aviso; pedidos repetidos não repetem o
+link. O aviso sensível pendente vem antes da FAQ. Pausas manuais, echo sem
+origem reconciliada e envio incerto conservam o bloqueio até conferência e
+retomada explícita. Encerrar o caso preserva a pausa que estiver vigente.
+
 **Regra de reserva:** o Instagram foi retirado da regra antiga, preservada
 no Messenger. Uma nova regra restrita ao Instagram foi salva, conserva
 15 minutos de inatividade e ficou desligada. Falta teste por conta externa

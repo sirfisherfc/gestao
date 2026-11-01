@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[2]
 ACTOR = "11111111-1111-4111-8111-111111111111"
 ENABLE = """
 update instagram_support.settings set mode='live',paused=false,model_usage_allowed=true,
-billing_verified=true,pricing_valid_until=now()+interval '1 day' where singleton;
+billing_verified=true,public_data_approved=true,public_delivery_verified=true,pricing_valid_until=now()+interval '1 day' where singleton;
 """
 HELPERS = """
 create function pg_temp.check_it(ok boolean, message text) returns void language plpgsql as $$
@@ -94,7 +94,7 @@ class InstagramSupportSQL(unittest.TestCase):
             raise RuntimeError("Servidor de teste recusado.")
         cls.run_sql("drop schema if exists instagram_support cascade;")
         cls.run_sql((ROOT / "scripts/ci/fixtures/instagram_support.sql").read_text(encoding="utf-8"))
-        for suffix in ("durable_queue", "whatsapp_notice", "withdrawal"):
+        for suffix in ("durable_queue", "whatsapp_notice", "withdrawal", "whatsapp_continue"):
             files = list((ROOT / "supabase/migrations").glob(f"*_instagram_support_{suffix}.sql"))
             if len(files) != 1:
                 raise RuntimeError("Migration Instagram ambigua.")
@@ -216,7 +216,7 @@ do $$ declare result jsonb; a jsonb; begin
  result:=public.ig_support_ingest(jsonb_build_object('kind','incoming','sender_id','100001','recipient_id','17841439937145607','mid','allergy1','text','Alergia grave.',
    'safety_intent','ALLERGY','timestamp_ms',floor(extract(epoch from now())*1000)::bigint));
  perform pg_temp.check_it(result->>'case_saved'='true' and result->>'queued'='true','case and notice persisted before ACK');
- perform pg_temp.check_it(pg_temp.incoming('100001','allergy-followup')->>'queued'='false','followup cannot erase safety');
+ perform pg_temp.check_it(pg_temp.incoming('100001','allergy-followup')->>'queued'='true','followup queued behind safety');
  a:=public.ig_support_claim(gen_random_uuid(),1)->0;
  perform pg_temp.check_it(a->>'handoff_ack'='true' and a->>'reply_key'='ALLERGY','only curated notice after allergy');
  perform pg_temp.check_it((select count(*)=0 from instagram_support.budget_reservations),'no model spend');
@@ -238,7 +238,7 @@ do $$ declare a jsonb; o jsonb; begin
  perform pg_temp.incoming('100001','wa-normal');
  a:=public.ig_support_claim(gen_random_uuid(),1)->0;
  perform pg_temp.check_it(a->>'handoff_ack'='true' and a->>'reply_key'='URGENCY','highest priority notice');
- perform pg_temp.check_it((select human_paused from instagram_support.threads),'paused before sending');
+ perform pg_temp.check_it((select not human_paused from instagram_support.threads),'WhatsApp does not pause FAQ');
  o:=public.ig_support_prepare_send((a->>'event_id')::uuid,(a->>'lease')::uuid,'Aviso sintetico urgente WhatsApp.',(a->>'thread_version')::bigint);
  perform pg_temp.check_it(o->>'allowed'='true','first notice prepared');
  perform public.ig_support_finish_send((o->>'outbox_id')::uuid,(a->>'lease')::uuid,'sent','wa-confirmed-mid');
@@ -362,14 +362,14 @@ set local role service_role;
 do $$ declare a jsonb; c jsonb; o jsonb; begin
  perform pg_temp.incoming('100001','unknown1'); a:=public.ig_support_claim(gen_random_uuid(),1)->0;
  c:=public.ig_support_complete((a->>'event_id')::uuid,(a->>'lease')::uuid,'{"intent":"UNKNOWN"}');
- perform pg_temp.check_it(c->>'decision'='clarify','clarify once');
+ perform pg_temp.check_it(c->>'decision'='handoff' and c->>'case_saved'='true','first unknown saves WhatsApp case');
  o:=public.ig_support_prepare_send((a->>'event_id')::uuid,(a->>'lease')::uuid,'Pode explicar sua duvida?',(c->>'thread_version')::bigint);
  perform public.ig_support_finish_send((o->>'outbox_id')::uuid,(a->>'lease')::uuid,'sent','clarify-mid');
  perform pg_temp.incoming('100001','unknown2'); a:=public.ig_support_claim(gen_random_uuid(),1)->0;
  c:=public.ig_support_complete((a->>'event_id')::uuid,(a->>'lease')::uuid,'{"intent":"UNKNOWN"}');
- perform pg_temp.check_it(c->>'decision'='handoff' and c->>'case_saved'='true','second question saves case');
+ perform pg_temp.check_it(c->>'decision'='handoff' and c->>'case_saved'='true' and c->>'allowed'='false','second unknown keeps case without another notice');
  o:=public.ig_support_prepare_send((a->>'event_id')::uuid,(a->>'lease')::uuid,'O atendimento humano precisa conferir. Automacao pausada.',(c->>'thread_version')::bigint);
- perform pg_temp.check_it(o->>'allowed'='true','one handoff acknowledgement');
+ perform pg_temp.check_it(o->>'allowed'='false','no second handoff acknowledgement');
  perform pg_temp.check_it(public.ig_support_prepare_send((a->>'event_id')::uuid,(a->>'lease')::uuid,'Repeticao.',(c->>'thread_version')::bigint)->>'allowed'='false','handoff not repeated');
 end $$;
 """)
@@ -638,7 +638,7 @@ set local role service_role;
 do $$ begin
  perform pg_temp.safety('100001','withdraw-only-allergy','ALLERGY');
  perform pg_temp.withdraw('100001','withdraw-only-allergy');
- perform pg_temp.check_it((select human_paused and pause_reason='message_withdrawn' from instagram_support.threads),'pause retained without allergy label');
+ perform pg_temp.check_it((select not human_paused and pause_reason is null from instagram_support.threads),'automatic route had no pause to retain');
  perform pg_temp.check_it((select reason='message_withdrawn' and summary='' from instagram_support.cases),'case source label cleared');
  perform pg_temp.check_it((select reason='message_withdrawn' and status='suppressed' from instagram_support.alerts),'alert audit retained without allergy label');
  perform pg_temp.check_it((select routing_reason is null and intent is null and reply_key is null from instagram_support.events),'target derived labels cleared');
@@ -671,9 +671,109 @@ do $$ begin
  perform pg_temp.safety('100001','higher-urgency','URGENCY');
  perform pg_temp.withdraw('100001','lower-allergy');
  perform pg_temp.check_it((select reason='urgency' from instagram_support.cases),'higher priority source preserved');
- perform pg_temp.check_it((select human_paused and pause_reason='urgency' from instagram_support.threads),'stale lower priority label removed');
+ perform pg_temp.check_it((select not human_paused and pause_reason is null from instagram_support.threads),'automatic route leaves no stale pause label');
  perform pg_temp.check_it((select routing_reason='urgency' and withdrawn_at is null from instagram_support.events where mid='higher-urgency'),'other source retained');
  perform pg_temp.check_it((select reason='urgency' from instagram_support.alerts),'alert follows remaining source');
+end $$;
+""")
+
+    def test_whatsapp_faq_then_repeated_human_keeps_one_notice_and_case(self):
+        self.check_sql("""
+set local role service_role;
+do $$ declare a jsonb;o jsonb;c jsonb;begin
+ perform pg_temp.safety('100001','autonomy-human','HUMAN');a:=public.ig_support_claim(gen_random_uuid(),1)->0;
+ o:=public.ig_support_prepare_send((a->>'event_id')::uuid,(a->>'lease')::uuid,'Abra o WhatsApp.',(a->>'thread_version')::bigint);
+ perform public.ig_support_finish_send((o->>'outbox_id')::uuid,(a->>'lease')::uuid,'sent','autonomy-wa-mid');
+ perform pg_temp.incoming('100001','autonomy-hours');a:=public.ig_support_claim(gen_random_uuid(),1)->0;
+ perform pg_temp.check_it(a->>'handoff_ack'='false','FAQ eligible after WhatsApp');
+ c:=public.ig_support_complete((a->>'event_id')::uuid,(a->>'lease')::uuid,'{"intent":"HOURS"}');
+ o:=public.ig_support_prepare_send((a->>'event_id')::uuid,(a->>'lease')::uuid,'Horario confirmado.',(c->>'thread_version')::bigint);
+ perform public.ig_support_finish_send((o->>'outbox_id')::uuid,(a->>'lease')::uuid,'sent','autonomy-hours-mid');
+ perform pg_temp.safety('100001','autonomy-repeat','HUMAN');
+ perform pg_temp.check_it(public.ig_support_claim(gen_random_uuid(),1)='[]'::jsonb,'no repeat notice');
+ perform pg_temp.check_it((select count(*)=1 and bool_and(status='open' and notice_attempted) from instagram_support.cases),'one open tracked case');
+ perform pg_temp.check_it((select count(*)=2 from instagram_support.outbox),'notice plus FAQ only');
+ perform pg_temp.check_it((select not human_paused from instagram_support.threads),'no automatic pause');
+end $$;
+""")
+
+    def test_sensitive_notice_precedes_faq_and_old_worker_is_invalid(self):
+        self.check_sql("""
+set local role service_role;
+do $$ declare a jsonb;b jsonb;o jsonb;begin
+ perform pg_temp.safety('100001','priority-human','HUMAN');a:=public.ig_support_claim(gen_random_uuid(),1)->0;
+ perform pg_temp.safety('100001','priority-urgent','URGENCY');
+ perform pg_temp.incoming('100001','priority-faq');
+ perform pg_temp.check_it(public.ig_support_prepare_send((a->>'event_id')::uuid,(a->>'lease')::uuid,'Antigo.',(a->>'thread_version')::bigint)->>'allowed'='false','old generic lease invalid');
+ b:=public.ig_support_claim(gen_random_uuid(),1)->0;
+ perform pg_temp.check_it(b->>'reply_key'='URGENCY' and b->>'handoff_ack'='true','urgent first');
+ o:=public.ig_support_prepare_send((b->>'event_id')::uuid,(b->>'lease')::uuid,'Procure equipe presente.',(b->>'thread_version')::bigint);
+ perform public.ig_support_finish_send((o->>'outbox_id')::uuid,(b->>'lease')::uuid,'sent','priority-urgent-mid');
+ a:=public.ig_support_claim(gen_random_uuid(),1)->0;
+ perform pg_temp.check_it(a->>'handoff_ack'='false','FAQ follows notice');
+ perform pg_temp.check_it((select count(*)=0 from instagram_support.budget_reservations),'notice never reserved model budget');
+end $$;
+""")
+
+    def test_close_preserves_current_pause_and_unknown_preserves_open_case(self):
+        self.check_sql(f"""
+set local role service_role;
+do $$ declare a jsonb;t uuid;begin
+ perform pg_temp.safety('100001','close-route','HUMAN');select id into t from instagram_support.threads;
+ perform public.ig_support_control('close',t,'{{"actor_id":"{ACTOR}"}}');
+ perform pg_temp.check_it((select not human_paused from instagram_support.threads),'close keeps auto route unpaused');
+ perform pg_temp.safety('100001','close-route-again','HUMAN');
+ perform public.ig_support_control('assume',t,'{{"actor_id":"{ACTOR}"}}');
+ perform public.ig_support_control('close',t,'{{"actor_id":"{ACTOR}"}}');
+ perform pg_temp.check_it((select human_paused and pause_reason='human_assumed' from instagram_support.threads),'close preserves later real pause');
+ perform pg_temp.incoming('100001','close-paused-unknown');
+ perform pg_temp.check_it(public.ig_support_claim(gen_random_uuid(),1)='[]'::jsonb,'unknown cannot clear real pause');
+end $$;
+""")
+
+    def test_public_gates_default_false_and_each_required_even_with_model_approval(self):
+        self.check_sql("""
+update instagram_support.settings set mode='live',paused=false,model_usage_allowed=true,billing_verified=true;
+set local role service_role;
+do $$ begin
+ perform pg_temp.check_it((select not public_data_approved and not public_delivery_verified from instagram_support.settings),'public defaults closed');
+ perform pg_temp.check_it(pg_temp.incoming('100001','public-no-consent')->>'queued'='false','test approval does not enable public');
+ update instagram_support.settings set public_data_approved=true;
+ perform pg_temp.check_it(pg_temp.incoming('100001','public-no-delivery')->>'queued'='false','delivery proof separate');
+ update instagram_support.settings set public_data_approved=false,public_delivery_verified=true;
+ perform pg_temp.check_it(pg_temp.incoming('100001','public-no-data')->>'queued'='false','data consent separate');
+ update instagram_support.settings set mode='test',test_sender_ids=array['100001'];
+ perform pg_temp.check_it(pg_temp.incoming('100001','test-owner-still-eligible')->>'queued'='true','owner test stays eligible');
+end $$;
+""", enable=False)
+
+    def test_fresh_request_binds_first_notice_after_cancelled_source_without_replaying_old(self):
+        for cancelled_by in ('global_pause', 'withdrawal'):
+            for fresh_kind in ('HUMAN', 'UNKNOWN'):
+                cancel = (f"perform public.ig_support_control('pause_global',null,'{{\"actor_id\":\"{ACTOR}\",\"paused\":true}}');"
+                          f"perform public.ig_support_control('pause_global',null,'{{\"actor_id\":\"{ACTOR}\",\"paused\":false}}');"
+                          if cancelled_by == 'global_pause' else "perform pg_temp.withdraw('100001','cancel-first-source');")
+                fresh = ("perform pg_temp.safety('100001','fresh-first-source','HUMAN');a:=public.ig_support_claim(gen_random_uuid(),1)->0;"
+                         if fresh_kind == 'HUMAN' else "perform pg_temp.incoming('100001','fresh-first-source');a:=public.ig_support_claim(gen_random_uuid(),1)->0;"
+                         "c:=public.ig_support_complete((a->>'event_id')::uuid,(a->>'lease')::uuid,'{\"intent\":\"UNKNOWN\"}');"
+                         "perform pg_temp.check_it(c->>'allowed'='true','fresh unknown may supply first notice');"
+                         "a:=a||jsonb_build_object('thread_version',c->'thread_version');")
+                with self.subTest(cancelled_by=cancelled_by, fresh_kind=fresh_kind):
+                    self.check_sql(f"""
+set local role service_role;
+do $$ declare a jsonb;c jsonb;o jsonb;old_id uuid;begin
+ perform pg_temp.safety('100001','cancel-first-source','HUMAN');select id into old_id from instagram_support.events where mid='cancel-first-source';
+ {cancel}
+ perform pg_temp.check_it(public.ig_support_claim(gen_random_uuid(),1)='[]'::jsonb,'old notice stays terminal');
+ {fresh}
+ perform pg_temp.check_it((a->>'event_id')::uuid<>old_id,'new source only');
+ o:=public.ig_support_prepare_send((a->>'event_id')::uuid,(a->>'lease')::uuid,'Primeiro WhatsApp.',(a->>'thread_version')::bigint);
+ perform pg_temp.check_it(o->>'allowed'='true','first notice allowed on fresh request');
+ perform public.ig_support_finish_send((o->>'outbox_id')::uuid,(a->>'lease')::uuid,'sent','first-fresh-confirmed');
+ perform pg_temp.safety('100001','fresh-first-repeat','HUMAN');
+ perform pg_temp.check_it(public.ig_support_claim(gen_random_uuid(),1)='[]'::jsonb,'notice attempted stays final');
+ perform pg_temp.check_it((select count(*)=1 and bool_and(notice_attempted) from instagram_support.cases),'same case one attempt');
+ perform pg_temp.check_it((select count(*)=1 from instagram_support.outbox),'no duplicate external effect');
 end $$;
 """)
 

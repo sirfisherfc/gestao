@@ -36,7 +36,7 @@ O acesso nativo da gerente às mensagens foi conferido nos ativos da Meta e
 permanece preservado; ele não comprova que alguém tenha lido ou assumido um caso.
 
 A IA responde dúvidas verificáveis no Direct. Pedidos humanos recebem o
-link do WhatsApp e a automação fica pausada nesta conversa. O cliente precisa
+link do WhatsApp e uma próxima dúvida pode ser respondida no Instagram. O cliente precisa
 enviar sua mensagem por lá. O link não transfere o histórico nem avisa a equipe.
 Não prometa prazo, ligação ou providência que a equipe ainda não assumiu.
 
@@ -118,11 +118,14 @@ urgente, alergia/restrição, objeto esquecido, decisão sobre eventos, alteraç
 de reserva e pergunta sem fonte válida. Em urgência na casa, oriente procurar
 a equipe presente. Não dê orientação médica nem peça dados bancários/cartão.
 
-O novo fluxo registra um resumo curto e pausa a conversa antes de um único
-aviso revisado por caso ativo, sem IA. O aviso oferece o WhatsApp sem horário
-ou promessa de prazo e explica que o cliente iniciará o atendimento por lá. Pedidos repetidos
-durante a pausa ficam registrados sem outro aviso. Assumir e encerrar mantêm
-a pausa; retomar exige ação explícita e uma mensagem nova. Uma resposta cujo
+O fluxo registra um resumo curto antes de um único aviso revisado por caso
+ativo, sem IA. O aviso oferece o WhatsApp sem horário ou promessa de prazo e
+explica que o cliente iniciará o atendimento por lá. Uma FAQ posterior pode
+ser respondida; o caso continua aberto e outro pedido humano no mesmo caso
+não repete o aviso. A orientação sensível pendente vem antes da FAQ.
+Assumir manualmente ou receber echo desconhecido pausa a conversa sem prazo
+automático. Encerrar preserva o estado atual da pausa. Retomar uma pausa real
+exige ação explícita e uma mensagem nova. Uma resposta cujo
 envio começou ainda pode chegar após a pausa. A fila não tem responsável
 padrão e os e-mails permanecem desligados; os acessos existentes foram preservados.
 O painel distingue aviso pendente, link enviado no Instagram e resultado

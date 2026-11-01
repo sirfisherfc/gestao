@@ -112,10 +112,12 @@ controle e helpers privados com `SECURITY INVOKER`, search_path fixo e grants
 somente `service_role`. Não altera tabelas dos outros sistemas.
 
 O fluxo atual solicitado é IA no Instagram e atendimento humano por link
-ao WhatsApp oficial. O caso e a pausa são gravados antes de um único aviso
+ao WhatsApp oficial. O caso é gravado antes de um único aviso
 revisado por caso ativo, sem classificador nem reserva paga. O cliente precisa
 abrir o link e enviar a mensagem por lá. O painel acompanha o envio do link
-no Instagram, sem afirmar leitura ou atendimento no WhatsApp.
+no Instagram, sem afirmar leitura ou atendimento no WhatsApp. Uma FAQ posterior
+continua elegível e o caso permanece aberto. Pedidos repetidos no mesmo caso
+não repetem o link. Pausas manuais e envios incertos conservam seu tratamento.
 
 A ingesta preserva prioridade em rajadas. HUMAN→URGENCY invalida o lease
 anterior quando o POST ainda não começou; o novo claim usa a orientação
@@ -202,15 +204,17 @@ os acessos existentes. Não executar lookup ou nova atribuição pessoal neste f
 1. O receptor verifica assinatura e ativos da Meta, redige o texto e
    classifica riscos objetivos antes de truncar. `ig_support_ingest` grava
    evento e roteamento na mesma transação, deduplicando o MID antes do ACK.
-2. `safety_intent` em uma das categorias permitidas pausa a conversa e cria
+2. `safety_intent` em uma das categorias permitidas cria
    o caso imediatamente. Uma mensagem seguinte não apaga um pedido de
    pessoa ou uma alergia. O worker reserva somente o aviso único do caso
    ativo e envia o link do WhatsApp com texto revisado, sem IA. A conversa
-   permanece pausada e o cliente precisa enviar a mensagem por lá.
+   pode responder a uma FAQ posterior; o cliente precisa enviar a mensagem por lá.
+   O aviso pendente, com a prioridade sensível atual, vem antes dessa FAQ.
 3. O worker obtém uma lease por conversa. Mensagem nova muda a versão e
    invalida resultado antigo. O worker reserva orçamento antes de Gemini.
-4. A conclusão limpa o texto do cliente. Pergunta desconhecida permite
-   uma tentativa de esclarecimento; a repetição cria caso e pausa humana.
+4. A conclusão limpa o texto do cliente. Pergunta sem informação confirmada
+   cria caso e oferece WhatsApp. O caso permanece aberto após uma FAQ; não
+   há segundo aviso automático no mesmo caso ativo.
 5. Antes de enviar, o banco confere versão, modo, allowlist, pausa e janela
    de 24h, e cria uma única outbox em `sending`. A função só registra
    `sent` com MID devolvido pelo provedor.
@@ -223,8 +227,8 @@ confirmado. Echo desconhecido pausa a conversa, inclusive se chegar antes
 da resposta HTTP do próprio envio. Essa escolha pode exigir uma revisão
 humana adicional; ela evita responder sobre atendimento já assumido.
 
-A pausa por conversa não tem prazo automático. Fechar o caso mantém a
-pausa e o registro continua visível no painel. Retomar exige ação explícita,
+A pausa por intervenção manual/echo ou falha técnica não tem prazo automático.
+Fechar o caso preserva o estado atual da pausa. Retomar uma pausa real exige ação explícita,
 sem envio em andamento. A retomada descarta tarefas antigas e aguarda nova
 mensagem; ela não dispara respostas retroativas.
 

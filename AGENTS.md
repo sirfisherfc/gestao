@@ -103,6 +103,11 @@ Este arquivo é a fonte canônica das instruções operacionais para qualquer IA
 - Atendimento humano deve indicar somente o WhatsApp oficial, sem horário
   de atendimento ou promessa de prazo. Preservar horários da casa e regras
   de reserva verificadas. Não presumir que a equipe esteja atendendo no Direct.
+- A indicação automática do WhatsApp mantém a próxima FAQ elegível, com
+  um aviso por caso ativo. Orientações sensíveis pendentes têm prioridade.
+  Pausa manual/echo não reconciliado e envio incerto exigem conferência;
+  fechar um caso preserva sua pausa vigente. Não inferir consentimento ou
+  entrega pública a partir do piloto: os gates de produção são separados.
 
 - Para novas mensagens, aplicar o filtro conservador de
   `../reservas/supabase/functions/instagram-support/policy.mjs` antes de Gemini,
