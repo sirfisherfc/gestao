@@ -13,7 +13,7 @@ com limite total de R$50/mês. Nenhuma contratação realizada.
 | Mensagens e comentários | Permissões concedidas ao token: `instagram_manage_messages`, `instagram_manage_comments`, `pages_manage_metadata`, `pages_read_engagement`, `pages_messaging` e `pages_show_list`. Isso não comprova entrega ou envio de mensagens. |
 | MCP existente | Mantido somente para leitura de métricas. Não foi ampliado para Direct ou escrita. |
 | Assinaturas de webhook | GET de `subscribed_apps` da Página e da conta retornou listas vazias para o app/credencial consultados. A consulta não inventaria todas as integrações de outros apps. |
-| Leitura atual de conversas | Rota da Página: uma tentativa expirou; amostra menor retornou HTTP 400, código -2, subcódigo 2534084. Rota da conta retornou lista vazia. Nenhum desses resultados comprova caixa vazia. |
+| Leitura atual de conversas | HTTP 400, código -2, subcódigo 2534084. Nova consulta mínima em 01/11, com Page token e `platform=INSTAGRAM`, trouxe detalhe oficial: muitas conversas de usuários sem função no app e exigência de Advanced Access para `instagram_manage_messages`. Permissão no token e acesso avançado do app são etapas distintas. A lista vazia da rota da conta não comprova caixa vazia. |
 | Amostra histórica | Originais de 28/09/2026 lidos em memória; resumo abaixo, sem dados pessoais. |
 | Base para o agente | Preparada em `instagram-atendimento/CONHECIMENTO.md`, com limites e fontes. |
 | Configuração na Meta | Pendente de inspeção do produto na conta. Nenhuma automação alterada. |
@@ -23,6 +23,18 @@ A ferramenta de controle do Chrome interrompeu a rodada anterior por não
 conseguir identificar a URL atual com segurança. O navegador logado serve
 ao diagnóstico e à configuração; uma automação contínua precisa rodar na
 infraestrutura do fornecedor ou em servidor próprio.
+
+### Pedido de responder às mensagens pendentes
+
+O proprietário autorizou responder às mensagens em aberto em 01/11/2026.
+A tentativa pela API confirmou o bloqueio por falta de Advanced Access do
+app para essa leitura. Não excluir conversas para reduzir o volume sugerido
+pela mensagem da Meta. Nenhuma mensagem foi enviada por essa tentativa.
+O atendimento pela interface permanece dependente do controle do Chrome.
+Quando a leitura funcionar, conferir o histórico de cada conversa; mensagem
+não lida e pergunta sem resposta são estados diferentes. Solicitações antigas
+podem ter cobertura menor pela API. Preservar o contexto e evitar resposta
+genérica ou promessa de operação sem resultado verificado.
 
 ## O que os clientes procuram
 
