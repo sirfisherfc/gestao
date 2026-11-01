@@ -1,7 +1,7 @@
 # Atendimento do Instagram @sirfisherfc
 
-Diagnóstico e preparação de 01/11/2026. Responsável humano confirmado pelo
-proprietário: gerente de atendimento, 7h–21h, WhatsApp (85) 98854-4274.
+Diagnóstico e configuração de 01/11/2026. Responsável humano confirmado pelo
+proprietário: gerente Hêmile Alexandre, 7h–21h, WhatsApp (85) 98854-4274.
 Dias da semana ainda não informados. Orçamento autorizado: iniciar gratuito,
 com limite total de R$50/mês. Nenhuma contratação realizada.
 
@@ -16,8 +16,45 @@ com limite total de R$50/mês. Nenhuma contratação realizada.
 | Leitura atual de conversas | HTTP 400, código -2, subcódigo 2534084. Nova consulta mínima em 01/11, com Page token e `platform=INSTAGRAM`, trouxe detalhe oficial: muitas conversas de usuários sem função no app e exigência de Advanced Access para `instagram_manage_messages`. Permissão no token e acesso avançado do app são etapas distintas. A lista vazia da rota da conta não comprova caixa vazia. |
 | Amostra histórica | Originais de 28/09/2026 lidos em memória; resumo abaixo, sem dados pessoais. |
 | Base para o agente | Preparada em `instagram-atendimento/CONHECIMENTO.md`, com limites e fontes. |
-| Configuração na Meta | Pendente de inspeção do produto na conta. Nenhuma automação alterada. |
-| Testes do produto e ativação | Pendentes. Os cenários abaixo são o roteiro, sem resultado de execução. |
+| FAQs nativas do Instagram | Quatro perguntas com respostas fixas salvas e ativas; textos em `BOOK_QA_ATENDIMENTO.md`. Não interpretam livremente outras perguntas. |
+| Regra de reserva | Instagram retirado da regra antiga, preservada no Messenger. Nova regra de Instagram com condições restritas e 15 minutos de inatividade salva e desligada, aguardando teste externo e validação da pausa humana. |
+| Atendimento humano | Respostas manuais e cinco casos atribuídos à gerente com Acompanhar, conferidos no filtro nativo. Encaminhamento automático a partir de pedido de humano não configurado; FAQ oferece WhatsApp. |
+| Comentários | Seis publicações e nove comentários visíveis revisados; elogios ou reações sem perguntas. Nenhuma resposta publicada ou automação de comentário ativada. |
+| IA nativa | Não apareceu no aplicativo conferido pelo proprietário. Atendimento livre com IA ainda indisponível nesta conta. |
+| Testes | Prévia, salvamento, estado dos canais, envios manuais e atribuições conferidos. Teste por cliente externo, deduplicação automática e pausa durante atendimento humano pendentes. |
+
+### Estado operacional conferido em 01/11/2026
+
+Resultados da conferência final desta sessão:
+
+| Item | Estado observado |
+| --- | --- |
+| Conversas distintas com resposta manual | 31: 13 da caixa principal e 18 de Pedidos, sendo 17 normais e um oculto. Complementos na mesma conversa não foram contados novamente. |
+| Pedidos normais | Zero restantes no filtro conferido após responder a 17 conversas. |
+| Pedidos ocultos | Dois preservados: oferta de catálogo de fornecedor e grupo pedindo divulgação. Nenhum foi excluído. |
+| Fila humana | Cinco casos com Hêmile e Acompanhar, conferidos no filtro nativo. Dois pedidos de confirmação sobre vales foram respondidos, concluídos e retirados de Acompanhar. As duas propostas comerciais sem persistência não integram os cinco casos. |
+| Encaminhamentos sem persistência | Duas propostas comerciais exibiram registro de atribuição à Hêmile, mas perderam responsável e Acompanhar ao reabrir. O salvamento repetido não confirmou persistência. Links do WhatsApp foram enviados; os encaminhamentos internos continuam pendentes. |
+| Não lidas | Conversas individuais revisadas até junho. Restaram grupos antigos com mensagem indisponível ou registros de saída, sem envio. O filtro não comprova ausência de pendências em todo o acervo. |
+| Comentários | Seis publicações abertas; nove comentários visíveis, distribuídos em 1 + 1 + 1 + 4 + 1 + 1. Apenas elogios ou reações sem perguntas; zero respostas publicadas e zero automações de comentário ativadas. |
+| Automação de reserva nova | Salva e desligada. Conserva 15 minutos de inatividade; falta teste externo e validação da pausa durante atendimento humano. |
+
+As contagens descrevem a caixa e os filtros conferidos naquele momento.
+Uma resposta enviada não comprova resolução do pedido; atribuição não
+comprova que a gerente já leu ou encerrou o caso. A revisão não cobriu todo
+o acervo e não comprova ausência global de pendências. Não incluímos nomes,
+perfis ou mensagens de clientes nos arquivos versionados.
+Na revisão posterior da caixa principal, menções sem pergunta foram
+concluídas sem nova resposta. Algumas solicitações de menção já haviam
+recebido agradecimento durante a revisão de Pedidos e entram na contagem
+de conversas com resposta. Uma
+tentativa de agradecer a uma menção foi rejeitada pela revisão automática
+por falta de contexto e não foi enviada; ela não integra a contagem acima.
+
+### Acesso ao Chrome e diagnóstico anterior
+
+O Chrome voltou a funcionar nesta sessão. O perfil correto, as automações
+e a caixa de entrada foram acessados; respostas manuais e atribuições foram
+realizadas. O bloqueio anterior permanece registrado a seguir como histórico.
 
 A ferramenta de controle do Chrome interrompeu as rodadas anteriores por
 não conseguir identificar a URL atual com segurança. Em 01/11/2026, os
@@ -25,19 +62,45 @@ diagnósticos oficiais do plugin confirmaram: Chrome rodando, extensão ChatGPT
 habilitada no perfil Default e arquivo do native host presente, com ausência
 da chave `HKCU\Software\Google\Chrome\NativeMessagingHosts\com.openai.codexextension`.
 O comando `check-native-host-manifest.js --browser chrome --json` retornou
-código 1 e `correct=false`. Essa instalação precisa ser reparada antes de
-retomar a configuração ou as respostas pela interface.
+código 1 e `correct=false` naquele diagnóstico.
 
 O procedimento `chrome-troubleshooting.md` do plugin instrui o usuário a
 reinstalar o **Browser** pela interface de plugins do ChatGPT e proíbe o
 agente de instalar/reparar o native host ou executar `installManifest.mjs`.
 Nenhum registro, extensão, permissão ou processo foi alterado no diagnóstico.
-Após a reinstalação, repetir a descoberta do navegador e conferir o acesso
-ao perfil correto antes de operar o Instagram. As orientações públicas estão
+Naquela etapa, a orientação foi repetir a descoberta do navegador e conferir
+o perfil após a reinstalação. As orientações públicas estão
 em https://learn.chatgpt.com/docs/chrome-extension .
 
 O navegador logado serve ao diagnóstico e à configuração; uma automação
 contínua precisa rodar na infraestrutura do fornecedor ou em servidor próprio.
+
+### Acesso da integração contínua
+
+O painel autenticado da Meta confirmou o app existente **DeathStar**, ID
+`224912007567636`, no portfólio Sir Fisher. A consulta oficial de depuração
+confirmou que ele emitiu a credencial canônica: `SYSTEM_USER`, válida,
+com `expires_at=0` (sem vencimento programado informado). O acesso ainda
+pode ser revogado; esse resultado não comprova funcionamento do atendimento.
+Nenhum token ou segredo foi exibido, renovado ou copiado para a documentação.
+
+O app está **em desenvolvimento**. Em Permissões e recursos,
+`instagram_manage_messages`, `instagram_manage_comments`, `pages_messaging`
+e `pages_manage_metadata` aparecem com acesso **Standard**, sem análise
+solicitada. O produto Messenger está adicionado e a Página Sir Fisher está
+vinculada. A tela de mensagens do Instagram informa que o app deve passar
+por análise antes de interagir com clientes; durante o desenvolvimento,
+limita as mensagens às funções de administrador, desenvolvedor e testador.
+O callback de webhook ainda não está configurado nessa tela.
+
+Assim, o erro de listagem de conversas tem cobertura específica. Ele,
+isoladamente, não comprova bloqueio de todo evento novo. O painel acrescenta
+os requisitos que faltam ao caminho atual com Facebook Login: callback
+HTTPS, validação da assinatura, inscrição de eventos, testes controlados,
+análise e acesso necessários e publicação do app. Não houve alteração de
+modo, inscrição, permissão ou credencial. Nenhum recebimento ou envio por
+essa API foi validado. Os caminhos Facebook Login e Instagram Login exigem
+configurações próprias; uma condição de um caminho não comprova acesso no outro.
 
 ### Pedido de responder às mensagens pendentes
 
@@ -45,9 +108,9 @@ O proprietário autorizou responder às mensagens em aberto em 01/11/2026.
 A tentativa pela API confirmou o bloqueio por falta de Advanced Access do
 app para essa leitura. Não excluir conversas para reduzir o volume sugerido
 pela mensagem da Meta. Nenhuma mensagem foi enviada por essa tentativa.
-O atendimento pela interface permanece dependente do controle do Chrome.
-Quando a leitura funcionar, conferir o histórico de cada conversa; mensagem
-não lida e pergunta sem resposta são estados diferentes. Solicitações antigas
+O atendimento pela interface foi retomado com o Chrome funcionando.
+Conferir o histórico de cada conversa; mensagem não lida e pergunta sem
+resposta são estados diferentes. Solicitações antigas
 podem ter cobertura menor pela API. Preservar o contexto e evitar resposta
 genérica ou promessa de operação sem resultado verificado.
 
@@ -73,8 +136,13 @@ Nenhum nome, telefone ou mensagem integral de cliente foi versionado.
 
 ## Escolha e custos
 
-Priorizar **Meta Business Agent nativo**, se elegível e gratuito para esta
-conta. A Meta anunciou sua expansão ao Instagram e início gratuito. A cota,
+As quatro FAQs fixas e o atendimento da gerente são a configuração atual.
+As FAQs executam na infraestrutura da Meta e continuam disponíveis com o
+PC desligado. O Chrome foi usado para configurar e atender manualmente;
+esta sessão do Codex não foi instalada como atendente contínuo.
+O **Meta Business Agent nativo** não apareceu no aplicativo conferido pelo
+proprietário. A Meta anunciou sua expansão ao Instagram e início gratuito;
+uma oferta anunciada não comprova disponibilidade nesta conta. A cota,
 a renovação e os controles de encaminhamento precisam aparecer na conta
 antes da ativação. Entrada oficial: https://www.facebook.com/business/ai .
 
@@ -87,8 +155,29 @@ antes da ativação. Entrada oficial: https://www.facebook.com/business/ai .
 | Manychat Free | Modelo atual com 25 contatos ativos/mês e quatro automações. Conferir eventual plano legado existente; cobertura atual insuficiente para propor atendimento contínuo com IA. |
 | Integração própria por API | Exige servidor, webhooks, monitoramento e provedor de IA. Credencial ampla existente não comprova app pronto. Custo e manutenção maiores que a configuração nativa; não implantar infraestrutura sem necessidade. |
 
-Se o Business Agent gratuito não estiver disponível, preparar as FAQs nativas
-e o atendimento da gerente, preservando o teto. Não cadastrar cartão, iniciar
+Foi localizado acesso existente ao Gemini, já usado em ferramenta de imagens.
+Um teste de texto sem dados de clientes validou `gemini-3.5-flash-lite`,
+HTTP 200, com 61 tokens de entrada e 19 de saída. A resposta ao exemplo
+público usou o horário de domingo fornecido no pedido. Isso valida o acesso
+ao modelo; não valida o agente, as operações ou a integração do Instagram.
+`gemini-2.5-flash-lite` retornou 404 apesar de constar da listagem; não
+depender desse identificador sem investigação.
+
+O preço Standard consultado para o modelo 3.5 é US$0,30 por milhão de tokens
+de entrada e US$2,50 por milhão de saída. O exemplo de 80 tokens equivale
+a cerca de US$0,000066 pela tarifa publicada, sujeito ao faturamento real.
+O `serviceTier=standard` da resposta não identifica Free/Paid. O AI Studio
+mostrou um projeto com faturamento pago, mas o vínculo dessa chave e o teto
+de gasto da integração ainda precisam de confirmação. Não houve contratação,
+mudança de faturamento, envio de conversa de cliente ou implantação de servidor.
+Uma integração própria é candidata para baixo uso; custo total e limite de
+R$50 ainda dependem de hospedagem, volume e bloqueio de consumo por agente.
+O plano gratuito do Gemini permite uso do conteúdo para melhorar produtos;
+conferir o plano e o tratamento dos dados antes de enviar mensagens reais.
+
+As FAQs nativas foram configuradas com atendimento da gerente, preservando
+o teto. Se a IA nativa aparecer, conferir recursos, custos e testes antes de
+ativar. Não cadastrar cartão, iniciar
 trial com cobrança automática ou contratar assinatura acima do limite.
 
 ## Cobertura e regras oficiais
@@ -112,9 +201,14 @@ trial com cobrança automática ou contratar assinatura acima do limite.
   Facebook Login. Standard/Advanced Access depende do caminho e dos ativos.
 
 As páginas canônicas de janela geral/Human Agent tiveram bloqueio de leitura
-na pesquisa. A regra de 24h/sete dias acima também consta da documentação
-operacional oficial do Manychat. Validar o contrato da opção escolhida antes
-de depender de exceções. Não prometer atender todos os tipos de interação.
+na pesquisa. A regra de 24h/sete dias acima consta da documentação
+operacional oficial do Manychat. Depois, a tela autenticada Permissões e
+recursos da Meta também confirmou o prazo de sete dias de Human Agent,
+com acesso Standard e nenhuma análise solicitada neste app. O recurso não
+foi ativado. Limites numéricos de requisições por segundo/hora não foram
+confirmados em fonte primária atual; conferir a conta e tratar os bloqueios
+na implementação. Validar o contrato da opção escolhida antes de depender
+de exceções. Não prometer atender todos os tipos de interação.
 
 ## Conteúdo e operações permitidas
 
@@ -122,6 +216,10 @@ Carregar [CONHECIMENTO.md](instagram-atendimento/CONHECIMENTO.md). O agente
 pode responder localização, horários com exceções, regras de reserva, pets,
 delivery e condições verificadas do executivo. Cardápio/preços continuam
 em conferência; alergias seguem para a cozinha por atendimento humano.
+Em 01/11/2026, o proprietário reconfirmou que a casa não tem happy hour,
+permite levar bolo sem taxa e recebe currículos em `sir.fisher@outlook.com`.
+Também confirmou aceitação de VR, Alelo, Ticket e Sodexo/Pluxee, sem informar
+restrições. Essa confirmação não se estende a outros aplicativos ou benefícios.
 
 O portal existente consulta disponibilidade e cria reservas por RPC; o
 cancelamento público depende do token seguro. **Essas funções ainda não
@@ -131,10 +229,13 @@ ou pagamento exige resultado verificado no sistema correspondente.
 
 ## Encaminhamento para a gerente
 
-Preferir a mesma conversa no Direct: atribuir à gerente, registrar resumo do
+Preferir a mesma conversa no Direct: atribuir à Hêmile, registrar resumo do
 pedido e da informação que falta, marcar pendência e pausar a automação até
 o encerramento humano. Testar se a pausa é por conversa e se persiste; uma
 pausa automática de 30 minutos não atende casos ainda abertos.
+Cinco casos foram conferidos com responsável e Acompanhar no filtro nativo.
+Esse acompanhamento foi manual. Não foi configurada transferência automática
+por pedido de atendimento humano; a FAQ ativa oferece o WhatsApp oficial.
 
 Encaminhar reclamação, cobrança contestada, estorno, urgência, alergia,
 objeto perdido, pergunta sem fonte válida e decisão sobre reserva/evento.
@@ -146,6 +247,12 @@ não notifica a gerente e não cria uma fila. Explicar essa limitação quando a
 ferramenta não puder registrar a transferência. Fora de 7h–21h, informar a
 faixa de atendimento sem prometer resposta imediata ou dia ainda não confirmado.
 
+A sessão encontrou falha de persistência em dois encaminhamentos comerciais:
+o registro e o aviso de atribuição apareceram, mas responsável e Acompanhar
+sumiram após reabrir, inclusive depois de revisar a seleção e salvar novamente.
+Não contar esses casos como transferidos. A fila exige conferência após
+reabertura; até resolver a falha, o link de WhatsApp é a contingência já enviada.
+
 ## Conversas novas e antigas
 
 Começar com novas interações depois da ativação. A equipe revisa manualmente
@@ -153,9 +260,26 @@ conversas antigas pendentes, priorizando reclamações, pagamentos e visitas
 próximas. Não disparar respostas retroativas. Se o cliente retomar conversa
 antiga, ler o contexto e respeitar estado humano e janela de resposta.
 
-Escolher uma aplicação responsável pela conversa. Antes de ativar, inventariar
-ManyChat, respostas instantâneas, ausência, FAQs e agentes nativos. Ajustar
-as regras que concorrem somente após preparar e verificar a substituição.
+As quatro FAQs do Instagram estão ativas. A regra antiga de reserva passou
+a atender somente o Messenger; esse canal foi preservado. A nova regra de
+reserva do Instagram está salva e desligada. Conferir respostas instantâneas,
+ausência e eventuais integrações antes de ativar outra automação. A relação
+histórica com ManyChat não comprova integração atual ativa.
+
+A regra nova, ID `1437395341168944`, foi reaberta e conferida sem alterações:
+Instagram selecionado, Messenger desmarcado, estado Desativado e Salvar
+desabilitado. Ela procura as frases exatas `como reservar`, `fazer reserva`,
+`quero reservar`, `reservar mesa` e `reservar uma mesa`, com inatividade
+mínima de 15 minutos. Resposta salva:
+
+> Sou o assistente virtual do Sir Fisher 😊 Para consultar horários e reservar para até 10 pessoas: https://reservas.sirfisher.com.br/ A confirmação depende de concluir o pedido no portal. Para hoje, o corte é 15h30. Para grupos, alterações ou ajuda com cancelamento, fale com a gerente (7h–21h): https://wa.me/5585988544274 Para cancelar, você também pode usar o link recebido no e-mail da reserva.
+
+Para pausar as FAQs apenas no Instagram: Caixa de Entrada → Automações →
+Perguntas frequentes → Editar → desmarcar Instagram → Salvar alterações.
+O interruptor geral afeta os canais selecionados; preservar o Messenger.
+Reativar exige selecionar Instagram, salvar e conferir as quatro respostas.
+Esse procedimento usa controles disponíveis na tela; a entrega durante a
+pausa e a suspensão por conversa ainda não foram testadas com conta externa.
 
 ## Roteiro antes da ativação
 
@@ -178,9 +302,24 @@ as regras que concorrem somente após preparar e verificar a substituição.
 | Retomada de conversa antiga | Preserva atendimento humano e regra de janela. |
 | Pausa global e por conversa | Nenhuma resposta nova enquanto pausado; retomada controlada. |
 
-Estado: roteiro e revisão de conteúdo preparados. **Não executados no produto.**
-Testes reais devem usar conta controlada, sem enviar mensagens de teste a clientes.
-Apresentar os resultados e comportamento configurado antes da ativação.
+### Validação por camada
+
+| Camada | Resultado e limite |
+| --- | --- |
+| Conteúdo e interface | Quatro FAQs reabertas após recarga, com textos persistidos, Instagram selecionado, estado Ativado e Salvar desabilitado sem alterações. Nova regra de reserva, com 15 minutos de inatividade, salva e desligada. Isso não comprova entrega por todos os gatilhos. |
+| Atendimento real manual | Respostas enviadas a conversas pendentes pela interface, com histórico considerado. Contagens no quadro operacional; envio não comprova resolução. |
+| Modelo de IA isolado | Gemini 3.5 Flash-Lite respondeu ao exemplo público fornecido, HTTP 200 e 80 tokens. Não recebeu conversas de clientes e não está conectado ao Direct. |
+| Fila humana | Cinco casos com Hêmile e Acompanhar confirmados no filtro nativo. Dois encaminhamentos comerciais falharam na persistência após reabrir e permanecem pendentes; o link do WhatsApp foi enviado. Leitura ou conclusão pela gerente não comprovadas. Transferência automática por pedido humano não configurada. |
+| Revisão de comentários | Seis publicações e nove comentários visíveis revisados, todos com elogios ou reações sem perguntas. Nenhuma resposta publicada; revisão não cobre todo o acervo de comentários. |
+| Alerta de mensagens sem resposta | Recurso inspecionado; somente Messenger selecionável, sem opção de Instagram. Tela cancelada sem salvar. Não cobre pendências do Instagram. |
+| Operações | Reservas, cancelamentos e pagamentos continuam pelos portais ou por pessoa. Nenhuma dessas operações foi executada pelo agente. |
+| Automação completa | Falta teste com conta externa controlada, resposta duplicada e pausa persistente durante atendimento humano. Comentários e respostas a Stories continuam com cobertura a verificar. |
+
+Os cenários acima são o roteiro para os testes ainda faltantes. Não atribuir
+aprovação geral ao roteiro por causa dos envios manuais. Testes reais devem
+usar conta controlada, sem mensagens de teste a clientes. Apresentar os
+resultados e o comportamento da nova regra antes de ativá-la. Os 15 minutos
+de inatividade não substituem a validação de pausa durante atendimento humano.
 
 ## Acompanhamento proposto
 
@@ -201,10 +340,17 @@ ao atingir o limite gratuito, preservar contingência humana sem upgrade automá
 Consulta em **01/11/2026**:
 
 - [Meta Business Agent: anúncio e início gratuito](https://about.fb.com/news/2026/06/meta-business-agent/).
+- [Meta Business Agent para Instagram](https://ai.meta.com/meta-business-agent/instagram/)
+  e [entrada pelo aplicativo](https://www.instagram.com/linking/business_ai_onboarding).
 - [Meta One: preços no Brasil](https://about.fb.com/br/news/2026/09/apresentando-o-meta-one-um-servico-de-assinatura-com-mais-recursos-e-ia-para-criar-se-conectar-e-se-destacar/amp/).
 - [Meta: API Instagram e permissões](https://www.postman.com/meta/instagram/documentation/6yqw8pt/instagram-api).
+- [Meta: Conversations API com Facebook Login](https://www.postman.com/meta/messenger-platform-api/folder/22794852-255610cd-47f5-4f4d-b3fa-71aec360be9a)
+  e [introdução ao Messenger para Instagram](https://developers.facebook.com/docs/messenger-platform/instagram/get-started/).
 - [Meta: resposta privada a comentário](https://developers.facebook.com/docs/instagram-platform/instagram-api-with-instagram-login/messaging-api/private-replies).
 - [Meta: webhooks](https://developers.facebook.com/docs/instagram-platform/instagram-api-with-instagram-login/webhooks).
+- [Google: preços do Gemini](https://ai.google.dev/gemini-api/docs/pricing),
+  [limites](https://ai.google.dev/gemini-api/docs/rate-limits)
+  e [faturamento](https://ai.google.dev/gemini-api/docs/billing).
 - [Manychat: plano Pro](https://help.manychat.com/hc/en-us/articles/25800228332572-Pro-plan),
   [preços](https://manychat.com/pricing),
   [janelas de mensagem](https://help.manychat.com/hc/en-us/articles/23358636027932-Understanding-messaging-windows),

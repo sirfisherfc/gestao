@@ -28,13 +28,21 @@ A implantação das respostas e o tempo de atendimento atual ainda precisam
 ser conferidos nos canais; esta revisão atualiza a documentação.
 
 Revisão para o assistente virtual em 01/11/2026: o proprietário confirmou o
-WhatsApp corporativo acima e a gerente de atendimento, das 7h às 21h. Os dias
+WhatsApp corporativo acima e a gerente Hêmile Alexandre, das 7h às 21h. Os dias
 da semana ainda precisam de confirmação. Configuração e testes do agente
 estão registrados em [ATENDIMENTO_INSTAGRAM.md](ATENDIMENTO_INSTAGRAM.md).
 Para carregar a base em uma IA, usar os textos e limites de
 [instagram-atendimento/CONHECIMENTO.md](instagram-atendimento/CONHECIMENTO.md).
 As respostas deste book que dependem de ação da equipe exigem encaminhamento
 registrado; informar o resultado somente depois de verificá-lo.
+
+O proprietário reconfirmou em 01/11/2026: a casa não tem happy hour, permite
+levar bolo sem taxa e recebe currículos em `sir.fisher@outlook.com`.
+Também confirmou aceitação de VR, Alelo, Ticket e Sodexo/Pluxee, sem informar
+restrições. Outros benefícios e aplicativos conservam suas fontes anteriores.
+Quatro FAQs fixas foram salvas e ativadas no Instagram, com os textos exatos
+na seção de automações abaixo. A nova regra restrita de reserva permanece
+desligada. O aplicativo conferido pelo proprietário não apresentou a IA nativa.
 
 ## O que as conversas mostram
 
@@ -193,8 +201,10 @@ uma resposta; sem mandar para o link da bio quando a resposta cabe na mensagem.
 > destilados e cervejas trazidos de fora, cobramos taxa de rolha.
 
 **Posso levar bolo?**
-> Pode sim, e não cobramos taxa de bolo. Só não é permitido trazer doces e
-> salgados.
+> Pode levar bolo, sem taxa. Para outros alimentos e para organizar a
+> comemoração, fale com a equipe.
+> *(Bolo sem taxa reconfirmado pelo proprietário em 01/11/2026. A regra de
+> outros doces e salgados tinha confirmação de 28/09 e exige conferência atual.)*
 
 ### Promoções
 
@@ -218,13 +228,16 @@ uma resposta; sem mandar para o link da bio quando a resposta cabe na mensagem.
 > Aceitamos todos os dias, exceto feriados e datas comemorativas com menu
 > especial (como o Dia dos Namorados). O segundo prato tem que ser igual ao
 > primeiro. A cozinha fecha às 22h.
+> *(Condições confirmadas pelo proprietário em 28/09/2026; conferir aceitação
+> e condições atuais antes de publicar resposta automática.)*
 
 **Aceitam Prime Gourmet? Duo Gourmet?**
 > Aceitamos os dois! As condições de cada um estão no aplicativo.
 
 **Tem happy hour? Tem outra promoção?**
-> Não temos happy hour. As promoções da casa são a terça em dobro no almoço
-> executivo e a quarta do camarão.
+> Não temos happy hour. A terça em dobro do executivo segue as condições
+> acima. Para outras promoções, a equipe confere a oferta atual.
+> *(Ausência de happy hour reconfirmada pelo proprietário em 01/11/2026.)*
 
 **Aniversariante ganha alguma coisa?**
 > Ganha! No dia do aniversário, é só avisar a equipe e mostrar um documento com foto
@@ -236,16 +249,21 @@ uma resposta; sem mandar para o link da bio quando a resposta cabe na mensagem.
 > Aceitamos cartão de crédito, débito e Pix.
 
 **Aceitam vale-refeição (VR, Alelo, Sodexo/Pluxee, Ticket)?**
-> Aceitamos sim!
+> Aceitamos VR, Alelo, Ticket e Sodexo/Pluxee.
+> *(Aceitação confirmada pelo proprietário em 01/11/2026, sem informar
+> restrições. Não generalizar para outros benefícios ou aplicativos.)*
 
 ### Ambiente
 
 **Tem música ao vivo?**
-> Não temos música ao vivo, porque na Beira-Mar não é permitido. Mas a nossa
-> playlist é bastante elogiada.
+> A programação depende da data. No Réveillon de 31/12/2026, a página oficial
+> informa DJ e cantor ao vivo. Para outro dia, a equipe confere a programação.
+> *(A resposta sobre dias comuns foi confirmada em 28/09/2026. A antiga
+> justificativa de proibição na Beira-Mar não tem fonte oficial nesta base.)*
 
 **Vão transmitir o jogo?**
-> Não temos TV, então não transmitimos jogos. Mas a vista do pôr do sol compensa!
+> A informação confirmada em 28/09/2026 é que a casa não tem TV nem transmite
+> jogos. A equipe pode conferir se houve mudança.
 
 **Aceitam pet?**
 > Somos pet friendly! 🐶 Pets são bem-vindos na área externa.
@@ -298,6 +316,7 @@ uma resposta; sem mandar para o link da bio quando a resposta cabe na mensagem.
 
 **Vagas / currículo.**
 > Obrigado pelo interesse! Envie seu currículo para sir.fisher@outlook.com.
+> *(Endereço reconfirmado pelo proprietário em 01/11/2026; não comprova vaga aberta.)*
 
 **Parceria / influenciador / permuta.**
 > Obrigado por pensar no Sir Fisher! No momento não estamos fazendo parcerias nem
@@ -322,15 +341,43 @@ A automação nunca responde sozinha a:
 
 ## Automações nativas do Instagram
 
-**Perguntas frequentes do Direct** (aparecem quando alguém abre a conversa; máximo
-de 4):
+**Perguntas frequentes do Direct:** quatro perguntas salvas e ativas no
+Instagram em 01/11/2026. Os textos abaixo reproduzem a configuração salva;
+foram reabertos após recarga, com Instagram selecionado, estado Ativado e
+Salvar desabilitado sem alterações. Prévia e persistência da configuração
+não substituem teste por conta externa.
 
-1. Como faço uma reserva?
-2. Qual o horário de hoje?
-3. Onde vejo o cardápio?
-4. Tem terça em dobro / Fortal em Dobro?
+1. **Qual o horário e o endereço?**
 
-**Respostas por palavra-chave:** usar os textos acima.
+   > Sou o assistente virtual do Sir Fisher 😊 Abrimos dom–qui, 9h–22h15; sex–sáb, 9h–23h. Estamos na Av. Beira Mar, 3421, Meireles, em frente ao Jardim Japonês. Em 2026, fechamos 24 e 25/12. Para datas especiais, consulte a equipe. Rota: https://www.sirfisher.com.br/como-chegar/
+
+2. **Onde vejo o cardápio?**
+
+   > Sou o assistente virtual do Sir Fisher 😊 Cardápio: https://www.sirfisher.com.br/cardapio/ Executivo: https://www.sirfisher.com.br/almoco-executivo/ (seg–sex, 10h–14h, exceto feriados). A equipe confirma preços, porções e ingredientes. Para falar com a gerente, das 7h às 21h: https://wa.me/5585988544274
+
+3. **Como falo com a gerente?**
+
+   > Sou o assistente virtual do Sir Fisher 😊 A gerente de atendimento atende das 7h às 21h pelo WhatsApp oficial: https://wa.me/5585988544274 Envie sua mensagem por lá para iniciar o atendimento. A equipe acompanha reclamações, cobranças, alergias e pedidos que exigem conferência ou decisão humana.
+
+4. **Como reservo ou faço evento?**
+
+   > Sou o assistente virtual do Sir Fisher 😊 Até 10 pessoas: https://reservas.sirfisher.com.br/ A reserva depende da conclusão e confirmação no portal. Para hoje, o corte é 15h30; tolerância de 15 min. Para 11–29 pessoas, fale com a equipe: https://wa.me/5585988544274 Eventos de 30–100 pessoas: https://www.sirfisher.com.br/eventos/ A equipe confirma a data e a proposta.
+
+As FAQs são respostas fixas. O link de WhatsApp inicia outra conversa;
+não transfere o histórico nem avisa a gerente por si só. Os dias do horário
+humano 7h–21h ainda precisam de confirmação.
+
+**Regra de reserva:** o Instagram foi retirado da regra antiga, preservada
+no Messenger. Uma nova regra restrita ao Instagram foi salva, conserva
+15 minutos de inatividade e ficou desligada. Falta teste por conta externa
+e validação de resposta duplicada e pausa no atendimento humano antes de
+ativar. O agente nativo de IA não apareceu no aplicativo conferido pelo
+proprietário. Acompanhamento manual com Hêmile foi conferido em cinco casos;
+transferência automática por pedido de humano não foi configurada.
+
+**Proposta de palavras-chave:** a tabela abaixo é uma referência antiga,
+não uma lista de regras implantadas. Palavras amplas podem alcançar
+reclamações e pedidos de cancelamento; não ativar o conjunto sem revisão.
 
 | Palavras | Resposta |
 |---|---|

@@ -528,3 +528,80 @@ Diagnóstico somente de leitura; `git diff --check` aprovado. Sem migration,
 deploy de agente, contratação ou mensagem enviada a cliente.
 
 — Codex
+
+## 2026-11-01 · Codex — FAQs e atendimento manual do Instagram
+
+O Chrome voltou a funcionar. As quatro FAQs fixas do Instagram foram
+salvas e ativadas: horário/endereço, cardápio, gerente e reservas/eventos.
+Textos exatos em `docs/BOOK_QA_ATENDIMENTO.md`. O Instagram foi retirado da
+regra antiga de reserva, preservada no Messenger. A nova regra restrita
+ao Instagram foi salva e permanece desligada. A IA nativa não apareceu
+no aplicativo conferido pelo proprietário; atendimento livre com IA segue
+indisponível. Sem contratação.
+
+O proprietário confirmou Hêmile Alexandre como gerente, das 7h às 21h,
+WhatsApp corporativo, ausência de happy hour, bolo sem taxa e currículo
+em `sir.fisher@outlook.com`. Dias de atendimento humano ainda pendentes.
+Também confirmou VR, Alelo, Ticket e Sodexo/Pluxee aceitos, sem informar
+restrições; a base não estende a confirmação a outros aplicativos.
+`docs/instagram-atendimento/CONHECIMENTO.md` recebeu essas informações,
+preservando preços em conferência e limites de execução.
+
+Estado conferido ao final da sessão: 31 conversas distintas receberam
+resposta manual, 13 da caixa principal e 18 de Pedidos, incluindo um
+oculto. O filtro de Pedidos normais chegou a zero; dois ocultos
+de fornecedor/divulgação foram preservados. Complementos na mesma conversa
+não entram novamente na contagem. Dois pedidos sobre vales foram concluídos
+e retirados de Acompanhar; cinco casos com Hêmile e Acompanhar foram
+conferidos no filtro nativo. Dois encaminhamentos comerciais perderam
+atribuição e Acompanhar após reabrir, apesar do registro e do salvamento
+repetido. Não considerá-los transferidos; receberam link do WhatsApp,
+sem promessa de aprovação. Nomes, perfis e textos de clientes não integram
+o registro. Contagens finais ficam no quadro
+“Estado operacional conferido em 01/11/2026” de `docs/ATENDIMENTO_INSTAGRAM.md`.
+
+FAQs reabertas após recarga: textos persistidos, Instagram selecionado,
+Ativado e Salvar desabilitado sem alterações. Alerta de mensagens não
+respondidas só oferece Messenger; cancelado sem salvar. Na revisão posterior
+da caixa principal, menções sem pergunta foram concluídas sem nova resposta.
+Algumas solicitações de menção já haviam recebido agradecimento em Pedidos
+e entram na contagem de respostas. Uma tentativa posterior de agradecer
+foi rejeitada pela revisão automática por falta de contexto e não foi enviada.
+Seis publicações abertas para revisão de nove comentários visíveis:
+elogios e reações sem perguntas. Zero respostas publicadas e zero automações
+de comentário ativadas. No filtro Não lidas, conversas individuais revisadas
+até junho; sobraram grupos antigos com mensagens indisponíveis ou saídas,
+sem envio. A revisão não cobriu todo o acervo nem zerou pendências globais.
+
+Conferidos prévias, salvamento, estados dos canais, envios manuais e
+limites da persistência de atribuições. Faltam cliente externo controlado,
+deduplicação automática e pausa persistente durante atendimento humano.
+Resposta enviada e atribuição
+não comprovam resolução. A API continua bloqueada pelo Advanced Access
+para a leitura de clientes sem papel no app. Reservas, cancelamentos e
+pagamentos seguem pelos portais ou por pessoa. Provas locais ficam em
+`tmp/instagram-atendimento/`, ignorado; nenhuma prova bruta foi versionada.
+O acompanhamento de cinco casos foi manual; transferência automática por
+pedido humano não configurada. A FAQ oferece WhatsApp. A nova regra de
+reserva permanece desligada, com 15 minutos de inatividade, até teste
+externo e validação de pausa humana.
+O painel da Meta e a depuração oficial confirmaram o app DeathStar como
+emissor da credencial SYSTEM_USER válida, sem vencimento programado.
+O app está em desenvolvimento, com mensagens em Standard, sem análise
+solicitada e sem callback configurado. Nenhuma permissão, modo ou credencial
+foi alterada. Esse diagnóstico é separado do Chrome e das FAQs nativas.
+
+A chave Gemini existente passou em um teste isolado de texto com
+`gemini-3.5-flash-lite`: HTTP 200, 61 tokens de entrada e 19 de saída.
+Somente pergunta e informação públicas; nenhuma conversa de cliente foi
+enviada. O teste não comprova atendimento pelo Instagram nem teto mensal.
+Preço, plano, hospedagem e limites estão em `docs/ATENDIMENTO_INSTAGRAM.md`.
+Nenhuma nova assinatura ou mudança de faturamento; servidor de mensagens
+e análise da Meta permanecem pendentes.
+
+Revisão documental e `git diff --check` aprovados. A checagem local do projeto
+retornou `QUALITY_OK`: Python 78, JS externo 8, JS inline 28, páginas 29,
+contratos 123 e segurança 30. A execução usou o Python instalado com a
+permissão local necessária, após o alias ficar inacessível no ambiente restrito.
+
+— Codex
