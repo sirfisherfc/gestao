@@ -1,9 +1,16 @@
 # Atendimento do Instagram @sirfisherfc
 
-Diagnóstico e configuração de 01/11/2026. Responsável humano confirmado pelo
-proprietário: gerente Hêmile Alexandre, 7h–21h, WhatsApp (85) 98854-4274.
+Diagnóstico e configuração de 01/11/2026. Fluxo definido pelo proprietário:
+IA responde dúvidas no Instagram; atendimento humano pelo WhatsApp
+(85) 98854-4274, das 7h às 21h. A gerente já possui acesso nativo às mensagens;
+o assistente fica sem atribuição pessoal padrão e sem avisos por e-mail.
 Dias da semana ainda não informados. Orçamento autorizado: iniciar gratuito,
 com limite total de R$50/mês. Nenhuma contratação realizada.
+Conferência somente de leitura dos ativos da gerente confirmou acesso total
+à Página e acesso parcial ao Instagram incluindo Mensagens. Ela pode usar o
+atendimento nativo com esses acessos. O indicador de inatividade se referia
+à última atividade; não comprovava ausência de permissão. Acesso não
+comprova leitura de casos, resposta no horário ou compromisso de prazo.
 
 ## Estado da entrega
 
@@ -12,20 +19,37 @@ com limite total de R$50/mês. Nenhuma contratação realizada.
 | Conta e credencial existentes | GET oficial autenticado confirmou @sirfisherfc e Página Sir Fisher. |
 | Mensagens e comentários | Permissões concedidas ao token: `instagram_manage_messages`, `instagram_manage_comments`, `pages_manage_metadata`, `pages_read_engagement`, `pages_messaging` e `pages_show_list`. Isso não comprova entrega ou envio de mensagens. |
 | MCP existente | Mantido somente para leitura de métricas. Não foi ampliado para Direct ou escrita. |
-| Assinaturas de webhook | GET de `subscribed_apps` da Página e da conta retornou listas vazias para o app/credencial consultados. A consulta não inventaria todas as integrações de outros apps. |
-| Leitura atual de conversas | HTTP 400, código -2, subcódigo 2534084. Nova consulta mínima em 01/11, com Page token e `platform=INSTAGRAM`, trouxe detalhe oficial: muitas conversas de usuários sem função no app e exigência de Advanced Access para `instagram_manage_messages`. Permissão no token e acesso avançado do app são etapas distintas. A lista vazia da rota da conta não comprova caixa vazia. |
+| Webhook do app | Callback HTTPS e assinatura do objeto Instagram com `messages` validados. Primeira DM real da conta controlada recebida: POST 200 e um evento/uma conversa gravados. Nenhum envio de IA demonstrado ainda. |
+| Inscrição da Página | A releitura da API encontrou somente `name`, apesar de a tela mostrar mensagens selecionadas. Após confirmar o contrato de Facebook Login, POST autorizado conservou `name` e incluiu `messages`; HTTP 200, `success=true` e GET de retorno com ambos os campos. Não foi adicionado objeto Page ao webhook do app por inferência. |
+| App da Meta | Publicado em Live com autorização do proprietário e estado relido. O aviso de testes dummy antes de Live desapareceu. Isso não ativa o agente nem comprova aprovação de Advanced Access ou Meta Review. |
+| Verificação empresarial | A Página pertence a empresa verificada. A tela oficial de Verificação do App confirmou 100%, com DeathStar no portfólio Sir Fisher e estado Verificado, sem alteração de vínculo. Isso satisfaz a comprovação empresarial conferida; não explica o Timeout. |
+| Leitura atual de conversas | HTTP 400, código -2, subcódigo 2534084, `error.message=Timeout` e título de tempo limite, inclusive com o Page token humano candidato. Esse erro observado não comprova falta de permissão ou exigência de Advanced Access. A leitura não retornou o histórico; resposta vazia em outra rota não comprova caixa vazia. |
 | Amostra histórica | Originais de 28/09/2026 lidos em memória; resumo abaixo, sem dados pessoais. |
 | Base para o agente | Preparada em `instagram-atendimento/CONHECIMENTO.md`, com limites e fontes. |
 | FAQs nativas do Instagram | Quatro perguntas com respostas fixas salvas e ativas; textos em `BOOK_QA_ATENDIMENTO.md`. Não interpretam livremente outras perguntas. |
 | Regra de reserva | Instagram retirado da regra antiga, preservada no Messenger. Nova regra de Instagram com condições restritas e 15 minutos de inatividade salva e desligada, aguardando teste externo e validação da pausa humana. |
-| Atendimento humano | Respostas manuais e cinco casos atribuídos à gerente com Acompanhar, conferidos no filtro nativo. Encaminhamento automático a partir de pedido de humano não configurado; FAQ oferece WhatsApp. |
+| Atendimento humano | Atendimento manual retomado pela interface. Fluxo futuro confirmado pelo proprietário: um aviso para abrir o WhatsApp e enviar a mensagem por lá; caso e pausa ficam registrados. Revisão em testes locais, sem ativação; caso real e envio ainda aguardam validação. Acessos atuais da gerente preservados. |
 | Comentários | Seis publicações e nove comentários visíveis revisados; elogios ou reações sem perguntas. Nenhuma resposta publicada ou automação de comentário ativada. |
 | IA nativa | Não apareceu no aplicativo conferido pelo proprietário. Atendimento livre com IA ainda indisponível nesta conta. |
-| Testes | Prévia, salvamento, estado dos canais, envios manuais e atribuições conferidos. Teste por cliente externo, deduplicação automática e pausa durante atendimento humano pendentes. |
+| Integração em nuvem | Edge Function e fila privada implantadas; modo `off` e pausa global preservados. Funcionamento independe do Chrome. Não há ativação para clientes. |
+| Painel da equipe | Acesso autenticado pelo proprietário e consulta de estado conferidos. Alternância da pausa global testada mantendo `off`; pausa restaurada para `true`. Isso não testa entrega de mensagem. |
+| Identificação da conversa | GET único da User Profile API para o remetente real retornou 200 e username exato da conta controlada. Perfil e links implementados e publicados no painel; visualização de um caso real no produto ainda aguarda teste. Sem avatares. |
+| Testes | Testes locais de segurança e fila passaram; Gemini respondeu à pergunta sintética sem dados de clientes. Primeira DM real recebida e identidade validada. Resposta IA, deduplicação e encaminhamento humano pelo caminho real continuam sem validação; agente em `off`, com pausa global e demais controles fechados. |
 
-### Estado operacional conferido em 01/11/2026
+### Atendimento manual de 01/11/2026
 
-Resultados da conferência final desta sessão:
+Na conferência mais recente, 114 pessoas receberam resposta manual, com
+quatro complementos em conversas já contadas, e 13 grupos foram excluídos.
+Restaram sete pendências de identificação: seis registros anônimos e um
+sem identidade verificada após recuperar seis conversas nativas. A cobertura
+continua parcial, com mensagens antigas ainda por revisar. O fechamento e as atribuições aguardam a
+conferência final. Resposta enviada ou atribuição persistida não comprova
+que a solicitação foi resolvida ou lida pela gerente.
+
+### Histórico da primeira rodada operacional de 01/11/2026
+
+Resultados da primeira rodada. O atendimento manual foi retomado depois;
+este quadro preserva o histórico e não representa um fechamento da sessão.
 
 | Item | Estado observado |
 | --- | --- |
@@ -84,30 +108,206 @@ com `expires_at=0` (sem vencimento programado informado). O acesso ainda
 pode ser revogado; esse resultado não comprova funcionamento do atendimento.
 Nenhum token ou segredo foi exibido, renovado ou copiado para a documentação.
 
-O app está **em desenvolvimento**. Em Permissões e recursos,
+O app estava **em desenvolvimento** na conferência inicial. Em Permissões e recursos,
 `instagram_manage_messages`, `instagram_manage_comments`, `pages_messaging`
 e `pages_manage_metadata` aparecem com acesso **Standard**, sem análise
 solicitada. O produto Messenger está adicionado e a Página Sir Fisher está
 vinculada. A tela de mensagens do Instagram informa que o app deve passar
 por análise antes de interagir com clientes; durante o desenvolvimento,
-limita as mensagens às funções de administrador, desenvolvedor e testador.
-O callback de webhook ainda não está configurado nessa tela.
+limitava as mensagens às funções de administrador, desenvolvedor e testador.
+Posteriormente, o callback HTTPS e a assinatura do objeto Instagram no app
+foram conferidos, com `messages` ativo. A leitura da Página mostrou apenas
+`name`, mesmo com mensagens selecionadas na interface. O guia oficial de
+webhooks para credenciais Facebook exige também inscrição da Página com
+Page token e os campos escolhidos no painel. O POST autorizado acrescentou
+`messages`, conservou `name` e foi confirmado por HTTP 200, `success=true`
+e GET de retorno. O Depurador de Webhooks oficial também confirmou os
+campos do app e da Página, a conta profissional vinculada e Gerenciar
+Mensagens ativado. Essas verificações não fecharam a causa da falta de POST.
 
-Assim, o erro de listagem de conversas tem cobertura específica. Ele,
-isoladamente, não comprova bloqueio de todo evento novo. O painel acrescenta
+O erro real de Conversations foi capturado como `Timeout`, com HTTP 400,
+código -2 e subcódigo 2534084. A interpretação anterior desse código como
+prova de falta de Advanced Access foi corrigida. O código isolado não
+comprova permissão insuficiente nem bloqueio de todo evento novo. O painel acrescenta
 os requisitos que faltam ao caminho atual com Facebook Login: callback
 HTTPS, validação da assinatura, inscrição de eventos, testes controlados,
-análise e acesso necessários e publicação do app. Não houve alteração de
-modo, inscrição, permissão ou credencial. Nenhum recebimento ou envio por
-essa API foi validado. Os caminhos Facebook Login e Instagram Login exigem
+análise e acesso necessários e publicação do app. O receptor e as inscrições
+foram preparados. Depois da autorização do proprietário, o app foi
+publicado em **Live**, com estado confirmado após releitura. O agente de
+atendimento permanece em **`off`**, com pausa global.
+O recebimento da primeira DM real foi validado posteriormente, conforme o
+registro abaixo; o envio real por essa API ainda aguarda teste. Os caminhos
+Facebook Login e Instagram Login exigem
 configurações próprias; uma condição de um caminho não comprova acesso no outro.
+
+A nova tela de Webhooks informava que antes de Live só entregava testes
+sintéticos (dummy), enquanto Messenger descrevia papéis de administrador,
+desenvolvedor e testador. Após a publicação em Live, o aviso dummy-only
+desapareceu. O proprietário enviou novas mensagens controladas, inclusive
+após a correção da inscrição da Página. Na conferência posterior, não houve
+POST da Meta associado a esses primeiros testes nem eventos gravados. Uma
+nova DM foi recebida após a conclusão do vínculo pessoal autorizado,
+conforme o registro abaixo. A URL de instruções para exclusão de
+dados foi salva no app e persistiu após recarga. Publicar o app não comprova
+Meta Review aprovado ou Advanced Access concedido.
+
+**Standard e produção na própria empresa:** a referência geral de
+permissões, atualizada em 19/10/2026, relaciona App Review a dados que o
+integrador não possui ou gerencia. Ela descreve `instagram_manage_messages`
+como acesso das empresas às próprias caixas e às mensagens com clientes.
+Os guias específicos do Messenger para Instagram com Facebook Login,
+atualizados em junho de 2026, falam em análise para pessoas fora das funções
+do app e oferecem um roteiro também para apps da própria empresa. A página
+de envio limita Standard a pessoas com função no app; pelo contexto de
+envio ao IGSID do cliente, isso indica uma restrição ao destinatário da DM.
+Essa interpretação não comprova uma exigência universal para todos os
+caminhos de Instagram. Advanced Access não está aprovado; a necessidade
+efetiva de análise para produção neste caminho deve ser confirmada pelo
+contrato aplicável e pelo resultado real da conta após Live. Não usar as
+regras de Standard para ativos próprios do Instagram Login como prova do
+caminho atual com Facebook Login. A entrega da primeira DM controlada foi
+validada; esse sucesso não comprova cobertura de todos os clientes.
+
+O guia específico de Webhooks para Mensagens do Instagram, atualizado em
+28/10/2026, é a fonte mais recente conferida nesta investigação. Ele exige
+app publicado independentemente do estado da análise e permissões
+concedidas pelo usuário. Para notificações com dados de pessoas sem função
+no app, indica aprovação de análise. Quando a análise não foi aprovada,
+não é necessária ou está pendente, limita os webhooks a pessoa com função
+no app e a dados que possui ou administra. A leitura conjunta mantém
+distintos o papel do operador, a outorga de permissões e a cobertura dos
+dados; não comprova uma dispensa geral para clientes pelo simples fato de
+o restaurante ser proprietário do app.
+
+O mesmo documento confirma o payload de mensagens neste caminho:
+`object=instagram`, identificação profissional em `entry.id` e
+`recipient.id`, e IGSID do cliente em `sender.id`. Não foi ampliado o
+receptor para `object=page`. A ausência de POST nos primeiros testes
+precedia o filtro do conteúdo e não demonstrava falha desse filtro.
+
+Função no app, tarefas na Página, permissões do token e identidade do
+remetente são condições distintas. O guia específico de início do
+Messenger para Instagram com Facebook Login descreve a concessão de
+permissões e a obtenção do Page token por uma pessoa com tarefa `MODERATE`.
+Não foi encontrada nesse guia uma regra que torne um Instagram pessoal
+automaticamente testador só por estar ligado ao Facebook, nem exigência
+de adicionar um Instagram Tester nessa rota. Preservar as confirmações do
+proprietário de acesso às mensagens habilitado e vínculo Facebook relatado.
+A conta profissional ligada à Página foi confirmada separadamente. No
+Centro de Contas aberto a partir do Instagram pessoal usado no teste,
+apareceu somente um perfil Instagram; o perfil Facebook não estava listado.
+Essa observação não determina todos os vínculos existentes nem a causa da
+falha. A opção de adicionar Facebook abriu uma tela nativa de SSO com aviso
+de que o Instagram precisava acessar a conta Facebook. A operação parou
+antes de autorizar; nenhum vínculo pessoal foi alterado naquela etapa.
+Depois, o proprietário autorizou a associação para o teste entre seus dois
+perfis pessoais já identificados e aprovou as opções finais de dados e
+anúncios exibidas. O clique para permitir e concluir retornou erro da Meta,
+com orientação para tentar mais tarde ou usar outra conta. O Centro de
+Contas continuou com apenas um perfil Instagram nessa tentativa. Depois,
+o fluxo oficial a partir do Facebook concluiu a associação dos mesmos dois
+perfis autorizados, confirmada após recarga.
+
+Uma nova DM de teste chegou após essa conclusão: POST do webhook com HTTP
+200, um evento e uma conversa gravados às 10h08min41s UTC pelo relógio do
+banco. O envio pela interface ocorreu aproximadamente às 10h07 UTC; a
+diferença de cerca de 85 segundos entre relógios impede inferir latência
+precisa. O GET único do perfil do remetente retornou 200 e username exato
+da conta controlada, sem versionar identificador ou perfil pessoal. Esse
+é o primeiro recebimento real confirmado após concluir o vínculo;
+a sequência observada não demonstra uma causa universal para outras contas.
+O modo permanece `off`, com pausa global, IA, faturamento, alertas e cron
+desabilitados. A lista restrita para o teste da conta controlada ainda não
+foi aplicada. Não houve resposta automática nessa validação.
+
+O guia oficial do Depurador de Webhooks, atualizado em 26/06/2026, exige
+administrador do app e Página conectada. Ele relaciona o vínculo entre
+Instagram e Facebook a usar os dados do administrador no webhook de
+depuração, em vez de um usuário aleatório. Não afirma que essa associação
+pessoal resolva a entrega de DMs reais ou atribua automaticamente função
+de testador. O passo de diagnóstico com menor ampliação de acesso é
+conferir o resultado e o TraceID de uma amostra enviada pelo depurador.
+Se a configuração estiver correta e a amostra não chegar, o guia orienta
+usar esse TraceID no suporte da Meta. Manter o identificador e eventuais
+provas em registros privados; não enviar solicitação de suporte sem
+instrução do proprietário.
+
+Não foi encontrado prazo oficial de propagação nas páginas consultadas de
+setup, modos do app e introdução aos webhooks. Configuração salva, retorno
+de GET e app Live comprovam o estado configurado; a entrega exige observar
+o POST correspondente, a assinatura e o resultado no receptor. Não
+atribuir a falha a propagação nem prometer uma espera fixa sem evidência.
+
+A credencial original vinha de System User, e o Page token associado tinha
+esse ator. Foi gerado um Page token pelo fluxo oficial do Messenger com
+usuário humano para uma comparação de leitura de identidade e Conversations.
+App, Página e Instagram corresponderam; o ator difere do System User.
+Conversations retornou o mesmo erro de tempo limite. O candidato não foi
+aplicado no servidor, pois não inclui `pages_read_engagement`, exigida pelo
+contrato de perfil usado no painel. Comparação de ID direto do Facebook com
+ID no escopo do app não comprova erro de identidade. Segredos ficaram em
+arquivo ignorado e em memória. A origem do token não foi confirmada como
+causa da falta de entrega.
+O agente permanece desligado. A solicitação de `instagram_manage_messages`
+foi preparada como rascunho na interface de análise, sem envio ou mudança
+de acesso.
+Na configuração básica do app, a categoria de negócios e páginas foi salva.
+O ícone oficial continua pendente. O proprietário autorizou habilitar
+temporariamente o acesso a arquivos locais para enviar o logo, mas a
+política do navegador bloqueou a abertura de `chrome://extensions`, por
+aceitar apenas HTTP e HTTPS. Nenhuma permissão foi ativada. O bloqueio não
+será contornado por aplicativo nativo, CDP, terminal ou outro navegador.
+O próximo passo previsto é o proprietário selecionar manualmente o arquivo
+na própria interface da Meta, após a preparação do formulário.
+A referência Application
+Picture v26.0 permite leitura e proíbe publicação e atualização nessa
+borda; a lista de parâmetros graváveis do nó Application também não oferece
+campo de imagem. Nenhum POST de upload foi tentado por hipótese. Um novo
+aceite com efeito jurídico não foi dado.
+
+Na consulta visual do roteamento do Business Suite, apareceu um app de
+listagens locais e somente controles de Messenger, sem controle de
+Instagram disponível naquela tela. Nada foi alterado e esse achado não
+comprova a causa da ausência de POST. A documentação atual de Conversation
+Routing para Instagram admite o Inbox como app conectado ou padrão e diz
+que, sem roteamento configurado, todos os apps conectados recebem webhooks.
+Nenhum protocolo antigo de controle nem assinatura de espera foi aplicado
+para tentar corrigir a entrega.
+
+A consulta oficial do perfil admite `GET /{IGSID}?fields=username,name`
+em `graph.facebook.com/v26.0`, com Page token de pessoa com tarefa
+`MODERATE` e as permissões listadas pela Meta. O consentimento técnico
+depende de DM, quebra-gelo ou menu persistente; comentário isolado não
+basta. O `name` pode ser nulo e bloqueio impede acesso. Essa página não
+define uma janela temporal própria de acesso ao perfil. Conferir a
+identidade do teste pelo IGSID do evento assinado e pelo username retornado;
+não converter um ID numérico em URL de conversa.
+
+O contrato atual de envio com Facebook Login descreve
+`POST https://graph.facebook.com/{versão}/{PAGE_ID}/messages`, também
+exemplificado por `/me/messages` com Page token, `recipient.id=IGSID` e
+`message.text`. Ele exige a Página vinculada e token de pessoa com tarefa
+de mensagens. O exemplo oficial em código usa também
+`messaging_type=RESPONSE` para Instagram, mas fixa versão antiga da API;
+a aceitação do conjunto pela v26.0 ainda depende do teste autorizado.
+Não trocar essa rota pela de Instagram Login por inferência.
+
+A referência formal **Page Conversations v26.0** descreve o caminho de
+Instagram Messaging como `GET /v26.0/{PAGE_ID}/conversations`, com Page token,
+tarefa `MESSAGING`, permissões `instagram_basic`, `instagram_manage_messages`
+e `pages_manage_metadata`, e app de empresa verificada. Nomeia os parâmetros
+`folder`, `platform` e `user_id`; declara que paginação baseada em tempo não
+está disponível. Não há nessa referência prova para substituir o nó da
+Página pelo IG Business ID no caminho atual. Não usar resposta vazia de uma
+rota de Instagram Login ou Unified Login como diagnóstico desta caixa, nem
+adivinhar IGSID para filtrar uma conversa.
 
 ### Pedido de responder às mensagens pendentes
 
 O proprietário autorizou responder às mensagens em aberto em 01/11/2026.
-A tentativa pela API confirmou o bloqueio por falta de Advanced Access do
-app para essa leitura. Não excluir conversas para reduzir o volume sugerido
-pela mensagem da Meta. Nenhuma mensagem foi enviada por essa tentativa.
+A tentativa pela API retornou tempo limite e não permitiu ler o histórico.
+Esse resultado não comprovou falta de Advanced Access. Não excluir conversas
+para tentar contornar esse erro. Nenhuma mensagem foi enviada por essa tentativa.
 O atendimento pela interface foi retomado com o Chrome funcionando.
 Conferir o histórico de cada conversa; mensagem não lida e pergunta sem
 resposta são estados diferentes. Solicitações antigas
@@ -153,27 +353,53 @@ antes da ativação. Entrada oficial: https://www.facebook.com/business/ai .
 | Meta One para empresas | Essencial desde R$59/mês no Brasil, acima do teto. Não contratar. Core e Instagram Plus não comprovam acesso ao atendimento comercial. |
 | Manychat Pro com IA | US$39/mês, ou US$348 cobrados ao ano; 2.500 contatos ativos/mês, dois lugares no Inbox e excedentes. Acima do teto. Não contratar. |
 | Manychat Free | Modelo atual com 25 contatos ativos/mês e quatro automações. Conferir eventual plano legado existente; cobertura atual insuficiente para propor atendimento contínuo com IA. |
-| Integração própria por API | Exige servidor, webhooks, monitoramento e provedor de IA. Credencial ampla existente não comprova app pronto. Custo e manutenção maiores que a configuração nativa; não implantar infraestrutura sem necessidade. |
+| Integração própria por API | Preparada com o Supabase e a chave Gemini existentes, sem nova assinatura. Fila, limites, painel e callback implantados com agente desligado. Recomendada para piloto controlado após validar a DM real, os acessos da Meta e o tratamento de dados. Exige acompanhar falhas e cotas. |
 
-Foi localizado acesso existente ao Gemini, já usado em ferramenta de imagens.
-Um teste de texto sem dados de clientes validou `gemini-3.5-flash-lite`,
-HTTP 200, com 61 tokens de entrada e 19 de saída. A resposta ao exemplo
-público usou o horário de domingo fornecido no pedido. Isso valida o acesso
-ao modelo; não valida o agente, as operações ou a integração do Instagram.
+Foi reutilizado o acesso existente ao Gemini, já usado em ferramenta de
+imagens. O teste inicial de texto público respondeu HTTP 200 com 61 tokens
+de entrada e 19 de saída. Depois, o classificador configurado foi testado
+com uma pergunta sintética: `gemini-3.5-flash-lite`, HTTP 200, resultado
+`HOURS`, 297 tokens de entrada, dois de resposta e zero de pensamento,
+299 no total. Nenhuma conversa de cliente foi enviada. Esse teste valida a
+chamada e a classificação por enum, sem comprovar atendimento pelo Instagram.
 `gemini-2.5-flash-lite` retornou 404 apesar de constar da listagem; não
 depender desse identificador sem investigação.
 
 O preço Standard consultado para o modelo 3.5 é US$0,30 por milhão de tokens
-de entrada e US$2,50 por milhão de saída. O exemplo de 80 tokens equivale
-a cerca de US$0,000066 pela tarifa publicada, sujeito ao faturamento real.
-O `serviceTier=standard` da resposta não identifica Free/Paid. O AI Studio
-mostrou um projeto com faturamento pago, mas o vínculo dessa chave e o teto
-de gasto da integração ainda precisam de confirmação. Não houve contratação,
-mudança de faturamento, envio de conversa de cliente ou implantação de servidor.
-Uma integração própria é candidata para baixo uso; custo total e limite de
-R$50 ainda dependem de hospedagem, volume e bloqueio de consumo por agente.
-O plano gratuito do Gemini permite uso do conteúdo para melhorar produtos;
-conferir o plano e o tratamento dos dados antes de enviar mensagens reais.
+de entrada e US$2,50 por milhão de saída, incluindo pensamento. O AI Studio
+mostrou o projeto padrão vinculado à chave em uso, com **Nível 1 e
+pré-pagamento**. A correspondência da chave foi conferida somente em
+memória; nome de perfil pessoal, chave, sufixo e hash não foram versionados.
+O widget do saldo continuava carregando: não há valor exato ou franquia
+disponível comprovados. `serviceTier=standard`, sozinho, não comprova Paid.
+Não houve mudança de faturamento, compra de créditos ou novo cadastro de
+credencial nesta tarefa.
+
+O orçamento é reservado antes da chamada: dois centavos por geração,
+limite de R$45/mês e 2.000 gerações/mês. O teto de R$45 do agente deixa
+R$5 no orçamento total de R$50 para os demais serviços. Com dois centavos
+por chamada, o limite adicional de 2.000 gerações reserva no máximo R$40.
+O modelo recebe até 4.096 tokens de entrada e 96 de saída; o contador inclui
+resposta e pensamento. A estimativa máxima, com os preços consultados e
+R$10/US$, é R$0,014688 por chamada. Falha ou ausência de uso verificável
+conserva a reserva. Esses controles cobrem esta integração; outros usos da
+mesma chave Google ficam fora desse limite.
+
+A Management API confirmou a organização no plano **Supabase Free**, sem
+adicionais selecionados. A assinatura custa US$0/mês. A cota publicada de
+500 mil invocações Edge por mês é compartilhada pela organização; o saldo
+mensal restante não foi comprovado. O plano permite pausa após sete dias
+sem atividade e não oferece SLA de disponibilidade. A margem de R$5 não
+autoriza contratar plano pago nem garante créditos de outros serviços.
+
+O uso do modelo com mensagens reais exige liberar o tratamento no servidor
+e no banco. Paid Services e a correspondência da chave foram conferidos;
+essa conferência não autoriza enviar textos de clientes em geral. Por ora, o
+teste autorizado usa somente a conta controlada do proprietário. A política
+publicada em [Privacidade](https://www.sirfisher.com.br/privacidade/) já
+descreve a integração preparada e o pedido manual de exclusão. A atualização
+`a62d621` registra Paid conferido e o agente desligado; foi publicada com
+duas verificações de CI aprovadas e resposta HTTP 200.
 
 As FAQs nativas foram configuradas com atendimento da gerente, preservando
 o teto. Se a IA nativa aparecer, conferir recursos, custos e testes antes de
@@ -227,24 +453,30 @@ estão integradas ao agente.** Nesta versão, ele orienta o uso do portal e
 do link de cancelamento. Confirmação de reserva, cancelamento, disponibilidade
 ou pagamento exige resultado verificado no sistema correspondente.
 
-## Encaminhamento para a gerente
+## Atendimento humano pelo WhatsApp
 
-Preferir a mesma conversa no Direct: atribuir à Hêmile, registrar resumo do
-pedido e da informação que falta, marcar pendência e pausar a automação até
-o encerramento humano. Testar se a pausa é por conversa e se persiste; uma
-pausa automática de 30 minutos não atende casos ainda abertos.
-Cinco casos foram conferidos com responsável e Acompanhar no filtro nativo.
-Esse acompanhamento foi manual. Não foi configurada transferência automática
-por pedido de atendimento humano; a FAQ ativa oferece o WhatsApp oficial.
+O proprietário definiu dúvidas pela IA no Instagram e pedidos humanos pelo
+WhatsApp oficial. O cliente deve abrir o link e enviar a mensagem por lá.
+A fila própria registra o caso e a pausa antes de um único aviso curto por
+caso ativo. Esse aviso usa texto revisado, sem IA; não afirma transferência,
+leitura ou aviso à equipe. Repetições não geram outro link. Não configurar
+responsável padrão ou e-mail neste fluxo. A revisão aguarda implantação OFF
+e teste restrito antes de qualquer cliente.
+Cinco casos antigos foram conferidos com responsável e Acompanhar no filtro
+nativo. Esse registro preserva o histórico manual; o novo fluxo usa WhatsApp.
+A conferência atual dos ativos de Hêmile confirmou a permissão Mensagens no
+Instagram e acesso total à Página, sem alteração de permissões. Esse acesso
+permite o atendimento nativo; dias da semana e acompanhamento efetivo dos
+casos continuam exigindo confirmação operacional.
 
 Encaminhar reclamação, cobrança contestada, estorno, urgência, alergia,
 objeto perdido, pergunta sem fonte válida e decisão sobre reserva/evento.
 Não decidir compensação. Evitar pedir dados já presentes no histórico.
 Em urgência dentro da casa, orientar a pessoa a procurar a equipe presente.
 
-O WhatsApp confirmado é opção e contingência. Um link não transfere histórico,
-não notifica a gerente e não cria uma fila. Explicar essa limitação quando a
-ferramenta não puder registrar a transferência. Fora de 7h–21h, informar a
+O link não transfere histórico nem notifica a equipe. A fila própria permite
+acompanhar o aviso enviado no Instagram; ela não acompanha leitura ou atendimento
+no WhatsApp. Fora de 7h–21h, informar a
 faixa de atendimento sem prometer resposta imediata ou dia ainda não confirmado.
 
 A sessão encontrou falha de persistência em dois encaminhamentos comerciais:
@@ -252,6 +484,20 @@ o registro e o aviso de atribuição apareceram, mas responsável e Acompanhar
 sumiram após reabrir, inclusive depois de revisar a seleção e salvar novamente.
 Não contar esses casos como transferidos. A fila exige conferência após
 reabertura; até resolver a falha, o link de WhatsApp é a contingência já enviada.
+
+A fila própria em nuvem registra motivo, estado e pausa persistente. A revisão
+remove o responsável padrão do assistente e mantém e-mail/cron desligados.
+Pedidos sensíveis criam caso e pausa antes do worker; o ACK único oferece
+WhatsApp. Uma urgência de maior prioridade antes do envio substitui a orientação
+genérica. Pausa global ou intervenção manual cancelam avisos pendentes.
+Assumir e encerrar conservam a pausa; retomar é
+ação separada. Uma resposta cujo envio já começou pode chegar após a pausa.
+Tudo isso passou por testes locais; falta validar o encaminhamento com DM
+real e conferir o caso no painel da equipe. O enriquecimento com username
+e links foi implementado e publicado em `reservas`, commit `b119600`, com
+build aprovado. O GET real de perfil foi validado; a apresentação do caso
+no painel ainda aguarda teste. O recurso não cria atribuição nativa no
+Inbox da Meta nem exibe avatares.
 
 ## Conversas novas e antigas
 
@@ -300,20 +546,21 @@ pausa e a suspensão por conversa ainda não foram testadas com conta externa.
 | Evento repetido/automação antiga | Uma resposta útil por evento; sem resposta concorrente. |
 | Resposta a Story e comentário | Verifica cada cobertura e janela separadamente. |
 | Retomada de conversa antiga | Preserva atendimento humano e regra de janela. |
-| Pausa global e por conversa | Nenhuma resposta nova enquanto pausado; retomada controlada. |
+| Pausa global e por conversa | Bloqueia novos envios e exige retomada controlada; conferir resposta cujo envio já havia começado. |
 
 ### Validação por camada
 
 | Camada | Resultado e limite |
 | --- | --- |
 | Conteúdo e interface | Quatro FAQs reabertas após recarga, com textos persistidos, Instagram selecionado, estado Ativado e Salvar desabilitado sem alterações. Nova regra de reserva, com 15 minutos de inatividade, salva e desligada. Isso não comprova entrega por todos os gatilhos. |
-| Atendimento real manual | Respostas enviadas a conversas pendentes pela interface, com histórico considerado. Contagens no quadro operacional; envio não comprova resolução. |
-| Modelo de IA isolado | Gemini 3.5 Flash-Lite respondeu ao exemplo público fornecido, HTTP 200 e 80 tokens. Não recebeu conversas de clientes e não está conectado ao Direct. |
-| Fila humana | Cinco casos com Hêmile e Acompanhar confirmados no filtro nativo. Dois encaminhamentos comerciais falharam na persistência após reabrir e permanecem pendentes; o link do WhatsApp foi enviado. Leitura ou conclusão pela gerente não comprovadas. Transferência automática por pedido humano não configurada. |
+| Atendimento real manual | Respostas enviadas e encaminhamentos conferidos pela interface. Retomada ainda em andamento; contagem final pendente. Histórico considerado; envio não comprova resolução. |
+| Modelo de IA isolado | Classificador Gemini 3.5 Flash-Lite: HTTP 200, `HOURS`, 297 tokens de entrada, dois de resposta, zero de pensamento, 299 totais. Pergunta sintética; nenhuma conversa de cliente. Paid e vínculo da chave conferidos na interface, com saldo ainda sem valor carregado. |
+| Nuvem e painel | Fila e Edge Function implantadas em `off`, app Instagram com `messages` e Página com `messages,name`. Primeira DM real recebeu POST 200 e gravou um evento/uma conversa. GET de perfil retornou 200 e username exato da conta controlada. Gerente configurada. Pausa global `true`; IA, faturamento, alertas e cron desabilitados. Perfil e links publicados; falta conferir caso real no painel. |
+| Fila humana | Encaminhamentos nativos conferidos após reabrir. A primeira rodada havia encontrado falhas de persistência descritas no histórico; o vínculo não foi presumido por um aviso de salvamento. Contagem final, leitura e conclusão pela gerente não comprovadas. Transferência automática pela integração ainda sem teste real concluído. |
 | Revisão de comentários | Seis publicações e nove comentários visíveis revisados, todos com elogios ou reações sem perguntas. Nenhuma resposta publicada; revisão não cobre todo o acervo de comentários. |
 | Alerta de mensagens sem resposta | Recurso inspecionado; somente Messenger selecionável, sem opção de Instagram. Tela cancelada sem salvar. Não cobre pendências do Instagram. |
 | Operações | Reservas, cancelamentos e pagamentos continuam pelos portais ou por pessoa. Nenhuma dessas operações foi executada pelo agente. |
-| Automação completa | Falta teste com conta externa controlada, resposta duplicada e pausa persistente durante atendimento humano. Comentários e respostas a Stories continuam com cobertura a verificar. |
+| Automação completa | App em Live e agente em `off`. Recebimento real e identidade da conta controlada validados. Falta demonstrar resposta, deduplicação e encaminhamento com pausa humana pelo caminho real. Lista restrita para esse teste ainda não aplicada; nenhuma ativação para clientes. Meta Review/Advanced Access não comprovados; necessidade efetiva de produção a confirmar no caminho atual. Comentários e Stories continuam com cobertura a verificar. |
 
 Os cenários acima são o roteiro para os testes ainda faltantes. Não atribuir
 aprovação geral ao roteiro por causa dos envios manuais. Testes reais devem
@@ -346,11 +593,40 @@ Consulta em **01/11/2026**:
 - [Meta: API Instagram e permissões](https://www.postman.com/meta/instagram/documentation/6yqw8pt/instagram-api).
 - [Meta: Conversations API com Facebook Login](https://www.postman.com/meta/messenger-platform-api/folder/22794852-255610cd-47f5-4f4d-b3fa-71aec360be9a)
   e [introdução ao Messenger para Instagram](https://developers.facebook.com/docs/messenger-platform/instagram/get-started/).
+- [Meta: Page Conversations v26.0](https://developers.facebook.com/docs/graph-api/reference/page/conversations/?version=v26.0),
+  com seção específica de Instagram Messaging, parâmetros e limite de paginação.
 - [Meta: resposta privada a comentário](https://developers.facebook.com/docs/instagram-platform/instagram-api-with-instagram-login/messaging-api/private-replies).
 - [Meta: webhooks](https://developers.facebook.com/docs/instagram-platform/instagram-api-with-instagram-login/webhooks).
+- [Meta: Webhooks do Messenger para Instagram](https://developers.facebook.com/documentation/business-messaging/instagram-messaging/webhooks),
+  atualizado em 28/10/2026, com requisitos de publicação, funções e exemplo
+  de payload do caminho atual.
+- [Meta: configurar webhooks, seção de credenciais Facebook](https://developers.facebook.com/documentation/instagram-platform/webhooks/setup).
+- [Meta: início do Messenger para Instagram com Facebook Login](https://developers.facebook.com/documentation/business-messaging/instagram-messaging/get-started)
+  e [funções no app](https://developers.facebook.com/docs/development/build-and-test/app-roles/).
+- [Meta: Depurador de Webhooks](https://developers.facebook.com/documentation/business-messaging/instagram-messaging/webhooks/debugging),
+  atualizado em 26/06/2026, com finalidade do vínculo pessoal na amostra e
+  orientação de uso do TraceID quando a entrega falha.
+- [Meta: Application Picture](https://developers.facebook.com/docs/graph-api/reference/application/picture/?version=v26.0)
+  e [campos de Application v26.0](https://developers.facebook.com/docs/graph-api/reference/application/?version=v26.0),
+  consultados para o ícone, sem tentativa de atualização não documentada.
+- [Meta: Conversation Routing para Instagram](https://developers.facebook.com/documentation/business-messaging/instagram-messaging/features/conversation-routing),
+  atualizado em 18/10/2026, e [APIs de diagnóstico e controle](https://developers.facebook.com/documentation/business-messaging/instagram-messaging/features/conversation-routing/apis),
+  atualizadas em 28/09/2026. Nenhuma mudança de roteamento foi aplicada.
+- [Meta: User Profile API com Facebook Login](https://developers.facebook.com/docs/messenger-platform/instagram/features/user-profile/),
+  lida por HTTP público em 01/11/2026; atualização indicada de 01/04/2026.
+- [Meta: enviar mensagem pelo caminho com Facebook Login](https://developers.facebook.com/docs/messenger-platform/instagram/features/send-message/)
+  e [exemplo oficial de código para Instagram](https://github.com/fbsamples/messenger-platform-samples/blob/main/messenger-api/messenger-api-with-nodejs/javascript-version/messenger.js).
+- [Meta: referência de permissões](https://developers.facebook.com/docs/permissions/reference/instagram_manage_messages/),
+  atualizada em 19/10/2026; [análise do Messenger para Instagram](https://developers.facebook.com/documentation/business-messaging/instagram-messaging/app-review),
+  atualizada em 21/06/2026; e [apps da própria empresa](https://developers.facebook.com/documentation/business-messaging/instagram-messaging/app-review/apps-for-your-own-business),
+  atualizada em 30/06/2026. Requisitos devem ser lidos no caminho usado.
 - [Google: preços do Gemini](https://ai.google.dev/gemini-api/docs/pricing),
   [limites](https://ai.google.dev/gemini-api/docs/rate-limits)
   e [faturamento](https://ai.google.dev/gemini-api/docs/billing).
+- [Google: termos Paid Services do Gemini](https://ai.google.dev/gemini-api/terms#paid-services).
+- [Supabase: preços e cotas](https://supabase.com/pricing),
+  [cobrança por organização](https://supabase.com/docs/guides/platform/billing-on-supabase)
+  e [Management API oficial](https://api.supabase.com/api/v1/).
 - [Manychat: plano Pro](https://help.manychat.com/hc/en-us/articles/25800228332572-Pro-plan),
   [preços](https://manychat.com/pricing),
   [janelas de mensagem](https://help.manychat.com/hc/en-us/articles/23358636027932-Understanding-messaging-windows),

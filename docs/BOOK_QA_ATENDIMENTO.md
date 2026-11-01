@@ -353,18 +353,18 @@ não substituem teste por conta externa.
 
 2. **Onde vejo o cardápio?**
 
-   > Sou o assistente virtual do Sir Fisher 😊 Cardápio: https://www.sirfisher.com.br/cardapio/ Executivo: https://www.sirfisher.com.br/almoco-executivo/ (seg–sex, 10h–14h, exceto feriados). A equipe confirma preços, porções e ingredientes. Para falar com a gerente, das 7h às 21h: https://wa.me/5585988544274
+   > Sou o assistente virtual do Sir Fisher 😊 Cardápio: https://www.sirfisher.com.br/cardapio/ Executivo: https://www.sirfisher.com.br/almoco-executivo/ (seg–sex, 10h–14h, exceto feriados). A equipe confirma preços, porções e ingredientes. Para atendimento humano, das 7h às 21h: https://wa.me/5585988544274
 
-3. **Como falo com a gerente?**
+3. **Como falo com uma pessoa?**
 
-   > Sou o assistente virtual do Sir Fisher 😊 A gerente de atendimento atende das 7h às 21h pelo WhatsApp oficial: https://wa.me/5585988544274 Envie sua mensagem por lá para iniciar o atendimento. A equipe acompanha reclamações, cobranças, alergias e pedidos que exigem conferência ou decisão humana.
+   > Sou o assistente virtual do Sir Fisher 😊 O atendimento humano é pelo WhatsApp oficial: https://wa.me/5585988544274 O horário informado é das 7h às 21h. Abra o link e envie sua mensagem por lá para a equipe conferir seu pedido.
 
 4. **Como reservo ou faço evento?**
 
    > Sou o assistente virtual do Sir Fisher 😊 Até 10 pessoas: https://reservas.sirfisher.com.br/ A reserva depende da conclusão e confirmação no portal. Para hoje, o corte é 15h30; tolerância de 15 min. Para 11–29 pessoas, fale com a equipe: https://wa.me/5585988544274 Eventos de 30–100 pessoas: https://www.sirfisher.com.br/eventos/ A equipe confirma a data e a proposta.
 
 As FAQs são respostas fixas. O link de WhatsApp inicia outra conversa;
-não transfere o histórico nem avisa a gerente por si só. Os dias do horário
+não transfere o histórico nem avisa a equipe por si só. Os dias do horário
 humano 7h–21h ainda precisam de confirmação.
 
 **Regra de reserva:** o Instagram foi retirado da regra antiga, preservada
@@ -374,6 +374,10 @@ e validação de resposta duplicada e pausa no atendimento humano antes de
 ativar. O agente nativo de IA não apareceu no aplicativo conferido pelo
 proprietário. Acompanhamento manual com Hêmile foi conferido em cinco casos;
 transferência automática por pedido de humano não foi configurada.
+O proprietário decidiu que a IA responde às dúvidas no Instagram e os pedidos
+humanos seguem por link ao WhatsApp. Os textos 2 e 3 acima foram salvos e
+reabertos com Instagram ativo; o Messenger foi preservado. Antes de liberar
+a IA para clientes, desligar as respostas nativas que duplicarem esse fluxo.
 
 **Proposta de palavras-chave:** a tabela abaixo é uma referência antiga,
 não uma lista de regras implantadas. Palavras amplas podem alcançar

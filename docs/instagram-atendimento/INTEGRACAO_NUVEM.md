@@ -1,5 +1,34 @@
 # Integração do atendimento em nuvem
 
+Revisão de 01/11/2026 em validação: migration
+`20261101102855_instagram_support_whatsapp_notice.sql`, criada pela CLI
+2.122.0 após conferir a versão máxima. Acrescenta `cases.handoff_notice_event_id`
+com FK de retenção e índice único. Recria ingest, claim, complete, prepare_send,
+controle e helpers privados com `SECURITY INVOKER`, search_path fixo e grants
+somente `service_role`. Não altera tabelas dos outros sistemas.
+
+O fluxo atual solicitado é IA no Instagram e atendimento humano por link
+ao WhatsApp oficial. O caso e a pausa são gravados antes de um único aviso
+curado por caso ativo, sem classificador nem reserva paga. O cliente precisa
+abrir o link e enviar a mensagem por lá. O painel acompanha o envio do link
+no Instagram, sem afirmar leitura ou atendimento no WhatsApp.
+
+A ingesta preserva prioridade em rajadas. HUMAN→URGENCY invalida o lease
+anterior quando o POST ainda não começou; o novo claim usa a orientação
+urgente. Echo desconhecido, pausa global, assumir/fechar/retomar cancelam o
+aviso pendente sem reaparecer ao despausar. Envio incerto fica terminal.
+O FK impede apagar o vínculo e rearmar o aviso. O responsável padrão passa
+a NULL e os alertas/e-mails continuam desligados; acessos de app_users ficam
+preservados. O trecho histórico de gerente configurada abaixo descreve a
+implantação anterior, que esta revisão substitui para o atendimento.
+
+Validação local desta revisão: 40 testes Node do atendimento, oito do
+instalador OFF, oito do helper TEST e 26 contratos reais PostgreSQL18,
+incluindo concorrência e o SQL real de ativação. A implantação continua
+pendente até revisão. O helper TEST é separado, não aceita live e não chama
+drain. Depois do deploy OFF, exige revisão antes de liberar apenas a conta
+controlada com username confirmado. Não reproduz bootstrap nem liga cron.
+
 Implantação desligada em 01/11/2026. Migration canônica:
 `supabase/migrations/20261101071634_instagram_support_durable_queue.sql`.
 Foi criada com a CLI Supabase `2.122.0`, após ler a ajuda dos comandos.

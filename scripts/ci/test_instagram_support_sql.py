@@ -24,6 +24,11 @@ create function pg_temp.incoming(sender text, mid text) returns jsonb language s
  'recipient_id','17841439937145607','mid',$2,'text','Qual o horario?',
  'timestamp_ms',floor(extract(epoch from now())*1000)::bigint));
 $$;
+create function pg_temp.safety(sender text, mid text, intent text) returns jsonb language sql as $$
+ select public.ig_support_ingest(jsonb_build_object('kind','incoming','sender_id',$1,
+ 'recipient_id','17841439937145607','mid',$2,'text','Solicitacao sintetica.',
+ 'safety_intent',$3,'timestamp_ms',floor(extract(epoch from now())*1000)::bigint));
+$$;
 """
 
 
@@ -42,12 +47,21 @@ class InstagramSupportSQL(unittest.TestCase):
             raise RuntimeError("Servidor de teste recusado.")
         cls.run_sql("drop schema if exists instagram_support cascade;")
         cls.run_sql((ROOT / "scripts/ci/fixtures/instagram_support.sql").read_text(encoding="utf-8"))
-        files = list((ROOT / "supabase/migrations").glob("*_instagram_support_durable_queue.sql"))
-        if len(files) != 1:
-            raise RuntimeError("Migration Instagram ambigua.")
-        migration = files[0].read_text(encoding="utf-8")
-        cls.run_sql(migration)
-        cls.run_sql(migration)  # Reaplicar preserva seed seguro e um unico job desligado.
+        for suffix in ("durable_queue", "whatsapp_notice"):
+            files = list((ROOT / "supabase/migrations").glob(f"*_instagram_support_{suffix}.sql"))
+            if len(files) != 1:
+                raise RuntimeError("Migration Instagram ambigua.")
+            migration = files[0].read_text(encoding="utf-8")
+            cls.run_sql(migration)
+            cls.run_sql(migration)  # Reaplicar preserva seed seguro e um unico job desligado.
+        helper = ROOT.parent / "reservas/tools/activate_instagram_support_test.mjs"
+        if helper.exists():
+            loaded = subprocess.run(["node", "--input-type=module", "-e",
+                "import {queries} from './tools/activate_instagram_support_test.mjs'; console.log(JSON.stringify(queries('100001')));"],
+                cwd=helper.parents[1], text=True, capture_output=True, timeout=15, check=True)
+            cls.activation_queries = json.loads(loaded.stdout)
+        else:
+            cls.activation_queries = None  # CI de gestao pode ter clone independente.
 
     @classmethod
     def run_sql(cls, sql):
@@ -89,6 +103,20 @@ do $$ declare claim jsonb; begin
  perform pg_temp.check_it(public.ig_support_reserve_budget((claim->0->>'event_id')::uuid,gen_random_uuid(),2)->>'allowed'='false','wrong lease');
 end $$;
 """)
+
+    def test_activation_helper_sql_requires_off_and_fresh_test_message(self):
+        if self.activation_queries is None:
+            self.skipTest("Contrato do helper fica no clone reservas.")
+        sql = self.activation_queries
+        activate = sql['activate'].replace('begin; set local', 'set local', 1).replace('commit;', '', 1)
+        self.check_sql("select pg_temp.incoming('100001','activation-bootstrap');\n" + activate + "\n" +
+            "create temp table activation_readback as " + sql['readback'] + "\n" +
+            "select pg_temp.check_it((select test_ready and sender_count=1 and bootstrap_pending=0 from activation_readback),'activation contract');\n"
+            "select pg_temp.check_it(public.ig_support_claim(gen_random_uuid(),1)='[]'::jsonb,'no bootstrap reply');\n"
+            "select pg_temp.check_it(pg_temp.incoming('100001','activation-fresh')->>'queued'='true','fresh owner test accepted');\n"
+            "select pg_temp.check_it(pg_temp.incoming('100002','activation-customer')->>'queued'='false','other customer remains off');", enable=False)
+        with self.assertRaisesRegex(AssertionError, 'activation_guard_failed'):
+            self.check_sql("select pg_temp.incoming('100001','activation-wrong-mode');\n" + activate)
 
     def test_budget_reserved_before_ai_once_and_limit(self):
         self.check_sql("""
@@ -136,18 +164,130 @@ end $$;
     def test_sensitive_burst_routes_before_worker_and_respects_test_gate(self):
         self.check_sql("""
 set local role service_role;
-do $$ declare result jsonb; begin
+do $$ declare result jsonb; a jsonb; begin
  result:=public.ig_support_ingest(jsonb_build_object('kind','incoming','sender_id','100001','recipient_id','17841439937145607','mid','allergy1','text','Alergia grave.',
    'safety_intent','ALLERGY','timestamp_ms',floor(extract(epoch from now())*1000)::bigint));
- perform pg_temp.check_it(result->>'case_saved'='true' and result->>'queued'='false','safety persisted before ACK');
+ perform pg_temp.check_it(result->>'case_saved'='true' and result->>'queued'='true','case and notice persisted before ACK');
  perform pg_temp.check_it(pg_temp.incoming('100001','allergy-followup')->>'queued'='false','followup cannot erase safety');
- perform pg_temp.check_it(public.ig_support_claim(gen_random_uuid(),1)='[]'::jsonb,'no AI after allergy');
+ a:=public.ig_support_claim(gen_random_uuid(),1)->0;
+ perform pg_temp.check_it(a->>'handoff_ack'='true' and a->>'reply_key'='ALLERGY','only curated notice after allergy');
  perform pg_temp.check_it((select count(*)=0 from instagram_support.budget_reservations),'no model spend');
  update instagram_support.settings set mode='test',test_sender_ids=array['100003'];
  result:=public.ig_support_ingest(jsonb_build_object('kind','incoming','sender_id','100002','recipient_id','17841439937145607','mid','unlisted-safety','text','Preciso gerente.',
    'safety_intent','HUMAN','timestamp_ms',floor(extract(epoch from now())*1000)::bigint));
  perform pg_temp.check_it(result->>'case_saved'='false','test ignores unlisted customer');
  perform pg_temp.check_it((select count(*)=1 from instagram_support.cases),'no extra case from test');
+end $$;
+""")
+
+    def test_whatsapp_notice_once_and_priority_before_claim(self):
+        self.check_sql("""
+set local role service_role;
+do $$ declare a jsonb; o jsonb; begin
+ perform pg_temp.safety('100001','wa-human','HUMAN');
+ perform pg_temp.safety('100001','wa-urgent','URGENCY');
+ perform pg_temp.safety('100001','wa-human-again','HUMAN');
+ perform pg_temp.incoming('100001','wa-normal');
+ a:=public.ig_support_claim(gen_random_uuid(),1)->0;
+ perform pg_temp.check_it(a->>'handoff_ack'='true' and a->>'reply_key'='URGENCY','highest priority notice');
+ perform pg_temp.check_it((select human_paused from instagram_support.threads),'paused before sending');
+ o:=public.ig_support_prepare_send((a->>'event_id')::uuid,(a->>'lease')::uuid,'Aviso sintetico urgente WhatsApp.',(a->>'thread_version')::bigint);
+ perform pg_temp.check_it(o->>'allowed'='true','first notice prepared');
+ perform public.ig_support_finish_send((o->>'outbox_id')::uuid,(a->>'lease')::uuid,'sent','wa-confirmed-mid');
+ perform pg_temp.safety('100001','wa-repeated','ALLERGY');
+ perform pg_temp.check_it(public.ig_support_claim(gen_random_uuid(),1)='[]'::jsonb,'no repeated notice');
+ perform pg_temp.check_it((select count(*)=1 from instagram_support.cases),'one case');
+ perform pg_temp.check_it((select count(*)=1 from instagram_support.outbox),'one external effect');
+ perform pg_temp.check_it((select count(*)=0 from instagram_support.budget_reservations),'zero model budget');
+ perform pg_temp.check_it(public.ig_support_control('cases')->'cases'->0->>'handoff_notice_status'='sent','UI says Instagram link sent only');
+end $$;
+""")
+
+    def test_whatsapp_priority_after_claim_invalidates_old_lease(self):
+        self.check_sql("""
+set local role service_role;
+do $$ declare a jsonb; b jsonb; begin
+ perform pg_temp.safety('100001','wa-claim-human','HUMAN'); a:=public.ig_support_claim(gen_random_uuid(),1)->0;
+ perform pg_temp.safety('100001','wa-claim-urgency','URGENCY');
+ perform pg_temp.check_it(public.ig_support_prepare_send((a->>'event_id')::uuid,(a->>'lease')::uuid,'Aviso antigo.',(a->>'thread_version')::bigint)->>'allowed'='false','stale generic notice blocked');
+ b:=public.ig_support_claim(gen_random_uuid(),1)->0;
+ perform pg_temp.check_it(b->>'event_id'=a->>'event_id' and b->>'lease'<>a->>'lease' and b->>'reply_key'='URGENCY','same case regenerated with urgency');
+ perform pg_temp.check_it(public.ig_support_prepare_send((b->>'event_id')::uuid,(b->>'lease')::uuid,'Procure a equipe presente.',(b->>'thread_version')::bigint)->>'allowed'='true','urgent notice prepared once');
+end $$;
+""")
+
+    def test_whatsapp_global_pause_manual_echo_and_close_cancel_terminally(self):
+        for action in ('pause_global', 'assume', 'close', 'echo'):
+            with self.subTest(action=action):
+                mutate = (f"perform public.ig_support_control('{action}',(a->>'thread_id')::uuid,'{{\"actor_id\":\"{ACTOR}\",\"paused\":true}}');"
+                          if action != 'echo' else "perform public.ig_support_ingest(jsonb_build_object('kind','echo','sender_id','100001','recipient_id','17841439937145607','mid','wa-manual-echo','timestamp_ms',floor(extract(epoch from now())*1000)::bigint));")
+                self.check_sql(f"""
+set local role service_role;
+do $$ declare a jsonb; begin
+ perform pg_temp.safety('100001','wa-cancel','HUMAN'); a:=public.ig_support_claim(gen_random_uuid(),1)->0;
+ {mutate}
+ update instagram_support.settings set paused=false;
+ perform pg_temp.check_it(public.ig_support_prepare_send((a->>'event_id')::uuid,(a->>'lease')::uuid,'Aviso tardio.',(a->>'thread_version')::bigint)->>'allowed'='false','cancelled notice blocked');
+ perform pg_temp.check_it(public.ig_support_claim(gen_random_uuid(),1)='[]'::jsonb,'cancelled notice never replayed');
+end $$;
+""")
+
+    def test_whatsapp_recover_before_send_and_no_retry_after_uncertain(self):
+        self.check_sql("""
+set local role service_role;
+do $$ declare a jsonb; b jsonb; o jsonb; begin
+ perform pg_temp.safety('100001','wa-worker','HUMAN'); a:=public.ig_support_claim(gen_random_uuid(),1)->0;
+ update instagram_support.events set lease_until=now()-interval '1 second' where id=(a->>'event_id')::uuid;
+ update instagram_support.threads set lease_until=now()-interval '1 second';
+ b:=public.ig_support_claim(gen_random_uuid(),1)->0;
+ perform pg_temp.check_it(b->>'handoff_ack'='true' and b->>'lease'<>a->>'lease','worker recovered before external send');
+ o:=public.ig_support_prepare_send((b->>'event_id')::uuid,(b->>'lease')::uuid,'Aviso sintetico.',(b->>'thread_version')::bigint);
+ perform public.ig_support_finish_send((o->>'outbox_id')::uuid,(b->>'lease')::uuid,'uncertain');
+ perform pg_temp.safety('100001','wa-after-unknown','URGENCY');
+ perform pg_temp.check_it(public.ig_support_claim(gen_random_uuid(),1)='[]'::jsonb,'unknown external effect not repeated');
+ perform pg_temp.check_it((select count(*)=1 from instagram_support.outbox),'one outbox after unknown');
+end $$;
+""")
+
+    def test_whatsapp_resume_starts_new_case_and_retains_notice(self):
+        self.check_sql(f"""
+set local role service_role;
+do $$ declare a jsonb; b jsonb; v_restricted boolean:=false; begin
+ perform pg_temp.safety('100001','wa-old','HUMAN'); a:=public.ig_support_claim(gen_random_uuid(),1)->0;
+ perform public.ig_support_control('resume',(a->>'thread_id')::uuid,'{{"actor_id":"{ACTOR}","confirm":true}}');
+ perform pg_temp.check_it(public.ig_support_claim(gen_random_uuid(),1)='[]'::jsonb,'resume does not replay old notice');
+ perform pg_temp.safety('100001','wa-new','HUMAN'); b:=public.ig_support_claim(gen_random_uuid(),1)->0;
+ perform pg_temp.check_it(b->>'case_id'<>a->>'case_id' and b->>'handoff_ack'='true','new case gets new notice');
+ begin delete from instagram_support.events where id=(a->>'event_id')::uuid; exception when foreign_key_violation then v_restricted:=true; end;
+ perform pg_temp.check_it(v_restricted,'notice retained to prevent rearming');
+end $$;
+""")
+
+    def test_off_bootstrap_and_old_case_cannot_replay_notice(self):
+        self.check_sql("""
+set local role service_role;
+do $$ begin
+ perform pg_temp.safety('100001','wa-bootstrap','HUMAN');
+ update instagram_support.settings set mode='test',paused=false,test_sender_ids=array['100001'];
+ perform pg_temp.check_it(public.ig_support_claim(gen_random_uuid(),1)='[]'::jsonb,'off bootstrap never replayed');
+ perform pg_temp.check_it((select count(*)=0 from instagram_support.cases),'off has no human notice');
+end $$;
+""", enable=False)
+
+    def test_global_pause_during_model_cannot_create_late_notice(self):
+        self.check_sql(f"""
+set local role service_role;
+do $$ declare a jsonb; c jsonb; begin
+ perform pg_temp.incoming('100001','wa-model-inflight'); a:=public.ig_support_claim(gen_random_uuid(),1)->0;
+ perform public.ig_support_reserve_budget((a->>'event_id')::uuid,(a->>'lease')::uuid,2);
+ perform public.ig_support_control('pause_global',null,'{{"actor_id":"{ACTOR}","paused":true}}');
+ c:=public.ig_support_complete((a->>'event_id')::uuid,(a->>'lease')::uuid,'{{"intent":"HUMAN","handoff_reason":"unknown_after_clarification"}}');
+ perform pg_temp.check_it(c->>'allowed'='false','completion respects pause after model');
+ perform public.ig_support_control('pause_global',null,'{{"actor_id":"{ACTOR}","paused":false}}');
+ update instagram_support.events set lease_until=now()-interval '1 second';
+ perform pg_temp.check_it(public.ig_support_claim(gen_random_uuid(),1)='[]'::jsonb,'no late notice after unpause');
+ perform pg_temp.check_it((select count(*)=0 from instagram_support.cases),'no retroactive case notice');
+ perform pg_temp.check_it((select spent_cents=2 and reserved_cents=0 from instagram_support.budget_months),'model reservation settled');
 end $$;
 """)
 
@@ -332,6 +472,16 @@ end $$;
         with ThreadPoolExecutor(max_workers=2) as pool:
             reserved = list(pool.map(reserve, [first, second]))
         self.assertEqual(sorted(result["allowed"] for result in reserved), [False, True])
+        self.run_sql("update instagram_support.settings set mode='off',paused=true;")
+
+    def test_z_concurrent_notice_claim(self):
+        self.run_sql(HELPERS + ENABLE + "select pg_temp.safety('900003','concurrent-wa','HUMAN');")
+        def claim(_):
+            return json.loads(self.run_sql("set role service_role; select public.ig_support_claim('" + str(uuid.uuid4()) + "',1);"))
+        with ThreadPoolExecutor(max_workers=2) as pool:
+            results = list(pool.map(claim, range(2)))
+        self.assertEqual(sorted(map(len, results)), [0, 1])
+        self.assertTrue(next(result[0]["handoff_ack"] for result in results if result))
         self.run_sql("update instagram_support.settings set mode='off',paused=true;")
 
 
