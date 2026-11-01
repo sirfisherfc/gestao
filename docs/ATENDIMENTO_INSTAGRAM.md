@@ -2,9 +2,9 @@
 
 Diagnóstico e configuração de 01/11/2026. Fluxo definido pelo proprietário:
 IA responde dúvidas no Instagram; atendimento humano pelo WhatsApp
-(85) 98854-4274, das 7h às 21h. A gerente já possui acesso nativo às mensagens;
+(85) 98854-4274, sem informar horário humano ou prometer prazo. A gerente já possui acesso nativo às mensagens;
 o assistente fica sem atribuição pessoal padrão e sem avisos por e-mail.
-Dias da semana ainda não informados. Orçamento autorizado: iniciar gratuito,
+Orçamento autorizado: iniciar gratuito,
 com limite total de R$50/mês. Nenhuma contratação realizada.
 Conferência somente de leitura dos ativos da gerente confirmou acesso total
 à Página e acesso parcial ao Instagram incluindo Mensagens. Ela pode usar o
@@ -517,8 +517,8 @@ Em urgência dentro da casa, orientar a pessoa a procurar a equipe presente.
 
 O link não transfere histórico nem notifica a equipe. A fila própria permite
 acompanhar o aviso enviado no Instagram; ela não acompanha leitura ou atendimento
-no WhatsApp. Fora de 7h–21h, informar a
-faixa de atendimento sem prometer resposta imediata ou dia ainda não confirmado.
+no WhatsApp. Os textos futuros não informam horário de atendimento humano
+nem prometem prazo de resposta.
 
 A sessão encontrou falha de persistência em dois encaminhamentos comerciais:
 o registro e o aviso de atribuição apareceram, mas responsável e Acompanhar
@@ -558,7 +558,7 @@ desabilitado. Ela procura as frases exatas `como reservar`, `fazer reserva`,
 `quero reservar`, `reservar mesa` e `reservar uma mesa`, com inatividade
 mínima de 15 minutos. Resposta salva:
 
-> Sou o assistente virtual do Sir Fisher 😊 Para consultar horários e reservar para até 10 pessoas: https://reservas.sirfisher.com.br/ A confirmação depende de concluir o pedido no portal. Para hoje, o corte é 15h30. Para grupos, alterações ou ajuda com cancelamento, fale com a gerente (7h–21h): https://wa.me/5585988544274 Para cancelar, você também pode usar o link recebido no e-mail da reserva.
+> Sou o assistente virtual do Sir Fisher 😊 Para consultar horários e reservar para até 10 pessoas: https://reservas.sirfisher.com.br/ A confirmação depende de concluir o pedido no portal. Para hoje, o corte é 15h30. Para grupos, alterações ou ajuda com cancelamento, fale com a equipe: https://wa.me/5585988544274 Para cancelar, você também pode usar o link recebido no e-mail da reserva.
 
 Para pausar as FAQs apenas no Instagram: Caixa de Entrada → Automações →
 Perguntas frequentes → Editar → desmarcar Instagram → Salvar alterações.
@@ -582,7 +582,7 @@ pausa e a suspensão por conversa ainda não foram testadas com conta externa.
 | Alteração/cancelamento | Link seguro ou gerente; sem executar por nome. |
 | Comprovante/pagamento | Pede conferência humana; sem afirmar quitação. |
 | Reclamação e pedido de pessoa | Caso e pausa antes do aviso único de WhatsApp; cliente abre o link e envia por lá. Sem atribuição pessoal ou promessa de transferência. |
-| Fora do horário humano | Informa 7h–21h e não promete resposta imediata. |
+| Pedido de atendimento humano | Indica WhatsApp oficial sem horário ou promessa de prazo. |
 | Evento repetido/automação antiga | Uma resposta útil por evento; sem resposta concorrente. |
 | Resposta a Story e comentário | Verifica cada cobertura e janela separadamente. |
 | Retomada de conversa antiga | Preserva atendimento humano e regra de janela. |
@@ -617,7 +617,8 @@ encaminhamentos abertos/encerrados e erros por assunto.
 
 Contar resolução automática somente quando houver evidência de conclusão
 e ausência de pendência humana; separar sugestões do bot de conclusão
-confirmada. Medir resposta humana na faixa 7h–21h e também tempo corrido.
+confirmada. Medir o tempo até a orientação útil no Direct. A fila não mede
+o atendimento posterior no WhatsApp nem estabelece prazo de resposta humana.
 Erro de preço, confirmação falsa ou dados de outro cliente exige pausar,
 corrigir e repetir o cenário antes de retomar. Conferir cota e cobrança;
 ao atingir o limite gratuito, preservar contingência humana sem upgrade automático.

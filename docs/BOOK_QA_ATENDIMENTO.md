@@ -28,8 +28,8 @@ A implantação das respostas e o tempo de atendimento atual ainda precisam
 ser conferidos nos canais; esta revisão atualiza a documentação.
 
 Revisão para o assistente virtual em 01/11/2026: o proprietário confirmou o
-WhatsApp corporativo acima e a gerente Hêmile Alexandre, das 7h às 21h. Os dias
-da semana ainda precisam de confirmação. Configuração e testes do agente
+WhatsApp corporativo acima e o acesso nativo da gerente. A orientação atual
+retira horário de atendimento humano e promessa de prazo. Configuração e testes do agente
 estão registrados em [ATENDIMENTO_INSTAGRAM.md](ATENDIMENTO_INSTAGRAM.md).
 Para carregar a base em uma IA, usar os textos e limites de
 [instagram-atendimento/CONHECIMENTO.md](instagram-atendimento/CONHECIMENTO.md).
@@ -380,9 +380,10 @@ A automação nunca responde sozinha a:
 ## Automações nativas do Instagram
 
 **Perguntas frequentes do Direct:** quatro perguntas salvas e ativas no
-Instagram em 01/11/2026. Os textos abaixo reproduzem a configuração salva;
-foram reabertos após recarga, com Instagram selecionado, estado Ativado e
-Salvar desabilitado sem alterações. Prévia e persistência da configuração
+Instagram em 01/11/2026. A configuração anterior foi reaberta após recarga,
+com Instagram selecionado e estado Ativado. Os textos atuais abaixo seguem
+a orientação de retirar horário humano; a coordenação confere a atualização
+na interface separadamente. Prévia e persistência da configuração
 não substituem teste por conta externa.
 
 1. **Qual o horário e o endereço?**
@@ -391,19 +392,20 @@ não substituem teste por conta externa.
 
 2. **Onde vejo o cardápio?**
 
-   > Sou o assistente virtual do Sir Fisher 😊 Cardápio: https://www.sirfisher.com.br/cardapio/ Executivo: https://www.sirfisher.com.br/almoco-executivo/ (seg–sex, 10h–14h, exceto feriados). A equipe confirma preços, porções e ingredientes. Para atendimento humano, das 7h às 21h: https://wa.me/5585988544274
+   > Sou o assistente virtual do Sir Fisher 😊 Cardápio: https://www.sirfisher.com.br/cardapio/ Executivo: https://www.sirfisher.com.br/almoco-executivo/ (seg–sex, 10h–14h, exceto feriados). A equipe confirma preços, porções e ingredientes. Para atendimento humano: https://wa.me/5585988544274
 
 3. **Como falo com uma pessoa?**
 
-   > Sou o assistente virtual do Sir Fisher 😊 O atendimento humano é pelo WhatsApp oficial: https://wa.me/5585988544274 O horário informado é das 7h às 21h. Abra o link e envie sua mensagem por lá para a equipe conferir seu pedido.
+   > Sou o assistente virtual do Sir Fisher 😊 O atendimento humano é pelo WhatsApp oficial: https://wa.me/5585988544274 Abra o link e envie sua mensagem por lá para a equipe conferir seu pedido.
 
 4. **Como reservo ou faço evento?**
 
    > Sou o assistente virtual do Sir Fisher 😊 Até 10 pessoas: https://reservas.sirfisher.com.br/ A reserva depende da conclusão e confirmação no portal. Para hoje, o corte é 15h30; tolerância de 15 min. Para 11–29 pessoas, fale com a equipe: https://wa.me/5585988544274 Eventos de 30–100 pessoas: https://www.sirfisher.com.br/eventos/ A equipe confirma a data e a proposta.
 
 As FAQs são respostas fixas. O link de WhatsApp inicia outra conversa;
-não transfere o histórico nem avisa a equipe por si só. Os dias do horário
-humano 7h–21h ainda precisam de confirmação.
+não transfere o histórico nem avisa a equipe por si só. Não informar horário
+humano ou prometer prazo de resposta. A atualização da cópia nativa é conferida
+separadamente pela coordenação; os horários da casa permanecem válidos.
 
 **Regra de reserva:** o Instagram foi retirado da regra antiga, preservada
 no Messenger. Uma nova regra restrita ao Instagram foi salva, conserva

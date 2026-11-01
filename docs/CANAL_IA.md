@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 Gestao e reservas liberados após filtro de spam (`4e27f7a`/`71c5a2d`, Edge 19) e cancelamento real sob pausa. TEST de uma conta e cron ativos; o agente responde só à conta de teste. Site tem responsável próprio.
+> **🚦 Status atual:** 🔴 Codex edita gestao/reservas para retirar horário humano e separar WhatsApp de pausa. TEST de uma conta; publicação pública e novo app dependem das autorizações/verificações externas. Site e recibos UI têm responsáveis próprios.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.

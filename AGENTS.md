@@ -100,6 +100,10 @@ Este arquivo é a fonte canônica das instruções operacionais para qualquer IA
 
 ## Atendimento Instagram: regra de spam
 
+- Atendimento humano deve indicar somente o WhatsApp oficial, sem horário
+  de atendimento ou promessa de prazo. Preservar horários da casa e regras
+  de reserva verificadas. Não presumir que a equipe esteja atendendo no Direct.
+
 - Para novas mensagens, aplicar o filtro conservador de
   `../reservas/supabase/functions/instagram-support/policy.mjs` antes de Gemini,
   caso e aviso humano. Spam inequívoco fica sem resposta, sem gasto de IA e
