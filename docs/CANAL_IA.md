@@ -41,30 +41,6 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
 
 — Codex
 
-## 2026-11-01 · Codex — Preparação do atendimento Instagram
-
-- Criados `docs/ATENDIMENTO_INSTAGRAM.md` e
-  `docs/instagram-atendimento/CONHECIMENTO.md`. Conta e permissões de
-  mensagens/comentários confirmadas por GET oficial com a credencial
-  existente. MCP de métricas preservado. Listas de assinaturas vazias para
-  o app consultado; leitura atual de conversas sem amostra válida.
-- Conferida em memória amostra histórica de 80 das 2.056 conversas do
-  export de setembro, sem copiar dados pessoais. Book preserva cobertura
-  histórica; foram corrigidas promessas de alteração de reserva, retorno
-  e ligação que o agente ainda não consegue executar.
-- Proprietário confirmou gerente 7h–21h e WhatsApp corporativo; dias de
-  atendimento pendentes. Começar gratuito, teto R$50/mês. Priorizar Meta
-  Business Agent nativo se elegível/gratuito. Meta One empresarial desde
-  R$59 e Manychat Pro US$39/mês ultrapassam o teto; sem contratação.
-- Conteúdo e roteiro de 16 cenários preparados; teste no produto,
-  configuração, pausa, encaminhamento e ativação ainda pendentes.
-  Controle do Chrome teve bloqueio técnico por URL na rodada anterior.
-- `check_project.py --require-node` e `git diff --check` aprovados.
-  Sem migration, reserva, pagamento, mensagem a cliente ou deploy de agente.
-
-— Codex
-
-
 
 ## 2026-10-27 · Codex — Permissões operacionais do PDV
 
@@ -499,5 +475,41 @@ Contratos/recibos privados em tmp/teknisa; cabeçalhos só em memória.
 A prévia do painel mostra apenas nomes. Falta conferir a aparência nos
 aparelhos após receberem a atualização. Preços, composições e observações
 não foram editados nesta tarefa. Nenhuma venda de teste foi criada.
+
+— Codex
+
+## 2026-11-01 · Codex — Preparação do atendimento Instagram
+
+- Criados `docs/ATENDIMENTO_INSTAGRAM.md` e
+  `docs/instagram-atendimento/CONHECIMENTO.md`. Conta e permissões de
+  mensagens/comentários confirmadas por GET oficial com a credencial
+  existente. MCP de métricas preservado. Listas de assinaturas vazias para
+  o app consultado; leitura atual de conversas sem amostra válida.
+- Conferida em memória amostra histórica de 80 das 2.056 conversas do
+  export de setembro, sem copiar dados pessoais. Book preserva cobertura
+  histórica; foram corrigidas promessas de alteração de reserva, retorno
+  e ligação que o agente ainda não consegue executar.
+- Proprietário confirmou gerente 7h–21h e WhatsApp corporativo; dias de
+  atendimento pendentes. Começar gratuito, teto R$50/mês. Priorizar Meta
+  Business Agent nativo se elegível/gratuito. Meta One empresarial desde
+  R$59 e Manychat Pro US$39/mês ultrapassam o teto; sem contratação.
+- Conteúdo e roteiro de 16 cenários preparados; teste no produto,
+  configuração, pausa, encaminhamento e ativação ainda pendentes.
+  Controle do Chrome teve bloqueio técnico por URL na rodada anterior.
+- `check_project.py --require-node` e `git diff --check` aprovados.
+  Sem migration, reserva, pagamento, mensagem a cliente ou deploy de agente.
+
+— Codex
+
+## 2026-11-01 · Codex — Leitura das mensagens pendentes
+
+O proprietário autorizou responder às mensagens em aberto. GET mínimo da
+Página com Page token e `platform=INSTAGRAM` confirmou erro -2/2534084:
+a Meta exige Advanced Access de `instagram_manage_messages` para consultar
+as conversas de clientes sem papel no app. O escopo concedido ao token
+não comprova acesso avançado. Não excluir conversas como atalho.
+`docs/ATENDIMENTO_INSTAGRAM.md` registra a causa. Nenhuma mensagem enviada
+pela API; leitura da interface do Chrome continua como alternativa a verificar.
+Diagnósticos locais em `tmp/instagram-atendimento/`, ignorados pelo Git.
 
 — Codex
