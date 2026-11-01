@@ -1,9 +1,18 @@
 # Integração do atendimento em nuvem
 
-Preparação em 01/11/2026. Migration canônica:
+Implantação desligada em 01/11/2026. Migration canônica:
 `supabase/migrations/20261101071634_instagram_support_durable_queue.sql`.
 Foi criada com a CLI Supabase `2.122.0`, após ler a ajuda dos comandos.
-**Não aplicada ao portal nesta etapa.** A Edge Function correspondente é
+**Aplicada ao portal e registrada na mesma transação**, após revisão. A
+conferência de leitura confirmou dez tabelas com RLS, dez RPCs invoker,
+nenhum acesso anon/authenticated e o cron inativo sob o owner esperado.
+Modo off, pausa global, modelo/faturamento e alertas bloqueados, allowlist
+vazia e gerente NULL foram preservados. Eventos, casos, outbox e reservas
+de custo estavam zerados; os objetos protegidos dos outros sistemas
+mantiveram o mesmo fingerprint de definição e grants. Nenhum segredo ou
+destinatário foi configurado nesta aplicação.
+
+A Edge Function correspondente é
 mantida no repositório `reservas`, em `supabase/functions/instagram-support/`.
 O proprietário da tarefa revisa os dois projetos antes de implantar.
 
@@ -148,7 +157,7 @@ O endpoint é fixo no projeto portal. Uma chave anônima não autoriza drain.
 Falhas registram só SQLSTATE, sem payload ou segredo. A pausa global do
 bot preserva avisos humanos habilitados; `mode=off` bloqueia os provedores.
 
-## Validação e implantação pendente
+## Validação e ativação pendente
 
 Os testes usam PostgreSQL real local e dados fictícios, sem chamar Meta,
 Gemini ou Resend. O runner exige flag explícita, host loopback e banco
@@ -169,10 +178,15 @@ python -B scripts/ci/test_instagram_support_sql.py
 ```
 
 O workflow Quality também usa banco dedicado no serviço PostgreSQL 15.
+A execução local em PostgreSQL 18 aprovou 17 testes; a checagem estática e
+o catálogo de 224 migrations também passaram. O servidor local descartável
+foi encerrado após os testes. A aplicação ao portal conferiu apenas os
+objetos e os modos seguros; o backend e os provedores ainda exigem os
+testes descritos a seguir.
 A execução local não comprova compatibilidade da implantação, entrega de
 webhook, envio de Direct ou leitura do aviso pela gerente. Antes de ativar:
-revisar os dois repositórios, aplicar no portal com o fluxo autorizado,
-conferir grants e advisors, implantar desligado, configurar segredos e
+revisar os dois repositórios, conferir grants e advisors, implantar a Edge
+Function desligada, configurar segredos e
 identidade da gerente e testar com remetente controlado. Só depois tratar
 permissões/review e ativação na Meta. Não usar clientes como conta de teste.
 

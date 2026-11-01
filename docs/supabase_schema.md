@@ -1533,10 +1533,12 @@ em segundo plano. `api_stone_vendas.py` grava cartão XML e Pix CSV juntos em
 `raw_stone_vendas`, deduplicando pelo Stone ID/E2E, reconcilia a Saipos já no
 banco e chama `refresh_painel()`. Não altera as regras das views financeiras.
 
-## Atendimento Instagram em nuvem (preparação de 01/11/2026)
+## Atendimento Instagram em nuvem (desligado em 01/11/2026)
 
-Migration `20261101071634_instagram_support_durable_queue.sql` preparada e
-testada em PostgreSQL descartável; aplicação no portal pendente de revisão.
+Migration `20261101071634_instagram_support_durable_queue.sql` aplicada ao
+portal após revisão, com histórico na mesma transação. Dez tabelas/RLS e
+dez RPCs foram conferidas por leitura, sem acesso anon/authenticated.
+Os 17 testes em PostgreSQL descartável passaram.
 Schema `instagram_support`, com dez tabelas privadas, RLS e grants apenas
 para `service_role`. RPCs `public.ig_support_*` são SECURITY INVOKER, têm
 search_path fixo e retiram EXECUTE de PUBLIC, anon e authenticated.

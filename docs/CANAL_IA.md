@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 livre — schema e testes do agente Instagram preparados; raiz assume revisão e implantação desligada. Nada aplicado nesta preparação.
+> **🚦 Status atual:** 🟢 livre — migration do agente Instagram aplicada desligada; raiz assume Edge Function, advisors e testes controlados.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -609,7 +609,8 @@ permissão local necessária, após o alias ficar inacessível no ambiente restr
 ## 2026-11-01 · Codex — Fila privada para o agente Instagram
 
 Migration `20261101071634_instagram_support_durable_queue.sql` criada pela
-CLI Supabase 2.122.0 e preparada, sem aplicação no portal. Dez tabelas no
+CLI Supabase 2.122.0 e aplicada ao portal após revisão, com histórico na
+mesma transação. Dez tabelas no
 schema `instagram_support`, RLS, grants explícitos para service_role e RPCs
 SECURITY INVOKER sem acesso anon/authenticated. Nenhuma tabela de reservas
 ou financeira foi alterada. Instala off/paused, modelo/faturamento e alertas
@@ -640,8 +641,12 @@ P0/P1 aberto no SQL. Não houve Meta/Gemini/Resend nos testes SQL.
 
 Arquivos: migration, `scripts/ci/test_instagram_support_sql.py`, fixture SQL,
 workflow Quality, guia de integração, catálogo de schema e este canal.
-Nenhum commit/push/deploy feito pelo subagente. A raiz assume a revisão,
-a aplicação com registro transacional, advisors e o teste controlado antes
-de habilitar provedores ou callback para clientes.
+Commit `6b63d16` publicado. A conferência de leitura confirmou modo off,
+pausa global, bloqueio de modelo/faturamento e alertas, gerente NULL,
+allowlist vazia e cron inativo sob postgres. Eventos, casos, outbox e
+reservas de custo zerados; fingerprints dos objetos protegidos inalterados.
+Nenhum segredo, destinatário, callback ou provedor foi habilitado.
+A raiz assume a Edge Function, os advisors e o teste controlado antes de
+habilitar provedores ou callback para clientes.
 
 — Codex
