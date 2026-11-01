@@ -29,26 +29,61 @@ comprova leitura de casos, resposta no horário ou compromisso de prazo.
 | FAQs nativas do Instagram | Quatro perguntas com respostas fixas salvas e ativas; textos em `BOOK_QA_ATENDIMENTO.md`. Não interpretam livremente outras perguntas. |
 | Outras automações nativas | Auditoria final sem alteração: resposta automática ativa só no Messenger, Instagram desmarcado, texto original preservado. Ausência aparece como sugestão. Não há resposta instantânea ativa no Instagram nessa conferência; FAQs precisam ser desligadas antes da produção. |
 | Regra de reserva | Instagram retirado da regra antiga, preservada no Messenger. Nova regra de Instagram com condições restritas e 15 minutos de inatividade salva e desligada, aguardando teste externo e validação da pausa humana. |
-| Atendimento humano | Pedido de pessoa gerou um caso e pausa antes do único aviso WhatsApp sem IA. Reclamação durante a pausa atualizou o mesmo caso sem outro aviso. Texto e link conferidos na interface. Acessos da gerente preservados; sem responsável padrão/e-mail. |
+| Atendimento humano | Pedido de pessoa registra caso e um aviso WhatsApp sem IA. O aviso permite responder à próxima dúvida no Instagram. Pausas manuais, echo sem conciliação e envio incerto conservam seus controles. Sem horário humano, prazo, responsável padrão ou e-mail. |
 | Comentários | Seis publicações e nove comentários visíveis revisados; elogios ou reações sem perguntas. Nenhuma resposta publicada ou automação de comentário ativada. |
 | IA nativa | Não apareceu no aplicativo conferido pelo proprietário. Atendimento livre com IA ainda indisponível nesta conta. |
-| Integração em nuvem | Correção de mensagens canceladas `85abd70`/migration `20261101130005` implantada em OFF e conferida. Mesmo TEST exclusivo retomado após check, com único cron ativo. Recuperação real anterior passou com HTTP200/MID. Bootstrap sem replay e clientes bloqueados. |
-| Painel da equipe | Login, perfil, caso e link enviado conferidos. Encerrar manteve a pausa; retomar exigiu confirmação separada e não reenviou histórico. Dois casos de teste fechados; nenhuma reclamação real marcada como resolvida. |
+| Integração em nuvem | Edge 27 ACTIVE, migration `20261101161022` aplicada e TEST exclusivo do proprietário adulto retomado após conferência. Um único cron ativo; zero pendências. Gates de dados públicos e entrega pública continuam false. |
+| Painel da equipe | Login, perfil, caso e link conferidos. Encerrar preserva a pausa vigente; retomar é separado. Três casos controlados fechados, zero abertos; nenhuma reclamação real marcada como resolvida. |
 | Identificação da conversa | Profile API200/username exato; caso de teste mostrou perfil verificado e link real no painel. Sem avatares ou URL inventada de thread. |
-| Testes | 76 Node no filtro de spam; 37 contratos PostgreSQL18 anteriores preservados e catálogo226. Reais: horário, reserva, cozinha corrigida, aviso humano, pausa/retomada, echo manual, recuperação e cancelamento específico sob pausa global. Seis envios/três chamadas anteriores, sem novo gasto no cancelamento. |
+| Testes | 81 Node, 44 verificações SQL e catálogo com 227 verificações aprovados. Ensaio real mais recente: WhatsApp em 4,620 s, FAQ de endereço posterior em 5,397 s e novo pedido humano sem repetir aviso. Oito envios/quatro chamadas acumulados. Observações do piloto, sem SLA ou prova de atendimento público. Saudação “Oi” ainda sem medida automática real. |
 | Sonda externa sem IA | Envio e recebimento na Primary aceita conferidos no Instagram. Duas leituras do banco e logs oficiais: zero evento/POST correspondente. Perfil fora da lista, sem Profile API/modelo/resposta; causa de transporte ainda em aberto. |
-| Triagem de spam novo | Filtro PT/EN publicado antes de fila/caso/ACK/Gemini. Spam claro sem resposta, sem IA e sem apagar/bloquear. Relatos e pedidos legítimos preservados; 76 testes locais e revisão independente aprovados. Código `71c5a2d`, Edge19, mesmo TEST exclusivo e cron. Sem medição de cobertura total. |
+| Triagem de spam novo | Filtro PT/EN publicado antes de fila/caso/ACK/Gemini. Spam claro sem resposta, sem IA e sem apagar/bloquear. Relatos e pedidos legítimos preservados; testes locais e revisão independente aprovados. Presente na Edge 27, no mesmo TEST exclusivo e cron. Sem medição de cobertura total. |
 | Meta Review | Configurações 100%, ícone/categoria/descrição/Website e instruções salvos; instruções reabertas e credenciais vazias. Vídeo, dependências, declarações e entrega geral pendentes. Detalhes adicionais do analista são opcionais no guia de app próprio. Rascunho não enviado. |
+| Alternativa de conexão | Instagram Login exige app Empresa. DeathStar é do tipo Nenhum; o novo app proposto Sir Fisher Atendimento aguarda autorização específica após bloqueio da revisão automática. Não foi criado. |
+| Modelo para clientes | Gemini restrito ao proprietário adulto devido aos termos de idade. Escolha pendente: OpenAI API com teto proposto de R$45/mês ou FAQ gratuita por regras. Nenhuma das alternativas foi implementada ou ativada para clientes. |
 
-### Atendimento manual de 01/11/2026
+### Auditoria de seis meses e rodada atual de 01/11/2026
 
-Na conferência final, 118 pessoas receberam resposta manual, com quatro
+Exportação oficial de mensagens de 01/05 a 01/11: 335 conversas e 854 mensagens,
+sem erro de leitura nos 335 JSON. O último evento do arquivo é de 01/11 às
+12h20min25s em Fortaleza; mensagens posteriores exigem a leitura atual da
+conversa. Sete arquivos de mídia/outros foram inventariados, sem transcrição.
+
+Nesta rodada, 25 perfis receberam novo retorno confirmado na interface,
+incluindo uma conta de teste do proprietário: 11 pela operação A, 11 pela B e
+três pela coordenação. Três complementos/esclarecimentos para pessoas da
+base anterior, um retorno posterior ao teste e duas correções de assunto
+não somam pessoas. As duas correções tratam de propostas de parceria que
+haviam sido confundidas com emprego ou delivery. Os originais foram
+preservados. Leitura semântica dos corpos enviados foi conferida; o
+encaminhamento ao WhatsApp não comprova conclusão da solicitação.
+
+Permanecem 19 casos com identidade atual sem confirmação, uma saudação com
+perfil confirmado mas sem campo de resposta disponível e um caso já
+respondido no arquivo cuja identidade atual não foi confirmada. Esses
+registros não receberam envio a homônimos. O pedido de marcação encontrado
+na revisão independente foi localizado pelo histórico e respondido com
+WhatsApp, sem promessa de publicação. Grupos não foram excluídos nesta
+rodada; as 13 exclusões pertencem ao histórico anterior.
+
+Geral foi catalogada com 27 avanços até uma conversa de 24/04/2026, anterior
+ao período. Primary foi catalogada até o limite carregado. Pedidos mostrou
+uma conversa já respondida e ocultos mostrou zero no momento conferido.
+Essas leituras não comprovam ausência global de pendências. Reações,
+agradecimentos e ofertas sem pergunta de cliente foram preservados sem
+resposta automática indiscriminada. Arquivos, perfis, textos e recibos
+detalhados permanecem privados em `tmp/`, ignorados pelo Git.
+
+### Registro anterior do atendimento manual de 01/11/2026
+
+Na conferência anterior, 118 pessoas receberam resposta manual, com quatro
 complementos em conversas já contadas, e 13 grupos foram excluídos. Duas
 conversas já contadas receberam três mensagens adicionais de retorno.
 O recorte do topo da Primary mostrou oito linhas e zero não lidas; Pedidos
 e ocultos estavam vazios no filtro conferido, sem rascunho pendente. Dois
-casos do export sem identidade atual segura foram preservados. O histórico
-continua com cobertura parcial.
+casos do export sem identidade atual segura foram preservados. Esse recorte
+histórico foi seguido pela auditoria acima; não representa a caixa atual.
+Não somar 118 e 25 como total de pessoas únicas sem cruzar todos os perfis.
 Não foram contados testes como clientes. Resposta enviada não comprova
 resolução do pedido ou atendimento posterior no WhatsApp.
 
@@ -394,9 +429,9 @@ antes da ativação. Entrada oficial: https://www.facebook.com/business/ai .
 | Meta One para empresas | Essencial desde R$59/mês no Brasil, acima do teto. Não contratar. Core e Instagram Plus não comprovam acesso ao atendimento comercial. |
 | Manychat Pro com IA | US$39/mês, ou US$348 cobrados ao ano; 2.500 contatos ativos/mês, dois lugares no Inbox e excedentes. Acima do teto. Não contratar. |
 | Manychat Free | Modelo atual com 25 contatos ativos/mês e quatro automações. Conferir eventual plano legado existente; cobertura atual insuficiente para propor atendimento contínuo com IA. |
-| Integração própria por API | Reusa Supabase e Gemini existentes, sem nova assinatura. Fila, limites, painel e callback implantados; piloto de uma conta passou por testes reais. Recomendada dentro do teto, com produção ainda condicionada ao escopo da Meta e à revisão. Exige acompanhar falhas e cotas. |
+| Integração própria por API | Reusa Supabase, fila, limites, painel e callback existentes. Recomendada com OpenAI API, teto proposto de R$45/mês, ainda sem escolha/configuração. FAQ por regras gratuita é alternativa sem modelo, ainda não implementada. Produção depende da conexão Meta, das condições do provedor e de teste externo. Exige acompanhar falhas e cotas. |
 
-Foi reutilizado o acesso existente ao Gemini, já usado em ferramenta de
+O piloto reutilizou o acesso existente ao Gemini, já usado em ferramenta de
 imagens. O teste inicial de texto público respondeu HTTP 200 com 61 tokens
 de entrada e 19 de saída. Depois, o classificador configurado foi testado
 com uma pergunta sintética: `gemini-3.5-flash-lite`, HTTP 200, resultado
@@ -405,6 +440,12 @@ com uma pergunta sintética: `gemini-3.5-flash-lite`, HTTP 200, resultado
 chamada e a classificação por enum, sem comprovar atendimento pelo Instagram.
 `gemini-2.5-flash-lite` retornou 404 apesar de constar da listagem; não
 depender desse identificador sem investigação.
+
+Esse histórico não autoriza o uso público do Gemini. Os termos consultados
+em 01/11/2026 restringem API Clients provavelmente acessados por menores de
+18 anos. O piloto permanece no proprietário adulto. A ampliação exige
+escolher e preparar o provedor ou a alternativa por regras, com tratamento
+de dados e proteção de menores adequados. Paid não fornece exceção de idade.
 
 O preço Standard consultado para o modelo 3.5 é US$0,30 por milhão de tokens
 de entrada e US$2,50 por milhão de saída, incluindo pensamento. O AI Studio
@@ -416,7 +457,7 @@ disponível comprovados. `serviceTier=standard`, sozinho, não comprova Paid.
 Não houve mudança de faturamento, compra de créditos ou novo cadastro de
 credencial nesta tarefa.
 
-O orçamento é reservado antes da chamada: dois centavos por geração,
+No piloto Gemini, o orçamento é reservado antes da chamada: dois centavos por geração,
 limite de R$45/mês e 2.000 gerações/mês. O teto de R$45 do agente deixa
 R$5 no orçamento total de R$50 para os demais serviços. Com dois centavos
 por chamada, o limite adicional de 2.000 gerações reserva no máximo R$40.
@@ -436,13 +477,12 @@ autoriza contratar plano pago nem garante créditos de outros serviços.
 O uso do modelo com mensagens reais exige liberar o tratamento no servidor
 e no banco. Paid Services e a correspondência da chave foram conferidos;
 essa conferência não autoriza enviar textos de clientes em geral. Por ora, o
-teste autorizado usa somente a conta controlada do proprietário. A política
-publicada em [Privacidade](https://www.sirfisher.com.br/privacidade/) já
-descreve a integração preparada e o pedido manual de exclusão. A atualização
-`a62d621` registra Paid conferido e o agente desligado; foi publicada com
-duas verificações de CI aprovadas e resposta HTTP 200.
+teste autorizado usa somente a conta controlada do proprietário adulto.
+A política publicada em [Privacidade](https://www.sirfisher.com.br/privacidade/)
+descreve esse limite, a escolha pública pendente e o pedido manual de exclusão.
+A atualização `dc17549` foi publicada com verificações aprovadas e HTTP 200.
 
-As FAQs nativas foram configuradas com atendimento da gerente, preservando
+As FAQs nativas indicam o WhatsApp oficial sem horário humano, preservando
 o teto. Se a IA nativa aparecer, conferir recursos, custos e testes antes de
 ativar. Não cadastrar cartão, iniciar
 trial com cobrança automática ou contratar assinatura acima do limite.
@@ -498,8 +538,8 @@ ou pagamento exige resultado verificado no sistema correspondente.
 
 O proprietário definiu dúvidas pela IA no Instagram e pedidos humanos pelo
 WhatsApp oficial. O cliente deve abrir o link e enviar a mensagem por lá.
-A fila própria registra o caso e a pausa antes de um único aviso curto por
-caso ativo. Esse aviso usa texto revisado, sem IA; não afirma transferência,
+A fila própria registra o caso e permite responder à próxima FAQ depois
+de um único aviso curto por caso ativo. Esse aviso usa texto revisado, sem IA; não afirma transferência,
 leitura ou aviso à equipe. Repetições não geram outro link. Não configurar
 responsável padrão ou e-mail neste fluxo. A revisão foi implantada OFF e
 passou por teste restrito. Clientes ainda não foram liberados.
@@ -526,13 +566,14 @@ sumiram após reabrir, inclusive depois de revisar a seleção e salvar novament
 Não contar esses casos como transferidos. A fila exige conferência após
 reabertura; até resolver a falha, o link de WhatsApp é a contingência já enviada.
 
-A fila própria em nuvem registra motivo, estado e pausa persistente. A revisão
-remove o responsável padrão do assistente e mantém e-mail/cron desligados.
-Pedidos sensíveis criam caso e pausa antes do worker; o ACK único oferece
-WhatsApp. Uma urgência de maior prioridade antes do envio substitui a orientação
-genérica. Pausa global ou intervenção manual cancelam avisos pendentes.
-Assumir e encerrar conservam a pausa; retomar é
-ação separada. Uma resposta cujo envio já começou pode chegar após a pausa.
+A fila própria em nuvem registra motivo e estado persistente. O assistente
+fica sem responsável padrão e sem e-mail; o único cron de recuperação está
+ativo no TEST. Pedidos humanos ou sensíveis criam caso e um aviso WhatsApp.
+A próxima FAQ continua elegível. Uma orientação sensível pendente tem
+prioridade; urgência de maior prioridade pode substituir o aviso genérico
+antes do envio. Pausa global ou intervenção manual cancelam avisos pendentes.
+Assumir pausa a conversa; encerrar preserva a pausa vigente e retomar é ação
+separada. Uma resposta cujo envio já começou pode chegar após a pausa.
 O fluxo passou pelos testes locais e por DMs controlados, com pausa, aviso único
 e caso conferidos no painel. O enriquecimento com username e links foi
 publicado em `reservas`, e o GET real de perfil foi validado. A apresentação
@@ -581,7 +622,7 @@ pausa e a suspensão por conversa ainda não foram testadas com conta externa.
 | Disponibilidade ou API fora do ar | Oferece consulta no portal, sem afirmar vaga. |
 | Alteração/cancelamento | Link seguro ou gerente; sem executar por nome. |
 | Comprovante/pagamento | Pede conferência humana; sem afirmar quitação. |
-| Reclamação e pedido de pessoa | Caso e pausa antes do aviso único de WhatsApp; cliente abre o link e envia por lá. Sem atribuição pessoal ou promessa de transferência. |
+| Reclamação e pedido de pessoa | Caso e aviso único de WhatsApp, mantendo a próxima FAQ elegível; cliente abre o link e envia por lá. Orientação sensível pendente tem prioridade. Sem atribuição pessoal ou promessa de transferência. |
 | Pedido de atendimento humano | Indica WhatsApp oficial sem horário ou promessa de prazo. |
 | Evento repetido/automação antiga | Uma resposta útil por evento; sem resposta concorrente. |
 | Resposta a Story e comentário | Verifica cada cobertura e janela separadamente. |
@@ -593,10 +634,10 @@ pausa e a suspensão por conversa ainda não foram testadas com conta externa.
 | Camada | Resultado e limite |
 | --- | --- |
 | Conteúdo e interface | Quatro FAQs reabertas após recarga, com textos persistidos, Instagram selecionado, estado Ativado e Salvar desabilitado sem alterações. Nova regra de reserva, com 15 minutos de inatividade, salva e desligada. Isso não comprova entrega por todos os gatilhos. |
-| Atendimento real manual | 118 pessoas, 13 grupos e quatro complementos; retornos na mesma conversa separados. Recorte atual sem não lidas; cobertura histórica parcial e dois casos sem identidade segura preservados. Envio não comprova resolução. |
+| Atendimento real manual | Base anterior de 118 pessoas e 13 grupos excluídos. Rodada atual: 25 perfis com novo retorno, incluindo um teste, sem soma global de pessoas únicas. 19 identidades pendentes, uma saudação sem campo de resposta e um caso respondido no arquivo sem identidade atual. Envio não comprova resolução. |
 | Modelo de IA isolado | Classificador Gemini 3.5 Flash-Lite: HTTP 200, `HOURS`, 297 tokens de entrada, dois de resposta, zero de pensamento, 299 totais. Pergunta sintética; nenhuma conversa de cliente. Paid e vínculo da chave conferidos na interface, com saldo ainda sem valor carregado. |
-| Nuvem e painel | TEST exclusivo da conta controlada, perfil e caso conferidos no produto. Seis envios/três chamadas anteriores. Sem manager/e-mails; único cron ativo após recuperação real e correção OFF. Sem bootstrap ou pendência. |
-| Fila humana | Caso+pausa antes de um único aviso WhatsApp sem IA; reclamação em pausa não duplicou. Encerrar/retomar separados; echo manual real causou nova pausa. Dois casos de teste fechados, sem registrar resolução de reclamação real. O link não confirma transferência nem atendimento no WhatsApp. |
+| Nuvem e painel | TEST exclusivo do proprietário adulto, perfil e caso conferidos. Oito envios/quatro chamadas acumulados. Sem manager/e-mails; único cron ativo. Zero pendências; entrega pública e dados públicos false. |
+| Fila humana | Um aviso WhatsApp sem IA por caso ativo; FAQ posterior respondeu e novo pedido humano não repetiu aviso. Pausas manuais/echo e encerrar/retomar preservam controles separados. Três casos de teste fechados, sem registrar resolução de reclamação real. O link não confirma transferência nem atendimento no WhatsApp. |
 | Revisão de comentários | Seis publicações e nove comentários visíveis revisados, todos com elogios ou reações sem perguntas. Nenhuma resposta publicada; revisão não cobre todo o acervo de comentários. |
 | Alerta de mensagens sem resposta | Recurso inspecionado; somente Messenger selecionável, sem opção de Instagram. Tela cancelada sem salvar. Não cobre pendências do Instagram. |
 | Operações | Reservas, cancelamentos e pagamentos continuam pelos portais ou por pessoa. Nenhuma dessas operações foi executada pelo agente. |
@@ -665,6 +706,16 @@ Consulta em **01/11/2026**:
   [limites](https://ai.google.dev/gemini-api/docs/rate-limits)
   e [faturamento](https://ai.google.dev/gemini-api/docs/billing).
 - [Google: termos Paid Services do Gemini](https://ai.google.dev/gemini-api/terms#paid-services).
+- [Google: termos de idade do Gemini](https://ai.google.dev/gemini-api/terms),
+  vigentes desde 23/03/2026, consultados em 01/11/2026. Gemini permanece
+  restrito ao proprietário adulto; não foi liberado ao público.
+- [Meta: criar app Instagram](https://developers.facebook.com/documentation/instagram-platform/create-an-instagram-app)
+  e [mensagens com Instagram Login](https://developers.facebook.com/documentation/instagram-platform/instagram-api-with-instagram-login/messaging-api).
+  Alternativa depende de app Empresa e teste de entrega fora do perfil controlado.
+- [OpenAI: modelo proposto](https://developers.openai.com/api/docs/models/gpt-5.6-luna),
+  [dados da API](https://developers.openai.com/api/docs/guides/your-data)
+  e [proteção de menores](https://developers.openai.com/api/docs/guides/safety-checks/under-18-api-guidance).
+  Proposta ainda sem conta/chave/configuração; o teto de R$45 não é uma assinatura contratada.
 - [Google: uso e retenção para abuso](https://ai.google.dev/gemini-api/docs/usage-policies).
 - [Supabase: DPA](https://supabase.com/legal/dpa).
 - [Supabase: preços e cotas](https://supabase.com/pricing),

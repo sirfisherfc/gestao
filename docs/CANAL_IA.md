@@ -182,3 +182,41 @@ restaurados pela coordenação após o ensaio. Esta entrega altera apenas
 documentos: nenhum provedor, router, segredo, consentimento ou runtime mudou.
 
 — Codex
+
+## 2026-11-01 · Codex — Auditoria de seis meses e revisão dos envios
+
+Exportação oficial: 335 conversas/854 mensagens entre 01/05 e 01/11,
+último evento às 12h20min25s de Fortaleza; 335 JSON lidos sem erro.
+Sete arquivos de mídia/outros inventariados sem transcrição. Geral
+catalogada com 27 avanços até 24/04, Primary até o limite carregado,
+Pedidos com uma conversa já respondida e ocultos vazio no recorte.
+Isso não comprova caixa globalmente sem pendências.
+
+Rodada atual: 25 perfis com novo retorno nativo confirmado, incluindo um
+teste do proprietário, com 25 claims distintos de perfil. A respondeu 11,
+B respondeu 11 e a coordenação três. Complementos, retorno na mesma conta
+e correções não somam pessoas. Não somar à base anterior de 118 sem
+deduplicação global. As 13 exclusões de grupos pertencem ao histórico;
+nenhum grupo foi excluído nesta rodada.
+
+A teve 14 corpos pertinentes em revisão semântica própria e independente.
+B teve nove respostas iniciais pertinentes e duas propostas de parceria
+interpretadas como emprego/delivery; essas duas receberam correção na
+mesma conversa, com confirmação nativa e revisão independente, preservando
+os originais. O pedido extra de marcação identificado na auditoria foi
+localizado pelo perfil/histórico/data e recebeu WhatsApp sem promessa de
+publicação. Encaminhamento não comprova solução ou atendimento no WhatsApp.
+
+Permanecem 19 identidades atuais sem confirmação, uma saudação identificada
+sem controle de resposta e um caso respondido no arquivo sem identidade
+atual confirmada. Nenhum envio a homônimos. Recibos e consolidação privados
+em `tmp/instagram-atendimento/auditoria6meses/`, ignorados; nenhum nome,
+perfil ou conteúdo de cliente nesta entrega versionada.
+
+`docs/ATENDIMENTO_INSTAGRAM.md` atualizado para o fluxo sem horário humano,
+FAQ após WhatsApp, 81 Node/44 SQL, Edge 27 e oito envios/quatro chamadas
+acumulados no piloto. Não houve novo deploy, chamada de modelo ou ativação
+pública nesta etapa. TEST do proprietário adulto permanece; app Empresa e
+escolha do modelo público continuam pendentes nas perguntas já apresentadas.
+
+— Codex
