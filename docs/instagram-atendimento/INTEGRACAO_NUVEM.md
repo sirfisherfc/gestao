@@ -14,21 +14,29 @@ configuração `1665840125059739` reduzida e salva com `instagram_basic` e
 `instagram_manage_messages`. FC aceito como testador após autorização da
 declaração. Após o clique manual do proprietário, somente o portfólio Sir
 Fisher e FC foram selecionados, com as duas permissões autorizadas e sem
-contas de anúncio. A Meta confirmou a conexão do portfólio ao app. Concluir
-fechou a janela; o app continuou em Gerar token sem credencial recebida.
-A emissão pela Meta permanece desconhecida; ainda falta receber e validar
-o novo acesso. Outra janela aberta por Gerar token aguarda clique manual
-em Continuar com o administrador: a revisão automática rejeitou esse
-clique por exigir ação do usuário no diálogo de autenticação. Nenhum outro
-método foi usado após a rejeição. A criação e o vínculo do portfólio não
-comprovam aprovação da Meta ou entrega pública.
+contas de anúncio. A Meta confirmou a conexão do portfólio ao app. Na
+primeira conclusão a tela não entregou credencial; outra janela exigiu
+clique manual do administrador após rejeição automática da autenticação.
+O proprietário fez esse clique. A segunda conclusão retornou ao painel
+com Token gerado; credencial guardada sob nome novo somente no arquivo
+privado ignorado, com releitura exata e variáveis anteriores preservadas.
+A criação e o vínculo do portfólio não comprovam aprovação da Meta ou
+entrega pública.
 
 Releitura oficial da inscrição da Página confirmou DeathStar com `name` e
-`messages`, sem o novo app. Não há credencial nova armazenada, segredo do
-novo app capturado ou webhook novo inscrito. O próximo teste precisa conferir
-portfólio, conta atribuída e identidade com o acesso real antes de configurar
-uma rota separada em OFF. Preservar a conexão antiga; não presumir equivalência
-entre IDs exibidos por seletores de ativos e os devolvidos pela nova API.
+`messages`, sem o novo app. A credencial nova está somente no arquivo local
+privado, sem segredo do novo app capturado ou webhook novo inscrito. GET
+oficial `/me` confirmou usuário de sistema e portfólio; `/me/permissions`
+confirmou basic/manage_messages e public_profile padrão. A lista de contas
+atribuídas retornou HTTP 200 vazia; os dois IDs observados de FC retornaram
+100/33 na consulta de identidade. A mensagem admite mais de uma causa.
+Apps conectados no portfólio confirmou novo app, FC de ID
+`17841439937145607` e as duas permissões esperadas. Essa diferença entre
+tela e API permanece sem causa confirmada; não criar usuário ou ampliar
+escopos por inferência. A Meta pediu senha manual em Mostrar segredo para
+continuar a validação de emissor/validade/escopos por ativo. Próxima etapa
+de servidor continua condicionada à identidade e conta atribuída verificadas;
+preservar a conexão antiga e manter uma futura rota separada em OFF.
 
 Código OpenAI `147e91d` preparado e instalado na Edge 30 em OFF. Depois da
 conferência e inclusão da chave desligada, o runtime final é Edge 32 ACTIVE.

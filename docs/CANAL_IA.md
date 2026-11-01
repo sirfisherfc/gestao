@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 gestao/reservas livres. Meta confirmou vínculo do portfólio com o app novo, somente FC/perfil/mensagens; credencial não recebida. Nova janela Meta aguarda clique manual do administrador após rejeição automática da autenticação. Gemini TEST1/Edge32/cron único e oito envios/quatro chamadas preservados. OpenAI e público desligados.
+> **🚦 Status atual:** 🟢 gestao/reservas livres. Credencial Meta nova recebida e guardada só no arquivo privado. API confirma portfólio/escopos, mas contas atribuídas está vazia; UI confirma FC compartilhado. Senha manual Meta pendente para validar emissor. Gemini TEST1/Edge32/cron único e oito envios/quatro chamadas preservados. OpenAI e público desligados.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -295,5 +295,39 @@ cron único, oito envios/quatro chamadas, zero pendências; sem envio ou drain.
 OpenAI e público desligados. Próximo passo após ação manual: receber acesso
 com segurança, conferir identidade/escopos/portfólio/conta e preparar rota
 separada em OFF. A confirmação do vínculo não comprova transporte ou Review.
+
+— Codex
+
+## 2026-11-01 · Codex — Credencial recebida; conta ainda sem acesso pela API
+
+Após o novo clique manual do proprietário, o login concluiu com o mesmo
+FC/perfil/mensagens, sem anúncios, e abriu Token gerado no painel do app.
+Credencial copiada do campo oficial e guardada sob nome novo somente em
+reservas/.env.local ignorado; releitura exata, variáveis antigas preservadas
+e ACL sem regras amplas. Nenhum valor em output, Git ou segredo cloud novo.
+
+GETs oficiais sem conversas: /me HTTP200 confirmou usuário de sistema do
+app e portfólio esperado. /me/permissions concedeu basic/manage_messages e
+public_profile. /me/assigned_instagram_accounts retornou200/data[]; os dois
+IDs observados de FC retornaram100/33 na consulta de identidade. Não há
+causa confirmada. Apps conectados da empresa mostrou app novo, FC do ID
+17841439937145607 e as duas capacidades esperadas. Nenhuma permissão ou
+atribuição extra foi feita; ClaudePerfil/Conversions e DeathStar preservados.
+
+Mostrar o segredo do app abriu Please re-enter your password. O guia local
+computer-use/docs/guidance.md proíbe automatizar diálogos de autenticação.
+Senha/Confirmar entregues ao proprietário em pergunta pendente; aba
+preservada. Não ler segredo mascarado por outro método. Próxima conferência:
+Debug oficial de emissor/validade/escopos por ativo, sem alegar que isso
+corrige data[]. A documentação não oferece reparo específico para a
+divergência entre vínculo visível e lista vazia; evitar novas autenticações,
+usuários, publicação ou Advanced como tentativa sem evidência.
+
+ATENDIMENTO_INSTAGRAM.md e INTEGRACAO_NUVEM.md atualizados. Provas, checkpoint
+e verificadores somente leitura em tmp/ ignorado, sem conteúdo de cliente.
+Diff e sintaxe do verificador passaram. Check real preservou Edge32,
+Gemini TEST1/cron único, oito envios/quatro chamadas e zero pendências.
+Nenhum deploy, migração, envio, drain ou chamada de modelo nesta retomada.
+OpenAI e público permanecem desligados; nenhum custo novo ou crédito comprado.
 
 — Codex

@@ -39,7 +39,7 @@ comprova leitura de casos, resposta no horário ou compromisso de prazo.
 | Sonda externa sem IA | Envio e recebimento na Primary aceita conferidos no Instagram. Duas leituras do banco e logs oficiais: zero evento/POST correspondente. Perfil fora da lista, sem Profile API/modelo/resposta; causa de transporte ainda em aberto. |
 | Triagem de spam novo | Filtro PT/EN publicado antes de fila/caso/ACK/Gemini. Spam claro sem resposta, sem IA e sem apagar/bloquear. Relatos e pedidos legítimos preservados; testes locais e revisão independente aprovados. Presente na Edge 27, no mesmo TEST exclusivo e cron. Sem medição de cobertura total. |
 | Meta Review | Configurações 100%, ícone/categoria/descrição/Website e instruções salvos; instruções reabertas e credenciais vazias. Vídeo, dependências, declarações e entrega geral pendentes. Detalhes adicionais do analista são opcionais no guia de app próprio. Rascunho não enviado. |
-| Novo aplicativo Meta | Sir Fisher Atendimento, ID `1442419914069550`, criado no portfólio Sir Fisher após autorização da criação, dos termos e verificação de identidade pelo proprietário. A UI exige Login Unificado para apps novos. Configuração `1665840125059739` salva apenas com `instagram_basic` e `instagram_manage_messages`. FC aceito como testador após autorização da declaração. Privacidade, exclusão, domínio, categoria e Website salvos e conferidos após recarga. A Meta confirmou a conexão do portfólio após selecionar somente FC e as duas permissões. Credencial ainda não recebida nem validada; nova janela aguarda autenticação manual. DeathStar preservado. |
+| Novo aplicativo Meta | Sir Fisher Atendimento, ID `1442419914069550`, criado no portfólio Sir Fisher após autorização da criação, dos termos e verificação de identidade pelo proprietário. A UI exige Login Unificado para apps novos. Configuração `1665840125059739` salva apenas com `instagram_basic` e `instagram_manage_messages`. FC aceito como testador após autorização da declaração. Privacidade, exclusão, domínio, categoria e Website salvos e conferidos após recarga. Credencial recebida e guardada só no arquivo privado ignorado. API confirmou portfólio/escopos, mas contas atribuídas retornou vazio; UI Apps conectados confirmou FC e as duas permissões. Novo acesso ainda sem validação completa ou webhook; senha manual solicitada pela Meta para conferir o segredo do app. DeathStar preservado. |
 | Modelo para clientes | Proprietário escolheu OpenAI com teto de R$45/mês. Projeto exclusivo criado, processamento padrão e modelo GPT-5.6 Luna selecionados. Chave de serviço autorizada, criada, restrita ao endpoint Responses e guardada no arquivo privado e nos segredos do servidor. Zero chamadas OpenAI; saldo da API observado em US$0,00, sem compra ou pagamento adicionado. Tratamento de mensagens de clientes e ativação pública continuam pendentes. |
 
 ### Preparação OpenAI e conexão Meta em 01/11/2026
@@ -91,7 +91,44 @@ Não há token novo guardado, segredo do novo app capturado ou webhook novo
 inscrito. A releitura oficial da inscrição da Página confirmou DeathStar
 com `name` e `messages`, sem o app novo. Conferência do portal manteve Edge
 32, Gemini TEST1, cron único, oito envios/quatro chamadas e zero pendências;
-nenhuma chamada OpenAI, alteração operacional ou envio nesta conferência.
+nenhuma chamada OpenAI, alteração operacional ou envio naquela conferência.
+
+Na retomada seguinte, o proprietário fez o clique manual. O fluxo manteve
+somente FC, perfil e mensagens e retornou à tela do app com Token gerado.
+Após ciência do aviso, a credencial foi guardada em
+`INSTAGRAM_UNIFIED_ACCESS_TOKEN`, apenas no arquivo privado canônico
+ignorado. Releitura exata, preservação das variáveis anteriores e ACL sem
+regras amplas conferidas. O valor ficou fora do chat, Git e dos segredos do Supabase;
+nenhum token antigo foi substituído.
+
+Leituras oficiais com a nova credencial, sem consultar conversas: `/me`
+retornou HTTP 200, usuário de sistema do Sir Fisher Atendimento e
+`client_business_id` do portfólio esperado. `/me/permissions` retornou
+`instagram_basic`, `instagram_manage_messages` e `public_profile` concedidos;
+o último é o acesso padrão da identidade do login. Entretanto,
+`/me/assigned_instagram_accounts?fields=id,username` retornou HTTP 200 e
+lista vazia. Os dois IDs de FC efetivamente observados nas telas foram
+consultados somente para identidade; ambos retornaram HTTP 400, código 100,
+subcódigo 33. Essa mensagem admite objeto inexistente, falta de acesso ou
+operação não suportada; não comprova uma causa específica.
+
+No portfólio, Apps conectados confirmou o novo app e @sirfisherfc com ID
+`17841439937145607`, além de perfil/posts e mensagens. O usuário de sistema
+novo não apareceu na lista de usuários de sistema próprios da empresa;
+os registros ClaudePerfil e Conversions API foram preservados. A lista
+vazia da API continua sem explicação confirmada. Não foram criados outro
+usuário/token, permissões extras ou nova inscrição para tentar compensá-la.
+
+Mostrar o segredo do novo app abriu uma confirmação de senha da Meta,
+entregue ao proprietário. A validação de emissor, validade e escopos por
+ativo aguarda essa ação manual; o segredo ainda não foi lido ou guardado.
+O guia local da habilidade de uso do computador proíbe automatizar diálogos
+de autenticação. O [diagnóstico oficial do token](https://developers.facebook.com/docs/graph-api/reference/debug_token),
+consultado em 01/11/2026, permite conferir esses metadados com autenticação
+do app; não promete corrigir a lista vazia. A confirmação anterior de
+conexão não comprova acesso à conta ou entrega de mensagens. A última
+conferência do portal preservou Edge 32, Gemini TEST1, cron único, oito
+envios/quatro chamadas e zero pendências, sem nova chamada de modelo.
 
 ### Auditoria de seis meses e rodada atual de 01/11/2026
 
