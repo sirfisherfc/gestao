@@ -276,6 +276,19 @@ do proprietário. O guia de app próprio trata detalhes de verificação como op
 e orienta deixar credenciais vazias; acesso adicional depende de pedido da Meta. Faltam vídeo,
 dependências e declarações legais/de tratamento antes de enviar Review.
 Nenhum novo perfil ou acesso foi liberado e a solicitação não foi enviada.
+O proprietário confirmou depois que desativou o acesso do navegador a URLs
+de arquivos. Reafirmou a resposta “Não” no campo de segurança nacional e os
+procedimentos informados de revisão de legitimidade e minimização. O cadastro
+preexistente de Anthropic no formulário foi preservado: a integração efetiva
+continua sem confirmação e não foi assumida como componente deste agente.
+Depois, a tentativa de gravar a aba do Instagram retornou indisponibilidade
+da captura/CDP enquanto o BrowserUse resolvia uma resposta de documento pausada.
+O mesmo ocorreu na aba existente e em uma nova, conforme a documentação.
+A gravação não iniciou. Nenhuma pergunta de demonstração, caso, chamada de IA
+ou gravação de clientes foi gerada nessa tentativa. O vídeo continua pendente.
+O cancelamento real da mensagem específica de teste aguarda resposta ao pedido
+de autorização. Foi preparado somente um roteiro sequencial com pausa global
+e cron desligado durante a prova; nenhuma dessas mudanças foi executada.
 Os campos de fornecedores/países ficaram sem alteração: entidade contratual
 Google e lista completa de países, incluindo suporte remoto, exigem conferência.
 O DPA padrão atual do Supabase cita Pte Ltd, sujeito ao contrato aplicável.
