@@ -24,6 +24,23 @@ fresca sem interferência. O MID não foi gravado em arquivo/log do operador.
 A prova cobre entrega real de `is_deleted` sob pausa; races e limpeza de
 trabalho ativo permanecem cobertas pelos contratos locais.
 
+Filtro de spam implantado na Edge 19, código reservas `71c5a2d` e regras em
+gestao `4e27f7a`: HMAC/ativos válidos precedem os padrões conservadores PT/EN.
+Spam claro é descartado antes de ingest/caso/ACK/Gemini, com contador agregado
+e sem texto/MID na fila. A mensagem permanece no Instagram; nenhum bloqueio ou
+exclusão é chamado. Relatos reais de golpe, cobrança, reclamação, urgência e
+pedido de pessoa têm prioridade. CV/menu/fornecedor/proposta comum não são spam
+só por conter link. Echo e retirada preservam os contratos anteriores.
+
+São 76 testes Node locais aprovados e repetidos pelo revisor (60 atendimento,
+8 deploy, 8 ativação). Não houve migration, mudança de esquema ou novo acesso.
+Implantação OFF, 29 nomes de segredos preservados, testes HTTP de saúde/assinatura e
+check de identidade passaram. O mesmo TEST1/cron único foi retomado com
+health 200, conta sem pausa e fila vazia, mantendo seis envios/três chamadas.
+Teto de R$45, limite de 2.000 gerações, reserva de 2 centavos e e-mails desligados preservados.
+Os testes do filtro são sintéticos; não comprovam triagem de todo o acervo ou
+uma porcentagem de cobertura. Instruções manuais em `../BOOK_QA_ATENDIMENTO.md`.
+
 Gestao `5f6a80a`, reservas `85abd70`. Migration aplicada e registrada na mesma
 transação, após cópia privada prévia. Funções/grants públicos dos outros sistemas
 preservados; invoker/servidor conferidos. Security Advisor: dez INFO privados,

@@ -37,6 +37,7 @@ comprova leitura de casos, resposta no horário ou compromisso de prazo.
 | Identificação da conversa | Profile API200/username exato; caso de teste mostrou perfil verificado e link real no painel. Sem avatares ou URL inventada de thread. |
 | Testes | 76 Node no filtro de spam; 37 contratos PostgreSQL18 anteriores preservados e catálogo226. Reais: horário, reserva, cozinha corrigida, aviso humano, pausa/retomada, echo manual, recuperação e cancelamento específico sob pausa global. Seis envios/três chamadas anteriores, sem novo gasto no cancelamento. |
 | Sonda externa sem IA | Envio e recebimento na Primary aceita conferidos no Instagram. Duas leituras do banco e logs oficiais: zero evento/POST correspondente. Perfil fora da lista, sem Profile API/modelo/resposta; causa de transporte ainda em aberto. |
+| Triagem de spam novo | Filtro PT/EN publicado antes de fila/caso/ACK/Gemini. Spam claro sem resposta, sem IA e sem apagar/bloquear. Relatos e pedidos legítimos preservados; 76 testes locais e revisão independente aprovados. Código `71c5a2d`, Edge19, mesmo TEST exclusivo e cron. Sem medição de cobertura total. |
 | Meta Review | Configurações 100%, ícone/categoria/descrição/Website e instruções salvos; instruções reabertas e credenciais vazias. Vídeo, dependências, declarações e entrega geral pendentes. Detalhes adicionais do analista são opcionais no guia de app próprio. Rascunho não enviado. |
 
 ### Atendimento manual de 01/11/2026
