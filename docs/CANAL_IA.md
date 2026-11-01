@@ -513,3 +513,18 @@ pela API; leitura da interface do Chrome continua como alternativa a verificar.
 Diagnósticos locais em `tmp/instagram-atendimento/`, ignorados pelo Git.
 
 — Codex
+
+## 2026-11-01 · Codex — Causa da desconexão do Chrome
+
+Os quatro diagnósticos oficiais do plugin confirmaram Chrome rodando e
+extensão habilitada, com arquivo de native host presente e registro
+`NativeMessagingHosts\com.openai.codexextension` ausente no HKCU do Chrome.
+`check-native-host-manifest.js --browser chrome --json`: exit 1, correct=false.
+O procedimento do plugin exige que o usuário reinstale Browser pela UI do
+ChatGPT e proíbe reparo manual do native host pelo agente. Nenhuma chave,
+permissão, extensão ou processo foi alterado. Causa e recuperação registradas
+em `docs/ATENDIMENTO_INSTAGRAM.md`. Configuração e mensagens ainda pendentes.
+Diagnóstico somente de leitura; `git diff --check` aprovado. Sem migration,
+deploy de agente, contratação ou mensagem enviada a cliente.
+
+— Codex

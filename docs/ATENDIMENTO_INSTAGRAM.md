@@ -19,10 +19,25 @@ com limite total de R$50/mês. Nenhuma contratação realizada.
 | Configuração na Meta | Pendente de inspeção do produto na conta. Nenhuma automação alterada. |
 | Testes do produto e ativação | Pendentes. Os cenários abaixo são o roteiro, sem resultado de execução. |
 
-A ferramenta de controle do Chrome interrompeu a rodada anterior por não
-conseguir identificar a URL atual com segurança. O navegador logado serve
-ao diagnóstico e à configuração; uma automação contínua precisa rodar na
-infraestrutura do fornecedor ou em servidor próprio.
+A ferramenta de controle do Chrome interrompeu as rodadas anteriores por
+não conseguir identificar a URL atual com segurança. Em 01/11/2026, os
+diagnósticos oficiais do plugin confirmaram: Chrome rodando, extensão ChatGPT
+habilitada no perfil Default e arquivo do native host presente, com ausência
+da chave `HKCU\Software\Google\Chrome\NativeMessagingHosts\com.openai.codexextension`.
+O comando `check-native-host-manifest.js --browser chrome --json` retornou
+código 1 e `correct=false`. Essa instalação precisa ser reparada antes de
+retomar a configuração ou as respostas pela interface.
+
+O procedimento `chrome-troubleshooting.md` do plugin instrui o usuário a
+reinstalar o **Browser** pela interface de plugins do ChatGPT e proíbe o
+agente de instalar/reparar o native host ou executar `installManifest.mjs`.
+Nenhum registro, extensão, permissão ou processo foi alterado no diagnóstico.
+Após a reinstalação, repetir a descoberta do navegador e conferir o acesso
+ao perfil correto antes de operar o Instagram. As orientações públicas estão
+em https://learn.chatgpt.com/docs/chrome-extension .
+
+O navegador logado serve ao diagnóstico e à configuração; uma automação
+contínua precisa rodar na infraestrutura do fornecedor ou em servidor próprio.
 
 ### Pedido de responder às mensagens pendentes
 
