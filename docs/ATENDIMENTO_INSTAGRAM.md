@@ -39,7 +39,7 @@ comprova leitura de casos, resposta no horário ou compromisso de prazo.
 | Sonda externa sem IA | Envio e recebimento na Primary aceita conferidos no Instagram. Duas leituras do banco e logs oficiais: zero evento/POST correspondente. Perfil fora da lista, sem Profile API/modelo/resposta; causa de transporte ainda em aberto. |
 | Triagem de spam novo | Filtro PT/EN publicado antes de fila/caso/ACK/Gemini. Spam claro sem resposta, sem IA e sem apagar/bloquear. Relatos e pedidos legítimos preservados; testes locais e revisão independente aprovados. Presente na Edge 27, no mesmo TEST exclusivo e cron. Sem medição de cobertura total. |
 | Meta Review | Configurações 100%, ícone/categoria/descrição/Website e instruções salvos; instruções reabertas e credenciais vazias. Vídeo, dependências, declarações e entrega geral pendentes. Detalhes adicionais do analista são opcionais no guia de app próprio. Rascunho não enviado. |
-| Novo aplicativo Meta | Sir Fisher Atendimento, ID `1442419914069550`, criado no portfólio Sir Fisher após autorização da criação, dos termos e verificação de identidade pelo proprietário. A UI exige Login Unificado para apps novos. Configuração `1665840125059739` salva apenas com `instagram_basic` e `instagram_manage_messages`. FC aceito como testador após autorização da declaração. Privacidade, exclusão, domínio, categoria e Website salvos e conferidos após recarga. Login para gerar credencial ainda em preparação; DeathStar preservado. |
+| Novo aplicativo Meta | Sir Fisher Atendimento, ID `1442419914069550`, criado no portfólio Sir Fisher após autorização da criação, dos termos e verificação de identidade pelo proprietário. A UI exige Login Unificado para apps novos. Configuração `1665840125059739` salva apenas com `instagram_basic` e `instagram_manage_messages`. FC aceito como testador após autorização da declaração. Privacidade, exclusão, domínio, categoria e Website salvos e conferidos após recarga. A Meta confirmou a conexão do portfólio após selecionar somente FC e as duas permissões. Credencial ainda não recebida nem validada; nova janela aguarda autenticação manual. DeathStar preservado. |
 | Modelo para clientes | Proprietário escolheu OpenAI com teto de R$45/mês. Projeto exclusivo criado, processamento padrão e modelo GPT-5.6 Luna selecionados. Chave de serviço autorizada, criada, restrita ao endpoint Responses e guardada no arquivo privado e nos segredos do servidor. Zero chamadas OpenAI; saldo da API observado em US$0,00, sem compra ou pagamento adicionado. Tratamento de mensagens de clientes e ativação pública continuam pendentes. |
 
 ### Preparação OpenAI e conexão Meta em 01/11/2026
@@ -73,6 +73,25 @@ guias atuais do Login Unificado exigem análise e acesso avançado para
 clientes sem função no app. Criar o aplicativo não comprova essa aprovação.
 O novo acesso será preparado com emissão desligada, separado de DeathStar;
 identidade, assinatura e entrega precisam de teste antes de trocar o emissor.
+
+Após o clique manual do proprietário, a tela oficial permitiu selecionar
+somente o portfólio Sir Fisher e @sirfisherfc, sem contas de anúncio. A
+revisão final mostrou perfil/publicações e mensagens, correspondentes às
+duas permissões já autorizadas. A Meta confirmou a conexão do portfólio ao
+aplicativo. Concluir fechou a janela; a tela do app continuou em Gerar token,
+sem credencial visível recebida. A emissão pela Meta permanece desconhecida.
+O identificador exibido no seletor de ativos ainda precisa ser conciliado
+com a conta retornada pela API do novo acesso.
+
+Uma nova tentativa de Gerar token abriu outra janela Meta Business Suite.
+A revisão automática rejeitou o clique em Continuar com o administrador
+por exigir ação manual no diálogo de autenticação. O proprietário já foi
+orientado a fazer esse clique; nenhuma alternativa foi usada após a rejeição.
+Não há token novo guardado, segredo do novo app capturado ou webhook novo
+inscrito. A releitura oficial da inscrição da Página confirmou DeathStar
+com `name` e `messages`, sem o app novo. Conferência do portal manteve Edge
+32, Gemini TEST1, cron único, oito envios/quatro chamadas e zero pendências;
+nenhuma chamada OpenAI, alteração operacional ou envio nesta conferência.
 
 ### Auditoria de seis meses e rodada atual de 01/11/2026
 

@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 gestao/reservas livres. OpenAI preparada/chave restrita guardada, ainda desligada. Gemini TEST1 na Edge32/cron único, oito envios/quatro chamadas e zero pendências. App Meta novo criado, FC testador aceito; geração de token aguarda clique manual no login Meta. Público desligado.
+> **🚦 Status atual:** 🟢 gestao/reservas livres. Meta confirmou vínculo do portfólio com o app novo, somente FC/perfil/mensagens; credencial não recebida. Nova janela Meta aguarda clique manual do administrador após rejeição automática da autenticação. Gemini TEST1/Edge32/cron único e oito envios/quatro chamadas preservados. OpenAI e público desligados.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -268,5 +268,32 @@ Site `4043409` publicou a preparação OpenAI sem anunciar ativação. Duas
 verificações passaram; HTTP 200 e nova cópia pública confirmados. Credenciais
 e recibos operacionais ficam privados em tmp/. A análise Meta para clientes
 fora dos papéis ainda é necessária e não foi enviada nesta etapa.
+
+— Codex
+
+## 2026-11-01 · Codex — Portfólio conectado; credencial Meta pendente
+
+Após o clique manual do proprietário, a Meta permitiu escolher somente
+Portfólio Sir Fisher e @sirfisherfc, sem anúncios. Revisão final com perfil
+e mensagens, as duas permissões já autorizadas. Confirmação oficial:
+portfólio conectado ao Sir Fisher Atendimento. Concluir fechou a janela;
+a tela do app continuou em Gerar token sem credencial recebida ou validada.
+A emissão pela Meta permanece desconhecida; não afirmar token inexistente.
+
+Outra tentativa abriu nova janela Meta Business Suite. A revisão automática
+rejeitou o clique em Continuar com o administrador por exigir ação manual
+no diálogo de autenticação. Solicitação manual já pendente. Nenhum método
+alternativo foi tentado após a rejeição. Opener e nova janela preservados;
+não repetir cadastro, convite ou criar janelas concorrentes.
+
+Alterados ATENDIMENTO_INSTAGRAM.md e INTEGRACAO_NUVEM.md, além deste registro.
+Prova e checkpoint privados em tmp/, sem credencial ou conteúdo de cliente
+versionado. Nenhum token novo guardado, segredo Meta capturado, inscrição
+nova ou migração. GET oficial da inscrição anterior confirmou DeathStar com
+name/messages e ausência do app novo. Check do portal: Edge32, Gemini TEST1,
+cron único, oito envios/quatro chamadas, zero pendências; sem envio ou drain.
+OpenAI e público desligados. Próximo passo após ação manual: receber acesso
+com segurança, conferir identidade/escopos/portfólio/conta e preparar rota
+separada em OFF. A confirmação do vínculo não comprova transporte ou Review.
 
 — Codex

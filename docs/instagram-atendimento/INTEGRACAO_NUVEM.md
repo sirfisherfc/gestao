@@ -12,9 +12,23 @@ de identidade pelo proprietário. Ainda não publicado nem conectado ao servidor
 DeathStar preservado. A UI do app novo oferece somente Login Unificado;
 configuração `1665840125059739` reduzida e salva com `instagram_basic` e
 `instagram_manage_messages`. FC aceito como testador após autorização da
-declaração. Login para gerar credencial aguarda clique manual na janela
-Meta Business Suite que não respondeu à automação. A criação não comprova
-aprovação da Meta ou entrega pública.
+declaração. Após o clique manual do proprietário, somente o portfólio Sir
+Fisher e FC foram selecionados, com as duas permissões autorizadas e sem
+contas de anúncio. A Meta confirmou a conexão do portfólio ao app. Concluir
+fechou a janela; o app continuou em Gerar token sem credencial recebida.
+A emissão pela Meta permanece desconhecida; ainda falta receber e validar
+o novo acesso. Outra janela aberta por Gerar token aguarda clique manual
+em Continuar com o administrador: a revisão automática rejeitou esse
+clique por exigir ação do usuário no diálogo de autenticação. Nenhum outro
+método foi usado após a rejeição. A criação e o vínculo do portfólio não
+comprovam aprovação da Meta ou entrega pública.
+
+Releitura oficial da inscrição da Página confirmou DeathStar com `name` e
+`messages`, sem o novo app. Não há credencial nova armazenada, segredo do
+novo app capturado ou webhook novo inscrito. O próximo teste precisa conferir
+portfólio, conta atribuída e identidade com o acesso real antes de configurar
+uma rota separada em OFF. Preservar a conexão antiga; não presumir equivalência
+entre IDs exibidos por seletores de ativos e os devolvidos pela nova API.
 
 Código OpenAI `147e91d` preparado e instalado na Edge 30 em OFF. Depois da
 conferência e inclusão da chave desligada, o runtime final é Edge 32 ACTIVE.
