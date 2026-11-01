@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 livre — preparação do atendimento Instagram documentada; configuração e testes na Meta continuam pendentes.
+> **🚦 Status atual:** 🟢 livre — schema e testes do agente Instagram preparados; raiz assume revisão e implantação desligada. Nada aplicado nesta preparação.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -603,5 +603,45 @@ Revisão documental e `git diff --check` aprovados. A checagem local do projeto
 retornou `QUALITY_OK`: Python 78, JS externo 8, JS inline 28, páginas 29,
 contratos 123 e segurança 30. A execução usou o Python instalado com a
 permissão local necessária, após o alias ficar inacessível no ambiente restrito.
+
+— Codex
+
+## 2026-11-01 · Codex — Fila privada para o agente Instagram
+
+Migration `20261101071634_instagram_support_durable_queue.sql` criada pela
+CLI Supabase 2.122.0 e preparada, sem aplicação no portal. Dez tabelas no
+schema `instagram_support`, RLS, grants explícitos para service_role e RPCs
+SECURITY INVOKER sem acesso anon/authenticated. Nenhuma tabela de reservas
+ou financeira foi alterada. Instala off/paused, modelo/faturamento e alertas
+bloqueados, allowlist vazia, gerente NULL e cron inativo.
+
+A ingestão preserva safety_intent antes de substituir mensagens da fila:
+alergia, cobrança contestada e pedido de pessoa pausam e criam caso na mesma
+transação, sem IA ou ACK automático. Leases e versões impedem resultado
+antigo; sending sem confirmação fica incerto e exige revisão, sem reenvio.
+Reserva conservadora de 2 centavos antes do Gemini, teto R$45 e 2.000
+chamadas mensais. Alertas têm outbox, destinatário resolvido no servidor,
+até 60 tentativas/mês e nenhuma carga retroativa.
+
+Consulta somente de leitura confirmou cadastro da gerente como admin ativo,
+com autenticação vinculada e e-mail presente; nenhum dado pessoal foi
+impresso ou versionado e nenhum grant de usuário foi criado. Configuração
+posterior exige lookup único. Contrato e roteiro de aplicação em
+`docs/instagram-atendimento/INTEGRACAO_NUVEM.md`; catálogo atualizado em
+`docs/supabase_schema.md`. Backend e painel ficam no repositório reservas.
+
+Validação: 17 testes reais em PostgreSQL 18 local e descartável passaram,
+incluindo duas conexões concorrentes para claim/orçamento e regressão de
+mensagens sensíveis em rajada. Workflow Quality ganhou o mesmo runner em
+PostgreSQL 15 dedicado. `check_project.py --require-node` retornou QUALITY_OK
+(Python 79, contratos 123, segurança 30); catálogo de 224 migrations e
+`git diff --check` aprovados. Auditoria independente de leitura não encontrou
+P0/P1 aberto no SQL. Não houve Meta/Gemini/Resend nos testes SQL.
+
+Arquivos: migration, `scripts/ci/test_instagram_support_sql.py`, fixture SQL,
+workflow Quality, guia de integração, catálogo de schema e este canal.
+Nenhum commit/push/deploy feito pelo subagente. A raiz assume a revisão,
+a aplicação com registro transacional, advisors e o teste controlado antes
+de habilitar provedores ou callback para clientes.
 
 — Codex

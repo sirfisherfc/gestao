@@ -209,3 +209,14 @@ jobs:
             -c 'drop database if exists sirfisher_estoque_test' \
             -c 'create database sirfisher_estoque_test'
           python scripts/ci/test_estoque_sql.py
+
+      - name: Instagram private queue, human pause and budget in disposable PostgreSQL
+        env:
+          PGHOST: 127.0.0.1
+          PGPORT: '5432'
+          PGDATABASE: sirfisher_ig_support_test
+          PGUSER: postgres
+          IG_SUPPORT_SQL_DISPOSABLE: '1'
+        run: |
+          psql -h 127.0.0.1 -U postgres -d postgres -c 'create database sirfisher_ig_support_test'
+          python scripts/ci/test_instagram_support_sql.py

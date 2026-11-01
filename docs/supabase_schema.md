@@ -1532,3 +1532,20 @@ O receptor exige token privado e CNPJ configurado, recebe o aviso e baixa o CSV
 em segundo plano. `api_stone_vendas.py` grava cartão XML e Pix CSV juntos em
 `raw_stone_vendas`, deduplicando pelo Stone ID/E2E, reconcilia a Saipos já no
 banco e chama `refresh_painel()`. Não altera as regras das views financeiras.
+
+## Atendimento Instagram em nuvem (preparação de 01/11/2026)
+
+Migration `20261101071634_instagram_support_durable_queue.sql` preparada e
+testada em PostgreSQL descartável; aplicação no portal pendente de revisão.
+Schema `instagram_support`, com dez tabelas privadas, RLS e grants apenas
+para `service_role`. RPCs `public.ig_support_*` são SECURITY INVOKER, têm
+search_path fixo e retiram EXECUTE de PUBLIC, anon e authenticated.
+
+O estado inicial é desligado: allowlist vazia, modelo/faturamento sem
+aprovação, alertas desligados e cron inativo. A fila deduplica por MID,
+preserva a pausa humana e reserva orçamento antes de Gemini. `sending`
+sem confirmação vira resultado incerto para revisão, sem reenvio automático.
+A outbox de alertas resolve o destino de um admin ativo no servidor e
+limita as tentativas mensais. Nenhum segredo ou endereço real é seedado.
+Contratos, limites e testes em
+[INTEGRACAO_NUVEM.md](instagram-atendimento/INTEGRACAO_NUVEM.md).
