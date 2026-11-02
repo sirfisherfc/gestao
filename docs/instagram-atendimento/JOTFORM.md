@@ -145,6 +145,21 @@ amostras de conversas para medir resposta correta e resolução; o contador
 de respostas não comprova resolução. Não registrar como concluído um
 pagamento, reserva ou atendimento humano só porque foi enviado um link.
 
+## Aviso de privacidade
+
+Em 02/11/2026, o aviso público foi revisado para descrever o Jotform ativo,
+o tratamento das mensagens, o histórico e o pedido de exclusão. Fonte:
+`site/privacidade/index.html` no workspace e
+[página pública](https://www.sirfisher.com.br/privacidade/#instagram).
+A memória desligada não apaga o histórico. Prazo efetivo de exclusão automática,
+região da conta e modelo usado pelo agente não foram confirmados nesta revisão;
+não herdar prazos ou garantias da API OpenAI ou do piloto Gemini.
+Foram consultadas as políticas oficiais de
+[privacidade](https://www.jotform.com/privacy/) e
+[IA](https://www.jotform.com/ai-policy/), que descrevem o uso de fornecedores.
+O aviso informa possível processamento fora do Brasil, sem atribuir à conta
+uma região ou um modelo específico.
+
 ## Custo e manutenção
 
 Plano **Starter gratuito**, sem cartão ou contratação. A conta mostrou

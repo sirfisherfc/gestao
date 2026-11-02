@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 gestao/reservas livres. Token Meta novo válido/sem vencimento programado e segredos guardados no portal, namespace OFF; API de contas segue vazia. Perfil/termos/relato público autorizados, publicação sem confirmação. Controle do Chrome encerrado pela ferramenta ao não confirmar o endereço atual; nenhuma tentativa posterior. Último check: Gemini TEST1/Edge33/cron único, oito envios/quatro chamadas e zero pendências; público desligado. Auditoria do export: 22 registros, 9 pertinentes respondidos, 1 parcial, 11 sem saída e 1 saudação sem composer; nenhum envio novo.
+> **🚦 Status atual:** 🟢 gestao/site/reservas livres. Direct @sirfisherfc ativo no Jotform; piloto próprio pausado. Aviso de privacidade alinhado ao atendimento atual. Operação e limites em docs/instagram-atendimento/JOTFORM.md.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -496,5 +496,30 @@ agora 3/12 restantes: Google Ads, User-ID e UPD. Perfil demográfico elegível
 depende de consentimento e limiares; histórico e prazo não garantidos.
 Relatório EVOLUCAO_SITE_GA4_2026-11-02.md atualizado. Provas privadas em
 tmp/semrush-2026-11-02/, incluindo google-signals-ativado.jpg.
+
+— Codex
+
+## 2026-11-02 · Codex — Aviso público alinhado ao Jotform ativo
+
+O proprietário apontou que privacidade ainda descrevia OpenAI preparada e
+Gemini de teste. Atualizado site/privacidade/index.html: Direct Jotform ativo,
+conteúdo de mensagens/identificadores, histórico no Jotform e Instagram,
+fornecedores e possível processamento internacional, pedido de exclusão e
+piloto anterior pausado. Retiradas do fluxo atual as garantias de mascaramento,
+texto apenas na fila e prazos herdados de outros serviços. Memória desligada
+não apaga histórico. Prazo automático, região da conta e modelo específico
+Jotform continuam sem confirmação; políticas oficiais privacy/ai-policy lidas.
+Indicadores Google já ativados passaram a ser descritos no presente.
+
+JOTFORM.md e AGENTS.md registram o estado atual para evitar confusão com o
+piloto preservado. Quatro verificadores do site passaram; QA local em 390 e
+1440 px, claro/escuro, sem overflow, erro JS ou violação CSP. Rede externa
+bloqueada no ensaio; nenhuma mensagem, estado de agente ou integração mudou.
+Provas privadas em tmp/privacidade-jotform-2026-11-02/.
+
+Publicação do site: commit 5bd8a78, Pages 41409118102 e assets 41409118875
+concluídos com sucesso. Página pública HTTP 200 e conteúdo idêntico ao HEAD
+após normalizar LF, conferido por SHA-256. Prova publicado.jpg no diretório
+privado do ensaio. Sem mudança de banco, agente ou tratamento configurado.
 
 — Codex

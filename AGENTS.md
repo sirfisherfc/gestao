@@ -100,6 +100,15 @@ Este arquivo é a fonte canônica das instruções operacionais para qualquer IA
 
 ## Atendimento Instagram: modelo, WhatsApp e spam
 
+Estado atual desde 02/11/2026: o Direct de `@sirfisherfc` usa o Jotform,
+com respostas ativas. O piloto próprio Supabase/Gemini está pausado e a
+preparação OpenAI API segue sem ativação para clientes. Consultar primeiro
+`docs/instagram-atendimento/JOTFORM.md` para operação, limites e pausas.
+As regras de Gemini, fila e filtro do código próprio abaixo se referem ao
+piloto preservado. Não retomá-lo junto do Jotform. Conversas ficam no
+histórico Jotform mesmo com memória entre sessões desligada; não aplicar
+ao serviço atual as promessas de mascaramento ou retenção do piloto.
+
 - O Gemini permanece limitado ao TEST1 do proprietário adulto. Os
   [termos Gemini consultados em 01/11/2026](https://ai.google.dev/gemini-api/terms)
   restringem API Clients provavelmente acessados por menores de 18; Paid
@@ -118,7 +127,7 @@ Este arquivo é a fonte canônica das instruções operacionais para qualquer IA
   fechar um caso preserva sua pausa vigente. Não inferir consentimento ou
   entrega pública a partir do piloto: os gates de produção são separados.
 
-- Para novas mensagens, aplicar o filtro conservador de
+- No piloto próprio, para novas mensagens, aplicar o filtro conservador de
   `../reservas/supabase/functions/instagram-support/policy.mjs` antes de Gemini,
   caso e aviso humano. Spam inequívoco fica sem resposta, sem gasto de IA e
   sem exclusão/bloqueio automático no Instagram. Texto/MID descartados pelo
@@ -129,7 +138,7 @@ Este arquivo é a fonte canônica das instruções operacionais para qualquer IA
   Links, cardápio, currículos, fornecedores e propostas comuns continuam
   elegíveis. Em dúvida, preservar e encaminhar para leitura humana.
 - Consultar `docs/BOOK_QA_ATENDIMENTO.md` e `docs/instagram-atendimento/CONHECIMENTO.md`.
-  A persistência vem do código implantado e das regras versionadas; não depende
+  No piloto próprio, a persistência vem do código implantado e das regras versionadas; não depende
   de o operador manter Chrome aberto. Não prometer triagem perfeita ou uma
   porcentagem sem medição. Echo e cancelamento de envio mantêm seus protocolos.
 
