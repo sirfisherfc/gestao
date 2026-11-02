@@ -11,7 +11,7 @@ permanece separado e desligado. Nenhum custo novo foi contratado.
   contém Instagram/messages ativo no callback correto. A Página mantém
   DeathStar com `messages` e `name`.
 - Health real: Edge 33, Gemini TEST exclusivo do proprietário adulto,
-  sem pausa global, oito envios e quatro chamadas acumuladas, zero
+  sem pausa global, 12 envios e seis chamadas acumuladas, zero
   pendências. Todos os gates públicos continuam fechados.
 - Novo teste: uma mensagem identificada do `@sirfisherpub`, enviada às
   **22h43 de 01/11, Fortaleza**, apareceu na caixa do Sir Fisher. A consulta
@@ -25,8 +25,8 @@ permanece separado e desligado. Nenhum custo novo foi contratado.
   exige aprovação para receber dados de pessoas sem função no aplicativo.
   Isso confirma uma condição ainda não satisfeita; não demonstra que seja
   a única causa possível nem resolve o Timeout histórico da leitura.
-- O pedido `29077618661870253` ainda exige vídeo, dependência
-  `instagram_basic`, certificações de uso/renovação e revisão dos dados.
+- O pedido `29077618661870253` ainda exige anexo do vídeo,
+  certificações de uso/renovação e revisão dos dados.
   A descrição foi corrigida, salva e reaberta: WhatsApp sem horário,
   FAQ continua após o link, pausa por intervenção/envio incerto, Gemini
   apenas no piloto e OpenAI preparada em OFF. A descrição anterior dizia
@@ -35,9 +35,25 @@ permanece separado e desligado. Nenhum custo novo foi contratado.
   foi preservada conforme a decisão do proprietário; uso continua pendente
   de conferência. Supabase e os países de processamento precisam constar
   corretamente antes do envio; não foram inventados ou certificados.
-- Ao tentar abrir o proprietário para preparar o vídeo, o Instagram pediu
-  **Continuar como rogerioluizdafonseca**. O clique de autenticação foi
-  entregue ao proprietário. Nenhum vídeo novo foi gravado ou enviado.
+- Após o clique manual do proprietário, foram gravados quatro testes reais:
+  saudação (4,459 s), horário (5,753 s), pedido de pessoa (4,664 s) e endereço
+  após o WhatsApp (4,625 s), medidos do recebimento à conclusão no servidor.
+  Cada envio teve um MID confirmado. Saudação e pedido de pessoa não
+  chamaram modelo. O caso criado pelo teste foi encerrado pelo painel;
+  leitura final: zero abertos, quatro fechados e zero eventos pendentes.
+  São quatro observações controladas, sem prazo garantido para clientes.
+- A gravação foi salva em `tmp/instagram-atendimento/provas/`, com recorte
+  da conversa do proprietário. O envio automático à Meta foi bloqueado
+  porque o acesso da extensão a arquivos locais está desligado; foi
+  solicitado selecionar o arquivo manualmente. Anexo ainda sem confirmação.
+- Ao tentar incluir `instagram_basic` na solicitação, a triagem da Meta
+  informou que esse pedido avançado só está disponível para integração em
+  nome de clientes empresariais. Foram respondidas as duas perguntas como
+  uso próprio, e a Meta removeu `instagram_basic` do pedido. A lista ficou
+  somente com `instagram_manage_messages`; o aviso genérico de dependência
+  permaneceu no assistente. Conferir as perguntas de integrador direto.
+  Não declarar o Sir Fisher como fornecedor de tecnologia para contornar
+  essa triagem. Nenhum acesso foi concedido por essa edição do rascunho.
 
 Fontes oficiais relidas em 01/11/2026:
 [webhooks do Messenger para Instagram](https://developers.facebook.com/documentation/business-messaging/instagram-messaging/webhooks)

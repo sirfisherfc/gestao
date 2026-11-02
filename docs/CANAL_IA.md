@@ -194,3 +194,41 @@ verificadores somente leitura em tmp/ ignorado. Nenhum deploy/migration,
 troca de segredo/modelo, ampliação de allowlist ou contratação.
 
 — Codex
+
+## 2026-11-01 · Codex — Gravação real do piloto para Meta Review
+
+Após FEITO do proprietário, perfil pessoal retomado no Chrome. Quatro
+mensagens novas foram enviadas à própria conta de teste e gravadas:
+saudação, horário, pedido de pessoa e endereço após o WhatsApp. Tempos
+recebimento/conclusão no servidor: 4,459 s; 5,753 s; 4,664 s; 4,625 s.
+Quatro envios com MID confirmado, duas chamadas de modelo. Saudação e
+pedido de pessoa respondidos localmente. Nenhuma chamada/resposta externa.
+
+Caso do teste encerrado no painel autenticado; confirmação visual da
+preservação da pausa e fila vazia. Leitura final real: TEST1/Edge33,
+12 envios/seis chamadas acumuladas, zero abertos, quatro fechados, zero
+eventos pendentes e conversa do proprietário sem pausa. Todos os gates
+públicos continuam false. Nenhum deploy, credencial, modelo ou cron mudou.
+
+MP4 privado em tmp/instagram-atendimento/provas/deathstar-demo-20261101/,
+com recorte somente da conversa controlada, mensagens/ordem preservadas e
+reprodução normalizada. QA visual corrigiu um quadro de escala diferente.
+Tentativa de anexar pela interface oficial bloqueada pelo acesso da
+extensão a arquivos locais desligado. Seleção manual do MP4 solicitada;
+nenhuma confirmação de anexo ou submissão. Acesso amplo não reativado.
+
+Tentativa de incluir instagram_basic no pedido passou pela triagem da
+Meta. Ambas as perguntas de integrar para outros clientes respondidas
+Não, por ser uso próprio. A Meta removeu instagram_basic do pedido e
+conservou instagram_manage_messages; não declarar fornecedor de tecnologia
+para obter permissão incompatível. Assistente mantém aviso genérico de
+dependência e acrescenta perguntas próprias de integrador direto, ainda
+por conferir. Alteração de rascunho não concede acesso avançado.
+
+Anexo, certificação de uso, renovações e tratamento de dados continuam
+pendentes. Anthropic preservada conforme decisão anterior do proprietário.
+Autorização específica para novo ensaio de cancelamento foi solicitada;
+sem resposta, a mensagem não foi enviada nem cancelada. A demonstração
+atual cobre quatro respostas do piloto, sem provar entrega pública.
+
+— Codex

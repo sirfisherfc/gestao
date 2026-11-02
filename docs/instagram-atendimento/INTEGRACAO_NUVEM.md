@@ -9,13 +9,23 @@ solicitação de análise **Não enviado**. A UI de Mensagens do Instagram e a
 confirmam a necessidade de análise para interagir com pessoas sem papel
 no app. Não tratar isso como entrega corrigida ou causa única comprovada.
 
-Descrição da solicitação corrigida, salva e reaberta. Vídeo,
-`instagram_basic`, certificações e tratamento de dados continuam pendentes.
+Descrição da solicitação corrigida, salva e reaberta. O proprietário retomou
+a sessão manualmente e quatro testes reais foram gravados: saudação,
+horário, WhatsApp e endereço após o WhatsApp. Tempos entre recebimento e
+conclusão: 4,459 s; 5,753 s; 4,664 s; 4,625 s, respectivamente. Um MID por
+envio; somente horário/endereço chamaram modelo. Caso do teste encerrado
+pelo painel, com pausa preservada. Leitura final: Gemini TEST1/Edge33,
+12 envios/seis chamadas, zero casos abertos, quatro fechados, zero eventos
+pendentes. Cron existente preservado; OpenAI/público OFF.
+
+Vídeo privado pronto, sem confirmação do anexo à Meta. O Chrome bloqueou
+o envio automático com o acesso a arquivos locais desligado; seleção manual
+solicitada. Certificações e tratamento de dados continuam pendentes.
 Google/Anthropic preservados na lista antiga; conferir Supabase e países
-antes de certificar. Retomada do perfil do proprietário pediu autenticação
-manual, solicitada ao usuário. Nenhuma alteração de runtime, segredo,
-inscrição, cron, allowlist ou banco; health segue Gemini TEST1/Edge33,
-oito envios/quatro chamadas e zero pendências. OpenAI/público OFF.
+antes de certificar. A triagem correta de uso próprio removeu a tentativa
+de pedir acesso avançado a `instagram_basic`; a lista conserva somente
+`instagram_manage_messages`. O assistente ainda mostra dependência genérica
+e perguntas próprias de integrador direto. Nenhum acesso novo concedido.
 
 Gemini segue exclusivo do proprietário adulto. Em 01/11/2026 o proprietário
 escolheu preparar OpenAI API com teto de R$45/mês. Preparação e testes locais
@@ -78,7 +88,8 @@ nenhum cartão, compra ou benefício de créditos ativado.
 apenas constantes públicas ao modelo, sem texto original ou IDs. A
 cobertura é restrita: palavras/escopos desconhecidos seguem ao WhatsApp.
 Saudação simples tem resposta local sem modelo; o SQL real foi conferido
-compatível, sem DDL novo. Ainda falta ensaio real de “Oi”. Para o teste
+compatível, sem DDL novo. O ensaio real de “Oi” respondeu em 4,459 s pelo
+piloto vigente, sem chamada de modelo. Para o teste
 OpenAI futuro, atualizar `settings.model` além das flags próprias, crédito
 e autorizações; o helper de ativação atual permanece exclusivo de Gemini.
 
