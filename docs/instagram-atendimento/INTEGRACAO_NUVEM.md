@@ -24,8 +24,9 @@ A criação e o vínculo do portfólio não comprovam aprovação da Meta ou
 entrega pública.
 
 Releitura oficial da inscrição da Página confirmou DeathStar com `name` e
-`messages`, sem o novo app. A credencial nova está somente no arquivo local
-privado, sem segredo do novo app capturado ou webhook novo inscrito. GET
+`messages`, sem o novo app. Token e segredo novos estão no arquivo local
+privado e nos segredos do portal, em nomes próprios com namespace OFF;
+nenhuma rota nova foi instalada ou webhook novo inscrito. GET
 oficial `/me` confirmou usuário de sistema e portfólio; `/me/permissions`
 confirmou basic/manage_messages e public_profile padrão. A lista de contas
 atribuídas retornou HTTP 200 vazia; os dois IDs observados de FC retornaram
@@ -33,13 +34,20 @@ atribuídas retornou HTTP 200 vazia; os dois IDs observados de FC retornaram
 Apps conectados no portfólio confirmou novo app, FC de ID
 `17841439937145607` e as duas permissões esperadas. Essa diferença entre
 tela e API permanece sem causa confirmada; não criar usuário ou ampliar
-escopos por inferência. A Meta pediu senha manual em Mostrar segredo para
-continuar a validação de emissor/validade/escopos por ativo. Próxima etapa
-de servidor continua condicionada à identidade e conta atribuída verificadas;
-preservar a conexão antiga e manter uma futura rota separada em OFF.
+escopos por inferência. O proprietário concluiu a senha manual em Mostrar
+segredo. Debug oficial confirmou token válido, app emissor esperado,
+SYSTEM_USER, expires_at/data_access_expires_at zero, com os escopos esperados.
+Isso permite confirmar a credencial; a conta atribuída segue sem acesso
+verificado. Administrador, FC testador e estados Pronto para teste conferidos;
+uma releitura final continuou data[]. Próxima etapa de servidor continua
+condicionada à conta atribuída e identidade verificadas; preservar a conexão
+antiga e manter uma futura rota separada em OFF.
 
 Código OpenAI `147e91d` preparado e instalado na Edge 30 em OFF. Depois da
-conferência e inclusão da chave desligada, o runtime final é Edge 32 ACTIVE.
+chave OpenAI, runtime Edge 32. A gravação dos três nomes Meta novos, sem
+alterar os 34 nomes existentes e com digests relidos, levou à Edge 33 ACTIVE.
+Health anterior/posterior e check completo mantiveram o mesmo TEST1. A fonte
+atual não usa as variáveis Unified; segredos guardados não ativam a conexão.
 O mesmo Gemini TEST1 e cron único foram restaurados; oito
 envios/quatro chamadas, zero pendências e gates públicos false preservados.
 Chave de serviço OpenAI criada após autorização, restrita ao endpoint
@@ -56,6 +64,24 @@ Saudação simples tem resposta local sem modelo; o SQL real foi conferido
 compatível, sem DDL novo. Ainda falta ensaio real de “Oi”. Para o teste
 OpenAI futuro, atualizar `settings.model` além das flags próprias, crédito
 e autorizações; o helper de ativação atual permanece exclusivo de Gemini.
+
+Canal oficial de bug Instagram/Usuário informou suporte indisponível e
+indicou comunidade; triagem técnica geral também levou à ferramenta de bugs.
+Perfil/termos específicos/publicação pública foram autorizados; perfil
+concluído, sem credenciais ou dados de clientes no relato. Pergunta voltou ao
+editor com aviso de erro, sem link confirmado. Busca interna encontrou casos
+equivalentes. O relato foi preparado como resposta no tópico
+`https://developers.facebook.com/community/threads/1135525369404661/`;
+envio automático sem confirmação, e leitura do tópico em página nova não
+mostrou o relato. Texto preservado; clique manual único solicitado. Não contar
+como chamado aberto ou relato publicado até confirmação na interface pública.
+Na retomada, a aba anterior estava na página inicial; leitura de perfil
+próprio retornou timeout de Page.getFrameTree. Página nova do tópico manteve
+ausência do relato; texto restaurado e tentativa de teclado sem confirmação.
+A ferramenta encerrou o controle do Chrome ao não conseguir determinar seu
+endereço atual com segurança. Nenhuma ação de navegador após esse bloqueio.
+Texto/recibos privados preservados; a autorização pública já recebida continua
+válida para retomar a conferência e evitar postagem duplicada.
 
 Continuidade após WhatsApp conferida no proprietário: um aviso, uma FAQ de
 endereço e nenhum aviso repetido no mesmo caso, sem pausa automática.

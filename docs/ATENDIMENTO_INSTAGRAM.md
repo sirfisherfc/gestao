@@ -21,7 +21,7 @@ comprova leitura de casos, resposta no horário ou compromisso de prazo.
 | MCP existente | Mantido somente para leitura de métricas. Não foi ampliado para Direct ou escrita. |
 | Webhook do app | Callback HTTPS, HMAC e objeto Instagram/messages validados. DMs reais da conta controlada geraram respostas e MID confirmado; nenhum cliente fora do teste foi liberado. |
 | Inscrição da Página | A releitura da API encontrou somente `name`, apesar de a tela mostrar mensagens selecionadas. Após confirmar o contrato de Facebook Login, POST autorizado conservou `name` e incluiu `messages`; HTTP 200, `success=true` e GET de retorno com ambos os campos. Não foi adicionado objeto Page ao webhook do app por inferência. |
-| App da Meta | Publicado em Live com autorização do proprietário e estado relido. O aviso de testes dummy antes de Live desapareceu. Isso não ativa o agente nem comprova aprovação de Advanced Access ou Meta Review. |
+| App da Meta existente, DeathStar | Publicado em Live com autorização do proprietário e estado relido. O aviso de testes dummy antes de Live desapareceu. Isso não ativa o agente nem comprova aprovação de Advanced Access ou Meta Review. |
 | Verificação empresarial | A Página pertence a empresa verificada. A tela oficial de Verificação do App confirmou 100%, com DeathStar no portfólio Sir Fisher e estado Verificado, sem alteração de vínculo. Isso satisfaz a comprovação empresarial conferida; não explica o Timeout. |
 | Leitura atual de conversas | HTTP 400, código -2, subcódigo 2534084, `error.message=Timeout` e título de tempo limite, inclusive com o Page token humano candidato. Esse erro observado não comprova falta de permissão ou exigência de Advanced Access. A leitura não retornou o histórico; resposta vazia em outra rota não comprova caixa vazia. |
 | Amostra histórica | Originais de 28/09/2026 lidos em memória; resumo abaixo, sem dados pessoais. |
@@ -32,14 +32,14 @@ comprova leitura de casos, resposta no horário ou compromisso de prazo.
 | Atendimento humano | Pedido de pessoa registra caso e um aviso WhatsApp sem IA. O aviso permite responder à próxima dúvida no Instagram. Pausas manuais, echo sem conciliação e envio incerto conservam seus controles. Sem horário humano, prazo, responsável padrão ou e-mail. |
 | Comentários | Seis publicações e nove comentários visíveis revisados; elogios ou reações sem perguntas. Nenhuma resposta publicada ou automação de comentário ativada. |
 | IA nativa | Não apareceu no aplicativo conferido pelo proprietário. Atendimento livre com IA ainda indisponível nesta conta. |
-| Integração em nuvem | Código OpenAI preparado no servidor, runtime final Edge 32 ACTIVE após instalação e configuração; TEST Gemini do proprietário adulto restaurado. Um único cron ativo, oito envios/quatro chamadas e zero pendências preservados. OpenAI e atendimento público continuam desligados. |
+| Integração em nuvem | Código OpenAI preparado no servidor, runtime final Edge 33 ACTIVE após guardar os novos segredos Meta sob nomes separados. Fonte anterior preservada; Gemini TEST do proprietário adulto mantido. Um único cron ativo, oito envios/quatro chamadas e zero pendências preservados. OpenAI, nova integração e atendimento público continuam desligados. |
 | Painel da equipe | Login, perfil, caso e link conferidos. Encerrar preserva a pausa vigente; retomar é separado. Três casos controlados fechados, zero abertos; nenhuma reclamação real marcada como resolvida. |
 | Identificação da conversa | Profile API200/username exato; caso de teste mostrou perfil verificado e link real no painel. Sem avatares ou URL inventada de thread. |
 | Testes | 94 Node aprovados na preparação OpenAI e revisão independente; 44 verificações SQL anteriores preservadas. Catálogo real confirmou GREETING compatível sem DDL. Ensaio real anterior: WhatsApp em 4,620 s, FAQ posterior em 5,397 s e novo pedido humano sem repetir aviso. Oito envios/quatro chamadas acumulados. Observações do piloto, sem SLA ou prova de atendimento público. Saudação “Oi” ainda sem medida automática real. |
 | Sonda externa sem IA | Envio e recebimento na Primary aceita conferidos no Instagram. Duas leituras do banco e logs oficiais: zero evento/POST correspondente. Perfil fora da lista, sem Profile API/modelo/resposta; causa de transporte ainda em aberto. |
 | Triagem de spam novo | Filtro PT/EN publicado antes de fila/caso/ACK/Gemini. Spam claro sem resposta, sem IA e sem apagar/bloquear. Relatos e pedidos legítimos preservados; testes locais e revisão independente aprovados. Presente na Edge 27, no mesmo TEST exclusivo e cron. Sem medição de cobertura total. |
-| Meta Review | Configurações 100%, ícone/categoria/descrição/Website e instruções salvos; instruções reabertas e credenciais vazias. Vídeo, dependências, declarações e entrega geral pendentes. Detalhes adicionais do analista são opcionais no guia de app próprio. Rascunho não enviado. |
-| Novo aplicativo Meta | Sir Fisher Atendimento, ID `1442419914069550`, criado no portfólio Sir Fisher após autorização da criação, dos termos e verificação de identidade pelo proprietário. A UI exige Login Unificado para apps novos. Configuração `1665840125059739` salva apenas com `instagram_basic` e `instagram_manage_messages`. FC aceito como testador após autorização da declaração. Privacidade, exclusão, domínio, categoria e Website salvos e conferidos após recarga. Credencial recebida e guardada só no arquivo privado ignorado. API confirmou portfólio/escopos, mas contas atribuídas retornou vazio; UI Apps conectados confirmou FC e as duas permissões. Novo acesso ainda sem validação completa ou webhook; senha manual solicitada pela Meta para conferir o segredo do app. DeathStar preservado. |
+| Meta Review do DeathStar | Configurações 100%, ícone/categoria/descrição/Website e instruções salvos; instruções reabertas e credenciais vazias. Vídeo, dependências, declarações e entrega geral pendentes. Detalhes adicionais do analista são opcionais no guia de app próprio. Rascunho não enviado. |
+| Novo aplicativo Meta | Sir Fisher Atendimento, ID `1442419914069550`, criado no portfólio Sir Fisher. Login Unificado, configuração `1665840125059739` com `instagram_basic` e `instagram_manage_messages`. FC testador aceito; administrador e estado Pronto para teste conferidos. Token válido do app correto, SYSTEM_USER e sem vencimento programado. Token/segredo guardados no arquivo privado ignorado e no portal sob nomes próprios, namespace OFF. A API de contas atribuídas segue vazia apesar do vínculo FC visível no portfólio. Nova rota de servidor e webhook ainda não configurados; app não publicado e Review não enviado. DeathStar preservado. |
 | Modelo para clientes | Proprietário escolheu OpenAI com teto de R$45/mês. Projeto exclusivo criado, processamento padrão e modelo GPT-5.6 Luna selecionados. Chave de serviço autorizada, criada, restrita ao endpoint Responses e guardada no arquivo privado e nos segredos do servidor. Zero chamadas OpenAI; saldo da API observado em US$0,00, sem compra ou pagamento adicionado. Tratamento de mensagens de clientes e ativação pública continuam pendentes. |
 
 ### Preparação OpenAI e conexão Meta em 01/11/2026
@@ -120,15 +120,71 @@ vazia da API continua sem explicação confirmada. Não foram criados outro
 usuário/token, permissões extras ou nova inscrição para tentar compensá-la.
 
 Mostrar o segredo do novo app abriu uma confirmação de senha da Meta,
-entregue ao proprietário. A validação de emissor, validade e escopos por
-ativo aguarda essa ação manual; o segredo ainda não foi lido ou guardado.
-O guia local da habilidade de uso do computador proíbe automatizar diálogos
-de autenticação. O [diagnóstico oficial do token](https://developers.facebook.com/docs/graph-api/reference/debug_token),
-consultado em 01/11/2026, permite conferir esses metadados com autenticação
-do app; não promete corrigir a lista vazia. A confirmação anterior de
-conexão não comprova acesso à conta ou entrega de mensagens. A última
-conferência do portal preservou Edge 32, Gemini TEST1, cron único, oito
-envios/quatro chamadas e zero pendências, sem nova chamada de modelo.
+concluída pelo proprietário. O guia local da habilidade de uso do computador
+proíbe automatizar diálogos de autenticação. Após essa ação manual, o segredo
+foi guardado sob nome próprio no arquivo privado e ocultado novamente na
+tela por recarga. O [diagnóstico oficial do token](https://developers.facebook.com/docs/graph-api/reference/debug_token),
+consultado em 01/11/2026, retornou HTTP 200, app emissor correto,
+`is_valid=true`, `SYSTEM_USER`, `expires_at=0` e `data_access_expires_at=0`.
+Os dois escopos e public_profile estavam concedidos. Escopos granulares
+sem target_ids não provam falta de autorização; a documentação permite
+omissão desses IDs. Não há vencimento programado; o acesso pode ser revogado.
+
+Rogério foi conferido como administrador do app e FC como Testador do
+Instagram. Basic/messages aparecem Pronto para teste. O controle total do
+portfólio pelo administrador foi conferido. Uma única releitura final de
+contas atribuídas continuou com HTTP 200/data[]. A causa permanece sem
+confirmação; publicação ou permissões extras não foram usadas como reparo.
+
+No portal, foram guardados somente três nomes novos:
+`INSTAGRAM_UNIFIED_ACCESS_TOKEN`, `INSTAGRAM_UNIFIED_APP_SECRET` e
+`INSTAGRAM_UNIFIED_MODE=off`. Digests relidos, 34 nomes anteriores preservados,
+health anterior/posterior com Gemini TEST1 e gates públicos false. A fonte
+atual não usa o namespace novo; armazenar esses segredos não conecta o novo
+app ao atendimento. Não houve deploy, inscrição nova ou alteração de esquema.
+Runtime final relido Edge 33, oito envios/quatro chamadas, cron único e zero
+pendências; nenhuma chamada OpenAI ou envio nesta preparação.
+
+### Encaminhamento da divergência à Meta
+
+Em 01/11, o formulário oficial de bug em API e SDK → Graph API do Instagram
+→ Usuário informou que o suporte técnico desse produto não está disponível
+nesse canal e indicou a comunidade. A triagem de Engenharia → bug → Instagram
+também levou à ferramenta de bugs. O [status público](https://metastatus.com/#developerplatform)
+mostrava Facebook Login, Graph API e Messenger API for Instagram sem incidente
+conhecido, com atualização exibida às 20h52 de Fortaleza. A ocorrência
+específica segue sem causa confirmada.
+
+O proprietário autorizou o perfil, os [termos próprios da comunidade](https://developers.facebook.com/community/guidelines/)
+e a publicação pública do relato técnico, ciente de que a Meta pode destacar
+ou distribuir o conteúdo. O perfil foi concluído e o editor abriu. O texto
+contém nome/ID do app e resultados técnicos, sem conversas, credenciais,
+identificadores pessoais ou contatos; conferência contra os segredos privados
+passou. Não foram anexados arquivos brutos ou capturas com clientes.
+
+O envio de pergunta voltou ao editor com aviso vermelho e sem link. O console
+mostrou Failed to fetch; isso não confirma a causa ou a publicação. A busca
+no próprio fórum encontrou seis relatos relacionados, sem o título do Sir
+Fisher no recorte pesquisado. Um [tópico recente equivalente](https://developers.facebook.com/community/threads/1135525369404661/)
+foi aberto, sem solução publicada. O mesmo relato foi preparado como resposta
+nesse tópico para evitar nova pergunta. O envio automático também não trouxe
+confirmação. Uma página nova do tópico não mostrou o título ou o app do Sir
+Fisher. A resposta foi preservada na interface; clique manual único em Postar
+resposta solicitado ao proprietário. Nenhuma publicação ou chamado privado
+é contado como concluído. Autorizações de perfil/termos/publicação já recebidas
+não precisam ser repetidas. O original da pergunta não confirmada foi fechado
+com o texto preservado em arquivo privado.
+
+Após o proprietário pedir para continuar, a aba anterior estava na página
+inicial da comunidade. A consulta ao perfil próprio apresentou timeout de
+Page.getFrameTree. Uma aba nova do tópico confirmou novamente ausência do
+relato; o texto autorizado foi restaurado exatamente e houve uma tentativa
+de envio pelo teclado, ainda sem confirmação. A ferramenta interrompeu
+Computer Use ao solicitar a janela nativa do Chrome, pois não conseguiu
+determinar o endereço atual do navegador com segurança. As ações de navegador
+foram encerradas; não houve tentativa por outro mecanismo após o bloqueio.
+O texto e os recibos privados permitem retomar a conferência sem refazer
+autorizações. A publicação permanece sem confirmação.
 
 ### Auditoria de seis meses e rodada atual de 01/11/2026
 
@@ -146,10 +202,21 @@ haviam sido confundidas com emprego ou delivery. Os originais foram
 preservados. Leitura semântica dos corpos enviados foi conferida; o
 encaminhamento ao WhatsApp não comprova conclusão da solicitação.
 
-Permanecem 19 casos com identidade atual sem confirmação, uma saudação com
-perfil confirmado mas sem campo de resposta disponível e um caso já
-respondido no arquivo cuja identidade atual não foi confirmada. Esses
-registros não receberam envio a homônimos. O pedido de marcação encontrado
+Permanecem 19 registros com identidade atual sem confirmação. A revisão
+somente dos arquivos encontrou, entre eles, sete respostas/orientações
+pertinentes sem pedido posterior no recorte, uma resposta parcial sobre
+disponibilidade do cardápio no almoço e 11 pedidos legítimos sem saída
+observada. Há ainda dois registros já respondidos no export, cuja identidade
+atual não foi confirmada, e uma saudação com perfil confirmado mas sem campo
+de envio disponível. São 22 registros locais. A contagem anterior de um
+registro separado já respondido foi corrigida para dois a partir dos resumos
+final/A. Foram conferidas 40 entradas,
+com zero spam inequívoco. Reações/agradecimentos após resposta não criam nova
+pendência; uma reação isolada também pode seguir um pedido sem resposta.
+Essa classificação se limita ao export encerrado às 12h20min25s; a caixa atual
+precisa de identidade e histórico conferidos. Não houve novo envio ou
+encerramento de caso nessa revisão. Os registros não receberam envio a
+homônimos. O pedido de marcação encontrado
 na revisão independente foi localizado pelo histórico e respondido com
 WhatsApp, sem promessa de publicação. Grupos não foram excluídos nesta
 rodada; as 13 exclusões pertencem ao histórico anterior.
