@@ -469,3 +469,32 @@ preservados durante os testes. Pages passou e os três arquivos públicos deram
 HTTP 200 com o mesmo conteúdo do commit, conferido por SHA-256 após normalizar LF.
 
 — Codex
+
+## 2026-11-02 · Codex — Semrush, público e Indicadores Google
+
+Registro completo em `SEMRUSH_PERFIL_PUBLICO_MIDIA_2026-11-02.md`.
+Site Audit: saúde 96%, zero erros, 22 ocorrências de warning e cinco notices.
+Conferidas as cinco URLs com baixa proporção texto/HTML, as 16 ocorrências
+de CSS em cinco arquivos e os créditos do Wikimedia. Ganho de bytes por
+minificação foi simulado; falta medir efeito no carregamento. Google local
+com 40 termos e On Page SEO Checker com 43 ideias para seis páginas lidos.
+Canibalização detalhada exige Guru; tabela demonstrativa descartada. MCP
+Semrush retornou no_api_units; usada interface existente/acervo, sem compra.
+
+QR: 399 → 717 sessões e 263 → 495 totalUsers; activeUsers 263 → 493.
+Em outubro, celular 99,4% e português 92,3%. Renda, residência e turismo
+continuam sem comprovação. Faltam consumo/margem e custos/comparecimento
+comparáveis para distribuir verba. Nenhuma campanha foi alterada. Pesquisa
+local é candidata a teste condicionado a teto, margem e capacidade.
+Pesquisa com clientes dispensada pelo proprietário.
+
+Site publicou aviso e guia no commit 5f97e9f. Actions 41406693725 e
+41406694088 passaram; HTML público HTTP 200 confere com HEAD. Após publicar
+e receber a declaração confirmada pelo proprietário, Indicadores Google
+ativados na propriedade 353205396. Chave ligada, 307/307 regiões; Assistente
+agora 3/12 restantes: Google Ads, User-ID e UPD. Perfil demográfico elegível
+depende de consentimento e limiares; histórico e prazo não garantidos.
+Relatório EVOLUCAO_SITE_GA4_2026-11-02.md atualizado. Provas privadas em
+tmp/semrush-2026-11-02/, incluindo google-signals-ativado.jpg.
+
+— Codex

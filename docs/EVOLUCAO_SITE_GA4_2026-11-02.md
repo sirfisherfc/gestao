@@ -242,13 +242,14 @@ comparecimento e as quatro dimensões personalizadas do funil foram conferidos.
 O primeiro acesso da ferramenta estava indisponível. Depois de conectar o
 Navegador e tentar novamente em 02/11, a sessão do Chrome abriu a propriedade
 correta. Todas as categorias do Assistente foram lidas. A tela passou de
-**sete para quatro de 12 tarefas restantes** depois das configurações abaixo.
+**sete para três de 12 tarefas restantes** depois das configurações desta rodada.
 
 | Tarefa atendida | Resultado conferido |
 | --- | --- |
 | Criar públicos-alvo | Os dois públicos de reserva aparecem na interface e a tarefa passou a concluída. |
 | Vincular ao Search Console | Domínio verificado `sirfisher.com.br` vinculado ao fluxo Sir Fisher, `https://www.sirfisher.com.br`, ID `15405248385`. A interface confirmou “VINCULAÇÃO CRIADA”. |
 | Criar insights personalizados | Criado “GA4: queda semanal acima de 50% nas ações principais”, com avaliação semanal e e-mails desligados. |
+| Ativar os indicadores do Google | Ativados após a publicação do aviso de privacidade e a confirmação expressa da declaração pelo proprietário. A chave ficou ligada; a interface informou permissão em 307 de 307 regiões. |
 
 O insight compara a métrica Eventos principais com a semana anterior, de
 domingo a sábado, e aparece no painel se a redução for superior a 50%.
@@ -264,22 +265,35 @@ dos meses comparados neste documento. O termo sugere interesse informacional;
 para atribuir reservas a ele faltam dados da mesma jornada. O relatório também
 mostra consultas de marca e de restaurantes na Beira-Mar.
 
-Os quatro itens ainda apresentados pelo Assistente foram avaliados:
+Os três itens ainda apresentados pelo Assistente foram avaliados:
 
 | Tarefa restante | Condição para adotar |
 | --- | --- |
-| Ativar os indicadores do Google | Uso dos relatórios adicionais de perfil e interesses. Os eventos atuais já permitem acompanhar a reserva. |
 | Vincular ao Google Ads | Definir a conta e o uso de campanhas nessa plataforma, com os dados que serão compartilhados. |
 | Configurar o User-ID | Dispor de um identificador interno estável para visitantes autenticados. A jornada pública de reserva funciona sem login. |
 | Configurar dados fornecidos pelo usuário (UPD) | Definir quais dados de contato seriam enviados à Google e a finalidade dessa coleta adicional. |
 
-Esses quatro recursos permaneceram com a configuração existente. A tarefa
+Esses três recursos permaneceram com a configuração existente. A tarefa
 Google Ads aparece em duas categorias, sendo contada uma vez no total.
 “Corrigir problemas com dados” mostrou nenhuma tarefa detectada.
 [Funcionamento do Assistente](https://support.google.com/analytics/answer/16888318?hl=pt-BR).
 
-A Admin API confirmou os indicadores do Google desligados. Eles foram
-mantidos assim porque os eventos existentes permitem acompanhar a reserva.
+A primeira leitura da Admin API encontrou os indicadores do Google desligados.
+Depois do pedido de perfil demográfico, o proprietário confirmou a declaração
+exigida pela Google e autorizou a ativação após a publicação do aviso.
+O commit `5f97e9f` do site publicou o aviso em 02/11; o conteúdo público foi
+conferido antes da ativação. A interface confirmou os indicadores ligados e
+o Assistente passou a mostrar três tarefas restantes.
+
+Os relatórios poderão mostrar idade, gênero e interesses agregados dos
+visitantes elegíveis. A exibição depende do consentimento, das condições da
+conta Google e dos limites mínimos de dados. O recorte pequeno de QR pode
+continuar sem linhas. As consultas de setembro e outubro retornaram linhas
+vazias e `subject_to_thresholding=true`; isso representa indisponibilidade.
+A ativação não comprova recuperação do histórico nem liberação imediata.
+[Indicadores do Google](https://support.google.com/analytics/answer/9445345?hl=pt-BR),
+[limites mínimos](https://support.google.com/analytics/answer/9383630?hl=pt-BR).
+
 Desde 15/06/2026, esse ajuste controla a associação dos dados do Analytics a
 usuários conectados para relatórios comportamentais.
 [Controles atuais dos indicadores](https://support.google.com/analytics/answer/17016975?hl=pt-BR).
@@ -330,3 +344,7 @@ Arquivos: [formulário](../../reservas/index.html),
 Consultas agregadas, planos, scripts temporários e recibos permanecem em
 `tmp/ga4-2026-11-02/`, ignorado pelo Git. O registro versionado contém a análise
 e as configurações verificadas, sem credenciais ou dados individuais.
+
+A avaliação dos avisos Semrush, o perfil agregado do QR e a estratégia de mídia
+estão em [Semrush, público e mídia](SEMRUSH_PERFIL_PUBLICO_MIDIA_2026-11-02.md).
+As provas da ativação e do checklist ficam em `tmp/semrush-2026-11-02/`.
