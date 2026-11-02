@@ -1,5 +1,15 @@
 # Integração do atendimento em nuvem
 
+Estado atual em **02/11/2026**: o Direct do `@sirfisherfc` foi conectado e
+ativado no Jotform gratuito, com oito respostas reais pelo `@sirfisherpub`
+e confirmação no histórico do fornecedor. **All DMs**, sem lista restrita
+ao proprietário. Piloto próprio pausado; oito respostas do Jotform não
+alteram a contagem de 13 envios/seis chamadas do legado. Comentários,
+stories e menções Jotform OFF. FAQ e palavra-chave de reserva nativas do
+Instagram desligadas; Messenger preservado. Cota observada: 1/100 conversas
+mensais Starter, sem contratação. Operação, testes e limites atuais em
+[JOTFORM.md](JOTFORM.md). As seções seguintes preservam a preparação.
+
 ## Retomada em 02/11/2026: teste gratuito no Jotform
 
 O proprietário autorizou conectar e testar o Jotform gratuito, preservando

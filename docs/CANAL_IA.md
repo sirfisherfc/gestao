@@ -322,3 +322,46 @@ deploy alterado nesta retomada. Fazer testes e conferir duplicidade antes
 de substituir o piloto. Evidências privadas ficam em tmp/, ignorado.
 
 — Codex
+
+## 2026-11-02 · Codex — Direct Jotform ativo; cardápio testado
+
+Proprietário concluiu o vínculo FC. Treinamento por bio/posts/DMs pulado;
+uma entrada pública carregada e conferida. Persona relida e corrigida:
+parte dos campos da preparação não havia persistido. Português do Brasil,
+WhatsApp sem horário humano e ausência de operações sem sistema.
+
+Prévia inventou reserva confirmada ao retornar com memória ligada.
+Memória entre sessões e busca automática no site desligadas antes da
+liberação do Direct. Regra Conversation starts e inclusão ampla de
+WhatsApp ficaram desabilitadas após interferirem em outros assuntos.
+Saudação simples e spam têm regras específicas; não reativar as duas
+regras experimentais sem correção/teste. Pausa global Jotform aplicada e
+verificada pela prévia indisponível; reativado depois para o ensaio.
+
+Conexão final concluída. All DMs e Reply to DMs Active, sem allowlist do
+proprietário. Oito respostas reais via Pub, também no histórico Jotform e
+no contador 8 DM replies: Oi, endereço/horário, executivo/cardápio, cobrança
+contestada/WhatsApp, bolo/Alelo após WhatsApp, reserva sem confirmação,
+saudação virtual retestada e preço ausente com cardápio/WhatsApp. Oferta
+sintética de seguidores ficou sem resposta por pelo menos 57 s e antes
+da pergunta legítima seguinte, que foi respondida. Nenhuma duplicidade
+observada na sequência. Não usar tempos do Gemini como medição Jotform.
+
+Pedido novo do proprietário: cardápio em perguntas sobre comida. Regra
+salva na base e persona; passou no Direct com almoço, bolo e preço de
+camarão. Plano Starter conferido: 1/100 conversas mensais usada, sem plano
+pago ou cartão. Ao atingir cota, respostas param. Comentários, stories e
+menções OFF, aguardando testes próprios.
+
+Piloto antigo pausado pelo painel autenticado. Health real confirmou
+paused true/effective_mode off, 13 envios/seis chamadas, zero abertos,
+cinco fechados e zero pendências. Cron antigo preservado. FAQ nativa:
+Instagram desmarcado e salvo; palavra-chave Instagram - orientar reserva
+desligada. Outra reserva e saudação nativas conferidas só no Messenger.
+Nenhum código, deploy ou segredo mudou. Guia atual JOTFORM.md; provas
+privadas em tmp/. Sessão Instagram devolvida ao FC após os testes. A
+auditoria histórica conserva os 22 registros locais
+com os limites de identidade já documentados; não contar ativação como
+fechamento retroativo dessas conversas.
+
+— Codex

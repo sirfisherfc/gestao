@@ -1,5 +1,12 @@
 # Informações para o assistente virtual do Sir Fisher
 
+Estado em 02/11/2026: Direct ativo no Jotform com base pública revisada e
+teste externo pelo `@sirfisherpub`. Piloto Supabase/Gemini pausado; público
+próprio continua OFF. FAQ nativa do Instagram desligada para evitar
+duplicidade. [Operação e provas](JOTFORM.md). O histórico abaixo descreve
+a preparação do piloto próprio; não deve ser usado para reativá-lo junto
+do Jotform.
+
 Gemini permanece só no TEST1 do proprietário adulto. O proprietário escolheu
 preparar OpenAI API com teto de R$45/mês em 01/11/2026. Preparação e testes
 locais estão autorizados; cobrança e envio de mensagens de clientes à OpenAI
@@ -66,6 +73,10 @@ tem regras próprias. A programação de outro ano exige nova conferência.
 de 22/10/2026 está marcado como “em conferência”. Envie o link; confirme
 preços, porções e disponibilidade com a equipe antes de afirmá-los como vigentes.
 Alérgenos aguardam revisão da cozinha; fritos compartilham o óleo.
+Em 02/11/2026, o proprietário pediu incluir o link completo do cardápio nas
+respostas relacionadas a comida. Aplicar também a pratos, porções, almoço,
+bebidas e preços, junto da informação confirmada. A regra foi carregada no
+Jotform e passou no Direct com almoço executivo, bolo e preço de camarão.
 
 **Almoço executivo:** segunda a sexta, 10h às 14h, exceto feriados.
 Opções: https://www.sirfisher.com.br/almoco-executivo/ . Às terças, exceto

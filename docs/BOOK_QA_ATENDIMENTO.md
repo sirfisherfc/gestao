@@ -1,5 +1,14 @@
 # Book de perguntas e respostas: atendimento no Instagram
 
+Atualização operacional de **02/11/2026**: IA Jotform ativa no Direct do
+`@sirfisherfc`, com testes reais e piloto antigo pausado. As FAQs nativas
+do Instagram foram desligadas; Messenger preservado. Perguntas relacionadas
+a comida devem receber https://www.sirfisher.com.br/cardapio/ junto da
+resposta confirmada, conforme pedido do proprietário. A regra passou no
+Direct. Operação, limites e resultados em
+[instagram-atendimento/JOTFORM.md](instagram-atendimento/JOTFORM.md).
+Os números e as rodadas históricas abaixo mantêm seus recortes originais.
+
 Base: exportação do Direct do @sirfisherfc de 28/09/2026. São 2.056 conversas; 1.327
 têm texto de cliente (3.397 mensagens), de setembro de 2023 a setembro de 2026. As
 conversas originais ficam só no OneDrive. Este arquivo não tem nome nem telefone de

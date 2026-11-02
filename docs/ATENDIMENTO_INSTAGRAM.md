@@ -1,5 +1,28 @@
 # Atendimento do Instagram @sirfisherfc
 
+## Estado atual em 02/11/2026: Direct ativo no Jotform
+
+O Jotform está conectado somente ao `@sirfisherfc`, com **All DMs** e
+**Reply to DMs: Active**, executando na nuvem. O teste pelo `@sirfisherpub`
+recebeu oito respostas, confirmadas no Instagram e no histórico do Jotform.
+O contador do agente confirmou oito respostas. A conta Starter mostrou
+uma de 100 conversas mensais usada, sem contratação ou cartão.
+
+Respostas em português, WhatsApp sem horário humano e cardápio nas
+perguntas sobre comida. Endereço/horário, executivo com cardápio, cobrança
+contestada, FAQ após WhatsApp, reserva sem falsa confirmação e preço
+ausente com links passaram no teste real. A saudação simples se identifica
+como assistente virtual. Oferta de seguidores ficou sem resposta pelo
+filtro; a pergunta legítima seguinte foi respondida.
+
+Piloto antigo pausado, com modo efetivo OFF. FAQ nativa do Instagram e
+palavra-chave de reserva do Instagram desligadas para evitar duplicidade;
+Messenger preservado. Comentários, stories e menções no Jotform continuam
+desligados. Histórico, limites do plano, memória desligada, testes e
+instruções para pausar estão em [JOTFORM.md](instagram-atendimento/JOTFORM.md).
+O acervo de seis meses conserva os limites e pendências descritos abaixo;
+esta ativação não comprova resposta retroativa a todo o histórico.
+
 ## Retomada do aplicativo antigo em 01/11/2026
 
 O proprietário determinou retomar **DeathStar** e validar uma conversa fora
