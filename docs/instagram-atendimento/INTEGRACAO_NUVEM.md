@@ -18,14 +18,30 @@ pelo painel, com pausa preservada. Leitura final: Gemini TEST1/Edge33,
 12 envios/seis chamadas, zero casos abertos, quatro fechados, zero eventos
 pendentes. Cron existente preservado; OpenAI/público OFF.
 
-Vídeo privado pronto, sem confirmação do anexo à Meta. O Chrome bloqueou
-o envio automático com o acesso a arquivos locais desligado; seleção manual
-solicitada. Certificações e tratamento de dados continuam pendentes.
+Vídeo principal anexado manualmente pelo proprietário, processado pela Meta,
+salvo e reaberto com link de visualização. Acesso da extensão a arquivos
+locais permanece desligado. Ensaio novo de cancelamento especificamente
+autorizado passou com piloto/cron pausados: incoming único, retirada marcada,
+texto/derivados vazios e nenhum novo envio/modelo/caso. TEST1 e cron único
+restaurados, contagens 12/seis e zero pendências preservadas. Prova
+sequencial pausada, sem ensaio de corrida com envio em andamento. Vídeo
+completo reúne quatro respostas e cancelamento, 301,9 s, privado em tmp/.
+Proprietário substituiu o primeiro anexo pelo completo; processamento
+confirmado, declaração de uso autorizada e salvamento aplicado na Meta.
+Reabertura confirmou link de vídeo processado diferente do primeiro e
+declaração marcada. Instruções do analista corrigidas e relidas sem
+credenciais: continuidade após WhatsApp e escopo real do ensaio pausado.
+Renovações e tratamento de dados continuam pendentes.
 Google/Anthropic preservados na lista antiga; conferir Supabase e países
 antes de certificar. A triagem correta de uso próprio removeu a tentativa
 de pedir acesso avançado a `instagram_basic`; a lista conserva somente
 `instagram_manage_messages`. O assistente ainda mostra dependência genérica
 e perguntas próprias de integrador direto. Nenhum acesso novo concedido.
+Após autorização específica, pedido de confirmação dos países foi enviado
+à privacidade do Supabase e relido em Enviados. Finalidade e região São
+Paulo somente, sem dados de clientes ou segredos. Aguardar resposta antes
+de completar a lista exaustiva exigida pela Meta; Anthropic permanece
+pendente conforme orientação anterior do proprietário.
 
 Gemini segue exclusivo do proprietário adulto. Em 01/11/2026 o proprietário
 escolheu preparar OpenAI API com teto de R$45/mês. Preparação e testes locais

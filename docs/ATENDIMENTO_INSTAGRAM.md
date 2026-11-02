@@ -45,7 +45,22 @@ permanece separado e desligado. Nenhum custo novo foi contratado.
 - A gravação foi salva em `tmp/instagram-atendimento/provas/`, com recorte
   da conversa do proprietário. O envio automático à Meta foi bloqueado
   porque o acesso da extensão a arquivos locais está desligado; foi
-  solicitado selecionar o arquivo manualmente. Anexo ainda sem confirmação.
+  solicitado selecionar o arquivo manualmente. O proprietário anexou o
+  vídeo; a Meta confirmou processamento. O rascunho foi salvo e reaberto,
+  mostrando o link para visualizar o screencast carregado.
+- Após autorização específica, o assistente enviou e cancelou apenas uma
+  mensagem de teste pelo perfil do proprietário, com piloto/cron pausados.
+  Incoming único recebido e cancelamento marcado no servidor; texto e
+  derivados vazios, zero resposta/modelo/caso novo. Restauração do TEST1 e
+  cron único confirmada, com 12 envios/seis chamadas preservados. Ensaio
+  sequencial pausado; não comprova corrida com processamento em andamento.
+  Gravações reunidas em `DEMO_META_DEATHSTAR_COMPLETA_PUBLICO_OFF.mp4`,
+  privado em tmp/, com 301,9 s. O proprietário substituiu o primeiro anexo
+  por essa versão; processamento confirmado e salvamento aplicado na Meta.
+  A declaração de uso de mensagens foi autorizada, marcada e salva.
+  Reabertura confirmou vídeo processado diferente do primeiro e declaração
+  marcada. Roteiro do analista também foi corrigido e relido: FAQ após
+  WhatsApp, cancelamento pausado e limites reais do piloto.
 - Ao tentar incluir `instagram_basic` na solicitação, a triagem da Meta
   informou que esse pedido avançado só está disponível para integração em
   nome de clientes empresariais. Foram respondidas as duas perguntas como
@@ -54,6 +69,15 @@ permanece separado e desligado. Nenhum custo novo foi contratado.
   permaneceu no assistente. Conferir as perguntas de integrador direto.
   Não declarar o Sir Fisher como fornecedor de tecnologia para contornar
   essa triagem. Nenhum acesso foi concedido por essa edição do rascunho.
+
+Pedido de confirmação dos países enviado ao endereço oficial de privacidade
+do Supabase, após autorização específica, e relido na pasta Enviados.
+Inclui somente finalidade Instagram e região São Paulo, sem conversas,
+identificadores de clientes ou segredos. Aguardar confirmação para completar
+o formulário; [FAQ oficial de residência e transferências](https://supabase.com/legal/privacy-resources/data-residency-and-transfers-faq),
+consultada em 01/11/2026, informa suporte global e logs na UE, além da região
+escolhida para o banco. A localização do banco sozinha não preenche a lista
+de todos os países de processamento e acesso remoto pedida pela Meta.
 
 Fontes oficiais relidas em 01/11/2026:
 [webhooks do Messenger para Instagram](https://developers.facebook.com/documentation/business-messaging/instagram-messaging/webhooks)

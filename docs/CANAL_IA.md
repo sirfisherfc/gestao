@@ -232,3 +232,63 @@ sem resposta, a mensagem não foi enviada nem cancelada. A demonstração
 atual cobre quatro respostas do piloto, sem provar entrega pública.
 
 — Codex
+
+## 2026-11-01 · Codex — Vídeo anexado e cancelamento real confirmado
+
+Proprietário confirmou anexar o primeiro vídeo e autorizou exatamente uma
+nova mensagem de teste com cancelamento definitivo. A Meta mostrou o nome
+do MP4 e Processando vídeo. Rascunho salvo sem aceitar declaração pendente;
+reabertura confirmou link Visualizar screencast carregado. Prova privada
+meta-video-salvo-20261101.png. Não contar como submissão de análise.
+
+Preflight real do protocolo passou. Piloto/cron pausados na mesma sessão,
+com guardas de identidade, allowlist, orçamento e ausência de trabalho.
+Mensagem única enviada do proprietário ao FC, reconhecida no servidor sem
+texto persistido, modelo, resposta ou caso. Apenas esse envio foi cancelado
+na interface. Verificação real: withdrawn marcado, superseded,
+texto/derivados vazios e zero novos efeitos. TEST1/cron único restaurados,
+com releitura sequencial. Health final sem pausa, 12 envios/seis chamadas,
+zero casos abertos, quatro fechados e zero eventos pendentes. Nenhum gate
+público mudou. Esse ensaio pausado não comprova corrida com envio iniciado.
+
+Captura real do cancelamento com 29 quadros; MP4 privado e QA visual de
+menu, confirmação e ausência da mensagem. Dois vídeos reunidos em arquivo
+DEMO_META_DEATHSTAR_COMPLETA_PUBLICO_OFF.mp4, H.264, 960x992, 301,9 s,
+2.260.451 bytes, em tmp/instagram-atendimento/provas/. Recortes alternam
+conversa e diálogo para privacidade; ordem preservada. O proprietário
+substituiu o primeiro anexo pelo completo. UI confirmou o nome exato e
+Processando vídeo; salvamento aplicado com a declaração autorizada.
+
+Declaração de uso permitido autorizada especificamente pelo proprietário,
+marcada, salva e relida como Value 1 antes do segundo salvamento.
+Renovações de public_profile/email exigem certificação antes de continuar;
+nenhuma certificação aplicada por inferência. Tratamento de dados conserva
+Google/Anthropic, responsável e respostas já confirmadas. Inclusão de
+Supabase cancelada sem salvar, pois a pergunta exige todos os países,
+incluindo acesso remoto. FAQ oficial de residência/transferências de
+06/10/2026 consultada nesta rodada confirma banco na região escolhida,
+suporte global, telemetria na UE e entidades Singapura/EUA. Não permite
+certificar Brasil como único país nem lista exaustiva por conta própria.
+Fonte: https://supabase.com/legal/privacy-resources/data-residency-and-transfers-faq.
+Lista oficial de subprocessadores de 12/10/2026 também conferida; preservar
+Anthropic pendente conforme resposta anterior. Enviar para análise segue
+desabilitado, sem promessa de aprovação ou entrega pública corrigida.
+
+Proprietário confirmou a substituição e autorizou o pedido de informação
+ao Supabase. Reabertura da permissão confirmou vídeo processado com link
+diferente do primeiro e checkbox de uso permitido marcado. Prova privada
+meta-video-completo-salvo-20261101.png. Instruções do analista ainda diziam
+que o WhatsApp pausava todas as perguntas e que faltava vídeo. Texto
+corrigido para os quatro testes reais, cancelamento pausado, limites do
+piloto e painel privado. Leitura do campo conferiu 2.313 caracteres e
+igualdade exata; após Avançar/reabrir, igualdade persistida confirmada.
+
+E-mail enviado à privacy@supabase.io pelo Gmail conectado do proprietário,
+com finalidade Instagram e região São Paulo, sem mensagens, identificadores
+de clientes, credenciais ou anexos. Solicita países de PostgreSQL/Auth/Edge,
+logs, acesso remoto, suporte e subprocessadores, distinguindo dados da Meta
+de dados de conta/cobrança do Supabase. Envio confirmado por label SENT e
+releitura de destinatário/assunto na pasta Enviados. Não confundir envio com
+resposta do fornecedor. Aguardar essa confirmação para preencher o formulário.
+
+— Codex
