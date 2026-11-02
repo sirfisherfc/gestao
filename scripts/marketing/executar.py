@@ -38,12 +38,12 @@ def validate(item, owner_id, now=None):
         raise ValueError('Arquivo da revisao sem validacao.')
 
 
-def claim(item_id):
+def claim(item_id, expected_revision):
     # A transacao reivindica uma unica revisao: execucoes concorrentes nao enviam duas vezes.
     rows = query('''with candidate as (
       select e.id from public.marketing_editorial e join marketing_private.settings s on s.singleton
       join public.perfil_usuario p on p.user_id=s.owner_id and p.ativo
-      where e.id=$1::uuid and e.status='approved' and e.approved_by=s.owner_id
+      where e.id=$1::uuid and e.revision=$2 and e.status='approved' and e.approved_by=s.owner_id
         and (p.papel='admin' or exists (select 1 from public.pagina_permissao pp where pp.pagina='marketing.html' and p.papel=any(pp.papeis)))
         and e.revision=e.approved_revision and e.rights_confirmed and e.quality_confirmed
         and (e.format='TEXT' or (e.media_sha256 is not null and e.verified_revision=e.revision))
@@ -53,7 +53,7 @@ def claim(item_id):
       from candidate c where e.id=c.id returning e.*), logged as (
       insert into public.marketing_audit(editorial_id,action,detail)
       select id,'send_claimed',jsonb_build_object('revision',revision) from claimed)
-    select * from claimed''',[item_id],write=True)
+    select * from claimed''',[item_id,expected_revision],write=True)
     return rows[0] if rows else None
 
 
@@ -151,7 +151,7 @@ def run(send=False):
                 quota=meta.request(IG+'/content_publishing_limit',{'fields':'quota_usage,config'}).get('data',[])
                 if not quota or quota[0].get('quota_usage',0)>=quota[0].get('config',{}).get('quota_total',0):
                     raise RuntimeError('Limite de publicacao indisponivel ou atingido.')
-        item=claim(row['id'])
+        item=claim(row['id'],row['revision'])
         if not item: continue
         try:
             ident,url=send_google(item) if item['target']=='google_photo' else send_meta(meta,item)

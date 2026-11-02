@@ -574,3 +574,8 @@ host de navegador indisponível e falha de acesso à sessão Chrome. Configuraç
 e nomes de credenciais do ambiente seguem sem leitura/alteração. Esse acesso
 é a pendência concreta para incorporar coleta e executor sem criar outra
 rotina. Documentação registra esse limite; acesso local segue funcionando.
+
+Revisão final da interface: formatos por destino com nomes comuns e campos
+pertinentes; claim também exige a revisão que o executor acabou de validar,
+para recusar uma revisão trocada antes da reivindicação. Testes offline e
+qualidade passaram; comportamento dos campos conferido no QA com browser.
