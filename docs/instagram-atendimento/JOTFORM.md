@@ -35,8 +35,12 @@ ou pagamento. Nenhuma dessas integrações operacionais foi habilitada.
 Áudios, imagens e assuntos sem interpretação segura exigem encaminhamento;
 o ensaio atual cobriu mensagens de texto.
 
-O treinamento automático por bio, posts e DMs foi pulado. Foi carregada
-uma única entrada de conhecimento com fatos públicos. A memória entre
+O treinamento automático por bio, posts e DMs foi pulado. A ampliação de
+02/11 carregou cinco fontes, com 37.962 caracteres: fatos públicos,
+catálogo sem preços, temas revisados do histórico, política de autoridade
+e matriz de risco. A exportação bruta de clientes não foi carregada.
+Seis orientações de comportamento foram salvas e relidas na persona.
+A memória entre
 sessões e a busca automática no site foram desligadas. As conversas
 continuam registradas no Jotform, conforme a conexão autorizada.
 
@@ -46,15 +50,18 @@ desligada e novo teste sem essa confirmação. Duas regras experimentais
 ficaram **desabilitadas**: saudação por `Conversation starts`, que interferiu
 em outro pedido, e inclusão ampla de WhatsApp para informação ausente, que
 encaminhou uma FAQ conhecida. Não reativá-las sem corrigir e testar.
-Permanecem a regra de saudação simples e a resposta mínima para spam.
+Permanece a regra de saudação simples. A ação ampla de spam foi desligada
+após classificar uma negociação legítima como spam. Uma ação específica
+orienta a não confirmar origem/autenticidade de contatos suspeitos sem
+verificação. [Matriz, fontes e testes de segurança](SEGURANCA_OPERACIONAL.md).
 
 ## Spam e pausas
 
 No Direct, **Excluded Categories** está ligado para oferta de venda de
 seguidores ou curtidas artificiais, com **Fallback Message** desligado.
 O teste dessa oferta ficou sem resposta; a pergunta legítima seguinte
-recebeu resposta. Outras formas inequívocas de spam têm a orientação
-mínima “Este canal atende dúvidas sobre o restaurante Sir Fisher.”
+recebeu resposta. A orientação geral permite ignorar spam inequívoco;
+a ação ampla de resposta padrão ficou desabilitada após os testes.
 Não há exclusão nem bloqueio automático de perfis.
 
 Relatos reais de golpe, reclamações, currículos e fornecedores comuns
@@ -77,7 +84,7 @@ ficou indisponível; depois o agente foi reativado para os testes. O botão
 
 | Canal/integração | Estado final conferido |
 | --- | --- |
-| Jotform Direct | Ativo para All DMs; oito respostas reais no teste controlado |
+| Jotform Direct | Ativo para All DMs; reativado após a ampliação e os testes de segurança |
 | Jotform comentários, stories e menções | Desligados; exigem teste próprio antes da ativação |
 | Piloto próprio Supabase/Gemini | Pausa global ligada; modo efetivo OFF; público próprio segue OFF |
 | FAQ nativa Meta | Instagram desmarcado e salvo; Messenger preservado |
@@ -113,6 +120,21 @@ perguntas frequentes, informação ausente e spam. Tempos antigos do piloto
 Gemini não medem o Jotform; o painel observou entrada/saída no mesmo minuto
 nos primeiros testes, sem estabelecer prazo ou média de atendimento.
 
+Na ampliação, 42 cenários sintéticos e 20 repetições/controles foram
+executados na prévia real. Três tipos de problema foram corrigidos; os
+seis controles finais passaram. O Direct foi pausado durante a alteração
+e reativado depois dessa rodada. O ensaio cobre texto e injeções indiretas
+simuladas; não comprova resistência a todos os ataques.
+
+Após a ampliação, o Direct recebeu mais três mensagens sintéticas pelo
+Pub. Duas próximas entre si tiveram uma resposta de segurança; uma
+pergunta separada posterior recebeu carne/frango e o link do cardápio.
+As duas respostas foram conferidas no Instagram e Jotform, sem duplicidade
+observada. Houve atraso na chegada inicial ao painel; estados e cota foram
+conferidos e a conexão recebeu pausa/retomada pelo menu oficial. A causa
+do atraso permanece sem diagnóstico. A última pergunta/resposta entrou
+no mesmo minuto no histórico. Não usar esse ensaio para prometer prazo.
+
 As provas de tela e os recibos ficam em `tmp/instagram-atendimento/provas/`,
 ignorados pelo Git. Foram usadas contas controladas; nenhum conteúdo de
 cliente foi incluído na base ou nesta documentação.
@@ -126,14 +148,14 @@ pagamento, reserva ou atendimento humano só porque foi enviado um link.
 ## Custo e manutenção
 
 Plano **Starter gratuito**, sem cartão ou contratação. A conta mostrou
-**1 de 100 conversas mensais usada** após o teste. A cota é da conta do
+**2 de 100 conversas mensais usadas** após os testes de ampliação. A cota é da conta do
 proprietário e pode ser compartilhada com outros agentes que ele criar.
 Ao atingir a cota, o fornecedor para de responder até a renovação ou troca
 de plano. Não contratar nem prometer cobertura mensal integral sem medir
 o volume e apresentar o custo adicional.
 
 Conferir o consumo pelo avatar do proprietário no Jotform, manter a
-conexão do Instagram autorizada e atualizar a entrada de conhecimento
+conexão do Instagram autorizada e atualizar as fontes de conhecimento
 quando a casa mudar informações. Nenhuma rotina recorrente de revisão foi
 criada. A análise histórica de seis meses continua com os limites e os
 22 registros locais descritos em `../ATENDIMENTO_INSTAGRAM.md`; a ativação

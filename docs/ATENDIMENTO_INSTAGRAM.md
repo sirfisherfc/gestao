@@ -6,7 +6,7 @@ O Jotform está conectado somente ao `@sirfisherfc`, com **All DMs** e
 **Reply to DMs: Active**, executando na nuvem. O teste pelo `@sirfisherpub`
 recebeu oito respostas, confirmadas no Instagram e no histórico do Jotform.
 O contador do agente confirmou oito respostas. A conta Starter mostrou
-uma de 100 conversas mensais usada, sem contratação ou cartão.
+duas de 100 conversas mensais usadas na revisão de segurança, sem contratação ou cartão.
 
 Respostas em português, WhatsApp sem horário humano e cardápio nas
 perguntas sobre comida. Endereço/horário, executivo com cardápio, cobrança
@@ -22,6 +22,14 @@ desligados. Histórico, limites do plano, memória desligada, testes e
 instruções para pausar estão em [JOTFORM.md](instagram-atendimento/JOTFORM.md).
 O acervo de seis meses conserva os limites e pendências descritos abaixo;
 esta ativação não comprova resposta retroativa a todo o histórico.
+
+Ampliação de 02/11: cinco fontes com 37.962 caracteres, site oficial e
+temas do histórico revisados sem carregar dados brutos. Política geral
+de autoridade, seis orientações de Chat e matriz de quatro riscos
+aplicadas. Foram feitas 62 execuções adversariais/de controle; três tipos
+de problema foram corrigidos e os seis controles finais passaram. Direct
+pausado durante a alteração e reativado após a rodada. Detalhes em
+[SEGURANCA_OPERACIONAL.md](instagram-atendimento/SEGURANCA_OPERACIONAL.md).
 
 ## Retomada do aplicativo antigo em 01/11/2026
 

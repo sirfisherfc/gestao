@@ -7,6 +7,13 @@ duplicidade. [Operação e provas](JOTFORM.md). O histórico abaixo descreve
 a preparação do piloto próprio; não deve ser usado para reativá-lo junto
 do Jotform.
 
+Em 02/11/2026, cinco fontes foram carregadas no Jotform, totalizando
+37.962 caracteres. A ampliação usa informações públicas conferidas do
+site, catálogo de 72 pratos/bebidas sem preços e temas revisados de
+335 conversas/854 mensagens, sem carregar o acervo bruto de clientes.
+Inclui regras gerais de autoridade, proteção de dados e matriz de risco.
+[Fontes, limites e testes adversariais](SEGURANCA_OPERACIONAL.md).
+
 Gemini permanece só no TEST1 do proprietário adulto. O proprietário escolheu
 preparar OpenAI API com teto de R$45/mês em 01/11/2026. Preparação e testes
 locais estão autorizados; cobrança e envio de mensagens de clientes à OpenAI
@@ -84,7 +91,11 @@ feriados, das 11h às 14h, o segundo executivo igual sai por conta da casa,
 para duas pessoas consumindo no local. Condições de outras promoções,
 cupons e aplicativos exigem confirmação atual.
 
-**Reservas comuns:** https://reservas.sirfisher.com.br/ . Para 1 a 10 pessoas,
+**Reservas comuns:** https://reservas.sirfisher.com.br/ .
+Reservar é gratuito; a visita comum não tem consumo mínimo. É possível
+chegar sem reserva, conforme mesas livres. Essas condições não substituem
+as regras específicas dos eventos.
+Para 1 a 10 pessoas,
 o cliente consulta os horários e conclui a reserva pelo portal. A confirmação
 depende do resultado exibido ao finalizar. Antecedência máxima: 60 dias;
 corte das reservas para o mesmo dia: 15h30; tolerância: 15 minutos.

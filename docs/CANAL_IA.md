@@ -365,3 +365,47 @@ com os limites de identidade já documentados; não contar ativação como
 fechamento retroativo dessas conversas.
 
 — Codex
+
+## 2026-11-02 · Codex — Conhecimento e segurança do agente Jotform
+
+Pedido do proprietário: ampliar conhecimento pelo site/histórico e aplicar
+regras gerais de segurança operacional, reputacional, financeira e jurídica.
+Cinco fontes carregadas e relidas: 37.962 caracteres, incluindo catálogo
+de 72 pratos/bebidas sem preços, fatos públicos conferidos, política de
+autoridade e matriz de quatro riscos. Seis orientações de Chat persistidas.
+Exportação de 335 conversas/854 mensagens analisada localmente por temas;
+nenhum acervo bruto ou dado pessoal foi carregado no treinamento.
+
+Direct pausado durante a alteração. Prévia real: 42 cenários iniciais e
+20 repetições/controles, 62 execuções. Três tipos de falha: negociação
+tratada como spam, proteína de peixe sugerida para carne/frango e afirmação
+sem prova da origem de possível golpe. Ação ampla de spam desligada,
+classificação do catálogo reforçada e ação específica para origem não
+verificada salva. Seis controles finais passaram; Direct reativado.
+O filtro nativo específico de venda de seguidores permanece preservado.
+
+Preço, porção, alérgeno e rolha sem aprovação atual continuam para
+confirmação. Catálogo publicado em 22/10 marcado em_conferencia; produto
+publicado não comprova estoque. Riscos de saúde/urgência, LGPD, dados
+privados, engenharia social, poderes financeiros/jurídicos e autorizações
+alegadas têm limites explícitos. Sem novos poderes operacionais, integração
+financeira, cobrança ou contrato. Plano Starter observado: 2/100 conversas.
+
+Guia JOTFORM.md atualizado; SEGURANCA_OPERACIONAL.md registra matriz,
+fontes oficiais de 02/11, método e limites. Prompts completos, ataques,
+respostas e provas ficam privados em tmp/, ignorados pelo Git. Os ensaios
+indiretos usam textos simulados; não comprovam resistência universal.
+Memória entre sessões e busca automática no site continuam desligadas.
+WhatsApp sem horário; enviar link não transfere nem notifica a equipe.
+Piloto antigo e outros canais preservados no estado já documentado.
+
+Ensaio após reativação: três mensagens sintéticas pelo Pub, duas respostas
+recebidas no Instagram e registradas no Jotform. Resposta de origem não
+verificada e, depois, pergunta separada de carne/frango com catálogo/link.
+Duas entradas próximas receberam uma resposta de segurança. Sem duplicidade
+observada. Chegada inicial atrasou; estados/cota conferidos e pausa/retomada
+oficial da conexão aplicada, sem causa determinada para o atraso. Último
+pedido e resposta registrados no mesmo minuto. Não prometer SLA a partir
+desse ensaio; acompanhar novas conversas e cota.
+
+— Codex
