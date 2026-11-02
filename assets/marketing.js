@@ -8,6 +8,8 @@
   const num = value => numeric(value) == null ? 'Indisponível' : new Intl.NumberFormat('pt-BR').format(Number(value));
   const labels = { reach: 'Contas alcançadas', views: 'Visualizações', accounts_engaged: 'Contas que interagiram', total_interactions: 'Interações', likes: 'Curtidas', comments: 'Comentários', saves: 'Salvamentos', saved: 'Salvamentos', shares: 'Compartilhamentos', profile_links_taps: 'Toques no link do perfil', follows_and_unfollows: 'Seguidores', profile_views: 'Visitas ao perfil', replies: 'Respostas', navigation: 'Navegação' };
   const states = { draft: 'Rascunho', review: 'Em revisão', approved: 'Aprovado e programado', sending: 'Enviando', published: 'Publicação confirmada pela API', uncertain: 'Envio incerto: conferir antes de tentar', failed: 'Falhou', cancelled: 'Cancelado' };
+  const formatNames = { IMAGE: 'Imagem', REELS: 'Reel', STORIES: 'Story', TEXT: 'Texto', PHOTO: 'Foto' };
+  const targetNames = { instagram: 'Instagram', facebook: 'Página do Facebook', google_photo: 'Perfil Google' };
   let owner = false, snapshots = [], editorial = [], comments = [], commentLimit = false, filters, operationRows = null, loadVersion = 0;
   function safeLink(url, label) {
     try { const u = new URL(url); if (u.protocol !== 'https:') return esc(label); }
@@ -89,7 +91,7 @@
     document.getElementById('mk-photo-candidates').innerHTML = `<h3>Fotos Instagram preparadas para o Google</h3>${photos ? `<p>Conferidas em ${esc(stamp(photos.collected_at))}. ${esc(photos.payload.coverage)}</p>` : '<p>Execute a preparação privada para conferir fotos e duplicidade na ficha atual.</p>'}${table(['Foto própria', 'Dimensões / tamanho', 'Conferência', 'Ação'], (photos?.payload?.items || []).map(p => [safeLink(p.permalink, p.id), esc(`${p.width} × ${p.height} · ${num(p.bytes)} bytes`), esc(p.duplicate ? 'Foto parecida já encontrada na ficha' : p.technical_quality ? 'Requer revisão visual e direito de uso' : 'Qualidade técnica insuficiente'), !p.duplicate && p.technical_quality ? `<button type="button" data-photo="${esc(p.id)}">Preparar rascunho Google</button>` : 'Revisar']))}`;
     document.getElementById('mk-editorial-list').innerHTML = table(['Próvia', 'Destino / formato', 'Programado (Fortaleza)', 'Estado / confirmação', 'Ações'], editorial.map(item => [
       `<p class="mk-caption">${esc(item.caption)}</p>${item.media_url ? safeLink(item.media_url, 'Abrir mídia própria') : ''}${item.source_media_id ? `<p>Foto de origem: ${esc(item.source_media_id)}</p>` : ''}`,
-      esc(`${item.target} / ${item.format}`), esc(stamp(item.scheduled_at)),
+      esc(`${targetNames[item.target]} / ${formatNames[item.format]}`), esc(stamp(item.scheduled_at)),
       `${esc(states[item.status])}<br>${item.approved_at ? `Revisão ${item.approved_revision} aprovada em ${esc(stamp(item.approved_at))}<br>` : ''}${item.provider_id ? esc('ID: ' + item.provider_id) : ''}${item.provider_url ? '<br>'+safeLink(item.provider_url, 'Conferir publicação') : ''}${item.last_error ? '<br>'+esc(item.last_error) : ''}`,
       `${['draft','review','approved','failed','cancelled'].includes(item.status) ? `<button type="button" data-edit="${esc(item.id)}">Editar</button>` : ''}
        ${item.status === 'draft' ? `<button type="button" data-action="review" data-id="${esc(item.id)}">Enviar para revisão</button>` : ''}
@@ -127,17 +129,26 @@
   }
   function setPreview() {
     const form = document.getElementById('mk-draft');
-    document.getElementById('mk-preview').textContent = `${form.elements.target.value} · ${form.elements.format.value}\n${form.elements.caption.value}\n${form.elements.media_url.value}\nProgramação: ${form.elements.scheduled_at.value || 'A definir'} (Fortaleza)`;
+    document.getElementById('mk-preview').textContent = `${targetNames[form.elements.target.value]} · ${formatNames[form.elements.format.value]}\n${form.elements.caption.value}\n${form.elements.format.value !== 'TEXT' && form.elements.target.value !== 'google_photo' ? form.elements.media_url.value : ''}\nProgramação: ${form.elements.scheduled_at.value || 'A definir'} (Fortaleza)`;
     const area = document.getElementById('mk-media-preview'); area.replaceChildren();
     try {
       const url = new URL(form.elements.media_url.value);
-      if (url.protocol === 'https:' && ['www.sirfisher.com.br','sirfisher.com.br'].includes(url.hostname)) {
+      if (form.elements.format.value !== 'TEXT' && form.elements.target.value !== 'google_photo' && url.protocol === 'https:' && ['www.sirfisher.com.br','sirfisher.com.br'].includes(url.hostname)) {
         const video = form.elements.format.value === 'REELS' || /\.mp4$/i.test(url.pathname);
         const media = document.createElement(video ? 'video' : 'img'); media.src = url.href;
         if (video) { media.controls = true; media.preload = 'metadata'; } else media.alt = 'Prévia da mídia própria para revisão';
         area.appendChild(media);
       }
     } catch (_) { /* Campo ainda incompleto. */ }
+  }
+  function setFormats(preferred) {
+    const f = document.getElementById('mk-draft').elements;
+    const allowed = { instagram: ['IMAGE','REELS','STORIES'], facebook: ['TEXT','PHOTO'], google_photo: ['PHOTO'] }[f.target.value];
+    const selected = preferred || f.format.value;
+    f.format.replaceChildren(...allowed.map(value => { const option = document.createElement('option'); option.value = value; option.textContent = formatNames[value]; return option; }));
+    f.format.value = allowed.includes(selected) ? selected : allowed[0];
+    f.source_media_id.parentElement.hidden = f.target.value !== 'google_photo';
+    f.media_url.parentElement.hidden = f.target.value === 'google_photo' || f.format.value === 'TEXT';
   }
   async function start() {
     if (!await SirFisherAuth.requireRole(sb)) return;
@@ -157,7 +168,7 @@
     const begin = new Date(end + 'T12:00:00Z'); begin.setUTCDate(begin.getUTCDate() - 29);
     document.getElementById('mk-start').value = begin.toISOString().slice(0, 10); document.getElementById('mk-end').value = end;
     document.getElementById('mk-filter').addEventListener('submit', e => { e.preventDefault(); load().catch(() => notice('Consulta indisponível. Tente novamente.')); });
-    const form = document.getElementById('mk-draft'); form.addEventListener('input', setPreview); form.addEventListener('reset', () => { setTimeout(() => { form.elements.id.value = ''; setPreview(); }, 0); });
+    const form = document.getElementById('mk-draft'); form.addEventListener('input', setPreview); form.addEventListener('change', e => { if (['target','format'].includes(e.target.name)) { setFormats(); setPreview(); } }); form.addEventListener('reset', () => { setTimeout(() => { form.elements.id.value = ''; setFormats(); setPreview(); }, 0); });
     form.addEventListener('submit', async e => {
       e.preventDefault(); const f = form.elements;
       const p_item = { expected_revision: f.revision.value ? Number(f.revision.value) : null, target: f.target.value, format: f.format.value, caption: f.caption.value, media_url: f.media_url.value, source_media_id: f.source_media_id.value, scheduled_at: f.scheduled_at.value ? f.scheduled_at.value + ':00-03:00' : null, rights_confirmed: f.rights_confirmed.checked, quality_confirmed: f.quality_confirmed.checked };
@@ -170,13 +181,14 @@
     main.addEventListener('click', async e => {
       const photo = e.target.closest('[data-photo]');
       if (photo) {
-        form.reset(); form.elements.target.value = 'google_photo'; form.elements.format.value = 'PHOTO'; form.elements.source_media_id.value = photo.dataset.photo;
+        form.reset(); form.elements.target.value = 'google_photo'; setFormats('PHOTO'); form.elements.source_media_id.value = photo.dataset.photo;
         setPreview(); form.scrollIntoView(); return;
       }
       const edit = e.target.closest('[data-edit]');
       if (edit) {
         const item = editorial.find(r => r.id === edit.dataset.edit); if (!item) return;
-        for (const key of ['id','revision','target','format','caption','media_url','source_media_id']) form.elements[key].value = item[key] || '';
+        form.elements.target.value = item.target; setFormats(item.format);
+        for (const key of ['id','revision','caption','media_url','source_media_id']) form.elements[key].value = item[key] || '';
         form.elements.scheduled_at.value = item.scheduled_at ? new Date(new Date(item.scheduled_at).getTime() - 3 * 3600000).toISOString().slice(0, 16) : '';
         for (const key of ['rights_confirmed','quality_confirmed']) form.elements[key].checked = item[key];
         setPreview(); form.scrollIntoView(); return;
@@ -198,7 +210,7 @@
       const verified = !check.error && check.data.state === f.elements.state.value && check.data.note === f.elements.note.value && check.data.category === f.elements.category.value;
       await load(); notice(verified ? 'Revisão salva e conferida por nova leitura.' : 'Gravação sem confirmação. Confira antes de repetir.');
     });
-    setPreview(); await load();
+    setFormats(); setPreview(); await load();
   }
   start().catch(() => { main.textContent = 'Não foi possível carregar marketing. Entre novamente e confira seu acesso.'; });
 })();
