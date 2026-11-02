@@ -292,3 +292,33 @@ releitura de destinatário/assunto na pasta Enviados. Não confundir envio com
 resposta do fornecedor. Aguardar essa confirmação para preencher o formulário.
 
 — Codex
+
+## 2026-11-02 · Codex — Jotform preparado; conexão de FC pendente
+
+Proprietário autorizou teste gratuito Jotform e concluiu login na conta
+pessoal para administrar o agente. Nome Sir Fisher — Assistente virtual.
+Base pública carregada por texto, sem mensagens de clientes; UI confirmou
+Information has been added. Persona preenchida com português do Brasil,
+respostas curtas, WhatsApp sem horário humano e continuidade após o link.
+Sem reserva/pagamento/cancelamento confirmado por inferência. Regras de
+spam conservadoras incluídas, ainda sem ensaio no fornecedor novo.
+
+Primeira conexão abriu no perfil pessoal e ofereceu conversão profissional;
+janela fechada sem conversão ou concessão. Sessão Instagram trocada para
+FC com identidade conferida. Nova tentativa de abrir conexão bloqueada
+pela revisão automática. Handoff ao proprietário no botão Connect your
+Instagram para conferir FC e autorizar perfil/mensagens/comentários.
+Conexão, testes e ativação Jotform ainda não confirmados. Nenhum plano pago
+ou cartão. Fonte oficial informa Starter com 100 conversas/mês e parada
+ao atingir cota. Conferir uso real na conta antes da ativação.
+
+Registros anteriores reconciliados em INTEGRACAO_NUVEM.md: renovações Meta
+concluídas com autorização; pedido DeathStar sem envio; Supabase apenas
+acusou recebimento, SU-534628; fórum interrompido por ordem do proprietário.
+Teste restrito de figurinha respondeu WhatsApp em 5,677 s, sem modelo;
+13 envios/seis chamadas acumuladas, teste encerrado e fila vazia. Não
+interpretar como público funcionando. Nenhum código, segredo, cron ou
+deploy alterado nesta retomada. Fazer testes e conferir duplicidade antes
+de substituir o piloto. Evidências privadas ficam em tmp/, ignorado.
+
+— Codex

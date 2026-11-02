@@ -1,5 +1,59 @@
 # Integração do atendimento em nuvem
 
+## Retomada em 02/11/2026: teste gratuito no Jotform
+
+O proprietário autorizou conectar e testar o Jotform gratuito, preservando
+os aplicativos existentes e sem contratar plano. Concluiu o login com sua
+conta pessoal para administrar o agente. O Instagram a conectar permanece
+exclusivamente `@sirfisherfc`. Atendimento público ainda não ativado.
+
+No agente **Sir Fisher — Assistente virtual**, a base pública foi colada e
+o salvamento retornou **Information has been added**. A persona recebeu
+nome, função, português do Brasil e orientações para respostas curtas,
+WhatsApp sem horário humano, continuidade das FAQs após o link, proteção
+de dados e ausência de confirmações operacionais sem verificação. Nenhuma
+conversa de cliente foi usada nessa base. Ações não apresentaram regra
+salva; ferramentas exibiram o catálogo, sem integração operacional criada.
+Ainda falta reler a persona persistida e testar as respostas.
+
+A primeira janela de conexão reconheceu o perfil pessoal e ofereceu
+convertê-lo em profissional. A janela foi fechada sem conversão nem
+concessão. A sessão existente foi trocada para FC e a identidade foi
+confirmada pelo perfil e pelos controles profissionais. O clique seguinte
+foi bloqueado pela revisão automática; o proprietário foi orientado a
+concluir a conexão e conferir FC e as permissões diretamente na Meta.
+Não há confirmação de vínculo Jotform/Instagram, recebimento de webhook,
+teste de resposta ou ativação pública nesta etapa.
+
+Antes de ativar: conferir o plano/cota na conta, revisar conhecimentos
+importados, testar FAQ, informação ausente, reserva, reclamação, spam e
+continuidade após WhatsApp. Conferir atendimento de perfil externo e
+duplicidade. Pausar o piloto antigo e as automações nativas que disputem
+o mesmo evento somente quando houver substituição pronta. A indicação
+do WhatsApp exige que o cliente inicie a conversa e não transfere o histórico.
+
+Fontes oficiais consultadas na preparação de 01–02/11/2026:
+[Instagram Agent](https://www.jotform.com/ai/instagram-agent/),
+[preços e funcionamento da cota](https://www.jotform.com/ai/instagram-agent/pricing/)
+e [limites esclarecidos pelo suporte](https://www.jotform.com/answers/32500571-account-agents-limit-clarification-on-counting-ai-setups-and-topics).
+Starter informa 100 conversas mensais; ao atingir a cota, o agente para
+de responder até renovação ou mudança de plano. Funcionamento em nuvem
+dispensa PC ligado, mas a cota não garante cobertura de toda a demanda.
+
+Na preparação anterior, renovações `public_profile` e `email` foram
+concluídas após certificação expressa do proprietário. A dependência
+`instagram_basic` e o tratamento de dados continuam sem conclusão; o
+pedido DeathStar permanece sem envio. O Supabase acusou recebimento do
+pedido de países no ticket SU-534628, sem resposta substantiva. Anthropic
+preservada como pendente. O proprietário encerrou o caminho de fórum;
+nenhuma publicação foi confirmada e não se deve retomar esse caminho.
+
+O teste adicional de figurinha no perfil do proprietário recebeu uma
+orientação ao WhatsApp em 5,677 s, sem chamada ao modelo. Contagens após
+esse envio: 13 envios e seis chamadas acumuladas. Caso de teste encerrado
+com confirmação de fila vazia e pausa preservada. Isso comprova somente
+o piloto restrito, sem entrega pública ou implantação nova.
+
 Retomada em 01/11/2026, 22h43–22h45 Fortaleza: DeathStar preservado,
 identidade/token/inscrições corretos nas leituras oficiais. Mensagem nova
 de Pub chegou à caixa nativa; fila sem incoming externo e janela de logs
