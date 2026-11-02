@@ -1,12 +1,32 @@
 """Destino portal e credencial privada compartilhada; consultas sem imprimir dados."""
 import json
+import os
 import sys
 from pathlib import Path
 from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT.parent / 'site/tools/analytics'))
-from supabase_credentials import PORTAL_REF, access_token, verify_portal
+PORTAL_REF = 'lucpxoynpvogkvzepagi'
+
+
+def access_token():
+    if os.environ.get('SUPABASE_ACCESS_TOKEN'):
+        return os.environ['SUPABASE_ACCESS_TOKEN']
+    # Importacao tardia: testes/checkout isolado nao exigem os outros repos.
+    try:
+        from supabase_credentials import access_token as shared_token
+    except ModuleNotFoundError:
+        raise RuntimeError('Use o workspace completo ou SUPABASE_ACCESS_TOKEN no ambiente privado.') from None
+    return shared_token()
+
+
+def verify_portal():
+    request = Request('https://api.supabase.com/v1/projects',headers={'Authorization':'Bearer '+access_token()})
+    with urlopen(request,timeout=30) as response:
+        projects=json.load(response)
+    if not any(p.get('id')==PORTAL_REF for p in projects):
+        raise RuntimeError('Projeto portal nao confirmado.')
 
 
 def query(sql, parameters=None, *, write=False):

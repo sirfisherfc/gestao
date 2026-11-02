@@ -557,3 +557,11 @@ inferidos de gastos ou estimativa legada. Orientações da raiz idênticas às
 cópias versionadas. Conferir publicação e sincronização no fechamento.
 
 — Codex
+
+A pagina e os quatro assets ligados foram publicados em e9a33f0, HTTP 200
+e bytes conferidos. As quatro tabelas negaram SELECT anonimo por HTTP 401.
+O CI encontrou dependencia de importacao do helper do site em checkout
+isolado. Corrigida importacao tardia; SUPABASE_ACCESS_TOKEN do ambiente
+privado permite operacao isolada, preservando o helper canonico local como
+fallback. GA4 aceita o caminho privado GOOGLE_APPLICATION_CREDENTIALS.
+Nenhuma credencial copiada. Retestar CI no commit seguinte.

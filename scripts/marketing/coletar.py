@@ -2,6 +2,7 @@
 import argparse
 import datetime as dt
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -42,7 +43,7 @@ def ga_report(start, end):
     from google.analytics.data_v1beta import BetaAnalyticsDataClient
     from google.oauth2 import service_account
     creds = service_account.Credentials.from_service_account_file(
-        str(ROOT.parent / 'site/tools/analytics/service_account.json'),
+        os.environ.get('GOOGLE_APPLICATION_CREDENTIALS') or str(ROOT.parent / 'site/tools/analytics/service_account.json'),
         scopes=['https://www.googleapis.com/auth/analytics.readonly'])
     client = BetaAnalyticsDataClient(credentials=creds)
     result = client.run_report(request={'property': 'properties/353205396',
