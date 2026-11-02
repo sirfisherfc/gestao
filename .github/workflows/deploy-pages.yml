@@ -47,6 +47,7 @@ jobs:
             despesas.html \
             gerente.html \
             eventos.html \
+            marketing.html \
             cancelamentos.html \
             gerenciador_de_para.html \
             analise_individual.html \
@@ -77,6 +78,8 @@ jobs:
           cp assets/dashboard-utils.js _site/assets/
           cp assets/eventos.css _site/assets/
           cp assets/eventos.js _site/assets/
+          cp assets/marketing.css _site/assets/
+          cp assets/marketing.js _site/assets/
           cp assets/product-pages.css _site/assets/
           cp assets/safe-dom.js _site/assets/
           cp assets/supabase-client.js _site/assets/
@@ -92,6 +95,8 @@ jobs:
             assets/dashboard-utils.js \
             assets/eventos.css \
             assets/eventos.js \
+            assets/marketing.css \
+            assets/marketing.js \
             assets/product-pages.css \
             assets/safe-dom.js \
             assets/supabase-client.js \
@@ -111,6 +116,7 @@ jobs:
             gerente.html \
             importar.html \
             index.html \
+            marketing.html \
             melhoria_inovacao.html \
             parametros.html \
             parametros_editor.html \

@@ -523,3 +523,37 @@ após normalizar LF, conferido por SHA-256. Prova publicado.jpg no diretório
 privado do ensaio. Sem mudança de banco, agente ou tratamento configurado.
 
 — Codex
+
+## 2026-11-02 · Codex — Marketing DeathStar, conteúdo e reservas
+
+Entrega e operação em docs/MARKETING_DEATHSTAR.md. Página privada
+marketing.html ligada a Rotinas, com Instagram, Meta Ads, GA4 e coorte de
+reservas separados. Migrations 20261102203032/20261102204311 aplicadas ao
+portal e relidas; RLS/grants, UUID privado do proprietário configurado,
+rascunhos, revisão esperada, hash de arquivo, fila/claim e reconciliação.
+
+Coleta real 02/10–31/10 e período anterior: seis publicações, dois Stories,
+três comentários; GA4 real guardado. Três fotos próprias preparadas, uma
+parecida com foto da ficha. Nenhuma foto/publicação/mensagem enviada.
+Conta Meta 1004410887092327 informada pelo proprietário retorna 403;
+ads_read presente e listagens vazias. Falta atribuir o ativo ao usuário do
+sistema. Jotform e piloto pausado preservados. Pixel/CAPI sem mudanças.
+
+Site publicou 23b5951/4dd4377; reservas 5ca4e61. Links com utm_content e
+utm_id, alias de campaign_id, chegada externa sem conteúdo herdado.
+121 testes site, 42 reservas; browsers/arquivos publicados conferidos.
+Gestão: oito testes marketing, 20 Analytics, oito feriados GBP; qualidade,
+acesso, migrations e frontend passaram. Contratos SQL reais com rollback
+validaram gates e revisão concorrente. Edge 390/1440 com mocks: 19 critérios;
+provas privadas em ../tmp/qa-marketing-2026-11-02/. Readback real de coleta,
+filas vazias e configuração do proprietário confirmado sem expor dados.
+
+Coleta contínua e disparo agendado ainda precisam ser incorporados ao
+executor existente, com credenciais e execução real conferidas lá. Nenhuma
+segunda rotina GBP foi criada. Primeiro envio por formato exige conteúdo,
+data e arquivo aprovados; aprovação de mídia exige validar.py. Envio
+incerto não é repetido automaticamente. Público/retorno financeiro não
+inferidos de gastos ou estimativa legada. Orientações da raiz idênticas às
+cópias versionadas. Conferir publicação e sincronização no fechamento.
+
+— Codex

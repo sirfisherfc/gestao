@@ -538,7 +538,7 @@ def dhash(imagem, lado=16):
     return bits
 
 
-def hashes_publicados():
+def hashes_publicados(*, exigir_completo=False):
     """Hash de cada foto ja publicada na ficha, para nao repetir foto.
 
     Baixa miniaturas pequenas, com pausa entre elas: a partir de servidores na
@@ -577,6 +577,8 @@ def hashes_publicados():
             falhas += 1
     if falhas:
         print(f"aviso: {falhas} miniatura(s) da ficha nao baixaram; a checagem de repetidas ficou parcial")
+        if exigir_completo:
+            raise RuntimeError('Conferencia de duplicidade parcial; selecao permanece em revisao.')
     try:
         SAIDA.mkdir(parents=True, exist_ok=True)
         cache_arq.write_text(json.dumps(cache), encoding="utf-8")
@@ -743,17 +745,10 @@ def graph(caminho, **params):
 
 
 def conta_instagram():
-    fixo = credencial("META_IG_USER_ID")
-    if fixo:
-        return fixo
-    paginas = graph("me/accounts", fields="name,instagram_business_account{id,username}").get("data", [])
-    contas = [p["instagram_business_account"] for p in paginas if p.get("instagram_business_account")]
-    for c in contas:
-        if c.get("username") == USUARIO_IG:
-            return c["id"]
-    if not contas:
-        sys.exit("O token nao enxerga nenhuma conta do Instagram ligada a uma pagina.")
-    return contas[0]["id"]
+    # Mesmo contrato estrito do MCP: ID fixo tambem precisa confirmar username.
+    sys.path.insert(0, str(RAIZ))
+    from scripts.instagram_analytics.client import InstagramAnalytics
+    return InstagramAnalytics().identity()["data"]["id"]
 
 
 def fotos_instagram(dias):
@@ -785,17 +780,24 @@ def cmd_instagram(args):
     from PIL import Image
     pasta = SAIDA / "instagram"
     pasta.mkdir(parents=True, exist_ok=True)
-    publicadas = hashes_publicados() + hashes_descartados()
+    publicadas = hashes_publicados(exigir_completo=getattr(args, 'exigir_completo', False)) + hashes_descartados()
     escolhidas = {}
     for item in filter(None, (args.itens or "").split(",")):
         ident, _, cat = item.strip().partition(":")
         escolhidas[ident] = cat or "FOOD_AND_DRINK"
     novas = 0
+    confirmadas = []
     for f in fotos_instagram(args.dias):
+        if args.publicar and f["id"] not in escolhidas:
+            continue
         arq = pasta / f"{f['id']}.jpg"
         pedido = urllib.request.Request(f["url"], headers={"User-Agent": "Mozilla/5.0"})
         with urllib.request.urlopen(pedido, timeout=60) as r:
             arq.write_bytes(r.read())
+        if args.publicar and getattr(args, 'expected_sha256', None):
+            import hashlib
+            if hashlib.sha256(arq.read_bytes()).hexdigest() != args.expected_sha256:
+                raise RuntimeError('Arquivo diferente do aprovado; revisar antes de publicar.')
         img = Image.open(arq)
         h = dhash(img)
         if parecida(h, publicadas):
@@ -821,11 +823,23 @@ def cmd_instagram(args):
                 continue
             registrar("foto", None, {"instagram": f["id"], "post": f["post"], "midia": criado.get("name"),
                                      "categoria": escolhidas[f["id"]]})
+            # Recebimento e confirmacao por nova leitura ficam separados.
+            nome = criado.get("name", "")
+            if not nome.startswith(f"{CONTA}/{LOCAL}/media/"):
+                raise RuntimeError("Google retornou destino inesperado; conferir antes de repetir.")
+            if callable(getattr(args, 'ao_criar', None)):
+                args.ao_criar(nome)
+            conferida = api("GET", f"{V4}/{nome}")
+            if conferida.get("name") != nome:
+                raise RuntimeError("Foto sem confirmacao por nova leitura; nao reenviar automaticamente.")
+            registrar("foto_confirmada", None, {"instagram": f["id"], "midia": nome})
+            confirmadas.append({"instagram": f["id"], "name": nome})
             publicadas.append(h)
             print(f"   publicada: {criado.get('name', '?').split('/')[-1]}")
     print(f"\n{novas} foto(s) nova(s) do Instagram nos ultimos {args.dias} dias")
     if not args.publicar:
         print("(simulacao: olhe os arquivos e publique com --publicar --itens ID[:CATEGORIA],...)")
+    return confirmadas
 
 
 # ----------------------------------------------------------------- posts

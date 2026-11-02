@@ -38,6 +38,9 @@ jobs:
       - name: Instagram analytics read scope, cache and metric coverage without network
         run: python -B -m unittest discover -s scripts/instagram_analytics -p 'test_*.py'
 
+      - name: Marketing approval, schedules, missing metrics and send confirmation without network
+        run: python -B -m unittest discover -s scripts/marketing -p 'test_*.py'
+
       - name: Teknisa scope, receipts, printing and seller reports without network
         run: node --test scripts/teknisa/test_*.mjs
 

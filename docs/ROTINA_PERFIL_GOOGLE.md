@@ -1,5 +1,14 @@
 # Rotina do Perfil da Empresa no Google
 
+Em 02/11/2026, a preparação de fotos próprias ganhou revisão no painel
+privado de Marketing. Operação em [MARKETING_DEATHSTAR.md](MARKETING_DEATHSTAR.md).
+A ferramenta GBP agora confirma estritamente o Instagram e relê a foto
+criada. O fluxo novo exige duplicidade completa e hash da revisão aprovada.
+Nenhuma foto foi publicada nessa entrega; nenhuma segunda rotina GBP foi
+criada. A rotina existente abaixo foi preservada. Incorporar a coleta/envio
+de marketing ao executor existente ainda exige validar suas credenciais e
+uma execução agendada naquele ambiente.
+
 Ficha: **Sir Fisher**, Av. Beira Mar, 3421 (`locations/12889581244809183683`).
 As fichas "Sir Fisher - PUB" e "Sir Fisher - Impresa" foram encerradas e não
 entram em nada.

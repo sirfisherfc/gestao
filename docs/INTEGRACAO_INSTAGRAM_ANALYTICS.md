@@ -1,5 +1,13 @@
 # Instagram: leitura de conteudo, insights e reservas
 
+Atualização de 02/11/2026: o painel privado, histórico no portal, anúncios,
+revisão editorial, comentários e fotos Google estão descritos em
+[MARKETING_DEATHSTAR.md](MARKETING_DEATHSTAR.md). Esse fluxo tem cliente
+próprio, separado do MCP de leitura descrito abaixo. O MCP conserva seu
+escopo. A conta de anúncios informada pelo proprietário ainda retorna 403;
+nenhum envio editorial foi realizado. Direct Jotform e piloto pausado foram
+preservados.
+
 Conferido em 25/10/2026 no Windows/PowerShell do workspace SirFisher.
 A conta autenticada e `@sirfisherfc`, ID `17841439937145607`. A integracao
 usa a API oficial da Meta v26.0 e o mesmo app/token da rotina do Perfil da
