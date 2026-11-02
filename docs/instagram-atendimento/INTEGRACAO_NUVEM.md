@@ -1,5 +1,22 @@
 # Integração do atendimento em nuvem
 
+Retomada em 01/11/2026, 22h43–22h45 Fortaleza: DeathStar preservado,
+identidade/token/inscrições corretos nas leituras oficiais. Mensagem nova
+de Pub chegou à caixa nativa; fila sem incoming externo e janela de logs
+sem POST no callback. App Live, permissão de mensagens Standard Access,
+solicitação de análise **Não enviado**. A UI de Mensagens do Instagram e a
+[documentação de webhooks](https://developers.facebook.com/documentation/business-messaging/instagram-messaging/webhooks)
+confirmam a necessidade de análise para interagir com pessoas sem papel
+no app. Não tratar isso como entrega corrigida ou causa única comprovada.
+
+Descrição da solicitação corrigida, salva e reaberta. Vídeo,
+`instagram_basic`, certificações e tratamento de dados continuam pendentes.
+Google/Anthropic preservados na lista antiga; conferir Supabase e países
+antes de certificar. Retomada do perfil do proprietário pediu autenticação
+manual, solicitada ao usuário. Nenhuma alteração de runtime, segredo,
+inscrição, cron, allowlist ou banco; health segue Gemini TEST1/Edge33,
+oito envios/quatro chamadas e zero pendências. OpenAI/público OFF.
+
 Gemini segue exclusivo do proprietário adulto. Em 01/11/2026 o proprietário
 escolheu preparar OpenAI API com teto de R$45/mês. Preparação e testes locais
 autorizados; cobrança e envio de mensagens de clientes à OpenAI exigem

@@ -152,3 +152,45 @@ conferir página pública antes de novo envio. Perfil/termos/publicação já
 autorizados, não repetir a pergunta de autorização.
 
 — Codex
+
+## 2026-11-01 · Codex — Retomada do DeathStar e novo teste externo
+
+Pedido atual: corrigir a conexão pelo app antigo e atender o público na
+nuvem. Os três repositórios começaram limpos em main e foram atualizados
+por fast-forward, sem novidades. Verificação canônica da credencial do
+portal passou no Python 3.13 deste PC; o ambiente virtual antigo aponta
+para o outro PC e não deve motivar nova solicitação de token.
+
+Leituras oficiais: identidade da Página/FC correta, token PAGE válido do
+DeathStar sem vencimento programado, Instagram/messages ativo no callback
+correto e inscrição da Página com name/messages. Health real: Edge33,
+Gemini TEST1, oito envios/quatro chamadas, zero pendências, público OFF.
+
+Às 22h43 Fortaleza foi enviado um teste identificado de sirfisherpub para
+sirfisherfc, sem adicionar Pub como testador. Recebimento nativo confirmado
+na Meta Suite. Fila sem incoming externo e logs oficiais de 22h42 até
+22h45min24s sem POST no callback. Zero IA/resposta para Pub. Não contar
+como teste de resposta pública aprovado.
+
+Bloqueio concreto de liberação: instagram_manage_messages em Standard,
+Meta Review Não enviado. A UI de Mensagens do Instagram e o documento de
+webhooks atualizado em 28/10 exigem análise para mensagens sem papel no
+app. Condição não satisfeita confirmada, sem atribuir a ela toda a causa
+de transporte ou o Timeout histórico. Pedido 29077618661870253 precisa
+vídeo, instagram_basic, certificações de uso/renovação e tratamento de
+dados. Descrição corrigida, salva e reaberta: WhatsApp não pausa toda FAQ,
+sem horário humano, Gemini só proprietário e OpenAI preparada em OFF.
+
+Google/Anthropic permanecem na lista de operadores; a decisão anterior de
+preservar Anthropic pendente foi respeitada. Supabase/países e declaração
+completa precisam ser conferidos antes do envio. Nenhuma certificação,
+permissão nova, remoção, submissão ou publicação aplicada nesta retomada.
+
+A troca para o proprietário abriu a retomada de autenticação Continuar
+como rogerioluizdafonseca. Clique manual solicitado para preparar o vídeo.
+Nenhum vídeo gravado/enviado. Não contornar a autenticação nem inferir que
+o teste Pub passou por não haver erro no navegador. Rascunho/provas e
+verificadores somente leitura em tmp/ ignorado. Nenhum deploy/migration,
+troca de segredo/modelo, ampliação de allowlist ou contratação.
+
+— Codex

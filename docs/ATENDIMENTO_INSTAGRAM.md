@@ -1,5 +1,50 @@
 # Atendimento do Instagram @sirfisherfc
 
+## Retomada do aplicativo antigo em 01/11/2026
+
+O proprietário determinou retomar **DeathStar** e validar uma conversa fora
+do seu perfil de teste, com execução contínua na nuvem. O aplicativo novo
+permanece separado e desligado. Nenhum custo novo foi contratado.
+
+- Leituras oficiais confirmaram a Página Sir Fisher, `@sirfisherfc`, token
+  PAGE válido do DeathStar e sem vencimento programado. A inscrição do app
+  contém Instagram/messages ativo no callback correto. A Página mantém
+  DeathStar com `messages` e `name`.
+- Health real: Edge 33, Gemini TEST exclusivo do proprietário adulto,
+  sem pausa global, oito envios e quatro chamadas acumuladas, zero
+  pendências. Todos os gates públicos continuam fechados.
+- Novo teste: uma mensagem identificada do `@sirfisherpub`, enviada às
+  **22h43 de 01/11, Fortaleza**, apareceu na caixa do Sir Fisher. A consulta
+  da fila não encontrou nenhum incoming de remetente fora do proprietário.
+  A consulta oficial de logs de **22h42 a 22h45min24s** não encontrou POST
+  no callback. Nenhuma resposta ou chamada de modelo foi iniciada para Pub.
+- Bloqueio de liberação confirmado: a tela Messenger/Configurações do
+  Instagram exige análise antes de interagir com pessoas fora dos papéis.
+  `instagram_manage_messages` está em Standard Access e a solicitação está
+  **Não enviado**. A documentação de webhooks, atualizada em 28/10/2026,
+  exige aprovação para receber dados de pessoas sem função no aplicativo.
+  Isso confirma uma condição ainda não satisfeita; não demonstra que seja
+  a única causa possível nem resolve o Timeout histórico da leitura.
+- O pedido `29077618661870253` ainda exige vídeo, dependência
+  `instagram_basic`, certificações de uso/renovação e revisão dos dados.
+  A descrição foi corrigida, salva e reaberta: WhatsApp sem horário,
+  FAQ continua após o link, pausa por intervenção/envio incerto, Gemini
+  apenas no piloto e OpenAI preparada em OFF. A descrição anterior dizia
+  que todo encaminhamento pausava a conversa e foi substituída.
+- A lista de operadores da Meta ainda mostra Google e Anthropic. Anthropic
+  foi preservada conforme a decisão do proprietário; uso continua pendente
+  de conferência. Supabase e os países de processamento precisam constar
+  corretamente antes do envio; não foram inventados ou certificados.
+- Ao tentar abrir o proprietário para preparar o vídeo, o Instagram pediu
+  **Continuar como rogerioluizdafonseca**. O clique de autenticação foi
+  entregue ao proprietário. Nenhum vídeo novo foi gravado ou enviado.
+
+Fontes oficiais relidas em 01/11/2026:
+[webhooks do Messenger para Instagram](https://developers.facebook.com/documentation/business-messaging/instagram-messaging/webhooks)
+e [análise para apps da própria empresa](https://developers.facebook.com/documentation/business-messaging/instagram-messaging/app-review/apps-for-your-own-business).
+Provas e verificadores ficam em `tmp/instagram-atendimento/`, ignorado;
+nenhuma credencial ou conversa de cliente foi versionada.
+
 Diagnóstico e configuração de 01/11/2026. Fluxo definido pelo proprietário:
 IA responde dúvidas no Instagram; atendimento humano pelo WhatsApp
 (85) 98854-4274, sem informar horário humano ou prometer prazo. A gerente já possui acesso nativo às mensagens;
