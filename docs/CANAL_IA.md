@@ -565,3 +565,12 @@ isolado. Corrigida importacao tardia; SUPABASE_ACCESS_TOKEN do ambiente
 privado permite operacao isolada, preservando o helper canonico local como
 fallback. GA4 aceita o caminho privado GOOGLE_APPLICATION_CREDENTIALS.
 Nenhuma credencial copiada. Retestar CI no commit seguinte.
+
+CI completo de e0ad6e1 passou (quality/import-outbox) e Pages passou.
+Smoke anônimo real publicado redirecionou ao login sem consultar/exibir
+marketing, sem erro JS/CSP e sem overflow em 390 px; evidências na pasta QA
+já citada. Tentativa de auditar a rotina Claude existente bloqueada pelo
+host de navegador indisponível e falha de acesso à sessão Chrome. Configuração
+e nomes de credenciais do ambiente seguem sem leitura/alteração. Esse acesso
+é a pendência concreta para incorporar coleta e executor sem criar outra
+rotina. Documentação registra esse limite; acesso local segue funcionando.

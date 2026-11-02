@@ -97,6 +97,12 @@ foi criada ou ativada; a rotina existente continua conforme
 com as credenciais privadas disponíveis naquele ambiente, e conferir uma
 execução agendada. A aprovação editorial de conteúdo continua separada.
 
+A tentativa de auditar a rotina existente em 02/11 ficou bloqueada: a
+ferramenta de navegação informou host indisponível e não conseguiu acessar
+a sessão Chrome. Nenhuma configuração da rotina foi lida ou alterada.
+Falta acesso de leitura à rotina e aos nomes de credenciais de seu ambiente
+para concluir essa incorporação. O acesso local já confirmado permanece em uso.
+
 `fotos` reaproveita o dHash e os descartes do GBP. Uma conferência parcial
 de duplicidade interrompe a preparação/envio por este fluxo. Revise os
 arquivos em `tmp/gbp/instagram/`; o painel mostra o ID e o link original.
@@ -177,6 +183,11 @@ Validações desta entrega:
   formulários/readback, concorrência de filtros/revisões, gate de proprietário,
   XSS, mídia e custos rastreados. Nenhuma chamada real de escrita nesse QA.
   Capturas privadas em `../tmp/qa-marketing-2026-11-02/`.
+- Smoke anônimo no domínio publicado, com auth/REST reais: redirecionou para
+  login, não consultou dados de marketing e não apresentou erro JS/CSP ou
+  rolagem horizontal em 390 px. As quatro tabelas privadas também negaram
+  SELECT pela Data API anônima, HTTP 401. CI completo passou em `e0ad6e1`;
+  os arquivos publicados foram comparados por nova leitura HTTPS.
 - Site: 121 testes e verificadores de assets/CSP/CSS; fluxo publicado em
   navegador. Reservas: 42 testes e fluxo até RPC simulado; seis arquivos
   publicados comparados por nova leitura HTTPS.
