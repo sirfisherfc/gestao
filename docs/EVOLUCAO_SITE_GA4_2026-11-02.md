@@ -6,10 +6,11 @@ Consulta em 02/11/2026. Comparação: setembro de 2026 (30 dias) e outubro de
 ## Resultado observado
 
 O site recebeu mais visitas em outubro e os visitantes usaram mais o cardápio
-publicado no próprio domínio. Os cliques para reservar caíram. As confirmações
-registradas pelo Analytics passaram de 22 para 24, com cobertura parcial.
-Esses dados ainda precisam da conferência operacional para medir o crescimento
-de reservas efetivas e de clientes atendidos.
+publicado no próprio domínio. Os cliques para reservar caíram. Na conferência
+operacional acrescentada em 02/11, as reservas públicas criadas passaram de
+27 para 24, queda de 11,1%. O Analytics registrou 22 e 24 eventos de confirmação, enquanto
+a presença dos identificadores GA nas reservas passou de 74,1% para 100%.
+O crescimento do tráfego exige acompanhamento separado da criação de reservas.
 
 ## Fonte e recortes
 
@@ -23,6 +24,12 @@ As configurações adicionais foram lidas e alteradas pela Admin API, com a
 credencial privada existente. O MCP permaneceu somente de leitura.
 O proprietário autorizou a análise e a configuração dos recursos úteis para
 acompanhar reservas nesta conversa.
+
+Na retomada de 02/11, o Navegador passou a acessar a sessão existente do
+Analytics. O checklist, a integração do Search Console e o insight semanal
+foram conferidos pela interface. A coorte operacional veio da função canônica
+`operations_report`, pela rota Supabase `/database/query/read-only` no projeto
+`portal`, com apenas agregados de reservas `source=public_site`.
 
 As respostas usadas não indicaram amostragem ou perda na linha `(other)`.
 A consulta de cidades retornou as 100 primeiras de 510 linhas; seus destaques
@@ -124,9 +131,31 @@ QR e Google são recortes contidos nos canais, sem adição entre os dois nívei
 `reservation_confirmed` ocorre após a criação da reserva comum. A tag e os
 identificadores disponíveis limitam a cobertura. `visit_realized` depende da
 marcação de comparecimento pela equipe e usa outro momento da jornada.
-As contagens não formam uma coorte: dividir confirmações por cliques ou
-comparecimentos por confirmações produziria uma taxa sem sequência validada.
-O banco operacional não foi consultado nesta análise.
+Cada contagem usa a etapa e a cobertura do evento. Calcular uma taxa entre
+cliques, confirmações e comparecimentos exige uma coorte com sequência validada.
+
+### Conferência operacional acrescentada em 02/11
+
+| Período de criação em Fortaleza | Reservas públicas criadas | Com ambos os identificadores GA | Cobertura dos identificadores |
+| --- | ---: | ---: | ---: |
+| Setembro, 01–30 | 27 | 20 | 74,1% |
+| Outubro, 01–31 | 24 | 24 | 100% |
+| Outubro, 22–31 | 4 | 4 | 100% |
+
+As reservas públicas criadas caíram 11,1% no total. A média diária passou de
+0,900 para 0,774, queda de 14,0% depois do ajuste pela quantidade de dias.
+O recorte considera a data de criação, com início inclusivo e fim exclusivo
+no fuso de Fortaleza. Reservas inseridas por outros canais ficam fora.
+
+Os identificadores preenchidos ajudam a medir a jornada, mas seu preenchimento
+não comprova recebimento pelo GA ou correspondência individual. As consultas
+operacionais e GA foram agregadas e mantidas em paralelo.
+
+Na data da consulta, oito reservas da coorte de setembro e 11 da de outubro
+estavam marcadas como comparecimento. Ainda havia três e sete reservas com
+status confirmada, respectivamente. Esses são os status atuais das reservas
+criadas em cada mês; comparar o comparecimento final exige acompanhar os
+resultados dessas reservas e a data da visita.
 
 As etapas novas do formulário começaram em 22/10. Até 31/10, o GA registrou
 48 visualizações do formulário por 27 usuários, 17 inícios por 14 usuários e
@@ -174,8 +203,7 @@ receita e transações dos prints não apuram o faturamento do restaurante.
 55,5% dos 46.109 eventos do site. O código registra mudanças da categoria
 indicada durante a rolagem e permite repetições. Os 973 eventos de categoria
 do visitante no print representam ocorrências registradas; identificar sua
-causa individual exigiria contexto adicional. São ocorrências de mudança de
-categoria, com repetição possível por visitante. Para relacioná-las a pedidos
+causa individual exigiria contexto adicional. Para relacioná-las a pedidos
 ou receita, faltam registros dessas ações ligados à mesma jornada.
 
 Referências locais: [medição do site](../../site/tools/analytics/README.md),
@@ -209,15 +237,46 @@ Uma nova prévia somente de leitura confirmou que os dois públicos já existem
 com as regras esperadas. Os eventos principais de reserva, rota, WhatsApp e
 comparecimento e as quatro dimensões personalizadas do funil foram conferidos.
 
-## Assistente de Tarefas e pendências
+## Assistente de Tarefas: execução pelo Navegador
 
-A imagem enviada mostra sete de 12 tarefas restantes. Os nomes visíveis são
-**Ativar os indicadores do Google** e **Criar públicos-alvo**. A configuração
-de públicos foi concluída; a marcação e o contador do checklist não puderam
-ser conferidos, pois o navegador desta sessão estava indisponível. O MCP não
-expõe o Assistente. Os nomes das outras cinco pendências continuam necessários
-para avaliá-las individualmente. O Assistente permite marcar tarefas depois da
-configuração. [Funcionamento do Assistente](https://support.google.com/analytics/answer/16888318?hl=pt-BR).
+O primeiro acesso da ferramenta estava indisponível. Depois de conectar o
+Navegador e tentar novamente em 02/11, a sessão do Chrome abriu a propriedade
+correta. Todas as categorias do Assistente foram lidas. A tela passou de
+**sete para quatro de 12 tarefas restantes** depois das configurações abaixo.
+
+| Tarefa atendida | Resultado conferido |
+| --- | --- |
+| Criar públicos-alvo | Os dois públicos de reserva aparecem na interface e a tarefa passou a concluída. |
+| Vincular ao Search Console | Domínio verificado `sirfisher.com.br` vinculado ao fluxo Sir Fisher, `https://www.sirfisher.com.br`, ID `15405248385`. A interface confirmou “VINCULAÇÃO CRIADA”. |
+| Criar insights personalizados | Criado “GA4: queda semanal acima de 50% nas ações principais”, com avaliação semanal e e-mails desligados. |
+
+O insight compara a métrica Eventos principais com a semana anterior, de
+domingo a sábado, e aparece no painel se a redução for superior a 50%.
+Ele acompanha o conjunto dos eventos principais existentes, que inclui
+reserva e ações de contato. Um recorte específico da sequência da reserva
+continua disponível pelo relatório de funil. A lista de destinatários do
+insight ficou vazia e o botão de notificações por e-mail foi relido desligado.
+
+O relatório **Search Console → Consultas** já estava acessível com dados.
+No recorte exibido, de 05/10 a 01/11, a consulta “pôr do sol hoje” respondeu
+por 160 dos 224 cliques mostrados no relatório (71,4%). Essa janela é distinta
+dos meses comparados neste documento. O termo sugere interesse informacional;
+para atribuir reservas a ele faltam dados da mesma jornada. O relatório também
+mostra consultas de marca e de restaurantes na Beira-Mar.
+
+Os quatro itens ainda apresentados pelo Assistente foram avaliados:
+
+| Tarefa restante | Condição para adotar |
+| --- | --- |
+| Ativar os indicadores do Google | Uso dos relatórios adicionais de perfil e interesses. Os eventos atuais já permitem acompanhar a reserva. |
+| Vincular ao Google Ads | Definir a conta e o uso de campanhas nessa plataforma, com os dados que serão compartilhados. |
+| Configurar o User-ID | Dispor de um identificador interno estável para visitantes autenticados. A jornada pública de reserva funciona sem login. |
+| Configurar dados fornecidos pelo usuário (UPD) | Definir quais dados de contato seriam enviados à Google e a finalidade dessa coleta adicional. |
+
+Esses quatro recursos permaneceram com a configuração existente. A tarefa
+Google Ads aparece em duas categorias, sendo contada uma vez no total.
+“Corrigir problemas com dados” mostrou nenhuma tarefa detectada.
+[Funcionamento do Assistente](https://support.google.com/analytics/answer/16888318?hl=pt-BR).
 
 A Admin API confirmou os indicadores do Google desligados. Eles foram
 mantidos assim porque os eventos existentes permitem acompanhar a reserva.
@@ -229,17 +288,44 @@ Não há vínculo com Google Ads na propriedade. O nome da conta, “Conta do
 Google Ads”, não informa o estado desse vínculo. A utilidade de criar um
 vínculo depende do uso dessa plataforma e dos dados a compartilhar.
 
-## Próximas decisões
+## Acompanhamento da jornada
 
 Priorizar a queda dos cliques para reservar, acompanhando o Instagram e os
 botões da home com a posição disponível desde 22/10. Separar QR dos acessos
-de descoberta ao avaliar aquisição. Conferir a sequência do novo funil e a
-coorte operacional de reservas para identificar onde as pessoas interrompem
-a jornada; validar disponibilidade e regras antes de atribuir uma saída ao site.
+de descoberta ao avaliar aquisição. O funil sequencial e a coorte operacional
+foram conferidos. Relacionar cada saída aos impedimentos ainda exige dados da
+mesma jornada; a disponibilidade e as regras também precisam entrar na análise.
 
 Os impedimentos por horário e tamanho de grupo ajudam a revisar se as
 orientações e os caminhos alternativos estão claros. Esses dados, por si só,
 não justificam mudar as regras de reserva.
+
+### Ajustes no portal de reservas
+
+O commit `444180f` do repositório `reservas` alinha o formulário ao site:
+
+- Grupos acima do limite do portal e até 29 pessoas seguem para consulta no
+  WhatsApp; eventos de 30–100 pessoas sentadas abrem o configurador. Acima de
+  100, a mensagem orienta consultar a equipe para avaliar o pedido.
+- Após o corte, a mensagem informa visita por ordem de chegada conforme a
+  disponibilidade e oferece Como chegar e WhatsApp para dúvidas. A orientação
+  também aparece quando o corte é retornado apenas na tentativa de envio.
+
+O limite e o horário continuam vindo das configurações existentes. A frase
+de corte passou a explicar o momento de confirmar a reserva. As versões em
+português e inglês foram alinhadas.
+
+Os 24 testes de funil e atribuição passaram. O teste de navegador bloqueou a
+rede externa e simulou os RPCs; cobriu PT/EN em 390 e 1440 px, os limites
+11/29/30/100/101, uma configuração de apoio com limite 12 e corte às 16:00,
+e o corte retornado no envio com uma ocorrência de impedimento registrada.
+Esses testes preservaram os registros e eventos reais de produção.
+
+Arquivos: [formulário](../../reservas/index.html),
+[comportamento da reserva](../../reservas/assets/js/reservations.js),
+[traduções](../../reservas/assets/js/i18n.js),
+[teste do navegador](../../reservas/tools/reservation_funnel_browser_test.py) e
+[registro de medição](../../reservas/docs/medicao-google.md).
 
 Consultas agregadas, planos, scripts temporários e recibos permanecem em
 `tmp/ga4-2026-11-02/`, ignorado pelo Git. O registro versionado contém a análise

@@ -439,3 +439,33 @@ não expõe o Assistente. Scripts, consultas agregadas e recibos em
 Leitura independente e nova prévia conferiram as configurações aplicadas.
 
 — Codex
+
+## 2026-11-02 · Codex — Checklist GA4, Search Console e jornada da reserva
+
+Navegador voltou a funcionar após a conexão do plugin. Conferidas todas as
+categorias do Assistente: 7 → 4 de 12 tarefas restantes. Públicos reconhecidos;
+Search Console sirfisher.com.br vinculado ao fluxo oficial `15405248385` e
+relatório Consultas já com dados. Criado insight semanal para redução acima
+de 50% nos Eventos principais vs semana anterior domingo–sábado, sem
+destinatários e com notificações por e-mail desligadas. Restam Indicadores
+Google, Google Ads, User-ID e UPD, mantidos no estado existente conforme as
+condições registradas no relatório. Nenhuma tarefa de problema de dados
+detectada pelo Assistente. Provas privadas em `tmp/ga4-2026-11-02/`.
+
+Coorte operacional conferida exclusivamente por /database/query/read-only
+com operations_report canônico, source=public_site e created_at/Fortaleza:
+setembro: 27 criadas e 20 com IDs; outubro: 24/24; 22–31/10: quatro/quatro.
+Criação pública caiu 11,1% no total e 14,0%/dia. GA 22 → 24 eventos tem
+coberturas distintas; presença de IDs não comprova recebimento nem vínculo
+individual. Status atuais têm reservas ainda confirmadas e não representam
+comparecimento final. Relatório EVOLUCAO_SITE_GA4_2026-11-02.md atualizado.
+
+Portal: commit `444180f` em `reservas` orienta grupos de 30–100 ao configurador
+e 11–29 ao WhatsApp, com avaliação para mais de 100; corte oferece ordem de chegada
+conforme disponibilidade, rota e dúvidas por WhatsApp. Mensagens PT/EN e
+corte no envio alinhados; limites e regras preservados. Os 24 testes Deno e
+o teste de navegador com RPCs simulados em 390 e 1440 px passaram. Dados reais
+preservados durante os testes. Pages passou e os três arquivos públicos deram
+HTTP 200 com o mesmo conteúdo do commit, conferido por SHA-256 após normalizar LF.
+
+— Codex
