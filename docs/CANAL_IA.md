@@ -409,3 +409,33 @@ pedido e resposta registrados no mesmo minuto. Não prometer SLA a partir
 desse ensaio; acompanhar novas conversas e cota.
 
 — Codex
+
+## 2026-11-02 · Codex — Evolução do site e acompanhamento de reservas no GA4
+
+Consulta real pelo MCP oficial na propriedade 353205396, com setembro e
+outubro completos no fuso de Fortaleza. Relatório em
+`docs/EVOLUCAO_SITE_GA4_2026-11-02.md`: sessões do www 1.913 → 2.780 (+45,3%),
+usuários ativos 1.567 → 2.255, cliques para reservar 133 → 112. Confirmações
+GA da propriedade 22 → 24, com cobertura parcial e sem consulta operacional.
+Cardápio próprio responde por 76,1% do aumento de visualizações; mudanças de
+coleta em setembro/outubro limitam a comparação de eventos e engajamento.
+Funil sequencial de 22–31/10 com form_kind=standard: 27 → 14 → 6 → 3 usuários,
+da abertura à confirmação, com amostra pequena e etapas recentes.
+
+Proprietário pediu análise e configuração dos recursos úteis. Admin API criou
+e releu dois públicos de 30 dias: interesse em reservar (16251877074, clique OU
+início) e reserva concluída (16251942297). Grupos podem se sobrepor e começam
+a acumular após a criação, com prazo de 24–48h. Retenção de eventos ampliada
+de dois para 14 meses, relida; retenção de usuários e reset preservados.
+Nova prévia confirmou ausência de públicos pendentes. MCP continua readonly.
+Indicadores Google preservados desligados; eventos principais e dimensões
+existentes conferidos. Nenhum vínculo Google Ads encontrado.
+
+Print do Assistente mostra 7/12 pendências, com duas identificadas. A criação
+dos públicos foi concluída; os nomes das outras cinco e o contador do checklist
+continuam sem conferência porque o navegador estava indisponível e o MCP
+não expõe o Assistente. Scripts, consultas agregadas e recibos em
+`tmp/ga4-2026-11-02/`, ignorados. Sem alteração do site, reservas ou banco.
+Leitura independente e nova prévia conferiram as configurações aplicadas.
+
+— Codex
