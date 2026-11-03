@@ -4,6 +4,12 @@ O proprietário autorizou concluir a revisão das imagens, corrigir, validar e
 publicar sem novas perguntas. Foram conferidos os três repositórios, APIs do
 Cloudflare, Analytics e Search Console, código publicado e e-mail de verificação.
 
+Releitura de **03/11 às 18h12 de Fortaleza**: anunciante aprovado, sitemaps
+processados sem erros, módulos publicados e worker ativo. Permanecem a
+conferência das conversões dentro do Ads, sem acesso de edição nesta sessão,
+e a nova varredura Semrush, cuja API continua sem unidades. Os resultados
+dessa releitura estão nas seções correspondentes abaixo.
+
 ## Entrega publicada
 
 | Área | Resultado |
@@ -108,11 +114,19 @@ Uma importação deve usar `reservation_confirmed`, conferir duplicidades e
 separar a reserva concluída dos cliques de intenção antes de definir a meta
 principal da campanha. A vinculação e a tag base já estão concluídas.
 
-O e-mail autêntico do Google recebido em **03/11 às 04h30 de Fortaleza**
-confirma **verificação em revisão**, com decisão prevista em até sete dias
-úteis. Isso confirma andamento, com aprovação ainda dependente do Google.
-A imagem do painel indica 03/12/2026; avisos por e-mail indicam 02/12/2026.
-Para acompanhamento, considerar a data mais cedo enquanto houver diferença.
+O e-mail autêntico do Google recebido em **03/11 às 08h07 de Fortaleza**,
+assunto **“Você concluiu a verificação do anunciante”**, confirma que todas
+as tarefas obrigatórias foram concluídas e que a conta **149-377-8788 foi
+verificada**. A leitura dos metadados confirmou remetente Google e resultados
+DKIM/SPF/DMARC válidos. A aprovação substitui o estado de revisão informado
+no e-mail das 04h30. A mensagem integral e seus cabeçalhos ficaram fora do Git.
+
+A releitura confirmou o mesmo vínculo Ads/GA4 e `reservation_confirmed`
+em ONCE_PER_EVENT. A Data API retornou eventos recentes dos dois hosts e
+confirmações de reserva. A disponibilidade do painel Ads foi tentada de novo:
+o host de navegador/computador segue indisponível, e não há conector Ads de
+edição autenticado nesta sessão. A aprovação do anunciante está concluída;
+a conferência/importação das ações de conversão ainda depende desse acesso.
 
 ## SEO e sugestões do Semrush
 
@@ -150,7 +164,9 @@ continuam como trabalho de divulgação, fora de uma correção de código.
 Os sitemaps de www e reservas foram reenviados pela API em **03/11 às
 05h21 de Fortaleza**, ambos com HTTP **204** e releitura de aceitação.
 O portal agora inclui as duas versões de idioma e alternates recíprocos.
-O Google indicou processamento pendente, sem erros ou avisos naquele retorno.
+Na releitura das **18h12**, os dois tinham `isPending=false`, com zero erros
+e zero avisos. Os últimos downloads registrados pelo Google ocorreram às
+08:21:38Z (www) e 08:21:41Z (reservas) de 03/11.
 
 O Semrush respondeu `no_api_units`, sem possibilidade de nova consulta com
 a cota atual. O host do navegador também ficou indisponível. A lista de
@@ -179,6 +195,12 @@ de e-mail preservados. O avanço para rejeição exige amostras dos relatórios
 dos remetentes; as fontes conhecidas já foram verificadas na revisão anterior.
 Os avisos opcionais não foram arquivados para reduzir o contador.
 
+A API relida após a aprovação do anunciante retornou as mesmas seis
+ocorrências e configurações TLS/HTTPS. As três páginas principais e os
+módulos de publicidade responderam 200 com identificação de navegador,
+mantendo o hash 8993b0e4f2. Requisições com identificação Python receberam
+403/1010 da borda; a checagem de navegador do Cloudflare está ligada.
+
 ## Validações e limites
 
 Passaram 127 testes Deno no site e 38 no portal; fluxo completo de reserva,
@@ -199,8 +221,21 @@ gravar reservas ou e-mails. O endpoint de revogação com comprovante nulo
 respondeu 200/false; o worker sem autenticação respondeu 401. Não houve
 envio de conversões comerciais de teste nem drenagem manual de filas reais.
 
-As pendências externas são a decisão do Google sobre o anunciante, o acesso
-de edição às ações de conversão do Ads e a nova consulta/varredura Semrush.
+A releitura operacional usou somente a rota de consulta do Management API.
+Migration e três colunas de consentimento continuam presentes; worker 48
+está ACTIVE. Desde **03/11 às 05h00 de Fortaleza**, até essa consulta, as
+filas registraram três `visit_realized` enviados ao GA4, quatro `schedule`
+enviados à Meta e quatro `schedule` enviados ao OpenAI. Todos esses eventos
+estavam `sent`, sem erro registrado. São contagens por plataforma, com
+possível sobreposição de reservas entre elas. A consulta agregada encontrou
+zero evento publicitário ativo/enviado sem autorização válida nesse recorte.
+O leitor de autorização continua exclusivo de service_role; a recusa de
+execução à consulta de leitura preservou esse limite. Os agregados foram
+conferidos sem alterar reservas ou filas.
+
+As pendências externas são o acesso de edição às ações de conversão do Ads
+e a nova consulta/varredura Semrush. A aprovação do anunciante e o processamento
+dos sitemaps foram confirmados nesta releitura.
 Os recibos técnicos ficam em `tmp/revisao-2026-11-03/`, ignorados pelo Git.
 Credenciais, mensagens integrais, documentos e dados financeiros brutos
 ficaram fora dos commits.

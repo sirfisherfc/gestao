@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 Livre. Revisão de segurança, consentimento, medição e SEO publicada em 03/11: gestao ca4ec08, site 5eeb6f2 e reservas 4d0d80e. Migration aplicada, worker 48 ativo, testes e Pages concluídos. Relatório em REVISAO_SEGURANCA_MEDICAO_SEO_2026-11-03.md. Dependências externas: análise do anunciante pelo Google, edição das conversões no Ads e nova varredura Semrush.
+> **🚦 Status atual:** 🟢 Livre. Anunciante 149-377-8788 aprovado, confirmado pelo e-mail autêntico do Google de 03/11 às 08h07. Releitura às 18h12 confirmou Ads/GA4, worker 48, envios, sitemaps processados e módulos publicados. Restam conferência de conversões dentro do Ads (sem acesso nesta sessão) e nova varredura Semrush (sem cota). Relatório REVISAO_SEGURANCA_MEDICAO_SEO_2026-11-03.md atualizado.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -17,33 +17,6 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
 **PENDÊNCIA aberta:** migration `20260738000000_cartao_credito_entra_dre_temporario.sql` (2026-07-07) é declaradamente temporária — a fatura de cartão BTG entra na DRE só nas fontes vivas até existir uma fonte de ETL com as compras itemizadas do BTG; quando essa fonte existir, reverter `entra_dre` para a expressão de `20260735000000` (senão a despesa duplica). Ver detalhes no `git log`/na própria migration.
 
 **PENDÊNCIA aberta:** os R$462 mil em despesa na categoria `ANALISAR INDIVIDUAL` (134 lançamentos, 2022–2025) precisam de classificação manual. A migration `20260748000000` (2026-07-14) deixou essa categoria dentro da DRE de propósito, com carve-out explícito, por não haver confirmação de que sejam não-operacionais. Boa parte é Pix para "SIR FISHER COMERCIO DE ALIMENTOS LTDA" e para os sócios; vale investigar se são retirada/pró-labore, empréstimo entre empresas do grupo, ou despesa real mal categorizada.
-
-## 2026-11-03 · Codex — Tag Ads e janela de escolha publicadas
-
-Pedido confirmado: janela pequena só para os novos cookies de publicidade
-Google; recusar preserva os cookies anteriores. Site e portal usam o mesmo
-módulo, hash 3ca950b5fc, com três sinais de publicidade negados até aceitar.
-Preferência de 180 dias entre subdomínios, alteração pelo rodapé e PT/EN.
-Recusar/revogar remove somente _gcl_*. Preservar GA4/Meta/atribuição anteriores
-não comprova a base legal dessas coletas; o controle é específico do Google.
-
-Tag AW-10856025003 reutiliza o SDK existente. Eventos do restaurante seguem
-para GA4, sem criar conversão Ads ou enviar contatos. URLs Ads sem parâmetros
-e conversões otimizadas desligadas. Cancelamento privado sem Ads/Meta e GA4
-com URL sem parâmetros. Aviso de privacidade e guias dos dois projetos atualizados.
-
-Publicado site 3bfb6b8 + ff07526 (ordem do guia) e reservas aeff2b0; Pages e
-assets passaram. HTTP 200 e módulo com hash esperado nos dois domínios.
-Visita isolada confirmou config Ads única, recusa e ausência de _gcl_*;
-coleta de teste interceptada, sem conversão ou reserva real. Não foi relido
-o aviso da Central de dados para confirmar seu desaparecimento.
-
-Passaram 126 testes Deno do site, 30 do portal, teste de consentimento em
-navegador, oito cenários de reservas/cancelamento e SDK real em quatro páginas.
-Sintaxe, hashes, CSP, cardápio e diff também conferidos. Sem migration ou
-mudança de banco. Documentação da entrega em EVOLUCAO_SITE_GA4_2026-11-02.md.
-Continuam pendentes aprovação do anunciante, codificação automática e revisão
-das ações de conversão antes de importar reservas. Campanhas/orçamentos intactos.
 
 ## 2026-11-03 · Codex — Texto do aviso em duas linhas no celular
 
@@ -99,6 +72,34 @@ retornou no_api_units; nenhuma cota foi comprada. Campanhas e orçamentos
 preservados. Não transformar sugestões opcionais em erros nem presumir que
 as contagens externas já foram atualizadas. Recibos em tmp/revisao-2026-11-03/,
 ignorados pelo Git; segredos, mensagens integrais e dados brutos fora dos commits.
+
+## 2026-11-03 · Codex — Anunciante aprovado e serviços relidos
+
+Proprietário informou aprovação e pediu conferir o restante. E-mail do Google
+das 08h07 confirma conta 149-377-8788 verificada e todas as tarefas obrigatórias
+concluídas; metadados com DKIM/SPF/DMARC válidos. O estado anterior em revisão
+foi substituído. Vínculo Ads/GA4 e ONCE_PER_EVENT relidos; coleta recente presente.
+
+Sitemaps processados, isPending=false e zero erros/avisos nos dois hosts.
+Worker 48 ACTIVE e migration 20261103071209 presente. Consulta agregada somente
+de leitura encontrou, desde as 05h00 até a releitura das 18h12, três visitas GA4,
+quatro schedules Meta e quatro OpenAI enviados, sem erro registrado, e zero
+evento publicitário ativo/enviado sem autorização válida. Contagens por provedor
+podem corresponder às mesmas reservas. Leitor segue restrito a service_role;
+nenhum privilégio foi ampliado para contornar a recusa à chamada da função.
+
+Cloudflare retornou os mesmos seis insights e configurações HTTPS/TLS. Três
+hosts com HTTP 200 sob identificação de navegador; módulos com hash 8993b0e4f2
+nos dois hosts. Identificação Python recebe 403/1010 com browser_check ligado.
+Pages e assets anteriores concluídos com sucesso. Sem mudança de produto,
+reserva, fila, migração, credencial ou campanha nesta releitura.
+
+Semrush continua no_api_units. O host de computador/navegador segue indisponível,
+e não há conector de edição Google Ads autenticado nesta sessão. A aprovação
+está concluída; conferir/importar ações de conversão no Ads segue dependendo
+desse acesso. Atualizados este canal, EVOLUCAO_SITE_GA4 e relatório final.
+Bases locais conferidas: gestao bea5d03, site 5eeb6f2 e reservas 4d0d80e.
+Recibos agregados em tmp/revisao-2026-11-03/, ignorados pelo Git.
 
 ## 2026-11-03 · Claude Code — Grupo Garçom Sênior no Teknisa
 

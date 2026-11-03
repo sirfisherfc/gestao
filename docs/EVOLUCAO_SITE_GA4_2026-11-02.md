@@ -635,9 +635,10 @@ e tradução independente do SDK do banco. Cancelamento privado recebeu
 noindex e no-referrer.
 
 Search Console confirmou as seis URLs das sugestões como indexadas e com
-canonical própria; os dois sitemaps foram reenviados e aceitos. Google Ads
-confirmou por e-mail que a verificação está em revisão, com decisão em até
-sete dias úteis. A configuração/importação da conversão no Ads continua
+canonical própria; os dois sitemaps foram reenviados e aceitos. A releitura
+de 03/11 às 18h12 confirmou os dois processados, sem erros ou avisos. O e-mail
+autêntico do Google das 08h07 confirmou o anunciante aprovado na conta
+149-377-8788. A configuração/importação da conversão no Ads continua
 dependendo de acesso de edição ao serviço. O Semrush retornou falta de
 unidades de API e os hosts de computador/navegador ficaram indisponíveis.
 O relatório da [revisão de segurança, medição e SEO](REVISAO_SEGURANCA_MEDICAO_SEO_2026-11-03.md)
