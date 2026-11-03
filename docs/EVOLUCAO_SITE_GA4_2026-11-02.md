@@ -564,3 +564,54 @@ O vínculo foi concluído; os relatórios dependem de processamento e tráfego.
 `reservation_confirmed` é o candidato à conversão de reserva concluída.
 Cliques medem intenção, e o cadastro de `purchase` precisa de instrumentação
 confirmada antes de ser usado como conversão de compra.
+
+### Tag Google Ads e escolha de cookies publicadas em 03/11/2026
+
+A configuração anterior carregava somente o destino GA4. A tag
+`AW-10856025003` foi adicionada às páginas públicas que já mediam visitas,
+reutilizando o mesmo SDK. O site e o portal de reservas usam cópias idênticas
+de `assets/js/google-ads.js`, com hash `3ca950b5fc`.
+
+O proprietário pediu uma janela flutuante pequena, restrita aos novos
+cookies de publicidade Google. Antes da escolha e depois de **Recusar**, os
+três sinais `ad_storage`, `ad_user_data` e `ad_personalization` ficam
+`denied`. **Permitir** libera esses sinais. A preferência dura 180 dias,
+vale também no subdomínio de reservas e pode ser alterada pelo botão
+**Preferências de anúncios Google**, no rodapé. A janela acompanha o idioma
+português/inglês e foi conferida em celular e computador.
+
+Recusar ou revogar remove somente cookies `_gcl_*`. Os testes confirmaram
+que os valores anteriores de `_ga`, `_ga_F40Z5Y9QT6`, `_fbp`, `_fbc` e
+`sf_attribution_v1` permanecem iguais. O controle implementado trata a
+publicidade Google; a preservação dos serviços anteriores não atesta a base
+legal de cada coleta. Medição limitada sem cookies de publicidade pode
+continuar, conforme descrito no aviso público de privacidade atualizado.
+
+Eventos existentes sem destino explícito continuam sendo enviados somente
+ao GA4. A inclusão da tag não criou ações de conversão, conversões de reserva
+ou envios de nome, telefone e e-mail ao Ads. A configuração Ads remove
+parâmetros e fragmentos da URL e do referenciador e mantém conversões
+otimizadas desativadas. A página privada `cancelar.html` ficou fora do
+módulo Ads, teve o Meta Pixel removido e passou a enviar ao GA4 apenas a URL
+sem parâmetros e fragmento, preservando o fluxo de cancelamento.
+
+Validações concluídas: 126 testes Deno no site e 30 no portal; teste de
+consentimento em navegador, incluindo preservação dos valores dos cookies,
+troca de idioma, recusa/revogação e preferência entre subdomínios; oito
+cenários de regressão do portal, com chamadas simuladas; teste do SDK real
+com coleta interceptada em quatro páginas; sintaxe JavaScript, hashes dos
+assets, CSP, cardápio pré-renderizado e `git diff --check`. Os testes não
+criaram reservas reais nem conversões comerciais.
+
+Publicados `site` **3bfb6b8**, seguido de **ff07526** para manter a ordem do
+guia de Analytics, e `reservas` **aeff2b0**. GitHub Pages concluiu com sucesso
+nos dois repositórios; a verificação de assets do site também passou.
+Leituras públicas retornaram HTTP 200 nas páginas alteradas e no módulo
+com o hash esperado nos dois domínios. Uma visita isolada ao site publicado
+confirmou uma configuração Ads, escolha `denied`, ausência de `_gcl_*` e
+tentativa de medição sem rótulo de conversão, interceptada pelo teste.
+Não houve confirmação direta de que o aviso da Central de dados já sumiu.
+
+Permanecem pendentes a aprovação da verificação do anunciante, a conferência
+da codificação automática e a revisão das ações existentes antes de importar
+reservas como conversões. Nenhuma campanha ou orçamento foi ativado.
