@@ -60,21 +60,28 @@ foi corrigido. O `gh` local usa durthvader, colaborador com push, sem admin
 no repositório consultado. A verificação Pages acontece no perfil do dono.
 
 A API confirmou os três Pages como `built`, com HTTPS obrigatório e os
-domínios esperados, mas `protected_domain_state` veio nulo. Não havia TXT
-de desafio Pages entre os registros DNS. A consulta de saúde de DNS do
-Pages retornou 404 e não comprovou a proteção adicional.
+domínios esperados. Na primeira revisão, `protected_domain_state` veio nulo.
+Após o proprietário criar o desafio em sirfisherfc, o campo passou a
+`unverified` nos três repositórios; falta a confirmação no perfil.
 
 O navegador ficou indisponível para controle. O proprietário forneceu duas
 vezes um desafio com prefixo `_github-pages-challenge-durthvader`. Esse TXT
 ficou sem publicação: verificar em outra conta pode desvincular o domínio
 dos sites do proprietário atual, conforme a documentação do GitHub.
 
-Próximo passo: acessar **sirfisherfc**, abrir
-`https://github.com/settings/pages`, adicionar `sirfisher.com.br` e obter
-o valor TXT de `_github-pages-challenge-sirfisherfc.sirfisher.com.br`.
-Publicar esse desafio no Cloudflare, conferir o DNS público e concluir
-Verify em sirfisherfc. Manter o TXT; o domínio principal verificado também
-protege seus subdomínios imediatos, incluindo www, admin e reservas.
+Depois, o proprietário forneceu o desafio correto de sirfisherfc. O TXT
+`_github-pages-challenge-sirfisherfc.sirfisher.com.br` foi criado no Cloudflare
+com o valor recebido, TTL 300 e DNS-only. A releitura da API e os resolvedores
+públicos Google e Cloudflare confirmaram o valor exato. Os outros 27 registros
+permaneceram iguais. Recibos ficam em `tmp/cloudflare-seguranca-2026-11-02/`.
+
+Próximo passo: na conta **sirfisherfc**, abrir
+`https://github.com/settings/pages` e concluir **Verify** para `sirfisher.com.br`.
+O clique manual foi solicitado porque o navegador continua indisponível para
+controle. A publicação do TXT ainda não comprova a conclusão dessa etapa.
+Após o clique, reler `protected_domain_state` nos três Pages. Manter o TXT;
+o domínio principal verificado também protege seus subdomínios imediatos,
+incluindo www, admin e reservas.
 
 ## Ferramenta e validações
 
