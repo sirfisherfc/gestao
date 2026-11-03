@@ -603,5 +603,8 @@ Reservas 41288518030/41287083311 falharam por publicação simultânea; o deploy
 41520432358 passou com 5ca4e61, HTTP 200 e arquivos públicos iguais ao HEAD.
 
 Validações locais: check_project --require-node passou (123 contratos,
-31 de segurança), scripts Bash do workflow válidos e diff sem erro. Publicação
-e execução manual histórica sem gravação serão conferidas no fechamento.
+31 de segurança), scripts Bash do workflow válidos e diff sem erro.
+Publicado em 4d0aebd; Quality gates 41554657053 e Pages 41554657063 passaram.
+Admin HTTP 200 com index igual ao HEAD. Manual 41554678433 passou para
+29/10–29/10, com DRY_RUN=true e mensagem de conferência sem gravação; consulta
+somente leitura confirmou zero registros de execução desse teste no banco.
