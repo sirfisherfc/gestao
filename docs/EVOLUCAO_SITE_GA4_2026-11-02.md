@@ -446,9 +446,34 @@ anunciante e uma eventual mudança do perfil para pagamentos precisam
 ser avaliadas conforme seus efeitos.
 [Transparência dos anúncios](https://support.google.com/adspolicy/answer/13733850?hl=pt-BR).
 
-Foi solicitado consultar **Faturamento → Configurações → Detalhes do
-pagador → Tipo de conta**, sem alterar o cadastro. O resultado continua
-pendente. Trocar o tipo de conta envolve outro perfil para pagamentos e
-nova verificação, com possíveis efeitos sobre créditos, saldo e limites.
-Essa migração depende da conferência do perfil existente. Campanhas,
-faturamento e verificação preservados durante esta etapa de orientação.
+O proprietário consultou **Faturamento → Configurações → Detalhes do
+pagador → Tipo de conta** e confirmou **Individual / Pessoa física**.
+O ícone de edição oferece a troca para **Organização / Empresa**. A imagem
+do assistente mostra seis etapas: Introdução, Confirmação, Saldo pendente,
+País de faturamento, Perfil de pagamento e Confirmação final.
+
+O motivo recomendado foi **Tipo de conta incorreto selecionado na
+inscrição**, com base no relato de anúncios para o próprio restaurante.
+O proprietário informou as condições de **2. Confirmação**: troca de tipo
+uma única vez, perfil para pagamentos novo ou existente, nova verificação,
+histórico em Transferências de faturamento e possíveis mudanças do limite
+de cobrança, dos tributos e dos documentos recebidos.
+
+A imagem posterior mostra avanço manual à **5. Perfil de pagamento**.
+As etapas de saldo e país estão marcadas como concluídas; a imagem não
+informa o saldo, eventual quitação ou o país escolhido. A tela oferece
+criar um perfil para pagamentos e depois adicionar uma forma de pagamento.
+Informa autorização temporária de **R$ 50,00** no cartão para verificar a
+validade, geralmente removida em até uma semana. O modo exibido é
+pós-pagamento. A revisão final e o envio continuam pendentes.
+
+O aviso público do site identifica a empresa responsável pelo restaurante.
+Foi solicitado ao proprietário conferir no comprovante do CNPJ se essa
+é a entidade que deve assumir o novo perfil. Isso prepara a escolha do
+destino; a página pública, por si, não confirma a situação cadastral nem
+a titularidade fiscal dos anúncios. O endereço do perfil deve seguir os
+documentos da empresa, que precisam ser conferidos pelo proprietário.
+[Aviso público de privacidade](https://www.sirfisher.com.br/privacidade/).
+
+A migração permanece em preparação. Nenhuma transferência, forma de
+pagamento ou vinculação foi gravada por ferramentas nesta conversa.

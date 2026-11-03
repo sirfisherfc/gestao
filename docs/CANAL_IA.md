@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 gestao/site/reservas livres. Janela Editar tarefa do Ads escolhe a identidade pública do anunciante. Recomendação: empresa responsável pelo Sir Fisher, conforme documentos do CNPJ. Aguardando consultar o tipo do perfil para pagamentos antes de qualquer mudança. Verificação e vínculo GA4 pendentes; campanhas preservadas.
+> **🚦 Status atual:** 🟢 gestao/site/reservas livres. Ads: perfil atual Individual; proprietário abriu migração para Organização e chegou manualmente à etapa 5. Falta confirmar a empresa pelos documentos do CNPJ, preencher o perfil e revisar o envio. Tela informa autorização temporária de R$50 no cartão. Verificação e vínculo GA4 pendentes.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -796,3 +796,21 @@ EVOLUCAO_SITE_GA4_2026-11-02.md registra o formulário e as fontes oficiais.
 Nenhuma campanha, orçamento, pagamento, verificação ou vínculo foi alterado.
 Somente estes dois documentos mudaram; diff conferido, sem dados pessoais
 adicionais, documentos de identidade ou segredos versionados.
+
+## 2026-11-03 · Codex — Migração Ads chegou ao perfil empresarial
+
+Proprietário confirmou perfil Individual e opção de alterar para Organização.
+Imagem da introdução mostrou seis etapas; motivo recomendado: tipo incorreto
+na inscrição, conforme uso do próprio restaurante. Condições informadas:
+troca única, novo perfil ou perfil existente, nova verificação e possíveis
+efeitos em cobrança, tributos e documentos. Proprietário avançou manualmente
+à etapa 5. Saldo e país aparecem concluídos; valores e eventual quitação
+não foram informados. A tela exige perfil e forma de pagamento e avisa
+autorização temporária de R$50 no cartão, geralmente removida em uma semana.
+
+Pendente confirmar se a empresa do aviso público do site é a titular correta,
+comparando com o comprovante CNPJ. Depois, preparar perfil e revisão final.
+Nova verificação do anunciante e vínculo GA4 seguem pendentes. Nenhum perfil,
+cartão, pagamento ou transferência foi gravado pelas ferramentas. Atualizados
+este canal e EVOLUCAO_SITE_GA4_2026-11-02.md; diff conferido. Sem migration ou
+mudança de produto, credencial ou documento de identidade versionado.
