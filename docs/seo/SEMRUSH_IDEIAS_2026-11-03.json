@@ -1,0 +1,2662 @@
+{
+  "fonte": {
+    "arquivo": "ideas_www.sirfisher.com.br_20261103.xlsx",
+    "sha256": "22727b7035a68705bdd493a9c0ec4d65814a56468e0a26726fe124f4130c5b26",
+    "aba": "SEO Ideas",
+    "intervalo": "A1:D263",
+    "grupos_no_painel": 43,
+    "linhas_detalhadas": 262,
+    "data_do_download": "2026-11-03",
+    "ultima_atualizacao_mostrada_no_painel": "2026-10-31"
+  },
+  "resumo_estados": {
+    "links_publicados_validar_rastreio": 1,
+    "manter_em_pesquisa": 86,
+    "depende_de_editor_externo": 29,
+    "conteudo_revisado": 28,
+    "manter_versoes_de_idioma": 1,
+    "texto_revisado": 2,
+    "nao_aplicar_estrelas_proprias": 39,
+    "atendida_no_conteudo": 51,
+    "curadoria_semantica_aplicada": 6,
+    "ajuste_semrush_pendente": 7,
+    "adaptada_a_intencao_da_pagina": 11,
+    "preservar_funcao_do_portal": 1
+  },
+  "resumo_categorias": {
+    "links_internos": 2,
+    "h1": 42,
+    "titulo": 40,
+    "backlinks": 43,
+    "semantica": 8,
+    "conteudo": 42,
+    "legibilidade": 5,
+    "estrategia": 8,
+    "avaliacoes": 39,
+    "corpo": 17,
+    "descricao": 15,
+    "canibalizacao": 1
+  },
+  "linhas": [
+    {
+      "linha_fonte": 2,
+      "url": "https://reservas.sirfisher.com.br/",
+      "palavra_chave": "sir fisher pub",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "links_internos",
+      "estado": "links_publicados_validar_rastreio",
+      "acao_ou_motivo": "Site e guia apontam para o portal. O aviso exige nova coleta e conferência do escopo de subdomínios do Site Audit; não foi criado conteúdo duplicado para forçar a contagem.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 3,
+      "url": "https://reservas.sirfisher.com.br/",
+      "palavra_chave": "sir fisher - barra sol",
+      "grupo_de_pesquisa": "oferta_ou_alias_a_confirmar",
+      "categoria": "links_internos",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 4,
+      "url": "https://www.sirfisher.com.br/por-do-sol/",
+      "palavra_chave": "que horas o sol nasce no ceará",
+      "grupo_de_pesquisa": "outro_destino_ou_tema",
+      "categoria": "h1",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 5,
+      "url": "https://www.sirfisher.com.br/por-do-sol/",
+      "palavra_chave": "que horas o sol nasce no ceará",
+      "grupo_de_pesquisa": "outro_destino_ou_tema",
+      "categoria": "titulo",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 6,
+      "url": "https://www.sirfisher.com.br/por-do-sol/",
+      "palavra_chave": "horario por do sol fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "backlinks",
+      "estado": "depende_de_editor_externo",
+      "acao_ou_motivo": "A lista indica candidatos de pesquisa. Um link novo exige publicação no site de terceiro; não foi enviado contato nem comprado link.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 7,
+      "url": "https://www.sirfisher.com.br/por-do-sol/",
+      "palavra_chave": "por do sol hoje parangaba fortaleza",
+      "grupo_de_pesquisa": "outro_destino_ou_tema",
+      "categoria": "h1",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 8,
+      "url": "https://www.sirfisher.com.br/por-do-sol/",
+      "palavra_chave": "por do sol hoje parangaba fortaleza",
+      "grupo_de_pesquisa": "outro_destino_ou_tema",
+      "categoria": "titulo",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 9,
+      "url": "https://www.sirfisher.com.br/por-do-sol/",
+      "palavra_chave": "por do sol hoje parangaba fortaleza",
+      "grupo_de_pesquisa": "outro_destino_ou_tema",
+      "categoria": "semantica",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 10,
+      "url": "https://www.sirfisher.com.br/por-do-sol/",
+      "palavra_chave": "por do sol hoje parangaba fortaleza",
+      "grupo_de_pesquisa": "outro_destino_ou_tema",
+      "categoria": "backlinks",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 11,
+      "url": "https://www.sirfisher.com.br/por-do-sol/",
+      "palavra_chave": "por do sol hoje parangaba fortaleza",
+      "grupo_de_pesquisa": "outro_destino_ou_tema",
+      "categoria": "conteudo",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 12,
+      "url": "https://www.sirfisher.com.br/por-do-sol/",
+      "palavra_chave": "por do sol hoje parangaba fortaleza",
+      "grupo_de_pesquisa": "outro_destino_ou_tema",
+      "categoria": "legibilidade",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 13,
+      "url": "https://www.sirfisher.com.br/por-do-sol/",
+      "palavra_chave": "que horas o sol nasce em fortaleza",
+      "grupo_de_pesquisa": "outro_destino_ou_tema",
+      "categoria": "h1",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 14,
+      "url": "https://www.sirfisher.com.br/por-do-sol/",
+      "palavra_chave": "que horas o sol nasce em fortaleza",
+      "grupo_de_pesquisa": "outro_destino_ou_tema",
+      "categoria": "titulo",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 15,
+      "url": "https://www.sirfisher.com.br/por-do-sol/",
+      "palavra_chave": "que horas o sol nasce em fortaleza",
+      "grupo_de_pesquisa": "outro_destino_ou_tema",
+      "categoria": "conteudo",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 16,
+      "url": "https://www.sirfisher.com.br/por-do-sol/",
+      "palavra_chave": "que horas o sol nasce em fortaleza",
+      "grupo_de_pesquisa": "outro_destino_ou_tema",
+      "categoria": "legibilidade",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 17,
+      "url": "https://www.sirfisher.com.br/por-do-sol/",
+      "palavra_chave": "nascer do sol fortaleza",
+      "grupo_de_pesquisa": "outro_destino_ou_tema",
+      "categoria": "h1",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 18,
+      "url": "https://www.sirfisher.com.br/por-do-sol/",
+      "palavra_chave": "nascer do sol fortaleza",
+      "grupo_de_pesquisa": "outro_destino_ou_tema",
+      "categoria": "titulo",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 19,
+      "url": "https://www.sirfisher.com.br/en/fish-and-chips/",
+      "palavra_chave": "fish and chips near me",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "backlinks",
+      "estado": "depende_de_editor_externo",
+      "acao_ou_motivo": "A lista indica candidatos de pesquisa. Um link novo exige publicação no site de terceiro; não foi enviado contato nem comprado link.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 20,
+      "url": "https://www.sirfisher.com.br/en/fish-and-chips/",
+      "palavra_chave": "fish and chips near me",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "conteudo",
+      "estado": "conteudo_revisado",
+      "acao_ou_motivo": "Conteúdo principal atual: 665 palavras por extração local. Informação prática, pratos, rota ou regras conferidos. A contagem por si só não é critério de aprovação.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 21,
+      "url": "https://www.sirfisher.com.br/en/fish-and-chips/",
+      "palavra_chave": "fish and chips near me",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "estrategia",
+      "estado": "manter_versoes_de_idioma",
+      "acao_ou_motivo": "Preservar PT/EN e hreflang. Uma posição maior da URL PT não justifica retirar a página EN; conferir local e idioma da análise.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 22,
+      "url": "https://www.sirfisher.com.br/en/fish-and-chips/",
+      "palavra_chave": "fish and chips near me",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "legibilidade",
+      "estado": "texto_revisado",
+      "acao_ou_motivo": "Textos curtos e seções práticas conferidos. EN recebeu escolhas de pratos com links diretos; método solar foi dividido em parágrafos. A nota do Semrush exige nova coleta.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 23,
+      "url": "https://www.sirfisher.com.br/en/fish-and-chips/",
+      "palavra_chave": "fish and chips near me",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "avaliacoes",
+      "estado": "nao_aplicar_estrelas_proprias",
+      "acao_ou_motivo": "Preservar avaliações visíveis e links para a fonte. A regra Google de avaliações do próprio estabelecimento não permite esse destaque; ItemList não contorna a regra.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 24,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "av beira mar 2340",
+      "grupo_de_pesquisa": "outro_destino_ou_tema",
+      "categoria": "h1",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 25,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "av beira mar 2340",
+      "grupo_de_pesquisa": "outro_destino_ou_tema",
+      "categoria": "titulo",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 26,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "av beira mar 2340",
+      "grupo_de_pesquisa": "outro_destino_ou_tema",
+      "categoria": "semantica",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 27,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "av beira mar 2340",
+      "grupo_de_pesquisa": "outro_destino_ou_tema",
+      "categoria": "backlinks",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 28,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "av beira mar 2340",
+      "grupo_de_pesquisa": "outro_destino_ou_tema",
+      "categoria": "conteudo",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 29,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "av beira mar 2340",
+      "grupo_de_pesquisa": "outro_destino_ou_tema",
+      "categoria": "avaliacoes",
+      "estado": "nao_aplicar_estrelas_proprias",
+      "acao_ou_motivo": "Preservar avaliações visíveis e links para a fonte. A regra Google de avaliações do próprio estabelecimento não permite esse destaque; ItemList não contorna a regra.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 30,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "beira mar restaurante",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "h1",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 31,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "beira mar restaurante",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "titulo",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 32,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "beira mar restaurante",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "backlinks",
+      "estado": "depende_de_editor_externo",
+      "acao_ou_motivo": "A lista indica candidatos de pesquisa. Um link novo exige publicação no site de terceiro; não foi enviado contato nem comprado link.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 33,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "beira mar restaurante",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "conteudo",
+      "estado": "conteudo_revisado",
+      "acao_ou_motivo": "Conteúdo principal atual: 1501 palavras por extração local. Informação prática, pratos, rota ou regras conferidos. A contagem por si só não é critério de aprovação.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 34,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "beira mar restaurante",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "avaliacoes",
+      "estado": "nao_aplicar_estrelas_proprias",
+      "acao_ou_motivo": "Preservar avaliações visíveis e links para a fonte. A regra Google de avaliações do próprio estabelecimento não permite esse destaque; ItemList não contorna a regra.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 35,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "beira mar fortaleza restaurantes",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "h1",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 36,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "beira mar fortaleza restaurantes",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "titulo",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 37,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "beira mar fortaleza restaurantes",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "semantica",
+      "estado": "curadoria_semantica_aplicada",
+      "acao_ou_motivo": "Usadas informações pertinentes: localização, pratos e rotas. Café da manhã, pizzas, restaurante italiano e nomes de outras casas não foram apresentados como oferta do Sir Fisher. Concorrentes permanecem úteis para pesquisa ou comparação contextual.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 38,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "beira mar fortaleza restaurantes",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "backlinks",
+      "estado": "depende_de_editor_externo",
+      "acao_ou_motivo": "A lista indica candidatos de pesquisa. Um link novo exige publicação no site de terceiro; não foi enviado contato nem comprado link.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 39,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "beira mar fortaleza restaurantes",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "conteudo",
+      "estado": "conteudo_revisado",
+      "acao_ou_motivo": "Conteúdo principal atual: 1501 palavras por extração local. Informação prática, pratos, rota ou regras conferidos. A contagem por si só não é critério de aprovação.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 40,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "beira mar fortaleza restaurantes",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "estrategia",
+      "estado": "ajuste_semrush_pendente",
+      "acao_ou_motivo": "Destino sugerido pelo relatório: https://www.sirfisher.com.br/. Conferir agrupamento no Semrush; a sessão não dispõe de acesso à interface.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 41,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "beira mar fortaleza restaurantes",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "avaliacoes",
+      "estado": "nao_aplicar_estrelas_proprias",
+      "acao_ou_motivo": "Preservar avaliações visíveis e links para a fonte. A regra Google de avaliações do próprio estabelecimento não permite esse destaque; ItemList não contorna a regra.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 42,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "restaurante fortaleza beira mar",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "h1",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 43,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "restaurante fortaleza beira mar",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "titulo",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 44,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "restaurante fortaleza beira mar",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "backlinks",
+      "estado": "depende_de_editor_externo",
+      "acao_ou_motivo": "A lista indica candidatos de pesquisa. Um link novo exige publicação no site de terceiro; não foi enviado contato nem comprado link.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 45,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "restaurante fortaleza beira mar",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "conteudo",
+      "estado": "conteudo_revisado",
+      "acao_ou_motivo": "Conteúdo principal atual: 1501 palavras por extração local. Informação prática, pratos, rota ou regras conferidos. A contagem por si só não é critério de aprovação.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 46,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "restaurante fortaleza beira mar",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "estrategia",
+      "estado": "ajuste_semrush_pendente",
+      "acao_ou_motivo": "Destino sugerido pelo relatório: https://www.sirfisher.com.br/. Conferir agrupamento no Semrush; a sessão não dispõe de acesso à interface.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 47,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "restaurante fortaleza beira mar",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "avaliacoes",
+      "estado": "nao_aplicar_estrelas_proprias",
+      "acao_ou_motivo": "Preservar avaliações visíveis e links para a fonte. A regra Google de avaliações do próprio estabelecimento não permite esse destaque; ItemList não contorna a regra.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 48,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "av beira mar 3680",
+      "grupo_de_pesquisa": "outro_destino_ou_tema",
+      "categoria": "h1",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 49,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "av beira mar 3680",
+      "grupo_de_pesquisa": "outro_destino_ou_tema",
+      "categoria": "titulo",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 50,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "av beira mar 3680",
+      "grupo_de_pesquisa": "outro_destino_ou_tema",
+      "categoria": "backlinks",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 51,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "av beira mar 3680",
+      "grupo_de_pesquisa": "outro_destino_ou_tema",
+      "categoria": "conteudo",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 52,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "av beira mar 3680",
+      "grupo_de_pesquisa": "outro_destino_ou_tema",
+      "categoria": "avaliacoes",
+      "estado": "nao_aplicar_estrelas_proprias",
+      "acao_ou_motivo": "Preservar avaliações visíveis e links para a fonte. A regra Google de avaliações do próprio estabelecimento não permite esse destaque; ItemList não contorna a regra.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 53,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "restaurantes beira mar fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "corpo",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 54,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "restaurantes beira mar fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "h1",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 55,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "restaurantes beira mar fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "titulo",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 56,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "restaurantes beira mar fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "descricao",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 57,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "restaurantes beira mar fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "backlinks",
+      "estado": "depende_de_editor_externo",
+      "acao_ou_motivo": "A lista indica candidatos de pesquisa. Um link novo exige publicação no site de terceiro; não foi enviado contato nem comprado link.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 58,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "restaurantes beira mar fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "conteudo",
+      "estado": "conteudo_revisado",
+      "acao_ou_motivo": "Conteúdo principal atual: 1501 palavras por extração local. Informação prática, pratos, rota ou regras conferidos. A contagem por si só não é critério de aprovação.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 59,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "restaurantes beira mar fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "estrategia",
+      "estado": "ajuste_semrush_pendente",
+      "acao_ou_motivo": "Destino sugerido pelo relatório: https://www.sirfisher.com.br/. Conferir agrupamento no Semrush; a sessão não dispõe de acesso à interface.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 60,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "restaurantes beira mar fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "avaliacoes",
+      "estado": "nao_aplicar_estrelas_proprias",
+      "acao_ou_motivo": "Preservar avaliações visíveis e links para a fonte. A regra Google de avaliações do próprio estabelecimento não permite esse destaque; ItemList não contorna a regra.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 61,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "restaurantes à beira mar",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "h1",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 62,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "restaurantes à beira mar",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "titulo",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 63,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "restaurantes à beira mar",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "descricao",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 64,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "restaurantes à beira mar",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "backlinks",
+      "estado": "depende_de_editor_externo",
+      "acao_ou_motivo": "A lista indica candidatos de pesquisa. Um link novo exige publicação no site de terceiro; não foi enviado contato nem comprado link.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 65,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "restaurantes à beira mar",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "conteudo",
+      "estado": "conteudo_revisado",
+      "acao_ou_motivo": "Conteúdo principal atual: 1501 palavras por extração local. Informação prática, pratos, rota ou regras conferidos. A contagem por si só não é critério de aprovação.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 66,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "restaurantes à beira mar",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "avaliacoes",
+      "estado": "nao_aplicar_estrelas_proprias",
+      "acao_ou_motivo": "Preservar avaliações visíveis e links para a fonte. A regra Google de avaliações do próprio estabelecimento não permite esse destaque; ItemList não contorna a regra.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 67,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "restaurante na beira mar",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "h1",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 68,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "restaurante na beira mar",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "titulo",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 69,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "restaurante na beira mar",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "descricao",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 70,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "restaurante na beira mar",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "backlinks",
+      "estado": "depende_de_editor_externo",
+      "acao_ou_motivo": "A lista indica candidatos de pesquisa. Um link novo exige publicação no site de terceiro; não foi enviado contato nem comprado link.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 71,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "restaurante na beira mar",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "conteudo",
+      "estado": "conteudo_revisado",
+      "acao_ou_motivo": "Conteúdo principal atual: 1501 palavras por extração local. Informação prática, pratos, rota ou regras conferidos. A contagem por si só não é critério de aprovação.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 72,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "restaurante na beira mar",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "avaliacoes",
+      "estado": "nao_aplicar_estrelas_proprias",
+      "acao_ou_motivo": "Preservar avaliações visíveis e links para a fonte. A regra Google de avaliações do próprio estabelecimento não permite esse destaque; ItemList não contorna a regra.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 73,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "restaurante beiramar",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "h1",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 74,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "restaurante beiramar",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "titulo",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 75,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "restaurante beiramar",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "backlinks",
+      "estado": "depende_de_editor_externo",
+      "acao_ou_motivo": "A lista indica candidatos de pesquisa. Um link novo exige publicação no site de terceiro; não foi enviado contato nem comprado link.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 76,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "restaurante beiramar",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "conteudo",
+      "estado": "conteudo_revisado",
+      "acao_ou_motivo": "Conteúdo principal atual: 1501 palavras por extração local. Informação prática, pratos, rota ou regras conferidos. A contagem por si só não é critério de aprovação.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 77,
+      "url": "https://www.sirfisher.com.br/guia/beira-mar/",
+      "palavra_chave": "restaurante beiramar",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "avaliacoes",
+      "estado": "nao_aplicar_estrelas_proprias",
+      "acao_ou_motivo": "Preservar avaliações visíveis e links para a fonte. A regra Google de avaliações do próprio estabelecimento não permite esse destaque; ItemList não contorna a regra.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 78,
+      "url": "https://reservas.sirfisher.com.br/",
+      "palavra_chave": "sir fisher pub",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "h1",
+      "estado": "adaptada_a_intencao_da_pagina",
+      "acao_ou_motivo": "Campo mantém o assunto e a identificação da página. Variantes próximas são tratadas no conteúdo; não foram acumuladas todas as palavras em um só título.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 79,
+      "url": "https://reservas.sirfisher.com.br/",
+      "palavra_chave": "sir fisher pub",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "titulo",
+      "estado": "adaptada_a_intencao_da_pagina",
+      "acao_ou_motivo": "Campo mantém o assunto e a identificação da página. Variantes próximas são tratadas no conteúdo; não foram acumuladas todas as palavras em um só título.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 80,
+      "url": "https://reservas.sirfisher.com.br/",
+      "palavra_chave": "sir fisher pub",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "backlinks",
+      "estado": "depende_de_editor_externo",
+      "acao_ou_motivo": "A lista indica candidatos de pesquisa. Um link novo exige publicação no site de terceiro; não foi enviado contato nem comprado link.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 81,
+      "url": "https://reservas.sirfisher.com.br/",
+      "palavra_chave": "sir fisher pub",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "conteudo",
+      "estado": "conteudo_revisado",
+      "acao_ou_motivo": "Conteúdo principal atual: 229 palavras por extração local. Informação prática, pratos, rota ou regras conferidos. A contagem por si só não é critério de aprovação.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 82,
+      "url": "https://reservas.sirfisher.com.br/",
+      "palavra_chave": "sir fisher pub",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "estrategia",
+      "estado": "ajuste_semrush_pendente",
+      "acao_ou_motivo": "Destino sugerido pelo relatório: https://www.sirfisher.com.br/. Conferir agrupamento no Semrush; a sessão não dispõe de acesso à interface.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 83,
+      "url": "https://reservas.sirfisher.com.br/",
+      "palavra_chave": "sir fisher pub",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "legibilidade",
+      "estado": "texto_revisado",
+      "acao_ou_motivo": "Textos curtos e seções práticas conferidos. EN recebeu escolhas de pratos com links diretos; método solar foi dividido em parágrafos. A nota do Semrush exige nova coleta.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 84,
+      "url": "https://reservas.sirfisher.com.br/",
+      "palavra_chave": "sir fisher pub",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "avaliacoes",
+      "estado": "nao_aplicar_estrelas_proprias",
+      "acao_ou_motivo": "Preservar avaliações visíveis e links para a fonte. A regra Google de avaliações do próprio estabelecimento não permite esse destaque; ItemList não contorna a regra.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 85,
+      "url": "https://reservas.sirfisher.com.br/",
+      "palavra_chave": "sir fisher - barra sol",
+      "grupo_de_pesquisa": "oferta_ou_alias_a_confirmar",
+      "categoria": "corpo",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 86,
+      "url": "https://reservas.sirfisher.com.br/",
+      "palavra_chave": "sir fisher - barra sol",
+      "grupo_de_pesquisa": "oferta_ou_alias_a_confirmar",
+      "categoria": "h1",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 87,
+      "url": "https://reservas.sirfisher.com.br/",
+      "palavra_chave": "sir fisher - barra sol",
+      "grupo_de_pesquisa": "oferta_ou_alias_a_confirmar",
+      "categoria": "titulo",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 88,
+      "url": "https://reservas.sirfisher.com.br/",
+      "palavra_chave": "sir fisher - barra sol",
+      "grupo_de_pesquisa": "oferta_ou_alias_a_confirmar",
+      "categoria": "descricao",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 89,
+      "url": "https://reservas.sirfisher.com.br/",
+      "palavra_chave": "sir fisher - barra sol",
+      "grupo_de_pesquisa": "oferta_ou_alias_a_confirmar",
+      "categoria": "conteudo",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 90,
+      "url": "https://reservas.sirfisher.com.br/",
+      "palavra_chave": "sir fisher - barra sol",
+      "grupo_de_pesquisa": "oferta_ou_alias_a_confirmar",
+      "categoria": "estrategia",
+      "estado": "ajuste_semrush_pendente",
+      "acao_ou_motivo": "Destino sugerido pelo relatório: https://www.sirfisher.com.br/como-chegar/. Conferir agrupamento no Semrush; a sessão não dispõe de acesso à interface.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 91,
+      "url": "https://reservas.sirfisher.com.br/",
+      "palavra_chave": "sir fisher - barra sol",
+      "grupo_de_pesquisa": "oferta_ou_alias_a_confirmar",
+      "categoria": "canibalizacao",
+      "estado": "preservar_funcao_do_portal",
+      "acao_ou_motivo": "Portal operacional mantido. Canonical, título e H1 de reserva já publicados. A proposta de 301 é inadequada para substituir o formulário pela página institucional.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 92,
+      "url": "https://reservas.sirfisher.com.br/",
+      "palavra_chave": "sir fisher - barra sol",
+      "grupo_de_pesquisa": "oferta_ou_alias_a_confirmar",
+      "categoria": "legibilidade",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 93,
+      "url": "https://reservas.sirfisher.com.br/",
+      "palavra_chave": "sir fisher - barra sol",
+      "grupo_de_pesquisa": "oferta_ou_alias_a_confirmar",
+      "categoria": "avaliacoes",
+      "estado": "nao_aplicar_estrelas_proprias",
+      "acao_ou_motivo": "Preservar avaliações visíveis e links para a fonte. A regra Google de avaliações do próprio estabelecimento não permite esse destaque; ItemList não contorna a regra.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 94,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurante frutos do mar fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "corpo",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 95,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurante frutos do mar fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "h1",
+      "estado": "adaptada_a_intencao_da_pagina",
+      "acao_ou_motivo": "Campo mantém o assunto e a identificação da página. Variantes próximas são tratadas no conteúdo; não foram acumuladas todas as palavras em um só título.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 96,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurante frutos do mar fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "titulo",
+      "estado": "adaptada_a_intencao_da_pagina",
+      "acao_ou_motivo": "Campo mantém o assunto e a identificação da página. Variantes próximas são tratadas no conteúdo; não foram acumuladas todas as palavras em um só título.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 97,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurante frutos do mar fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "semantica",
+      "estado": "curadoria_semantica_aplicada",
+      "acao_ou_motivo": "Usadas informações pertinentes: localização, pratos e rotas. Café da manhã, pizzas, restaurante italiano e nomes de outras casas não foram apresentados como oferta do Sir Fisher. Concorrentes permanecem úteis para pesquisa ou comparação contextual.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 98,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurante frutos do mar fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "backlinks",
+      "estado": "depende_de_editor_externo",
+      "acao_ou_motivo": "A lista indica candidatos de pesquisa. Um link novo exige publicação no site de terceiro; não foi enviado contato nem comprado link.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 99,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurante frutos do mar fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "conteudo",
+      "estado": "conteudo_revisado",
+      "acao_ou_motivo": "Conteúdo principal atual: 1038 palavras por extração local. Informação prática, pratos, rota ou regras conferidos. A contagem por si só não é critério de aprovação.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 100,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurante frutos do mar fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "avaliacoes",
+      "estado": "nao_aplicar_estrelas_proprias",
+      "acao_ou_motivo": "Preservar avaliações visíveis e links para a fonte. A regra Google de avaliações do próprio estabelecimento não permite esse destaque; ItemList não contorna a regra.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 101,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurantes meireles fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "corpo",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 102,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurantes meireles fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "h1",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 103,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurantes meireles fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "titulo",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 104,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurantes meireles fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "descricao",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 105,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurantes meireles fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "semantica",
+      "estado": "curadoria_semantica_aplicada",
+      "acao_ou_motivo": "Usadas informações pertinentes: localização, pratos e rotas. Café da manhã, pizzas, restaurante italiano e nomes de outras casas não foram apresentados como oferta do Sir Fisher. Concorrentes permanecem úteis para pesquisa ou comparação contextual.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 106,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurantes meireles fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "backlinks",
+      "estado": "depende_de_editor_externo",
+      "acao_ou_motivo": "A lista indica candidatos de pesquisa. Um link novo exige publicação no site de terceiro; não foi enviado contato nem comprado link.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 107,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurantes meireles fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "conteudo",
+      "estado": "conteudo_revisado",
+      "acao_ou_motivo": "Conteúdo principal atual: 1038 palavras por extração local. Informação prática, pratos, rota ou regras conferidos. A contagem por si só não é critério de aprovação.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 108,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurantes meireles fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "avaliacoes",
+      "estado": "nao_aplicar_estrelas_proprias",
+      "acao_ou_motivo": "Preservar avaliações visíveis e links para a fonte. A regra Google de avaliações do próprio estabelecimento não permite esse destaque; ItemList não contorna a regra.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 109,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurantes fortaleza beira mar",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "backlinks",
+      "estado": "depende_de_editor_externo",
+      "acao_ou_motivo": "A lista indica candidatos de pesquisa. Um link novo exige publicação no site de terceiro; não foi enviado contato nem comprado link.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 110,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurantes fortaleza beira mar",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "conteudo",
+      "estado": "conteudo_revisado",
+      "acao_ou_motivo": "Conteúdo principal atual: 1038 palavras por extração local. Informação prática, pratos, rota ou regras conferidos. A contagem por si só não é critério de aprovação.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 111,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "é sim bar",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "corpo",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 112,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "é sim bar",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "h1",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 113,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "é sim bar",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "titulo",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 114,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "é sim bar",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "backlinks",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 115,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "é sim bar",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "conteudo",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 116,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "é sim bar",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "avaliacoes",
+      "estado": "nao_aplicar_estrelas_proprias",
+      "acao_ou_motivo": "Preservar avaliações visíveis e links para a fonte. A regra Google de avaliações do próprio estabelecimento não permite esse destaque; ItemList não contorna a regra.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 117,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurante sirigado fortaleza",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "h1",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 118,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurante sirigado fortaleza",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "titulo",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 119,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurante sirigado fortaleza",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "backlinks",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 120,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurante sirigado fortaleza",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "conteudo",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 121,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurante sirigado fortaleza",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "avaliacoes",
+      "estado": "nao_aplicar_estrelas_proprias",
+      "acao_ou_motivo": "Preservar avaliações visíveis e links para a fonte. A regra Google de avaliações do próprio estabelecimento não permite esse destaque; ItemList não contorna a regra.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 122,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "resibar",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "corpo",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 123,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "resibar",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "h1",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 124,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "resibar",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "titulo",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 125,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "resibar",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "descricao",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 126,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "resibar",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "backlinks",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 127,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "resibar",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "avaliacoes",
+      "estado": "nao_aplicar_estrelas_proprias",
+      "acao_ou_motivo": "Preservar avaliações visíveis e links para a fonte. A regra Google de avaliações do próprio estabelecimento não permite esse destaque; ItemList não contorna a regra.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 128,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "bares meireles",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "h1",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 129,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "bares meireles",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "titulo",
+      "estado": "adaptada_a_intencao_da_pagina",
+      "acao_ou_motivo": "Campo mantém o assunto e a identificação da página. Variantes próximas são tratadas no conteúdo; não foram acumuladas todas as palavras em um só título.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 130,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "bares meireles",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "backlinks",
+      "estado": "depende_de_editor_externo",
+      "acao_ou_motivo": "A lista indica candidatos de pesquisa. Um link novo exige publicação no site de terceiro; não foi enviado contato nem comprado link.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 131,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "bares meireles",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "conteudo",
+      "estado": "conteudo_revisado",
+      "acao_ou_motivo": "Conteúdo principal atual: 1038 palavras por extração local. Informação prática, pratos, rota ou regras conferidos. A contagem por si só não é critério de aprovação.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 132,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "bares meireles",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "avaliacoes",
+      "estado": "nao_aplicar_estrelas_proprias",
+      "acao_ou_motivo": "Preservar avaliações visíveis e links para a fonte. A regra Google de avaliações do próprio estabelecimento não permite esse destaque; ItemList não contorna a regra.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 133,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurantes fortaleza frutos do mar",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "h1",
+      "estado": "adaptada_a_intencao_da_pagina",
+      "acao_ou_motivo": "Campo mantém o assunto e a identificação da página. Variantes próximas são tratadas no conteúdo; não foram acumuladas todas as palavras em um só título.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 134,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurantes fortaleza frutos do mar",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "titulo",
+      "estado": "adaptada_a_intencao_da_pagina",
+      "acao_ou_motivo": "Campo mantém o assunto e a identificação da página. Variantes próximas são tratadas no conteúdo; não foram acumuladas todas as palavras em um só título.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 135,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurantes fortaleza frutos do mar",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "backlinks",
+      "estado": "depende_de_editor_externo",
+      "acao_ou_motivo": "A lista indica candidatos de pesquisa. Um link novo exige publicação no site de terceiro; não foi enviado contato nem comprado link.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 136,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurantes fortaleza frutos do mar",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "conteudo",
+      "estado": "conteudo_revisado",
+      "acao_ou_motivo": "Conteúdo principal atual: 1038 palavras por extração local. Informação prática, pratos, rota ou regras conferidos. A contagem por si só não é critério de aprovação.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 137,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurantes fortaleza frutos do mar",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "avaliacoes",
+      "estado": "nao_aplicar_estrelas_proprias",
+      "acao_ou_motivo": "Preservar avaliações visíveis e links para a fonte. A regra Google de avaliações do próprio estabelecimento não permite esse destaque; ItemList não contorna a regra.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 138,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurante sirigado em fortaleza",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "h1",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 139,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurante sirigado em fortaleza",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "titulo",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 140,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurante sirigado em fortaleza",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "backlinks",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 141,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurante sirigado em fortaleza",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "conteudo",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 142,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurante sirigado em fortaleza",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "avaliacoes",
+      "estado": "nao_aplicar_estrelas_proprias",
+      "acao_ou_motivo": "Preservar avaliações visíveis e links para a fonte. A regra Google de avaliações do próprio estabelecimento não permite esse destaque; ItemList não contorna a regra.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 143,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "beira mar restaurantes",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "backlinks",
+      "estado": "depende_de_editor_externo",
+      "acao_ou_motivo": "A lista indica candidatos de pesquisa. Um link novo exige publicação no site de terceiro; não foi enviado contato nem comprado link.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 144,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "beira mar restaurantes",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "conteudo",
+      "estado": "conteudo_revisado",
+      "acao_ou_motivo": "Conteúdo principal atual: 1038 palavras por extração local. Informação prática, pratos, rota ou regras conferidos. A contagem por si só não é critério de aprovação.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 145,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "fortaleza restaurantes beira mar",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "semantica",
+      "estado": "curadoria_semantica_aplicada",
+      "acao_ou_motivo": "Usadas informações pertinentes: localização, pratos e rotas. Café da manhã, pizzas, restaurante italiano e nomes de outras casas não foram apresentados como oferta do Sir Fisher. Concorrentes permanecem úteis para pesquisa ou comparação contextual.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 146,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "fortaleza restaurantes beira mar",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "backlinks",
+      "estado": "depende_de_editor_externo",
+      "acao_ou_motivo": "A lista indica candidatos de pesquisa. Um link novo exige publicação no site de terceiro; não foi enviado contato nem comprado link.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 147,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "fortaleza restaurantes beira mar",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "conteudo",
+      "estado": "conteudo_revisado",
+      "acao_ou_motivo": "Conteúdo principal atual: 1038 palavras por extração local. Informação prática, pratos, rota ou regras conferidos. A contagem por si só não é critério de aprovação.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 148,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurante meireles fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "corpo",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 149,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurante meireles fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "h1",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 150,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurante meireles fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "titulo",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 151,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurante meireles fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "backlinks",
+      "estado": "depende_de_editor_externo",
+      "acao_ou_motivo": "A lista indica candidatos de pesquisa. Um link novo exige publicação no site de terceiro; não foi enviado contato nem comprado link.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 152,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurante meireles fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "conteudo",
+      "estado": "conteudo_revisado",
+      "acao_ou_motivo": "Conteúdo principal atual: 1038 palavras por extração local. Informação prática, pratos, rota ou regras conferidos. A contagem por si só não é critério de aprovação.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 153,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurante meireles fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "avaliacoes",
+      "estado": "nao_aplicar_estrelas_proprias",
+      "acao_ou_motivo": "Preservar avaliações visíveis e links para a fonte. A regra Google de avaliações do próprio estabelecimento não permite esse destaque; ItemList não contorna a regra.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 154,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurantes meireles",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "corpo",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 155,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurantes meireles",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "h1",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 156,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurantes meireles",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "titulo",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 157,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurantes meireles",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "descricao",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 158,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurantes meireles",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "backlinks",
+      "estado": "depende_de_editor_externo",
+      "acao_ou_motivo": "A lista indica candidatos de pesquisa. Um link novo exige publicação no site de terceiro; não foi enviado contato nem comprado link.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 159,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurantes meireles",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "conteudo",
+      "estado": "conteudo_revisado",
+      "acao_ou_motivo": "Conteúdo principal atual: 1038 palavras por extração local. Informação prática, pratos, rota ou regras conferidos. A contagem por si só não é critério de aprovação.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 160,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurantes meireles",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "avaliacoes",
+      "estado": "nao_aplicar_estrelas_proprias",
+      "acao_ou_motivo": "Preservar avaliações visíveis e links para a fonte. A regra Google de avaliações do próprio estabelecimento não permite esse destaque; ItemList não contorna a regra.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 161,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurantes na beira mar fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "backlinks",
+      "estado": "depende_de_editor_externo",
+      "acao_ou_motivo": "A lista indica candidatos de pesquisa. Um link novo exige publicação no site de terceiro; não foi enviado contato nem comprado link.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 162,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurantes na beira mar fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "conteudo",
+      "estado": "conteudo_revisado",
+      "acao_ou_motivo": "Conteúdo principal atual: 1038 palavras por extração local. Informação prática, pratos, rota ou regras conferidos. A contagem por si só não é critério de aprovação.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 163,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "bares beira mar fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "h1",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 164,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "bares beira mar fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "titulo",
+      "estado": "adaptada_a_intencao_da_pagina",
+      "acao_ou_motivo": "Campo mantém o assunto e a identificação da página. Variantes próximas são tratadas no conteúdo; não foram acumuladas todas as palavras em um só título.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 165,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "bares beira mar fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "backlinks",
+      "estado": "depende_de_editor_externo",
+      "acao_ou_motivo": "A lista indica candidatos de pesquisa. Um link novo exige publicação no site de terceiro; não foi enviado contato nem comprado link.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 166,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "bares beira mar fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "conteudo",
+      "estado": "conteudo_revisado",
+      "acao_ou_motivo": "Conteúdo principal atual: 1038 palavras por extração local. Informação prática, pratos, rota ou regras conferidos. A contagem por si só não é critério de aprovação.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 167,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "bares beira mar fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "avaliacoes",
+      "estado": "nao_aplicar_estrelas_proprias",
+      "acao_ou_motivo": "Preservar avaliações visíveis e links para a fonte. A regra Google de avaliações do próprio estabelecimento não permite esse destaque; ItemList não contorna a regra.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 168,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "barraca o siri azul",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "corpo",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 169,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "barraca o siri azul",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "h1",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 170,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "barraca o siri azul",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "titulo",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 171,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "barraca o siri azul",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "descricao",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 172,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "barraca o siri azul",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "backlinks",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 173,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "barraca o siri azul",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "conteudo",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 174,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "barraca o siri azul",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "avaliacoes",
+      "estado": "nao_aplicar_estrelas_proprias",
+      "acao_ou_motivo": "Preservar avaliações visíveis e links para a fonte. A regra Google de avaliações do próprio estabelecimento não permite esse destaque; ItemList não contorna a regra.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 175,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "crepe ao mar",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "corpo",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 176,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "crepe ao mar",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "h1",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 177,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "crepe ao mar",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "titulo",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 178,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "crepe ao mar",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "backlinks",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 179,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "crepe ao mar",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "conteudo",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 180,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "crepe ao mar",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "avaliacoes",
+      "estado": "nao_aplicar_estrelas_proprias",
+      "acao_ou_motivo": "Preservar avaliações visíveis e links para a fonte. A regra Google de avaliações do próprio estabelecimento não permite esse destaque; ItemList não contorna a regra.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 181,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "peixada fortaleza",
+      "grupo_de_pesquisa": "oferta_ou_alias_a_confirmar",
+      "categoria": "corpo",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 182,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "peixada fortaleza",
+      "grupo_de_pesquisa": "oferta_ou_alias_a_confirmar",
+      "categoria": "h1",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 183,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "peixada fortaleza",
+      "grupo_de_pesquisa": "oferta_ou_alias_a_confirmar",
+      "categoria": "titulo",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 184,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "peixada fortaleza",
+      "grupo_de_pesquisa": "oferta_ou_alias_a_confirmar",
+      "categoria": "descricao",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 185,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "peixada fortaleza",
+      "grupo_de_pesquisa": "oferta_ou_alias_a_confirmar",
+      "categoria": "conteudo",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 186,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "peixada fortaleza",
+      "grupo_de_pesquisa": "oferta_ou_alias_a_confirmar",
+      "categoria": "avaliacoes",
+      "estado": "nao_aplicar_estrelas_proprias",
+      "acao_ou_motivo": "Preservar avaliações visíveis e links para a fonte. A regra Google de avaliações do próprio estabelecimento não permite esse destaque; ItemList não contorna a regra.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 187,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "complexo praieiro",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "corpo",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 188,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "complexo praieiro",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "h1",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 189,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "complexo praieiro",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "titulo",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 190,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "complexo praieiro",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "descricao",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 191,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "complexo praieiro",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "backlinks",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 192,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "complexo praieiro",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "avaliacoes",
+      "estado": "nao_aplicar_estrelas_proprias",
+      "acao_ou_motivo": "Preservar avaliações visíveis e links para a fonte. A regra Google de avaliações do próprio estabelecimento não permite esse destaque; ItemList não contorna a regra.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 193,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "melhores restaurantes beira mar fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "h1",
+      "estado": "adaptada_a_intencao_da_pagina",
+      "acao_ou_motivo": "Campo mantém o assunto e a identificação da página. Variantes próximas são tratadas no conteúdo; não foram acumuladas todas as palavras em um só título.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 194,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "melhores restaurantes beira mar fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "titulo",
+      "estado": "adaptada_a_intencao_da_pagina",
+      "acao_ou_motivo": "Campo mantém o assunto e a identificação da página. Variantes próximas são tratadas no conteúdo; não foram acumuladas todas as palavras em um só título.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 195,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "melhores restaurantes beira mar fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "descricao",
+      "estado": "adaptada_a_intencao_da_pagina",
+      "acao_ou_motivo": "Campo mantém o assunto e a identificação da página. Variantes próximas são tratadas no conteúdo; não foram acumuladas todas as palavras em um só título.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 196,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "melhores restaurantes beira mar fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "semantica",
+      "estado": "curadoria_semantica_aplicada",
+      "acao_ou_motivo": "Usadas informações pertinentes: localização, pratos e rotas. Café da manhã, pizzas, restaurante italiano e nomes de outras casas não foram apresentados como oferta do Sir Fisher. Concorrentes permanecem úteis para pesquisa ou comparação contextual.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 197,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "melhores restaurantes beira mar fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "backlinks",
+      "estado": "depende_de_editor_externo",
+      "acao_ou_motivo": "A lista indica candidatos de pesquisa. Um link novo exige publicação no site de terceiro; não foi enviado contato nem comprado link.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 198,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "melhores restaurantes beira mar fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "conteudo",
+      "estado": "conteudo_revisado",
+      "acao_ou_motivo": "Conteúdo principal atual: 1038 palavras por extração local. Informação prática, pratos, rota ou regras conferidos. A contagem por si só não é critério de aprovação.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 199,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "melhores restaurantes beira mar fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "avaliacoes",
+      "estado": "nao_aplicar_estrelas_proprias",
+      "acao_ou_motivo": "Preservar avaliações visíveis e links para a fonte. A regra Google de avaliações do próprio estabelecimento não permite esse destaque; ItemList não contorna a regra.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 200,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "é sim comer e beber",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "corpo",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 201,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "é sim comer e beber",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "h1",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 202,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "é sim comer e beber",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "titulo",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 203,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "é sim comer e beber",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "backlinks",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 204,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "é sim comer e beber",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "conteudo",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 205,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "é sim comer e beber",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "avaliacoes",
+      "estado": "nao_aplicar_estrelas_proprias",
+      "acao_ou_motivo": "Preservar avaliações visíveis e links para a fonte. A regra Google de avaliações do próprio estabelecimento não permite esse destaque; ItemList não contorna a regra.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 206,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurantes em fortaleza meireles",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "h1",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 207,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurantes em fortaleza meireles",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "titulo",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 208,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurantes em fortaleza meireles",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "backlinks",
+      "estado": "depende_de_editor_externo",
+      "acao_ou_motivo": "A lista indica candidatos de pesquisa. Um link novo exige publicação no site de terceiro; não foi enviado contato nem comprado link.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 209,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurantes em fortaleza meireles",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "conteudo",
+      "estado": "conteudo_revisado",
+      "acao_ou_motivo": "Conteúdo principal atual: 1038 palavras por extração local. Informação prática, pratos, rota ou regras conferidos. A contagem por si só não é critério de aprovação.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 210,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurantes em fortaleza meireles",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "avaliacoes",
+      "estado": "nao_aplicar_estrelas_proprias",
+      "acao_ou_motivo": "Preservar avaliações visíveis e links para a fonte. A regra Google de avaliações do próprio estabelecimento não permite esse destaque; ItemList não contorna a regra.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 211,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurante meireles",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "corpo",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 212,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurante meireles",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "h1",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 213,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurante meireles",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "titulo",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 214,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurante meireles",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "descricao",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 215,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurante meireles",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "backlinks",
+      "estado": "depende_de_editor_externo",
+      "acao_ou_motivo": "A lista indica candidatos de pesquisa. Um link novo exige publicação no site de terceiro; não foi enviado contato nem comprado link.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 216,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurante meireles",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "conteudo",
+      "estado": "conteudo_revisado",
+      "acao_ou_motivo": "Conteúdo principal atual: 1038 palavras por extração local. Informação prática, pratos, rota ou regras conferidos. A contagem por si só não é critério de aprovação.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 217,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurante meireles",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "avaliacoes",
+      "estado": "nao_aplicar_estrelas_proprias",
+      "acao_ou_motivo": "Preservar avaliações visíveis e links para a fonte. A regra Google de avaliações do próprio estabelecimento não permite esse destaque; ItemList não contorna a regra.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 218,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "sirigado restaurante",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "h1",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 219,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "sirigado restaurante",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "titulo",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 220,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "sirigado restaurante",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "backlinks",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 221,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "sirigado restaurante",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "conteudo",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 222,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "sirigado restaurante",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "avaliacoes",
+      "estado": "nao_aplicar_estrelas_proprias",
+      "acao_ou_motivo": "Preservar avaliações visíveis e links para a fonte. A regra Google de avaliações do próprio estabelecimento não permite esse destaque; ItemList não contorna a regra.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 223,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "fisherman's bar",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "corpo",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 224,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "fisherman's bar",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "h1",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 225,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "fisherman's bar",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "titulo",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 226,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "fisherman's bar",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "backlinks",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 227,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "fisherman's bar",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "avaliacoes",
+      "estado": "nao_aplicar_estrelas_proprias",
+      "acao_ou_motivo": "Preservar avaliações visíveis e links para a fonte. A regra Google de avaliações do próprio estabelecimento não permite esse destaque; ItemList não contorna a regra.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 228,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurantes fortaleza meireles",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "h1",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 229,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurantes fortaleza meireles",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "titulo",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 230,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurantes fortaleza meireles",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "backlinks",
+      "estado": "depende_de_editor_externo",
+      "acao_ou_motivo": "A lista indica candidatos de pesquisa. Um link novo exige publicação no site de terceiro; não foi enviado contato nem comprado link.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 231,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurantes fortaleza meireles",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "conteudo",
+      "estado": "conteudo_revisado",
+      "acao_ou_motivo": "Conteúdo principal atual: 1038 palavras por extração local. Informação prática, pratos, rota ou regras conferidos. A contagem por si só não é critério de aprovação.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 232,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurantes fortaleza meireles",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "avaliacoes",
+      "estado": "nao_aplicar_estrelas_proprias",
+      "acao_ou_motivo": "Preservar avaliações visíveis e links para a fonte. A regra Google de avaliações do próprio estabelecimento não permite esse destaque; ItemList não contorna a regra.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 233,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurante em fortaleza meireles",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "h1",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 234,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurante em fortaleza meireles",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "titulo",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 235,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurante em fortaleza meireles",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "backlinks",
+      "estado": "depende_de_editor_externo",
+      "acao_ou_motivo": "A lista indica candidatos de pesquisa. Um link novo exige publicação no site de terceiro; não foi enviado contato nem comprado link.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 236,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurante em fortaleza meireles",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "conteudo",
+      "estado": "conteudo_revisado",
+      "acao_ou_motivo": "Conteúdo principal atual: 1038 palavras por extração local. Informação prática, pratos, rota ou regras conferidos. A contagem por si só não é critério de aprovação.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 237,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurante em fortaleza meireles",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "avaliacoes",
+      "estado": "nao_aplicar_estrelas_proprias",
+      "acao_ou_motivo": "Preservar avaliações visíveis e links para a fonte. A regra Google de avaliações do próprio estabelecimento não permite esse destaque; ItemList não contorna a regra.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 238,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurantes em meireles fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "corpo",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 239,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurantes em meireles fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "h1",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 240,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurantes em meireles fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "titulo",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 241,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurantes em meireles fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "descricao",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 242,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurantes em meireles fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "backlinks",
+      "estado": "depende_de_editor_externo",
+      "acao_ou_motivo": "A lista indica candidatos de pesquisa. Um link novo exige publicação no site de terceiro; não foi enviado contato nem comprado link.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 243,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurantes em meireles fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "conteudo",
+      "estado": "conteudo_revisado",
+      "acao_ou_motivo": "Conteúdo principal atual: 1038 palavras por extração local. Informação prática, pratos, rota ou regras conferidos. A contagem por si só não é critério de aprovação.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 244,
+      "url": "https://www.sirfisher.com.br/",
+      "palavra_chave": "restaurantes em meireles fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "avaliacoes",
+      "estado": "nao_aplicar_estrelas_proprias",
+      "acao_ou_motivo": "Preservar avaliações visíveis e links para a fonte. A regra Google de avaliações do próprio estabelecimento não permite esse destaque; ItemList não contorna a regra.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 245,
+      "url": "https://www.sirfisher.com.br/almoco-executivo/",
+      "palavra_chave": "sir fisher",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "h1",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 246,
+      "url": "https://www.sirfisher.com.br/almoco-executivo/",
+      "palavra_chave": "sir fisher",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "descricao",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 247,
+      "url": "https://www.sirfisher.com.br/almoco-executivo/",
+      "palavra_chave": "sir fisher",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "backlinks",
+      "estado": "depende_de_editor_externo",
+      "acao_ou_motivo": "A lista indica candidatos de pesquisa. Um link novo exige publicação no site de terceiro; não foi enviado contato nem comprado link.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 248,
+      "url": "https://www.sirfisher.com.br/almoco-executivo/",
+      "palavra_chave": "sir fisher",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "conteudo",
+      "estado": "conteudo_revisado",
+      "acao_ou_motivo": "Conteúdo principal atual: 580 palavras por extração local. Informação prática, pratos, rota ou regras conferidos. A contagem por si só não é critério de aprovação.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 249,
+      "url": "https://www.sirfisher.com.br/almoco-executivo/",
+      "palavra_chave": "sir fisher",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "estrategia",
+      "estado": "ajuste_semrush_pendente",
+      "acao_ou_motivo": "Destino sugerido pelo relatório: https://www.sirfisher.com.br/. Conferir agrupamento no Semrush; a sessão não dispõe de acesso à interface.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 250,
+      "url": "https://www.sirfisher.com.br/almoco-executivo/",
+      "palavra_chave": "sir fisher",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "avaliacoes",
+      "estado": "nao_aplicar_estrelas_proprias",
+      "acao_ou_motivo": "Preservar avaliações visíveis e links para a fonte. A regra Google de avaliações do próprio estabelecimento não permite esse destaque; ItemList não contorna a regra.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 251,
+      "url": "https://www.sirfisher.com.br/almoco-executivo/",
+      "palavra_chave": "almoço executivo fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "corpo",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 252,
+      "url": "https://www.sirfisher.com.br/almoco-executivo/",
+      "palavra_chave": "almoço executivo fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "h1",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 253,
+      "url": "https://www.sirfisher.com.br/almoco-executivo/",
+      "palavra_chave": "almoço executivo fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "descricao",
+      "estado": "atendida_no_conteudo",
+      "acao_ou_motivo": "Termos principais presentes no campo, com flexão e preposições normalizadas.",
+      "termos_presentes_no_campo": true
+    },
+    {
+      "linha_fonte": 254,
+      "url": "https://www.sirfisher.com.br/almoco-executivo/",
+      "palavra_chave": "almoço executivo fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "semantica",
+      "estado": "curadoria_semantica_aplicada",
+      "acao_ou_motivo": "Usadas informações pertinentes: localização, pratos e rotas. Café da manhã, pizzas, restaurante italiano e nomes de outras casas não foram apresentados como oferta do Sir Fisher. Concorrentes permanecem úteis para pesquisa ou comparação contextual.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 255,
+      "url": "https://www.sirfisher.com.br/almoco-executivo/",
+      "palavra_chave": "almoço executivo fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "backlinks",
+      "estado": "depende_de_editor_externo",
+      "acao_ou_motivo": "A lista indica candidatos de pesquisa. Um link novo exige publicação no site de terceiro; não foi enviado contato nem comprado link.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 256,
+      "url": "https://www.sirfisher.com.br/almoco-executivo/",
+      "palavra_chave": "almoço executivo fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "conteudo",
+      "estado": "conteudo_revisado",
+      "acao_ou_motivo": "Conteúdo principal atual: 580 palavras por extração local. Informação prática, pratos, rota ou regras conferidos. A contagem por si só não é critério de aprovação.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 257,
+      "url": "https://www.sirfisher.com.br/almoco-executivo/",
+      "palavra_chave": "almoço executivo fortaleza",
+      "grupo_de_pesquisa": "principal",
+      "categoria": "avaliacoes",
+      "estado": "nao_aplicar_estrelas_proprias",
+      "acao_ou_motivo": "Preservar avaliações visíveis e links para a fonte. A regra Google de avaliações do próprio estabelecimento não permite esse destaque; ItemList não contorna a regra.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 258,
+      "url": "https://www.sirfisher.com.br/almoco-executivo/",
+      "palavra_chave": "fishery restaurant",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "h1",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 259,
+      "url": "https://www.sirfisher.com.br/almoco-executivo/",
+      "palavra_chave": "fishery restaurant",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "titulo",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": false
+    },
+    {
+      "linha_fonte": 260,
+      "url": "https://www.sirfisher.com.br/almoco-executivo/",
+      "palavra_chave": "fishery restaurant",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "backlinks",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 261,
+      "url": "https://www.sirfisher.com.br/almoco-executivo/",
+      "palavra_chave": "fishery restaurant",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "conteudo",
+      "estado": "manter_em_pesquisa",
+      "acao_ou_motivo": "Palavra preservada no mapa de pesquisa. Conteúdo ou comparação exige contexto factual próprio; nenhuma lista escondida ou falsa identidade foi adicionada ao site.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 262,
+      "url": "https://www.sirfisher.com.br/almoco-executivo/",
+      "palavra_chave": "fishery restaurant",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "estrategia",
+      "estado": "ajuste_semrush_pendente",
+      "acao_ou_motivo": "Destino sugerido pelo relatório: https://www.sirfisher.com.br/. Conferir agrupamento no Semrush; a sessão não dispõe de acesso à interface.",
+      "termos_presentes_no_campo": null
+    },
+    {
+      "linha_fonte": 263,
+      "url": "https://www.sirfisher.com.br/almoco-executivo/",
+      "palavra_chave": "fishery restaurant",
+      "grupo_de_pesquisa": "concorrencia_ou_termo_a_pesquisar",
+      "categoria": "avaliacoes",
+      "estado": "nao_aplicar_estrelas_proprias",
+      "acao_ou_motivo": "Preservar avaliações visíveis e links para a fonte. A regra Google de avaliações do próprio estabelecimento não permite esse destaque; ItemList não contorna a regra.",
+      "termos_presentes_no_campo": null
+    }
+  ]
+}

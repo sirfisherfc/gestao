@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 Livre. Anunciante 149-377-8788 aprovado, confirmado pelo e-mail autêntico do Google de 03/11 às 08h07. Releitura às 18h12 confirmou Ads/GA4, worker 48, envios, sitemaps processados e módulos publicados. Restam conferência de conversões dentro do Ads (sem acesso nesta sessão) e nova varredura Semrush (sem cota). Relatório REVISAO_SEGURANCA_MEDICAO_SEO_2026-11-03.md atualizado.
+> **🚦 Status atual:** 🟢 Livre. Arquivo Semrush de 03/11 lido: 262 linhas detalhadas, controle completo em docs/seo/SEMRUSH_IDEIAS_2026-11-03.md e JSON. Melhorias pertinentes em cinco páginas publicadas no site 078652a. Nomes de concorrentes preservados para pesquisa. Pendentes sete redistribuições e nova coleta no Semrush, além de links de terceiros; não declarar 43/43 aplicadas. Ads segue com o acesso limitado registrado na entrega anterior.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -17,21 +17,6 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
 **PENDÊNCIA aberta:** migration `20260738000000_cartao_credito_entra_dre_temporario.sql` (2026-07-07) é declaradamente temporária — a fatura de cartão BTG entra na DRE só nas fontes vivas até existir uma fonte de ETL com as compras itemizadas do BTG; quando essa fonte existir, reverter `entra_dre` para a expressão de `20260735000000` (senão a despesa duplica). Ver detalhes no `git log`/na própria migration.
 
 **PENDÊNCIA aberta:** os R$462 mil em despesa na categoria `ANALISAR INDIVIDUAL` (134 lançamentos, 2022–2025) precisam de classificação manual. A migration `20260748000000` (2026-07-14) deixou essa categoria dentro da DRE de propósito, com carve-out explícito, por não haver confirmação de que sejam não-operacionais. Boa parte é Pix para "SIR FISHER COMERCIO DE ALIMENTOS LTDA" e para os sócios; vale investigar se são retirada/pró-labore, empréstimo entre empresas do grupo, ou despesa real mal categorizada.
-
-## 2026-11-03 · Codex — Texto do aviso em duas linhas no celular
-
-Encurtadas somente as descrições PT/EN de assets/js/google-ads.js no site e
-portal. Texto PT: “Permitir cookies para medir e personalizar anúncios? Os
-demais seguem ativos.” Fonte de 13 px, título, botões e consentimento preservados.
-Novo hash b25d5c1153 nas 14 páginas do site e nas duas páginas públicas do portal;
-CSP regenerada no site. Commits publicados: site 6ae7998 e reservas df3962d.
-
-Navegador confirmou exatamente duas linhas e ausência de rolagem horizontal
-em 16 combinações: 320/360/390/430 px, site/portal e PT/EN. Imagem de 360 px
-conferida; nenhum serviço externo recebeu dados do teste. Sintaxe, assets,
-CSP e diff passaram. Pages dos dois repositórios e CI de assets concluídos;
-HTTP 200 e módulo com hash esperado nos dois domínios. Sem mudança de banco
-ou migration. Nenhum segredo, dado bruto ou arquivo de teste local versionado.
 
 ## 2026-11-03 · Codex — Revisão final publicada
 
@@ -100,6 +85,43 @@ está concluída; conferir/importar ações de conversão no Ads segue dependend
 desse acesso. Atualizados este canal, EVOLUCAO_SITE_GA4 e relatório final.
 Bases locais conferidas: gestao bea5d03, site 5eeb6f2 e reservas 4d0d80e.
 Recibos agregados em tmp/revisao-2026-11-03/, ignorados pelo Git.
+
+## 2026-11-03 · Codex — Arquivo completo de ideias Semrush e projeção
+
+Proprietário pediu conferir todas as ideias e baixou
+ideas_www.sirfisher.com.br_20261103.xlsx. Aba SEO Ideas A1:D263: cabeçalho e
+262 linhas detalhadas por página/palavra/ideia; painel mostra 43 grupos.
+Fonte preservada em Downloads. Controle JSON cobre todas as linhas 2–263,
+com SHA-256, categoria, contexto, decisão e evidência. Relatório em docs/seo.
+
+Usuário esclareceu que imaginava keywords escondidas no código. Explicado:
+keywords do Semrush configuram pesquisa/acompanhamento; Google ignora meta
+keywords. Nomes de concorrentes podem ser monitorados e usados em comparação
+factual, inclusive num H1 desse assunto. Não houve exclusão de palavras na
+ferramenta nem inclusão automática de nomes no H1 da home. Preservar essa
+distinção; a conversa não proíbe pesquisa de concorrência.
+
+Documentação Semrush define o potencial como primeira posição para todas as
+palavras. Imagem: 13,1 mil → 56,5 mil significa +331,3%; +1000% significaria
+144,1 mil. Motivo da divergência não foi demonstrado pela fonte. Não usar
+esse percentual como previsão de clientes. Usuário pediu só o que fizer sentido.
+
+Site 078652a: títulos/H1/descrições com localização e intenção, rota do almoço,
+atalhos do guia, duas versões do prato com fichas EN e método solar em parágrafos.
+Lastmod atualizado só nas cinco páginas alteradas. Guia de Analytics atualizado.
+Passaram 42 testes de CTA, dez cenários de navegador e quatro releituras após
+ajuste visual; duas fichas EN, JSON-LD/XML, assets/CSP, cardápio e 626 referências
+locais sem destino ausente. Coleta externa de teste interceptada.
+
+Sete redistribuições na ferramenta e nova coleta continuam sem acesso;
+Semrush sem cota e host autenticado indisponível. Links de terceiros exigem
+publicação editorial. Estrelas do próprio negócio não aplicadas conforme Google.
+Portal preservado com função de reserva e idioma EN preservado. Sem migration,
+mudança de banco, anúncio, orçamento ou credencial. Bases gestao e0e8715,
+site 5eeb6f2 e reservas 4d0d80e. Recibos em tmp/revisao-2026-11-03/, ignorados.
+
+Pages e assets do site concluídos; cinco URLs públicas com HTTP 200 e texto
+esperado. Sitemap www reenviado às 18h50 (204, nova coleta pendente, sem erros).
 
 ## 2026-11-03 · Claude Code — Grupo Garçom Sênior no Teknisa
 

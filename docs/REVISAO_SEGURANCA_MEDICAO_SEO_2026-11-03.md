@@ -169,10 +169,16 @@ e zero avisos. Os últimos downloads registrados pelo Google ocorreram às
 08:21:38Z (www) e 08:21:41Z (reservas) de 03/11.
 
 O Semrush respondeu `no_api_units`, sem possibilidade de nova consulta com
-a cota atual. O host do navegador também ficou indisponível. A lista de
-43 sugestões das imagens foi analisada pelas categorias e páginas visíveis;
-a contagem atual do On Page SEO Checker e uma nova varredura não puderam
-ser confirmadas. [Cota do Semrush](https://www.semrush.com/mcp-access).
+a cota atual. O host do navegador também ficou indisponível. A primeira
+conferência se limitou às categorias e páginas visíveis nas imagens.
+Depois, o proprietário baixou o XLSX de 03/11: suas 262 linhas detalhadas
+foram conferidas e receberam decisão individual. Melhorias pertinentes de
+texto, localização e navegação foram aplicadas em cinco páginas. O
+[controle das ideias](seo/SEMRUSH_IDEIAS_2026-11-03.md) e seu JSON registram
+o alcance, os motivos e as pendências; não se declarou “43/43 aplicadas”.
+Sete redistribuições de termos e uma nova coleta na ferramenta continuam
+dependendo desse acesso, e links externos dependem de publicação por terceiros.
+[Cota do Semrush](https://www.semrush.com/mcp-access).
 
 ## Cloudflare
 
