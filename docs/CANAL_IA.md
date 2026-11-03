@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 Livre. Tag Google Ads e janela de cookies publicadas no site e portal; site ff07526 e reservas aeff2b0. Validações e Pages concluídos. Detalhes no último recado.
+> **🚦 Status atual:** 🟢 Livre. Texto do aviso Google encurtado e publicado em duas linhas no celular; site 6ae7998 e reservas df3962d. Pages, assets e conferência pública concluídos. Detalhes no último recado.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -17,26 +17,6 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
 **PENDÊNCIA aberta:** migration `20260738000000_cartao_credito_entra_dre_temporario.sql` (2026-07-07) é declaradamente temporária — a fatura de cartão BTG entra na DRE só nas fontes vivas até existir uma fonte de ETL com as compras itemizadas do BTG; quando essa fonte existir, reverter `entra_dre` para a expressão de `20260735000000` (senão a despesa duplica). Ver detalhes no `git log`/na própria migration.
 
 **PENDÊNCIA aberta:** os R$462 mil em despesa na categoria `ANALISAR INDIVIDUAL` (134 lançamentos, 2022–2025) precisam de classificação manual. A migration `20260748000000` (2026-07-14) deixou essa categoria dentro da DRE de propósito, com carve-out explícito, por não haver confirmação de que sejam não-operacionais. Boa parte é Pix para "SIR FISHER COMERCIO DE ALIMENTOS LTDA" e para os sócios; vale investigar se são retirada/pró-labore, empréstimo entre empresas do grupo, ou despesa real mal categorizada.
-
-## 2026-11-03 · Codex — Formulário Ads recebido; vínculo em diagnóstico
-
-Imagem do suporte confirma Seu e-mail foi enviado. Conteúdo final/anexos
-não inspecionados, aprovação ainda pendente. Proprietário confirmou que a
-entrega física do 99Food é feita pelos entregadores da plataforma; roteiro
-inclui esse campo adicional e o comprovante da relação. Campo de licença
-orientado pelo número/titular do próprio documento, sem número presumido.
-
-API listGoogleAdsLinks segue vazia. Proprietário confirmou mesmo login
-Google no Analytics/Ads, mas conta 149-377-8788 não aparece no seletor.
-GET property accessBindings 200 confirmou usuário como Administrador na
-propriedade 353205396; nível da conta retornou403 sem ampliar acesso.
-Solicitada conferência do papel em Ads/Acesso e segurança. Rota oficial
-alternativa: Ads/Ferramentas/Central de dados/Conectar produto/GA4 e Firebase.
-Causa da ausência ainda sem confirmação. Não criar outra conta ou propriedade.
-
-Alterados os mesmos três documentos da tarefa. Nenhum vínculo, papel,
-campanha, orçamento ou conversão alterado pelas ferramentas. Diff conferido;
-sem migration, documento pessoal, cartão ou dado financeiro bruto incluído.
 
 ## 2026-11-03 · Codex — Vínculo Google Ads/GA4 concluído
 
@@ -85,3 +65,18 @@ Sintaxe, hashes, CSP, cardápio e diff também conferidos. Sem migration ou
 mudança de banco. Documentação da entrega em EVOLUCAO_SITE_GA4_2026-11-02.md.
 Continuam pendentes aprovação do anunciante, codificação automática e revisão
 das ações de conversão antes de importar reservas. Campanhas/orçamentos intactos.
+
+## 2026-11-03 · Codex — Texto do aviso em duas linhas no celular
+
+Encurtadas somente as descrições PT/EN de assets/js/google-ads.js no site e
+portal. Texto PT: “Permitir cookies para medir e personalizar anúncios? Os
+demais seguem ativos.” Fonte de 13 px, título, botões e consentimento preservados.
+Novo hash b25d5c1153 nas 14 páginas do site e nas duas páginas públicas do portal;
+CSP regenerada no site. Commits publicados: site 6ae7998 e reservas df3962d.
+
+Navegador confirmou exatamente duas linhas e ausência de rolagem horizontal
+em 16 combinações: 320/360/390/430 px, site/portal e PT/EN. Imagem de 360 px
+conferida; nenhum serviço externo recebeu dados do teste. Sintaxe, assets,
+CSP e diff passaram. Pages dos dois repositórios e CI de assets concluídos;
+HTTP 200 e módulo com hash esperado nos dois domínios. Sem mudança de banco
+ou migration. Nenhum segredo, dado bruto ou arquivo de teste local versionado.
