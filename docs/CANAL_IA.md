@@ -639,4 +639,5 @@ texto pronto para solicitar documentação ao fornecedor, ainda sem envio.
 Atualizados README da ferramenta, TEKNISA_INTEGRACAO_API.md,
 INTEGRACAO_API_BANCOS.md e AGENTS.md. 121 testes Teknisa passaram, nove
 novos; check_project passou com 123 contratos e 31 de segurança. Plano CLI
-de 30/10 a 01/11 conferido sem rede. Publicação será conferida no fechamento.
+de 30/10 a 01/11 conferido sem rede. Publicado em dc19fe7; Quality gates
+41556094487 e Pages 41556094485 passaram. Admin HTTP 200, index igual ao HEAD.
