@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 Livre. Cinco tarefas Analytics conferidas: reserva principal ONCE_PER_EVENT e dois públicos 30 dias presentes; UPD desativado. User-ID e importação de campanhas são opcionais no fluxo atual. Prioridade é conferir/criar a ação de reserva no Ads; host de interface e conector Ads seguem indisponíveis nesta sessão. Relatório ANALYTICS_TAREFAS_2026-11-03.md. Sem mudança de produto, banco ou campanha nesta conferência.
+> **🚦 Status atual:** 🟢 Livre. Codex concluiu a releitura do perfil QR: comportamento agregado desde agosto, cobertura demográfica parcial e públicos de reserva conferidos. Relatório PERFIL_QR_CAMPANHAS_2026-11-03.md. Sem mudança de produto, campanha ou orçamento.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -17,71 +17,6 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
 **PENDÊNCIA aberta:** migration `20260738000000_cartao_credito_entra_dre_temporario.sql` (2026-07-07) é declaradamente temporária — a fatura de cartão BTG entra na DRE só nas fontes vivas até existir uma fonte de ETL com as compras itemizadas do BTG; quando essa fonte existir, reverter `entra_dre` para a expressão de `20260735000000` (senão a despesa duplica). Ver detalhes no `git log`/na própria migration.
 
 **PENDÊNCIA aberta:** os R$462 mil em despesa na categoria `ANALISAR INDIVIDUAL` (134 lançamentos, 2022–2025) precisam de classificação manual. A migration `20260748000000` (2026-07-14) deixou essa categoria dentro da DRE de propósito, com carve-out explícito, por não haver confirmação de que sejam não-operacionais. Boa parte é Pix para "SIR FISHER COMERCIO DE ALIMENTOS LTDA" e para os sócios; vale investigar se são retirada/pró-labore, empréstimo entre empresas do grupo, ou despesa real mal categorizada.
-
-## 2026-11-03 · Codex — Anunciante aprovado e serviços relidos
-
-Proprietário informou aprovação e pediu conferir o restante. E-mail do Google
-das 08h07 confirma conta 149-377-8788 verificada e todas as tarefas obrigatórias
-concluídas; metadados com DKIM/SPF/DMARC válidos. O estado anterior em revisão
-foi substituído. Vínculo Ads/GA4 e ONCE_PER_EVENT relidos; coleta recente presente.
-
-Sitemaps processados, isPending=false e zero erros/avisos nos dois hosts.
-Worker 48 ACTIVE e migration 20261103071209 presente. Consulta agregada somente
-de leitura encontrou, desde as 05h00 até a releitura das 18h12, três visitas GA4,
-quatro schedules Meta e quatro OpenAI enviados, sem erro registrado, e zero
-evento publicitário ativo/enviado sem autorização válida. Contagens por provedor
-podem corresponder às mesmas reservas. Leitor segue restrito a service_role;
-nenhum privilégio foi ampliado para contornar a recusa à chamada da função.
-
-Cloudflare retornou os mesmos seis insights e configurações HTTPS/TLS. Três
-hosts com HTTP 200 sob identificação de navegador; módulos com hash 8993b0e4f2
-nos dois hosts. Identificação Python recebe 403/1010 com browser_check ligado.
-Pages e assets anteriores concluídos com sucesso. Sem mudança de produto,
-reserva, fila, migração, credencial ou campanha nesta releitura.
-
-Semrush continua no_api_units. O host de computador/navegador segue indisponível,
-e não há conector de edição Google Ads autenticado nesta sessão. A aprovação
-está concluída; conferir/importar ações de conversão no Ads segue dependendo
-desse acesso. Atualizados este canal, EVOLUCAO_SITE_GA4 e relatório final.
-Bases locais conferidas: gestao bea5d03, site 5eeb6f2 e reservas 4d0d80e.
-Recibos agregados em tmp/revisao-2026-11-03/, ignorados pelo Git.
-
-## 2026-11-03 · Codex — Arquivo completo de ideias Semrush e projeção
-
-Proprietário pediu conferir todas as ideias e baixou
-ideas_www.sirfisher.com.br_20261103.xlsx. Aba SEO Ideas A1:D263: cabeçalho e
-262 linhas detalhadas por página/palavra/ideia; painel mostra 43 grupos.
-Fonte preservada em Downloads. Controle JSON cobre todas as linhas 2–263,
-com SHA-256, categoria, contexto, decisão e evidência. Relatório em docs/seo.
-
-Usuário esclareceu que imaginava keywords escondidas no código. Explicado:
-keywords do Semrush configuram pesquisa/acompanhamento; Google ignora meta
-keywords. Nomes de concorrentes podem ser monitorados e usados em comparação
-factual, inclusive num H1 desse assunto. Não houve exclusão de palavras na
-ferramenta nem inclusão automática de nomes no H1 da home. Preservar essa
-distinção; a conversa não proíbe pesquisa de concorrência.
-
-Documentação Semrush define o potencial como primeira posição para todas as
-palavras. Imagem: 13,1 mil → 56,5 mil significa +331,3%; +1000% significaria
-144,1 mil. Motivo da divergência não foi demonstrado pela fonte. Não usar
-esse percentual como previsão de clientes. Usuário pediu só o que fizer sentido.
-
-Site 078652a: títulos/H1/descrições com localização e intenção, rota do almoço,
-atalhos do guia, duas versões do prato com fichas EN e método solar em parágrafos.
-Lastmod atualizado só nas cinco páginas alteradas. Guia de Analytics atualizado.
-Passaram 42 testes de CTA, dez cenários de navegador e quatro releituras após
-ajuste visual; duas fichas EN, JSON-LD/XML, assets/CSP, cardápio e 626 referências
-locais sem destino ausente. Coleta externa de teste interceptada.
-
-Sete redistribuições na ferramenta e nova coleta continuam sem acesso;
-Semrush sem cota e host autenticado indisponível. Links de terceiros exigem
-publicação editorial. Estrelas do próprio negócio não aplicadas conforme Google.
-Portal preservado com função de reserva e idioma EN preservado. Sem migration,
-mudança de banco, anúncio, orçamento ou credencial. Bases gestao e0e8715,
-site 5eeb6f2 e reservas 4d0d80e. Recibos em tmp/revisao-2026-11-03/, ignorados.
-
-Pages e assets do site concluídos; cinco URLs públicas com HTTP 200 e texto
-esperado. Sitemap www reenviado às 18h50 (204, nova coleta pendente, sem erros).
 
 ## 2026-11-03 · Codex — Tarefas do Analytics
 
@@ -110,3 +45,24 @@ desconto, cancelar item e suprimento liberados; sangria bloqueada), supervisiona
 movido do 04 para o 05; releitura sem divergências. Detalhes e teste
 pendente no POS em `docs/TEKNISA_ACESSOS_OPERACAO.md`. Feito pela interface;
 a ferramenta `teknisa.mjs` não tem comando para grupos (Node ausente neste PC).
+
+## 2026-11-03 · Codex — Perfil QR e públicos para campanhas
+
+Releitura GA4 somente de leitura: 01/08 a 03/11 parcial, hosts públicos,
+origem/mídia/campanha com marcação QR. Total sem dimensões: 1.494 sessões,
+988 usuários técnicos, 1.012 sessões engajadas e 2.814 visualizações. Celular
+aproximadamente 99,7%, português 92,3%. Não somar linhas/hosts/meses para
+deduplicar. Cobertura não equivale a todas as leituras físicas ou clientes.
+
+Signals habilitado. Idade/gênero começaram a aparecer em parte da propriedade
+desde 02/11, com unknown predominante e limites de privacidade. API recusou
+essas dimensões combinadas com o filtro QR; não substituir pelo total do site.
+Renda, residência e cliente de maior valor seguem sem evidência suficiente.
+Inventário: All Users, Purchasers e dois públicos personalizados de reserva;
+nenhum específico de QR. Uso/tamanho elegível em campanha não confirmado.
+
+Criado PERFIL_QR_CAMPANHAS_2026-11-03.md e link no relatório de 02/11.
+Validação: consultas reais e metadados; recibos agregados em tmp ignorado.
+Sem migration, alteração de consentimento, dados pessoais, anúncio ou verba.
+Bases 571643b / 078652a / 4d0d80e. Documentação validada; publicação pelo
+fluxo Quality/Pages. Nenhuma alteração de produto nesta entrega.

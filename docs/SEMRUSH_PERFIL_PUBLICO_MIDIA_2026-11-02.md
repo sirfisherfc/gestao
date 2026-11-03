@@ -138,6 +138,12 @@ em páginas controladas por ele. Os tipos precisam representar o conteúdo.
 
 ## Perfil agregado dos acessos QR
 
+Releitura em 03/11 ampliou a janela para o histórico QR identificado desde
+agosto e incluiu o portal de reservas. Os recortes abaixo permanecem
+restritos a setembro/outubro e ao host `www`. Consulte o
+[perfil QR atualizado](PERFIL_QR_CAMPANHAS_2026-11-03.md) para os totais,
+a disponibilidade demográfica e os públicos realmente cadastrados.
+
 | Medida do QR | Setembro | Outubro |
 | --- | ---: | ---: |
 | Sessões | 399 | 717 |
