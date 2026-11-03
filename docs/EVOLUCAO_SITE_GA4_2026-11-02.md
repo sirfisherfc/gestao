@@ -408,9 +408,10 @@ organização, para inspecionar as opções antes de salvar.
 Para corrigir a organização ou o tipo de organização verificado, o Google
 documenta **Administrador → Política → Conta → Redefinir verificação**.
 Esse procedimento exige papel de administrador, reinicia a verificação e
-concede novo prazo quando havia um prazo anterior. Ainda falta conferir
-o formulário existente e definir a correção adequada; nenhuma redefinição
-foi executada. O nome exibido como financiador deve refletir quem paga os
+concede novo prazo quando havia um prazo anterior. A janela de identidade
+foi inspecionada em imagem; falta definir a correção adequada e conferir
+o perfil para pagamentos. Nenhuma redefinição foi executada.
+O nome exibido como financiador deve refletir quem paga os
 anúncios. Conferir o modelo de negócio e o perfil de pagamentos antes de
 alterar os dados legais.
 [Correção do cadastro](https://support.google.com/adspolicy/answer/15577171?hl=pt-BR).
@@ -420,3 +421,34 @@ vínculo exige permissões nas duas plataformas; a possibilidade de vincular
 esta conta enquanto está pausada ainda precisa ser conferida no painel.
 Antes de retomar campanhas, revisar orçamento e configurações. A análise
 dos avisos e das imagens preservou o estado das campanhas.
+
+### Identidade do anunciante e perfil para pagamentos
+
+A janela aberta em **Editar tarefa** pergunta qual razão social deve
+aparecer na declaração do anúncio. Oferece o nome pessoal do proprietário
+ou **Razão social de outra organização**, com o nome a informar depois.
+A segunda opção está selecionada na imagem; abaixo aparece a pergunta
+sobre o país do cliente. A área visível permite escolher a identidade
+pública. O efeito dessa escolha sobre o papel de agência ainda precisa
+ser conferido; não há envio confirmado desse formulário.
+
+O proprietário pediu uma recomendação entre pessoa física e empresa.
+Foi recomendado identificar como anunciante a empresa que opera o
+restaurante, usando os dados dos documentos do CNPJ. A razão social
+precisa corresponder aos documentos, e a marca comercial pode ter outro
+nome. O Google orienta o tipo **Organização** para anunciar empresas
+registradas, inclusive o próprio negócio do proprietário.
+[Tipos de conta](https://support.google.com/google-ads/answer/14130831?hl=pt-BR).
+
+O nome do anunciante pode diferir do nome de quem paga; ambos podem
+aparecer nas informações públicas do anúncio. A identificação do
+anunciante e uma eventual mudança do perfil para pagamentos precisam
+ser avaliadas conforme seus efeitos.
+[Transparência dos anúncios](https://support.google.com/adspolicy/answer/13733850?hl=pt-BR).
+
+Foi solicitado consultar **Faturamento → Configurações → Detalhes do
+pagador → Tipo de conta**, sem alterar o cadastro. O resultado continua
+pendente. Trocar o tipo de conta envolve outro perfil para pagamentos e
+nova verificação, com possíveis efeitos sobre créditos, saldo e limites.
+Essa migração depende da conferência do perfil existente. Campanhas,
+faturamento e verificação preservados durante esta etapa de orientação.
