@@ -276,7 +276,7 @@ colocá-lo no grupo de gerentes. Esse grupo também autoriza os garçons e
 libera sangria e TEF. Foi criado o grupo `05 — GARCOM SENIOR`, em Grupo de
 Operadores. Em **Controle de Acesso do Caixa** (Parametrização → Vendas →
 Parâmetros de Gestão de Vendas), o grupo recebeu as 47 permissões do grupo
-`04 — GARCOM`, com quatro diferenças:
+`04 — GARCOM`, com cinco diferenças:
 
 | Permissão | Garçom (04) | Garçom Sênior (05) |
 | --- | --- | --- |
@@ -284,10 +284,12 @@ Parâmetros de Gestão de Vendas), o grupo recebeu as 47 permissões do grupo
 | Cupom com Desconto | Código e senha do supervisor | Permite Acesso |
 | Cancela Último Item | Código e senha do supervisor | Permite Acesso |
 | Cancela Item Genérico | Código e senha do supervisor | Permite Acesso |
+| Suprimento | Não permite acesso | Permite Acesso (incluído no mesmo dia) |
 
 Cancelamento de cupom e de mesa/comanda, devolução, troca, acréscimo,
-couvert e consumação continuam dependendo de gerente. Sangria,
-suprimento, TEF, leituras e gaveta seguem bloqueados. O grupo
+couvert e consumação continuam dependendo de gerente. Sangria, TEF,
+leituras e gaveta seguem bloqueados. O suprimento foi liberado para
+lançar no caixa entradas avulsas, como a venda de óleo usado. O grupo
 `02 — ADM - SUPERVISOR` aparece como grupo de supervisores do 05.
 
 O operador escolhido foi incluído no grupo 05 e retirado do 04, porque
