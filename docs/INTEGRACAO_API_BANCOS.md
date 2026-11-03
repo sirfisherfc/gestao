@@ -18,8 +18,10 @@ Essa resposta não comprova movimento zero.
 
 As rotinas Stone e Pluggy mantêm suas agendas. A rotina Stone pode refazer
 a conciliação com os dados Saipos já guardados, sem consultar sua API.
-Uma coleta automática de vendas do Teknisa ainda precisa ser preparada e
-validada.
+O preparo da coleta automática de vendas do Teknisa está em
+[TEKNISA_COLETA_VENDAS.md](TEKNISA_COLETA_VENDAS.md): coletor comparativo
+por dia testado sem rede; faltam validação real, contrato e acesso de serviço
+à Sale API para executar sem navegador.
 
 Na [documentação Saipos](https://saipos-data-api.readme.io/reference/limite-consultas),
 lojas canceladas deixam de retornar registros mesmo com HTTP 200. A situação

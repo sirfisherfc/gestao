@@ -38,6 +38,7 @@ não foi validada.
 | Novo produto | Preparação geral; cliente especializado cria os componentes com modelos conferidos |
 | Vendas por garçom | Consulta real por período de movimento do caixa, com valores oficiais separados |
 | Comissão | Calcula sobre a base e o percentual informados; regra ausente permanece pendente |
+| Coleta por dia para conferência | Código e testes sem rede prontos; validação real pendente, cobertura parcial por vendedor |
 | Observações por produto | Leitura, inclusão e retirada validadas; escolhas do cardápio migradas para composição |
 | Composição: grupos, componentes, limites e tipo | Gravação e releitura validadas em 31/10/2026; 48 produtos e 118 vínculos conferidos |
 | Componentes alimentares e sabores de soda | Criação, imposto, preço e loja validados no cliente especializado |
@@ -385,6 +386,27 @@ As regras são explícitas, por vendedor, com `base: netProductCents` e
 `rateBasisPoints` (500 equivale a 5%). A apuração usa Fortaleza. Dado ausente
 retorna `unavailable`; regra ausente retorna comissão `null`. Taxa zero no
 cadastro não comprova a regra comercial combinada com a equipe.
+
+## Preparar a coleta diária de vendas
+
+O plano e os requisitos da API oficial estão em
+[`docs/TEKNISA_COLETA_VENDAS.md`](../../docs/TEKNISA_COLETA_VENDAS.md).
+`vendas.coleta.preparar` monta até sete dias anteriores ao dia atual em
+Fortaleza. Funciona no terminal sem autenticação:
+
+```text
+node scripts/teknisa/teknisa.mjs vendas.coleta.preparar --organizacao 5482 --unidade 0002 --loja 0001 --de 2026-10-30 --ate 2026-11-01
+```
+
+Com sessão conectada, `vendas.coleta.consultar` consulta um dia por vez e
+guarda relatórios em recibo privado. O retorno e `vendas.coleta.recibo`
+mostram somente contagens. `collectionId` permite retomar uma interrupção.
+Os valores oficiais ficam separados e os campos fiscais/consumidor são
+descartados. O filtro mantém a exclusão de vendedores N/A observada no painel.
+
+O código novo foi testado sem rede; a coleta real por dia continua pendente.
+A execução automática depende da documentação técnica e do acesso de serviço
+à Sale API, com cobertura e renovação conferidas. Nenhum agendamento foi criado.
 
 ## Ampliar a ferramenta
 

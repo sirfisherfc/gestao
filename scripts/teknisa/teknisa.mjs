@@ -5,6 +5,8 @@ import { readResource } from './recursos.mjs';
 import { preparePlan, applyPlan, prepareUndo } from './planos.mjs';
 import { createFileJournal } from './recibos.mjs';
 import { summarizeSellerSales, summarizeReportedSellerSales, calculateReportedCommission } from './vendas.mjs';
+import { prepareDailySalesCollection, collectDailySales, readDailySalesCollection } from './coleta-vendas.mjs';
+import { parseArgs } from 'node:util';
 import { buildRoutingUpdates } from './impressao.mjs';
 import { readOccurrences, readMandatoryGroups, readLinks, planLinks, applyLinks } from './observacoes.mjs';
 import { summarizePlan as summarizeCompositionPlan } from './composicoes.mjs';
@@ -15,6 +17,7 @@ export { createCardapioMigrationRunner, createMigrationRunner } from './migrar-c
 export { connectCompositionSession } from './sessao-composicoes.mjs';
 export { createPhotoClient, createPublicPhotoHasher } from './fotos.mjs';
 export { createLayoutPhotoClient, createPublicLayoutPhotoHasher } from './fotos-layout.mjs';
+export { prepareDailySalesCollection } from './coleta-vendas.mjs';
 
 export const COMMANDS = Object.freeze([
   { name: 'produtos.listar', status: 'leitura validada', purpose: 'Localizar produtos ativos por nome ou código.' },
@@ -51,6 +54,9 @@ export const COMMANDS = Object.freeze([
   { name: 'vendas.garcons.consultar', status: 'leitura validada', purpose: 'Consultar a produtividade oficial por vendedor e período de movimento de caixa.' },
   { name: 'vendas.garcons.comissao', status: 'fonte validada; regra comercial necessária', purpose: 'Consultar o período e calcular comissão sobre a base e o percentual informados.' },
   { name: 'vendas.garcons.resumir', status: 'cálculo testado', purpose: 'Resumir dados já normalizados de outra fonte, com regra explícita.' },
+  { name: 'vendas.coleta.preparar', status: 'preparação sem rede', purpose: 'Planejar até sete dias de conferência e mostrar os limites para automatizar.' },
+  { name: 'vendas.coleta.consultar', status: 'testado sem rede; validação real pendente', purpose: 'Consultar por dia e guardar a produtividade em recibo privado, com retomada.' },
+  { name: 'vendas.coleta.recibo', status: 'testado sem rede', purpose: 'Conferir os dias consultados sem mostrar valores ou nomes.' },
 ]);
 
 function money(value) {
@@ -234,6 +240,10 @@ export function createTeknisa({ request, target, operator, journal = createFileJ
               verified: batch.verified ?? (batch.status === 'verified' ? 1 : 0) })) };
         }
         case 'vendas.garcons.resumir': return summarizeSellerSales(args);
+        case 'vendas.coleta.preparar': return prepareDailySalesCollection({ target, from: args.from, to: args.to });
+        case 'vendas.coleta.consultar': return collectDailySales({ request, target, journal,
+          from: args.from, to: args.to, collectionId: args.collectionId });
+        case 'vendas.coleta.recibo': return readDailySalesCollection({ journal, target, collectionId: args.collectionId });
         case 'vendas.garcons.consultar':
         case 'vendas.garcons.comissao': {
           const reportTarget = { ...target, ...args.scope, from: args.from, to: args.to };
@@ -248,5 +258,14 @@ export function createTeknisa({ request, target, operator, journal = createFileJ
 if (typeof process !== 'undefined' && process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   if (!process.argv[2] || ['ajuda', 'comandos'].includes(process.argv[2])) {
     console.log(JSON.stringify({ usage: 'Importe createTeknisa no runtime do navegador e forneça a sessão observada. Guia: scripts/teknisa/README.md', commands: COMMANDS }, null, 2));
-  } else { console.error('Use comandos ou ajuda. As operações autenticadas usam o runtime documentado do navegador.'); process.exitCode = 2; }
+  } else if (process.argv[2] === 'vendas.coleta.preparar') {
+    try {
+      const { values } = parseArgs({ args: process.argv.slice(3), options: Object.fromEntries(
+        ['organizacao', 'unidade', 'loja', 'de', 'ate'].map(name => [name, { type: 'string' }])) });
+      console.log(JSON.stringify(prepareDailySalesCollection({
+        target: { organization: /^\d+$/.test(values.organizacao || '') ? Number(values.organizacao) : NaN,
+          branch: values.unidade, store: values.loja }, from: values.de, to: values.ate,
+      }), null, 2));
+    } catch { console.error('Informe --organizacao, --unidade, --loja e um período de até sete dias com --de/--ate em AAAA-MM-DD, até ontem em Fortaleza.'); process.exitCode = 2; }
+  } else { console.error('Use comandos, ajuda ou vendas.coleta.preparar. As consultas autenticadas usam o runtime documentado do navegador.'); process.exitCode = 2; }
 }

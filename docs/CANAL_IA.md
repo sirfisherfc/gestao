@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 gestao/site/reservas livres. Caixa usa apenas o Teknisa; Saipos ficou manual para histórico. Direct @sirfisherfc ativo no Jotform; piloto próprio pausado. Operação e limites em docs/instagram-atendimento/JOTFORM.md.
+> **🚦 Status atual:** 🟢 gestao/site/reservas livres. Coleta diária Teknisa preparada para conferência, testada sem rede; faltam sessão real e acesso de serviço Sale API. Saipos manual para histórico. Direct ativo no Jotform; piloto próprio pausado.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -608,3 +608,35 @@ Publicado em 4d0aebd; Quality gates 41554657053 e Pages 41554657063 passaram.
 Admin HTTP 200 com index igual ao HEAD. Manual 41554678433 passou para
 29/10–29/10, com DRY_RUN=true e mensagem de conferência sem gravação; consulta
 somente leitura confirmou zero registros de execução desse teste no banco.
+
+## 2026-11-02 · Codex — Preparo da coleta diária Teknisa
+
+Novos scripts/teknisa/coleta-vendas.mjs e test_coleta-vendas.mjs, ligados
+à entrada teknisa.mjs: preparar período sem rede, consultar por dia e ler
+recibo. Usam o contrato observado de Produtividade por Vendedor. Até sete
+dias anteriores ao atual em Fortaleza, destino fixo da ferramenta, bloqueio
+da unidade, ponto de retomada por dia e hashes de plano/relatório. O resumo
+mostra só cobertura/contagens; dados agregados ficam no diário privado,
+com campos fiscais/consumidor descartados. Lista vazia segue sem cobertura
+confirmada. Recibo de coleta é recusado por plano.aplicar.
+
+Cobertura atual exclui vendedores N/A. financialImportAllowed e
+automaticExecutionReady permanecem false. Nenhum cron, segredo persistente,
+migration ou escrita financeira. A sessão do painel fica em memória.
+O coletor por dia ainda exige amostra real: o navegador reportou host
+indisponível e, na tentativa de observar o Chrome pela ferramenta autorizada,
+interrompeu Computer Use porque não conseguiu confirmar a URL no Windows.
+Nenhum controle alternativo, porta de depuração ou perfil local foi usado.
+
+Catálogo oficial Teknisa confirma Sale API e orienta obter documentação e
+condições com gerente de contas. URL base, autenticação/renovação, esquema
+e paginação continuam sem contrato técnico. Busca Gmail/Outlook sem manual
+ou confirmação de habilitação; PDF Praia de 19/05/2025 lido trata de
+TEF Nuvem/SiTef. Nenhuma mensagem enviada ou contrato alterado.
+
+docs/TEKNISA_COLETA_VENDAS.md registra comandos, requisitos, conferências e
+texto pronto para solicitar documentação ao fornecedor, ainda sem envio.
+Atualizados README da ferramenta, TEKNISA_INTEGRACAO_API.md,
+INTEGRACAO_API_BANCOS.md e AGENTS.md. 121 testes Teknisa passaram, nove
+novos; check_project passou com 123 contratos e 31 de segurança. Plano CLI
+de 30/10 a 01/11 conferido sem rede. Publicação será conferida no fechamento.

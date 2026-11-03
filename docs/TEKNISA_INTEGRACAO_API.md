@@ -9,6 +9,13 @@ aplicação e releitura. O piloto descrito abaixo permanece como histórico.
 O pedido reformulado e os critérios estão em
 [TEKNISA_PEDIDO_REFORMULADO.md](TEKNISA_PEDIDO_REFORMULADO.md).
 
+Preparação de coleta diária em 02/11/2026:
+[TEKNISA_COLETA_VENDAS.md](TEKNISA_COLETA_VENDAS.md). O coletor comparativo
+usa o relatório por vendedor já observado, guarda recibos privados por dia
+e permite retomada; foi testado sem rede. A consulta real por dia e o acesso
+de serviço à Sale API ainda precisam de validação. O filtro atual exclui N/A;
+o coletor mantém a cobertura declarada e a importação financeira desabilitada.
+
 Em 27/10/2026, o proprietário pediu para marcar **Imprime Cancelamento de
 Pedido** em todos os produtos vinculados à loja da Praia. O campo fica em
 **Cadastro de Loja → Produtos por Loja**, na ficha de cada vínculo.

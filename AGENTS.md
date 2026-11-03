@@ -181,7 +181,11 @@ ao serviço atual as promessas de mascaramento ou retenção do piloto.
   O workflow `importacao-saipos.yml` executa somente manualmente, com período
   histórico obrigatório e conferência sem gravação por padrão. Consultar
   `docs/INTEGRACAO_API_BANCOS.md` antes de mudar essa rotina. A coleta
-  automática de vendas do Teknisa ainda precisa ser preparada e validada.
+  de vendas do Teknisa está em preparação, com coletor por dia testado sem
+  rede. Consultar `docs/TEKNISA_COLETA_VENDAS.md`: validação real e acesso
+  de serviço à Sale API seguem pendentes. A consulta por vendedor exclui
+  N/A e mantém `financialImportAllowed: false`; falta conferir a cobertura
+  completa antes de importar ou agendar. Autenticação do painel fica em memória.
 - Não hardcodar caminhos absolutos, senhas, tokens, credenciais ou nomes de arquivos específicos de uma máquina.
 - Não versionar CSVs, XLSX, XLS, relatórios exportados ou outros dados brutos.
 - Preservar compatibilidade com os arquivos `.bat` existentes e com seus parâmetros esperados.
