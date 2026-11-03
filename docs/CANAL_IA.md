@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 gestao/site/reservas livres. TXT Pages de sirfisherfc publicado e confirmado no DNS público; falta Verify no perfil e conferir estado verified. DMARC depende de envio Hostinger conferido; demais correções Cloudflare aplicadas.
+> **🚦 Status atual:** 🟢 gestao/site/reservas livres. Domínio GitHub Pages verificado em sirfisherfc; API confirmou verified nos três sites. Manter o TXT. DMARC depende de envio Hostinger conferido; demais correções Cloudflare aplicadas.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -689,7 +689,7 @@ regras ao atualizar as do site. Criação POST incerta exige conferir destino.
 31 de segurança passou. Recibos somente em tmp/ ignorado. Documentação de
 segurança atualizada; site/reservas sem edição, nenhuma migration.
 
-## 2026-11-02 · Codex — TXT correto do GitHub Pages publicado
+## 2026-11-02 · Codex — Domínio GitHub Pages verificado em sirfisherfc
 
 O proprietário forneceu o desafio de sirfisherfc. Criado somente o TXT
 _github-pages-challenge-sirfisherfc.sirfisher.com.br, TTL 300, DNS-only.
@@ -697,10 +697,11 @@ API e resolvedores públicos Google/Cloudflare confirmaram o valor exato;
 os 27 registros anteriores permaneceram iguais. Nenhum TXT de durthvader
 foi publicado. Recibos no mesmo tmp/ privado da revisão Cloudflare.
 
-Os três Pages continuam built, HTTPS obrigatório e CNAMEs corretos;
-protected_domain_state=unverified. Falta Verify em sirfisherfc. O navegador
-continua sem acesso; clique manual solicitado ao proprietário. Aguardar
-resultado e reler a API antes de afirmar proteção concluída. Manter o TXT.
+O proprietário concluiu Verify no perfil sirfisherfc e enviou a tela de
+sucesso. API posterior confirmou protected_domain_state=verified nos três
+Pages, com built, HTTPS obrigatório e CNAMEs corretos. Conferência independente
+HTTP confirmou 200 em www/admin/reservas, no próprio host, e TXT ainda presente
+no DNS público. Manter o TXT para preservar a verificação. Etapa concluída.
 
 Atualizados CLOUDFLARE_SEGURANCA.md e este canal, sem código ou migration.
 Conferências de DNS/API concluídas; cópias da raiz e três repos conferidos

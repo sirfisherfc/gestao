@@ -13,10 +13,13 @@ retornou 21 ocorrências em dez classes: 17 Moderate e quatro Low.
 | Webmail | Proxy ligado e regra 302 para `https://mail.hostinger.com/auth/login`, sem repassar consulta. O endereço próprio funciona como atalho para o login oficial da Hostinger, com TLS atualizado na nossa zona. |
 | security.txt | Publicado pelo Cloudflare em `/.well-known/security.txt`, com `mailto:contato@sirfisher.com.br`, contato já público no site. Validade até 31/10/2027 às 23:59:59 UTC, idiomas pt-BR/en. Apex e www responderam 200/text/plain. Renovar antes do vencimento. |
 | DNS do GitHub Pages | Oito A/AAAA classificados como `false_positive`, com justificativa e confirmação no histórico da API. Os quatro IPv4 servem www e redirecionam apex com certificados válidos; os IPv6 coincidem com a documentação oficial e não foram testados por conexão direta. Registros preservados. |
+| Proteção do domínio no GitHub | O proprietário concluiu Verify na conta sirfisherfc após a publicação do TXT. API confirmou `protected_domain_state=verified`, Pages `built` e HTTPS obrigatório nos três repositórios. www/admin/reservas responderam 200 após a verificação. |
 | DMARC | Adicionado pedido de relatórios para o contato público. API e DNS público confirmaram `v=DMARC1; p=none; rua=mailto:contato@sirfisher.com.br`. Quarentena/rejeição continuam pendentes da conferência de remetentes. |
 
-Dos 27 registros DNS, mudaram somente `proxied` em admin/reservas/webmail e
-o TXT DMARC. MX, SPF, DKIM e descoberta de e-mail permaneceram iguais.
+Na primeira rodada, dos 27 registros DNS, mudaram somente `proxied` em
+admin/reservas/webmail e o TXT DMARC. Depois foi acrescentado o desafio TXT
+do GitHub Pages, totalizando 28 registros. MX, SPF, DKIM e descoberta de
+e-mail permaneceram iguais.
 As duas regras WAF e o objeto Bot Management foram comparados antes/depois
 e permaneceram iguais. A regra apex para www foi preservada junto do novo
 atalho do webmail.
@@ -52,17 +55,17 @@ Conferir um envio legítimo da Hostinger ou relatórios DMARC antes de trocar
 a conexão ainda não foi confirmada. Nenhum e-mail ou chamado foi enviado,
 e nenhuma outra rotina agendada foi criada nesta tarefa.
 
-## Pendência: verificar o domínio na conta correta do GitHub
+## Domínio verificado na conta sirfisherfc
 
 A API confirmou que **sirfisherfc é uma conta pessoal (`User`)**, dona dos
 três repositórios. O encaminhamento inicial que a chamou de organização
 foi corrigido. O `gh` local usa durthvader, colaborador com push, sem admin
 no repositório consultado. A verificação Pages acontece no perfil do dono.
 
-A API confirmou os três Pages como `built`, com HTTPS obrigatório e os
-domínios esperados. Na primeira revisão, `protected_domain_state` veio nulo.
-Após o proprietário criar o desafio em sirfisherfc, o campo passou a
-`unverified` nos três repositórios; falta a confirmação no perfil.
+A API confirmou `protected_domain_state=verified` nos três Pages após o
+proprietário concluir Verify no perfil sirfisherfc. Os três continuaram
+`built`, com HTTPS obrigatório e os domínios esperados. A conferência HTTP
+posterior retornou 200 em www, admin e reservas, cada um no próprio host.
 
 O navegador ficou indisponível para controle. O proprietário forneceu duas
 vezes um desafio com prefixo `_github-pages-challenge-durthvader`. Esse TXT
@@ -75,13 +78,11 @@ com o valor recebido, TTL 300 e DNS-only. A releitura da API e os resolvedores
 públicos Google e Cloudflare confirmaram o valor exato. Os outros 27 registros
 permaneceram iguais. Recibos ficam em `tmp/cloudflare-seguranca-2026-11-02/`.
 
-Próximo passo: na conta **sirfisherfc**, abrir
-`https://github.com/settings/pages` e concluir **Verify** para `sirfisher.com.br`.
-O clique manual foi solicitado porque o navegador continua indisponível para
-controle. A publicação do TXT ainda não comprova a conclusão dessa etapa.
-Após o clique, reler `protected_domain_state` nos três Pages. Manter o TXT;
-o domínio principal verificado também protege seus subdomínios imediatos,
-incluindo www, admin e reservas.
+O proprietário concluiu o clique manual e forneceu a tela de sucesso, com a
+conta sirfisherfc identificada. A leitura posterior da API confirmou a
+conclusão. **Manter o TXT**: o domínio principal verificado também protege
+seus subdomínios imediatos, incluindo www, admin e reservas. Para consultar
+o estado no painel, usar `https://github.com/settings/pages` em sirfisherfc.
 
 ## Ferramenta e validações
 
