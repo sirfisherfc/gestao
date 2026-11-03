@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 gestao/site/reservas livres. Recebimento do formulário comercial Ads confirmado em imagem; análise pendente. Conta Ads ausente no seletor do Analytics, com mesmo login confirmado. API comprova Administrador na propriedade GA4; falta conferir papel no Ads. Vínculo ainda ausente e causa da lista sem confirmação.
+> **🚦 Status atual:** 🟢 gestao/site/reservas livres. Vínculo Ads/GA4 concluído e confirmado pela API: conta 149-377-8788, propriedade 353205396, personalização ativa após esclarecimento. Fluxo Web e seis eventos principais conferidos. Aprovação do anunciante, codificação automática e revisão das conversões ainda precisam de conferência.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -866,3 +866,24 @@ Causa da ausência ainda sem confirmação. Não criar outra conta ou propriedad
 Alterados os mesmos três documentos da tarefa. Nenhum vínculo, papel,
 campanha, orçamento ou conversão alterado pelas ferramentas. Diff conferido;
 sem migration, documento pessoal, cartão ou dado financeiro bruto incluído.
+
+## 2026-11-03 · Codex — Vínculo Google Ads/GA4 concluído
+
+Proprietário confirmou Administrador no Ads. Fluxo pela Central de dados
+encontrou Sir Fisher — Site Oficial 353205396; antes ele havia aberto o
+painel da Tag do Google. Causa do seletor vazio no Analytics sem confirmação.
+Após esclarecer que públicos são opcionais e podem apoiar remarketing,
+o proprietário criou o vínculo e a tela mostrou Vinculado.
+
+API confirmou um link com cliente 1493778788, recurso 16259936791,
+personalização ativa e can_manage_clients=false, criado em 03/11 às 05:34:24Z
+(02:34 Fortaleza). Importar métricas estava ativo na prévia; endpoint não
+expõe esse botão. API também confirmou um fluxo Web no www e os mesmos
+seis eventos principais; reservation_confirmed por sessão. Firebase é
+alternativa do fluxo de conexão; a propriedade do site está vinculada.
+
+Atualizados este canal e EVOLUCAO_SITE_GA4. Aprovação do anunciante ainda
+sem confirmação. Conferir codificação automática e ações de conversão
+existentes antes de importar reservas. Nenhuma campanha, orçamento, papel
+ou evento alterado pelas ferramentas; vínculo criado manualmente pelo
+proprietário. Sem código de produto, migration ou credencial versionada.

@@ -351,9 +351,9 @@ As provas da ativação e do checklist ficam em `tmp/semrush-2026-11-02/`.
 
 ## Conferência do Google Ads em 03/11/2026
 
-A Admin API confirmou que a propriedade `353205396`, **Sir Fisher — Site
-Oficial**, continua sem vinculações com Google Ads. Uma consulta real de
-eventos de 27/10 a 02/11 retornou dados. O nome da conta do Analytics,
+Na leitura inicial, a Admin API encontrou a propriedade `353205396`,
+**Sir Fisher — Site Oficial**, sem vinculações com Google Ads. Uma consulta
+real de eventos de 27/10 a 02/11 retornou dados. O nome da conta do Analytics,
 “Conta do Google Ads”, permanece apenas um nome de cadastro.
 
 O proprietário informou que já anunciou no Google. E-mails do Google de
@@ -370,9 +370,10 @@ nesta sessão. Para concluir no painel, usar a mesma conta Google com papel
 Editor/Administrador no Analytics e Administrador no Ads: **Administrador →
 Vinculações de produtos → Vinculações do Google Ads → Vincular**. Conferir
 a propriedade e a conta individual antes de enviar. A opção de publicidade
-personalizada vem ligada por padrão; a proposta para começar pela mensuração
-é desligá-la nesse vínculo e habilitar a
-codificação automática. A decisão e a gravação continuam pendentes.
+personalizada vem ligada por padrão. A primeira proposta foi começar pela
+mensuração com essa opção desligada e codificação automática habilitada.
+Depois do esclarecimento sobre públicos e remarketing, o proprietário
+criou o vínculo com personalização ativa, conforme a seção de conclusão abaixo.
 [Instruções e permissões](https://support.google.com/analytics/answer/9379420?hl=pt-BR),
 [controle de personalização](https://support.google.com/analytics/answer/9626162?hl=pt-BR).
 
@@ -497,8 +498,8 @@ traz os textos e as condições para anexar documentos existentes. Uma imagem
 posterior confirma o recebimento: **Seu e-mail foi enviado**. O conteúdo
 final e os anexos não foram inspecionados. A aprovação desse formulário e
 as tarefas adicionais de identidade que vierem a ser exigidas permanecem
-pendentes. Nova leitura da Admin API, após o envio, continua sem vínculos
-Google Ads na propriedade 353205396. O proprietário foi orientado a abrir
+pendentes. Uma leitura da Admin API, após o envio e antes da vinculação,
+ainda estava sem vínculos Google Ads na propriedade 353205396. O proprietário foi orientado a abrir
 Administrador → Vinculações de produtos → Vinculações do Google Ads e
 localizar a conta Sir Fisher Praia, ID 149-377-8788.
 
@@ -508,22 +509,58 @@ e confirmou usar o mesmo login nas duas plataformas. A leitura de
 `predefinedRoles/admin` para o usuário do proprietário. A leitura dos
 vínculos de acesso no nível da conta 220997281 retornou 403, limite do
 acesso dessa credencial; isso não invalida o papel confirmado na propriedade.
-Nenhum papel ou configuração de acesso foi alterado. Falta conferir
+Nenhum papel ou configuração de acesso foi alterado. Foi solicitado conferir
 **Google Ads → Adm. → Acesso e segurança → Usuários → Nível de acesso**.
 
 O guia atual também permite iniciar a vinculação pelo próprio Ads em
 **Ferramentas → Central de dados → Conectar produto → Google Analytics
 (GA4) e Firebase**. Caso o usuário tenha papel de administrador no Ads,
 conferir se a propriedade 353205396 aparece por esse caminho. Até aqui
-não há vínculo criado nem causa confirmada para a ausência no seletor.
+não havia vínculo criado nem causa confirmada para a ausência no seletor.
 [Instruções e permissões do Google](https://support.google.com/google-ads/answer/7519537?hl=pt-BR).
 
-Em preparação para o vínculo, nova leitura da Admin API encontrou seis
-eventos principais: `purchase`, `click_reservation`, `click_maps`,
-`click_whatsapp`, `reservation_confirmed` e `visit_realized`. Os quatro
-eventos centrais da lista usam contagem por sessão; `purchase` e
-`visit_realized` usam contagem por evento. `reservation_confirmed` é o
-candidato à conversão de reserva concluída. Antes de importar, conferir
-as ações que já existem no Ads e a regra de contagem desejada. Cliques
-medem intenção, e o cadastro de `purchase` não comprova instrumentação de
-compra. Nenhum evento principal ou conversão foi alterado.
+### Vínculo concluído em 03/11/2026
+
+O proprietário confirmou **Administrador** no Google Ads. As imagens da
+Central de dados mostraram a propriedade correta no fluxo de Conectar
+produto; a tela que tinha sido aberta antes era a configuração da Tag do
+Google. A causa da ausência no seletor do Analytics não foi confirmada.
+O vínculo foi criado pelo proprietário usando o próprio Ads.
+
+A proposta inicial de desativar a importação de públicos foi esclarecida
+como opcional. Importar métricas atende aos relatórios; compartilhar
+públicos permite prepará-los para remarketing, conforme elegibilidade e
+consentimento. O proprietário prosseguiu com personalização ativa.
+
+A leitura posterior de `list_google_ads_links` confirmou exatamente um vínculo:
+
+| Campo | Valor confirmado |
+| --- | --- |
+| Propriedade | `353205396`, Sir Fisher — Site Oficial |
+| Cliente Ads | `1493778788`, Sir Fisher Praia |
+| Recurso | `properties/353205396/googleAdsLinks/16259936791` |
+| Personalização | `ads_personalization_enabled=true` |
+| Data de criação | `2026-11-03T05:34:24.908Z`, 02:34 de Fortaleza |
+| Gerenciamento de clientes | `can_manage_clients=false` |
+
+A importação de métricas estava ativa na prévia exibida; o retorno deste
+endpoint não expõe esse botão. A imagem final confirma **Vinculado**.
+O usuário perguntou sobre Firebase: o fluxo permite escolher uma propriedade
+Analytics ou um projeto Firebase. A integração do site usa a propriedade GA4.
+
+Nova leitura da Admin API retornou um único fluxo **WEB_DATA_STREAM**,
+ID `15405248385`, com endereço `https://www.sirfisher.com.br`. Os seis
+eventos principais continuavam iguais nesta consulta: `purchase`,
+`click_reservation`, `click_maps`, `click_whatsapp`, `reservation_confirmed`
+e `visit_realized`. `purchase` e `visit_realized` usam contagem por evento;
+os demais, incluindo `reservation_confirmed`, usam contagem por sessão.
+Nenhum evento ou ação de conversão foi alterado pelas ferramentas.
+
+Continuam pendentes a confirmação de aprovação da verificação comercial,
+a conferência da codificação automática na conta Ads e a revisão das ações
+de conversão existentes antes de importar reservas. O teste HTTP anterior
+preservou o parâmetro GCLID; ele não comprova a coleta de um clique real.
+O vínculo foi concluído; os relatórios dependem de processamento e tráfego.
+`reservation_confirmed` é o candidato à conversão de reserva concluída.
+Cliques medem intenção, e o cadastro de `purchase` precisa de instrumentação
+confirmada antes de ser usado como conversão de compra.
