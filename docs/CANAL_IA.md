@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 Livre. Arquivo Semrush de 03/11 lido: 262 linhas detalhadas, controle completo em docs/seo/SEMRUSH_IDEIAS_2026-11-03.md e JSON. Melhorias pertinentes em cinco páginas publicadas no site 078652a. Nomes de concorrentes preservados para pesquisa. Pendentes sete redistribuições e nova coleta no Semrush, além de links de terceiros; não declarar 43/43 aplicadas. Ads segue com o acesso limitado registrado na entrega anterior.
+> **🚦 Status atual:** 🟢 Livre. Cinco tarefas Analytics conferidas: reserva principal ONCE_PER_EVENT e dois públicos 30 dias presentes; UPD desativado. User-ID e importação de campanhas são opcionais no fluxo atual. Prioridade é conferir/criar a ação de reserva no Ads; host de interface e conector Ads seguem indisponíveis nesta sessão. Relatório ANALYTICS_TAREFAS_2026-11-03.md. Sem mudança de produto, banco ou campanha nesta conferência.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -17,46 +17,6 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
 **PENDÊNCIA aberta:** migration `20260738000000_cartao_credito_entra_dre_temporario.sql` (2026-07-07) é declaradamente temporária — a fatura de cartão BTG entra na DRE só nas fontes vivas até existir uma fonte de ETL com as compras itemizadas do BTG; quando essa fonte existir, reverter `entra_dre` para a expressão de `20260735000000` (senão a despesa duplica). Ver detalhes no `git log`/na própria migration.
 
 **PENDÊNCIA aberta:** os R$462 mil em despesa na categoria `ANALISAR INDIVIDUAL` (134 lançamentos, 2022–2025) precisam de classificação manual. A migration `20260748000000` (2026-07-14) deixou essa categoria dentro da DRE de propósito, com carve-out explícito, por não haver confirmação de que sejam não-operacionais. Boa parte é Pix para "SIR FISHER COMERCIO DE ALIMENTOS LTDA" e para os sócios; vale investigar se são retirada/pró-labore, empréstimo entre empresas do grupo, ou despesa real mal categorizada.
-
-## 2026-11-03 · Codex — Revisão final publicada
-
-Autorização integral para concluir as correções das imagens sem perguntas.
-O controle antigo, só Google, foi substituído por consentimento de publicidade
-Google/Meta/OpenAI nos dois projetos. O cookie sf_advertising_v2 exige nova
-escolha, vale até 180 dias pela data original e compartilha a preferência.
-Recusa e revogação preservam GA4 estatístico, idioma, UTM e reservas;
-retiram identificadores e impedem pixels/eventos de publicidade. Descrição
-continua em duas linhas no celular. Módulo publicado: 8993b0e4f2.
-
-Migration 20261103071209 aplicada e registrada no portal: comprovante por
-reserva, revogação por UUID e filas Meta/OpenAI condicionadas à autorização.
-Ensaio real em transação desfeita e PostgreSQL descartável validaram RPC,
-filas, validade e privilégios. Worker send-openai-ads-conversions versão 48
-ativo, autenticação preservada e nova conferência antes do envio. GA4 pelo
-servidor nega sinais de publicidade; retirada receita estimada de Meta Schedule.
-Não foram criadas reservas, notificações ou conversões comerciais de teste.
-
-reservation_confirmed atualizado pela Admin API para ONCE_PER_EVENT e relido;
-navegador deduplica por ID. MCP Analytics permanece só leitura. Portal recebeu
-título/H1 de reserva, canonical e sitemap PT/EN, tradução independente do SDK
-e noindex/no-referrer no cancelamento. Seis páginas indexadas com canonical
-própria no Search Console; sitemaps reenviados e aceitos. Cloudflare relido:
-seis sugestões de e-mail/configuração preservadas, HTTPS/TLS e DMARC conferidos.
-
-Publicados gestao ca4ec08, site 5eeb6f2 e reservas 4d0d80e; Quality, assets e
-Pages passaram. Passaram 127 testes Deno no site e 38 no portal, oito cenários
-de reservas/cancelamento, consentimento, SDK real com coleta interceptada,
-hashes/CSP/sitemaps e 622 referências locais em 30 páginas. Relatório final,
-EVOLUCAO_SITE_GA4 e CLOUDFLARE_SEGURANCA atualizados nesta entrega documental.
-
-Google confirmou por e-mail em 03/11 às 04h30 que o anunciante está em revisão,
-com decisão em até sete dias úteis. Ações/importação de conversão no Ads ainda
-dependem de acesso de edição: não há conector autenticado ou credencial local
-do Ads, e os hosts de computador/navegador ficaram indisponíveis. Semrush
-retornou no_api_units; nenhuma cota foi comprada. Campanhas e orçamentos
-preservados. Não transformar sugestões opcionais em erros nem presumir que
-as contagens externas já foram atualizadas. Recibos em tmp/revisao-2026-11-03/,
-ignorados pelo Git; segredos, mensagens integrais e dados brutos fora dos commits.
 
 ## 2026-11-03 · Codex — Anunciante aprovado e serviços relidos
 
@@ -122,6 +82,26 @@ site 5eeb6f2 e reservas 4d0d80e. Recibos em tmp/revisao-2026-11-03/, ignorados.
 
 Pages e assets do site concluídos; cinco URLs públicas com HTTP 200 e texto
 esperado. Sitemap www reenviado às 18h50 (204, nova coleta pendente, sem erros).
+
+## 2026-11-03 · Codex — Tarefas do Analytics
+
+Proprietário mostrou cinco tarefas. Consulta analytics.readonly confirmou
+propriedade 353205396, vínculo Ads 1493778788, seis eventos principais e dois
+públicos personalizados de 30 dias. reservation_confirmed e visit_realized
+em ONCE_PER_EVENT. UserProvidedDataSettings sem ativação; identidade BLENDED
+não comprova User-ID. Código público sem User-ID; login interno é separado.
+
+Ação Ads de reserva é a prioridade para campanhas. Públicos já criados;
+usar em campanhas é opcional. User-ID, UPD e importação de custos externos
+ficaram como recursos adicionais, sem ativação para completar contador.
+Discovery público não expõe progresso do assistente nem substitui ações Ads
+pelo recurso legado conversionEvents. Interface retornou host indisponível.
+Conferir ações existentes antes de criar/importar para evitar duplicidade.
+
+Atualizados relatório final, este canal e ANALYTICS_TAREFAS_2026-11-03.md,
+com fontes e limites. Sem mudança de produto, migration, dado pessoal,
+custo importado, anúncio ou orçamento. Bases f12c854 / 078652a / 4d0d80e.
+Recibo em tmp/revisao-2026-11-03/analytics-tasks-read.json, ignorado pelo Git.
 
 ## 2026-11-03 · Claude Code — Grupo Garçom Sênior no Teknisa
 

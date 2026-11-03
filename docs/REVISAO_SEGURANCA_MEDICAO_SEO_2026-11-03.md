@@ -128,6 +128,12 @@ o host de navegador/computador segue indisponível, e não há conector Ads de
 edição autenticado nesta sessão. A aprovação do anunciante está concluída;
 a conferência/importação das ações de conversão ainda depende desse acesso.
 
+As cinco tarefas visíveis do assistente foram conferidas individualmente
+depois: eventos principais e dois públicos de 30 dias estão configurados;
+UPD está desativado; User-ID e importação de campanhas são opcionais para
+o fluxo atual. A prioridade Ads é conferir/criar a ação de reserva concluída.
+Estado, decisões e fontes em [Tarefas do Analytics](ANALYTICS_TAREFAS_2026-11-03.md).
+
 ## SEO e sugestões do Semrush
 
 A API Search Console retornou **Enviada e indexada**, com rastreamento
