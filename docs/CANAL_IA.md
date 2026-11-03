@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 gestao/site/reservas livres. GA4 consultado: sem vínculo com Ads. Conta antiga Barra Sol - Sir Fisher identificada em e-mails do Google; falta conferir acesso no painel e criar o vínculo. Cloudflare segue em Full (strict), com DMARC em quarentena.
+> **🚦 Status atual:** 🟢 gestao/site/reservas livres. Ads Sir Fisher Praia confirmado; conta pausada por prazo de verificação vencido. Painel segue fluxo de agência/cliente, mas proprietário anuncia só o Sir Fisher. Aguardando inspecionar Editar tarefa antes de corrigir o cadastro; vínculo GA4 pendente. Cloudflare em Full (strict), DMARC em quarentena.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -757,8 +757,9 @@ Admin API confirmou zero vínculos Ads na propriedade 353205396. A consulta
 de eventos de 27/10 a 02/11 retornou dados. O proprietário informou uso
 anterior de anúncios; e-mails do Google de abril/maio identificaram a conta
 Barra Sol - Sir Fisher. ID informado na conversa; nenhum e-mail bruto ou
-dado financeiro versionado. Acesso administrativo e campanhas ainda precisam
-ser conferidos no painel; MCP atual é de leitura e CUA está indisponível.
+dado financeiro versionado. Proprietário confirmou o mesmo ID no painel,
+com nome atual Sir Fisher Praia. Papel administrativo e campanhas ainda
+precisam ser conferidos; MCP atual é de leitura e CUA está indisponível.
 
 EVOLUCAO_SITE_GA4_2026-11-02.md registra as condições e o roteiro oficial do
 vínculo. GCLID de teste foi preservado no redirecionamento ao www. GET/HEAD
@@ -767,3 +768,14 @@ padrão recebeu 403. Falta validar coleta de clique real após vincular.
 Campanhas, orçamentos, conversões e vínculo sem alterações. Sem migration
 ou publicação de produto; apenas documentação. Diff conferido; três repos
 sincronizados e cópias das orientações iguais antes da entrega.
+
+Imagens posteriores: conta pausada por prazo vencido na verificação do
+anunciante e campanhas/grupos pausados ou removidos. Tarefas mostram agência
+com documentos enviados em 18/04; cliente ainda precisa de documentos e
+respostas comerciais. Proprietário confirmou anunciar só o próprio Sir Fisher.
+Solicitado abrir Editar tarefa nas perguntas da organização, sem salvar,
+para inspecionar o cadastro. Google documenta Redefinir verificação para
+corrigir organização/tipo, com nova verificação e prazo; não executar por
+inferência. Dados do pagador devem refletir quem paga. Formulário ainda sem
+inspeção e verificação/vínculo sem gravação; campanhas preservadas. Documento
+GA4 atualizado com essas pendências e as fontes oficiais.
