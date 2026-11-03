@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 gestao/site/reservas livres. Cloudflare revisado em docs/CLOUDFLARE_SEGURANCA.md; TLS antigo confirmado em www/webmail, correções pendentes. Coleta Teknisa preparada, ainda sem acesso Sale API; Direct ativo no Jotform.
+> **🚦 Status atual:** 🟢 gestao/site/reservas livres. Cloudflare com TLS mínimo 1.2, proxy admin/reservas e atalho webmail, security.txt e relatórios DMARC. Pendem envio Hostinger conferido e desafio Pages de sirfisherfc; o desafio de durthvader ficou sem publicação.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -660,3 +660,31 @@ proxy alterado, configuração aplicada ou migration. Só documentação mudou.
 
 Conferências reais de API, TLS e HTTP concluídas; revisão do diff e das
 orientações da raiz feita antes do commit. Site/reservas sem edição.
+
+## 2026-11-02 · Codex — Correções Cloudflare autorizadas e verificadas
+
+TLS mínimo 1.2 aplicado; 1.0/1.1 recusados e 1.2/1.3 aceitos nos hosts
+testados. Proxy ligado em admin/reservas, com HTML e cinco assets iguais aos
+repositórios. Webmail virou atalho 302 para login oficial Hostinger, sem
+query, com TLS atualizado. security.txt publicado com contato público e
+validade até 31/10/2027. DMARC ganhou rua para contato, preservando p=none.
+MX/SPF/DKIM/autoconfig/autodiscover, WAF e Bot Management permaneceram iguais.
+
+Oito A/AAAA classificados como falsos positivos, confirmados no histórico,
+sem remover DNS ou chamar arquivamento. Restaram 13 itens na consulta, seis
+já corrigidos no serviço e aguardando nova detecção. Sugestões opcionais e
+descoberta de e-mail mantidas conforme contexto, com motivos documentados.
+
+Correção do diagnóstico anterior: sirfisherfc é User, dono dos três repos.
+gh está como durthvader, sem admin no repo consultado. O desafio recebido
+duas vezes era de durthvader; não publicar, pois a verificação noutra conta
+pode desvincular os sites atuais. Falta desafio de sirfisherfc e Verify.
+Navegador indisponível. Oito recebidos do Resend/SES passaram SPF/DKIM/DMARC;
+falta amostra de envio Hostinger antes de quarentena/rejeição. Hostinger Mail
+oferecido, conexão ainda sem confirmação. Nenhum e-mail ou chamado enviado.
+
+cf.py agora inclui TLS mínimo, WAF e insights no diagnóstico e preserva outras
+regras ao atualizar as do site. Criação POST incerta exige conferir destino.
+17 testes Cloudflare passaram, seis novos; qualidade com 123 contratos e
+31 de segurança passou. Recibos somente em tmp/ ignorado. Documentação de
+segurança atualizada; site/reservas sem edição, nenhuma migration.

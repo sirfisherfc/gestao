@@ -4,12 +4,15 @@ Ferramenta do Cloudflare para a zona sirfisher.com.br.
 
 O dominio usa os nameservers do Cloudflare (love/memphis.ns.cloudflare.com).
 Tudo e simulacao por padrao: o comando mostra o que faria e so altera a zona
-com --aplicar. Nunca mexe no e-mail (Hostinger, Amazon SES/Resend), em
-reservas/admin (GitHub Pages) nem em reparos (Worker).
+com --aplicar. Os comandos de site alteram DNS apenas do dominio sem www e
+do www. As configuracoes TLS da zona alcancam todos os hosts com proxy.
+O estado de admin, reservas, webmail e e-mail esta em
+docs/CLOUDFLARE_SEGURANCA.md. As regras existentes de outros servicos sao
+preservadas ao atualizar as regras do site.
 
 Comandos:
 
-  diagnostico      token, registros DNS, configuracoes, certificados e regras
+  diagnostico      token, DNS, TLS, certificados, regras WAF e alertas
   site             proxy + cache de /assets/ + redirecionamento sem www -> www
   purgar           esvazia o cache da borda (raramente necessario: os assets
                    levam ?v=<hash> e o HTML expira em 10 min)
@@ -31,6 +34,7 @@ Uso:
 from __future__ import annotations
 
 import argparse
+from collections import Counter
 import json
 import os
 import sys
@@ -49,6 +53,7 @@ UM_ANO = 31536000
 # pela borda ja sair com o cache e o redirecionamento certos.
 CONFIGURACOES = {
     "ssl": "full",               # GitHub Pages tem HTTPS; "full" nao derruba o site se o certificado de la atrasar
+    "min_tls_version": "1.2",     # TLS 1.0/1.1 recusados na borda desde 02/11/2026
     "always_use_https": "on",
     "rocket_loader": "off",      # reescreveria os scripts da pagina
     "email_obfuscation": "off",  # injetaria script no HTML
@@ -111,8 +116,9 @@ def api(metodo, caminho, corpo=None):
     if not token:
         sys.exit("CLOUDFLARE_API_TOKEN ausente (gestao/.env ou variavel de ambiente).")
     dados = json.dumps(corpo).encode() if corpo is not None else None
-    # Todas as chamadas daqui sao idempotentes (PUT/PATCH/GET/purga), entao uma
-    # conexao derrubada no meio (visto: SSL UNEXPECTED_EOF) pode ser repetida.
+    # POST que cria uma regra pode ter sido aceito antes de uma queda de rede.
+    # Nesse caso, conferir o destino antes de tentar outra criacao.
+    pode_repetir = metodo in ("GET", "PUT", "PATCH") or caminho.endswith("/purge_cache")
     for tentativa in range(1, 5):
         req = urllib.request.Request(BASE + caminho, data=dados, method=metodo, headers={
             "Authorization": "Bearer " + token, "Content-Type": "application/json"})
@@ -127,6 +133,9 @@ def api(metodo, caminho, corpo=None):
                 erros = corpo_erro[:200]
             return {"success": False, "http": e.code, "errors": erros}
         except (urllib.error.URLError, ConnectionError, TimeoutError) as e:
+            if not pode_repetir:
+                return {"success": False, "http": None,
+                        "errors": "Resultado incerto apos falha de rede; releia o destino antes de repetir."}
             if tentativa == 4:
                 return {"success": False, "http": None, "errors": f"rede: {e}"}
             print(f"  rede falhou ({e}); tentando de novo em {2 ** tentativa} s...")
@@ -158,6 +167,26 @@ def registros_do_site(zid):
             or (r["name"] == WWW and r["type"] == "CNAME")]
 
 
+def gravar_regra(zid, fase, regra):
+    """Altera somente a regra identificada pela descricao; preserva as demais."""
+    caminho = f"/zones/{zid}/rulesets/phases/{fase}/entrypoint"
+    resposta = api("GET", caminho)
+    if not resposta.get("success"):
+        if resposta.get("http") == 404:
+            return api("PUT", caminho, {"rules": [regra]})
+        return resposta
+    conjunto = resposta.get("result")
+    if not isinstance(conjunto, dict) or not conjunto.get("id") or not isinstance(conjunto.get("rules"), list):
+        return {"success": False, "errors": "Conjunto de regras incompleto; nenhuma escrita realizada."}
+    existentes = [r for r in conjunto["rules"] if r.get("description") == regra["description"]]
+    if len(existentes) > 1 or (existentes and not existentes[0].get("id")):
+        return {"success": False, "errors": "Identificacao ambigua da regra; nenhuma escrita realizada."}
+    base = f'/zones/{zid}/rulesets/{conjunto["id"]}/rules'
+    if existentes:
+        return api("PATCH", f'{base}/{existentes[0]["id"]}', regra)
+    return api("POST", base, regra)
+
+
 def cmd_diagnostico(_args):
     v = api("GET", "/user/tokens/verify")
     print("token:", (v.get("result") or {}).get("status"), "" if v.get("success") else v.get("errors"))
@@ -169,10 +198,27 @@ def cmd_diagnostico(_args):
         print(f"  conf {nome} = {(res.get('result') or {}).get('value')}")
     for c in api("GET", f"/zones/{zid}/ssl/certificate_packs?status=all").get("result") or []:
         print(f"  cert {c.get('type')} {c.get('status')} {c.get('hosts')}")
-    for fase in ("http_request_cache_settings", "http_request_dynamic_redirect", "http_response_headers_transform"):
+    for fase in ("http_request_cache_settings", "http_request_dynamic_redirect", "http_response_headers_transform",
+                 "http_request_firewall_custom"):
         r = api("GET", f"/zones/{zid}/rulesets/phases/{fase}/entrypoint")
+        if not r.get("success"):
+            print(f"  regras {fase}: indisponivel (HTTP {r.get('http')})")
+            continue
         regras = (r.get("result") or {}).get("rules") or []
         print(f"  regras {fase}: {[x.get('description') for x in regras] or 'nenhuma'}")
+    resposta = api("GET", f"/zones/{zid}/security-center/insights?dismissed=false&per_page=1000")
+    resultado = resposta.get("result")
+    if not resposta.get("success") or not isinstance(resultado, dict):
+        print(f"  alertas: indisponivel (HTTP {resposta.get('http')})")
+        return
+    ocorrencias = resultado.get("issues")
+    if not isinstance(ocorrencias, list):
+        print("  alertas: resposta incompleta; contagem indisponivel")
+        return
+    contagens = Counter((o.get("status"), o.get("issue_class")) for o in ocorrencias)
+    print(f"  alertas: {len(ocorrencias)} retornados; total informado {resultado.get('count')}")
+    for (estado, classe), quantidade in sorted(contagens.items(), key=lambda item: str(item[0])):
+        print(f"    {estado} {classe}: {quantidade}")
 
 
 def cmd_site(args):
@@ -193,12 +239,9 @@ def cmd_site(args):
     tudo_ok = True
     for nome, valor in CONFIGURACOES.items():
         tudo_ok &= conferir(f"{nome} = {valor}", api("PATCH", f"/zones/{zid}/settings/{nome}", {"value": valor}))
-    tudo_ok &= conferir("regra de cache /assets/", api(
-        "PUT", f"/zones/{zid}/rulesets/phases/http_request_cache_settings/entrypoint", {"rules": [REGRA_CACHE]}))
-    tudo_ok &= conferir("redirecionamento sem www", api(
-        "PUT", f"/zones/{zid}/rulesets/phases/http_request_dynamic_redirect/entrypoint", {"rules": [REGRA_REDIRECIONAMENTO]}))
-    tudo_ok &= conferir("cabecalhos de seguranca", api(
-        "PUT", f"/zones/{zid}/rulesets/phases/http_response_headers_transform/entrypoint", {"rules": [REGRA_CABECALHOS]}))
+    tudo_ok &= conferir("regra de cache /assets/", gravar_regra(zid, "http_request_cache_settings", REGRA_CACHE))
+    tudo_ok &= conferir("redirecionamento sem www", gravar_regra(zid, "http_request_dynamic_redirect", REGRA_REDIRECIONAMENTO))
+    tudo_ok &= conferir("cabecalhos de seguranca", gravar_regra(zid, "http_response_headers_transform", REGRA_CABECALHOS))
     if not tudo_ok:
         sys.exit("Algo falhou antes do proxy; o proxy NAO foi ligado.")
     for r in registros:
