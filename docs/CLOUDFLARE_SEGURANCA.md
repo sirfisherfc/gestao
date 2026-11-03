@@ -1,6 +1,6 @@
 # Correções dos alertas do Cloudflare
 
-Estado conferido em 02/11/2026, no horário de Fortaleza, após autorização
+Estado atualizado em 03/11/2026, no horário de Fortaleza, após autorização
 do proprietário para corrigir os itens necessários. A primeira leitura
 retornou 21 ocorrências em dez classes: 17 Moderate e quatro Low.
 
@@ -14,7 +14,7 @@ retornou 21 ocorrências em dez classes: 17 Moderate e quatro Low.
 | security.txt | Publicado pelo Cloudflare em `/.well-known/security.txt`, com `mailto:contato@sirfisher.com.br`, contato já público no site. Validade até 31/10/2027 às 23:59:59 UTC, idiomas pt-BR/en. Apex e www responderam 200/text/plain. Renovar antes do vencimento. |
 | DNS do GitHub Pages | Oito A/AAAA classificados como `false_positive`, com justificativa e confirmação no histórico da API. Os quatro IPv4 servem www e redirecionam apex com certificados válidos; os IPv6 coincidem com a documentação oficial e não foram testados por conexão direta. Registros preservados. |
 | Proteção do domínio no GitHub | O proprietário concluiu Verify na conta sirfisherfc após a publicação do TXT. API confirmou `protected_domain_state=verified`, Pages `built` e HTTPS obrigatório nos três repositórios. www/admin/reservas responderam 200 após a verificação. |
-| DMARC | Adicionado pedido de relatórios para o contato público. API e DNS público confirmaram `v=DMARC1; p=none; rua=mailto:contato@sirfisher.com.br`. Quarentena/rejeição continuam pendentes da conferência de remetentes. |
+| DMARC | Em 03/11, teste atual da Hostinger passou SPF, DKIM e DMARC no Gmail. Publicado `v=DMARC1; p=quarantine; sp=none; rua=mailto:contato@sirfisher.com.br`, confirmado na API e no DNS público Google/Cloudflare. Quarentena para o domínio principal, subdomínios em monitoramento e relatórios preservados. Rejeição e política dos subdomínios dependem da análise posterior dos envios/relatórios. |
 
 Na primeira rodada, dos 27 registros DNS, mudaram somente `proxied` em
 admin/reservas/webmail e o TXT DMARC. Depois foi acrescentado o desafio TXT
@@ -26,7 +26,7 @@ atalho do webmail.
 
 ## Alertas que ainda podem aparecer
 
-A releitura retornou **13 ocorrências não classificadas**. Os oito falsos
+A releitura de 02/11 retornou **13 ocorrências não classificadas**. Os oito falsos
 positivos deixaram essa lista; o endpoint de arquivamento não foi executado.
 A lista ainda trazia seis ocorrências de TLS, security.txt e CNAME já
 corrigidas e conferidas no serviço real. O scanner precisa atualizar essas
@@ -41,19 +41,47 @@ quantas falhas continuam confirmadas.
 | AI Labyrinth | Recurso opcional mantido desligado; a decisão vigente permite leitura pública por robôs de IA. |
 | Lista de IPs | Manutenção opcional para a única faixa atual, `85.208.98.0/24`; regras preservadas. |
 
-## Pendência: autenticação dos envios da Hostinger
+## Teste da Hostinger aprovado e quarentena DMARC ativa
 
-O proprietário acredita que os envios saem pela Hostinger, sem confirmação
-dos serviços usados. O código dos sistemas usa Resend. Oito mensagens
-automáticas recebidas no Gmail, de 06/09 a 30/09/2026, passaram SPF, DKIM
-e DMARC via Resend/Amazon SES, com alinhamento do domínio. Essa amostra
-comprova os envios examinados. A busca não encontrou mensagem de contato
-nem outro remetente do domínio fora de reservas para conferir a Hostinger.
+O proprietário enviou pelo webmail uma mensagem de teste de
+`contato@sirfisher.com.br`, recebida no Gmail em 03/11/2026. A leitura dos
+cabeçalhos adicionados por `mx.google.com` confirmou SPF, DKIM e DMARC com
+resultado `pass`, entrega na caixa de entrada e assinatura do domínio
+`sirfisher.com.br`, seletor `hostingermail-a`. O Return-Path também usa
+`sirfisher.com.br`. O teste ocorreu sob a política anterior de monitoramento.
 
-Conferir um envio legítimo da Hostinger ou relatórios DMARC antes de trocar
-`p=none` por `quarantine` e depois `reject`. Hostinger Mail foi oferecido;
-a conexão ainda não foi confirmada. Nenhum e-mail ou chamado foi enviado,
-e nenhuma outra rotina agendada foi criada nesta tarefa.
+O outro serviço conhecido é Resend/Amazon SES. Oito mensagens automáticas
+recebidas de 06/09 a 30/09/2026 passaram SPF, DKIM e DMARC com alinhamento
+do domínio. Essa amostra é histórica e não comprova todos os fluxos atuais.
+
+Com as fontes conhecidas aprovadas, aplicada a etapa de quarentena no
+domínio principal dentro da autorização de corrigir os alertas necessários:
+
+```text
+v=DMARC1; p=quarantine; sp=none; rua=mailto:contato@sirfisher.com.br
+```
+
+`p=quarantine` pede ao destinatário que envie ao spam mensagens do domínio
+principal que falhem no DMARC. O alinhamento permanece relaxado, como antes.
+`sp=none` mantém os subdomínios em monitoramento enquanto seus possíveis
+endereços From são conferidos; o teste atual cobre o domínio principal.
+O Return-Path de Resend em `send.sirfisher.com.br` não transforma o From
+principal em um remetente de subdomínio. A mudança não alterou MX, SPF,
+DKIM ou qualquer outro registro DNS; os 28 registros foram preservados.
+
+API e resolvedores públicos Google/Cloudflare confirmaram a política exata.
+A revisão independente confirmou Pages verified/built/HTTPS e HTTP 200
+nos três sites. Recibos do teste e da alteração ficam em
+`tmp/cloudflare-seguranca-2026-11-03/`, ignorado pelo Git, sem corpo da mensagem
+ou endereço do destinatário. O carregador existente reutilizou o token;
+nenhuma credencial nova foi necessária.
+
+Próxima etapa: analisar os relatórios solicitados para
+`contato@sirfisher.com.br`, corrigir eventuais fontes legítimas que falhem e
+avaliar `p=reject` e a política de subdomínios conforme a cobertura observada.
+O teste atual não garante entrega de fluxos sem amostra. Não foi criada
+rotina agendada nem prometida revisão automática. O teste foi enviado pelo
+proprietário; no Gmail, o assistente fez somente a leitura.
 
 ## Domínio verificado na conta sirfisherfc
 
@@ -101,7 +129,7 @@ contratos e 31 de segurança. A validação real cobriu API, DNS, HTTP/arquivos
 e TLS. O login autenticado não foi conferido visualmente: o navegador
 estava indisponível. Planos e recibos privados ficam em
 `tmp/cloudflare-seguranca-2026-11-02/`, ignorado pelo Git. Esta documentação
-não contém credencial ou conteúdo de e-mail.
+não contém credencial ou corpo das mensagens.
 
 ## Fontes oficiais
 
@@ -112,5 +140,7 @@ não contém credencial ou conteúdo de e-mail.
 - [Webmail oficial Hostinger](https://www.hostinger.com/support/1583218-how-to-access-webmail-of-hostinger-email/)
 - [DMARC Hostinger](https://www.hostinger.com/support/8412851-how-to-add-a-dmarc-record-for-hostinger-email/)
 - [DMARC e SES](https://docs.aws.amazon.com/ses/latest/dg/send-email-authentication-dmarc.html)
+- [Etapas de DMARC no Resend](https://resend.com/docs/dashboard/domains/dmarc)
+- [Política DMARC de subdomínios](https://resend.com/blog/how-dmarc-applies-to-subdomains)
 - [Endereços GitHub Pages](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site)
 - [Verificação do domínio GitHub](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/verifying-your-custom-domain-for-github-pages)

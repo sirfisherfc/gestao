@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 gestao/site/reservas livres. Domínio GitHub Pages verificado em sirfisherfc; API confirmou verified nos três sites. Manter o TXT. DMARC depende de envio Hostinger conferido; demais correções Cloudflare aplicadas.
+> **🚦 Status atual:** 🟢 gestao/site/reservas livres. Teste Hostinger aprovado no Gmail; DMARC do domínio principal em quarentena, subdomínios em monitoramento e relatórios mantidos. Pages verified nos três sites. Avaliar rejeição e subdomínios após revisar os relatórios.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -706,3 +706,24 @@ no DNS público. Manter o TXT para preservar a verificação. Etapa concluída.
 Atualizados CLOUDFLARE_SEGURANCA.md e este canal, sem código ou migration.
 Conferências de DNS/API concluídas; cópias da raiz e três repos conferidos
 na sincronização da entrega. DMARC mantém a pendência anterior da Hostinger.
+
+## 2026-11-03 · Codex — Hostinger autenticada e DMARC em quarentena
+
+Teste enviado pelo proprietário de contato@sirfisher.com.br chegou à caixa
+de entrada do Gmail. Authentication-Results de mx.google.com confirmou SPF,
+DKIM e DMARC pass; d=sirfisher.com.br e seletor hostingermail-a, Return-Path
+alinhado. Leitura sem resposta, alteração de rótulos ou envio do assistente.
+
+Após esse teste atual e a amostra histórica aprovada do Resend/SES, aplicada
+quarentena para o domínio principal: p=quarantine; sp=none e rua para contato
+preservados, com alinhamento relaxado. Subdomínios continuam monitorados.
+API e DNS público Google/Cloudflare confirmaram o TXT exato; demais registros
+DNS iguais, total 28. Nenhum MX/SPF/DKIM, segredo, migration ou código mudou.
+
+Futuro reject e política dos subdomínios dependem dos relatórios e das fontes
+legítimas ainda sem amostra; não há rotina agendada ou promessa de execução
+automática. Recibos privados em tmp/cloudflare-seguranca-2026-11-03/, sem corpo
+do teste ou destinatário. CLOUDFLARE_SEGURANCA.md atualizado com os limites.
+
+Conferência independente: três Pages seguem verified/built/HTTPS e HTTP 200.
+Diff e cópias da raiz conferidos. Site/reservas sem edição.
