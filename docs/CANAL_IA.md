@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 gestao/site/reservas livres. Roteiro das 29 perguntas Ads preparado em docs/GOOGLE_ADS_VERIFICACAO_2026-11-03.md. Proprietário enviou a mudança cadastral; painel mostra nova verificação até 03/12/2026. Formulário comercial, documentos e aprovação pendentes. Vínculo GA4 ainda pendente; campanhas sem alteração pelas ferramentas.
+> **🚦 Status atual:** 🟢 gestao/site/reservas livres. Recebimento do formulário comercial Ads confirmado em imagem; análise pendente. Conta Ads ausente no seletor do Analytics, com mesmo login confirmado. API comprova Administrador na propriedade GA4; falta conferir papel no Ads. Vínculo ainda ausente e causa da lista sem confirmação.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -846,3 +846,23 @@ formulário comercial, concluir tarefas/documentos exigidos e conferir aprovaç�
 depois vincular Ads/GA4 e revisar conversões. Nenhuma campanha, orçamento,
 evento ou conversão alterado pelas ferramentas. Sem migration ou código de
 produto. Diff conferido; três repositórios e orientações da raiz sincronizados.
+
+## 2026-11-03 · Codex — Formulário Ads recebido; vínculo em diagnóstico
+
+Imagem do suporte confirma Seu e-mail foi enviado. Conteúdo final/anexos
+não inspecionados, aprovação ainda pendente. Proprietário confirmou que a
+entrega física do 99Food é feita pelos entregadores da plataforma; roteiro
+inclui esse campo adicional e o comprovante da relação. Campo de licença
+orientado pelo número/titular do próprio documento, sem número presumido.
+
+API listGoogleAdsLinks segue vazia. Proprietário confirmou mesmo login
+Google no Analytics/Ads, mas conta 149-377-8788 não aparece no seletor.
+GET property accessBindings 200 confirmou usuário como Administrador na
+propriedade 353205396; nível da conta retornou403 sem ampliar acesso.
+Solicitada conferência do papel em Ads/Acesso e segurança. Rota oficial
+alternativa: Ads/Ferramentas/Central de dados/Conectar produto/GA4 e Firebase.
+Causa da ausência ainda sem confirmação. Não criar outra conta ou propriedade.
+
+Alterados os mesmos três documentos da tarefa. Nenhum vínculo, papel,
+campanha, orçamento ou conversão alterado pelas ferramentas. Diff conferido;
+sem migration, documento pessoal, cartão ou dado financeiro bruto incluído.

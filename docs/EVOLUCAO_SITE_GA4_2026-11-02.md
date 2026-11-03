@@ -493,9 +493,30 @@ própria e delivery 99Food ativo. A empresa paga a fatura do cartão em nome
 do proprietário. Informou dispor dos documentos empresariais e licenças;
 eles ainda precisam ser conferidos diretamente no Google. O roteiro de
 [respostas da verificação comercial](GOOGLE_ADS_VERIFICACAO_2026-11-03.md)
-traz os textos e as condições para anexar documentos existentes. O envio
-e a aprovação desse formulário, as tarefas de identidade que vierem a ser
-exigidas e o vínculo Google Ads/GA4 permanecem pendentes.
+traz os textos e as condições para anexar documentos existentes. Uma imagem
+posterior confirma o recebimento: **Seu e-mail foi enviado**. O conteúdo
+final e os anexos não foram inspecionados. A aprovação desse formulário e
+as tarefas adicionais de identidade que vierem a ser exigidas permanecem
+pendentes. Nova leitura da Admin API, após o envio, continua sem vínculos
+Google Ads na propriedade 353205396. O proprietário foi orientado a abrir
+Administrador → Vinculações de produtos → Vinculações do Google Ads e
+localizar a conta Sir Fisher Praia, ID 149-377-8788.
+
+O proprietário informou que a conta Ads não aparece no seletor do Analytics
+e confirmou usar o mesmo login nas duas plataformas. A leitura de
+`properties/353205396/accessBindings` retornou 200 e confirmou
+`predefinedRoles/admin` para o usuário do proprietário. A leitura dos
+vínculos de acesso no nível da conta 220997281 retornou 403, limite do
+acesso dessa credencial; isso não invalida o papel confirmado na propriedade.
+Nenhum papel ou configuração de acesso foi alterado. Falta conferir
+**Google Ads → Adm. → Acesso e segurança → Usuários → Nível de acesso**.
+
+O guia atual também permite iniciar a vinculação pelo próprio Ads em
+**Ferramentas → Central de dados → Conectar produto → Google Analytics
+(GA4) e Firebase**. Caso o usuário tenha papel de administrador no Ads,
+conferir se a propriedade 353205396 aparece por esse caminho. Até aqui
+não há vínculo criado nem causa confirmada para a ausência no seletor.
+[Instruções e permissões do Google](https://support.google.com/google-ads/answer/7519537?hl=pt-BR).
 
 Em preparação para o vínculo, nova leitura da Admin API encontrou seis
 eventos principais: `purchase`, `click_reservation`, `click_maps`,

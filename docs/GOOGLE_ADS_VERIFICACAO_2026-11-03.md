@@ -6,6 +6,11 @@ Organização. A imagem posterior mostra nova verificação do anunciante,
 com prazo **03/12/2026**, e a tarefa antiga de documentos da agência marcada
 como **Não é mais necessária**. A aprovação da verificação continua pendente.
 
+Atualização: imagem posterior de 03/11/2026 mostra **Seu e-mail foi enviado**
+no formulário de operações comerciais. O recebimento está confirmado;
+o conteúdo final dos campos e os anexos não foram inspecionados. A análise
+e eventuais tarefas adicionais de identidade continuam sem aprovação confirmada.
+
 As respostas abaixo usam as páginas públicas do restaurante e as informações
 confirmadas pelo proprietário: ele administra a conta sozinho, a marca é
 própria, o delivery 99Food está ativo e a empresa paga a fatura do cartão
@@ -94,6 +99,15 @@ não foi copiado para este roteiro versionado.
 
 **Própria: os produtos ou serviços anunciados são nossos, e somos
 responsáveis pela qualidade e/ou prestação deles.**
+
+A pergunta adicional exibida sobre entrega por terceiros foi esclarecida
+pelo proprietário: os pedidos do 99Food são entregues pelos entregadores
+da plataforma. Assim, a opção **Sim** corresponde a esse modelo de delivery.
+Informar **99Food: https://99app.com/99food/restaurantes/** e anexar uma
+prova da relação comercial, conforme o formulário. Contrato ou e-mail de
+cadastro deve identificar o restaurante e a plataforma. As buscas no Gmail
+conectado não encontraram esse comprovante; o proprietário foi orientado a
+procurá-lo no e-mail de cadastro ou no portal do parceiro, para anexar no Google.
 
 **17. Outras relações necessárias para fornecer produtos ou serviços**
 
@@ -199,7 +213,9 @@ as orientações do Google. Os documentos não fazem parte deste repositório.
 Antes do envio, conferir os campos de identificação e os anexos contra os
 documentos. A tela anterior dá prazo até **03/12/2026**. O formulário
 informado pelo proprietário prevê análise de **cinco a sete dias úteis**.
-O envio e a aprovação deste formulário ainda não foram confirmados.
+O recebimento do formulário foi confirmado em imagem. A aprovação ainda
+precisa ser conferida em Administrador → Política → Conta e nas mensagens
+recebidas do Google. O envio não comprova, por si, aprovação dos documentos.
 
 As descrições foram verificadas no [site](https://www.sirfisher.com.br/),
 nas páginas de [reservas](https://www.sirfisher.com.br/reservas/),
