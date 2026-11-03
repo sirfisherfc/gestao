@@ -177,6 +177,11 @@ ao serviço atual as promessas de mascaramento ou retenção do piloto.
 
 ## Scripts Python e importação
 
+- Em 02/11/2026, o proprietário confirmou que o caixa usa apenas o Teknisa.
+  O workflow `importacao-saipos.yml` executa somente manualmente, com período
+  histórico obrigatório e conferência sem gravação por padrão. Consultar
+  `docs/INTEGRACAO_API_BANCOS.md` antes de mudar essa rotina. A coleta
+  automática de vendas do Teknisa ainda precisa ser preparada e validada.
 - Não hardcodar caminhos absolutos, senhas, tokens, credenciais ou nomes de arquivos específicos de uma máquina.
 - Não versionar CSVs, XLSX, XLS, relatórios exportados ou outros dados brutos.
 - Preservar compatibilidade com os arquivos `.bat` existentes e com seus parâmetros esperados.

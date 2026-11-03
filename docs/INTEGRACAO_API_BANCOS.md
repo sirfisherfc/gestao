@@ -3,6 +3,28 @@
 Objetivo: trocar a exportação manual de CSV por download automático, sem
 mudar as tabelas nem as regras do painel.
 
+## Caixa atual e histórico Saipos (02/11/2026)
+
+O proprietário confirmou em 02/11/2026 que o caixa usa apenas o Teknisa.
+O workflow `importacao-saipos.yml` passou a executar somente por comando
+manual, com início e fim do período histórico obrigatórios. A opção de
+conferir sem gravar vem marcada. O agendamento diário da Saipos foi retirado.
+
+Os avisos de falha de 31/10, 01/11 e 02/11 vieram dessa agenda antiga.
+O registro privado e uma consulta somente leitura confirmaram que a Saipos
+retorna HTTP 200 com JSON `null` para 30/10 e 01/11; em 29/10 retorna uma
+lista de vendas. O importador continua tratando `null` como dados ausentes.
+Essa resposta não comprova movimento zero.
+
+As rotinas Stone e Pluggy mantêm suas agendas. A rotina Stone pode refazer
+a conciliação com os dados Saipos já guardados, sem consultar sua API.
+Uma coleta automática de vendas do Teknisa ainda precisa ser preparada e
+validada.
+
+Na [documentação Saipos](https://saipos-data-api.readme.io/reference/limite-consultas),
+lojas canceladas deixam de retornar registros mesmo com HTTP 200. A situação
+cadastral da loja na Saipos não foi consultada nesta tarefa.
+
 ## Fechamento D+1 implantado (22/10/2026)
 
 - Escopo atual: operação Praia, cartão/Pix, parcelas e baixas, extrato e
@@ -114,8 +136,9 @@ e sincronizações da origem serão processados pela agenda, sem sondagens extra
   e download sem enviar a chave de serviço ao endereço do arquivo.
 - Cartão/Pix com cancelamento ou código ainda sem regra validada recusam a
   carga de vendas inteira, para conferência com o CSV. Voucher continua no
-  CSV. A Saipos continua reconsultando sete dias para recuperar falhas e
-  alterações; sua conciliação lê a Stone no banco, sem chamar a API Stone.
+  CSV. Até 02/11, a agenda Saipos reconsultava sete dias para recuperar falhas
+  e alterações; agora a consulta é manual, por período. Sua conciliação lê
+  a Stone no banco, sem chamar a API Stone.
 
 ## Diagnóstico e solução proposta para fechar a automação (22/10/2026)
 
@@ -656,7 +679,8 @@ Importador `scripts/importacao/api_saipos_vendas.py`; tabelas
   cadastrado" e valores redondos. Stone sem Saipos: 32.
 - Painel: Conciliação > "Saipos × Stone" (`app_conciliacao_saipos_dia` e
   `app_conciliacao_saipos_pendencia`). Rotina: `importacao-saipos.yml`,
-  05:30 de Fortaleza; exige o secret `SAIPOS_API_TOKEN` no GitHub.
+  somente manual desde 02/11/2026, com período obrigatório e conferência
+  sem gravação por padrão; exige o secret `SAIPOS_API_TOKEN` no GitHub.
 
 ## Saipos: rotina Cancelamentos (21/10/2026)
 

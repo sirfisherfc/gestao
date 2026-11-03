@@ -1,17 +1,22 @@
-name: Vendas Saipos e conciliação com a Stone
+name: Histórico Saipos e conciliação manual
 
-# A Saipos recomenda consultar a partir das 05:00 de Brasília (dados D+1).
-# 05:30 em Fortaleza. Cada rodada baixa os últimos 7 dias do turno e refaz o
-# casamento com as vendas Stone que chegaram depois.
+# Em 02/11/2026, o proprietário confirmou que o caixa usa apenas o Teknisa.
+# O histórico da Saipos pode ser consultado manualmente por período.
 on:
-  schedule:
-    - cron: '30 8 * * *'
   workflow_dispatch:
     inputs:
+      de:
+        description: 'Primeiro dia do turno histórico (AAAA-MM-DD)'
+        type: string
+        required: true
+      ate:
+        description: 'Último dia do turno histórico (AAAA-MM-DD)'
+        type: string
+        required: true
       dry_run:
         description: 'Conferir sem gravar no banco'
         type: boolean
-        default: false
+        default: true
 
 permissions:
   contents: read
@@ -27,7 +32,9 @@ jobs:
     env:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
       SAIPOS_API_TOKEN: ${{ secrets.SAIPOS_API_TOKEN }}
-      DRY_RUN: ${{ inputs.dry_run || false }}
+      DATA_DE: ${{ inputs.de }}
+      DATA_ATE: ${{ inputs.ate }}
+      DRY_RUN: ${{ inputs.dry_run }}
       TZ: America/Fortaleza
       PYTHONIOENCODING: utf-8
     steps:
@@ -43,14 +50,21 @@ jobs:
           python-version: '3.12'
       - name: Dependencias
         run: python -m pip install -q -r requirements.txt
-      - name: Importar e conciliar
+      - name: Executar período histórico
         shell: bash
         run: |
-          args=()
+          [ -n "$DATA_DE" ] && [ -n "$DATA_ATE" ] || { echo 'ERRO: informe o período histórico.'; exit 1; }
+          args=(--de "$DATA_DE" --ate "$DATA_ATE")
           if [ "$DRY_RUN" = "true" ]; then args+=(--dry-run); fi
           status=0
           python scripts/importacao/api_saipos_vendas.py "${args[@]}" > saida-saipos.log 2>&1 || status=$?
           # O repositorio e publico: nenhuma venda ou valor financeiro no log.
           grep -E '^(ERRO|AVISO)' saida-saipos.log || true
-          if [ "$status" = 0 ]; then echo 'Importacao concluida. Consulte Conciliacao e Status no Gestao.'; fi
+          if [ "$status" = 0 ]; then
+            if [ "$DRY_RUN" = "true" ]; then
+              echo 'Conferencia concluida. Nenhum dado foi gravado.'
+            else
+              echo 'Importacao concluida. Consulte Conciliacao e Status no Gestao.'
+            fi
+          fi
           exit "$status"

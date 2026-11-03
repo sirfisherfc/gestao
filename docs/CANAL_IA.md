@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 gestao/site/reservas livres. Direct @sirfisherfc ativo no Jotform; piloto próprio pausado. Aviso de privacidade alinhado ao atendimento atual. Operação e limites em docs/instagram-atendimento/JOTFORM.md.
+> **🚦 Status atual:** 🟢 gestao/site/reservas livres. Caixa usa apenas o Teknisa; Saipos ficou manual para histórico. Direct @sirfisherfc ativo no Jotform; piloto próprio pausado. Operação e limites em docs/instagram-atendimento/JOTFORM.md.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -579,3 +579,29 @@ Revisão final da interface: formatos por destino com nomes comuns e campos
 pertinentes; claim também exige a revisão que o executor acabou de validar,
 para recusar uma revisão trocada antes da reivindicação. Testes offline e
 qualidade passaram; comportamento dos campos conferido no QA com browser.
+
+## 2026-11-02 · Codex — Alertas do GitHub e fim da agenda Saipos
+
+O proprietário confirmou que o caixa usa apenas o Teknisa. Retirado o cron
+de `.github/workflows/importacao-saipos.yml`; o workflow agora se chama
+Histórico Saipos e conciliação manual, exige início/fim e confere sem gravar
+por padrão. `AGENTS.md` e `docs/INTEGRACAO_API_BANCOS.md` registram a mudança.
+Stone e Pluggy mantêm suas agendas; a Stone só reconcilia dados Saipos já
+guardados. Coleta automática de vendas Teknisa ainda precisa ser preparada
+e validada. Nenhuma migration ou escrita financeira nesta tarefa.
+
+Falhas Saipos 41211008274/41320798148/41502352017: registro privado confirmou
+formato inesperado desde 30/10. GET somente leitura: 29/10 retorna lista;
+30/10 e 01/11 retornam JSON null/HTTP 200. Essa ausência segue como erro,
+preservando o histórico. Não foi convertida em movimento zero. A documentação
+Saipos prevê ausência de registros para lojas canceladas, mas a situação
+cadastral da loja não foi consultada.
+
+Quality gates 41523425193 falhou porque o checkout isolado não encontrava
+supabase_credentials; e0ad6e1 já corrigiu, e 41524657320 passou nos dois jobs.
+Reservas 41288518030/41287083311 falharam por publicação simultânea; o deploy
+41520432358 passou com 5ca4e61, HTTP 200 e arquivos públicos iguais ao HEAD.
+
+Validações locais: check_project --require-node passou (123 contratos,
+31 de segurança), scripts Bash do workflow válidos e diff sem erro. Publicação
+e execução manual histórica sem gravação serão conferidas no fechamento.
