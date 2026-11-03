@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 gestao/site/reservas livres. Ads: perfil atual Individual; proprietário abriu migração para Organização e chegou manualmente à etapa 5. Falta confirmar a empresa pelos documentos do CNPJ, preencher o perfil e revisar o envio. Tela informa autorização temporária de R$50 no cartão. Verificação e vínculo GA4 pendentes.
+> **🚦 Status atual:** 🟢 gestao/site/reservas livres. Proprietário confirmou a empresa do novo perfil Ads. Preenchimento manual da etapa 5 e revisão da etapa 6 pendentes; autorização temporária de R$50 informada. API GA4 confirmou seis eventos principais, incluindo reservation_confirmed. Verificação do anunciante e vínculo Ads continuam pendentes.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -808,9 +808,17 @@ efeitos em cobrança, tributos e documentos. Proprietário avançou manualmente
 não foram informados. A tela exige perfil e forma de pagamento e avisa
 autorização temporária de R$50 no cartão, geralmente removida em uma semana.
 
-Pendente confirmar se a empresa do aviso público do site é a titular correta,
-comparando com o comprovante CNPJ. Depois, preparar perfil e revisão final.
+Proprietário confirmou a empresa do aviso público do site como titular do
+novo perfil, após pedido de conferir o comprovante CNPJ. Orientado preencher
+os dados da empresa e o endereço documental; cartão somente no Google.
+Solicitado resumo da etapa 6 antes do envio final; resultado pendente.
 Nova verificação do anunciante e vínculo GA4 seguem pendentes. Nenhum perfil,
 cartão, pagamento ou transferência foi gravado pelas ferramentas. Atualizados
 este canal e EVOLUCAO_SITE_GA4_2026-11-02.md; diff conferido. Sem migration ou
 mudança de produto, credencial ou documento de identidade versionado.
+
+Leitura adicional da Admin API: seis eventos principais, purchase e
+visit_realized por evento; click_reservation/maps/whatsapp e
+reservation_confirmed por sessão. Candidato para reserva concluída:
+reservation_confirmed. Após vincular, conferir as ações existentes no Ads
+e a contagem antes de importar. Nenhum evento ou conversão alterado.

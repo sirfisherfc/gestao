@@ -468,12 +468,24 @@ validade, geralmente removida em até uma semana. O modo exibido é
 pós-pagamento. A revisão final e o envio continuam pendentes.
 
 O aviso público do site identifica a empresa responsável pelo restaurante.
-Foi solicitado ao proprietário conferir no comprovante do CNPJ se essa
-é a entidade que deve assumir o novo perfil. Isso prepara a escolha do
-destino; a página pública, por si, não confirma a situação cadastral nem
-a titularidade fiscal dos anúncios. O endereço do perfil deve seguir os
-documentos da empresa, que precisam ser conferidos pelo proprietário.
+O proprietário confirmou que essa é a entidade que deve assumir o novo
+perfil, após a solicitação de conferir com o comprovante CNPJ. Foi orientado
+preencher Organização, Brasil, razão social e CNPJ da empresa confirmada,
+com o endereço dos documentos. A página pública é a fonte de partida;
+os dados legais do perfil dependem da conferência documental pelo
+proprietário. O preenchimento manual e o resumo de **6. Confirmação**
+continuam pendentes. Nenhum dado de cartão foi solicitado na conversa.
 [Aviso público de privacidade](https://www.sirfisher.com.br/privacidade/).
 
 A migração permanece em preparação. Nenhuma transferência, forma de
 pagamento ou vinculação foi gravada por ferramentas nesta conversa.
+
+Em preparação para o vínculo, nova leitura da Admin API encontrou seis
+eventos principais: `purchase`, `click_reservation`, `click_maps`,
+`click_whatsapp`, `reservation_confirmed` e `visit_realized`. Os quatro
+eventos centrais da lista usam contagem por sessão; `purchase` e
+`visit_realized` usam contagem por evento. `reservation_confirmed` é o
+candidato à conversão de reserva concluída. Antes de importar, conferir
+as ações que já existem no Ads e a regra de contagem desejada. Cliques
+medem intenção, e o cadastro de `purchase` não comprova instrumentação de
+compra. Nenhum evento principal ou conversão foi alterado.
