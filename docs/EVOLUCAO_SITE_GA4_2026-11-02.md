@@ -473,8 +473,11 @@ perfil, após a solicitação de conferir com o comprovante CNPJ. Foi orientado
 preencher Organização, Brasil, razão social e CNPJ da empresa confirmada,
 com o endereço dos documentos. A página pública é a fonte de partida;
 os dados legais do perfil dependem da conferência documental pelo
-proprietário. O preenchimento manual e o resumo de **6. Confirmação**
-continuam pendentes. Nenhum dado de cartão foi solicitado na conversa.
+proprietário. A imagem já mostra **Enviar** na etapa 5. A orientação de
+revisar na etapa 6 foi corrigida: conferir os dados antes de Enviar na
+etapa 5. A etapa 6 pode representar a confirmação de conclusão; seu
+conteúdo ainda não foi observado. Foi solicitada a situação atual do
+preenchimento e se houve envio. Nenhum dado de cartão foi solicitado.
 [Aviso público de privacidade](https://www.sirfisher.com.br/privacidade/).
 
 A migração permanece em preparação. Nenhuma transferência, forma de
