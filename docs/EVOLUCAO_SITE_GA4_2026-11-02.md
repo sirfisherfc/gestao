@@ -348,3 +348,41 @@ e as configurações verificadas, sem credenciais ou dados individuais.
 A avaliação dos avisos Semrush, o perfil agregado do QR e a estratégia de mídia
 estão em [Semrush, público e mídia](SEMRUSH_PERFIL_PUBLICO_MIDIA_2026-11-02.md).
 As provas da ativação e do checklist ficam em `tmp/semrush-2026-11-02/`.
+
+## Conferência do Google Ads em 03/11/2026
+
+A Admin API confirmou que a propriedade `353205396`, **Sir Fisher — Site
+Oficial**, continua sem vinculações com Google Ads. Uma consulta real de
+eventos de 27/10 a 02/11 retornou dados. O nome da conta do Analytics,
+“Conta do Google Ads”, permanece apenas um nome de cadastro.
+
+O proprietário informou que já anunciou no Google. E-mails do Google de
+abril e maio de 2026 identificam uma conta chamada **Barra Sol - Sir Fisher**.
+O identificador foi informado ao proprietário na conversa, sem guardar
+mensagens ou conteúdo financeiro no repositório. Ainda falta confirmar o
+acesso administrativo e o estado atual das campanhas nessa conta.
+
+O MCP disponível oferece consulta das vinculações, sem criar ou editar
+esse vínculo. A integração de interface do computador estava indisponível
+nesta sessão. Para concluir no painel, usar a mesma conta Google com papel
+Editor/Administrador no Analytics e Administrador no Ads: **Administrador →
+Vinculações de produtos → Vinculações do Google Ads → Vincular**. Conferir
+a propriedade e a conta individual antes de enviar. A opção de publicidade
+personalizada vem ligada por padrão; para começar pela mensuração, a
+recomendação apresentada foi desligá-la nesse vínculo e habilitar a
+codificação automática. A decisão e a gravação continuam pendentes.
+[Instruções e permissões](https://support.google.com/analytics/answer/9379420?hl=pt-BR),
+[controle de personalização](https://support.google.com/analytics/answer/9626162?hl=pt-BR).
+
+O redirecionamento HTTP do domínio raiz preservou `gclid=TesTER-123` até
+`www`. Com User-Agent de navegador, GET e HEAD do site responderam 200 com
+e sem esse parâmetro. O cliente Python padrão recebeu 403 no destino.
+Esses testes conferem o caminho HTTP; faltam o teste no navegador e a
+validação da coleta de um clique real após o vínculo. Nenhum JavaScript
+de medição foi executado nos testes.
+[Teste recomendado pelo Google](https://support.google.com/analytics/answer/13367418?hl=pt-BR).
+
+Nenhuma campanha, orçamento, conversão ou vinculação foi alterada nesta
+conferência. Após criar o vínculo, reler a Admin API e avaliar as conversões
+existentes antes de importar novos eventos para os lances. A documentação
+informa prazo de até 48 horas para aparecerem dados do Ads no Analytics.

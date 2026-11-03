@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 gestao/site/reservas livres. Revisão API Cloudflare concluída: Full (strict) ativo e testado. Dos 13 avisos, sete usam dados anteriores às correções, dois são descoberta de e-mail e quatro são sugestões opcionais. DMARC em quarentena; avaliar relatórios antes de ampliar.
+> **🚦 Status atual:** 🟢 gestao/site/reservas livres. GA4 consultado: sem vínculo com Ads. Conta antiga Barra Sol - Sir Fisher identificada em e-mails do Google; falta conferir acesso no painel e criar o vínculo. Cloudflare segue em Full (strict), com DMARC em quarentena.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -750,3 +750,20 @@ implantado por padrão e screenshot mostra Web app exploits All running.
 Nenhuma implantação WAF, cobrança ou ampliação de Skip. Relatórios DMARC
 seguem como etapa anterior a reject/subdomínios. Doc de segurança atualizado;
 recibos em tmp/cloudflare-seguranca-2026-11-03/revisao-api/ ignorado.
+
+## 2026-11-03 · Codex — Conta Google Ads localizada para vincular ao GA4
+
+Admin API confirmou zero vínculos Ads na propriedade 353205396. A consulta
+de eventos de 27/10 a 02/11 retornou dados. O proprietário informou uso
+anterior de anúncios; e-mails do Google de abril/maio identificaram a conta
+Barra Sol - Sir Fisher. ID informado na conversa; nenhum e-mail bruto ou
+dado financeiro versionado. Acesso administrativo e campanhas ainda precisam
+ser conferidos no painel; MCP atual é de leitura e CUA está indisponível.
+
+EVOLUCAO_SITE_GA4_2026-11-02.md registra as condições e o roteiro oficial do
+vínculo. GCLID de teste foi preservado no redirecionamento ao www. GET/HEAD
+com User-Agent de navegador retornaram 200 com e sem parâmetro; Python
+padrão recebeu 403. Falta validar coleta de clique real após vincular.
+Campanhas, orçamentos, conversões e vínculo sem alterações. Sem migration
+ou publicação de produto; apenas documentação. Diff conferido; três repos
+sincronizados e cópias das orientações iguais antes da entrega.
