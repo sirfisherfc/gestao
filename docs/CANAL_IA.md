@@ -99,3 +99,11 @@ retornou no_api_units; nenhuma cota foi comprada. Campanhas e orçamentos
 preservados. Não transformar sugestões opcionais em erros nem presumir que
 as contagens externas já foram atualizadas. Recibos em tmp/revisao-2026-11-03/,
 ignorados pelo Git; segredos, mensagens integrais e dados brutos fora dos commits.
+
+## 2026-11-03 · Claude Code — Grupo Garçom Sênior no Teknisa
+
+Criado `05 — GARCOM SENIOR` (cópia do 04, com retirar taxa de serviço,
+desconto e cancelar item liberados), supervisionado pelo 02. Um garçom foi
+movido do 04 para o 05; releitura sem divergências. Detalhes e teste
+pendente no POS em `docs/TEKNISA_ACESSOS_OPERACAO.md`. Feito pela interface;
+a ferramenta `teknisa.mjs` não tem comando para grupos (Node ausente neste PC).

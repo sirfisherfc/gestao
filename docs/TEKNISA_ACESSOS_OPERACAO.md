@@ -268,3 +268,35 @@ item com login de garçom; entrar com o login do caixa geral e abrir o caixa.
   `partnerAccessProfile` (perfis por parceiro), `acl_zhu_acl_element_rules/save`
   com `{UNIQUE_ID, TYPE, RULE: "A"|"I", RULE_ID, GROUP_ID, ...}`. Clicar no
   olho sem item selecionado envia a regra sem elemento e não grava nada útil.
+
+## Grupo Garçom Sênior (03/11/2026)
+
+O proprietário pediu um perfil intermediário para um garçom, em vez de
+colocá-lo no grupo de gerentes. Esse grupo também autoriza os garçons e
+libera sangria e TEF. Foi criado o grupo `05 — GARCOM SENIOR`, em Grupo de
+Operadores. Em **Controle de Acesso do Caixa** (Parametrização → Vendas →
+Parâmetros de Gestão de Vendas), o grupo recebeu as 47 permissões do grupo
+`04 — GARCOM`, com quatro diferenças:
+
+| Permissão | Garçom (04) | Garçom Sênior (05) |
+| --- | --- | --- |
+| Retirar Taxa de Serviço | Código e senha do supervisor | Permite Acesso |
+| Cupom com Desconto | Código e senha do supervisor | Permite Acesso |
+| Cancela Último Item | Código e senha do supervisor | Permite Acesso |
+| Cancela Item Genérico | Código e senha do supervisor | Permite Acesso |
+
+Cancelamento de cupom e de mesa/comanda, devolução, troca, acréscimo,
+couvert e consumação continuam dependendo de gerente. Sangria,
+suprimento, TEF, leituras e gaveta seguem bloqueados. O grupo
+`02 — ADM - SUPERVISOR` aparece como grupo de supervisores do 05.
+
+O operador escolhido foi incluído no grupo 05 e retirado do 04, porque
+o vínculo aos dois grupos ficava simultâneo. O cadastro de vendedor e o
+histórico foram preservados. Depois de recarregar a página, a releitura
+confirmou as 47 permissões sem divergência e o operador somente no grupo 05.
+
+Falta testar no POS: com o login dele, retirar os 10%, dar desconto e
+cancelar um item já enviado, sem pedir senha de gerente. Cancelar a mesa
+inteira deve continuar pedindo a senha. Se o aparelho já estiver logado,
+pode ser necessário sair e entrar de novo. Para desfazer, devolva o
+operador ao grupo 04 e retire-o do 05.
