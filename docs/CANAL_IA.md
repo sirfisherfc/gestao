@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 gestao/site/reservas livres. Coleta diária Teknisa preparada para conferência, testada sem rede; faltam sessão real e acesso de serviço Sale API. Saipos manual para histórico. Direct ativo no Jotform; piloto próprio pausado.
+> **🚦 Status atual:** 🟢 gestao/site/reservas livres. Cloudflare revisado em docs/CLOUDFLARE_SEGURANCA.md; TLS antigo confirmado em www/webmail, correções pendentes. Coleta Teknisa preparada, ainda sem acesso Sale API; Direct ativo no Jotform.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -641,3 +641,22 @@ INTEGRACAO_API_BANCOS.md e AGENTS.md. 121 testes Teknisa passaram, nove
 novos; check_project passou com 123 contratos e 31 de segurança. Plano CLI
 de 30/10 a 01/11 conferido sem rede. Publicado em dc19fe7; Quality gates
 41556094487 e Pages 41556094485 passaram. Admin HTTP 200, index igual ao HEAD.
+
+## 2026-11-02 · Codex — Leitura dos alertas Cloudflare liberada e conferida
+
+Após o proprietário editar o token existente, GETs de Security Insights,
+regras WAF e histórico passaram. Token ativo, sem rotação ou segredo novo.
+docs/CLOUDFLARE_SEGURANCA.md registra 21 ocorrências ativas em dez classes
+(17 Moderate, quatro Low), evidências, limites e ações pendentes.
+
+Conexões reais confirmaram TLS 1.0/1.1 aceitos em www e webmail; a zona tem
+mínimo 1.0. Endurecer a borda para 1.2 é candidato; webmail depende do provedor.
+Oito A/AAAA correspondem ao Pages; os quatro IPv4 atenderam www e apex com
+certificados válidos. GitHub confirmou três Pages built/HTTPS/domínios;
+protected_domain_state nulo e health 404 deixam proteção adicional do domínio
+sem comprovação. Duas exceções Skip limitadas ao SBFM e com logs conferidas.
+DMARC permanece p=none, sem rua; security.txt ausente. Nenhum alerta arquivado,
+proxy alterado, configuração aplicada ou migration. Só documentação mudou.
+
+Conferências reais de API, TLS e HTTP concluídas; revisão do diff e das
+orientações da raiz feita antes do commit. Site/reservas sem edição.
