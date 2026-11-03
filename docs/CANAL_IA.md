@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 gestao/site/reservas livres. Perfil Ads empresarial confirmado como destino. Conferir os dados antes de Enviar na etapa 5; envio ainda sem confirmação. A etapa 6 pode representar conclusão. Nova verificação e vínculo GA4 pendentes; seis eventos principais conferidos pela API.
+> **🚦 Status atual:** 🟢 gestao/site/reservas livres. Roteiro das 29 perguntas Ads preparado em docs/GOOGLE_ADS_VERIFICACAO_2026-11-03.md. Proprietário enviou a mudança cadastral; painel mostra nova verificação até 03/12/2026. Formulário comercial, documentos e aprovação pendentes. Vínculo GA4 ainda pendente; campanhas sem alteração pelas ferramentas.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -824,3 +824,25 @@ visit_realized por evento; click_reservation/maps/whatsapp e
 reservation_confirmed por sessão. Candidato para reserva concluída:
 reservation_confirmed. Após vincular, conferir as ações existentes no Ads
 e a contagem antes de importar. Nenhum evento ou conversão alterado.
+
+## 2026-11-03 · Codex — Roteiro da verificação comercial do anunciante
+
+Proprietário informou Enviar na migração. Imagem posterior mostra prazo
+03/12/2026 e tarefa antiga de agência não mais necessária. Novo formulário
+de 29 perguntas sobre operações comerciais. Confirmou: só ele administra
+a conta, marca própria, 99Food ativo, empresa paga a fatura do cartão em
+nome dele, dispõe de CNPJ/licenças. Sem leitura dos documentos ou dos saldos.
+
+GOOGLE_ADS_VERIFICACAO_2026-11-03.md traz respostas e campos documentais a
+conferir. Itens-chave: organização em que trabalha, produtos/serviços próprios,
+99Food como canal de pedidos, empresa como pagadora com explicação do cartão,
+licença governamental conforme alvará/documento sanitário. Dados pessoais,
+cartões e anexos ficam no Google. CNPJ/site/serviços públicos conferidos;
+fontes oficiais Google, 99Food e Prefeitura consultadas e revisão independente
+de relações, pagamento e licenças concluída. Nenhuma regularidade atestada.
+
+EVOLUCAO_SITE_GA4 atualizado com envio e nova verificação. Falta enviar o
+formulário comercial, concluir tarefas/documentos exigidos e conferir aprovação,
+depois vincular Ads/GA4 e revisar conversões. Nenhuma campanha, orçamento,
+evento ou conversão alterado pelas ferramentas. Sem migration ou código de
+produto. Diff conferido; três repositórios e orientações da raiz sincronizados.

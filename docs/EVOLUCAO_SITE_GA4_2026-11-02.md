@@ -480,8 +480,22 @@ conteúdo ainda não foi observado. Foi solicitada a situação atual do
 preenchimento e se houve envio. Nenhum dado de cartão foi solicitado.
 [Aviso público de privacidade](https://www.sirfisher.com.br/privacidade/).
 
-A migração permanece em preparação. Nenhuma transferência, forma de
-pagamento ou vinculação foi gravada por ferramentas nesta conversa.
+O proprietário informou depois que clicou em **Enviar**. A imagem seguinte
+mostra nova verificação do anunciante, com prazo **03/12/2026**, e a tarefa
+antiga de documentos da agência marcada como **Não é mais necessária**.
+A tela reflete a mudança cadastral enviada pelo proprietário; o tipo atual
+do perfil em Faturamento ainda não foi relido nesta conversa. Nenhuma
+transferência, forma de pagamento ou vinculação foi gravada por ferramentas.
+
+A nova tarefa abriu um formulário de 29 perguntas sobre as operações
+comerciais. O proprietário confirmou administrar a conta sozinho, marca
+própria e delivery 99Food ativo. A empresa paga a fatura do cartão em nome
+do proprietário. Informou dispor dos documentos empresariais e licenças;
+eles ainda precisam ser conferidos diretamente no Google. O roteiro de
+[respostas da verificação comercial](GOOGLE_ADS_VERIFICACAO_2026-11-03.md)
+traz os textos e as condições para anexar documentos existentes. O envio
+e a aprovação desse formulário, as tarefas de identidade que vierem a ser
+exigidas e o vínculo Google Ads/GA4 permanecem pendentes.
 
 Em preparação para o vínculo, nova leitura da Admin API encontrou seis
 eventos principais: `purchase`, `click_reservation`, `click_maps`,
