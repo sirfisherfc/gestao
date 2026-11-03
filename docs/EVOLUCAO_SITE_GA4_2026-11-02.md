@@ -615,3 +615,30 @@ Não houve confirmação direta de que o aviso da Central de dados já sumiu.
 Permanecem pendentes a aprovação da verificação do anunciante, a conferência
 da codificação automática e a revisão das ações existentes antes de importar
 reservas como conversões. Nenhuma campanha ou orçamento foi ativado.
+
+### Revisão final de consentimento, medição e SEO em 03/11
+
+A autorização do proprietário para concluir sem novas perguntas ampliou a
+revisão aos problemas reais nas imagens. O controle anterior, restrito ao
+Google, foi substituído por uma escolha de publicidade Google/Meta/OpenAI,
+com nova autorização e comprovante por reserva. Estatísticas e funcionamento
+permanecem ativos ao recusar; os identificadores publicitários são retirados.
+A migration `20261103071209` foi aplicada e a função de conversões passou
+para a versão 48, com autorização conferida também no servidor. O aviso de
+privacidade e os guias atuais refletem esse alcance.
+
+`reservation_confirmed` foi atualizado pela Admin API para ONCE_PER_EVENT,
+com deduplicação por ID no navegador. O envio GA4 pelo servidor nega os
+sinais de publicidade. A estimativa de receita no Schedule da Meta foi retirada.
+Portal recebeu canonical PT/EN, título/H1 de reserva, sitemap dos dois idiomas
+e tradução independente do SDK do banco. Cancelamento privado recebeu
+noindex e no-referrer.
+
+Search Console confirmou as seis URLs das sugestões como indexadas e com
+canonical própria; os dois sitemaps foram reenviados e aceitos. Google Ads
+confirmou por e-mail que a verificação está em revisão, com decisão em até
+sete dias úteis. A configuração/importação da conversão no Ads continua
+dependendo de acesso de edição ao serviço. O Semrush retornou falta de
+unidades de API e os hosts de computador/navegador ficaram indisponíveis.
+O relatório da [revisão de segurança, medição e SEO](REVISAO_SEGURANCA_MEDICAO_SEO_2026-11-03.md)
+traz publicações, testes, decisões sobre as sugestões e dependências externas.

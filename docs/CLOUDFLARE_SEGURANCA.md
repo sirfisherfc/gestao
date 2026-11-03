@@ -174,6 +174,20 @@ estava indisponível. Planos e recibos privados ficam em
 `tmp/cloudflare-seguranca-2026-11-02/`, ignorado pelo Git. Esta documentação
 não contém credencial ou corpo das mensagens.
 
+## Estado relido na revisão final de 03/11
+
+A API retornou seis ocorrências ativas: dois CNAME de configuração de e-mail,
+Skip, Bot Fight Mode, AI Labyrinth e lista de IPs. Os itens antigos de DMARC,
+TLS, security.txt e hosts web sem proxy já não apareceram na lista ativa.
+As decisões sobre e-mail e sugestões opcionais acima foram preservadas.
+Nenhum insight foi arquivado para alterar a contagem.
+
+Full (strict), TLS mínimo 1.2, HTTPS e a política DMARC em quarentena foram
+relidos. www, reservas e admin responderam 200; os três recusaram TLS 1.0/1.1
+com alerta de versão do servidor e aceitaram TLS 1.2/1.3. security.txt respondeu
+200 e tem expiração em 31/10/2027. A revisão de consentimento e SEO também
+está registrada em `REVISAO_SEGURANCA_MEDICAO_SEO_2026-11-03.md`.
+
 ## Fontes oficiais
 
 - [TLS mínimo](https://developers.cloudflare.com/ssl/edge-certificates/additional-options/minimum-tls/)

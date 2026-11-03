@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🔴 Codex revisa segurança Cloudflare, consentimento/medição e SEO das imagens, com autorização integral de 03/11 para concluir sem perguntas. Bases gestao f119786, site 6ae7998 e reservas df3962d, limpas e atualizadas. Uma IA nos três projetos. API Semrush sem unidades; computador/navegador sem conexão. Preservar operações e registrar limites reais.
+> **🚦 Status atual:** 🟢 Livre. Revisão de segurança, consentimento, medição e SEO publicada em 03/11: gestao ca4ec08, site 5eeb6f2 e reservas 4d0d80e. Migration aplicada, worker 48 ativo, testes e Pages concluídos. Relatório em REVISAO_SEGURANCA_MEDICAO_SEO_2026-11-03.md. Dependências externas: análise do anunciante pelo Google, edição das conversões no Ads e nova varredura Semrush.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -17,27 +17,6 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
 **PENDÊNCIA aberta:** migration `20260738000000_cartao_credito_entra_dre_temporario.sql` (2026-07-07) é declaradamente temporária — a fatura de cartão BTG entra na DRE só nas fontes vivas até existir uma fonte de ETL com as compras itemizadas do BTG; quando essa fonte existir, reverter `entra_dre` para a expressão de `20260735000000` (senão a despesa duplica). Ver detalhes no `git log`/na própria migration.
 
 **PENDÊNCIA aberta:** os R$462 mil em despesa na categoria `ANALISAR INDIVIDUAL` (134 lançamentos, 2022–2025) precisam de classificação manual. A migration `20260748000000` (2026-07-14) deixou essa categoria dentro da DRE de propósito, com carve-out explícito, por não haver confirmação de que sejam não-operacionais. Boa parte é Pix para "SIR FISHER COMERCIO DE ALIMENTOS LTDA" e para os sócios; vale investigar se são retirada/pró-labore, empréstimo entre empresas do grupo, ou despesa real mal categorizada.
-
-## 2026-11-03 · Codex — Vínculo Google Ads/GA4 concluído
-
-Proprietário confirmou Administrador no Ads. Fluxo pela Central de dados
-encontrou Sir Fisher — Site Oficial 353205396; antes ele havia aberto o
-painel da Tag do Google. Causa do seletor vazio no Analytics sem confirmação.
-Após esclarecer que públicos são opcionais e podem apoiar remarketing,
-o proprietário criou o vínculo e a tela mostrou Vinculado.
-
-API confirmou um link com cliente 1493778788, recurso 16259936791,
-personalização ativa e can_manage_clients=false, criado em 03/11 às 05:34:24Z
-(02:34 Fortaleza). Importar métricas estava ativo na prévia; endpoint não
-expõe esse botão. API também confirmou um fluxo Web no www e os mesmos
-seis eventos principais; reservation_confirmed por sessão. Firebase é
-alternativa do fluxo de conexão; a propriedade do site está vinculada.
-
-Atualizados este canal e EVOLUCAO_SITE_GA4. Aprovação do anunciante ainda
-sem confirmação. Conferir codificação automática e ações de conversão
-existentes antes de importar reservas. Nenhuma campanha, orçamento, papel
-ou evento alterado pelas ferramentas; vínculo criado manualmente pelo
-proprietário. Sem código de produto, migration ou credencial versionada.
 
 ## 2026-11-03 · Codex — Tag Ads e janela de escolha publicadas
 
@@ -80,3 +59,43 @@ conferida; nenhum serviço externo recebeu dados do teste. Sintaxe, assets,
 CSP e diff passaram. Pages dos dois repositórios e CI de assets concluídos;
 HTTP 200 e módulo com hash esperado nos dois domínios. Sem mudança de banco
 ou migration. Nenhum segredo, dado bruto ou arquivo de teste local versionado.
+
+## 2026-11-03 · Codex — Revisão final publicada
+
+Autorização integral para concluir as correções das imagens sem perguntas.
+O controle antigo, só Google, foi substituído por consentimento de publicidade
+Google/Meta/OpenAI nos dois projetos. O cookie sf_advertising_v2 exige nova
+escolha, vale até 180 dias pela data original e compartilha a preferência.
+Recusa e revogação preservam GA4 estatístico, idioma, UTM e reservas;
+retiram identificadores e impedem pixels/eventos de publicidade. Descrição
+continua em duas linhas no celular. Módulo publicado: 8993b0e4f2.
+
+Migration 20261103071209 aplicada e registrada no portal: comprovante por
+reserva, revogação por UUID e filas Meta/OpenAI condicionadas à autorização.
+Ensaio real em transação desfeita e PostgreSQL descartável validaram RPC,
+filas, validade e privilégios. Worker send-openai-ads-conversions versão 48
+ativo, autenticação preservada e nova conferência antes do envio. GA4 pelo
+servidor nega sinais de publicidade; retirada receita estimada de Meta Schedule.
+Não foram criadas reservas, notificações ou conversões comerciais de teste.
+
+reservation_confirmed atualizado pela Admin API para ONCE_PER_EVENT e relido;
+navegador deduplica por ID. MCP Analytics permanece só leitura. Portal recebeu
+título/H1 de reserva, canonical e sitemap PT/EN, tradução independente do SDK
+e noindex/no-referrer no cancelamento. Seis páginas indexadas com canonical
+própria no Search Console; sitemaps reenviados e aceitos. Cloudflare relido:
+seis sugestões de e-mail/configuração preservadas, HTTPS/TLS e DMARC conferidos.
+
+Publicados gestao ca4ec08, site 5eeb6f2 e reservas 4d0d80e; Quality, assets e
+Pages passaram. Passaram 127 testes Deno no site e 38 no portal, oito cenários
+de reservas/cancelamento, consentimento, SDK real com coleta interceptada,
+hashes/CSP/sitemaps e 622 referências locais em 30 páginas. Relatório final,
+EVOLUCAO_SITE_GA4 e CLOUDFLARE_SEGURANCA atualizados nesta entrega documental.
+
+Google confirmou por e-mail em 03/11 às 04h30 que o anunciante está em revisão,
+com decisão em até sete dias úteis. Ações/importação de conversão no Ads ainda
+dependem de acesso de edição: não há conector autenticado ou credencial local
+do Ads, e os hosts de computador/navegador ficaram indisponíveis. Semrush
+retornou no_api_units; nenhuma cota foi comprada. Campanhas e orçamentos
+preservados. Não transformar sugestões opcionais em erros nem presumir que
+as contagens externas já foram atualizadas. Recibos em tmp/revisao-2026-11-03/,
+ignorados pelo Git; segredos, mensagens integrais e dados brutos fora dos commits.
