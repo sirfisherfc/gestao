@@ -52,7 +52,7 @@ UM_ANO = 31536000
 # Ordem segura: configuracoes e regras antes do proxy, para o primeiro acesso
 # pela borda ja sair com o cache e o redirecionamento certos.
 CONFIGURACOES = {
-    "ssl": "full",               # GitHub Pages tem HTTPS; "full" nao derruba o site se o certificado de la atrasar
+    "ssl": "strict",             # Exige certificado valido na origem; GitHub Pages conferido em 03/11/2026
     "min_tls_version": "1.2",     # TLS 1.0/1.1 recusados na borda desde 02/11/2026
     "always_use_https": "on",
     "rocket_loader": "off",      # reescreveria os scripts da pagina

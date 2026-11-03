@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 gestao/site/reservas livres. Teste Hostinger aprovado no Gmail; DMARC do domínio principal em quarentena, subdomínios em monitoramento e relatórios mantidos. Pages verified nos três sites. Avaliar rejeição e subdomínios após revisar os relatórios.
+> **🚦 Status atual:** 🟢 gestao/site/reservas livres. Revisão API Cloudflare concluída: Full (strict) ativo e testado. Dos 13 avisos, sete usam dados anteriores às correções, dois são descoberta de e-mail e quatro são sugestões opcionais. DMARC em quarentena; avaliar relatórios antes de ampliar.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -727,3 +727,26 @@ do teste ou destinatário. CLOUDFLARE_SEGURANCA.md atualizado com os limites.
 
 Conferência independente: três Pages seguem verified/built/HTTPS e HTTP 200.
 Diff e cópias da raiz conferidos. Site/reservas sem edição.
+
+## 2026-11-03 · Codex — Nova revisão API e Full (strict) aplicado
+
+API retornou 13 avisos, nove Moderate/quatro Low e nenhum Critical. Sete
+contêm dados anteriores às correções; DMARC cita p=none, mas DNS usa
+quarantine. Outros dois são autoconfig/autodiscover e quatro são sugestões
+opcionais. Configurações reais de TLS, proxy, security.txt e DMARC relidas.
+Free tem scan automático a cada sete dias e Scan now pelo painel; não há
+operação pública documentada encontrada para iniciar pela API. Não arquivar
+para ocultar a contagem: supressão pode ser indefinida e retorno é incerto.
+
+Encontrado SSL Full. Validados certificados e HEAD em 16 pares host/IPv4
+GitHub; aplicado Full (strict) na zona. cf.py preserva strict no comando site.
+Oito respostas HTTP posteriores corretas: três HTML iguais ao HEAD, apex,
+webmail, dois Access e security.txt. Oito testes TLS em www/webmail passaram.
+DNS/WAF/Bot Management/security.txt iguais antes/depois; 17 testes Cloudflare
+e qualidade com 123 contratos/31 de segurança passaram.
+
+EntryPoint managed 404 não comprova Free WAF desligado: docs dizem que vem
+implantado por padrão e screenshot mostra Web app exploits All running.
+Nenhuma implantação WAF, cobrança ou ampliação de Skip. Relatórios DMARC
+seguem como etapa anterior a reject/subdomínios. Doc de segurança atualizado;
+recibos em tmp/cloudflare-seguranca-2026-11-03/revisao-api/ ignorado.

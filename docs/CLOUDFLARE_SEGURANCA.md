@@ -9,6 +9,7 @@ retornou 21 ocorrências em dez classes: 17 Moderate e quatro Low.
 | Item | Resultado |
 | --- | --- |
 | TLS antigo | Mínimo da zona elevado de 1.0 para 1.2, com TLS 1.3 mantido. Conexões reais em www, domínio sem www, admin, reservas, webmail, ativacao e reparos recusaram TLS 1.0/1.1 e aceitaram 1.2/1.3. |
+| Certificado da origem | Em nova revisão de 03/11, modo SSL elevado de Full para Full (strict), após 16 conexões diretas com certificado validado nos quatro IPv4 do GitHub Pages para apex/www/admin/reservas. API confirmou `ssl=strict`; oito respostas HTTP posteriores mantiveram páginas, redirecionamentos e proteção Access funcionando. |
 | Admin e reservas | Proxy Cloudflare ligado nos dois CNAME, mantendo destino GitHub Pages. Os HTMLs e cinco arquivos JS/CSS responderam 200 e coincidiram com os repositórios. |
 | Webmail | Proxy ligado e regra 302 para `https://mail.hostinger.com/auth/login`, sem repassar consulta. O endereço próprio funciona como atalho para o login oficial da Hostinger, com TLS atualizado na nossa zona. |
 | security.txt | Publicado pelo Cloudflare em `/.well-known/security.txt`, com `mailto:contato@sirfisher.com.br`, contato já público no site. Validade até 31/10/2027 às 23:59:59 UTC, idiomas pt-BR/en. Apex e www responderam 200/text/plain. Renovar antes do vencimento. |
@@ -26,12 +27,24 @@ atalho do webmail.
 
 ## Alertas que ainda podem aparecer
 
-A releitura de 02/11 retornou **13 ocorrências não classificadas**. Os oito falsos
-positivos deixaram essa lista; o endpoint de arquivamento não foi executado.
-A lista ainda trazia seis ocorrências de TLS, security.txt e CNAME já
-corrigidas e conferidas no serviço real. O scanner precisa atualizar essas
-detecções; não há prazo de atualização confirmado. Essa contagem não mede
-quantas falhas continuam confirmadas.
+A nova consulta à API de 03/11 retornou **13 ocorrências não classificadas**,
+com nove Moderate, quatro Low e nenhuma Critical. Sete trazem configurações
+anteriores às correções: dois TLS, três CNAME, security.txt e DMARC. Por
+exemplo, o payload DMARC ainda aponta `p=none`, enquanto o DNS já usa
+`p=quarantine`. Duas ocorrências são autoconfig/autodiscover; quatro são as
+sugestões opcionais descritas abaixo. Os oito falsos positivos A/AAAA
+continuam fora dessa lista. A consulta de arquivados retornou zero.
+
+TLS mínimo 1.2, security.txt ativo, proxy em admin/reservas/webmail e DMARC
+em quarentena foram relidos na API e conferidos no serviço correspondente.
+O scanner precisa reavaliar os dados antigos. No plano Free, a documentação
+prevê varredura automática a cada sete dias e o botão **Scan now** no painel.
+Não foi encontrada operação pública documentada de API para iniciar essa
+varredura. Nenhum endpoint de varredura foi adivinhado ou chamado.
+
+Arquivar/classificar pode suprimir um item indefinidamente; a documentação
+não garante que uma recorrência reabra o mesmo item. Nesta nova revisão,
+nenhum alerta foi arquivado ou reclassificado para reduzir a contagem.
 
 | Item restante | Tratamento |
 | --- | --- |
@@ -40,6 +53,36 @@ quantas falhas continuam confirmadas.
 | Bot Fight Mode | Mantido desligado. O modo gratuito ignora as exceções Skip e pode afetar os rastreadores autorizados. |
 | AI Labyrinth | Recurso opcional mantido desligado; a decisão vigente permite leitura pública por robôs de IA. |
 | Lista de IPs | Manutenção opcional para a única faixa atual, `85.208.98.0/24`; regras preservadas. |
+
+## Nova revisão pela API em 03/11
+
+Além de conferir os alertas, foi encontrada a configuração `ssl=full`.
+Nesse modo a conexão com a origem é criptografada, sem exigir as validações
+de validade, confiança e nome do certificado oferecidas por Full (strict).
+Os certificados do GitHub Pages foram validados para os quatro hosts em
+cada um dos quatro IPv4 oficiais; todos retornaram 200 ou 301. Aplicado
+`ssl=strict` pela API, e a configuração de `cf.py site` foi atualizada para
+preservar esse modo em futuras execuções.
+
+Depois da alteração, www/admin/reservas responderam 200 com HTML igual aos
+repositórios; apex respondeu 301; webmail, reparos e ativacao responderam
+302 para seus destinos esperados; security.txt respondeu 200. As oito
+combinações de TLS verificadas em www/webmail recusaram 1.0/1.1 e aceitaram
+1.2/1.3. DNS, regras WAF, Bot Management e security.txt foram comparados
+antes/depois e permaneceram iguais. Os 17 testes Cloudflare e a verificação
+de qualidade com 123 contratos e 31 de segurança passaram.
+
+A rota de entrypoint `http_request_firewall_managed` retornou 404, enquanto
+a lista inclui o Cloudflare Managed Free Ruleset disponível. A documentação
+informa implantação padrão desse conjunto no plano Free. A tela fornecida
+pelo proprietário mostra Web app exploits como All running. O 404 dessa
+rota não comprova proteção Free desligada; nenhum conjunto gerenciado foi
+recriado, plano contratado ou exceção WAF ampliada. As duas regras Skip
+continuam limitadas a `http_request_sbfm`.
+
+Recibos desta conferência em `tmp/cloudflare-seguranca-2026-11-03/revisao-api/`,
+ignorados pelo Git. O avanço de DMARC para rejeição e a política dos
+subdomínios continuam dependendo da análise dos relatórios e remetentes.
 
 ## Teste da Hostinger aprovado e quarentena DMARC ativa
 
@@ -134,7 +177,10 @@ não contém credencial ou corpo das mensagens.
 ## Fontes oficiais
 
 - [TLS mínimo](https://developers.cloudflare.com/ssl/edge-certificates/additional-options/minimum-tls/)
+- [Full (strict)](https://developers.cloudflare.com/ssl/origin-configuration/ssl-modes/full-strict/)
 - [Revisão dos insights](https://developers.cloudflare.com/security/security-insights/review-insights/)
+- [Frequência das varreduras](https://developers.cloudflare.com/security/security-insights/how-it-works/)
+- [WAF padrão por plano](https://developers.cloudflare.com/waf/get-started/)
 - [Classificação de insight](https://developers.cloudflare.com/api/resources/security_center/subresources/insights/subresources/classification/methods/update/)
 - [Limites do Bot Fight Mode](https://developers.cloudflare.com/bots/get-started/bot-fight-mode/)
 - [Webmail oficial Hostinger](https://www.hostinger.com/support/1583218-how-to-access-webmail-of-hostinger-email/)
