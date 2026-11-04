@@ -8,10 +8,11 @@ const voucher = { status:'available', beneficiary_name:'Nome de teste', benefit_
   issue_reason:'recovery', issue_reason_detail:'NÃO EXIBIR MOTIVO', conditions:['Uso único. Saldo não utilizado é perdido.',
   'Não cumulativo com promoções ou outro voucher na mesma conta.','Válido na unidade Sir Fisher até a data indicada.'] };
 function context() {
-  const calls=[];
-  return { calls, font:'25px Arial', measureText(text) { const size=Number.parseInt(this.font.match(/(\d+)px/)[1],10);return {width:[...text].length*size*.58}; },
-    fillText(text,x,y){calls.push({text,x,y,font:this.font});},clearRect(){},fillRect(){},strokeRect(){},drawImage(){},setLineDash(){},beginPath(){},moveTo(){},lineTo(){},stroke(){} };
+  const calls=[],images=[];
+  return { calls, images, font:'25px Arial', measureText(text) { const size=Number.parseInt(this.font.match(/(\d+)px/)[1],10);return {width:[...text].length*size*.58}; },
+    fillText(text,x,y){calls.push({text,x,y,font:this.font,align:this.textAlign});},clearRect(){},fillRect(){},strokeRect(){},drawImage(...args){images.push(args);},setLineDash(){},beginPath(){},moveTo(){},lineTo(){},stroke(){} };
 }
+const deck={width:960,height:858};
 test('reais e percentuais mantêm unidades, centavos e valores distintos',()=>{
   assert.match(V.benefit(voucher),/1\.234,56/);
   assert.equal(V.benefit({...voucher,benefit_type:'percent',benefit_value:12.5}),'12,5%');
@@ -28,14 +29,24 @@ for (const [label,changes] of [
   ['nome sem espaços',{beneficiary_name:'W'.repeat(160)}], ['maior valor suportado',{benefit_value:9999999999.99}],
   ['percentual fracionário',{benefit_type:'percent',benefit_value:12.5}], ['percentual100',{benefit_type:'percent',benefit_value:100}],
 ]) test(`template: ${label}, texto cabe e dados internos não são desenhados`,()=>{
-  const ctx=context(),v={...voucher,...changes}; V.draw(ctx,v,{});
+  const ctx=context(),v={...voucher,...changes}; V.draw(ctx,v,{},deck);
   const full=ctx.calls.map(c=>c.text).join(' ');
   assert.ok(!full.includes(v.phone) && !full.includes(v.internal_note) && !full.includes(v.issue_reason_detail));
   assert.ok(full.includes(v.code) && full.includes('04/12/2026'));
-  for (const call of ctx.calls) {ctx.font=call.font;assert.ok(ctx.measureText(call.text).width<=1020,call.text);assert.ok(call.y<1440);}
-  const nameCalls=ctx.calls.filter(c=>c.y>=780 && c.y<972);
-  assert.ok(nameCalls.every(c=>c.y<945),'nome deve terminar antes da linha do código');
+  for (const call of ctx.calls) {ctx.font=call.font;const width=ctx.measureText(call.text).width;assert.ok(width<=1020,call.text);assert.ok(call.y<V.HEIGHT);if(call.align==='left')assert.ok(call.x+width<=1048);}
+  const nameCalls=ctx.calls.filter(c=>c.y>=1140 && c.y<1338);
+  assert.ok(nameCalls.every(c=>c.y<1305),'nome deve terminar antes da linha do código');
   assert.equal(nameCalls.map(c=>c.text).join('').replace(/\s/g,''),v.beneficiary_name.replace(/\s/g,''));
+});
+test('foto do deck integra o PNG, sem distorção ou recorte fora do arquivo',()=>{
+  const ctx=context();V.draw(ctx,voucher,{},deck);
+  const photo=ctx.images.find(args=>args[0]===deck);assert.ok(photo,'a foto deve ser desenhada no mesmo canvas exportado');
+  const [,sx,sy,sw,sh,dx,dy,dw,dh]=photo;
+  assert.ok(sx>=0 && sy>=0 && sx+sw<=deck.width && sy+sh<=deck.height);
+  assert.ok(Math.abs(sw/sh-dw/dh)<1e-10);assert.ok(dx>=0 && dy>=0 && dx+dw<=V.WIDTH && dy+dh<=V.HEIGHT);
+});
+test('foto ausente impede exportação silenciosa de arte sem deck',()=>{
+  assert.throws(()=>V.draw(context(),voucher,{}),/foto do deck/);
 });
 test('não prepara imagens para voucher usado, vencido ou cancelado',()=>{
   for(const status of ['used','expired','cancelled'])assert.throws(()=>V.draw(context(),{...voucher,status},{}));

@@ -45,11 +45,20 @@ Consulta do reservas, imagem e mensagem WhatsApp usam campos permitidos
 explicitamente. Telefone prepara o destino somente ao acionar o link.
 Não há consulta pública, QR público ou link que conceda resgate.
 
-PNG vertical 1080×1440 gerado localmente por Canvas, com emblema e Fraunces
-oficiais; sem API de imagens, serviço pago ou edição manual. Ajusta fonte
-para nomes longos e valores elevados sem omitir o nome. Não gera nova
+PNG vertical 1080×1920 gerado localmente por Canvas, com foto autoral do deck,
+emblema e Fraunces oficiais; sem API de imagens, serviço pago ou edição manual.
+A foto `assets/vouchers/deck.webp` é cópia idêntica de
+`site/assets/img/terraco-por-do-sol-sir-fisher-960.webp`; autoria do proprietário
+registrada no guia de analytics do site. O enquadramento preserva mesas e
+horizonte, sem deformar a foto. Os dados do voucher ficam sobre fundo liso.
+Ajusta fonte para nomes longos e valores elevados sem omitir o nome. Não gera nova
 imagem de voucher indisponível. Imagem já enviada pode circular após
 cancelamento: consulta ao servidor é obrigatória na utilização.
+
+Vouchers já emitidos usam a nova arte ao reabrir seus detalhes; não é preciso
+emitir novamente. A foto é desenhada no mesmo Canvas que gera o arquivo PNG
+baixado/compartilhado, não apenas mostrada na interface. Carregamento da foto
+é obrigatório e erro impede baixar silenciosamente a versão sem imagem.
 
 Compartilhamento nativo usa arquivo previamente preparado. Cancelar essa
 janela não dispara download. Sem suporte ou com recusa do navegador,
@@ -129,9 +138,14 @@ esses fluxos visuais.
 
 ## Referências visuais
 
-- [Belmond Gifts](https://gifts.belmond.com/gbp): convite para uma experiência.
+Estas páginas foram consultadas apenas para observar como cartões-presente
+mostram o benefício e organizam textos curtos. Não há vínculo do Sir Fisher
+com essas empresas nem uso das fotografias ou artes delas no voucher.
+
+- [Belmond Gifts](https://gifts.belmond.com/gbp): apresentação do presente
+  como uma visita ou experiência na casa.
 - [The Dorchester Gifts](https://gifts.dorchestercollection.com/the-dorchester):
-  hierarquia e identificação inequívoca do benefício monetário.
+  destaque visual para o valor ou benefício oferecido.
 - [Alain Ducasse](https://www.alainducasse-dorchester.com/gift-cards/):
   mensagem curta e pessoal.
 

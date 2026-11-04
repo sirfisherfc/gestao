@@ -86,7 +86,7 @@ jobs:
           cp assets/supabase-client.js _site/assets/
           cp assets/voucher-template.js assets/vouchers.css assets/vouchers.js _site/assets/
           mkdir -p _site/assets/vouchers
-          cp assets/vouchers/logo-emblem.png assets/vouchers/fraunces.woff2 _site/assets/vouchers/
+          cp assets/vouchers/logo-emblem.png assets/vouchers/fraunces.woff2 assets/vouchers/deck.webp _site/assets/vouchers/
 
           expected_files="$(printf '%s\n' \
             analise_individual.html \
@@ -107,6 +107,7 @@ jobs:
             assets/voucher-template.js \
             assets/vouchers.css \
             assets/vouchers.js \
+            assets/vouchers/deck.webp \
             assets/vouchers/fraunces.woff2 \
             assets/vouchers/logo-emblem.png \
             caixa.html \

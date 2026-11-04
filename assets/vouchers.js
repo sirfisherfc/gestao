@@ -67,14 +67,16 @@
       if (v.status !== 'available') { message('detail-message','Este voucher não está disponível para compartilhar.'); return; }
       message('detail-message','Preparando imagem…');
       await document.fonts.load('52px VoucherSerif');
-      const logo = new Image(); logo.src = 'assets/vouchers/logo-emblem.png'; await logo.decode();
+      const [logo, deck] = await Promise.all(['assets/vouchers/logo-emblem.png','assets/vouchers/deck.webp'].map(async src => {
+        const img = new Image(); img.src = src; await img.decode(); return img;
+      }));
       if (serial !== detailSerial || !$('detail-dialog').open) return;
-      const canvas = document.createElement('canvas'); canvas.width = 1080; canvas.height = 1440;
+      const canvas = document.createElement('canvas'); canvas.width = V.WIDTH; canvas.height = V.HEIGHT;
       canvas.setAttribute('role','img'); canvas.setAttribute('aria-label',`Voucher de ${V.benefit(v)} para ${v.beneficiary_name}, ${v.code}, válido até ${V.dateBR(v.expires_on)}.`);
-      V.draw(canvas.getContext('2d'),v,logo); preview.append(canvas);
+      V.draw(canvas.getContext('2d'),v,logo,deck); preview.append(canvas);
       const blob = await new Promise((resolve,reject)=>canvas.toBlob(b=>b ? resolve(b) : reject(new Error('Falha ao preparar a imagem.')),'image/png'));
       if (serial !== detailSerial || !$('detail-dialog').open) return;
-      file = new File([blob],`voucher-${v.code}.png`,{type:'image/png'}); $('download-btn').disabled = false; $('share-btn').disabled = false; message('detail-message','Imagem pronta. Telefone, motivo e notas internas não aparecem nela.');
+      file = new File([blob],`voucher-${v.code}.png`,{type:'image/png'}); $('download-btn').disabled = false; $('share-btn').disabled = false; message('detail-message','Imagem com a foto do deck pronta. Telefone, motivo e notas internas não aparecem nela.');
     } catch (error) { if (serial === detailSerial) message('detail-message',error.message,true); }
   }
   function download() {

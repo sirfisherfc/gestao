@@ -231,15 +231,15 @@ def workflow_expected_files() -> set[str]:
     if not match:
         fail("Allowlist expected_files não encontrada no workflow de Pages")
     return set(
-        re.findall(r"[A-Za-z0-9_./-]+\.(?:html|js|css|png|woff2)", match.group(1))
+        re.findall(r"[A-Za-z0-9_./-]+\.(?:html|js|css|png|webp|woff2)", match.group(1))
     )
 
 
 def check_artifact(assets: set[str]) -> int:
     expected = workflow_expected_files()
     required = {page.name for page in ROOT.glob("*.html")} | assets
-    # Official local font and mark used by the deterministic voucher PNG template.
-    required |= {'assets/vouchers/fraunces.woff2', 'assets/vouchers/logo-emblem.png'}
+    # Official local assets used by the deterministic voucher PNG template.
+    required |= {'assets/vouchers/fraunces.woff2', 'assets/vouchers/logo-emblem.png', 'assets/vouchers/deck.webp'}
     if expected != required:
         missing = sorted(required - expected)
         extra = sorted(expected - required)
