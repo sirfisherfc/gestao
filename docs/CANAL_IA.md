@@ -77,3 +77,23 @@ Oito testes, catálogo, hashes e CSP passaram; CI do site inclui os contratos.
 Sem HTML/JS público, migration, reserva, campanha, verba, segredo ou mudança
 de consentimento. Relatórios PERFIL_QR_CAMPANHAS e PERFIL_QR_IMPLANTACAO
 atualizados. Recibos agregados em tmp/revisao-2026-11-03/, ignorados.
+
+## 2026-11-04 · Codex — Diagnóstico do saldo BB com Rende Fácil
+
+Conferidos os dois CSVs de conta corrente de outubro indicados pelo usuário:
+arquivos idênticos, leitura validada sem rejeições e todos os movimentos já
+presentes em raw_bb pelas chaves do importador. O fechamento do arquivo
+reconcilia; há transferências para a aplicação automática BB Rende Fácil.
+
+Consultas exclusivamente pela rota Management API query/read-only do portal
+confirmaram conta BB ativa, saldo calculado por movimentos zerado e exclusão
+de contas zeradas na view painel_saldo_por_conta. O aplicativo bancário da
+imagem combina conta corrente e Rende Fácil; o CSV não informa o saldo da
+aplicação nem os rendimentos. Não inferir o saldo combinado apenas pelos
+débitos de aplicação. Falta o extrato Rende Fácil do período para reconciliar
+e implementar sua inclusão no caixa com precisão.
+
+Documentada a limitação em scripts/importacao/README.md. Nenhuma importação,
+escrita no banco, migration ou alteração do painel nesta entrega. CSVs e
+valores financeiros não foram incluídos na documentação. Validação: parser
+real em leitura, comparação de hashes, consultas agregadas e git diff --check.

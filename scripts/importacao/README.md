@@ -26,6 +26,28 @@
 > terá após incorporar somente as linhas realmente novas. Essa segunda prova
 > vale para períodos posteriores ao saldo-base cadastrado no sistema.
 
+## Saldo BB e aplicação automática Rende Fácil
+
+O CSV de conta corrente do BB pode encerrar com `S A L D O` zerado mesmo
+quando o aplicativo mostra dinheiro disponível em **Conta-corrente + Rende
+Fácil**. Os lançamentos `BB Rende Fácil` transferem recursos entre a conta
+corrente e a aplicação automática; o saldo combinado do aplicativo tem
+escopo diferente do saldo final desse CSV.
+
+O adaptador de saldo `bb` soma os movimentos da conta corrente. Ele não
+mantém o saldo da aplicação nem apura seus rendimentos. Contas com saldo
+zero não aparecem em `painel_saldo_por_conta`. Reimportar o mesmo arquivo
+não resolve essa diferença de cobertura.
+
+Para incluir a aplicação no caixa, obter seu extrato e reconciliar saldo
+inicial, aplicações, resgates, rendimentos e tributos no mesmo período.
+Preservar os movimentos originais da conta corrente; não remover os débitos
+de aplicação nem tratar o valor aplicado como despesa operacional. Somar
+somente aplicações não comprova o saldo disponível, pois pode haver saldo
+anterior, resgates e rendimentos ausentes no CSV.
+
+Referência: [BB Rende Fácil PJ](https://www.bb.com.br/site/investimentos/rende-facil-pj/).
+
 ## Preparação
 
 Na raiz do repositório, instale as versões registradas:
