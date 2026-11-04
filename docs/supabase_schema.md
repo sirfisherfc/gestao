@@ -1,5 +1,30 @@
 # Supabase Schema - Projeto Sir Fisher App
 
+## BB Rende Fácil no caixa — 04/11/2026
+
+A migration `20261104180315_bb_rende_facil_no_caixa.sql` adiciona o adaptador
+`bb_rende_facil` à constraint de `fonte_financeira` e à RPC administrativa
+`admin_salvar_fonte_financeira_com_vigencia`. A RPC mantém o gate de admin e
+EXECUTE somente para `authenticated`; a view de movimentos permanece privada.
+
+`private.movimento_saldo_conta` deriva a contrapartida com sinal inverso dos
+movimentos cujo lançamento é exatamente `BB Rende Fácil`, vinculado à conta
+da fonte BB. A nova conta/fonte usa saldo inicial zero em 30/09/2026 e início
+em 01/10/2026, conforme confirmação do proprietário. Aplicações aumentam o
+saldo e resgates o reduzem; vigência e vínculo evitam incluir outros períodos,
+contas ou fundos. O seed não sobrescreve configurações existentes e só cria
+a conta quando há movimentos desse produto na instalação.
+
+O snapshot `private.mv_saldo_conta_diario` e seus consumidores dinâmicos
+incluem a aplicação no saldo total, sem alterar o saldo da conta corrente
+nem `raw_bb`. `public.fato_financeiro` reconhece o tipo como transferência
+na classificação automática, preservando a precedência de ajustes manuais.
+A migration bloqueia saldo negativo e ajustes que ainda incluam o produto
+na DRE. O fluxo de implantação atualiza os demais snapshots após a mudança.
+
+Rendimentos e tributos ausentes no extrato de conta corrente não são
+estimados. O saldo reconstruído pode diferir do saldo líquido resgatável.
+
 ## Visão geral
 Este documento resume o schema público do Supabase usado pelo painel Sir Fisher
 App. O conteúdo acompanha os contratos do front-end e as migrations versionadas

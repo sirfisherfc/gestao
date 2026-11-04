@@ -97,3 +97,33 @@ Documentada a limitação em scripts/importacao/README.md. Nenhuma importação,
 escrita no banco, migration ou alteração do painel nesta entrega. CSVs e
 valores financeiros não foram incluídos na documentação. Validação: parser
 real em leitura, comparação de hashes, consultas agregadas e git diff --check.
+
+## 2026-11-04 · Codex — Rende Fácil incluído no caixa
+
+Complementa o diagnóstico anterior: o proprietário confirmou saldo inicial
+zero e início do produto em outubro, e pediu aplicar a correção. Essa
+confirmação permite reconstruir aplicações menos resgates sem exigir outro
+extrato para recuperar o dinheiro transferido. Rendimentos/tributos ausentes
+continuam sem estimativa e podem explicar diferença para o saldo do banco.
+
+Migration 20261104180315 aplicada e registrada no portal. Conta/fonte separada
+bb_rende_facil deriva as contrapartidas assinadas de raw_bb, com base zero em
+30/09 e vigência em 01/10/2026. Respeita conta de origem e vigência; mantém
+saldo da conta corrente, hashes e dados brutos intactos. Não inclui outros
+fundos. Nova opção no editor de parâmetros e whitelist da RPC administrativa.
+
+A classificação automática do tipo BB Rende Fácil passa a transferência
+entre contas, preservando ajustes manuais; conferida ausência do produto na
+DRE. A migration protege saldos preexistentes, configuração idempotente e
+saldo não negativo. Nenhuma tabela de reservas ou autenticação foi alterada.
+
+Validação: dez verificações SQL com fixtures sintéticas em schemas isolados,
+rollback obrigatório e schemas removidos; aplicação/resgate, filtro por conta
+e produto, base zero, DRE, grants, reexecução e rejeição de saldo negativo.
+Ensaio completo sobre a base real com rollback passou antes da aplicação.
+Refresh resiliente atualizou dez objetos sem falhas; leitura posterior pela
+Management API confirmou migration, conta no painel e exclusão da DRE.
+Contratos financeiros, acessos, catálogo de migrations e quality gate local
+passaram; Node indisponível localmente, verificação JS pelo CI. Acrescentada
+execução SQL em PostgreSQL descartável ao workflow Quality. Documentação de
+schema e importação atualizada; valores e CSVs não versionados.

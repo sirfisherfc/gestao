@@ -34,17 +34,25 @@ Fácil**. Os lançamentos `BB Rende Fácil` transferem recursos entre a conta
 corrente e a aplicação automática; o saldo combinado do aplicativo tem
 escopo diferente do saldo final desse CSV.
 
-O adaptador de saldo `bb` soma os movimentos da conta corrente. Ele não
-mantém o saldo da aplicação nem apura seus rendimentos. Contas com saldo
-zero não aparecem em `painel_saldo_por_conta`. Reimportar o mesmo arquivo
-não resolve essa diferença de cobertura.
+O adaptador `bb` mantém o saldo da conta corrente. Desde a migration
+`20261104180315`, o adaptador `bb_rende_facil` usa os mesmos registros de
+`raw_bb` para formar uma conta separada, **BB Rende Fácil**: débito na conta
+corrente aumenta a aplicação; crédito de resgate reduz a aplicação. Ambos
+participam do total do caixa. Contas zeradas continuam ocultas na lista.
+O reconhecimento usa somente o tipo exato `BB Rende Fácil`, o vínculo da
+conta BB de origem e a vigência configurada; não inclui outros fundos.
 
-Para incluir a aplicação no caixa, obter seu extrato e reconciliar saldo
-inicial, aplicações, resgates, rendimentos e tributos no mesmo período.
-Preservar os movimentos originais da conta corrente; não remover os débitos
-de aplicação nem tratar o valor aplicado como despesa operacional. Somar
-somente aplicações não comprova o saldo disponível, pois pode haver saldo
-anterior, resgates e rendimentos ausentes no CSV.
+O proprietário confirmou em 04/11/2026 que a aplicação começou em outubro
+com saldo anterior zero. A configuração inicial é saldo zero em 30/09/2026
+e fonte vigente desde 01/10/2026. Os campos permanecem editáveis nos
+parâmetros, inclusive para reconciliar posteriormente outro saldo-base.
+
+O valor é reconstruído por aplicações menos resgates. Rendimentos e tributos
+ausentes no CSV não são estimados; o resultado pode diferir do saldo líquido
+resgatável do aplicativo. Para conferir essa diferença, usar o extrato da
+aplicação. Preservar o CSV e seus movimentos: a contrapartida é derivada,
+sem duplicar a importação. A classificação automática reconhece o produto
+como transferência entre contas, fora da DRE, preservando ajustes manuais.
 
 Referência: [BB Rende Fácil PJ](https://www.bb.com.br/site/investimentos/rende-facil-pj/).
 

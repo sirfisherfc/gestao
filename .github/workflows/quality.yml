@@ -236,3 +236,14 @@ jobs:
         run: |
           psql -h 127.0.0.1 -U postgres -d postgres -c 'create database sirfisher_ig_support_test'
           python scripts/ci/test_instagram_support_sql.py
+
+      - name: BB Rende Facil applications, withdrawals and idempotency in disposable PostgreSQL
+        env:
+          PGHOST: 127.0.0.1
+          PGPORT: '5432'
+          PGDATABASE: sirfisher_rende_facil_test
+          PGUSER: postgres
+        run: |
+          pip install psycopg2-binary
+          psql -h 127.0.0.1 -U postgres -d postgres -c 'create database sirfisher_rende_facil_test'
+          python scripts/ci/test_bb_rende_facil_sql.py
