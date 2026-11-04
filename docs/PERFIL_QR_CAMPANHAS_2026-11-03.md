@@ -3,6 +3,12 @@
 Consulta em 03/11/2026, por volta de 19h21, America/Fortaleza. GA4
 `353205396`, acesso somente de leitura.
 
+**Atualização das 20h58:** os públicos QR e a regra de evento foram aplicados
+depois desta auditoria. As três consultas demográficas do novo público
+passaram a responder sem erro. Estado atual, revisão de 17/11 e pendência
+do Google Ads em [implantação do perfil QR](PERFIL_QR_IMPLANTACAO_2026-11-03.md).
+As seções abaixo preservam o resultado da leitura inicial das 19h21.
+
 ## Resultado
 
 Conseguimos descrever o comportamento dos acessos identificados como QR.

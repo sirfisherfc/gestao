@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 Livre. Codex concluiu a releitura do perfil QR: comportamento agregado desde agosto, cobertura demográfica parcial e públicos de reserva conferidos. Relatório PERFIL_QR_CAMPANHAS_2026-11-03.md. Sem mudança de produto, campanha ou orçamento.
+> **🚦 Status atual:** 🟢 Livre. Públicos QR e regra qr_visit aplicados e relidos. Consultas reais de idade/gênero/interesses por público de evento sem HTTP 400; linhas ainda sujeitas a volume e privacidade. Revisão local 17/11 às 9h registrada e executável testado. Google Ads: conferir/importar conversão segue sem acesso autenticado de administração. Código site 8ae5047; detalhes em PERFIL_QR_IMPLANTACAO_2026-11-03.md.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -17,26 +17,6 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
 **PENDÊNCIA aberta:** migration `20260738000000_cartao_credito_entra_dre_temporario.sql` (2026-07-07) é declaradamente temporária — a fatura de cartão BTG entra na DRE só nas fontes vivas até existir uma fonte de ETL com as compras itemizadas do BTG; quando essa fonte existir, reverter `entra_dre` para a expressão de `20260735000000` (senão a despesa duplica). Ver detalhes no `git log`/na própria migration.
 
 **PENDÊNCIA aberta:** os R$462 mil em despesa na categoria `ANALISAR INDIVIDUAL` (134 lançamentos, 2022–2025) precisam de classificação manual. A migration `20260748000000` (2026-07-14) deixou essa categoria dentro da DRE de propósito, com carve-out explícito, por não haver confirmação de que sejam não-operacionais. Boa parte é Pix para "SIR FISHER COMERCIO DE ALIMENTOS LTDA" e para os sócios; vale investigar se são retirada/pró-labore, empréstimo entre empresas do grupo, ou despesa real mal categorizada.
-
-## 2026-11-03 · Codex — Tarefas do Analytics
-
-Proprietário mostrou cinco tarefas. Consulta analytics.readonly confirmou
-propriedade 353205396, vínculo Ads 1493778788, seis eventos principais e dois
-públicos personalizados de 30 dias. reservation_confirmed e visit_realized
-em ONCE_PER_EVENT. UserProvidedDataSettings sem ativação; identidade BLENDED
-não comprova User-ID. Código público sem User-ID; login interno é separado.
-
-Ação Ads de reserva é a prioridade para campanhas. Públicos já criados;
-usar em campanhas é opcional. User-ID, UPD e importação de custos externos
-ficaram como recursos adicionais, sem ativação para completar contador.
-Discovery público não expõe progresso do assistente nem substitui ações Ads
-pelo recurso legado conversionEvents. Interface retornou host indisponível.
-Conferir ações existentes antes de criar/importar para evitar duplicidade.
-
-Atualizados relatório final, este canal e ANALYTICS_TAREFAS_2026-11-03.md,
-com fontes e limites. Sem mudança de produto, migration, dado pessoal,
-custo importado, anúncio ou orçamento. Bases f12c854 / 078652a / 4d0d80e.
-Recibo em tmp/revisao-2026-11-03/analytics-tasks-read.json, ignorado pelo Git.
 
 ## 2026-11-03 · Claude Code — Grupo Garçom Sênior no Teknisa
 
@@ -66,3 +46,34 @@ Validação: consultas reais e metadados; recibos agregados em tmp ignorado.
 Sem migration, alteração de consentimento, dados pessoais, anúncio ou verba.
 Bases 571643b / 078652a / 4d0d80e. Documentação validada; publicação pelo
 fluxo Quality/Pages. Nenhuma alteração de produto nesta entrega.
+
+## 2026-11-03 · Codex — Público QR aplicado e consulta da API corrigida
+
+Usuário autorizou aplicar sugestões e investigar API. Site 8ae5047 acrescenta
+perfil_qr.py, oito testes de contratos, tarefa única local e guia. Prévia por
+padrão; --aplicar cria apenas recursos fixos ausentes na propriedade 353205396,
+preservando definições divergentes. MCP permanece analytics.readonly.
+
+Criados/relidos: público de origem 16266718717, evento derivado qr_visit pela
+regra 16266719936 no fluxo 15405248385, e público de evento 16266526911.
+Origem/mídia de sessão e públicos baseados nela herdam incompatibilidade com
+demografia. Público baseado em evento respondeu HTTP 200 nas três consultas
+reais; rows vazias e subjectToThresholding=true preservados. Não trocar por
+todos os visitantes nem prometer demografia retroativa/completa. Regra exige
+page_view e query QR em URL pública; não copia parâmetros não internos.
+
+reservation_confirmed/visit_realized ONCE_PER_EVENT; 02–03/11 parcial retornou
+6/4 eventos, não uma auditoria individual. Ads 1493778788 vinculado. A ação Ads
+continua pendente: host do navegador/nativo indisponível e sem credencial Ads
+ou conector conectado de administração de conversões. Não duplicar ações.
+
+Tarefa SirFisher-RevisaoQR-20261117 registrada para 17/11 9h Fortaleza, uma vez,
+com StartWhenAvailable e sessão interativa. Exige PC ligado e internet;
+não foi criada tarefa em outro PC nem envio de mensagens. Executável pythonw
+testado com datas já disponíveis, saída zero e recibo criado. Saída futura
+em gestao/tmp/perfil-qr-2026-11-17/perfil-qr.json, ignorado.
+
+Oito testes, catálogo, hashes e CSP passaram; CI do site inclui os contratos.
+Sem HTML/JS público, migration, reserva, campanha, verba, segredo ou mudança
+de consentimento. Relatórios PERFIL_QR_CAMPANHAS e PERFIL_QR_IMPLANTACAO
+atualizados. Recibos agregados em tmp/revisao-2026-11-03/, ignorados.
