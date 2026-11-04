@@ -1,5 +1,22 @@
 # Supabase Schema - Projeto Sir Fisher App
 
+## Vouchers de benefício — 04/11/2026
+
+Migration `20261104200024_benefit_vouchers.sql`: três tabelas privadas com RLS
+(`benefit_vouchers`, `benefit_voucher_events`, `benefit_voucher_rate_limits`),
+helpers privados e seis RPCs públicas `benefit_voucher_*` com EXECUTE somente
+para authenticated e checagem dos perfis existentes em cada operação.
+Nenhum acesso direto de anon/authenticated/service_role às tabelas.
+Emissão/cancelamento: admin/socio da gestão e permissão de vouchers.html.
+Consulta/resgate: equipe ativa do reservas (admin/operator); gestão também
+pode consultar, sem ganhar permissão de resgate por isso. Código aleatório,
+motivo interno obrigatório, idempotência, limite de consultas e utilização
+atômica com histórico. Não altera dados financeiros, reservas ou Réveillon.
+Regras, contratos, implantação e testes em [VOUCHERS.md](VOUCHERS.md).
+Complemento `20261104202352_benefit_voucher_private_rpc.sql`: implementações
+privilegiadas privadas e wrappers públicos INVOKER, sem mudar contratos ou
+ampliar acesso às tabelas. As duas versões foram aplicadas e verificadas.
+
 ## BB Rende Fácil no caixa — 04/11/2026
 
 A migration `20261104180315_bb_rende_facil_no_caixa.sql` adiciona o adaptador

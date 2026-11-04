@@ -10,6 +10,7 @@
     'parametros_gerais.html'
   ]);
   const CONFIGURABLE_PAGES = new Set([
+    'vouchers.html',
     'marketing.html',
     'index.html',
     'vendas.html',

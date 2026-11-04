@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 Livre. Públicos QR e regra qr_visit aplicados e relidos. Consultas reais de idade/gênero/interesses por público de evento sem HTTP 400; linhas ainda sujeitas a volume e privacidade. Revisão local 17/11 às 9h registrada e executável testado. Google Ads: conferir/importar conversão segue sem acesso autenticado de administração. Código site 8ae5047; detalhes em PERFIL_QR_IMPLANTACAO_2026-11-03.md.
+> **🚦 Status atual:** 🟢 Livre. Vouchers validados; migrations 20261104200024/20261104202352 aplicadas. Reservas publicado d553098; gestão segue publicação GitHub Pages pelo commit desta entrega. Browser integrado indisponível; sem validação interativa em celular/WhatsApp.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -17,66 +17,6 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
 **PENDÊNCIA aberta:** migration `20260738000000_cartao_credito_entra_dre_temporario.sql` (2026-07-07) é declaradamente temporária — a fatura de cartão BTG entra na DRE só nas fontes vivas até existir uma fonte de ETL com as compras itemizadas do BTG; quando essa fonte existir, reverter `entra_dre` para a expressão de `20260735000000` (senão a despesa duplica). Ver detalhes no `git log`/na própria migration.
 
 **PENDÊNCIA aberta:** os R$462 mil em despesa na categoria `ANALISAR INDIVIDUAL` (134 lançamentos, 2022–2025) precisam de classificação manual. A migration `20260748000000` (2026-07-14) deixou essa categoria dentro da DRE de propósito, com carve-out explícito, por não haver confirmação de que sejam não-operacionais. Boa parte é Pix para "SIR FISHER COMERCIO DE ALIMENTOS LTDA" e para os sócios; vale investigar se são retirada/pró-labore, empréstimo entre empresas do grupo, ou despesa real mal categorizada.
-
-## 2026-11-03 · Claude Code — Grupo Garçom Sênior no Teknisa
-
-Criado `05 — GARCOM SENIOR` (cópia do 04, com retirar taxa de serviço,
-desconto, cancelar item e suprimento liberados; sangria bloqueada), supervisionado pelo 02. Um garçom foi
-movido do 04 para o 05; releitura sem divergências. Detalhes e teste
-pendente no POS em `docs/TEKNISA_ACESSOS_OPERACAO.md`. Feito pela interface;
-a ferramenta `teknisa.mjs` não tem comando para grupos (Node ausente neste PC).
-
-## 2026-11-03 · Codex — Perfil QR e públicos para campanhas
-
-Releitura GA4 somente de leitura: 01/08 a 03/11 parcial, hosts públicos,
-origem/mídia/campanha com marcação QR. Total sem dimensões: 1.494 sessões,
-988 usuários técnicos, 1.012 sessões engajadas e 2.814 visualizações. Celular
-aproximadamente 99,7%, português 92,3%. Não somar linhas/hosts/meses para
-deduplicar. Cobertura não equivale a todas as leituras físicas ou clientes.
-
-Signals habilitado. Idade/gênero começaram a aparecer em parte da propriedade
-desde 02/11, com unknown predominante e limites de privacidade. API recusou
-essas dimensões combinadas com o filtro QR; não substituir pelo total do site.
-Renda, residência e cliente de maior valor seguem sem evidência suficiente.
-Inventário: All Users, Purchasers e dois públicos personalizados de reserva;
-nenhum específico de QR. Uso/tamanho elegível em campanha não confirmado.
-
-Criado PERFIL_QR_CAMPANHAS_2026-11-03.md e link no relatório de 02/11.
-Validação: consultas reais e metadados; recibos agregados em tmp ignorado.
-Sem migration, alteração de consentimento, dados pessoais, anúncio ou verba.
-Bases 571643b / 078652a / 4d0d80e. Documentação validada; publicação pelo
-fluxo Quality/Pages. Nenhuma alteração de produto nesta entrega.
-
-## 2026-11-03 · Codex — Público QR aplicado e consulta da API corrigida
-
-Usuário autorizou aplicar sugestões e investigar API. Site 8ae5047 acrescenta
-perfil_qr.py, oito testes de contratos, tarefa única local e guia. Prévia por
-padrão; --aplicar cria apenas recursos fixos ausentes na propriedade 353205396,
-preservando definições divergentes. MCP permanece analytics.readonly.
-
-Criados/relidos: público de origem 16266718717, evento derivado qr_visit pela
-regra 16266719936 no fluxo 15405248385, e público de evento 16266526911.
-Origem/mídia de sessão e públicos baseados nela herdam incompatibilidade com
-demografia. Público baseado em evento respondeu HTTP 200 nas três consultas
-reais; rows vazias e subjectToThresholding=true preservados. Não trocar por
-todos os visitantes nem prometer demografia retroativa/completa. Regra exige
-page_view e query QR em URL pública; não copia parâmetros não internos.
-
-reservation_confirmed/visit_realized ONCE_PER_EVENT; 02–03/11 parcial retornou
-6/4 eventos, não uma auditoria individual. Ads 1493778788 vinculado. A ação Ads
-continua pendente: host do navegador/nativo indisponível e sem credencial Ads
-ou conector conectado de administração de conversões. Não duplicar ações.
-
-Tarefa SirFisher-RevisaoQR-20261117 registrada para 17/11 9h Fortaleza, uma vez,
-com StartWhenAvailable e sessão interativa. Exige PC ligado e internet;
-não foi criada tarefa em outro PC nem envio de mensagens. Executável pythonw
-testado com datas já disponíveis, saída zero e recibo criado. Saída futura
-em gestao/tmp/perfil-qr-2026-11-17/perfil-qr.json, ignorado.
-
-Oito testes, catálogo, hashes e CSP passaram; CI do site inclui os contratos.
-Sem HTML/JS público, migration, reserva, campanha, verba, segredo ou mudança
-de consentimento. Relatórios PERFIL_QR_CAMPANHAS e PERFIL_QR_IMPLANTACAO
-atualizados. Recibos agregados em tmp/revisao-2026-11-03/, ignorados.
 
 ## 2026-11-04 · Codex — Diagnóstico do saldo BB com Rende Fácil
 
@@ -127,3 +67,29 @@ Contratos financeiros, acessos, catálogo de migrations e quality gate local
 passaram; Node indisponível localmente, verificação JS pelo CI. Acrescentada
 execução SQL em PostgreSQL descartável ao workflow Quality. Documentação de
 schema e importação atualizada; valores e CSVs não versionados.
+
+## 2026-11-04 · Codex — Vouchers de benefício nos dois portais
+
+Gestão: rotina, emissão idempotente, oito motivos internos + Outro livre,
+indicadores separados de reais/percentuais, filtros, detalhes e cancelamento.
+PNG por template oficial; compartilhamento nativo ou download + WhatsApp
+com anexo manual. Regras e arquivos em docs/VOUCHERS.md. Reserva/Réveillon,
+POS e financeiro preservados. Reservas d553098 publicado: build e hashes
+HTTP conferidos; consulta, confirmação e erro de rede sem reenviar resgate.
+
+Migrations 20261104200024 e 20261104202352 aplicadas/registradas e relidas.
+Três tabelas privadas com RLS; implementações privilegiadas privadas e
+wrappers públicos INVOKER. Anon negado inclusive por HTTP. Perfis existentes,
+código de 60 bits, rate limit e lock entre uso/cancelamento. Estado e evento
+na mesma transação. Retry de emissão com dados diferentes avisa o conflito.
+
+Testes: SQL isolado com limpeza, colisões/retries, motivos/perfis/validade,
+grants e três disputas concorrentes. Perfis reais com rollback de fixtures.
+14 testes gestão e 20 reservas passaram; cinco PNGs renderizados e
+inspecionados, nomes de 160 caracteres e valores altos. Quality, acessos,
+frontend, financeiro e catálogo passaram. Advisor sem WARN/ERROR de vouchers;
+só INFO de RLS privado sem policy. CI e documentação incluídos.
+
+Pendência real: Browser integrado indisponível. Não afirmar login interativo,
+layout mobile ou envio real WhatsApp verificados; testes de estado e
+compartilhamento simulado não substituem essa conferência.

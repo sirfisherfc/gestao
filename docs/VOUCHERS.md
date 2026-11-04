@@ -1,0 +1,136 @@
+# Vouchers de benefício Sir Fisher
+
+Emissão: [Gestão / Vouchers](https://admin.sirfisher.com.br/vouchers.html),
+também em Rotinas. Consulta e utilização:
+[Reservas / Vouchers](https://reservas.sirfisher.com.br/admin/vouchers.html),
+no menu e dashboard. Não são reservas de Réveillon e não geram lançamentos
+financeiros ou operações no Teknisa.
+
+## Regras confirmadas em 04/11/2026
+
+- Uso único. Saldo não utilizado perdido. Não acumula com promoções nem
+  com outro voucher na mesma conta.
+- Valor fixo em reais ou percentual positivo até 100%, até duas casas
+  decimais. Percentual sobre a conta inteira, taxa de serviço opcional,
+  sem teto em reais. Aplicação do benefício e não cumulatividade são
+  conferidas pela equipe no caixa; não há integração ao POS neste pedido.
+- Uma unidade: Sir Fisher. Sem exclusões de dias/horários cadastradas.
+- Validade sugerida de 30 dias, editável antes de emitir; aceita o mesmo
+  dia, nunca data passada. Data inclusiva até o fim do dia em
+  `America/Fortaleza`. A imagem exibe só a data. Não há prazo máximo de
+  negócio imposto além do formato de data aceito pela interface.
+- Motivo obrigatório: cliente insatisfeito, amigo, representação
+  comercial/fornecedor, modelo em produção de fotos, aniversário de
+  funcionário, fidelidade, ação promocional/sorteio, parceria com
+  influenciador ou outro. Outro exige descrição livre; demais permitem
+  complemento opcional. Não há motivo pré-selecionado.
+- Nome, telefone, tipo/valor e validade obrigatórios. Nota interna opcional.
+  Após emitir, os dados são imutáveis: cancelar com motivo e emitir
+  novamente preserva o histórico.
+
+## Acesso, fluxo e privacidade
+
+Sócio ou administrador ativo da gestão com permissão da página pode
+emitir, listar, filtrar por situação/motivo, abrir detalhes e cancelar.
+Gerente da gestão não emite mesmo se liberarem a página na matriz.
+Resgate exige cadastro ativo de `app_users` no reservas com papel
+existente `admin` ou `operator`; ser sócio da gestão sozinho não concede
+resgate. O servidor nunca aceita ator, instante ou situação do cliente.
+
+Gerente consulta o código e confirma explicitamente o uso ao aplicar o
+benefício na conta. Erro de rede dispara somente consulta; bloqueia nova
+tentativa até reconsulta manual. Usado, vencido ou cancelado não é resgatável.
+Telefone, motivo/complemento e nota interna ficam apenas na gestão.
+Consulta do reservas, imagem e mensagem WhatsApp usam campos permitidos
+explicitamente. Telefone prepara o destino somente ao acionar o link.
+Não há consulta pública, QR público ou link que conceda resgate.
+
+PNG vertical 1080×1440 gerado localmente por Canvas, com emblema e Fraunces
+oficiais; sem API de imagens, serviço pago ou edição manual. Ajusta fonte
+para nomes longos e valores elevados sem omitir o nome. Não gera nova
+imagem de voucher indisponível. Imagem já enviada pode circular após
+cancelamento: consulta ao servidor é obrigatória na utilização.
+
+Compartilhamento nativo usa arquivo previamente preparado. Cancelar essa
+janela não dispara download. Sem suporte ou com recusa do navegador,
+oferece download e link WhatsApp com texto: anexar manualmente o PNG de
+Downloads. O link não envia arquivo nem mensagem automaticamente.
+
+## Banco e implantação
+
+Migration canônica `supabase/migrations/20261104200024_benefit_vouchers.sql`.
+Complemento `20261104202352_benefit_voucher_private_rpc.sql`: implementações
+SECURITY DEFINER ficam no schema privado, wrappers públicos são INVOKER.
+Tabelas novas `private.benefit_vouchers`, `private.benefit_voucher_events`
+e `private.benefit_voucher_rate_limits`, com RLS e privilégios diretos
+revogados de PUBLIC, anon, authenticated e service_role. Não há Edge
+Function consumidora. As seis RPCs públicas `benefit_voucher_*` (issue,
+list, detail, cancel, lookup, redeem) recebem só EXECUTE para authenticated,
+com autorização interna e search_path fixo. Helpers privados sem EXECUTE
+externo, exceto as seis implementações privadas correspondentes às RPCs,
+que recebem EXECUTE de authenticated e repetem todos os gates de perfil.
+O schema private já tem USAGE para authenticated; nenhum grant de schema
+foi ampliado. Não altera perfis ou tabelas dos outros sistemas.
+
+Listagem separa quantidade de percentuais do total disponível em reais,
+com paginação. Emissão, utilização e cancelamento registram identidade,
+nome no momento da ação e evento. Motivos de emissão/cancelamento são internos.
+
+Códigos: SF + 12 caracteres Crockford (60 bits aleatórios), índice único
+e até cinco tentativas por colisão. Normalização tolera espaços, traços,
+caixa e aliases O→0/I/L→1. Consulta autenticada: 30 tentativas/minuto por
+usuário; emissão 10, listagem 60, resgate 20. Contador atômico retorna
+recusa estruturada, persistindo consultas inválidas. `request_id` único
+permite repetir emissão cuja resposta se perdeu sem duplicar voucher.
+
+Resgate e cancelamento disputam o mesmo FOR UPDATE. Validade conferida
+pelo relógio capturado após lock; esse mesmo instante é registrado no uso.
+Estado/evento na mesma transação e índice único adicional para evento de uso.
+
+`python scripts/implantacao/aplicar_benefit_vouchers.py` ensaia a migration
+com rollback e verifica gates dos perfis reais sem exibir identidades;
+`--aplicar` aplica só essas duas versões e registra histórico na mesma transação.
+Conexão valida portal. Não usar MCP somente leitura para escrever.
+Publicar páginas depois do banco.
+
+As duas migrations foram aplicadas e relidas no portal em 04/11/2026.
+A verificação com perfis reais passou, com rollback das fixtures.
+Security Advisor: nenhum WARN/ERROR dos objetos de vouchers após o
+complemento; três INFO de RLS sem policy são intencionais, pois tabelas
+privadas negam acesso direto e só as implementações autorizadas operam nelas.
+Consulta HTTP anônima à RPC foi negada com 401/42501.
+
+## Verificação
+
+- `node --test scripts/ci/test_benefit_vouchers.mjs`: valores, datas,
+  nomes, privacidade da imagem/texto, compartilhamento/fallback.
+- `python scripts/ci/test_benefit_vouchers_sql.py`: PostgreSQL descartável
+  local com PGDATABASE=sirfisher_vouchers_test e PGHOST local.
+- `--portal-rollback`: migration reexecutada em schemas isolados; perfis
+  sintéticos, grants, filtros, motivos, validade, repetição, NaN/Infinity,
+  rate limit e colisões. Rollback obrigatório; nenhum registro real tocado.
+- `--portal-concurrency`: só schemas sintéticos próprios commitados para
+  três disputas entre conexões: dois resgates, resgate versus cancelamento
+  e emissão idempotente. Limpeza exata em finally e ausência conferida.
+- `node scripts/ci/render_benefit_vouchers.mjs <módulo-canvas> <pasta>`:
+  QA opcional com cinco PNGs sintéticos. @napi-rs/canvas é ferramenta local,
+  não dependência do produto/deploy.
+- Reservas: `node --test tools/benefit_vouchers_test.mjs` cobre a sessão e
+  erros de rede antes/depois da gravação.
+
+PNGs renderizados e inspecionados. Layout/responsividade da página,
+autenticação interativa e WhatsApp real não foram exercitados: o Browser
+integrado retornou indisponível. Testes de funções/estado não comprovam
+esses fluxos visuais.
+
+## Referências visuais
+
+- [Belmond Gifts](https://gifts.belmond.com/gbp): convite para uma experiência.
+- [The Dorchester Gifts](https://gifts.dorchestercollection.com/the-dorchester):
+  hierarquia e identificação inequívoca do benefício monetário.
+- [Alain Ducasse](https://www.alainducasse-dorchester.com/gift-cards/):
+  mensagem curta e pessoal.
+
+Sem importar regras ou copiar artes/fotos. A imagem fornecida mostra o
+processo anterior; por orientação do usuário não determina a composição.
+Paleta e fonte vêm do site oficial Sir Fisher.

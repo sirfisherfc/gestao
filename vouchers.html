@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://*.supabase.co wss://*.supabase.co; img-src 'self' data: blob:; object-src 'none'; base-uri 'none'; form-action 'self'; upgrade-insecure-requests">
+<title>Painel · Vouchers</title>
+<link href="assets/dashboard-common.css" rel="stylesheet">
+<link href="assets/accessibility.css" rel="stylesheet">
+<link href="assets/vouchers.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2" integrity="sha384-JWEyvHh+lRf0sN/WWY+QTQwX+CyWqmNg4tkc8GQzAMEtR2wGNrCJlvnu1lHD1kDm" crossorigin="anonymous"></script>
+<script src="assets/supabase-client.js"></script><script src="assets/app-config.js"></script><script src="assets/auth.js"></script><script src="assets/accessibility.js"></script>
+<script src="assets/voucher-template.js"></script>
+<script src="assets/safe-dom.js"></script>
+</head>
+<body>
+<div class="app"><header><div class="head-row"><div class="brand"><div class="mark" aria-hidden="true">P</div><div><h1 data-app-nome>Painel</h1><span data-app-subtitulo>Painel de Gestão</span></div></div><div class="head-meta"><div class="unidade">Vouchers</div></div></div><nav class="tabs"><a href="./">Visão Geral</a><a href="rotinas.html" class="active">Rotinas</a></nav></header>
+<main id="main"><div class="loading">Carregando vouchers…</div></main></div>
+<dialog id="issue-dialog" class="voucher-dialog" aria-labelledby="issue-title"><h2 id="issue-title">Um presente Sir Fisher</h2><p class="voucher-note">A imagem é preparada automaticamente após a emissão. Os dados internos ficam apenas na gestão.</p>
+<form id="issue-form" class="voucher-form">
+<label class="full">Nome do beneficiário<input name="beneficiary" autocomplete="off" required maxlength="160"></label>
+<label>Telefone com DDD<input name="phone" type="tel" autocomplete="off" required maxlength="22" placeholder="DDD + número"></label>
+<label>Tipo de benefício<select name="type" required><option value="fixed">Valor em reais</option><option value="percent">Desconto percentual</option></select></label>
+<label id="value-label">Valor do benefício (R$)<input name="value" type="number" min="0.01" step="0.01" required inputmode="decimal"></label>
+<label>Válido até<input name="expiry" type="date" required max="9999-12-31"><small class="voucher-note">30 dias como padrão. Edite a data se necessário; vale até o fim desse dia.</small></label>
+<label class="full">Motivo da emissão · interno<select name="reason" required><option value="">Selecione um motivo</option></select></label>
+<label class="full" id="reason-detail-label">Complemento do motivo · opcional<textarea name="reason_detail" rows="2" maxlength="1000"></textarea></label>
+<label class="full">Observação interna · opcional<textarea name="note" rows="2" maxlength="2000"></textarea></label>
+<div class="full voucher-note">Uso único, com perda do saldo restante. Não acumula com promoções ou outro voucher. Percentual sobre a conta inteira, sem teto; taxa de serviço opcional. Unidade Sir Fisher.</div>
+<label class="full voucher-check"><span><input name="confirmed" type="checkbox" required> Conferi o beneficiário, o benefício, o motivo e a validade.</span></label>
+<p id="issue-error" class="full voucher-error" role="alert"></p>
+<div class="full voucher-actions"><button type="submit" id="issue-submit" class="voucher-btn">Emitir voucher</button><button type="button" data-close="issue-dialog" class="voucher-btn secondary">Voltar</button></div>
+</form></dialog>
+<dialog id="detail-dialog" class="voucher-dialog" aria-labelledby="detail-title"><h2 id="detail-title">Detalhes do voucher</h2><div id="detail-body"></div><p id="detail-message" class="voucher-message" role="status" aria-live="polite"></p><div class="voucher-actions"><button id="download-btn" class="voucher-btn" disabled>Baixar imagem</button><button id="share-btn" class="voucher-btn secondary" disabled>Compartilhar imagem</button><a id="whatsapp-link" class="voucher-btn secondary" target="_blank" rel="noopener noreferrer" hidden>Abrir WhatsApp</a><button id="cancel-btn" class="voucher-btn danger" hidden>Cancelar voucher</button><button type="button" data-close="detail-dialog" class="voucher-btn secondary">Fechar</button></div></dialog>
+<dialog id="cancel-dialog" class="voucher-dialog" aria-labelledby="cancel-title"><h2 id="cancel-title">Cancelar este voucher?</h2><p>O beneficiário não poderá mais utilizá-lo. A imagem já enviada não será apagada; a equipe verá o cancelamento ao consultar o código.</p><form id="cancel-form" class="voucher-form"><label class="full">Motivo do cancelamento<textarea name="reason" required minlength="3" maxlength="500" rows="3"></textarea></label><label class="full"><span><input type="checkbox" name="confirmed" required> Confirmo o cancelamento deste voucher.</span></label><p id="cancel-error" class="full voucher-error" role="alert"></p><div class="full voucher-actions"><button type="submit" class="voucher-btn danger">Confirmar cancelamento</button><button type="button" data-close="cancel-dialog" class="voucher-btn secondary">Voltar</button></div></form></dialog>
+<script>/* O gate autentica antes de montar a rotina. */
+window.voucherAuth = SirFisherAuth.requireRole(SirFisherSupabase);
+</script><script src="assets/vouchers.js"></script>
+</body></html>

@@ -48,6 +48,7 @@ jobs:
             gerente.html \
             eventos.html \
             marketing.html \
+            vouchers.html \
             cancelamentos.html \
             gerenciador_de_para.html \
             analise_individual.html \
@@ -83,6 +84,9 @@ jobs:
           cp assets/product-pages.css _site/assets/
           cp assets/safe-dom.js _site/assets/
           cp assets/supabase-client.js _site/assets/
+          cp assets/voucher-template.js assets/vouchers.css assets/vouchers.js _site/assets/
+          mkdir -p _site/assets/vouchers
+          cp assets/vouchers/logo-emblem.png assets/vouchers/fraunces.woff2 _site/assets/vouchers/
 
           expected_files="$(printf '%s\n' \
             analise_individual.html \
@@ -100,6 +104,11 @@ jobs:
             assets/product-pages.css \
             assets/safe-dom.js \
             assets/supabase-client.js \
+            assets/voucher-template.js \
+            assets/vouchers.css \
+            assets/vouchers.js \
+            assets/vouchers/fraunces.woff2 \
+            assets/vouchers/logo-emblem.png \
             caixa.html \
             calendario.html \
             cancelamentos.html \
@@ -128,7 +137,8 @@ jobs:
             transacoes_dia.html \
             usuarios.html \
             venda_especie.html \
-            vendas.html)"
+            vendas.html \
+            vouchers.html)"
           actual_files="$(find _site -type f -printf '%P\n' | sort)"
 
           if [[ "$actual_files" != "$expected_files" ]]; then
