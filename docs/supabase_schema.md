@@ -2,6 +2,12 @@
 
 ## Vouchers de benefício — 04/11/2026
 
+Complemento `20261104203828_benefit_voucher_award_reason.sql` amplia o CHECK
+de issue_reason e as validações privadas de emissão/listagem para aceitar
+`award` (Premiação / atingimento de metas). Não muda grants, perfis, resgate
+ou dados existentes. Migration reexecutável; testes incluem emissão/filtro.
+Aplicada/registrada no portal em 04/11/2026 e conferida por leitura.
+
 Migration `20261104200024_benefit_vouchers.sql`: três tabelas privadas com RLS
 (`benefit_vouchers`, `benefit_voucher_events`, `benefit_voucher_rate_limits`),
 helpers privados e seis RPCs públicas `benefit_voucher_*` com EXECUTE somente

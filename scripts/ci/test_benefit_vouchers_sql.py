@@ -22,6 +22,7 @@ ROOT = Path(__file__).resolve().parents[2]
 VERSION = '20261104200024'
 MIGRATION = ROOT / f'supabase/migrations/{VERSION}_benefit_vouchers.sql'
 HARDENING = ROOT / 'supabase/migrations/20261104202352_benefit_voucher_private_rpc.sql'
+AWARD = ROOT / 'supabase/migrations/20261104203828_benefit_voucher_award_reason.sql'
 SOCIO, ADMIN, MANAGER, INACTIVE, UNKNOWN = [str(uuid.UUID(int=i)) for i in range(1, 6)]
 
 
@@ -75,6 +76,10 @@ def setup(cur, schemas):
     hardening=hardening.replace('private.',private+'.').replace('public.',public+'.')
     cur.execute(hardening)
     cur.execute(hardening)
+    award=AWARD.read_text(encoding='utf8').strip()[len('begin;'):-len('commit;')]
+    award=award.replace('private.',private+'.').replace('public.',public+'.')
+    cur.execute(award)
+    cur.execute(award)
 
 
 def identity(cur, uid, role='authenticated'):
@@ -120,7 +125,7 @@ def verify(cur, schemas):
     assert issue(cur, public, nonce=nonce)['voucher']['id'] == vid
     conflict=issue(cur, public, nonce=nonce, reason='loyalty')
     assert not conflict['ok'] and conflict['reason']=='request_conflict' and conflict['voucher']['id']==vid
-    for reason in ('recovery', 'commercial', 'photo_production', 'staff_birthday', 'loyalty', 'promotion', 'influencer', 'other'):
+    for reason in ('recovery', 'commercial', 'photo_production', 'staff_birthday', 'loyalty', 'promotion', 'influencer', 'award', 'other'):
         # Reset limiter as owner only; this is a synthetic schema.
         cur.execute('reset role'); cur.execute(f'delete from {private}.benefit_voucher_rate_limits'); identity(cur, SOCIO)
         assert issue(cur, public, reason=reason, detail='Texto livre')['voucher']['issue_reason'] == reason
@@ -132,10 +137,12 @@ def verify(cur, schemas):
     denied(cur, lambda: issue(cur, public, expiry='infinity'), '22023')
     pct = issue(cur, public, kind='percent', value=15.5)['voucher']
     result = rpc(cur, public, 'list', ('', '', 0, 50, ''))
-    assert result['summary']['fixed_available_total'] == 2250
+    assert result['summary']['fixed_available_total'] == 2500
     assert result['summary']['percent_available_count'] == 1
     assert rpc(cur, public, 'list', (code, '', 0, 50, ''))['total'] == 1
     assert rpc(cur, public, 'list', ('', '', 0, 50, 'other'))['total'] == 1
+    awards=rpc(cur, public, 'list', ('', '', 0, 50, 'award'))
+    assert awards['total']==1 and awards['rows'][0]['issue_reason']=='award'
     cur.execute("select set_config('bv_test.crypto','zero',true)")
     assert issue(cur, public)['voucher']['code'] == 'SF-0000-0000-0000'
     denied(cur, lambda: issue(cur, public), 'P0001')

@@ -3,7 +3,8 @@
   const REASONS = Object.freeze({ recovery: 'Recuperação de cliente insatisfeito', friend: 'Cortesia para amigo',
     commercial: 'Representação comercial / fornecedor', photo_production: 'Modelo em produção de fotos',
     staff_birthday: 'Aniversário de funcionário', loyalty: 'Cortesia por fidelidade',
-    promotion: 'Ação promocional ou sorteio', influencer: 'Parceria com influenciador', other: 'Outro motivo' });
+    promotion: 'Ação promocional ou sorteio', influencer: 'Parceria com influenciador',
+    award: 'Premiação / atingimento de metas', other: 'Outro motivo' });
   const STATUS = Object.freeze({ available: 'Disponível', used: 'Utilizado', expired: 'Vencido', cancelled: 'Cancelado' });
   const money = value => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(Number(value));
   const benefit = v => v.benefit_type === 'percent'

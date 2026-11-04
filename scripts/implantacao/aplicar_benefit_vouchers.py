@@ -13,7 +13,7 @@ from stone_fechamento import conectar
 
 VERSION='20261104200024'
 NAME='benefit_vouchers'
-VERSIONS=[(VERSION,NAME),('20261104202352','benefit_voucher_private_rpc')]
+VERSIONS=[(VERSION,NAME),('20261104202352','benefit_voucher_private_rpc'),('20261104203828','benefit_voucher_award_reason')]
 
 
 def identity(cur,uid):
@@ -30,9 +30,10 @@ def verify(cur):
     cur.execute("select auth_user_id from public.app_users where active and role in ('admin','operator') and auth_user_id is not null limit 1")
     staff=cur.fetchone(); assert staff,'Missing linked active reservation staff'
     identity(cur,socio[0])
-    cur.execute("select public.benefit_voucher_issue(%s,'TESTE TÉCNICO TRANSACIONAL','85999990000','percent',12.5,(clock_timestamp() at time zone 'America/Fortaleza')::date,'other','Teste com rollback obrigatório','Privado')",(str(uuid.uuid4()),))
+    cur.execute("select public.benefit_voucher_issue(%s,'TESTE TÉCNICO TRANSACIONAL','85999990000','percent',12.5,(clock_timestamp() at time zone 'America/Fortaleza')::date,'award','Teste com rollback obrigatório','Privado')",(str(uuid.uuid4()),))
     result=cur.fetchone()[0]; assert result['ok']; voucher=result['voucher']
-    cur.execute("select public.benefit_voucher_list(%s,'',0,10,'other')",(voucher['code'],))
+    assert voucher['issue_reason']=='award'
+    cur.execute("select public.benefit_voucher_list(%s,'',0,10,'award')",(voucher['code'],))
     result=cur.fetchone()[0]; assert result['ok'] and result['total']==1
     identity(cur,staff[0])
     cur.execute('select public.benefit_voucher_lookup(%s)',(voucher['code'],))

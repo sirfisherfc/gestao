@@ -22,7 +22,7 @@ financeiros ou operações no Teknisa.
 - Motivo obrigatório: cliente insatisfeito, amigo, representação
   comercial/fornecedor, modelo em produção de fotos, aniversário de
   funcionário, fidelidade, ação promocional/sorteio, parceria com
-  influenciador ou outro. Outro exige descrição livre; demais permitem
+  influenciador, premiação/atingimento de metas ou outro. Outro exige descrição livre; demais permitem
   complemento opcional. Não há motivo pré-selecionado.
 - Nome, telefone, tipo/valor e validade obrigatórios. Nota interna opcional.
   Após emitir, os dados são imutáveis: cancelar com motivo e emitir
@@ -61,6 +61,10 @@ Downloads. O link não envia arquivo nem mensagem automaticamente.
 Migration canônica `supabase/migrations/20261104200024_benefit_vouchers.sql`.
 Complemento `20261104202352_benefit_voucher_private_rpc.sql`: implementações
 SECURITY DEFINER ficam no schema privado, wrappers públicos são INVOKER.
+Complemento `20261104203828_benefit_voucher_award_reason.sql`: inclui a
+categoria interna Premiação / atingimento de metas na emissão e no filtro.
+Aplicado e relido no portal em 04/11/2026, com emissão/filtro verificados
+pelos perfis reais em transação revertida.
 Tabelas novas `private.benefit_vouchers`, `private.benefit_voucher_events`
 e `private.benefit_voucher_rate_limits`, com RLS e privilégios diretos
 revogados de PUBLIC, anon, authenticated e service_role. Não há Edge
@@ -89,11 +93,11 @@ Estado/evento na mesma transação e índice único adicional para evento de uso
 
 `python scripts/implantacao/aplicar_benefit_vouchers.py` ensaia a migration
 com rollback e verifica gates dos perfis reais sem exibir identidades;
-`--aplicar` aplica só essas duas versões e registra histórico na mesma transação.
+`--aplicar` aplica só essas três versões e registra histórico na mesma transação.
 Conexão valida portal. Não usar MCP somente leitura para escrever.
 Publicar páginas depois do banco.
 
-As duas migrations foram aplicadas e relidas no portal em 04/11/2026.
+As migrations iniciais foram aplicadas e relidas no portal em 04/11/2026.
 A verificação com perfis reais passou, com rollback das fixtures.
 Security Advisor: nenhum WARN/ERROR dos objetos de vouchers após o
 complemento; três INFO de RLS sem policy são intencionais, pois tabelas

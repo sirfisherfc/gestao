@@ -59,4 +59,8 @@ test('sem suporte, canShare falso ou erro, oferece download e link',async()=>{
 test('cancelar compartilhamento não dispara download nem mensagem involuntária',async()=>{
   assert.equal(await V.sharePrepared({},{canShare:()=>true,share:()=>Promise.reject(Object.assign(new Error(),{name:'AbortError'}))},()=>assert.fail()),'cancelled');
 });
-test('oito categorias principais e outro motivo livre',()=>{assert.equal(Object.keys(V.REASONS).length,9);assert.ok(V.REASONS.other);});
+test('nove categorias principais e outro motivo livre',()=>{
+  assert.equal(Object.keys(V.REASONS).length,10);
+  assert.equal(V.REASONS.award,'Premiação / atingimento de metas');
+  assert.ok(V.REASONS.other);
+});
