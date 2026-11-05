@@ -321,3 +321,23 @@ no painel, sem gravação:
   produto de Promoção Combinada. O manual do POS respondeu 502 nessa data.
   Falta testar num aparelho, numa mesa de teste, e conferir o total e a
   impressão na cozinha. Sem esse teste, perguntar ao suporte Teknisa.
+
+## Gerente incluído no perfil de reposição (05/11/2026)
+
+O proprietário pediu para liberar o portal a um gerente, somente com a
+reposição. Em **Perfil de Acesso → Gerente - Reposicao → Operadores →
+Adicionar**, o operador foi incluído na filial Praia. A tela pede a filial
+depois de escolher o operador. Depois de recarregar a página, ele continuou
+na lista. No perfil, Painel de Controle, Estoque, Financeiro e Parametrização
+seguem ocultos, e Vendas segue visível.
+
+Contrato: `backend_acl/index.php/findPerfAcessParcOperador` lê os vínculos,
+com filtro `NRPERFILACESSO` e `IDATIVO`. A inclusão respondeu `[]` no `save`.
+
+Divergência encontrada: antes da inclusão, a consulta devolveu lista vazia
+no perfil 12, onde este documento registra três gerentes em 30/10. A aba
+Operadores do perfil Administrador também apareceu vazia. A causa não foi
+apurada, e os outros dois gerentes não foram alterados.
+
+Falta testar: entrar com o login desse gerente e abrir o relatório Produtos
+Vendidos.

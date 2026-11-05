@@ -71,5 +71,8 @@ os projetos; navegador indisponível, sem alegar QA visual interativo.
 
 Só leitura no painel, nada gravado. "Multiplicador Produto" já está liberado
 para garçom e gerente; efeito em Promoção Combinada não testado no POS.
-Registro em `docs/TEKNISA_ACESSOS_OPERACAO.md`. Pedido de "liberar acesso ao
-portal" aguarda o proprietário dizer para quem. `node` ausente no PATH deste PC.
+Registro em `docs/TEKNISA_ACESSOS_OPERACAO.md`. `node` ausente no PATH deste PC.
+
+Depois: um gerente incluído no perfil Gerente - Reposicao (gravado e relido).
+Aviso: as abas Operadores dos perfis 12 e Administrador vieram vazias antes
+disso, ao contrário do registro de 30/10. Causa não apurada; login não testado.
