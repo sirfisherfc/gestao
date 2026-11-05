@@ -66,35 +66,32 @@
     if (!(photoWidth > 0 && photoHeight > 0)) throw new Error('Não foi possível carregar a foto do deck. Atualize a página e tente novamente.');
     const W = WIDTH, H = HEIGHT, ink = '#12293d', paper = '#f6ecd9', sea = '#226861';
     ctx.clearRect(0, 0, W, H); ctx.fillStyle = paper; ctx.fillRect(0, 0, W, H);
-    // Landscape photo and an opaque card: essential data never sits over the photo.
+    // A centered card keeps all gift information on one axis over the deck photo.
     const photoBox = { x: 0, y: 0, width: W, height: H };
     const scale = Math.max(photoBox.width / photoWidth, photoBox.height / photoHeight);
     const cropWidth = photoBox.width / scale, cropHeight = photoBox.height / scale;
     ctx.drawImage(deck, (photoWidth - cropWidth) / 2, (photoHeight - cropHeight) * .6, cropWidth, cropHeight,
       photoBox.x, photoBox.y, photoBox.width, photoBox.height);
-    ctx.save();ctx.shadowColor='rgba(18,41,61,.24)';ctx.shadowBlur=28;ctx.shadowOffsetY=10;
-    ctx.fillStyle='#fffaf0';ctx.beginPath();ctx.roundRect(620,60,920,880,24);ctx.fill();ctx.restore();
-    ctx.strokeStyle='#d6c9ad';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(660,250);ctx.lineTo(1500,250);ctx.stroke();
-    ctx.drawImage(logo, 660, 102, 122, 122);
-    ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic'; ctx.fillStyle = ink;
-    ctx.font = '700 22px Arial'; ctx.fillText('UM PRESENTE PARA VOCÊ', 808, 148);
-    ctx.font = '36px VoucherSerif, Georgia'; ctx.fillText('Voucher Sir Fisher', 808, 202);
+    const cardFill=ctx.createLinearGradient(320,0,1280,0);
+    cardFill.addColorStop(0,'#e9e9e6');cardFill.addColorStop(.5,'#fffefb');cardFill.addColorStop(1,'#e9e9e6');
+    ctx.save();ctx.shadowColor='rgba(18,41,61,.18)';ctx.shadowBlur=24;ctx.shadowOffsetY=8;
+    ctx.fillStyle=cardFill;ctx.beginPath();ctx.roundRect(320,100,960,800,36);ctx.fill();ctx.restore();
+    ctx.drawImage(logo, 748, 134, 104, 104);
     ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic'; ctx.fillStyle = ink;
-    ctx.font='24px Arial';ctx.fillText(v.benefit_type==='percent' ? 'DE DESCONTO' : 'VALE-PRESENTE',1080,304);
-    const value = fitLines(ctx, benefit(v), 824, 1, 140, 45, 'VoucherSerif, Georgia');
-    ctx.fillStyle = sea; ctx.fillText(value.lines[0], 1080, 454);
-    ctx.font = '22px Arial'; ctx.fillStyle = ink;ctx.fillText('PARA',1080,512);
-    const name = fitLines(ctx, v.beneficiary_name, 824, 4, 58, 14, 'VoucherSerif, Georgia', 140);
-    const nameStart = 530 + (140 - name.lines.length * (name.size + 8)) / 2 + name.size;
-    name.lines.forEach((line, i) => ctx.fillText(line, 1080, nameStart + i * (name.size + 8)));
-    ctx.strokeStyle = '#d6c9ad';ctx.beginPath();ctx.moveTo(660,690);ctx.lineTo(1500,690);ctx.stroke();
-    ctx.font='22px Arial';ctx.fillText('CÓDIGO',865,738);ctx.fillText('VÁLIDO ATÉ',1295,738);
-    const code=fitLines(ctx,v.code,360,1,64,20,'monospace');ctx.font=`700 ${code.size}px monospace`;ctx.fillText(code.lines[0],865,810);
-    ctx.font='40px Arial';ctx.fillText(dateBR(v.expires_on),1295,805);
-    ctx.font='28px Arial';
-    ['Uso único','Não cumulativo com promoções ou outros vouchers.'].forEach((line,i)=>ctx.fillText(line,1080,864+i*36));
-    ctx.fillStyle=paper;ctx.fillRect(40,906,510,54);ctx.textAlign='center';ctx.fillStyle=ink;
-    ctx.font='24px Arial';ctx.fillText('sirfisher.com.br  ·  @sirfisherfc',295,942);
+    ctx.font = '20px Arial'; ctx.fillText('UM PRESENTE PARA VOCÊ', 800, 272);
+    ctx.font='22px Arial';ctx.fillText(v.benefit_type==='percent' ? 'DE DESCONTO' : 'VALE-PRESENTE',800,314);
+    const value = fitLines(ctx, benefit(v), 840, 1, 124, 45, 'VoucherSerif, Georgia');
+    ctx.fillStyle = sea; ctx.fillText(value.lines[0], 800, 430);
+    ctx.font = '20px Arial'; ctx.fillStyle = ink;ctx.fillText('PARA',800,474);
+    const name = fitLines(ctx, v.beneficiary_name, 840, 4, 52, 14, 'VoucherSerif, Georgia', 110);
+    const nameStart = 490 + (110 - name.lines.length * (name.size + 8)) / 2 + name.size;
+    name.lines.forEach((line, i) => ctx.fillText(line, 800, nameStart + i * (name.size + 8)));
+    ctx.strokeStyle = '#cccfc9';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(440,624);ctx.lineTo(1160,624);ctx.stroke();
+    ctx.font='18px Arial';ctx.fillText('CÓDIGO',800,664);
+    const code=fitLines(ctx,v.code,840,1,54,20,'monospace');ctx.font=`700 ${code.size}px monospace`;ctx.fillText(code.lines[0],800,722);
+    ctx.font='26px Arial';ctx.fillText(`Válido até ${dateBR(v.expires_on)}`,800,768);
+    ctx.font='24px Arial';
+    ['Uso único','Não cumulativo com promoções ou outros vouchers.'].forEach((line,i)=>ctx.fillText(line,800,814+i*34));
   }
   function whatsapp(v) {
     const phone = String(v.phone || '').replace(/\D/g, '');

@@ -10,7 +10,7 @@ const voucher = { status:'available', beneficiary_name:'Nome de teste', benefit_
 function context() {
   const calls=[],images=[];
   return { calls, images, font:'25px Arial', measureText(text) { const size=Number.parseInt(this.font.match(/(\d+)px/)[1],10);return {width:[...text].length*size*.58}; },
-    fillText(text,x,y){calls.push({text,x,y,font:this.font,align:this.textAlign});},clearRect(){},fillRect(){},strokeRect(){},drawImage(...args){images.push(args);},setLineDash(){},beginPath(){},moveTo(){},lineTo(){},stroke(){},roundRect(){},fill(){},save(){},restore(){} };
+    fillText(text,x,y){calls.push({text,x,y,font:this.font,align:this.textAlign});},createLinearGradient(){return {addColorStop(){}};},clearRect(){},fillRect(){},strokeRect(){},drawImage(...args){images.push(args);},setLineDash(){},beginPath(){},moveTo(){},lineTo(){},stroke(){},roundRect(){},fill(){},save(){},restore(){} };
 }
 const deck={width:960,height:858};
 test('reais e percentuais mantêm unidades, centavos e valores distintos',()=>{
@@ -34,8 +34,8 @@ for (const [label,changes] of [
   assert.ok(!full.includes(v.phone) && !full.includes(v.internal_note) && !full.includes(v.issue_reason_detail));
   assert.ok(full.includes(v.code) && full.includes('04/12/2026'));
   for (const call of ctx.calls) {ctx.font=call.font;const width=ctx.measureText(call.text).width;const left=call.align==='left' ? call.x : call.x-width/2;assert.ok(left>=24 && left+width<=V.WIDTH-24,call.text);assert.ok(call.y<V.HEIGHT);}
-  const nameCalls=ctx.calls.filter(c=>c.y>=530 && c.y<690);
-  assert.ok(nameCalls.every(c=>c.y<676),'nome deve terminar antes da linha do código');
+  const nameCalls=ctx.calls.filter(c=>c.y>=490 && c.y<624);
+  assert.ok(nameCalls.every(c=>c.y<610),'nome deve terminar antes da linha do código');
   assert.equal(nameCalls.map(c=>c.text).join('').replace(/\s/g,''),v.beneficiary_name.replace(/\s/g,''));
 });
 test('foto do deck integra o PNG, sem distorção ou recorte fora do arquivo',()=>{
@@ -53,6 +53,8 @@ test('arte horizontal tem só condições essenciais, sem alterar regras do cada
   const ctx=context(),v={...voucher,benefit_type:'percent',benefit_value:15,conditions:['Desconto sobre a conta inteira. Sem teto em reais. Saldo não utilizado é perdido.']};
   V.draw(ctx,v,{},deck);const text=ctx.calls.map(c=>c.text).join(' ');
   assert.ok(text.includes('Uso único') && text.includes('Não cumulativo'));
+  assert.ok(ctx.calls.every(call=>call.align==='center' && call.x===V.WIDTH/2),'informações ficam no eixo central');
+  assert.ok(!text.includes('sirfisher.com.br') && !text.includes('@sirfisherfc'),'sem caixa extra de site/Instagram');
   for(const phrase of ['conta inteira','teto em reais','saldo não','Válido na unidade'])assert.ok(!text.toLowerCase().includes(phrase.toLowerCase()));
   assert.equal(v.conditions.length,1);
 });

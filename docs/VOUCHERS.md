@@ -53,8 +53,10 @@ A foto `assets/vouchers/deck.webp` é cópia idêntica de
 `site/assets/img/terraco-por-do-sol-sir-fisher-960.webp`; autoria do proprietário
 registrada no guia de analytics do site. O enquadramento preserva mesas e
 horizonte, sem deformar a foto. Os dados do voucher ficam sobre fundo liso.
-O cartão sobre a foto mostra benefício, beneficiário, código de seis caracteres
-e validade. Rodapé reduzido a uso único e não cumulatividade; as regras completas
+O cartão central sobre a foto tem cantos arredondados e fundo claro em degradê,
+seguindo a composição da referência enviada. Logo, benefício, beneficiário,
+código de seis caracteres e validade ficam alinhados no eixo central. Sem caixa
+separada de site/Instagram. Rodapé reduzido a uso único e não cumulatividade; as regras completas
 continuam no cadastro e na consulta da equipe, sem repetições na imagem.
 Ajusta fonte para nomes longos e valores elevados sem omitir o nome. Não gera nova
 imagem de voucher indisponível. Imagem já enviada pode circular após
