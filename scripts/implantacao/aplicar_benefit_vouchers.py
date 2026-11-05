@@ -13,7 +13,7 @@ from stone_fechamento import conectar
 
 VERSION='20261104200024'
 NAME='benefit_vouchers'
-VERSIONS=[(VERSION,NAME),('20261104202352','benefit_voucher_private_rpc'),('20261104203828','benefit_voucher_award_reason'),('20261104205451','benefit_voucher_edit'),('20261105130459','benefit_voucher_short_codes'),('20261105141504','benefit_voucher_recent')]
+VERSIONS=[(VERSION,NAME),('20261104202352','benefit_voucher_private_rpc'),('20261104203828','benefit_voucher_award_reason'),('20261104205451','benefit_voucher_edit'),('20261105130459','benefit_voucher_short_codes'),('20261105141504','benefit_voucher_recent'),('20261105145812','benefit_voucher_renew')]
 
 
 def identity(cur,uid):
@@ -38,6 +38,13 @@ def verify(cur):
     result=cur.fetchone()[0]; assert result['ok'] and result['total']==1
     cur.execute("select public.benefit_voucher_edit(%s,%s,'TESTE CORRIGIDO','85999990000','percent',15,%s,'award','Teste com rollback obrigatório','Privado')",(voucher['id'],voucher['revision'],voucher['expires_on']))
     result=cur.fetchone()[0];assert result['ok'] and result['voucher']['revision']==2
+    assert result['voucher']['code']==voucher['code'];voucher=result['voucher']
+    # Expire only this transactional fixture, then renew through the real RPC.
+    cur.execute('reset role')
+    cur.execute("update private.benefit_vouchers set expires_on=(clock_timestamp() at time zone 'America/Fortaleza')::date-1 where id=%s",(voucher['id'],))
+    identity(cur,socio[0])
+    cur.execute("select public.benefit_voucher_edit(%s,%s,'TESTE CORRIGIDO','85999990000','percent',15,%s,'award','Teste com rollback obrigatório','Privado')",(voucher['id'],voucher['revision'],voucher['expires_on']))
+    result=cur.fetchone()[0];assert result['ok'] and result['voucher']['revision']==3 and result['voucher']['status']=='available'
     assert result['voucher']['code']==voucher['code'];voucher=result['voucher']
     identity(cur,staff[0])
     cur.execute('select public.benefit_voucher_lookup(%s)',(voucher['code'],))

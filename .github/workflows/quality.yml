@@ -107,7 +107,7 @@ jobs:
         run: node --test scripts/ci/test_contas_recorrentes.mjs
 
       - name: Voucher image layout, privacy, dates and file sharing fallback
-        run: node --test scripts/ci/test_benefit_vouchers.mjs
+        run: node --test scripts/ci/test_benefit_vouchers.mjs scripts/ci/test_vouchers_edit_ui.mjs
 
       - name: Front-end startup in parallel, cross-tab cache, calendar cut and opt-in measurement
         run: node --test scripts/ci/test_desempenho_front.mjs

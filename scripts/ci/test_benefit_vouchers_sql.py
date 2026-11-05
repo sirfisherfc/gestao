@@ -27,6 +27,7 @@ AWARD = ROOT / 'supabase/migrations/20261104203828_benefit_voucher_award_reason.
 EDIT = ROOT / 'supabase/migrations/20261104205451_benefit_voucher_edit.sql'
 SHORT_CODES = ROOT / 'supabase/migrations/20261105130459_benefit_voucher_short_codes.sql'
 RECENT = ROOT / 'supabase/migrations/20261105141504_benefit_voucher_recent.sql'
+RENEW = ROOT / 'supabase/migrations/20261105145812_benefit_voucher_renew.sql'
 SOCIO, ADMIN, MANAGER, INACTIVE, UNKNOWN = [str(uuid.UUID(int=i)) for i in range(1, 6)]
 
 
@@ -103,6 +104,10 @@ def setup(cur, schemas):
     recent_sql=recent_sql.replace('private.',private+'.').replace('public.',public+'.')
     cur.execute(recent_sql)
     cur.execute(recent_sql)
+    renew_sql=RENEW.read_text(encoding='utf8').strip()[len('begin;'):-len('commit;')]
+    renew_sql=renew_sql.replace('private.',private+'.').replace('public.',public+'.').replace('auth.uid()',auth+'.uid()::uuid')
+    cur.execute(renew_sql)
+    cur.execute(renew_sql)
 
 
 def identity(cur, uid, role='authenticated'):
@@ -281,7 +286,23 @@ def verify_edit(cur,schemas):
     assert edit(cur,public,fixed,benefit_value=30)['reason']=='cancelled'
     expired=issue(cur,public)['voucher']
     cur.execute('reset role');cur.execute(f"update {private}.benefit_vouchers set expires_on='2000-01-01' where id=%s",(expired['id'],));identity(cur,SOCIO)
-    assert edit(cur,public,expired,benefit_value=30)['reason']=='expired'
+    expired=rpc(cur,public,'detail',(expired['id'],))['voucher']
+    denied(cur,lambda:edit(cur,public,expired),'22023')
+    renewal_date=available['expires_on']
+    identity(cur,MANAGER);denied(cur,lambda:edit(cur,public,expired,expires_on=renewal_date))
+    identity(cur,SOCIO)
+    renewed=edit(cur,public,expired,expires_on=renewal_date)['voucher']
+    assert renewed['status']=='available' and renewed['revision']==expired['revision']+1
+    assert all(renewed[key]==expired[key] for key in ('id','code','legacy_code','created_at','issued_by_name','benefit_type','benefit_value','phone'))
+    audit=rpc(cur,public,'detail',(expired['id'],))['events'][-1]
+    assert audit['reason']=='Renovação de validade'
+    assert audit['changes']['before']['expires_on']=='2000-01-01' and audit['changes']['after']['expires_on']==renewal_date
+    assert edit(cur,public,expired,expires_on=renewal_date)['reason']=='changed'
+    identity(cur,MANAGER)
+    assert rpc(cur,public,'lookup',(expired['code'],))['voucher']['status']=='available'
+    assert rpc(cur,public,'redeem',(expired['id'],True,expired['revision']))['reason']=='changed'
+    assert rpc(cur,public,'redeem',(expired['id'],True,renewed['revision']))['ok']
+    identity(cur,SOCIO);assert edit(cur,public,renewed,expires_on=renewal_date)['reason']=='used'
     # An audit failure must roll back the edited fields as well.
     atomic=issue(cur,public)['voucher'];cur.execute('reset role')
     cur.execute(f"""create function {private}.reject_edit_event() returns trigger language plpgsql as $$begin
@@ -290,7 +311,7 @@ def verify_edit(cur,schemas):
     identity(cur,SOCIO);denied(cur,lambda:edit(cur,public,atomic,benefit_value=300),'P0001')
     assert rpc(cur,public,'detail',(atomic['id'],))['voucher']['revision']==1
     cur.execute('reset role');cur.execute(f'drop trigger reject_edit_event on {private}.benefit_voucher_events')
-    return 20
+    return 30
 
 
 def verify_recent(cur,schemas):

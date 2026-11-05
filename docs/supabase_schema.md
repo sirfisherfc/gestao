@@ -2,6 +2,12 @@
 
 ## Vouchers de benefício — 04/11/2026
 
+Complemento `20261105145812_benefit_voucher_renew`: RPC privada de edição aceita
+disponíveis ou vencidos; nova validade nunca passada. Renovação de vencido é
+auditada com evento edited, snapshots e incremento de revisão, sem trocar o
+código ou o emissor. Mantém gate de gestão, lock, grants e bloqueio de
+utilizados/cancelados. Aplicada e verificada no portal em 05/11/2026.
+
 Complemento `20261105141504_benefit_voucher_recent`: índice parcial de used_at
 e consulta paginada `benefit_voucher_recent`, restrita à equipe ativa do reservas.
 Janela: hoje e dois dias anteriores, desde 00h de Fortaleza até o instante da

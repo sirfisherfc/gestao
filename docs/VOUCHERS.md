@@ -26,14 +26,18 @@ financeiros ou operações no Teknisa.
   complemento opcional. Não há motivo pré-selecionado.
 - Nome, telefone, tipo/valor e validade obrigatórios. Nota interna opcional.
   Sócio/admin pode corrigir os campos pelo botão Editar enquanto o voucher
-  estiver disponível. Código e emissor são preservados; alterações ficam no
-  histórico com responsável, data e valores anteriores/novos. Usados,
-  cancelados ou vencidos não são editáveis.
+  estiver disponível. Vencidos oferecem Renovar validade, com sugestão de
+  mais 30 dias e data ajustável, obrigatoriamente de hoje em diante.
+  Código e emissor são preservados; alterações ficam no histórico com
+  responsável, data e valores anteriores/novos. Usados e cancelados não são editáveis.
 
 ## Acesso, fluxo e privacidade
 
 Sócio ou administrador ativo da gestão com permissão da página pode
 emitir, listar, filtrar por situação/motivo, abrir detalhes, editar e cancelar.
+Condições e Histórico começam recolhidos nos detalhes, expansíveis por clique
+ou teclado. Sem aviso de compartilhamento indisponível; controles de imagem
+ficam ocultos quando o voucher não está disponível.
 Gerente da gestão não emite mesmo se liberarem a página na matriz.
 Resgate exige cadastro ativo de `app_users` no reservas com papel
 existente `admin` ou `operator`; ser sócio da gestão sozinho não concede
@@ -92,6 +96,11 @@ desde 00h de Fortaleza até o instante da consulta. Lista exclusiva da equipe
 ativa admin/operator do reservas, com código curto, beneficiário, benefício,
 data e responsável; sem telefone, motivo ou notas. Índice parcial em used_at.
 Atualiza ao abrir, pelo botão Atualizar lista e após tentativa de utilização.
+Complemento `20261105145812_benefit_voucher_renew.sql`, aplicado em 05/11/2026:
+edição também aceita vencidos, exigindo nova validade de hoje em diante.
+Renovação mantém código e emissão, incrementa revisão e registra evento
+edited com motivo Renovação de validade e snapshots antes/depois. Lock,
+controle de revisão, gates, validações e recusa de usados/cancelados preservados.
 Tabelas novas `private.benefit_vouchers`, `private.benefit_voucher_events`
 e `private.benefit_voucher_rate_limits`, com RLS e privilégios diretos
 revogados de PUBLIC, anon, authenticated e service_role. Não há Edge
@@ -127,7 +136,7 @@ versão e confirmar novamente. Cliente antigo só resgata voucher nunca editado.
 
 `python scripts/implantacao/aplicar_benefit_vouchers.py` ensaia a migration
 com rollback e verifica gates dos perfis reais sem exibir identidades;
-`--aplicar` aplica só essas seis versões e registra histórico na mesma transação.
+`--aplicar` aplica só essas sete versões e registra histórico na mesma transação.
 Conexão valida portal. Não usar MCP somente leitura para escrever.
 Publicar páginas depois do banco.
 

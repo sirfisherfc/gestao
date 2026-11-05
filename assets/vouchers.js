@@ -57,7 +57,10 @@
       details.append(badge(v)); term(dl,'Beneficiário',v.beneficiary_name); term(dl,'Benefício',V.benefit(v)); term(dl,'Código',v.code); term(dl,'Validade',V.dateBR(v.expires_on)); term(dl,'Telefone',v.phone); term(dl,'Motivo',V.REASONS[v.issue_reason]); term(dl,'Complemento',v.issue_reason_detail); term(dl,'Nota interna',v.internal_note); term(dl,'Emissão',`${V.timeBR(v.created_at)} · ${v.issued_by_name}`);
       if (v.used_at) term(dl,'Utilização',`${V.timeBR(v.used_at)} · ${v.used_by_name}`);
       if (v.cancelled_at) { term(dl,'Cancelamento',`${V.timeBR(v.cancelled_at)} · ${v.cancelled_by_name}`); term(dl,'Motivo',v.cancellation_reason); }
-      details.append(dl,text('h3','Condições')); const rules = text('ul',''); v.conditions.forEach(c=>rules.append(text('li',c))); details.append(rules,text('h3','Histórico'));
+      details.append(dl);
+      const conditions=document.createElement('details');conditions.className='voucher-disclosure';conditions.append(text('summary','Condições'));
+      const rules = text('ul',''); v.conditions.forEach(c=>rules.append(text('li',c))); conditions.append(rules);details.append(conditions);
+      const historySection=document.createElement('details');historySection.className='voucher-disclosure';historySection.append(text('summary','Histórico'));
       const history = text('ul',''); data.events.forEach(e=>{
         const reason=e.event_type==='issued' ? V.eventReason(e.reason) : e.reason;
         const item=text('li',`${V.timeBR(e.occurred_at)} · ${{issued:'Emissão',edited:'Edição',used:'Utilização',cancelled:'Cancelamento'}[e.event_type]} · ${e.actor_name}${reason ? ` · ${reason}` : ''}`);
@@ -67,11 +70,13 @@
           changes.forEach(change=>term(dl,change.label,`${change.before} → ${change.after}`));disclosure.append(dl);item.append(disclosure);
         }
         history.append(item);
-      }); details.append(history);
+      }); historySection.append(history);details.append(historySection);
       const preview = text('div','','voucher-preview'); layout.append(details,preview); $('detail-body').replaceChildren(layout);
       $('cancel-btn').hidden = ['used','cancelled'].includes(v.status);
-      $('edit-btn').hidden = v.status!=='available';
-      if (v.status !== 'available') { message('detail-message','Este voucher não está disponível para compartilhar.'); return; }
+      $('edit-btn').hidden = !['available','expired'].includes(v.status);
+      $('edit-btn').textContent = v.status==='expired' ? 'Renovar validade' : 'Editar';
+      $('download-btn').hidden = $('share-btn').hidden = v.status!=='available';
+      if (v.status !== 'available') { layout.classList.add('voucher-detail--text-only');message('detail-message',''); return; }
       message('detail-message','Preparando imagem…');
       await document.fonts.load('52px VoucherSerif');
       const [logo, deck] = await Promise.all(['assets/vouchers/logo-emblem.png','assets/vouchers/deck.webp'].map(async src => {
@@ -108,14 +113,15 @@
     $('issue-error').textContent=''; $('issue-dialog').showModal();
   });
   $('edit-btn').addEventListener('click',()=>{
-    if(!selected || selected.status!=='available' || issuing)return;
+    if(!selected || !['available','expired'].includes(selected.status) || issuing)return;
     const v=selected;editing={id:v.id,revision:v.revision};requestId=null;issueForm.reset();
     const f=issueForm.elements;
     f.beneficiary.value=v.beneficiary_name;f.phone.value=v.phone;f.type.value=v.benefit_type;f.value.value=v.benefit_value;
-    f.expiry.min=V.todayPlus();f.expiry.value=v.expires_on;f.reason.value=v.issue_reason;
+    const renewing=v.status==='expired';
+    f.expiry.min=V.todayPlus();f.expiry.value=renewing ? V.todayPlus(30) : v.expires_on;f.reason.value=v.issue_reason;
     f.reason_detail.value=v.issue_reason_detail || '';f.note.value=v.internal_note || '';
-    reasonChanged();typeChanged();$('issue-error').textContent='';$('issue-title').textContent='Editar voucher';$('issue-submit').textContent='Salvar alterações';
-    $('issue-intro').textContent='As correções ficam no histórico. A imagem será atualizada; se já foi enviada, compartilhe a nova versão com o beneficiário.';
+    reasonChanged();typeChanged();$('issue-error').textContent='';$('issue-title').textContent=renewing ? 'Renovar voucher' : 'Editar voucher';$('issue-submit').textContent=renewing ? 'Renovar voucher' : 'Salvar alterações';
+    $('issue-intro').textContent=renewing ? 'Confira a nova validade. O código será mantido e a renovação ficará no histórico. Compartilhe a imagem atualizada após salvar.' : 'As correções ficam no histórico. A imagem será atualizada; se já foi enviada, compartilhe a nova versão com o beneficiário.';
     $('issue-dialog').showModal();
   });
   function typeChanged() { const percent=issueForm.elements.type.value==='percent'; $('value-label').firstChild.textContent=percent ? 'Desconto (%)' : 'Valor do benefício (R$)'; issueForm.elements.value.max=percent ? '100' : '9999999999.99'; }

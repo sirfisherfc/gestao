@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 Livre — Codex concluiu popup de voucher vencido e card compacto em reservas. Gestão somente registro; site sem alterações.
+> **🚦 Status atual:** 🟢 Livre — Codex concluiu renovação e detalhes compactos em gestão; alertas de usados/cancelados e texto reduzido em reservas. Site sem alterações.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -17,29 +17,6 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
 **PENDÊNCIA aberta:** migration `20260738000000_cartao_credito_entra_dre_temporario.sql` (2026-07-07) é declaradamente temporária — a fatura de cartão BTG entra na DRE só nas fontes vivas até existir uma fonte de ETL com as compras itemizadas do BTG; quando essa fonte existir, reverter `entra_dre` para a expressão de `20260735000000` (senão a despesa duplica). Ver detalhes no `git log`/na própria migration.
 
 **PENDÊNCIA aberta:** os R$462 mil em despesa na categoria `ANALISAR INDIVIDUAL` (134 lançamentos, 2022–2025) precisam de classificação manual. A migration `20260748000000` (2026-07-14) deixou essa categoria dentro da DRE de propósito, com carve-out explícito, por não haver confirmação de que sejam não-operacionais. Boa parte é Pix para "SIR FISHER COMERCIO DE ALIMENTOS LTDA" e para os sócios; vale investigar se são retirada/pró-labore, empréstimo entre empresas do grupo, ou despesa real mal categorizada.
-
-## 2026-11-05 · Codex — Validações recentes e ajustes dos portais
-
-Reservas: removido aviso sobre códigos antigos; lista paginada de vouchers
-utilizados hoje e nos dois dias anteriores, em Fortaleza, com nome, código,
-benefício, data/responsável. Atualiza ao abrir, manualmente e após tentativa
-de utilização. Estados de falha/vazio distintos e respostas antigas descartadas.
-Gestão: menu idêntico ao de rotinas, sujeito ao gate existente; removida a
-mensagem de imagem pronta/dados internos e seu espaço vazio. Sem mudança na arte.
-Arquivos: HTML/JS/CSS dos vouchers, testes, instalador e documentação.
-
-Migration 20261105141504 criada pela CLI e aplicada/registrada no portal:
-RPC recent com wrapper INVOKER, gate da equipe ativa e grants explícitos;
-índice parcial de used_at. SQL isolado reexecutável passou em 92 verificações,
-incluindo período, fuso, paginação, dados privados e permissões. Perfis reais
-passaram com rollback das fixtures. 32 testes JS do reservas, quality com Node,
-contratos de acesso/frontend e catálogo de migrations passaram. IDs do HTML/JS
-e igualdade do menu conferidos. Advisor sem WARN/ERROR para vouchers.
-
-Voucher de teste indicado pelo proprietário apagado por pedido explícito,
-junto dos dois eventos vinculados; alvo único conferido antes e ausência
-conferida depois, sem dados pessoais versionados. Site permanece sem edições.
-Publicação por Pages nos dois projetos; conferir workflows/artefatos do commit.
 
 ## 2026-11-05 · Codex — Teste autorizado de voucher vencido
 
@@ -68,3 +45,24 @@ do reservas. Gestão só este registro; sem mudanças de banco ou outros portais
 resgate/reconsulta. Sintaxe JS, IDs de HTML/controlador e diff conferidos.
 Não afirmar teste visual interativo; navegador integrado indisponível nesta
 sessão. Publicação via Pages; conferir artefato e workflow do mesmo commit.
+
+## 2026-11-05 · Codex — Renovação, detalhes recolhidos e alertas por situação
+
+Gestão: vencido oferece Renovar validade com sugestão de 30 dias, código
+preservado e histórico auditado. Condições/Histórico recolhidos; removido
+aviso de compartilhamento indisponível, botões inativos de imagem e coluna
+de prévia vazia. Usados/cancelados continuam sem edição. Alterados controlador,
+CSS, testes de UI/SQL, workflow, instalador e documentação.
+Migration 20261105145812 aplicada/registrada: gate de edição aceita também
+expired, nova data de hoje em diante, evento de renovação com snapshots e
+incremento de revisão. Grants, lock, gates e validações restantes preservados.
+102 verificações SQL isoladas e ensaio com perfis reais passaram, fixtures
+revertidas; leitura confirmou versão e Advisor sem WARN/ERROR de vouchers.
+23 testes JS de gestão passaram, incluindo controlador com DOM adaptado.
+
+Reservas: popup e destaque de vencido estendidos a utilizado/cancelado,
+com mensagens e cores próprias. Sucesso de uso não abre alerta de já utilizado.
+Retirada a frase explicativa do período da lista, preservando a janela no
+servidor. 44 testes JS passaram. HTML/JS/CSS, teste de UI e docs atualizados.
+Sem renovação automática de dados reais. Publicar/conferir Pages de ambos
+os projetos; navegador indisponível, sem alegar QA visual interativo.
