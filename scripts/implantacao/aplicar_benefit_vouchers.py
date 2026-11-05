@@ -13,7 +13,7 @@ from stone_fechamento import conectar
 
 VERSION='20261104200024'
 NAME='benefit_vouchers'
-VERSIONS=[(VERSION,NAME),('20261104202352','benefit_voucher_private_rpc'),('20261104203828','benefit_voucher_award_reason')]
+VERSIONS=[(VERSION,NAME),('20261104202352','benefit_voucher_private_rpc'),('20261104203828','benefit_voucher_award_reason'),('20261104205451','benefit_voucher_edit'),('20261105130459','benefit_voucher_short_codes')]
 
 
 def identity(cur,uid):
@@ -32,16 +32,24 @@ def verify(cur):
     identity(cur,socio[0])
     cur.execute("select public.benefit_voucher_issue(%s,'TESTE TÉCNICO TRANSACIONAL','85999990000','percent',12.5,(clock_timestamp() at time zone 'America/Fortaleza')::date,'award','Teste com rollback obrigatório','Privado')",(str(uuid.uuid4()),))
     result=cur.fetchone()[0]; assert result['ok']; voucher=result['voucher']
+    assert len(voucher['code'])==6 and not voucher['code'].startswith('SF-')
     assert voucher['issue_reason']=='award'
     cur.execute("select public.benefit_voucher_list(%s,'',0,10,'award')",(voucher['code'],))
     result=cur.fetchone()[0]; assert result['ok'] and result['total']==1
+    cur.execute("select public.benefit_voucher_edit(%s,%s,'TESTE CORRIGIDO','85999990000','percent',15,%s,'award','Teste com rollback obrigatório','Privado')",(voucher['id'],voucher['revision'],voucher['expires_on']))
+    result=cur.fetchone()[0];assert result['ok'] and result['voucher']['revision']==2
+    assert result['voucher']['code']==voucher['code'];voucher=result['voucher']
     identity(cur,staff[0])
     cur.execute('select public.benefit_voucher_lookup(%s)',(voucher['code'],))
     result=cur.fetchone()[0]; assert result['ok']
     assert not {'phone','internal_note','issue_reason','issue_reason_detail'} & result['voucher'].keys()
+    cur.execute('select public.benefit_voucher_lookup(%s)',(voucher['legacy_code'],))
+    result=cur.fetchone()[0];assert result['ok'] and result['voucher']['short_code']==voucher['code']
     cur.execute('select public.benefit_voucher_redeem(%s,true)',(voucher['id'],))
+    assert cur.fetchone()[0]['reason']=='changed'
+    cur.execute('select public.benefit_voucher_redeem(%s,true,%s)',(voucher['id'],voucher['revision']))
     result=cur.fetchone()[0]; assert result['ok'] and result['voucher']['status']=='used'
-    cur.execute('select public.benefit_voucher_redeem(%s,true)',(voucher['id'],))
+    cur.execute('select public.benefit_voucher_redeem(%s,true,%s)',(voucher['id'],voucher['revision']))
     assert cur.fetchone()[0]['reason']=='used'
     cur.execute('reset role')
     cur.execute("select count(*) from private.benefit_voucher_events where voucher_id=%s and event_type='used'",(voucher['id'],))

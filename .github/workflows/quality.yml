@@ -29,6 +29,9 @@ jobs:
       - name: Static quality gates
         run: python scripts/ci/check_project.py --require-node
 
+      - name: Pages asset versions and artifact boundaries
+        run: python scripts/ci/test_pages_assets.py
+
       - name: Cloudflare robots response verification without network
         run: python -B scripts/cloudflare/test_robots.py
 

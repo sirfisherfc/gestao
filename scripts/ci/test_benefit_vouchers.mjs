@@ -4,13 +4,13 @@ import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 const V = require('../../assets/voucher-template.js');
 const voucher = { status:'available', beneficiary_name:'Nome de teste', benefit_type:'fixed', benefit_value:1234.56,
-  code:'SF-01AB-CDEF-GHJK', expires_on:'2026-12-04', phone:'85999990000', internal_note:'NÃO EXIBIR NOTA',
+  code:'A1B2C3', expires_on:'2026-12-04', phone:'85999990000', internal_note:'NÃO EXIBIR NOTA',
   issue_reason:'recovery', issue_reason_detail:'NÃO EXIBIR MOTIVO', conditions:['Uso único. Saldo não utilizado é perdido.',
   'Não cumulativo com promoções ou outro voucher na mesma conta.','Válido na unidade Sir Fisher até a data indicada.'] };
 function context() {
   const calls=[],images=[];
   return { calls, images, font:'25px Arial', measureText(text) { const size=Number.parseInt(this.font.match(/(\d+)px/)[1],10);return {width:[...text].length*size*.58}; },
-    fillText(text,x,y){calls.push({text,x,y,font:this.font,align:this.textAlign});},clearRect(){},fillRect(){},strokeRect(){},drawImage(...args){images.push(args);},setLineDash(){},beginPath(){},moveTo(){},lineTo(){},stroke(){} };
+    fillText(text,x,y){calls.push({text,x,y,font:this.font,align:this.textAlign});},clearRect(){},fillRect(){},strokeRect(){},drawImage(...args){images.push(args);},setLineDash(){},beginPath(){},moveTo(){},lineTo(){},stroke(){},roundRect(){},fill(){},save(){},restore(){} };
 }
 const deck={width:960,height:858};
 test('reais e percentuais mantêm unidades, centavos e valores distintos',()=>{
@@ -33,9 +33,9 @@ for (const [label,changes] of [
   const full=ctx.calls.map(c=>c.text).join(' ');
   assert.ok(!full.includes(v.phone) && !full.includes(v.internal_note) && !full.includes(v.issue_reason_detail));
   assert.ok(full.includes(v.code) && full.includes('04/12/2026'));
-  for (const call of ctx.calls) {ctx.font=call.font;const width=ctx.measureText(call.text).width;assert.ok(width<=1020,call.text);assert.ok(call.y<V.HEIGHT);if(call.align==='left')assert.ok(call.x+width<=1048);}
-  const nameCalls=ctx.calls.filter(c=>c.y>=1140 && c.y<1338);
-  assert.ok(nameCalls.every(c=>c.y<1305),'nome deve terminar antes da linha do código');
+  for (const call of ctx.calls) {ctx.font=call.font;const width=ctx.measureText(call.text).width;const left=call.align==='left' ? call.x : call.x-width/2;assert.ok(left>=24 && left+width<=V.WIDTH-24,call.text);assert.ok(call.y<V.HEIGHT);}
+  const nameCalls=ctx.calls.filter(c=>c.y>=530 && c.y<690);
+  assert.ok(nameCalls.every(c=>c.y<676),'nome deve terminar antes da linha do código');
   assert.equal(nameCalls.map(c=>c.text).join('').replace(/\s/g,''),v.beneficiary_name.replace(/\s/g,''));
 });
 test('foto do deck integra o PNG, sem distorção ou recorte fora do arquivo',()=>{
@@ -47,6 +47,14 @@ test('foto do deck integra o PNG, sem distorção ou recorte fora do arquivo',()
 });
 test('foto ausente impede exportação silenciosa de arte sem deck',()=>{
   assert.throws(()=>V.draw(context(),voucher,{}),/foto do deck/);
+});
+test('arte horizontal tem só condições essenciais, sem alterar regras do cadastro',()=>{
+  assert.ok(V.WIDTH>V.HEIGHT);
+  const ctx=context(),v={...voucher,benefit_type:'percent',benefit_value:15,conditions:['Desconto sobre a conta inteira. Sem teto em reais. Saldo não utilizado é perdido.']};
+  V.draw(ctx,v,{},deck);const text=ctx.calls.map(c=>c.text).join(' ');
+  assert.ok(text.includes('Uso único') && text.includes('Não cumulativo'));
+  for(const phrase of ['conta inteira','teto em reais','saldo não','Válido na unidade'])assert.ok(!text.toLowerCase().includes(phrase.toLowerCase()));
+  assert.equal(v.conditions.length,1);
 });
 test('não prepara imagens para voucher usado, vencido ou cancelado',()=>{
   for(const status of ['used','expired','cancelled'])assert.throws(()=>V.draw(context(),{...voucher,status},{}));
@@ -74,4 +82,16 @@ test('nove categorias principais e outro motivo livre',()=>{
   assert.equal(Object.keys(V.REASONS).length,10);
   assert.equal(V.REASONS.award,'Premiação / atingimento de metas');
   assert.ok(V.REASONS.other);
+});
+test('histórico conserva motivo original e complementos com dois-pontos',()=>{
+  assert.equal(V.eventReason('friend: Presente: aniversário'),'Cortesia para amigo: Presente: aniversário');
+  assert.equal(V.eventReason('staff_birthday'),'Aniversário de funcionário');
+});
+test('auditoria mostra alterações reais e formata unidades antes/depois',()=>{
+  const before={benefit_type:'fixed',benefit_value:100,beneficiary_name:'Ana',issue_reason:'friend',expires_on:'2026-12-04'};
+  const after={...before,benefit_type:'percent',benefit_value:15,issue_reason:'award'};
+  const changes=V.changedFields({before,after});
+  assert.equal(changes.length,3);assert.ok(changes.some(x=>x.label==='Benefício' && x.before.includes('100,00') && x.after==='15%'));
+  assert.ok(!changes.some(x=>x.label==='Beneficiário'));
+  assert.deepEqual(V.changedFields(null),[]);
 });

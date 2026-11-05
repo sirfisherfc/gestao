@@ -6,12 +6,31 @@
     promotion: 'Ação promocional ou sorteio', influencer: 'Parceria com influenciador',
     award: 'Premiação / atingimento de metas', other: 'Outro motivo' });
   const STATUS = Object.freeze({ available: 'Disponível', used: 'Utilizado', expired: 'Vencido', cancelled: 'Cancelado' });
-  const WIDTH = 1080, HEIGHT = 1920;
+  const WIDTH = 1600, HEIGHT = 1000;
+  const FIELD_LABELS = Object.freeze({beneficiary_name:'Beneficiário',phone:'Telefone',benefit_type:'Tipo de benefício',
+    benefit_value:'Benefício',expires_on:'Validade',issue_reason:'Motivo',issue_reason_detail:'Complemento',internal_note:'Nota interna'});
   const money = value => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(Number(value));
   const benefit = v => v.benefit_type === 'percent'
     ? `${new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 2 }).format(Number(v.benefit_value))}%` : money(v.benefit_value);
   const dateBR = value => /^\d{4}-\d{2}-\d{2}$/.test(value || '') ? value.split('-').reverse().join('/') : '—';
   const timeBR = value => value ? new Intl.DateTimeFormat('pt-BR', { timeZone: 'America/Fortaleza', dateStyle: 'short', timeStyle: 'short' }).format(new Date(value)) : '—';
+  function eventReason(value) {
+    const [key,...rest] = String(value || '').split(':');
+    return REASONS[key] ? REASONS[key] + (rest.length ? `: ${rest.join(':').trim()}` : '') : String(value || '');
+  }
+  function changedFields(changes) {
+    if (!changes?.before || !changes?.after) return [];
+    function display(field,snapshot) {
+      const value=snapshot[field]; if(value==null || value==='')return '—';
+      if(field==='benefit_value')return benefit(snapshot);
+      if(field==='benefit_type')return value==='percent' ? 'Percentual' : 'Valor em reais';
+      if(field==='expires_on')return dateBR(value);
+      if(field==='issue_reason')return REASONS[value] || String(value);
+      return String(value);
+    }
+    return Object.entries(FIELD_LABELS).filter(([key])=>JSON.stringify(changes.before[key])!==JSON.stringify(changes.after[key]))
+      .map(([key,label])=>({label,before:display(key,changes.before),after:display(key,changes.after)}));
+  }
   function todayPlus(days = 0, instant = new Date()) {
     const parts = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Fortaleza', year: 'numeric', month: '2-digit', day: '2-digit' }).formatToParts(instant);
     const part = key => parts.find(x => x.type === key).value;
@@ -47,35 +66,35 @@
     if (!(photoWidth > 0 && photoHeight > 0)) throw new Error('Não foi possível carregar a foto do deck. Atualize a página e tente novamente.');
     const W = WIDTH, H = HEIGHT, ink = '#12293d', paper = '#f6ecd9', sea = '#226861';
     ctx.clearRect(0, 0, W, H); ctx.fillStyle = paper; ctx.fillRect(0, 0, W, H);
-    ctx.strokeStyle = '#c9b995'; ctx.lineWidth = 2; ctx.strokeRect(32, 32, W - 64, H - 64);
-    // Frame the real deck without distortion; favour its tables and horizon.
-    const photoBox = { x: 32, y: 32, width: W - 64, height: 600 };
+    // Landscape photo and an opaque card: essential data never sits over the photo.
+    const photoBox = { x: 0, y: 0, width: W, height: H };
     const scale = Math.max(photoBox.width / photoWidth, photoBox.height / photoHeight);
     const cropWidth = photoBox.width / scale, cropHeight = photoBox.height / scale;
     ctx.drawImage(deck, (photoWidth - cropWidth) / 2, (photoHeight - cropHeight) * .6, cropWidth, cropHeight,
       photoBox.x, photoBox.y, photoBox.width, photoBox.height);
-    ctx.fillStyle = sea; ctx.fillRect(32, 632, W - 64, 8);
-    ctx.drawImage(logo, 78, 664, 146, 146);
+    ctx.save();ctx.shadowColor='rgba(18,41,61,.24)';ctx.shadowBlur=28;ctx.shadowOffsetY=10;
+    ctx.fillStyle='#fffaf0';ctx.beginPath();ctx.roundRect(620,60,920,880,24);ctx.fill();ctx.restore();
+    ctx.strokeStyle='#d6c9ad';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(660,250);ctx.lineTo(1500,250);ctx.stroke();
+    ctx.drawImage(logo, 660, 102, 122, 122);
     ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic'; ctx.fillStyle = ink;
-    ctx.font = '700 26px Arial'; ctx.fillText('UM PRESENTE PARA VOCÊ', 260, 708);
-    ctx.font = '40px VoucherSerif, Georgia'; ctx.fillText('Bons momentos à sua espera.', 260, 765);
+    ctx.font = '700 22px Arial'; ctx.fillText('UM PRESENTE PARA VOCÊ', 808, 148);
+    ctx.font = '36px VoucherSerif, Georgia'; ctx.fillText('Voucher Sir Fisher', 808, 202);
     ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic'; ctx.fillStyle = ink;
-    const value = fitLines(ctx, benefit(v), 920, 1, 152, 55, 'VoucherSerif, Georgia');
-    ctx.fillStyle = sea; ctx.fillText(value.lines[0], 540, 985);
-    ctx.font = '28px Arial'; ctx.fillStyle = ink;
-    ctx.fillText(v.benefit_type === 'percent' ? 'DE DESCONTO NA CONTA' : 'EM UMA EXPERIÊNCIA SIR FISHER', 540, 1045);
-    ctx.font = '26px Arial'; ctx.fillText('ESPECIALMENTE PARA', 540, 1113);
-    const name = fitLines(ctx, v.beneficiary_name, 900, 4, 52, 16, 'VoucherSerif, Georgia', 160);
-    const nameStart = 1140 + (160 - name.lines.length * (name.size + 8)) / 2 + name.size;
-    name.lines.forEach((line, i) => ctx.fillText(line, 540, nameStart + i * (name.size + 8)));
-    ctx.strokeStyle = '#c9b995'; ctx.setLineDash([7, 9]); ctx.beginPath(); ctx.moveTo(75, 1338); ctx.lineTo(1005, 1338); ctx.stroke(); ctx.setLineDash([]);
-    ctx.font = '700 48px monospace'; ctx.fillStyle = ink; ctx.fillText(v.code, 540, 1413);
-    ctx.font = '34px Arial'; ctx.fillText(`Válido até ${dateBR(v.expires_on)}`, 540, 1479);
-    ctx.font = '34px Arial';
-    const conditions = (v.conditions || []).flatMap(text => wrap(ctx, text, 916));
-    if (conditions.length > 6) throw new Error('Condições excedem o espaço da imagem.');
-    conditions.forEach((line, i) => ctx.fillText(line, 540, 1559 + i * 42));
-    ctx.font = '26px Arial'; ctx.fillStyle = sea; ctx.fillText('sirfisher.com.br  ·  @sirfisherfc', 540, 1854);
+    ctx.font='24px Arial';ctx.fillText(v.benefit_type==='percent' ? 'DE DESCONTO' : 'VALE-PRESENTE',1080,304);
+    const value = fitLines(ctx, benefit(v), 824, 1, 140, 45, 'VoucherSerif, Georgia');
+    ctx.fillStyle = sea; ctx.fillText(value.lines[0], 1080, 454);
+    ctx.font = '22px Arial'; ctx.fillStyle = ink;ctx.fillText('PARA',1080,512);
+    const name = fitLines(ctx, v.beneficiary_name, 824, 4, 58, 14, 'VoucherSerif, Georgia', 140);
+    const nameStart = 530 + (140 - name.lines.length * (name.size + 8)) / 2 + name.size;
+    name.lines.forEach((line, i) => ctx.fillText(line, 1080, nameStart + i * (name.size + 8)));
+    ctx.strokeStyle = '#d6c9ad';ctx.beginPath();ctx.moveTo(660,690);ctx.lineTo(1500,690);ctx.stroke();
+    ctx.font='22px Arial';ctx.fillText('CÓDIGO',865,738);ctx.fillText('VÁLIDO ATÉ',1295,738);
+    const code=fitLines(ctx,v.code,360,1,64,20,'monospace');ctx.font=`700 ${code.size}px monospace`;ctx.fillText(code.lines[0],865,810);
+    ctx.font='40px Arial';ctx.fillText(dateBR(v.expires_on),1295,805);
+    ctx.font='28px Arial';
+    ['Uso único','Não cumulativo com promoções ou outros vouchers.'].forEach((line,i)=>ctx.fillText(line,1080,864+i*36));
+    ctx.fillStyle=paper;ctx.fillRect(40,906,510,54);ctx.textAlign='center';ctx.fillStyle=ink;
+    ctx.font='24px Arial';ctx.fillText('sirfisher.com.br  ·  @sirfisherfc',295,942);
   }
   function whatsapp(v) {
     const phone = String(v.phone || '').replace(/\D/g, '');
@@ -92,7 +111,7 @@
     } catch (error) { if (error.name === 'AbortError') return 'cancelled'; }
     fallback(); return 'fallback';
   }
-  const api = { WIDTH, HEIGHT, REASONS, STATUS, money, benefit, dateBR, timeBR, todayPlus, wrap, fitLines, draw, whatsapp, sharePrepared };
+  const api = { WIDTH, HEIGHT, REASONS, STATUS, money, benefit, dateBR, timeBR, eventReason, changedFields, todayPlus, wrap, fitLines, draw, whatsapp, sharePrepared };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.BenefitVoucher = api;
 })(typeof window !== 'undefined' ? window : globalThis);

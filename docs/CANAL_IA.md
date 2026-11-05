@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 Livre. Foto oficial do deck incluída no PNG dos vouchers; template 1080×1920, loader e artefato validados. Publicação pelo Pages deste commit. Sem mudança de banco/reservas/site; Browser integrado indisponível.
+> **🚦 Status atual:** 🔴 Codex — edição auditada de vouchers disponíveis em gestão, revisão no resgate e atualização automática dos assets. Base 739ad70; reservas delegado a um único agente para controle da revisão. Site somente leitura.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -17,16 +17,6 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
 **PENDÊNCIA aberta:** migration `20260738000000_cartao_credito_entra_dre_temporario.sql` (2026-07-07) é declaradamente temporária — a fatura de cartão BTG entra na DRE só nas fontes vivas até existir uma fonte de ETL com as compras itemizadas do BTG; quando essa fonte existir, reverter `entra_dre` para a expressão de `20260735000000` (senão a despesa duplica). Ver detalhes no `git log`/na própria migration.
 
 **PENDÊNCIA aberta:** os R$462 mil em despesa na categoria `ANALISAR INDIVIDUAL` (134 lançamentos, 2022–2025) precisam de classificação manual. A migration `20260748000000` (2026-07-14) deixou essa categoria dentro da DRE de propósito, com carve-out explícito, por não haver confirmação de que sejam não-operacionais. Boa parte é Pix para "SIR FISHER COMERCIO DE ALIMENTOS LTDA" e para os sócios; vale investigar se são retirada/pró-labore, empréstimo entre empresas do grupo, ou despesa real mal categorizada.
-
-## 2026-11-04 · Codex — Cabeçalho da rotina de vouchers
-
-Corrigido vouchers.html: faltava carregar assets/product-pages.css, que
-define fundo/posição do header e alinhamento de head-row/tabs. Reutilizado
-o CSS das outras rotinas sem alterar estilos globais. Arquivos alterados:
-vouchers.html e este canal. Sem mudança de banco, regras ou outros portais.
-Quality gate com Node, contratos frontend e git diff --check passaram.
-Browser integrado retornou indisponível (lista vazia); não afirmar QA visual
-interativo. Publicação segue o workflow Pages; conferir HTML/CSS por HTTP.
 
 ## 2026-11-04 · Codex — Motivo de premiação / metas nos vouchers
 
@@ -63,3 +53,22 @@ nome sem espaços e valor alto), inspecionados e sem sobreposição. Quality,
 frontend, acessos e diff passaram; foto conferida por SHA256. Não há mudança
 de banco ou vouchers cadastrados. Browser indisponível; QA do PNG realizado
 diretamente por renderização, sem alegar teste interativo do portal/WhatsApp.
+
+## 2026-11-05 ? Codex ? Edi??o, c?digos curtos e arte horizontal dos vouchers
+
+Bot?o Editar para vouchers dispon?veis, com revis?o e hist?rico antes/depois;
+resgate recusa confirma??o de revis?o antiga. Emiss?o e consulta passam a usar
+seis caracteres Crockford, sem prefixo; c?digos antigos mantidos como aliases.
+Arte 1600?1000 com foto oficial do deck e cart?o claro, rodap? apenas uso ?nico
+e n?o ac?mulo. Dados internos permanecem privados. Assets JS/CSS de vouchers
+ganham nomes por hash no artefato Pages para atualizar navegador sem vers?es
+manuais no HTML fonte. Reservas recebe consulta curta e resgate com revis?o.
+
+Migrations 20261104205451 e 20261105130459 aplicadas/registradas no portal e
+relidas; perfis reais validados em transa??o com rollback das fixtures.
+81 verifica??es SQL com concorr?ncia e limpeza, 19 testes JS de gest?o,
+27 de reservas e 2 de empacotamento passaram; quality, acessos, frontend e
+cat?logo de migrations passaram. Cinco PNGs renderizados, com inspe??o visual
+dos casos normal e nome longo. Advisor sem WARN/ERROR para vouchers.
+Publica??o pelo Pages ap?s push; conferir workflows e artefato do mesmo commit.
+Browser integrado indispon?vel; n?o alegar teste interativo do portal/WhatsApp.

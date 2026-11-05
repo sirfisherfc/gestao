@@ -2,6 +2,13 @@
 
 ## Vouchers de benefício — 04/11/2026
 
+Em 05/11/2026, migrations `20261104205451_benefit_voucher_edit` e
+`20261105130459_benefit_voucher_short_codes`: coluna revision, evento edited
+com snapshots privados, RPC de edição com lock/revisão e resgate condicionado
+à revisão consultada. Código curto de seis caracteres único, gerado por trigger;
+backfill preserva os códigos anteriores como aliases. Nenhum dado de reserva ou
+financeiro é modificado. Tabelas seguem privadas, RLS e grants mínimos preservados.
+
 Complemento `20261104203828_benefit_voucher_award_reason.sql` amplia o CHECK
 de issue_reason e as validações privadas de emissão/listagem para aceitar
 `award` (Premiação / atingimento de metas). Não muda grants, perfis, resgate

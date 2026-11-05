@@ -13,11 +13,11 @@
       const option = document.createElement('option'); option.value = key; option.textContent = label; select.append(option);
     }
   }
-  let offset = 0, selected = null, file = null, requestId = null, issuing = false, cancelling = false, listSerial = 0, detailSerial = 0;
+  let offset = 0, selected = null, file = null, requestId = null, editing = null, issuing = false, cancelling = false, listSerial = 0, detailSerial = 0;
   function message(id, text, error = false) { $(id).textContent = text; $(id).classList.toggle('error', error); }
   async function rpc(name, args) {
     const { data, error } = await sb.rpc(name, args);
-    if (error) throw new Error(error.code === '42501' ? 'Seu perfil não tem permissão para esta operação.' : error.code === '22023' ? error.message : 'Não foi possível confirmar a operação. Verifique sua conexão.');
+    if (error) throw Object.assign(new Error(error.code === '42501' ? 'Seu perfil não tem permissão para esta operação.' : error.code === '22023' ? error.message : 'Não foi possível confirmar a operação. Verifique sua conexão.'),{code:error.code});
     if (!data) throw new Error('Não foi possível confirmar a operação.');
     if (data.reason === 'rate_limited') throw new Error('Muitas operações em pouco tempo. Aguarde um minuto e tente novamente.');
     return data;
@@ -44,7 +44,7 @@
     } catch (error) { if (serial === listSerial) message('list-message',error.message,true); }
   }
   function term(dl,label,value) { dl.append(text('dt',label),text('dd',value || '—')); }
-  function resetActions() { file = null; $('download-btn').disabled = true; $('share-btn').disabled = true; $('whatsapp-link').hidden = true; $('whatsapp-link').removeAttribute('href'); $('cancel-btn').hidden = true; }
+  function resetActions() { file = null; $('download-btn').disabled = true; $('share-btn').disabled = true; $('whatsapp-link').hidden = true; $('whatsapp-link').removeAttribute('href'); $('cancel-btn').hidden = true; $('edit-btn').hidden = true; }
   async function openDetail(id) {
     const serial = ++detailSerial; selected = null; resetActions(); $('detail-body').replaceChildren(); message('detail-message','Consultando…');
     if (!$('detail-dialog').open) $('detail-dialog').showModal();
@@ -59,11 +59,18 @@
       if (v.cancelled_at) { term(dl,'Cancelamento',`${V.timeBR(v.cancelled_at)} · ${v.cancelled_by_name}`); term(dl,'Motivo',v.cancellation_reason); }
       details.append(dl,text('h3','Condições')); const rules = text('ul',''); v.conditions.forEach(c=>rules.append(text('li',c))); details.append(rules,text('h3','Histórico'));
       const history = text('ul',''); data.events.forEach(e=>{
-        const reason=e.event_type==='issued' ? [V.REASONS[v.issue_reason],v.issue_reason_detail].filter(Boolean).join(' · ') : e.reason;
-        history.append(text('li',`${V.timeBR(e.occurred_at)} · ${{issued:'Emissão',used:'Utilização',cancelled:'Cancelamento'}[e.event_type]} · ${e.actor_name}${reason ? ` · ${reason}` : ''}`));
+        const reason=e.event_type==='issued' ? V.eventReason(e.reason) : e.reason;
+        const item=text('li',`${V.timeBR(e.occurred_at)} · ${{issued:'Emissão',edited:'Edição',used:'Utilização',cancelled:'Cancelamento'}[e.event_type]} · ${e.actor_name}${reason ? ` · ${reason}` : ''}`);
+        const changes=V.changedFields(e.changes);
+        if(changes.length) {
+          const disclosure=document.createElement('details'),dl=text('dl','');disclosure.append(text('summary','Ver alterações'));
+          changes.forEach(change=>term(dl,change.label,`${change.before} → ${change.after}`));disclosure.append(dl);item.append(disclosure);
+        }
+        history.append(item);
       }); details.append(history);
       const preview = text('div','','voucher-preview'); layout.append(details,preview); $('detail-body').replaceChildren(layout);
       $('cancel-btn').hidden = ['used','cancelled'].includes(v.status);
+      $('edit-btn').hidden = v.status!=='available';
       if (v.status !== 'available') { message('detail-message','Este voucher não está disponível para compartilhar.'); return; }
       message('detail-message','Preparando imagem…');
       await document.fonts.load('52px VoucherSerif');
@@ -94,23 +101,55 @@
     $(button.dataset.close).close();
   }));
   $('detail-dialog').addEventListener('close',()=>{detailSerial++; selected=null; resetActions();});
-  $('new-btn').addEventListener('click',()=>{ if (!requestId) { issueForm.reset(); issueForm.elements.expiry.min=V.todayPlus(); issueForm.elements.expiry.value=V.todayPlus(30); requestId=crypto.randomUUID(); reasonChanged(); typeChanged(); } $('issue-error').textContent=''; $('issue-dialog').showModal(); });
+  $('new-btn').addEventListener('click',()=>{
+    if(editing)requestId=null;editing=null;
+    $('issue-title').textContent='Um presente Sir Fisher';$('issue-intro').textContent='A imagem é preparada automaticamente após a emissão. Os dados internos ficam apenas na gestão.';$('issue-submit').textContent='Emitir voucher';
+    if (!requestId) { issueForm.reset(); issueForm.elements.expiry.min=V.todayPlus(); issueForm.elements.expiry.value=V.todayPlus(30); requestId=crypto.randomUUID(); reasonChanged(); typeChanged(); }
+    $('issue-error').textContent=''; $('issue-dialog').showModal();
+  });
+  $('edit-btn').addEventListener('click',()=>{
+    if(!selected || selected.status!=='available' || issuing)return;
+    const v=selected;editing={id:v.id,revision:v.revision};requestId=null;issueForm.reset();
+    const f=issueForm.elements;
+    f.beneficiary.value=v.beneficiary_name;f.phone.value=v.phone;f.type.value=v.benefit_type;f.value.value=v.benefit_value;
+    f.expiry.min=V.todayPlus();f.expiry.value=v.expires_on;f.reason.value=v.issue_reason;
+    f.reason_detail.value=v.issue_reason_detail || '';f.note.value=v.internal_note || '';
+    reasonChanged();typeChanged();$('issue-error').textContent='';$('issue-title').textContent='Editar voucher';$('issue-submit').textContent='Salvar alterações';
+    $('issue-intro').textContent='As correções ficam no histórico. A imagem será atualizada; se já foi enviada, compartilhe a nova versão com o beneficiário.';
+    $('issue-dialog').showModal();
+  });
   function typeChanged() { const percent=issueForm.elements.type.value==='percent'; $('value-label').firstChild.textContent=percent ? 'Desconto (%)' : 'Valor do benefício (R$)'; issueForm.elements.value.max=percent ? '100' : '9999999999.99'; }
   function reasonChanged() { const other=issueForm.elements.reason.value==='other'; issueForm.elements.reason_detail.required=other; issueForm.elements.reason_detail.minLength=other ? 3 : 0; $('reason-detail-label').firstChild.textContent=other ? 'Descreva o motivo · obrigatório' : 'Complemento do motivo · opcional'; }
   issueForm.elements.type.addEventListener('change',typeChanged); issueForm.elements.reason.addEventListener('change',reasonChanged);
   issueForm.addEventListener('submit',async(event)=>{
     event.preventDefault(); if(issuing || !issueForm.reportValidity())return;
     issuing=true; $('issue-submit').disabled=true; $('issue-error').textContent='';
+    const edit=editing;
     try {
       const f=issueForm.elements;
-      const result=await rpc('benefit_voucher_issue',{p_request_id:requestId,p_beneficiary_name:f.beneficiary.value.trim(),p_phone:f.phone.value,p_benefit_type:f.type.value,p_benefit_value:Number(f.value.value),p_expires_on:f.expiry.value,p_issue_reason:f.reason.value,p_issue_reason_detail:f.reason_detail.value.trim() || null,p_internal_note:f.note.value.trim() || null});
+      const values={p_beneficiary_name:f.beneficiary.value.trim(),p_phone:f.phone.value,p_benefit_type:f.type.value,p_benefit_value:Number(f.value.value),p_expires_on:f.expiry.value,p_issue_reason:f.reason.value,p_issue_reason_detail:f.reason_detail.value.trim() || null,p_internal_note:f.note.value.trim() || null};
+      const result=await rpc(edit ? 'benefit_voucher_edit' : 'benefit_voucher_issue',edit ? {...values,p_id:edit.id,p_expected_revision:edit.revision} : {...values,p_request_id:requestId});
+      if(edit) {
+        editing=null;$('issue-dialog').close();await openDetail(edit.id);loadList();
+        const status=V.STATUS[result.reason];
+        message('detail-message',result.ok ? (result.unchanged ? 'Os dados já estavam atualizados.' : 'Alterações salvas. Baixe e compartilhe a imagem atualizada se necessário.')
+          : result.reason==='changed' ? 'O voucher foi alterado enquanto você editava. Confira os dados atuais e abra Editar novamente.' : `Edição recusada: ${status || 'consulte a situação atual'}.`,!result.ok);
+        return;
+      }
       if(result.reason==='request_conflict') {
         requestId=null; $('issue-dialog').close(); await openDetail(result.voucher.id); loadList();
         message('detail-message','A solicitação anterior já havia sido emitida. Este é o voucher original; as alterações posteriores não foram aplicadas. Para outro benefício, inicie uma nova emissão.',true); return;
       }
       if(!result.ok)throw new Error('Não foi possível confirmar a emissão.');
       requestId=null; $('issue-dialog').close(); offset=0; loadList(); await openDetail(result.voucher.id);
-    } catch(error) { $('issue-error').textContent=`${error.message} Se houve falha de conexão, mantenha este formulário e tente novamente: a mesma emissão não será duplicada.`; }
+    } catch(error) {
+      if(edit && error.code==='22023')$('issue-error').textContent=error.message;
+      else if(edit) {
+        // A resposta pode ter se perdido depois da gravação. Reconsultar; nunca reenviar a edição automaticamente.
+        editing=null;$('issue-dialog').close();await openDetail(edit.id);loadList();
+        message('detail-message',`${error.message} Consulte os dados e o histórico antes de editar novamente.`,true);
+      } else $('issue-error').textContent=`${error.message} Se houve falha de conexão, mantenha este formulário e tente novamente: a mesma emissão não será duplicada.`;
+    }
     finally { issuing=false; $('issue-submit').disabled=false; }
   });
   // Prevent dismissal during a write; request_id survives retry after a lost response.

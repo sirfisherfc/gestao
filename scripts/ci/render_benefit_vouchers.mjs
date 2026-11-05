@@ -15,7 +15,7 @@ const deck=await loadImage(resolve(root,'assets/vouchers/deck.webp'));
 const out=resolve(process.argv[3] || resolve(root,'tmp/voucher-preview'));
 await mkdir(out,{recursive:true});
 const base={status:'available',beneficiary_name:'Ana Carolina de Oliveira',benefit_type:'fixed',benefit_value:250,
- code:'SF-01AB-CDEF-WXYZ',expires_on:'2026-12-04',conditions:['Uso único. Saldo não utilizado é perdido.',
+ code:'A1B2C3',expires_on:'2026-12-04',conditions:['Uso único. Saldo não utilizado é perdido.',
  'Não cumulativo com promoções ou outro voucher na mesma conta.','Válido na unidade Sir Fisher até a data indicada.']};
 for(const [name,patch] of [['fixo',{}],['nome-longo',{beneficiary_name:('Ana Carolina de Albuquerque e Oliveira '.repeat(5)).slice(0,160)}],
  ['percentual',{benefit_type:'percent',benefit_value:12.5}],['valor-alto',{benefit_value:9999999999.99}],['sem-espacos',{beneficiary_name:'W'.repeat(160)}]]) {
@@ -23,8 +23,8 @@ for(const [name,patch] of [['fixo',{}],['nome-longo',{beneficiary_name:('Ana Car
  const original=ctx.fillText.bind(ctx); const calls=[];
  ctx.fillText=(text,x,y)=>{
    const width=ctx.measureText(text).width;
-   assert.ok(width<=1020 && y<V.HEIGHT,`Overflow ${name}: ${text}`);
-   if(ctx.textAlign==='left')assert.ok(x+width<=1048,`Header overflow ${name}: ${text}`);
+   const left=ctx.textAlign==='left' ? x : x-width/2;
+   assert.ok(left>=24 && left+width<=V.WIDTH-24 && y<V.HEIGHT,`Overflow ${name}: ${text}`);
    calls.push(text);original(text,x,y);
  };
  const v={...base,...patch};

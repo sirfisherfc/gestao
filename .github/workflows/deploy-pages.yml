@@ -148,6 +148,9 @@ jobs:
             exit 1
           fi
 
+      - name: Version voucher assets by their contents
+        run: python3 scripts/implantacao/versionar_assets_pages.py --directory _site --page vouchers.html
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
