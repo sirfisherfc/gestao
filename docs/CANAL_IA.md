@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 Livre — Codex concluiu composição centralizada dos vouchers. Reservas e site sem edições.
+> **🚦 Status atual:** 🟢 Livre — Codex reduziu o cartão dos vouchers para mostrar mais a foto. Reservas e site sem edições.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -17,26 +17,6 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
 **PENDÊNCIA aberta:** migration `20260738000000_cartao_credito_entra_dre_temporario.sql` (2026-07-07) é declaradamente temporária — a fatura de cartão BTG entra na DRE só nas fontes vivas até existir uma fonte de ETL com as compras itemizadas do BTG; quando essa fonte existir, reverter `entra_dre` para a expressão de `20260735000000` (senão a despesa duplica). Ver detalhes no `git log`/na própria migration.
 
 **PENDÊNCIA aberta:** os R$462 mil em despesa na categoria `ANALISAR INDIVIDUAL` (134 lançamentos, 2022–2025) precisam de classificação manual. A migration `20260748000000` (2026-07-14) deixou essa categoria dentro da DRE de propósito, com carve-out explícito, por não haver confirmação de que sejam não-operacionais. Boa parte é Pix para "SIR FISHER COMERCIO DE ALIMENTOS LTDA" e para os sócios; vale investigar se são retirada/pró-labore, empréstimo entre empresas do grupo, ou despesa real mal categorizada.
-
-## 2026-11-04 · Codex — Foto do deck incorporada ao voucher
-
-Incluída foto oficial no próprio Canvas exportado para PNG e compartilhado.
-Arquivo assets/vouchers/deck.webp idêntico ao terraco-por-do-sol-960 do site;
-autoria confirmada no guia de analytics do site. Recorte mantém mesas e
-horizonte; dados ficam sobre fundo liso. Formato 1080×1920. Nome longo e
-valores continuam ajustados sem truncamento. Reabrir voucher disponível já
-emitido gera nova arte; não reemitir. Loader aguarda foto/ícone/fontes e
-exige foto válida, sem retornar silenciosamente à arte anterior.
-
-Alterados template, loader, asset, allowlist/empacotamento Pages, renderer,
-testes e docs/VOUCHERS.md. Referências Belmond/Dorchester agora explicadas
-em linguagem comum: exemplos consultados, sem vínculo ou uso de suas artes.
-16 testes JS passaram, incluindo foto no mesmo Canvas exportado, proporção,
-limites e privacidade; cinco PNGs renderizados (fixo, percentual, nome160,
-nome sem espaços e valor alto), inspecionados e sem sobreposição. Quality,
-frontend, acessos e diff passaram; foto conferida por SHA256. Não há mudança
-de banco ou vouchers cadastrados. Browser indisponível; QA do PNG realizado
-diretamente por renderização, sem alegar teste interativo do portal/WhatsApp.
 
 ## 2026-11-05 · Codex — Edição, códigos curtos e arte horizontal dos vouchers
 
@@ -72,3 +52,14 @@ Arquivos: assets/voucher-template.js, teste JS, docs/VOUCHERS.md e este canal.
 e nome longo. Quality com Node e contratos frontend conferidos antes do push.
 Publicação pelo Pages com versionamento automático dos assets; conferir o
 workflow do commit e a cópia publicada. Nenhuma edição em reservas ou site.
+
+## 2026-11-05 · Codex — Mais foto ao redor do cartão
+
+Cartão reduzido de 960×800 para 864×704 px: 10% na largura e 12% na altura,
+interpretando a segunda menção a largura como altura. Permanece centralizado;
+logo, tipografia e espaçamento ajustados proporcionalmente. Template e
+docs/VOUCHERS.md atualizados; sem banco ou alterações em reservas/site.
+19 testes JS passaram. Cinco variantes PNG renderizadas, incluindo nome
+longo e valor alto; casos normal e nome longo inspecionados sem cortes.
+Quality e diff conferidos antes do push; publicação pelo Pages, com arquivo
+do template versionado automaticamente por conteúdo.

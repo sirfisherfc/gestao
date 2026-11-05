@@ -72,26 +72,26 @@
     const cropWidth = photoBox.width / scale, cropHeight = photoBox.height / scale;
     ctx.drawImage(deck, (photoWidth - cropWidth) / 2, (photoHeight - cropHeight) * .6, cropWidth, cropHeight,
       photoBox.x, photoBox.y, photoBox.width, photoBox.height);
-    const cardFill=ctx.createLinearGradient(320,0,1280,0);
+    const cardFill=ctx.createLinearGradient(368,0,1232,0);
     cardFill.addColorStop(0,'#e9e9e6');cardFill.addColorStop(.5,'#fffefb');cardFill.addColorStop(1,'#e9e9e6');
     ctx.save();ctx.shadowColor='rgba(18,41,61,.18)';ctx.shadowBlur=24;ctx.shadowOffsetY=8;
-    ctx.fillStyle=cardFill;ctx.beginPath();ctx.roundRect(320,100,960,800,36);ctx.fill();ctx.restore();
-    ctx.drawImage(logo, 748, 134, 104, 104);
+    ctx.fillStyle=cardFill;ctx.beginPath();ctx.roundRect(368,148,864,704,32);ctx.fill();ctx.restore();
+    ctx.drawImage(logo, 754, 178, 92, 92);
     ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic'; ctx.fillStyle = ink;
-    ctx.font = '20px Arial'; ctx.fillText('UM PRESENTE PARA VOCÊ', 800, 272);
-    ctx.font='22px Arial';ctx.fillText(v.benefit_type==='percent' ? 'DE DESCONTO' : 'VALE-PRESENTE',800,314);
-    const value = fitLines(ctx, benefit(v), 840, 1, 124, 45, 'VoucherSerif, Georgia');
-    ctx.fillStyle = sea; ctx.fillText(value.lines[0], 800, 430);
-    ctx.font = '20px Arial'; ctx.fillStyle = ink;ctx.fillText('PARA',800,474);
-    const name = fitLines(ctx, v.beneficiary_name, 840, 4, 52, 14, 'VoucherSerif, Georgia', 110);
-    const nameStart = 490 + (110 - name.lines.length * (name.size + 8)) / 2 + name.size;
+    ctx.font = '18px Arial'; ctx.fillText('UM PRESENTE PARA VOCÊ', 800, 299);
+    ctx.font='19px Arial';ctx.fillText(v.benefit_type==='percent' ? 'DE DESCONTO' : 'VALE-PRESENTE',800,336);
+    const value = fitLines(ctx, benefit(v), 740, 1, 109, 40, 'VoucherSerif, Georgia');
+    ctx.fillStyle = sea; ctx.fillText(value.lines[0], 800, 438);
+    ctx.font = '18px Arial'; ctx.fillStyle = ink;ctx.fillText('PARA',800,477);
+    const name = fitLines(ctx, v.beneficiary_name, 740, 4, 46, 14, 'VoucherSerif, Georgia', 97);
+    const nameStart = 491 + (97 - name.lines.length * (name.size + 8)) / 2 + name.size;
     name.lines.forEach((line, i) => ctx.fillText(line, 800, nameStart + i * (name.size + 8)));
-    ctx.strokeStyle = '#cccfc9';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(440,624);ctx.lineTo(1160,624);ctx.stroke();
-    ctx.font='18px Arial';ctx.fillText('CÓDIGO',800,664);
-    const code=fitLines(ctx,v.code,840,1,54,20,'monospace');ctx.font=`700 ${code.size}px monospace`;ctx.fillText(code.lines[0],800,722);
-    ctx.font='26px Arial';ctx.fillText(`Válido até ${dateBR(v.expires_on)}`,800,768);
-    ctx.font='24px Arial';
-    ['Uso único','Não cumulativo com promoções ou outros vouchers.'].forEach((line,i)=>ctx.fillText(line,800,814+i*34));
+    ctx.strokeStyle = '#cccfc9';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(483,609);ctx.lineTo(1117,609);ctx.stroke();
+    ctx.font='16px Arial';ctx.fillText('CÓDIGO',800,644);
+    const code=fitLines(ctx,v.code,740,1,48,20,'monospace');ctx.font=`700 ${code.size}px monospace`;ctx.fillText(code.lines[0],800,695);
+    ctx.font='23px Arial';ctx.fillText(`Válido até ${dateBR(v.expires_on)}`,800,736);
+    ctx.font='21px Arial';
+    ['Uso único','Não cumulativo com promoções ou outros vouchers.'].forEach((line,i)=>ctx.fillText(line,800,776+i*30));
   }
   function whatsapp(v) {
     const phone = String(v.phone || '').replace(/\D/g, '');
