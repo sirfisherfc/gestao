@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 Livre — Codex concluiu lista de validações recentes em reservas e ajustes de navegação/texto em gestão. Site sem alterações.
+> **🚦 Status atual:** 🟢 Livre — Codex concluiu ajuste pontual de validade para teste autorizado de voucher vencido. Regras e código dos portais preservados.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -17,18 +17,6 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
 **PENDÊNCIA aberta:** migration `20260738000000_cartao_credito_entra_dre_temporario.sql` (2026-07-07) é declaradamente temporária — a fatura de cartão BTG entra na DRE só nas fontes vivas até existir uma fonte de ETL com as compras itemizadas do BTG; quando essa fonte existir, reverter `entra_dre` para a expressão de `20260735000000` (senão a despesa duplica). Ver detalhes no `git log`/na própria migration.
 
 **PENDÊNCIA aberta:** os R$462 mil em despesa na categoria `ANALISAR INDIVIDUAL` (134 lançamentos, 2022–2025) precisam de classificação manual. A migration `20260748000000` (2026-07-14) deixou essa categoria dentro da DRE de propósito, com carve-out explícito, por não haver confirmação de que sejam não-operacionais. Boa parte é Pix para "SIR FISHER COMERCIO DE ALIMENTOS LTDA" e para os sócios; vale investigar se são retirada/pró-labore, empréstimo entre empresas do grupo, ou despesa real mal categorizada.
-
-## 2026-11-05 · Codex — Cartão e informações centralizados
-
-Template horizontal reorganizado conforme a referência visual enviada:
-cartão claro em degradê, arredondado e central sobre a foto oficial do deck;
-logo, benefício, nome, código e validade no mesmo eixo. Removida a caixa
-separada de site/Instagram. Rodapé continua curto. Sem mudança de banco.
-Arquivos: assets/voucher-template.js, teste JS, docs/VOUCHERS.md e este canal.
-19 testes passaram; cinco PNGs renderizados, com inspeção dos casos normal
-e nome longo. Quality com Node e contratos frontend conferidos antes do push.
-Publicação pelo Pages com versionamento automático dos assets; conferir o
-workflow do commit e a cópia publicada. Nenhuma edição em reservas ou site.
 
 ## 2026-11-05 · Codex — Mais foto ao redor do cartão
 
@@ -63,3 +51,16 @@ Voucher de teste indicado pelo proprietário apagado por pedido explícito,
 junto dos dois eventos vinculados; alvo único conferido antes e ausência
 conferida depois, sem dados pessoais versionados. Site permanece sem edições.
 Publicação por Pages nos dois projetos; conferir workflows/artefatos do commit.
+
+## 2026-11-05 · Codex — Teste autorizado de voucher vencido
+
+Por pedido explícito do proprietário, alterada apenas a validade do voucher
+indicado para 03/11/2026. Ajuste pontual pelo acesso autorizado ao portal,
+com lock, conferência da revisão anterior, incremento de revisão e evento
+edited com antes/depois e identificação do ajuste técnico autorizado.
+Não flexibilizada a RPC de edição, que continua recusando datas passadas.
+Consulta real autenticada retornou expired e resgate foi recusado por expired;
+verificação revertida em savepoint para não deixar contadores ou utilização.
+Leitura posterior confirmou data, revisão e evento persistidos. Sem mudança
+de schema, código dos portais, reservas/site ou outros vouchers. Somente este
+registro de entrega é versionado, sem identificação ou dados pessoais do cliente.
