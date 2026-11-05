@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 Livre — Codex concluiu ajuste pontual de validade para teste autorizado de voucher vencido. Regras e código dos portais preservados.
+> **🚦 Status atual:** 🟢 Livre — Codex concluiu popup de voucher vencido e card compacto em reservas. Gestão somente registro; site sem alterações.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -17,17 +17,6 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
 **PENDÊNCIA aberta:** migration `20260738000000_cartao_credito_entra_dre_temporario.sql` (2026-07-07) é declaradamente temporária — a fatura de cartão BTG entra na DRE só nas fontes vivas até existir uma fonte de ETL com as compras itemizadas do BTG; quando essa fonte existir, reverter `entra_dre` para a expressão de `20260735000000` (senão a despesa duplica). Ver detalhes no `git log`/na própria migration.
 
 **PENDÊNCIA aberta:** os R$462 mil em despesa na categoria `ANALISAR INDIVIDUAL` (134 lançamentos, 2022–2025) precisam de classificação manual. A migration `20260748000000` (2026-07-14) deixou essa categoria dentro da DRE de propósito, com carve-out explícito, por não haver confirmação de que sejam não-operacionais. Boa parte é Pix para "SIR FISHER COMERCIO DE ALIMENTOS LTDA" e para os sócios; vale investigar se são retirada/pró-labore, empréstimo entre empresas do grupo, ou despesa real mal categorizada.
-
-## 2026-11-05 · Codex — Mais foto ao redor do cartão
-
-Cartão reduzido de 960×800 para 864×704 px: 10% na largura e 12% na altura,
-interpretando a segunda menção a largura como altura. Permanece centralizado;
-logo, tipografia e espaçamento ajustados proporcionalmente. Template e
-docs/VOUCHERS.md atualizados; sem banco ou alterações em reservas/site.
-19 testes JS passaram. Cinco variantes PNG renderizadas, incluindo nome
-longo e valor alto; casos normal e nome longo inspecionados sem cortes.
-Quality e diff conferidos antes do push; publicação pelo Pages, com arquivo
-do template versionado automaticamente por conteúdo.
 
 ## 2026-11-05 · Codex — Validações recentes e ajustes dos portais
 
@@ -64,3 +53,18 @@ verificação revertida em savepoint para não deixar contadores ou utilização
 Leitura posterior confirmou data, revisão e evento persistidos. Sem mudança
 de schema, código dos portais, reservas/site ou outros vouchers. Somente este
 registro de entrega é versionado, sem identificação ou dados pessoais do cliente.
+
+## 2026-11-05 · Codex — Aviso de vencimento e consulta compacta
+
+Reservas: consulta vencida abre alertdialog em destaque, orienta consultar o
+emissor, mostra código/data e botão Entendi. A orientação também fica no card.
+Aviso reaparece em recusa por vencimento entre consulta/confirmação, inclusive
+com reconsulta indisponível; fallback por alerta nativo. Fechamento devolve
+foco ao código. Retirados campo Unidade e botão Consultar novamente; consultas
+seguem no formulário do topo e ações indisponíveis não deixam espaço vazio.
+Alterados HTML, CSS, controlador, texto de status, teste do controlador e docs
+do reservas. Gestão só este registro; sem mudanças de banco ou outros portais.
+37 testes passaram, incluindo controlador real com DOM adaptado e fluxo de
+resgate/reconsulta. Sintaxe JS, IDs de HTML/controlador e diff conferidos.
+Não afirmar teste visual interativo; navegador integrado indisponível nesta
+sessão. Publicação via Pages; conferir artefato e workflow do mesmo commit.
