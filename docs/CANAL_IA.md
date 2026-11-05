@@ -66,3 +66,10 @@ Retirada a frase explicativa do período da lista, preservando a janela no
 servidor. 44 testes JS passaram. HTML/JS/CSS, teste de UI e docs atualizados.
 Sem renovação automática de dados reais. Publicar/conferir Pages de ambos
 os projetos; navegador indisponível, sem alegar QA visual interativo.
+
+## 2026-11-05 · Claude — Teknisa: multiplicador de prato com composição
+
+Só leitura no painel, nada gravado. "Multiplicador Produto" já está liberado
+para garçom e gerente; efeito em Promoção Combinada não testado no POS.
+Registro em `docs/TEKNISA_ACESSOS_OPERACAO.md`. Pedido de "liberar acesso ao
+portal" aguarda o proprietário dizer para quem. `node` ausente no PATH deste PC.

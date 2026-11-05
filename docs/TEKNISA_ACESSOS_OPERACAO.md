@@ -302,3 +302,22 @@ cancelar um item já enviado, sem pedir senha de gerente. Cancelar a mesa
 inteira deve continuar pedindo a senha. Se o aparelho já estiver logado,
 pode ser necessário sair e entrar de novo. Para desfazer, devolva o
 operador ao grupo 04 e retire-o do 05.
+
+## Multiplicar prato com composição (05/11/2026)
+
+O proprietário perguntou se o garçom pode lançar um prato com composição,
+como o PF, e multiplicá-lo por 2 ou 3, sem repetir as escolhas. Leitura
+no painel, sem gravação:
+
+- Em **Controle de Acesso do Caixa**, a permissão **Multiplicador Produto**
+  está em "Permite Acesso" nos grupos `04 — GARCOM` e `02 — ADM - SUPERVISOR`.
+  **Produto Combinado** também. O grupo 05 foi copiado do 04 sem diferença
+  nessas duas.
+- Em Cadastro de Caixa (POS 001) e Cadastro de Loja, Frente de Caixa,
+  Comanda e Gestão de Vendas não têm opção de repetir um item montado.
+  O único campo de quantidade próximo é "Quantidade máxima permitida de
+  venda por produto por vez", um limitador.
+- O painel não comprova se o multiplicador do POS repete as escolhas de um
+  produto de Promoção Combinada. O manual do POS respondeu 502 nessa data.
+  Falta testar num aparelho, numa mesa de teste, e conferir o total e a
+  impressão na cozinha. Sem esse teste, perguntar ao suporte Teknisa.
