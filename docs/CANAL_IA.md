@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🔴 Codex — edição auditada de vouchers disponíveis em gestão, revisão no resgate e atualização automática dos assets. Base 739ad70; reservas delegado a um único agente para controle da revisão. Site somente leitura.
+> **🚦 Status atual:** 🟢 Livre — Codex concluiu edição auditada, códigos curtos e arte horizontal dos vouchers em gestão e reservas. Site sem alterações.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -54,21 +54,25 @@ frontend, acessos e diff passaram; foto conferida por SHA256. Não há mudança
 de banco ou vouchers cadastrados. Browser indisponível; QA do PNG realizado
 diretamente por renderização, sem alegar teste interativo do portal/WhatsApp.
 
-## 2026-11-05 ? Codex ? Edi??o, c?digos curtos e arte horizontal dos vouchers
+## 2026-11-05 · Codex — Edição, códigos curtos e arte horizontal dos vouchers
 
-Bot?o Editar para vouchers dispon?veis, com revis?o e hist?rico antes/depois;
-resgate recusa confirma??o de revis?o antiga. Emiss?o e consulta passam a usar
-seis caracteres Crockford, sem prefixo; c?digos antigos mantidos como aliases.
-Arte 1600?1000 com foto oficial do deck e cart?o claro, rodap? apenas uso ?nico
-e n?o ac?mulo. Dados internos permanecem privados. Assets JS/CSS de vouchers
-ganham nomes por hash no artefato Pages para atualizar navegador sem vers?es
-manuais no HTML fonte. Reservas recebe consulta curta e resgate com revis?o.
+Botão Editar para vouchers disponíveis, com revisão e histórico antes/depois;
+resgate recusa confirmação de revisão antiga. Emissão e consulta passam a usar
+seis caracteres Crockford, sem prefixo; códigos antigos mantidos como aliases.
+Arte 1600×1000 com foto oficial do deck e cartão claro, rodapé apenas uso único
+e não acúmulo. Dados internos permanecem privados. Assets JS/CSS de vouchers
+ganham nomes por hash no artefato Pages para atualizar navegador sem versões
+manuais no HTML fonte. Reservas recebe consulta curta e resgate com revisão.
 
 Migrations 20261104205451 e 20261105130459 aplicadas/registradas no portal e
-relidas; perfis reais validados em transa??o com rollback das fixtures.
-81 verifica??es SQL com concorr?ncia e limpeza, 19 testes JS de gest?o,
+relidas; perfis reais validados em transação com rollback das fixtures.
+81 verificações SQL com concorrência e limpeza, 19 testes JS de gestão,
 27 de reservas e 2 de empacotamento passaram; quality, acessos, frontend e
-cat?logo de migrations passaram. Cinco PNGs renderizados, com inspe??o visual
+catálogo de migrations passaram. Cinco PNGs renderizados, com inspeção visual
 dos casos normal e nome longo. Advisor sem WARN/ERROR para vouchers.
-Publica??o pelo Pages ap?s push; conferir workflows e artefato do mesmo commit.
-Browser integrado indispon?vel; n?o alegar teste interativo do portal/WhatsApp.
+Publicados gestão 432830f (Pages e Quality verdes) e reservas 6f0d456 (Pages
+verde). Artefatos dos mesmos commits conferidos: 11 assets com hash coerente,
+botão Editar, arte horizontal, foto e resgate com revisão. Purga Cloudflare
+limitada a sete URLs dos vouchers concluída. Site sem alterações.
+Browser integrado indisponível e HTTP dos domínios retornou 403 Cloudflare;
+não alegar teste interativo do portal/WhatsApp. Sem pendência de implantação.
