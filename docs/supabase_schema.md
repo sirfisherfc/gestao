@@ -2,6 +2,13 @@
 
 ## Vouchers de benefício — 04/11/2026
 
+Complemento `20261105141504_benefit_voucher_recent`: índice parcial de used_at
+e consulta paginada `benefit_voucher_recent`, restrita à equipe ativa do reservas.
+Janela: hoje e dois dias anteriores, desde 00h de Fortaleza até o instante da
+consulta. Apenas código, beneficiário, benefício e utilização/responsável;
+sem telefone, motivo ou notas. Wrapper público INVOKER, implementação privada
+com verificação de perfil e grants explícitos de EXECUTE para authenticated.
+
 Em 05/11/2026, migrations `20261104205451_benefit_voucher_edit` e
 `20261105130459_benefit_voucher_short_codes`: coluna revision, evento edited
 com snapshots privados, RPC de edição com lock/revisão e resgate condicionado

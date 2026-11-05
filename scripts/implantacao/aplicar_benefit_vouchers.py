@@ -13,7 +13,7 @@ from stone_fechamento import conectar
 
 VERSION='20261104200024'
 NAME='benefit_vouchers'
-VERSIONS=[(VERSION,NAME),('20261104202352','benefit_voucher_private_rpc'),('20261104203828','benefit_voucher_award_reason'),('20261104205451','benefit_voucher_edit'),('20261105130459','benefit_voucher_short_codes')]
+VERSIONS=[(VERSION,NAME),('20261104202352','benefit_voucher_private_rpc'),('20261104203828','benefit_voucher_award_reason'),('20261104205451','benefit_voucher_edit'),('20261105130459','benefit_voucher_short_codes'),('20261105141504','benefit_voucher_recent')]
 
 
 def identity(cur,uid):
@@ -51,6 +51,11 @@ def verify(cur):
     result=cur.fetchone()[0]; assert result['ok'] and result['voucher']['status']=='used'
     cur.execute('select public.benefit_voucher_redeem(%s,true,%s)',(voucher['id'],voucher['revision']))
     assert cur.fetchone()[0]['reason']=='used'
+    cur.execute('select public.benefit_voucher_recent(0,20)')
+    result=cur.fetchone()[0];assert result['ok'] and result['total']>=1
+    recent=[item for item in result['items'] if item['code']==voucher['code']]
+    assert len(recent)==1 and recent[0]['used_by_name']
+    assert not {'phone','internal_note','issue_reason','issue_reason_detail','legacy_code'} & recent[0].keys()
     cur.execute('reset role')
     cur.execute("select count(*) from private.benefit_voucher_events where voucher_id=%s and event_type='used'",(voucher['id'],))
     assert cur.fetchone()[0]==1

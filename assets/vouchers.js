@@ -83,7 +83,7 @@
       V.draw(canvas.getContext('2d'),v,logo,deck); preview.append(canvas);
       const blob = await new Promise((resolve,reject)=>canvas.toBlob(b=>b ? resolve(b) : reject(new Error('Falha ao preparar a imagem.')),'image/png'));
       if (serial !== detailSerial || !$('detail-dialog').open) return;
-      file = new File([blob],`voucher-${v.code}.png`,{type:'image/png'}); $('download-btn').disabled = false; $('share-btn').disabled = false; message('detail-message','Imagem com a foto do deck pronta. Telefone, motivo e notas internas não aparecem nela.');
+      file = new File([blob],`voucher-${v.code}.png`,{type:'image/png'}); $('download-btn').disabled = false; $('share-btn').disabled = false; message('detail-message','');
     } catch (error) { if (serial === detailSerial) message('detail-message',error.message,true); }
   }
   function download() {

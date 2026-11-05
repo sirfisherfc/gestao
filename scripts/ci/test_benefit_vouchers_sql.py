@@ -10,6 +10,7 @@ No live application table, user or voucher is modified by either mode.
 from __future__ import annotations
 import argparse
 from concurrent.futures import ThreadPoolExecutor
+from datetime import timedelta
 import json
 import os
 from pathlib import Path
@@ -25,6 +26,7 @@ HARDENING = ROOT / 'supabase/migrations/20261104202352_benefit_voucher_private_r
 AWARD = ROOT / 'supabase/migrations/20261104203828_benefit_voucher_award_reason.sql'
 EDIT = ROOT / 'supabase/migrations/20261104205451_benefit_voucher_edit.sql'
 SHORT_CODES = ROOT / 'supabase/migrations/20261105130459_benefit_voucher_short_codes.sql'
+RECENT = ROOT / 'supabase/migrations/20261105141504_benefit_voucher_recent.sql'
 SOCIO, ADMIN, MANAGER, INACTIVE, UNKNOWN = [str(uuid.UUID(int=i)) for i in range(1, 6)]
 
 
@@ -97,6 +99,10 @@ def setup(cur, schemas):
     cur.execute(short_sql)
     cur.execute(f"select code,beneficiary_name,length(short_code) from {private}.benefit_vouchers where code='0123456789AB'")
     assert cur.fetchone()==('0123456789AB','Legacy fixture',6)
+    recent_sql=RECENT.read_text(encoding='utf8').strip()[len('begin;'):-len('commit;')]
+    recent_sql=recent_sql.replace('private.',private+'.').replace('public.',public+'.')
+    cur.execute(recent_sql)
+    cur.execute(recent_sql)
 
 
 def identity(cur, uid, role='authenticated'):
@@ -229,7 +235,7 @@ def verify(cur, schemas):
             cur.execute('select has_table_privilege(%s,%s,\'select,insert,update,delete\')', (role, private + '.' + table))
             assert not cur.fetchone()[0]
     cur.execute("select proname,has_function_privilege('anon',p.oid,'execute') from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname=%s and proname like 'benefit_voucher_%%'", (public,))
-    rows = cur.fetchall(); assert len(rows) == 8 and not any(r[1] for r in rows)
+    rows = cur.fetchall(); assert len(rows) == 9 and not any(r[1] for r in rows)
     cur.execute("select count(*) from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname=%s and proname like 'benefit_voucher_%%' and prosecdef", (public,))
     assert cur.fetchone()[0]==0,'Public RPC wrappers must run as invoker'
     cur.execute('set local role anon')
@@ -285,6 +291,42 @@ def verify_edit(cur,schemas):
     assert rpc(cur,public,'detail',(atomic['id'],))['voucher']['revision']==1
     cur.execute('reset role');cur.execute(f'drop trigger reject_edit_event on {private}.benefit_voucher_events')
     return 20
+
+
+def verify_recent(cur,schemas):
+    public,private,_=schemas
+    cur.execute('reset role')
+    cur.execute("select ((clock_timestamp() at time zone 'America/Fortaleza')::date-2)::timestamp at time zone 'America/Fortaleza', (clock_timestamp() at time zone 'America/Fortaleza')::date,clock_timestamp()")
+    start,today,now=cur.fetchone()
+    # All fixtures and this history shift belong exclusively to the isolated schema.
+    cur.execute(f'update {private}.benefit_vouchers set used_at=%s where used_at is not null',(start-timedelta(days=1),))
+    cur.execute(f'delete from {private}.benefit_voucher_rate_limits')
+    vouchers=[]
+    for used in (start,start-timedelta(microseconds=1),now-timedelta(seconds=1),start+timedelta(days=1,hours=12),now+timedelta(days=1)):
+        identity(cur,SOCIO);v=issue(cur,public)['voucher'];vouchers.append(v)
+        cur.execute('reset role')
+        cur.execute(f'update {private}.benefit_vouchers set used_at=%s,used_by=%s,used_by_name=%s where id=%s',(used,MANAGER,'Equipe sintética',v['id']))
+    cur.execute("set local timezone='Pacific/Auckland'")
+    for uid in (SOCIO,ADMIN,INACTIVE,UNKNOWN,None):
+        identity(cur,uid);denied(cur,lambda:rpc(cur,public,'recent',(0,20)))
+    identity(cur,MANAGER)
+    result=rpc(cur,public,'recent',(0,20));assert result['ok'] and result['total']==3
+    assert result['from_date']==(today-timedelta(days=2)).isoformat() and result['through_date']==today.isoformat()
+    assert [item['code'] for item in result['items']]==[vouchers[i]['code'] for i in (2,3,0)]
+    assert all(set(item)=={'code','beneficiary_name','benefit_type','benefit_value','used_at','used_by_name'} for item in result['items'])
+    assert rpc(cur,public,'recent',(1,1))['items'][0]['code']==vouchers[3]['code']
+    assert rpc(cur,public,'recent',(100,20))['items']==[]
+    for params in ((-1,20),(None,20),(0,0),(0,101),(0,None)):
+        denied(cur,lambda params=params:rpc(cur,public,'recent',params),'22023')
+    cur.execute('reset role')
+    cur.execute(f"insert into {public}.app_users values(%s,'Admin sintético','admin',true)",(ADMIN,))
+    identity(cur,ADMIN);assert rpc(cur,public,'recent',(0,20))['total']==3
+    identity(cur,None,'anon');denied(cur,lambda:rpc(cur,public,'recent',(0,20)))
+    identity(cur,MANAGER)
+    for _ in range(61):last=rpc(cur,public,'recent',(0,20))
+    assert last=={'ok':False,'reason':'rate_limited'}
+    cur.execute('reset role');cur.execute("set local timezone='UTC'")
+    return 16
 
 
 def concurrency(conn, schemas, portal):
@@ -374,6 +416,7 @@ def main():
             setup(cur, schemas)
             count = verify(cur, schemas)
             count += verify_edit(cur,schemas)
+            count += verify_recent(cur,schemas)
         if args.portal_concurrency or not portal:
             conn.commit(); committed = True
             count += concurrency(conn, schemas, portal)

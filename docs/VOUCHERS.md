@@ -86,11 +86,17 @@ pelos perfis reais em transação revertida.
 Complementos aplicados em 05/11/2026: `20261104205451_benefit_voucher_edit.sql`
 (edição, auditoria, revisão do benefício) e
 `20261105130459_benefit_voucher_short_codes.sql` (código curto e aliases antigos).
+Complemento `20261105141504_benefit_voucher_recent.sql`, aplicado em 05/11/2026:
+consulta paginada dos vouchers utilizados hoje e nos dois dias anteriores,
+desde 00h de Fortaleza até o instante da consulta. Lista exclusiva da equipe
+ativa admin/operator do reservas, com código curto, beneficiário, benefício,
+data e responsável; sem telefone, motivo ou notas. Índice parcial em used_at.
+Atualiza ao abrir, pelo botão Atualizar lista e após tentativa de utilização.
 Tabelas novas `private.benefit_vouchers`, `private.benefit_voucher_events`
 e `private.benefit_voucher_rate_limits`, com RLS e privilégios diretos
 revogados de PUBLIC, anon, authenticated e service_role. Não há Edge
 Function consumidora. As RPCs públicas `benefit_voucher_*` (issue,
-list, detail, edit, cancel, lookup, redeem) recebem só EXECUTE para authenticated,
+list, detail, edit, cancel, lookup, redeem, recent) recebem só EXECUTE para authenticated,
 com autorização interna e search_path fixo. Helpers privados sem EXECUTE
 externo, exceto as implementações privadas correspondentes às RPCs,
 que recebem EXECUTE de authenticated e repetem todos os gates de perfil.
@@ -121,7 +127,7 @@ versão e confirmar novamente. Cliente antigo só resgata voucher nunca editado.
 
 `python scripts/implantacao/aplicar_benefit_vouchers.py` ensaia a migration
 com rollback e verifica gates dos perfis reais sem exibir identidades;
-`--aplicar` aplica só essas cinco versões e registra histórico na mesma transação.
+`--aplicar` aplica só essas seis versões e registra histórico na mesma transação.
 Conexão valida portal. Não usar MCP somente leitura para escrever.
 Publicar páginas depois do banco.
 

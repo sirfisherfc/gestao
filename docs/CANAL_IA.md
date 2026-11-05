@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 Livre — Codex reduziu o cartão dos vouchers para mostrar mais a foto. Reservas e site sem edições.
+> **🚦 Status atual:** 🟢 Livre — Codex concluiu lista de validações recentes em reservas e ajustes de navegação/texto em gestão. Site sem alterações.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -17,29 +17,6 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
 **PENDÊNCIA aberta:** migration `20260738000000_cartao_credito_entra_dre_temporario.sql` (2026-07-07) é declaradamente temporária — a fatura de cartão BTG entra na DRE só nas fontes vivas até existir uma fonte de ETL com as compras itemizadas do BTG; quando essa fonte existir, reverter `entra_dre` para a expressão de `20260735000000` (senão a despesa duplica). Ver detalhes no `git log`/na própria migration.
 
 **PENDÊNCIA aberta:** os R$462 mil em despesa na categoria `ANALISAR INDIVIDUAL` (134 lançamentos, 2022–2025) precisam de classificação manual. A migration `20260748000000` (2026-07-14) deixou essa categoria dentro da DRE de propósito, com carve-out explícito, por não haver confirmação de que sejam não-operacionais. Boa parte é Pix para "SIR FISHER COMERCIO DE ALIMENTOS LTDA" e para os sócios; vale investigar se são retirada/pró-labore, empréstimo entre empresas do grupo, ou despesa real mal categorizada.
-
-## 2026-11-05 · Codex — Edição, códigos curtos e arte horizontal dos vouchers
-
-Botão Editar para vouchers disponíveis, com revisão e histórico antes/depois;
-resgate recusa confirmação de revisão antiga. Emissão e consulta passam a usar
-seis caracteres Crockford, sem prefixo; códigos antigos mantidos como aliases.
-Arte 1600×1000 com foto oficial do deck e cartão claro, rodapé apenas uso único
-e não acúmulo. Dados internos permanecem privados. Assets JS/CSS de vouchers
-ganham nomes por hash no artefato Pages para atualizar navegador sem versões
-manuais no HTML fonte. Reservas recebe consulta curta e resgate com revisão.
-
-Migrations 20261104205451 e 20261105130459 aplicadas/registradas no portal e
-relidas; perfis reais validados em transação com rollback das fixtures.
-81 verificações SQL com concorrência e limpeza, 19 testes JS de gestão,
-27 de reservas e 2 de empacotamento passaram; quality, acessos, frontend e
-catálogo de migrations passaram. Cinco PNGs renderizados, com inspeção visual
-dos casos normal e nome longo. Advisor sem WARN/ERROR para vouchers.
-Publicados gestão 432830f (Pages e Quality verdes) e reservas 6f0d456 (Pages
-verde). Artefatos dos mesmos commits conferidos: 11 assets com hash coerente,
-botão Editar, arte horizontal, foto e resgate com revisão. Purga Cloudflare
-limitada a sete URLs dos vouchers concluída. Site sem alterações.
-Browser integrado indisponível e HTTP dos domínios retornou 403 Cloudflare;
-não alegar teste interativo do portal/WhatsApp. Sem pendência de implantação.
 
 ## 2026-11-05 · Codex — Cartão e informações centralizados
 
@@ -63,3 +40,26 @@ docs/VOUCHERS.md atualizados; sem banco ou alterações em reservas/site.
 longo e valor alto; casos normal e nome longo inspecionados sem cortes.
 Quality e diff conferidos antes do push; publicação pelo Pages, com arquivo
 do template versionado automaticamente por conteúdo.
+
+## 2026-11-05 · Codex — Validações recentes e ajustes dos portais
+
+Reservas: removido aviso sobre códigos antigos; lista paginada de vouchers
+utilizados hoje e nos dois dias anteriores, em Fortaleza, com nome, código,
+benefício, data/responsável. Atualiza ao abrir, manualmente e após tentativa
+de utilização. Estados de falha/vazio distintos e respostas antigas descartadas.
+Gestão: menu idêntico ao de rotinas, sujeito ao gate existente; removida a
+mensagem de imagem pronta/dados internos e seu espaço vazio. Sem mudança na arte.
+Arquivos: HTML/JS/CSS dos vouchers, testes, instalador e documentação.
+
+Migration 20261105141504 criada pela CLI e aplicada/registrada no portal:
+RPC recent com wrapper INVOKER, gate da equipe ativa e grants explícitos;
+índice parcial de used_at. SQL isolado reexecutável passou em 92 verificações,
+incluindo período, fuso, paginação, dados privados e permissões. Perfis reais
+passaram com rollback das fixtures. 32 testes JS do reservas, quality com Node,
+contratos de acesso/frontend e catálogo de migrations passaram. IDs do HTML/JS
+e igualdade do menu conferidos. Advisor sem WARN/ERROR para vouchers.
+
+Voucher de teste indicado pelo proprietário apagado por pedido explícito,
+junto dos dois eventos vinculados; alvo único conferido antes e ausência
+conferida depois, sem dados pessoais versionados. Site permanece sem edições.
+Publicação por Pages nos dois projetos; conferir workflows/artefatos do commit.
