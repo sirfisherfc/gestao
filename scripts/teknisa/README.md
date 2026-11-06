@@ -244,10 +244,27 @@ o próximo comando; cada um exige releitura depois da gravação.
 | Produto: ativo/inativo | `backend_cadEst/index.php/saveProduct` (`requestType: Row`) | Linha com cerca de 250 campos; `IDPRODATIVPR = N` inativa. |
 | Composição (grupos promocionais do produto) | `backend_cadEst/index.php/grupromocprod_grupopromoc`, filtro `CDPRODPROMOCAO`; retirada em `/remove` com `requestType: Row` e a linha lida | Os vínculos montam as escolhas do POS. Foram conferidos 48 produtos em 31/10; retirada usa `Row` com a linha completa lida. Um `/remove` com `DataSet` respondeu 500 sem gravar. |
 | Produtos de um grupo promocional | `backend_man/index.php/vnd41000_grupoPromo_prod`, `/save` (`DataSet`, linha nova) e `/remove` (`DataSet`) | Grupos 06 a 11: sabores, acompanhamentos, adicionais e molhos. |
-| Nó da árvore de produto | `backend_cadEst/index.php/produto_para_arvore/save` (`Row`, `__is_new`) | Criar o nó nível 4 antes do produto, a partir do nó pai. |
+| Nó da árvore de produto | `backend_cadEst/index.php/produto_para_arvore/save` (`Row`, `__is_new`) | Criar o nó nível 4 antes do produto, a partir do nó pai. Pela tela: Árvore de Produto, selecionar o nível 3 e Adicionar. Filhos: `produto_para_arvore`, filtro `CDPRODNIVANTE`. |
+| Produto novo vendido | `backend_cadEst/index.php/saveProduct` (`Row`) e depois `saveAbaFiscal` (`Row`, linha completa) | Conferido em 06/11. O Tipo Estoque exige Fator de Correção entre 1,00 e 1,99. Sequência completa abaixo. |
+| Botão novo do layout | `backend_man/index.php/vnd80600_configterminalcaixa_layoutProduto/save` (`DataSet`, `__is_new`) | Conferido em 06/11. O servidor calcula `CDGRUPO`. A imagem vai em uma segunda gravação sobre a linha lida. Cópias de layout `00004`/`00005` ficam fora. |
 | Imposto por unidade | `backend_cadEst/index.php/ger01900_cadastroproduto_venda_imposto` e `/save` | Perfil Comida: ICMS 00, CFOP 5102, CSOSN 102, PIS/COFINS 99 sem incidência. |
 | Preço na tabela | `backend_man/index.php/vnd42400_tabelapreco_produto/save` | Resposta `isPlural.result = 1`; reler a tabela 001. |
 | Novo vínculo em Produtos por Loja | `backend_man/index.php/ger12300_cadloja_produtos/save` (`DataSet`, uma linha `__is_new` com `PRODUTOS`, `CDPRODUTO_SM`, `CDARVPROD_SM` e `NMPRODUTO_SM` em listas, `NRSEQIMPRPROD`, `IDIMPCANITEM`, `CDFILIAL`, `CDLOJA`, `NRORG`) | Corpo completo conferido em 31/10: intervalos vazios, `NIVELINICIAL: T`, listas de produtos, unidade/loja, impressora, cancelamento, operador observado e horário atual. Exemplo abaixo. Corpo incompleto pode retornar HTTP 200 sem gravar. |
+
+### Produto novo do cardápio, sem Node no PC
+
+Sequência feita em 06/11/2026 com as charlotes, pelo Chrome, sem comando
+próprio na entrada única: nó nível 4 na Árvore de Produto; produto em UN e
+Tipo Estoque; aba Fiscal; Vendas → Impostos por Unidade; Vendas → Configuração
+de Preço (tabela 001); Produtos por Loja; botões em `00001` e `00002`; imagem
+na galeria e nos botões. Comida segue NCM `21069090`, Gênero `21`, Tipo `04`,
+Origem `0`, CFOP `5102`, CSOSN `102` e PIS/COFINS `99` sem incidência.
+
+Crie o primeiro item pela tela e reaproveite o corpo observado no segundo,
+relendo cada etapa. A aba do cadastro precisa estar aberta antes de Editar.
+O módulo CAD_EST e o MAN usam capturas próprias. A troca de módulo recarrega
+a página e descarta a captura em memória. Os arquivos em `midia.teknisa.com`
+não respondem a `fetch` do painel por CORS: compare os bytes pelo terminal.
 
 ### Inclusão de componente em Produtos por Loja
 

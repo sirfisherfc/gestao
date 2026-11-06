@@ -89,3 +89,10 @@ cadastro, imposto, preço, loja, botão e foto); impresso da mesa em rascunho no
 Canva aguardando aprovação; A3 da entrada não alterado. `git push` no OneDrive
 pode acusar falha ao gravar a referência local mesmo com o envio concluído:
 conferir com `git ls-remote` e `git fetch`.
+
+## 2026-11-06 · Claude — Charlotes no Teknisa
+
+Produtos `8.00.20.022.00` e `.023.00` criados e relidos: R$ 18, NCM 21069090,
+COZINHA, botões 05/06 de Sobremesa em Caixa e POS, fotos com bytes conferidos.
+Sequência e contratos no guia da ferramenta. Não testado no aparelho. Canva
+continua pendente: rascunho da mesa sem salvar e A3 sem alteração.

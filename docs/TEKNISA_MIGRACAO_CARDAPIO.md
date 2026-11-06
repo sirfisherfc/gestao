@@ -1184,3 +1184,11 @@ e nos recibos privados da ferramenta, ignorados pelo Git.
 A consulta final reconheceu 27/27 galerias e 56/56 botões com o SHA256
 esperado. A prévia do painel não reproduz as imagens; a aparência final
 no PC/POS ainda exige conferir após a atualização dos aparelhos.
+
+### Charlotes de morango e chocolate (06/11/2026)
+
+Novos produtos `8.00.20.022.00` e `8.00.20.023.00`, a R$ 18 na tabela 001, com
+perfil fiscal Comida, impressora COZINHA com cancelamento, botões 05 e 06 do
+grupo SOBREMESA nos layouts `00001` e `00002`, além de foto na galeria e nos
+botões. Cada etapa foi relida e os bytes das seis imagens conferidos. Falta o
+teste no aparelho. Recibo privado em `tmp/teknisa/charlotes-2026-11-06/`.
