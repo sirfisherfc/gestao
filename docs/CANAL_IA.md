@@ -76,3 +76,16 @@ Registro em `docs/TEKNISA_ACESSOS_OPERACAO.md`. `node` ausente no PATH deste PC.
 Depois: um gerente incluído no perfil Gerente - Reposicao (gravado e relido).
 Aviso: as abas Operadores dos perfis 12 e Administrador vieram vazias antes
 disso, ao contrário do registro de 30/10. Causa não apurada; login não testado.
+
+## 2026-11-06 · Claude — Charlotes de morango e chocolate no cardápio
+
+Entraram as duas, a R$ 18: catálogo (80 itens), migration 20261106180000
+aplicada e relida, site 0237f2c e Google (83 itens/opções, relido). Sem
+publicação ativa no banco; o site segue na cópia embutida. Alérgenos sem ficha
+técnica, a conferir com receita ou rótulo. Aceitação: 47 passaram, 0 falhas.
+
+Pendente: Teknisa (sessão expirada, login é do proprietário; produto novo pede
+cadastro, imposto, preço, loja, botão e foto); impresso da mesa em rascunho no
+Canva aguardando aprovação; A3 da entrada não alterado. `git push` no OneDrive
+pode acusar falha ao gravar a referência local mesmo com o envio concluído:
+conferir com `git ls-remote` e `git fetch`.

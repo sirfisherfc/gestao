@@ -47,7 +47,8 @@ simbolos de CRUSTACEOS na patinha e de PEIXE na bolinha. "Farota" era erro de
 digitacao de "farofa". O rodape de alergia do impresso ficou curto por
 decisao do proprietario ("pode ter contaminacao cruzada"); o site continua
 explicando que os fritos usam o mesmo oleo e que a cozinha frita em panela
-separada a pedido. Sao 78 publicados.
+separada a pedido. Em 06/11/2026 entraram as charlotes de morango e de
+chocolate, a R$ 18,00. Sao 80 publicados.
 
 Saida: catalogo_inicial.json, consumido por gerar_migration.py (semente do
 banco) e por exportar_snapshot.py (copia publica derivada da publicacao).
@@ -791,6 +792,33 @@ p("brownie-com-sorvete", "sobremesas", "Brownie com Sorvete", 1800,
   termos=["brownie", "sorvete", "chocolate", "doce", "sobremesa"],
   fontes=["TXT", "HTML", "PDF"])
 
+NOTA_CHARLOTE = ("Incluída a pedido do proprietário em 06/11/2026, a R$ 18,00. "
+                 "A descrição vem da foto. Os alérgenos são os habituais de uma "
+                 "charlote, escolhidos por ele sem ficha técnica: conferir com a "
+                 "receita ou o rótulo do fornecedor.")
+
+p("charlote-de-morango", "sobremesas", "Charlote de Morango", 1800,
+  descricao="Camadas de biscoito, creme e geleia de morango, com cobertura "
+            "cremosa, servida em pote individual.",
+  alimentar_=alimentar(declarados=["GLÚTEN", "LEITE", "LACTOSE", "OVO"], pagina=2),
+  foto={"base": "charlote-de-morango-sir-fisher", "larguras": [440, 660],
+        "alt": "Pote de charlote de morango com camadas de biscoito, creme e geleia",
+        "estado": "conferido"},
+  termos=["charlote", "charlotte", "morango", "doce", "sobremesa"],
+  fontes=["PROPRIETARIO"],
+  notas=[NOTA_CHARLOTE])
+
+p("charlote-de-chocolate", "sobremesas", "Charlote de Chocolate", 1800,
+  descricao="Camadas de biscoito e creme, com cobertura de chocolate, servida "
+            "em pote individual.",
+  alimentar_=alimentar(declarados=["GLÚTEN", "LEITE", "LACTOSE", "OVO", "SOJA"], pagina=2),
+  foto={"base": "charlote-de-chocolate-sir-fisher", "larguras": [440, 660],
+        "alt": "Pote de charlote de chocolate com camadas de biscoito e creme",
+        "estado": "conferido"},
+  termos=["charlote", "charlotte", "chocolate", "doce", "sobremesa"],
+  fontes=["PROPRIETARIO"],
+  notas=[NOTA_CHARLOTE, "SOJA marcada pelo chocolate, que costuma levar lecitina."])
+
 p("cafe-expresso", "sobremesas", "Café Expresso", 500,
   porcao_=porcao(texto="50 mL", total={"valor": 50, "unidade": "mL"},
                  fontes=["TXT", "HTML"]),
@@ -1311,9 +1339,9 @@ def faixa_preco(prod):
 # --------------------------------------------------------------------------
 
 
-# Os 81 do cadastro de 22/09/2026, menos os 5 que sairam e mais os 2
-# confirmados pelo proprietario em 22/10/2026.
-PUBLICAVEIS_ESPERADOS = 78
+# Os 81 do cadastro de 22/09/2026, menos os 5 que sairam, mais os 2
+# confirmados pelo proprietario em 22/10/2026 e as 2 charlotes de 06/11/2026.
+PUBLICAVEIS_ESPERADOS = 80
 
 
 def verificar():

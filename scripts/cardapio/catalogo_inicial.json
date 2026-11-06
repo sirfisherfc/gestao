@@ -2529,6 +2529,154 @@
    "indice_busca": "brownie calda chocolate chocolate. com creme de doce e sobremesa sorvete"
   },
   {
+   "id": "charlote-de-morango",
+   "categoria": "sobremesas",
+   "subgrupo": null,
+   "nome": "Charlote de Morango",
+   "nome_original": "Charlote de Morango",
+   "descritor": null,
+   "descricao": "Camadas de biscoito, creme e geleia de morango, com cobertura cremosa, servida em pote individual.",
+   "detalhe": null,
+   "preco_centavos": 1800,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": null,
+    "principal": null,
+    "total": null,
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "ausente",
+    "divergencia": null,
+    "nota": null,
+    "fontes": []
+   },
+   "alimentar": {
+    "declarados": [
+     "GLÚTEN",
+     "LEITE",
+     "LACTOSE",
+     "OVO"
+    ],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "declarado_no_impresso",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": {
+    "base": "charlote-de-morango-sir-fisher",
+    "larguras": [
+     440,
+     660
+    ],
+    "alt": "Pote de charlote de morango com camadas de biscoito, creme e geleia",
+    "estado": "conferido"
+   },
+   "termos": [
+    "charlote",
+    "charlotte",
+    "morango",
+    "doce",
+    "sobremesa"
+   ],
+   "etiquetas": [],
+   "pendencias": [],
+   "fontes": [
+    "PROPRIETARIO"
+   ],
+   "notas_internas": [
+    "Incluída a pedido do proprietário em 06/11/2026, a R$ 18,00. A descrição vem da foto. Os alérgenos são os habituais de uma charlote, escolhidos por ele sem ficha técnica: conferir com a receita ou o rótulo do fornecedor."
+   ],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 26,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 1800
+   },
+   "indice_busca": "biscoito, camadas charlote charlotte cobertura com creme cremosa, de doce e em geleia individual. morango morango, pote servida sobremesa"
+  },
+  {
+   "id": "charlote-de-chocolate",
+   "categoria": "sobremesas",
+   "subgrupo": null,
+   "nome": "Charlote de Chocolate",
+   "nome_original": "Charlote de Chocolate",
+   "descritor": null,
+   "descricao": "Camadas de biscoito e creme, com cobertura de chocolate, servida em pote individual.",
+   "detalhe": null,
+   "preco_centavos": 1800,
+   "preco_estado": "declarado",
+   "variantes": [],
+   "adicionais": [],
+   "inclui": [],
+   "opcoes": [],
+   "porcao": {
+    "texto": null,
+    "principal": null,
+    "total": null,
+    "unidades": null,
+    "rende_pessoas": null,
+    "estado": "ausente",
+    "divergencia": null,
+    "nota": null,
+    "fontes": []
+   },
+   "alimentar": {
+    "declarados": [
+     "GLÚTEN",
+     "LEITE",
+     "LACTOSE",
+     "OVO",
+     "SOJA"
+    ],
+    "fonte": "Sir Fisher Praia.pdf, página 2",
+    "estado": "declarado_no_impresso",
+    "divergencias": [],
+    "alegacoes": [],
+    "confirmado_cozinha": [],
+    "contato_cruzado": []
+   },
+   "foto": {
+    "base": "charlote-de-chocolate-sir-fisher",
+    "larguras": [
+     440,
+     660
+    ],
+    "alt": "Pote de charlote de chocolate com camadas de biscoito e creme",
+    "estado": "conferido"
+   },
+   "termos": [
+    "charlote",
+    "charlotte",
+    "chocolate",
+    "doce",
+    "sobremesa"
+   ],
+   "etiquetas": [],
+   "pendencias": [],
+   "fontes": [
+    "PROPRIETARIO"
+   ],
+   "notas_internas": [
+    "Incluída a pedido do proprietário em 06/11/2026, a R$ 18,00. A descrição vem da foto. Os alérgenos são os habituais de uma charlote, escolhidos por ele sem ficha técnica: conferir com a receita ou o rótulo do fornecedor.",
+    "SOJA marcada pelo chocolate, que costuma levar lecitina."
+   ],
+   "publicar": true,
+   "disponivel": true,
+   "ordem": 27,
+   "preco": {
+    "tipo": "exato",
+    "centavos": 1800
+   },
+   "indice_busca": "biscoito camadas charlote charlotte chocolate chocolate, cobertura com creme, de doce e em individual. pote servida sobremesa"
+  },
+  {
    "id": "cafe-expresso",
    "categoria": "sobremesas",
    "subgrupo": null,
@@ -2597,7 +2745,7 @@
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 26,
+   "ordem": 28,
    "preco": {
     "tipo": "exato",
     "centavos": 500
@@ -2663,7 +2811,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 27,
+   "ordem": 29,
    "preco": {
     "tipo": "exato",
     "centavos": 1090
@@ -2731,7 +2879,7 @@
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 28,
+   "ordem": 30,
    "preco": {
     "tipo": "exato",
     "centavos": 1190
@@ -2797,7 +2945,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 29,
+   "ordem": 31,
    "preco": {
     "tipo": "exato",
     "centavos": 1290
@@ -2863,7 +3011,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 30,
+   "ordem": 32,
    "preco": {
     "tipo": "exato",
     "centavos": 1490
@@ -2933,7 +3081,7 @@
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 31,
+   "ordem": 33,
    "preco": {
     "tipo": "exato",
     "centavos": 1490
@@ -2999,7 +3147,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 32,
+   "ordem": 34,
    "preco": {
     "tipo": "exato",
     "centavos": 1940
@@ -3065,7 +3213,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 33,
+   "ordem": 35,
    "preco": {
     "tipo": "exato",
     "centavos": 1940
@@ -3131,7 +3279,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 34,
+   "ordem": 36,
    "preco": {
     "tipo": "exato",
     "centavos": 2140
@@ -3196,7 +3344,7 @@
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 35,
+   "ordem": 37,
    "preco": {
     "tipo": "exato",
     "centavos": 2390
@@ -3271,7 +3419,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 36,
+   "ordem": 38,
    "preco": {
     "tipo": "exato",
     "centavos": 2390
@@ -3361,7 +3509,7 @@
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 37,
+   "ordem": 39,
    "preco": {
     "tipo": "faixa",
     "min": 1800,
@@ -3462,7 +3610,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 38,
+   "ordem": 40,
    "preco": {
     "tipo": "faixa",
     "min": 2000,
@@ -3572,7 +3720,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 39,
+   "ordem": 41,
    "preco": {
     "tipo": "faixa",
     "min": 2200,
@@ -3662,7 +3810,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 40,
+   "ordem": 42,
    "preco": {
     "tipo": "faixa",
     "min": 2100,
@@ -3733,7 +3881,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 41,
+   "ordem": 43,
    "preco": {
     "tipo": "exato",
     "centavos": 2700
@@ -3805,7 +3953,7 @@
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 42,
+   "ordem": 44,
    "preco": {
     "tipo": "exato",
     "centavos": 2900
@@ -3874,7 +4022,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 43,
+   "ordem": 45,
    "preco": {
     "tipo": "exato",
     "centavos": 2700
@@ -3940,7 +4088,7 @@
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 44,
+   "ordem": 46,
    "preco": {
     "tipo": "exato",
     "centavos": 2900
@@ -4008,7 +4156,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 45,
+   "ordem": 47,
    "preco": {
     "tipo": "exato",
     "centavos": 2300
@@ -4080,7 +4228,7 @@
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 46,
+   "ordem": 48,
    "preco": {
     "tipo": "exato",
     "centavos": 2600
@@ -4145,7 +4293,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 47,
+   "ordem": 49,
    "preco": {
     "tipo": "exato",
     "centavos": 500
@@ -4211,7 +4359,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 48,
+   "ordem": 50,
    "preco": {
     "tipo": "exato",
     "centavos": 600
@@ -4277,7 +4425,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 49,
+   "ordem": 51,
    "preco": {
     "tipo": "exato",
     "centavos": 500
@@ -4342,7 +4490,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 50,
+   "ordem": 52,
    "preco": {
     "tipo": "exato",
     "centavos": 600
@@ -4419,7 +4567,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 51,
+   "ordem": 53,
    "preco": {
     "tipo": "exato",
     "centavos": 800
@@ -4498,7 +4646,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 52,
+   "ordem": 54,
    "preco": {
     "tipo": "exato",
     "centavos": 1100
@@ -4563,7 +4711,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 53,
+   "ordem": 55,
    "preco": {
     "tipo": "exato",
     "centavos": 1600
@@ -4640,7 +4788,7 @@
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 54,
+   "ordem": 56,
    "preco": {
     "tipo": "exato",
     "centavos": 1500
@@ -4710,7 +4858,7 @@
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 55,
+   "ordem": 57,
    "preco": {
     "tipo": "exato",
     "centavos": 300
@@ -4779,7 +4927,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 56,
+   "ordem": 58,
    "preco": {
     "tipo": "exato",
     "centavos": 800
@@ -4847,7 +4995,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 57,
+   "ordem": 59,
    "preco": {
     "tipo": "exato",
     "centavos": 800
@@ -4916,7 +5064,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 58,
+   "ordem": 60,
    "preco": {
     "tipo": "exato",
     "centavos": 1200
@@ -4985,7 +5133,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 59,
+   "ordem": 61,
    "preco": {
     "tipo": "exato",
     "centavos": 1700
@@ -5059,7 +5207,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 60,
+   "ordem": 62,
    "preco": {
     "tipo": "exato",
     "centavos": 800
@@ -5128,7 +5276,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 61,
+   "ordem": 63,
    "preco": {
     "tipo": "exato",
     "centavos": 800
@@ -5203,7 +5351,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 62,
+   "ordem": 64,
    "preco": {
     "tipo": "exato",
     "centavos": 700
@@ -5271,7 +5419,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 63,
+   "ordem": 65,
    "preco": {
     "tipo": "exato",
     "centavos": 700
@@ -5340,7 +5488,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 64,
+   "ordem": 66,
    "preco": {
     "tipo": "exato",
     "centavos": 900
@@ -5408,7 +5556,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 65,
+   "ordem": 67,
    "preco": {
     "tipo": "exato",
     "centavos": 1500
@@ -5476,7 +5624,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 66,
+   "ordem": 68,
    "preco": {
     "tipo": "exato",
     "centavos": 1000
@@ -5545,7 +5693,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 67,
+   "ordem": 69,
    "preco": {
     "tipo": "exato",
     "centavos": 1200
@@ -5614,7 +5762,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 68,
+   "ordem": 70,
    "preco": {
     "tipo": "exato",
     "centavos": 800
@@ -5681,7 +5829,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 69,
+   "ordem": 71,
    "preco": {
     "tipo": "exato",
     "centavos": 700
@@ -5749,7 +5897,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 70,
+   "ordem": 72,
    "preco": {
     "tipo": "exato",
     "centavos": 600
@@ -5819,7 +5967,7 @@
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 71,
+   "ordem": 73,
    "preco": {
     "tipo": "exato",
     "centavos": 1000
@@ -5890,7 +6038,7 @@
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 72,
+   "ordem": 74,
    "preco": {
     "tipo": "exato",
     "centavos": 300
@@ -5960,7 +6108,7 @@
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 73,
+   "ordem": 75,
    "preco": {
     "tipo": "exato",
     "centavos": 1200
@@ -6020,7 +6168,7 @@
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 74,
+   "ordem": 76,
    "preco": {
     "tipo": "exato",
     "centavos": 1900
@@ -6091,7 +6239,7 @@
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 75,
+   "ordem": 77,
    "preco": {
     "tipo": "exato",
     "centavos": 3000
@@ -6161,7 +6309,7 @@
    ],
    "publicar": true,
    "disponivel": true,
-   "ordem": 76,
+   "ordem": 78,
    "preco": {
     "tipo": "exato",
     "centavos": 2000
@@ -6230,7 +6378,7 @@
    "notas_internas": [],
    "publicar": true,
    "disponivel": true,
-   "ordem": 77,
+   "ordem": 79,
    "preco": {
     "tipo": "exato",
     "centavos": 300
@@ -6284,13 +6432,13 @@
   "petiscos": 14,
   "sanduiches": 2,
   "para-dividir": 6,
-  "sobremesas": 3,
+  "sobremesas": 5,
   "cervejas": 10,
   "coqueteis": 10,
   "sem-alcool": 9,
   "doses": 16,
   "extras": 6
  },
- "total_publicavel": 78,
+ "total_publicavel": 80,
  "total_rascunho": 0
 }
