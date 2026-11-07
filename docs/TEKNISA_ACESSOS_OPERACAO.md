@@ -341,3 +341,32 @@ apurada, e os outros dois gerentes não foram alterados.
 
 Falta testar: entrar com o login desse gerente e abrir o relatório Produtos
 Vendidos.
+
+## Reimpressão do fechamento de caixa (07/11/2026)
+
+O proprietário perguntou como liberar a reimpressão do fechamento quando a
+impressora falha. Consulta aos recibos e à documentação, sem gravação.
+
+- **Caminho informado pelo suporte:** no app, digitar o código do operador,
+  deixar a senha em branco e tocar em **Funções Gerais**. A opção de
+  reimprimir o fechamento fica nessa tela e, segundo o suporte, exige
+  acesso de supervisor.
+- **O que a função faz:** pelo resumo da busca, a nota de versão do Teknisa
+  Retail de dez/2025 (FOS 6.59.005) descreve o botão **Rel. Último
+  Fechamento de Caixa**, em Funções Gerais. O botão reimprime os relatórios
+  do último encerramento, depende da permissão de fechamento de caixa e só
+  funciona enquanto o caixa não é reaberto para um novo turno. O PDF
+  respondeu 502, então o texto completo e a versão do Odhen POS não foram
+  conferidos.
+- **Permissões:** o Controle de Acesso do Caixa não tem um item próprio de
+  reimpressão do fechamento. No recibo de 27/10, o grupo
+  `02 — ADM - SUPERVISOR` tem 46 das 47 permissões em "Permite Acesso",
+  incluindo Fechar Caixa, Leitura X e Relatórios Fiscais. A exceção é
+  Alteração Garçom por Item. As alterações registradas depois disso
+  mexeram apenas nos grupos 04 e 05. O grupo 04 tem Fechar Caixa liberado e
+  Leitura X e Relatórios Fiscais bloqueados.
+
+Nada foi alterado. Falta testar no próximo fechamento: com o login de um
+gerente, reimprimir antes de abrir o caixa do turno seguinte. Se a opção não
+aparecer ou recusar o acesso, conferir a versão do app e perguntar ao suporte
+qual permissão controla o botão.

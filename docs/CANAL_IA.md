@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 Livre — Codex concluiu renovação e detalhes compactos em gestão; alertas de usados/cancelados e texto reduzido em reservas. Site sem alterações.
+> **🚦 Status atual:** 🟢 Livre — Claude concluiu consulta sobre a reimpressão do fechamento no Teknisa (só documentação; nada alterado no sistema). Site e reservas sem alterações.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -17,19 +17,6 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
 **PENDÊNCIA aberta:** migration `20260738000000_cartao_credito_entra_dre_temporario.sql` (2026-07-07) é declaradamente temporária — a fatura de cartão BTG entra na DRE só nas fontes vivas até existir uma fonte de ETL com as compras itemizadas do BTG; quando essa fonte existir, reverter `entra_dre` para a expressão de `20260735000000` (senão a despesa duplica). Ver detalhes no `git log`/na própria migration.
 
 **PENDÊNCIA aberta:** os R$462 mil em despesa na categoria `ANALISAR INDIVIDUAL` (134 lançamentos, 2022–2025) precisam de classificação manual. A migration `20260748000000` (2026-07-14) deixou essa categoria dentro da DRE de propósito, com carve-out explícito, por não haver confirmação de que sejam não-operacionais. Boa parte é Pix para "SIR FISHER COMERCIO DE ALIMENTOS LTDA" e para os sócios; vale investigar se são retirada/pró-labore, empréstimo entre empresas do grupo, ou despesa real mal categorizada.
-
-## 2026-11-05 · Codex — Teste autorizado de voucher vencido
-
-Por pedido explícito do proprietário, alterada apenas a validade do voucher
-indicado para 03/11/2026. Ajuste pontual pelo acesso autorizado ao portal,
-com lock, conferência da revisão anterior, incremento de revisão e evento
-edited com antes/depois e identificação do ajuste técnico autorizado.
-Não flexibilizada a RPC de edição, que continua recusando datas passadas.
-Consulta real autenticada retornou expired e resgate foi recusado por expired;
-verificação revertida em savepoint para não deixar contadores ou utilização.
-Leitura posterior confirmou data, revisão e evento persistidos. Sem mudança
-de schema, código dos portais, reservas/site ou outros vouchers. Somente este
-registro de entrega é versionado, sem identificação ou dados pessoais do cliente.
 
 ## 2026-11-05 · Codex — Aviso de vencimento e consulta compacta
 
@@ -96,3 +83,13 @@ Produtos `8.00.20.022.00` e `.023.00` criados e relidos: R$ 18, NCM 21069090,
 COZINHA, botões 05/06 de Sobremesa em Caixa e POS, fotos com bytes conferidos.
 Sequência e contratos no guia da ferramenta. Não testado no aparelho. Canva
 continua pendente: rascunho da mesa sem salvar e A3 sem alteração.
+
+## 2026-11-07 · Claude — Reimpressão do fechamento de caixa no Teknisa
+
+Consulta sem gravação no Teknisa. O registro está em
+`docs/TEKNISA_ACESSOS_OPERACAO.md`. Pelo recibo de 27/10, o grupo
+`02 — ADM - SUPERVISOR` tem Fechar Caixa, Leitura X e Relatórios Fiscais
+liberados. Não existe permissão própria para reimprimir o fechamento. A nota
+da Teknisa indica que a reimpressão vale até o caixa ser reaberto. Falta
+testar no aparelho com o login de um gerente. Alterados só documentos; não
+houve mudança de banco, site ou reservas.
