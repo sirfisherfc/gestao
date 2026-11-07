@@ -55,5 +55,6 @@ aplicar, passaram novamente os testes SQL de R$ 0,01 nas três formas de
 pagamento, estornos parcial/total, desconto, total zero, quitação e ACL.
 Leitura confirmou a atualização do estado. Advisors sem achados novos.
 No reservas, o fluxo com RPC simulada passou em navegador a 390 e 1366 px,
-com imagens conferidas e console limpo. Backend publicado e conferido;
-publicação Pages acompanhada no fechamento do repositório reservas.
+com imagens conferidas e console limpo. Backend publicado e conferido.
+Reservas publicado em `41fb2c4`: Pages concluído no mesmo commit, HTTP 200
+e arquivos da interface publicados conferem com os locais, ajustando CRLF.
