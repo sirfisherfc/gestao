@@ -1,5 +1,81 @@
 # ChatGPT Ads: divulgação do restaurante e teste de visitas
 
+## Ativação autorizada em 08/11/2026
+
+O proprietário autorizou expressamente o primeiro teste, com orçamento total
+máximo R$300, de 09/11 a 16/11/2026, somente nos 14 setores já configurados,
+lance máximo de R$3,50 por clique e nenhuma ampliação sem nova autorização.
+Foram alterados somente três campos de status: anúncio, grupo e campanha
+passaram a ativos, nessa ordem. Nenhum outro campo foi gravado.
+
+Leituras independentes confirmaram os três ativos e o anúncio aprovado.
+Foram comparados orçamento, segmentação, datas, lance, contextos, texto,
+imagem e destino com os valores anteriores; todos preservados. A interface
+mostrou os três controles ativos. A edição da campanha foi aberta para
+conferir os 14 setores, R$300 totais e as duas datas às 00h GMT-3, depois
+cancelada sem salvar. A conta está aprovada e o faturamento configurado.
+
+| Campo | Estado confirmado |
+| --- | --- |
+| Campanha, grupo e anúncio | Ativos; anúncio aprovado |
+| Orçamento | R$300 totais, sem renovação |
+| Período | 09/11/2026 às 00h até 16/11/2026 às 00h, America/Fortaleza; sete dias |
+| Localização | Exclusivamente 60060, 60120, 60125, 60135, 60140, 60150, 60160, 60165, 60170, 60175, 60176, 60177, 60190 e 60191 |
+| Lance | Máximo manual de R$3,50 por clique |
+| Limite mensal | Teto agregado de R$1.000 permanece; não houve liberação do saldo restante |
+
+A conferência ocorreu em 08/11, antes do início programado. O único motivo
+de não veiculação retornado para campanha/grupo/anúncio é que a campanha
+ainda não começou. A interface informa que poderá veicular após a data de
+início. Não há bloqueio geográfico ou de conta indicado nas verificações
+feitas. A inspeção de entrega pula algumas verificações de descendentes
+antes do início; os anúncios também foram consultados diretamente. Os
+status ativos e a aprovação não comprovam que já houve impressão. A entrega
+deverá ser conferida após o início. A data final limita a veiculação mesmo
+que o status cadastral permaneça ativo depois dela.
+
+O relatório de gasto de 01/11 às 00h até 08/11 às 19h veio sem linhas;
+isso não foi tratado como gasto zero medido. As outras duas campanhas
+foram conferidas: ambas têm término anterior a novembro, uma também está
+pausada. Não foram ativadas ou alteradas. Não foi criado outro compromisso
+de entrega além do teste aprovado.
+
+### Proposta de acompanhamento dos sete dias
+
+- **09/11 pela manhã:** confirmar primeiras impressões/cliques e procurar
+  bloqueios. Conferir que a página de destino e o rastreamento funcionam,
+  sem usar cliques no próprio anúncio para testar.
+- **Diariamente, de 10/11 a 16/11 às 10h:** registrar o dia anterior e o
+  acumulado, em Fortaleza, com gasto, saldo do teto de R$300, impressões,
+  cliques, CTR e CPC médio. Identificar dados parciais, ausentes e atrasados.
+  O gasto exibido pode demorar a refletir a entrega.
+- **Sinais comerciais:** acompanhar aberturas do cardápio, pedidos de rota,
+  cliques de WhatsApp/telefone e início de reserva quando recebidos e
+  atribuídos à campanha. O código existente instrumenta esses eventos;
+  instrumento instalado não comprova recepção. No GA4, usar a campanha e
+  origem pagas já salvas no destino. Nos registros de reservas, separar
+  criação, confirmação, comparecimento, cancelamento e ausência quando
+  houver ligação medida com o anúncio. Cliques de WhatsApp não comprovam
+  conversa ou atendimento; eventos e pessoas têm contagens diferentes.
+- **12/11:** rever os dias completos de 09 a 11/11, priorizando gasto e
+  sinais comerciais. O ponto de revisão de R$100 e 30 cliques sem ação
+  de intenção continua uma referência do plano, sem pausa automática.
+  Este pedido não cria nova autorização para editar a campanha.
+- **16/11:** confirmar término e preparar balanço dos sete dias. Reconciliar
+  novamente os dados depois que o relatório atualizar, incluindo reservas
+  que ocorram depois do clique dentro da janela atribuída pela fonte.
+
+Usar apenas receitas/consumo ligados a visitas identificadas para discutir
+resultado comercial. Sem esse vínculo, a visita espontânea continua com
+origem desconhecida; CPC ou CTR melhores não demonstram retorno financeiro.
+Esta é uma proposta de acompanhamento: nenhuma revisão recorrente, alerta
+ou automação foi criada. Novas alterações continuam sujeitas à autorização.
+[Orientação oficial de lançamento e métricas](https://help.openai.com/en/articles/20001209-launch-campaigns).
+
+Os registros anteriores abaixo descrevem as etapas de preparação. A ativação
+acima prevalece como estado atual. A consulta sobre o registro da cidade
+permanece pendente e não autoriza trocar os 14 setores durante este teste.
+
 **Atualização de 08/11/2026:** o proprietário recusou ativação estadual e
 depois pediu preferência por Fortaleza inteira, com 14 setores postais
 como alternativa. Os 14 setores foram aceitos e salvos na campanha pausada,

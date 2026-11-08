@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 Livre: Codex salvou e conferiu 14 setores no ChatGPT Ads. Tudo pausado; cidade pendente do suporte.
+> **🚦 Status atual:** 🟢 Livre: Codex ativou o teste ChatGPT Ads autorizado para 09 a 16/11; três níveis ativos, aguardando início.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -17,23 +17,6 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
 **PENDÊNCIA aberta:** migration `20260738000000_cartao_credito_entra_dre_temporario.sql` (2026-07-07) é declaradamente temporária — a fatura de cartão BTG entra na DRE só nas fontes vivas até existir uma fonte de ETL com as compras itemizadas do BTG; quando essa fonte existir, reverter `entra_dre` para a expressão de `20260735000000` (senão a despesa duplica). Ver detalhes no `git log`/na própria migration.
 
 **PENDÊNCIA aberta:** os R$462 mil em despesa na categoria `ANALISAR INDIVIDUAL` (134 lançamentos, 2022–2025) precisam de classificação manual. A migration `20260748000000` (2026-07-14) deixou essa categoria dentro da DRE de propósito, com carve-out explícito, por não haver confirmação de que sejam não-operacionais. Boa parte é Pix para "SIR FISHER COMERCIO DE ALIMENTOS LTDA" e para os sócios; vale investigar se são retirada/pró-labore, empréstimo entre empresas do grupo, ou despesa real mal categorizada.
-
-## 2026-11-08 · Codex: Fortaleza e CEPs no ChatGPT Ads
-
-O proprietário recusou ativação estadual. Resultado em
-`docs/GEOGRAFIA_CHATGPT_ADS_2026-11-08.md`, com aviso no plano existente.
-Campanha, grupo e anúncio relidos: pausados; peça aprovada. Nenhuma
-alteração no Ads Manager, banco, código, site ou reservas.
-
-A documentação permite cidades e CEPs onde disponíveis. A cidade continua
-sem registro confirmado. Cinco setores postais brasileiros de Fortaleza
-foram encontrados; o CEP completo 60165-121 devolve o setor 60165. Priorizar
-esse setor na validação futura. Catálogo não comprova elegibilidade,
-limites no mapa ou volume. Sem cobertura local confirmada, manter pausa.
-R$3,50 permanece teto experimental sem aumento; Target CPC é meta média.
-R$300 totais e R$1.000/mês permanecem limites, sem autorização de entrega.
-Fontes oficiais, leituras, links e diff conferidos. Somente documentos;
-sem migração ou implantação funcional. Não foram configurados os CEPs.
 
 ## 2026-11-08 · Claude — Charlotes liberadas para venda no POS
 
@@ -67,3 +50,26 @@ Atualizados `docs/GEOGRAFIA_CHATGPT_ADS_2026-11-08.md`, o aviso no plano e
 este canal. Recibo privado em `tmp/chatgpt-ads/segmentacao-2026-11-08.json`,
 ignorado. Diff, fontes oficiais, 14 locais e valores conferidos. Sem
 código, banco ou migration. Site e reservas preservados.
+
+
+## 2026-11-08 · Codex: teste ChatGPT Ads ativado por autorização expressa
+
+Gravados apenas os status de anúncio, grupo e campanha, nessa ordem.
+Os três ativos; peça aprovada. R$300 totais, sete dias de 09/11 às 00h
+até 16/11 às 00h em Fortaleza, máximo R$3,50/clique e os 14 setores
+preservados. Comparação antes/depois conferiu os demais campos. Sem mudança
+de verba, locais, datas, texto, imagem, destino ou outras campanhas.
+
+Conector e interface confirmaram controles ativos. A edição de conferência
+da campanha mostrou os 14 setores, valor e datas, depois foi cancelada.
+O único motivo atual de não veiculação é início futuro. Conta aprovada,
+faturamento configurado e nenhum bloqueio geográfico indicado. Ainda sem
+comprovação de impressões; o início automático foi explicado ao usuário.
+O relatório mensal veio sem linhas e não foi descrito como zero medido.
+As outras campanhas têm término anterior a novembro e foram preservadas.
+
+Atualizados plano e geografia. Proposta de acompanhamento diário com gastos,
+tráfego, intenção e reservas/comparecimento com origem medida. Não foi
+criada automação, revisão recorrente ou pausa automática. Recibo privado
+`tmp/chatgpt-ads/ativacao-2026-11-08.json`, ignorado. Leituras, diff e links
+conferidos. Sem código, banco ou migration; site e reservas preservados.

@@ -1,5 +1,10 @@
 # ChatGPT Ads: Fortaleza, CEPs e revisão do lance
 
+**Estado posterior:** em 08/11, o proprietário autorizou a ativação do teste
+de 09 a 16/11. Os três níveis estão ativos, aguardando o início programado,
+com os 14 setores e todos os limites preservados. Foram gravados apenas os
+status. Ver [ativação e proposta de acompanhamento](PLANO_CHATGPT_ADS_2026-11-07.md).
+
 ## Atualização: 14 setores salvos em pausa
 
 Em novo pedido de 08/11/2026, o proprietário priorizou Fortaleza inteira
