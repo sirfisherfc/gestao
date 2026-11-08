@@ -388,3 +388,11 @@ Portanto, a permissão do gerente não resolve a falta do botão. Pendências:
 saber se a foto foi tirada com o caixa fechado, como orientou o suporte,
 perguntar ao suporte em qual versão ou tela o botão aparece neste POS e
 conferir se o relatório do fechamento pode ser impresso pelo painel web.
+
+**Alternativa pelo painel web.** Em **Vendas » Relatórios » Estatísticas de
+Caixa » Fechamento de Caixa**, os tipos disponíveis são Controle, Por Loja,
+Por Caixa e Total do Dia. Os filtros são unidade, loja, caixa, período e
+Listar Produtos. Em 07/11, o tipo Por Caixa gerou o PDF
+`fechCaixaPorCaixa.pdf` numa aba nova, só com leitura. O conteúdo não foi
+lido pelo agente, porque o visualizador de PDF do Chrome bloqueia a captura.
+Falta o proprietário comparar esse PDF com o cupom de fechamento do POS.
