@@ -442,3 +442,17 @@ Parâmetros, os POS 001, 002 e 003 têm a mesma configuração:
 O CAIXA 001 usa a impressora `00001 COZINHA`, modelo 18, USB. Os pedidos saem
 pelas impressoras de produção, então não comprovam o funcionamento da
 impressora interna dos POS. Nenhum parâmetro foi alterado.
+
+**Comparação de 07/11 por turno**, feita com o relatório por operador, as
+fotos dos cupons e os resumos da Stone:
+- CAIXA 001, turno de 14:11 às 23:23: líquido e sangria iguais ao cupom. A
+  sobra aparece como 25,55 no relatório e 5,55 no cupom; a diferença é o
+  suprimento de 20,00.
+- POS 002, turno das 16:34: 1.399,40, igual ao cupom. A Stone desse período
+  ficou 58,75 acima. A divisão entre débito e crédito também diverge; a causa
+  está pendente de conferência no aplicativo da Stone.
+- POS 003: débito e Pix iguais aos da Stone. O crédito da Stone ficou 162,80
+  acima, mesmo valor do Master Crédito lançado no CAIXA 001.
+- O proprietário autorizou desligar as duas confirmações de impressão do
+  fechamento nos POS 001, 002 e 003. A conexão do navegador caiu com o POS 001
+  em edição, antes de salvar. Nada foi gravado.
