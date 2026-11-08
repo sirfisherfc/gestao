@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 Livre — Codex concluiu a avaliação das novas metas de custo do ChatGPT Ads; conta e campanhas preservadas.
+> **🚦 Status atual:** 🟢 Livre — Codex registrou a estratégia do primeiro anúncio no ChatGPT Ads; peça e publicação seguem para as próximas etapas.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -74,3 +74,19 @@ brutos, credenciais ou identificadores internos. Nenhuma alteração de anúncio
 verba, código ou banco. Links locais, fontes oficiais, datas, cobertura dos
 relatórios e diff conferidos. A disponibilidade das novas estratégias na
 conta precisa de leitura após 09/11; não houve autorização de nova despesa.
+
+## 2026-11-07 · Codex — Estratégia para visitas com ChatGPT Ads
+
+O proprietário definiu divulgação ampla para visitas e delegou as escolhas
+com os dados existentes, com teto agregado de R$1.000/mês. Proposta em
+`docs/PLANO_CHATGPT_ADS_2026-11-07.md`: refeição na Beira-Mar, comida e vista,
+uma campanha/grupo, até dois anúncios, cliques automáticos e R$300 de teste
+por até sete dias. Restante depende de saldo mensal e resultados. A produção
+da peça permanece para a etapa seguinte; nenhuma gravação no Ads Manager.
+
+Fontes oficiais e acervo conferidos. Home, Conheça e cardápio responderam
+HTTP 200. A consulta geográfica retornou CEPs, sem resolver a cidade. O teto
+global da conta está indisponível; orçamento total e conciliação do gasto
+mensal precisam anteceder a ativação. Margem gerencial histórica não comprova
+contribuição dos clientes adquiridos. Sem consulta nova ao banco ou alteração
+de código. Alterados só o plano e este canal; diff e links locais conferidos.
