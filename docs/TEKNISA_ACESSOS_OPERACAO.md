@@ -449,8 +449,13 @@ fotos dos cupons e os resumos da Stone:
   sobra aparece como 25,55 no relatório e 5,55 no cupom; a diferença é o
   suprimento de 20,00.
 - POS 002, turno das 16:34: 1.399,40, igual ao cupom. A Stone desse período
-  ficou 58,75 acima. A divisão entre débito e crédito também diverge; a causa
-  está pendente de conferência no aplicativo da Stone.
+  ficou 58,75 acima. Explicado em 08/11, venda a venda, com a Manutenção de
+  Venda do Teknisa e o CSV de vendas do portal Stone. A maquininha do POS 002
+  (série 4AK12X31D) recebeu 330,20 de duas mesas fechadas no CAIXA 001: 238,50
+  da mesa de 333,30 das 19:28 e 91,70 da mesa das 20:07. Seis vendas do POS 002,
+  somando 271,45, foram pagas em outra maquininha (série 4AJ165H2I). A
+  diferença 330,20 − 271,45 = 58,75. Não falta dinheiro. O Pix e o débito de
+  28,38 das 19:16 e 19:17 são uma conta dividida, não uma cobrança dupla.
 - POS 003: débito e Pix iguais aos da Stone. O crédito da Stone ficou 162,80
   acima, mesmo valor do Master Crédito lançado no CAIXA 001.
 - O proprietário autorizou desligar as duas confirmações de impressão do

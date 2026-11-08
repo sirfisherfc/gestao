@@ -98,3 +98,9 @@ do Caixa → Comparativo Fechamento Caixa (Operador) separa os fechamentos por
 turno e serve para reimprimir. Detalhes, comparação com os cupons e com a
 Stone e as pendências estão em `docs/TEKNISA_ACESSOS_OPERACAO.md`. Falta
 testar no aparelho. Sem mudança de banco, site ou reservas.
+
+Os 58,75 a mais na Stone do POS 002 em 07/11 foram explicados venda a venda:
+cartões de duas mesas do CAIXA 001 passaram na maquininha do POS 002, e seis
+vendas do POS 002 foram pagas em outra maquininha. Não falta dinheiro. O
+pedido extra do XML de 07/11 à API Stone respondeu HTTP 400 (arquivo ainda
+não gerado) e não foi registrado no controle da rotina.
