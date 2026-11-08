@@ -408,3 +408,15 @@ Pix do resumo da Stone bateram com o relatório. O crédito da Stone ficou
 indica um cartão passado na máquina do POS 003 e registrado em outro caixa.
 O relatório por caixa substitui o cupom quando o caixa teve só um turno no
 dia. Ele não traz venda bruta, descontos e cancelamentos.
+
+**Filtro por turno (08/11).** Em **Vendas » Relatórios » Relatórios de Caixa
+» Resumo do Caixa** há sete tipos. Dois deles são o Comparativo Fechamento
+Caixa (RFC) e o Resumo da Movimentação do Caixa (RMC). Há também um campo
+**Abertura**, mas o seletor não abriu com loja, caixa e data preenchidos. Sem
+abertura escolhida, o RFC envia `TDTABERTUR=T` e soma o dia. Os valores
+digitados à mão em `DTABERTUR` foram ignorados. O RFC traz venda bruta,
+cancelamento, desconto e acréscimo. No CAIXA 001, a venda bruta ficou 80,74
+acima do cupom do turno das 14:11, a mesma diferença do relatório por caixa.
+Os HTML do RFC e do RMC dão erro de sessão no visualizador BIRT, enquanto o
+PDF responde no mesmo endereço. Falta perguntar ao suporte como habilitar a
+escolha da abertura.
