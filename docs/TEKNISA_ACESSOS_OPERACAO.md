@@ -454,5 +454,16 @@ fotos dos cupons e os resumos da Stone:
 - POS 003: débito e Pix iguais aos da Stone. O crédito da Stone ficou 162,80
   acima, mesmo valor do Master Crédito lançado no CAIXA 001.
 - O proprietário autorizou desligar as duas confirmações de impressão do
-  fechamento nos POS 001, 002 e 003. A conexão do navegador caiu com o POS 001
-  em edição, antes de salvar. Nada foi gravado.
+  fechamento nos POS 001, 002 e 003.
+
+**Confirmações de impressão desligadas (08/11).** Em Cadastro de Caixa →
+Parâmetros → Fechamento do Caixa, nos POS 001, 002 e 003, os campos "Exibe
+mensagem de confirmação da emissão do Recibo de Sangria" e "... de Relatório
+de Produtos" passaram de Sim para Não. Cada gravação respondeu 200
+(`vnd42300_cadcaixa_fechcaixa/save`). Após recarregar a página, a releitura
+confirmou os seis campos em Não. CAIXA 001 e TAA 001 continuam com Sim. Os
+demais parâmetros ficaram iguais.
+- Falta testar no próximo fechamento de cada POS se o recibo de sangria e o
+  relatório de produtos saem sem pergunta. Se a impressão parar de sair, volte
+  os dois campos para Sim e consulte o suporte. A mudança pode exigir reabrir
+  o app no aparelho.
