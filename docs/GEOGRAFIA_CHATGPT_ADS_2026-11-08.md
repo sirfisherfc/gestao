@@ -1,5 +1,68 @@
 # ChatGPT Ads: Fortaleza, CEPs e revisão do lance
 
+## Atualização: 14 setores salvos em pausa
+
+Em novo pedido de 08/11/2026, o proprietário priorizou Fortaleza inteira
+se houver registro de cidade válido e aceito. Como alternativa, indicou
+estes 14 setores: **60060, 60120, 60125, 60135, 60140, 60150, 60160, 60165,
+60170, 60175, 60176, 60177, 60190 e 60191**. Essa escolha substitui a
+prioridade anterior por um setor próximo ao restaurante.
+
+Cada setor foi consultado uma vez. Todos devolveram exatamente um registro
+do tipo código postal, país BR e nome canônico Fortaleza, CE, Brazil. Foram
+descartados os resultados de outros países. A campanha padrão foi relida
+antes da edição. A gravação substituiu a inclusão estadual pelos 14 setores
+e manteve o estado pausado. A observação da campanha passou a registrar a
+seleção postal, a preferência pela cidade e a exigência de autorização de
+ativação. Não houve alteração de orçamento, lance, datas, peça ou destino.
+
+A resposta da gravação e uma leitura independente confirmaram os 14
+registros e a ausência de Ceará como inclusão estadual. A interface mostrou
+a seleção anterior nas primeiras conferências, inclusive após recarregar.
+Depois, ao reabrir a edição, mostrou os mesmos 14 setores, sem Ceará. Não
+houve segunda gravação para corrigir essa divergência temporária. A edição
+aberta para conferir foi cancelada sem salvar.
+
+| Campo | Estado confirmado após a alteração |
+| --- | --- |
+| Localização | Os 14 setores brasileiros de Fortaleza indicados acima; inclusão estadual removida |
+| Campanha e grupo | Pausados |
+| Anúncio | Pausado e aprovado pela OpenAI |
+| Orçamento | R$300 totais, sem renovação automática |
+| Lance | Máximo manual de R$3,50 por clique |
+| Período salvo | 09/11/2026 às 00h até 16/11/2026 às 00h, America/Fortaleza |
+| Limite mensal | R$1.000 agregados; conciliar gasto antes de autorizar entrega |
+
+Essa gravação demonstra que a plataforma aceitou o conjunto na campanha
+pausada. Não comprova cobertura municipal integral, limites exatos no mapa,
+tamanho de público, entrega futura ou comparecimento ao restaurante.
+
+### Cidade e contato com o suporte
+
+A busca na interface por Fortaleza voltou a mostrar setores postais, sem
+registro de cidade confirmado. Não há conclusão de que a cidade esteja
+indisponível. Foi enviada uma consulta no chat oficial do Help Center,
+na sessão autenticada do proprietário, com a campanha, passos para
+reproduzir e pedido de confirmação do registro municipal e do procedimento
+de seleção. Também foram perguntados limite de quantidade de setores,
+cobertura e critério de localização. O atendimento automatizado informou
+que não podia confirmar o registro ou os limites por ali e anunciou
+encaminhamento à equipe de Ads.
+
+Uma segunda mensagem pediu encaminhamento efetivo, protocolo e canal de
+resposta, reforçando a proibição de ativação e aumento de orçamento/lance.
+Até a última conferência, não houve resposta a essa segunda mensagem,
+protocolo exibido ou confirmação técnica da cidade. A consulta foi enviada;
+não afirmar que houve análise humana ou abertura de caso com número
+confirmado. [Canal oficial de suporte](https://help.openai.com/en/articles/6614161-how-can-i-contact-support).
+
+A configuração postal permanece preparada para avaliação do proprietário.
+A cidade continua como preferência pendente do retorno técnico. Qualquer
+ativação exige aprovação específica; se ocorrer depois do início salvo,
+ajustar o intervalo antes para preservar os sete dias.
+
+## Primeira investigação, antes do pedido de ampliação
+
 Consulta em 08/11/2026, America/Fortaleza. O proprietário recusou a ativação
 com alcance estadual. Campanha, grupo e anúncio foram relidos: os três
 continuam pausados e a peça permanece aprovada. Esta investigação não
