@@ -1,5 +1,11 @@
 # ChatGPT Ads: divulgação do restaurante e teste de visitas
 
+**Atualização de 08/11/2026:** o proprietário recusou ativação para o Ceará
+inteiro. Todos os níveis permanecem pausados. A investigação confirmou
+setores postais de Fortaleza no catálogo, com prioridade para 60165; eles
+ainda não foram aplicados. A recusa prevalece sobre as alternativas de
+ativação registradas abaixo. Ver [geografia e lance](GEOGRAFIA_CHATGPT_ADS_2026-11-08.md).
+
 Proposta de 07/11/2026, America/Fortaleza. O proprietário definiu o objetivo:
 trazer o máximo possível de clientes, apresentar ou lembrar o Sir Fisher e
 equilibrar especificidade com abrangência. Delegou as escolhas com base nas
