@@ -420,3 +420,25 @@ acima do cupom do turno das 14:11, a mesma diferença do relatório por caixa.
 Os HTML do RFC e do RMC dão erro de sessão no visualizador BIRT, enquanto o
 PDF responde no mesmo endereço. Falta perguntar ao suporte como habilitar a
 escolha da abertura.
+
+**Fechamento por operador e turno (08/11).** O tipo **Comparativo Fechamento
+Caixa (Operador)**, no mesmo Resumo do Caixa, separa cada abertura: operador,
+horário de abertura e de fechamento, valores do sistema, sangria e diferença
+por forma de pagamento. Para listar todos os caixas, deixe o campo Caixa vazio.
+Em 07/11, o relatório reproduziu o cupom da gerente do grupo 02 no CAIXA 001
+(14:11–23:23, líquido 919,55 e sangria 945,10). Os 80,74 de diferença
+pertenciam a outro turno, 08:37–14:06. O relatório também mostrou três
+aberturas sem venda depois das 23h, no POS 001, POS 002 e POS 003, ainda sem
+fechamento.
+
+**Impressão do fechamento (08/11, só leitura).** Em Cadastro de Caixa →
+Parâmetros, os POS 001, 002 e 003 têm a mesma configuração:
+- Periféricos → Impressora Não Fiscal (NFCe/SAT): `00002 POS`, modelo 40, USB,
+  ou seja, a impressora interna da maquininha.
+- Fechamento do Caixa: confirmação antes do Recibo de Sangria e do Relatório
+  de Produtos, Relatório de Fechamento Total do Dia ligado, Leitura X
+  desligada e fechamento cego desligado.
+
+O CAIXA 001 usa a impressora `00001 COZINHA`, modelo 18, USB. Os pedidos saem
+pelas impressoras de produção, então não comprovam o funcionamento da
+impressora interna dos POS. Nenhum parâmetro foi alterado.
