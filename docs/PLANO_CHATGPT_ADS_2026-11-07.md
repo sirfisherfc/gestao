@@ -108,7 +108,7 @@ o resultado abaixo prevalece como estado executado.
 | Orçamento | R$300 totais, sem orçamento diário ou renovação |
 | Período | 09/11/2026 às 00h até 16/11/2026 às 00h, America/Fortaleza; sete dias exatos |
 | Lance | Máximo manual de R$3,50 por clique. O preflight do conector exige orçamento diário para a estratégia automática; foi preservado o controle por orçamento total. |
-| Anúncio | Sir Fisher · Refeição com vista · Novembro 2026, pausado e em análise na leitura final |
+| Anúncio | Sir Fisher · Refeição com vista · Novembro 2026, pausado e aprovado pela OpenAI na leitura final |
 | Título | Sir Fisher na Beira-Mar, 23 caracteres |
 | Descrição | Almoço e jantar em Fortaleza. Veja o cardápio., 46 caracteres |
 | Imagem | Fotografia existente do acervo oficial, `almoco-executivo-sir-fisher-660.jpg`, JPEG estático de 660 × 825 px e 75.611 bytes, sem alteração dos produtos ou do ambiente |
@@ -142,8 +142,8 @@ a criação da peça. Essa abrangência é provisória e está explicitada no
 cadastro. A campanha antiga foi aberta para leitura do seletor e cancelada
 sem salvar. Nenhum anúncio ou orçamento anterior foi alterado.
 
-Para veicular, faltam aprovação da análise, resolução ou aprovação explícita
-da abrangência geográfica e autorização específica de ativação. Se a ativação
+A análise foi aprovada pela OpenAI em leitura posterior. Para veicular, faltam
+resolução ou aprovação explícita da abrangência geográfica e autorização de ativação. Se a ativação
 ocorrer após o início configurado, redefinir o período antes de veicular para
 preservar os sete dias. Conciliar o gasto mensal antes dessa ativação e manter
 o teto agregado de R$1.000; este cadastro pausado não inicia entrega.

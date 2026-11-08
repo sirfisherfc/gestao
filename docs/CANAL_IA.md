@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 Livre — Codex criou campanha, grupo e anúncio pausados no Ads Manager; análise e geografia pendentes antes de ativar.
+> **🚦 Status atual:** 🟢 Livre — anúncio criado e aprovado pela OpenAI, com campanha e grupo pausados; geografia e ativação seguem pendentes.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -96,7 +96,7 @@ de código. Alterados só o plano e este canal; diff e links locais conferidos.
 Criação confirmada por upload, campanha, grupo e anúncio, seguida de leituras
 independentes e conferência da prévia na interface. Peça com foto do acervo,
 título `Sir Fisher na Beira-Mar` e descrição `Almoço e jantar em Fortaleza.
-Veja o cardápio.`. Todos pausados; análise pendente na leitura final. Detalhes
+Veja o cardápio.`. Todos pausados; a OpenAI aprovou a peça na leitura final. Detalhes
 em `docs/PLANO_CHATGPT_ADS_2026-11-07.md`; recibo sem credenciais em
 `tmp/chatgpt-ads/criacao-2026-11-07.json`, ignorado, e captura da peça no output.
 
@@ -106,7 +106,7 @@ do conector; configurado máximo de R$3,50/clique. Geografia Ceará provisória,
 com bloqueio de ativação anotado na descrição. Conector, API e interface só
 devolveram CEPs para Fortaleza; a cidade segue sem registro confirmado. Não
 usar identificadores externos ou afirmar cobertura municipal a partir disso.
-Ativar requer resolver/aprovar abrangência, revisão aprovada e autorização
+Ativar requer resolver/aprovar abrangência e autorização
 de despesa. Conferir saldo mensal antes de liberar, respeitando R$1.000/mês.
 
 Nenhuma campanha anterior, código ou banco foi alterado. A edição da campanha
