@@ -93,16 +93,66 @@ sustentável ou comprovar ROAS. O teto do teste limita a exposição enquanto
 essas lacunas persistem. A verba seguinte exige evidência comercial útil;
 melhor CTR ou CPC isolado não comprova retorno.
 
-## Pendências concretas para produzir e publicar
+## Execução confirmada em 07/11/2026
 
-1. Resolver a localização: a consulta `Fortaleza` retornou 100 registros de
-   CEP, sem cidade confirmada e sem cobertura completa demonstrada. Não foi
-   montada uma coleção de CEPs ou aplicada uma localização substituta.
-2. Selecionar a imagem exata e conferir origem, representação da comida e
-   enquadramento. Foram inspecionados os arquivos do acervo de terraço, mesa
-   com comida e almoço; a peça ainda não foi criada ou aprovada.
-3. Preparar textos e prévia da peça e apresentar datas, rastreamento, verba,
-   lances e configurações finais para uma decisão concreta de publicação.
+Após o proprietário pedir a criação efetiva e delegar decisões criativas e
+operacionais secundárias, foram criados no Ads Manager uma campanha padrão,
+um grupo e um anúncio. Os três estão pausados. A autorização de ativação e
+de despesa continua separada. As tabelas anteriores registram a proposta;
+o resultado abaixo prevalece como estado executado.
+
+| Campo | Resultado relido na plataforma |
+| --- | --- |
+| Campanha | Sir Fisher · Beira-Mar · Teste R$300 · Novembro 2026, pausada |
+| Objetivo e cobrança | Cliques, cobrança por clique |
+| Orçamento | R$300 totais, sem orçamento diário ou renovação |
+| Período | 09/11/2026 às 00h até 16/11/2026 às 00h, America/Fortaleza; sete dias exatos |
+| Lance | Máximo manual de R$3,50 por clique. O preflight do conector exige orçamento diário para a estratégia automática; foi preservado o controle por orçamento total. |
+| Anúncio | Sir Fisher · Refeição com vista · Novembro 2026, pausado e em análise na leitura final |
+| Título | Sir Fisher na Beira-Mar, 23 caracteres |
+| Descrição | Almoço e jantar em Fortaleza. Veja o cardápio., 46 caracteres |
+| Imagem | Fotografia existente do acervo oficial, `almoco-executivo-sir-fisher-660.jpg`, JPEG estático de 660 × 825 px e 75.611 bytes, sem alteração dos produtos ou do ambiente |
+| Enquadramento | Recorte central quadrado aplicado pela plataforma e conferido na prévia do anúncio criado |
+| Plataformas | Todas as plataformas, sem público personalizado |
+| Localização | Ceará provisoriamente; a descrição da campanha registra que a ativação depende de resolver Fortaleza ou obter autorização expressa para a abrangência estadual |
+
+Destino salvo:
+`https://www.sirfisher.com.br/conheca/?utm_source=chatgpt&utm_medium=paid&utm_campaign=sir_fisher_beira_mar_novembro_2026`.
+O destino e a imagem pública responderam HTTP 200. Título e descrição
+respeitam as recomendações de até 24 e 48 caracteres do conector.
+
+O upload devolveu um arquivo válido; campanha, grupo e anúncio devolveram
+seus identificadores. Leituras independentes confirmaram status, imagem,
+texto, orçamento, lance e período. A prévia foi aberta na interface do
+Ads Manager e a captura da peça real está em
+`../../output/chatgpt-ads-2026-11-07/anuncio-criado.png`, a partir deste
+documento. O recibo privado fica em `tmp/chatgpt-ads/criacao-2026-11-07.json`,
+ignorado pelo Git, sem credenciais ou links temporários assinados.
+
+A API pública, o conector e o seletor da interface retornaram CEPs para a
+busca de Fortaleza. A consulta pública limita a resposta a 100 registros;
+a interface usa 20. Não houve registro da cidade confirmado. Foram
+conferidos o catálogo público externo e os formatos de consulta, sem usar
+um identificador externo na criação. As consultas de diagnóstico usaram
+a sessão autorizada em memória, sem copiar ou registrar credenciais.
+Não foi montada uma coleção de CEPs para afirmar cobertura municipal.
+
+O cadastro pausado usa a região Ceará devolvida pelo conector para concluir
+a criação da peça. Essa abrangência é provisória e está explicitada no
+cadastro. A campanha antiga foi aberta para leitura do seletor e cancelada
+sem salvar. Nenhum anúncio ou orçamento anterior foi alterado.
+
+Para veicular, faltam aprovação da análise, resolução ou aprovação explícita
+da abrangência geográfica e autorização específica de ativação. Se a ativação
+ocorrer após o início configurado, redefinir o período antes de veicular para
+preservar os sete dias. Conciliar o gasto mensal antes dessa ativação e manter
+o teto agregado de R$1.000; este cadastro pausado não inicia entrega.
+
+As políticas atuais foram conferidas. A peça promove uma refeição e usa uma
+imagem com refrigerante; não promove bebida alcoólica. A análise da OpenAI
+ainda poderá solicitar ajustes.
+[Políticas](https://openai.com/policies/ad-policies/),
+[formato e conteúdo](https://help.openai.com/en/articles/20001212-creating-ads-for-chatgpt-ads).
 
 Não houve mudança de banco ou código. Fontes anteriores:
 [avaliação do email](AVALIACAO_CHATGPT_ADS_2026-11-07.md),

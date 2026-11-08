@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 Livre — Codex registrou a estratégia do primeiro anúncio no ChatGPT Ads; peça e publicação seguem para as próximas etapas.
+> **🚦 Status atual:** 🟢 Livre — Codex criou campanha, grupo e anúncio pausados no Ads Manager; análise e geografia pendentes antes de ativar.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -90,3 +90,25 @@ global da conta está indisponível; orçamento total e conciliação do gasto
 mensal precisam anteceder a ativação. Margem gerencial histórica não comprova
 contribuição dos clientes adquiridos. Sem consulta nova ao banco ou alteração
 de código. Alterados só o plano e este canal; diff e links locais conferidos.
+
+## 2026-11-07 · Codex — Anúncio efetivamente criado no Ads Manager
+
+Criação confirmada por upload, campanha, grupo e anúncio, seguida de leituras
+independentes e conferência da prévia na interface. Peça com foto do acervo,
+título `Sir Fisher na Beira-Mar` e descrição `Almoço e jantar em Fortaleza.
+Veja o cardápio.`. Todos pausados; análise pendente na leitura final. Detalhes
+em `docs/PLANO_CHATGPT_ADS_2026-11-07.md`; recibo sem credenciais em
+`tmp/chatgpt-ads/criacao-2026-11-07.json`, ignorado, e captura da peça no output.
+
+Orçamento total R$300, 09/11 às 00h até 16/11 às 00h em Fortaleza. Corrigida
+a incompatibilidade do plano: orçamento total exige lance manual no preflight
+do conector; configurado máximo de R$3,50/clique. Geografia Ceará provisória,
+com bloqueio de ativação anotado na descrição. Conector, API e interface só
+devolveram CEPs para Fortaleza; a cidade segue sem registro confirmado. Não
+usar identificadores externos ou afirmar cobertura municipal a partir disso.
+Ativar requer resolver/aprovar abrangência, revisão aprovada e autorização
+de despesa. Conferir saldo mensal antes de liberar, respeitando R$1.000/mês.
+
+Nenhuma campanha anterior, código ou banco foi alterado. A edição da campanha
+antiga foi cancelada sem salvar após a inspeção do seletor. Diff, links locais,
+imagem estática, contagem de caracteres, datas e orçamento conferidos.
