@@ -370,3 +370,21 @@ Nada foi alterado. Falta testar no próximo fechamento: com o login de um
 gerente, reimprimir antes de abrir o caixa do turno seguinte. Se a opção não
 aparecer ou recusar o acesso, conferir a versão do app e perguntar ao suporte
 qual permissão controla o botão.
+
+**Teste no aparelho (07/11, noite).** Fotos enviadas pelo proprietário:
+
+- Com o login de uma gerente do grupo 02, no POS 002, Funções Gerais mostrou
+  oito botões: Reimpressão - Fiscal, Reimpressão - Pedido, Bloquear e
+  Desbloquear Produto, Impressão da Leitura X, Sangria de Caixa, Painel
+  Vendas Diárias e Relatório de Vendas. O botão Rel. Último Fechamento de
+  Caixa não apareceu. A gerente informou que só conseguiu reimprimir o cupom
+  da última venda.
+- Em outra foto, sem identificação do login, o app respondeu "Operador não
+  tem permissão para executar esta função" sem pedir senha. Esse é o
+  comportamento esperado de uma função marcada como "Não permite acesso".
+  Pedir a senha do supervisor exige a opção "mediante código e senha".
+
+Portanto, a permissão do gerente não resolve a falta do botão. Pendências:
+saber se a foto foi tirada com o caixa fechado, como orientou o suporte,
+perguntar ao suporte em qual versão ou tela o botão aparece neste POS e
+conferir se o relatório do fechamento pode ser impresso pelo painel web.
