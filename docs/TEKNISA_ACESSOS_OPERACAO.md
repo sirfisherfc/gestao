@@ -396,3 +396,15 @@ Listar Produtos. Em 07/11, o tipo Por Caixa gerou o PDF
 `fechCaixaPorCaixa.pdf` numa aba nova, só com leitura. O conteúdo não foi
 lido pelo agente, porque o visualizador de PDF do Chrome bloqueia a captura.
 Falta o proprietário comparar esse PDF com o cupom de fechamento do POS.
+
+Comparação de 07/11, pelo mesmo relatório gerado em HTML (trocar
+`__format=pdf` por `__format=html` no endereço do relatório): o relatório
+soma **todos os turnos do dia** em cada caixa, enquanto o cupom do POS
+cobre um turno, da abertura ao fechamento. Os cartões do turno coincidiram
+centavo a centavo. As diferenças vieram de outro movimento do mesmo caixa
+no dia: +80,74 no CAIXA 001 e +1.210,98 no POS 002. No POS 003, o débito e o
+Pix do resumo da Stone bateram com o relatório. O crédito da Stone ficou
+162,80 acima, mesmo valor de um Master Crédito lançado no CAIXA 001. Isso
+indica um cartão passado na máquina do POS 003 e registrado em outro caixa.
+O relatório por caixa substitui o cupom quando o caixa teve só um turno no
+dia. Ele não traz venda bruta, descontos e cancelamentos.
