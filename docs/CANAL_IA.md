@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 Livre — Codex publicou e conferiu o ajuste visual dos números de mesas reservadas no mapa público de Réveillon.
+> **🚦 Status atual:** 🟢 Livre — Codex concluiu a avaliação das novas metas de custo do ChatGPT Ads; conta e campanhas preservadas.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -17,16 +17,6 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
 **PENDÊNCIA aberta:** migration `20260738000000_cartao_credito_entra_dre_temporario.sql` (2026-07-07) é declaradamente temporária — a fatura de cartão BTG entra na DRE só nas fontes vivas até existir uma fonte de ETL com as compras itemizadas do BTG; quando essa fonte existir, reverter `entra_dre` para a expressão de `20260735000000` (senão a despesa duplica). Ver detalhes no `git log`/na própria migration.
 
 **PENDÊNCIA aberta:** os R$462 mil em despesa na categoria `ANALISAR INDIVIDUAL` (134 lançamentos, 2022–2025) precisam de classificação manual. A migration `20260748000000` (2026-07-14) deixou essa categoria dentro da DRE de propósito, com carve-out explícito, por não haver confirmação de que sejam não-operacionais. Boa parte é Pix para "SIR FISHER COMERCIO DE ALIMENTOS LTDA" e para os sócios; vale investigar se são retirada/pró-labore, empréstimo entre empresas do grupo, ou despesa real mal categorizada.
-
-## 2026-11-07 · Claude — Reimpressão do fechamento de caixa no Teknisa
-
-Consulta sem gravação no Teknisa. O registro está em
-`docs/TEKNISA_ACESSOS_OPERACAO.md`. Pelo recibo de 27/10, o grupo
-`02 — ADM - SUPERVISOR` tem Fechar Caixa, Leitura X e Relatórios Fiscais
-liberados. Não existe permissão própria para reimprimir o fechamento. A nota
-da Teknisa indica que a reimpressão vale até o caixa ser reaberto. Falta
-testar no aparelho com o login de um gerente. Alterados só documentos; não
-houve mudança de banco, site ou reservas.
 
 ## 2026-11-07 · Codex — Sinal do Réveillon com qualquer pagamento positivo
 
@@ -68,3 +58,19 @@ Pages concluiu no mesmo commit (run `42417713555`). A página publicada,
 sem interceptação, passou na mesma conferência. HTTP 200 e conteúdo dos
 arquivos conferem com os locais nas URLs CSS com `?v=20261107-reservadas`.
 Site e reservas sincronizados, sem pendência funcional ou de publicação.
+
+## 2026-11-07 · Codex — Email sobre lances e avaliação do ChatGPT Ads
+
+Leitura completa do email de 05/11, documentação oficial atual, conta Sir
+Fisher, campanhas, fonte/metas de conversão e GA4. O registro está em
+`docs/AVALIACAO_CHATGPT_ADS_2026-11-07.md`. Target CPC/CPA começam em 09/11;
+são metas de custo médio. O teste de outubro tem sinais de intenção e zero
+metas atribuídas na consulta atual. Clientes sem reserva seguem com cobertura
+desconhecida. A avaliação é aguardar evidência comercial antes de novo gasto.
+O status cadastral ativo da campanha convive com término em 20/10.
+
+Alterados apenas este canal e o documento da avaliação, sem dados financeiros
+brutos, credenciais ou identificadores internos. Nenhuma alteração de anúncio,
+verba, código ou banco. Links locais, fontes oficiais, datas, cobertura dos
+relatórios e diff conferidos. A disponibilidade das novas estratégias na
+conta precisa de leitura após 09/11; não houve autorização de nova despesa.
