@@ -472,3 +472,13 @@ demais parâmetros ficaram iguais.
   relatório de produtos saem sem pergunta. Se a impressão parar de sair, volte
   os dois campos para Sim e consulte o suporte. A mudança pode exigir reabrir
   o app no aparelho.
+
+**Primeiro fechamento depois da mudança (08/11, 17:44).** Um POS mostrou
+"Ocorreu um erro ao imprimir. PRINTER INIT ERROR" em Funções Gerais ao fechar
+o caixa, com bobina. Na primeira tentativa o app reiniciou sozinho e, segundo
+a equipe, as contas sumiram da tela. A mensagem indica que a impressora interna
+não iniciou. A relação com a mudança da madrugada não foi comprovada. O
+proprietário preferiu testar antes de reverter: reiniciar a maquininha e
+imprimir a Leitura X. Se a Leitura X imprimir e o fechamento falhar, voltar as
+duas confirmações para Sim. Se nada imprimir, é o aparelho e cabe ao suporte.
+Falta conferir pelo relatório por operador se o turno chegou a fechar.
