@@ -73,3 +73,12 @@ R$3,50 permanece teto experimental sem aumento; Target CPC é meta média.
 R$300 totais e R$1.000/mês permanecem limites, sem autorização de entrega.
 Fontes oficiais, leituras, links e diff conferidos. Somente documentos;
 sem migração ou implantação funcional. Não foram configurados os CEPs.
+
+## 2026-11-08 · Claude — Charlotes liberadas para venda no POS
+
+O POS recusava a Charlote de Morango por falta de alíquota do PIS. Em Impostos
+por Unidade, as duas charlotes (`8.00.20.022.00` e `.023.00`) tinham Alíquota
+PIS/COFINS vazias; o Brownie tem `0.00`. Ajustadas pela tela e relidas. Lição
+registrada em `scripts/teknisa/README.md` e `docs/TEKNISA_MIGRACAO_CARDAPIO.md`.
+Sem código, banco ou migration. Pendente: venda real no aparelho após a carga;
+NCM da charlote (`21069090`) segue diferente do Brownie (`21069029`), por decisão a confirmar.

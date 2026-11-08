@@ -1192,3 +1192,11 @@ perfil fiscal Comida, impressora COZINHA com cancelamento, botões 05 e 06 do
 grupo SOBREMESA nos layouts `00001` e `00002`, além de foto na galeria e nos
 botões. Cada etapa foi relida e os bytes das seis imagens conferidos. Falta o
 teste no aparelho. Recibo privado em `tmp/teknisa/charlotes-2026-11-06/`.
+
+Em 08/11 o POS recusou a Charlote de Morango: "não possui Alíquota do PIS
+parametrizado". As duas charlotes estavam com Alíquota PIS/COFINS vazias em
+Impostos por Unidade; o Brownie tem `0.00`. Ambas foram ajustadas para `0.00`
+pela tela e relidas: os impostos por unidade ficaram iguais aos do Brownie,
+exceto os indicadores de ISS que a tela preenche por padrão. O cadastro geral
+mantém NCM `21069090` (Brownie: `21069029`) e campos fiscais mais completos.
+Falta repetir a venda no aparelho depois da atualização da carga.

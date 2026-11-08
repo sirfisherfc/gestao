@@ -259,6 +259,9 @@ Tipo Estoque; aba Fiscal; Vendas → Impostos por Unidade; Vendas → Configura�
 de Preço (tabela 001); Produtos por Loja; botões em `00001` e `00002`; imagem
 na galeria e nos botões. Comida segue NCM `21069090`, Gênero `21`, Tipo `04`,
 Origem `0`, CFOP `5102`, CSOSN `102` e PIS/COFINS `99` sem incidência.
+Em Impostos por Unidade, selecione também Alíquota PIS e Alíquota COFINS
+`0.00`: vazias (`VRALIQPIS`/`VRALIQCOFINS` nulos) passam no cadastro, mas o POS
+recusa a venda por falta de alíquota do PIS. Corrigido nas charlotes em 08/11.
 
 Crie o primeiro item pela tela e reaproveite o corpo observado no segundo,
 relendo cada etapa. A aba do cadastro precisa estar aberta antes de Editar.
