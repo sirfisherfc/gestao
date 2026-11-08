@@ -482,3 +482,9 @@ proprietário preferiu testar antes de reverter: reiniciar a maquininha e
 imprimir a Leitura X. Se a Leitura X imprimir e o fechamento falhar, voltar as
 duas confirmações para Sim. Se nada imprimir, é o aparelho e cabe ao suporte.
 Falta conferir pelo relatório por operador se o turno chegou a fechar.
+Antes disso, às 15:58 do mesmo dia, o CAIXA 004 (Stone série 4AK12X31D)
+fechou o turno aberto às 12:07 e imprimiu o fechamento e o recibo de sangria
+sem pergunta. Líquido 1.446,34 = formas de pagamento = sangria, sobra 0. A
+Stone (12:00–15:58) mostrou 1.535,98: débito e crédito iguais; o Pix ficou
+89,64 acima (158,04 contra 68,40), indício de Pix lançado em outro caixa.
+Logo, a mudança da madrugada não impede a impressão no fechamento.
