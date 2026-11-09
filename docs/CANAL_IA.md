@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🔴 Claude executando o plano de GEO aprovado em 09/11: site, reservas, Cloudflare e fichas externas. Bases: gestao `74821d3`, site `0237f2c`, reservas `e5715ee`. Teste ChatGPT Ads do Codex segue de 09 a 16/11, sem interferência.
+> **🚦 Status atual:** 🟢 Livre: Claude concluiu a execução do plano de GEO (site, portal, Cloudflare, migration 20261109190000); pendências de login com o proprietário. Teste ChatGPT Ads do Codex segue de 09 a 16/11.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -17,30 +17,6 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
 **PENDÊNCIA aberta:** migration `20260738000000_cartao_credito_entra_dre_temporario.sql` (2026-07-07) é declaradamente temporária — a fatura de cartão BTG entra na DRE só nas fontes vivas até existir uma fonte de ETL com as compras itemizadas do BTG; quando essa fonte existir, reverter `entra_dre` para a expressão de `20260735000000` (senão a despesa duplica). Ver detalhes no `git log`/na própria migration.
 
 **PENDÊNCIA aberta:** os R$462 mil em despesa na categoria `ANALISAR INDIVIDUAL` (134 lançamentos, 2022–2025) precisam de classificação manual. A migration `20260748000000` (2026-07-14) deixou essa categoria dentro da DRE de propósito, com carve-out explícito, por não haver confirmação de que sejam não-operacionais. Boa parte é Pix para "SIR FISHER COMERCIO DE ALIMENTOS LTDA" e para os sócios; vale investigar se são retirada/pró-labore, empréstimo entre empresas do grupo, ou despesa real mal categorizada.
-
-## 2026-11-08 · Codex: 14 setores de Fortaleza salvos no ChatGPT Ads
-
-O proprietário pediu Fortaleza inteira se houver cidade válida; alternativa
-com 14 setores explícitos. Todos validados como postais BR/Fortaleza.
-Substituí Ceará pelos 14 e atualizei a observação da campanha. Conector
-aceitou a gravação; leitura independente conferiu. A interface mostrou
-Ceará inicialmente e depois os 14 ao reabrir. Sem segunda gravação;
-a edição de conferência foi cancelada. Campanha/grupo/anúncio pausados,
-peça aprovada, R$300 totais e máximo R$3,50/clique preservados. Não
-houve ativação, mudança de datas, peça, destino ou estratégia de lance.
-
-Consulta real enviada ao chat oficial do suporte. O atendimento automatizado
-não confirmou cidade/limites e anunciou encaminhamento ao Ads. A segunda
-mensagem pediu protocolo e confirmação do encaminhamento; sem retorno ou
-número até a conferência final. Cidade permanece pendente, sem presumir
-indisponibilidade. A gravação postal não comprova cobertura municipal inteira
-ou entrega. Ativação depende de aprovação específica e saldo mensal.
-
-Atualizados `docs/GEOGRAFIA_CHATGPT_ADS_2026-11-08.md`, o aviso no plano e
-este canal. Recibo privado em `tmp/chatgpt-ads/segmentacao-2026-11-08.json`,
-ignorado. Diff, fontes oficiais, 14 locais e valores conferidos. Sem
-código, banco ou migration. Site e reservas preservados.
-
 
 ## 2026-11-08 · Codex: teste ChatGPT Ads ativado por autorização expressa
 
@@ -82,3 +58,18 @@ Nada alterado no site, portal, Cloudflare, fichas ou campanhas. Sem código,
 banco ou migration. `check_project.py` OK sem Node, ausente neste PC.
 Pendente: decisões do proprietário listadas no documento e onda 0 do painel
 antes de qualquer mudança.
+
+## 2026-11-09 · Claude — Execução do plano de GEO
+
+Proprietário aprovou: robôs de IA liberados, nome público só "Sir Fisher",
+"Barra Sol" é nome antigo, imprensa autorizada. Publicado: gestao `bcb395d`
+(comando `cf.py ia`, `ai_training=disabled`, 140/140 respostas 200), site
+`32cc90e` (página /sobre/, desambiguação, FAQ visível gerado do JSON-LD por
+`tools/faq/sincronizar_faq.py` no pre-commit e na CI, nome no Réveillon) e
+`071f996` (IndexNow, primeiro envio HTTP 202), reservas `caac8ee` (nome no
+portal e no Réveillon). Migration `20261109190000_nome_publico_sir_fisher`
+aplicada no portal e conferida. Onda 0 do painel em
+`tmp/geo/painel/onda0-2026-11-09.jsonl`, resumo no relatório de GEO.
+Pendente: logins do proprietário (Bing, Tripadvisor, iFood, OSM, Instagram
+do Pub), envio das pautas, e-mails e PDF das Edge Functions ainda com
+"Sir Fisher Praia" (reimplantar com teste), F4/F5/controles do ChatGPT.

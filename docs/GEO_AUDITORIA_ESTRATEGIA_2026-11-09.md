@@ -1164,3 +1164,152 @@ Documentos relacionados: [revisão de SEO local](REVISAO_SEO_LOCAL_CONVERSAO_202
 [uso máximo do Semrush](SEMRUSH_MAXIMO_2026-10-25.md),
 [Cloudflare](CLOUDFLARE_SEGURANCA.md) e
 [plano do ChatGPT Ads](PLANO_CHATGPT_ADS_2026-11-07.md).
+
+## Execução em 09/11/2026, após a aprovação
+
+O proprietário aprovou o plano no mesmo dia: robôs de treinamento liberados
+na borda, nome público só "Sir Fisher", "Sir Fisher - Barra Sol" confirmado
+como nome antigo e contatos com imprensa, guias e hotéis autorizados, com
+permissão para executar tudo o que houvesse acesso. Ficam em aberto duas
+decisões do plano: descrever a casa como quiosque ou restaurante e publicar
+ou não uma faixa de gasto por pessoa.
+
+### Rodada inicial do painel (onda 0)
+
+Coletada no Chrome do proprietário, antes de qualquer página nova ser
+rastreada. No Google, Modo IA com personalização desligada (`pws=0`). No
+ChatGPT, chat temporário com busca na web, raciocínio alto e o modo "Não
+personalizado"; em parte das execuções o modo não pôde ser conferido depois
+do envio. Claude e Gemini não aceitam automação pela extensão, e o Copilot
+exige login. Uma execução por pergunta. Dados brutos em
+`gestao/tmp/geo/painel/onda0-2026-11-09.jsonl`, ignorado pelo Git.
+
+| Superfície e grupo | Execuções | Sir Fisher citado | Posições quando citado |
+| --- | ---: | ---: | --- |
+| Google Modo IA, descoberta PT | 14 | 9 (64%) | 4, 4, 6, 1, 1, 1, 4, 5, 2 |
+| Google Modo IA, descoberta EN | 5 | 2 (40%) | 4, 1 |
+| Google Modo IA, exatidão | 5 | 5 | 1 em todas |
+| Google Modo IA, controles | 3 | 0 | – |
+| ChatGPT, descoberta PT | 14 | 6 (43%) | 4, 1, 1, 1, 2, 1 |
+| ChatGPT, descoberta EN | 5 | 3 (60%) | 1, 1, 5 |
+| ChatGPT, exatidão | 3 | 3 | 1 em todas |
+
+| Participação nas menções de descoberta | Google Modo IA | ChatGPT |
+| --- | ---: | ---: |
+| Total de menções a casas | 80 | 68 |
+| Sir Fisher | 11 (13,8%) | 9 (13,2%) |
+| Illa Mare | 13 | 11 |
+| Coco Bambu | 9 | 10 |
+| Mestre Sussa | 8 | 9 |
+
+O Sir Fisher aparece com força em fish and chips, almoço executivo, perto do
+Jardim Japonês, pets, "hoje à noite" e Réveillon. Some em pôr do sol,
+aniversário com vista, confraternização de 50 pessoas, "hospedado no
+Meireles", "frutos do mar com vista" e na maior parte das perguntas gerais
+em inglês. O Google se apoia nos cartões do Maps; o ChatGPT cita o site
+oficial, Sabores da Cidade, O POVO, IndicoMais, Tripadvisor e Accor.
+
+Erros de exatidão encontrados, todos ligados a fontes antigas:
+
+- Google, localização: "no complexo Barra Sol" e executivo "a partir das 11h".
+- Google, Pub: diz que o Pub fechou, mas lista o "Sir Fisher Imprensa" como
+  ativo, citando o Instagram @sirfisherpub.
+- Google, peixe: atribui à casa "peixes fritos inteiros", fora do cardápio.
+- ChatGPT, Réveillon: fatos corretos, com o nome "Sir Fisher Praia".
+
+As perguntas F4, F5 e os três controles do ChatGPT foram enviados, mas a
+extensão do Chrome desconectou antes da leitura. Completar na próxima onda.
+
+### Feito e publicado
+
+| Frente | Resultado | Registro |
+| --- | --- | --- |
+| Cloudflare (QW1) | `ai_training=disabled`; o campo legado `ai_bots_protection` acompanhou. Teste público: 140 de 140 respostas 200 em 20 URLs e 7 agentes | gestao `bcb395d`, comando `cf.py ia` com 10 testes |
+| IndexNow (QW2, parte) | Chave publicada, script e workflow. Primeiro envio automático: 13 páginas, HTTP 202 | site `071f996` |
+| Página Sobre e imprensa (ES4) | `/sobre/` com a casa, unidade única, nome antigo, comodidades, imprensa e contato; no sitemap, no `llms.txt` e linkada na home | site `32cc90e` |
+| Desambiguação (ES3) | Pergunta sobre outras unidades na home, no EN e na página Sobre, visível e em JSON-LD | site `32cc90e` |
+| FAQ visível (ES1) | Gerador `tools/faq/sincronizar_faq.py` no pre-commit e na CI; 106 perguntas, todas visíveis; acentos corrigidos; perguntas só visíveis incorporadas ao JSON-LD | site `32cc90e` |
+| Entidade (ES2) | WebSite em JSON-LD; Réveillon com local ligado ao `@id` do restaurante | site `32cc90e` |
+| Nome único | Site, portal (título, H1, Réveillon, script) e banco: local do Réveillon, modelos de WhatsApp e mensagem padrão do WhatsApp | reservas `caac8ee`; migration gestao `20261109190000`, aplicada |
+
+Validações: 131 testes Deno do site, 42 do portal, 6 do IndexNow e 10 do
+Cloudflare; axe-core e teclado sem problemas em 13 páginas, celular e
+desktop, claro e escuro; CSP, assets, cardápio e FAQ em dia; workflows do
+GitHub aprovados; páginas conferidas no ar.
+
+Na unificação do FAQ do Réveillon, a resposta de pagamento seguiu a regra do
+corpo da página: sinal de 30% em 48 horas e saldo até 20/12/2026. O texto
+antigo também falava em pagar "na própria noite"; o proprietário deve
+confirmar se essa possibilidade existe.
+
+### Não foi possível nesta sessão
+
+- **Bing Webmaster Tools e Bing Places:** a página de login do Google não
+  aceita ação pela extensão. O proprietário entra em
+  `bing.com/webmasters` com a conta Google, usa a importação do Search
+  Console e depois abre o relatório AI Performance. Em
+  `bing.com/forbusiness`, importa a ficha do Perfil da Empresa.
+- **OpenStreetMap:** a API de notas anônimas respondeu erro 500. Com uma
+  conta, editar o nó 10601139599 com as tags da ação QW4.
+- **Contatos com imprensa:** não há acesso a e-mail nesta sessão. As pautas e
+  os canais estão abaixo.
+- **Tripadvisor, iFood, Restaurant Guru, Apple, Foursquare, Duo Gourmet,
+  Comida di Buteco e Bendito Guia:** exigem login do proprietário ou
+  formulário; passos na ação QW4.
+- **Instagram @sirfisherpub:** se a conta ainda existir, trocar a bio para
+  "Unidade encerrada. Visite o Sir Fisher na Av. Beira Mar, 3421:
+  @sirfisherfc". O Google usou esse perfil para dizer que a unidade do
+  Imprensa segue ativa.
+- **E-mails e PDF:** as Edge Functions `send-notifications` e `event-quote`
+  ainda usam "Sir Fisher Praia" no remetente padrão, nos rodapés e na
+  proposta. Trocar exige reimplantar com teste de envio, numa janela própria.
+
+### Canais de pauta encontrados
+
+| Veículo | Canal publicado | Observação |
+| --- | --- | --- |
+| Viajali | viajali@contteudo.com | Endereço indicado pelo site para sugestão editorial |
+| iFortaleza | Formulário em ifortaleza.com/pt/contact, assunto "Imprensa / mídia"; info@ifortaleza.com | Canal geral |
+| IndicoMais Fortaleza | contato@indicomaisfortaleza.com.br; WhatsApp (85) 99792-8633 | Página de anúncio; conteúdo pago precisa ser identificado |
+| Conexão 085 | Formulário em conexao085.com.br/contato; comercial@conexao085.com.br | Canal comercial |
+| Sabores da Cidade | Formulário em saboresdacidade.com/quem-somos | Voltado a anúncio |
+| Diário do Nordeste e O POVO | Sem canal de pauta publicado | Usar contato de jornalistas das editorias de gastronomia e serviço |
+
+### Pautas prontas para envio
+
+Assinatura comum: Sir Fisher · Av. Beira Mar, 3421, Meireles, Fortaleza ·
+contato@sirfisher.com.br · WhatsApp (85) 98854-4274 ·
+https://www.sirfisher.com.br/sobre/
+
+**Confraternização de fim de ano na Beira-Mar.** O Sir Fisher recebe
+confraternizações de 30 a 100 pessoas sentadas, de frente para o mar, em
+frente ao Jardim Japonês. No site, a empresa simula o valor por pessoa,
+escolhe petiscos, almoço ou jantar e decide se inclui bebidas; a equipe
+confere a data e envia a proposta. Não há eventos em 24, 25 e 31/12.
+https://www.sirfisher.com.br/eventos/
+
+**Réveillon 2027 de frente para o mar.** Em 31/12, das 20h às 2h, com DJ e
+cantor ao vivo e vista dos fogos da orla. Venda por mesa, de R$ 800 a
+R$ 2.800, com consumação inclusa e 8% de desconto no Pix.
+https://www.sirfisher.com.br/reveillon/
+
+**Fish and chips de pescada amarela e o pôr do sol da Beira-Mar.** Duas
+versões do prato: a London, com massa leve fermentada na cerveja, e a Sir
+Fisher, no panko, ambas com pescada amarela pescada na costa do Ceará. O
+site calcula o horário do pôr do sol de hoje, entre 17h25 e 17h56 ao longo
+do ano. https://www.sirfisher.com.br/fish-and-chips/ e
+https://www.sirfisher.com.br/por-do-sol/
+
+**Almoço executivo com preço na orla.** Sete pratos individuais de R$ 31 a
+R$ 52, de segunda a sexta, das 10h às 14h, exceto feriados; às terças, o
+segundo prato igual sai por conta da casa.
+https://www.sirfisher.com.br/almoco-executivo/
+
+### Próximos passos
+
+1. Proprietário: Bing Webmaster Tools, Bing Places, Tripadvisor, iFood,
+   Instagram do Pub e envio das pautas, nesta ordem.
+2. Próxima sessão com o Chrome conectado: completar F4, F5 e os controles no
+   ChatGPT e rodar a onda 1 em 24/11/2026, com as mesmas perguntas.
+3. Comparar a onda 1 com esta linha de base, separando o efeito das páginas
+   novas, que o Google e o ChatGPT ainda precisam rastrear.
