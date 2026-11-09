@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 Livre: Codex ativou o teste ChatGPT Ads autorizado para 09 a 16/11; três níveis ativos, aguardando início.
+> **🚦 Status atual:** 🟢 Livre: Claude entregou a auditoria de GEO (`docs/GEO_AUDITORIA_ESTRATEGIA_2026-11-09.md`), só leitura; o teste ChatGPT Ads do Codex segue de 09 a 16/11.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -17,16 +17,6 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
 **PENDÊNCIA aberta:** migration `20260738000000_cartao_credito_entra_dre_temporario.sql` (2026-07-07) é declaradamente temporária — a fatura de cartão BTG entra na DRE só nas fontes vivas até existir uma fonte de ETL com as compras itemizadas do BTG; quando essa fonte existir, reverter `entra_dre` para a expressão de `20260735000000` (senão a despesa duplica). Ver detalhes no `git log`/na própria migration.
 
 **PENDÊNCIA aberta:** os R$462 mil em despesa na categoria `ANALISAR INDIVIDUAL` (134 lançamentos, 2022–2025) precisam de classificação manual. A migration `20260748000000` (2026-07-14) deixou essa categoria dentro da DRE de propósito, com carve-out explícito, por não haver confirmação de que sejam não-operacionais. Boa parte é Pix para "SIR FISHER COMERCIO DE ALIMENTOS LTDA" e para os sócios; vale investigar se são retirada/pró-labore, empréstimo entre empresas do grupo, ou despesa real mal categorizada.
-
-## 2026-11-08 · Claude — Charlotes liberadas para venda no POS
-
-O POS recusava a Charlote de Morango por falta de alíquota do PIS. Em Impostos
-por Unidade, as duas charlotes (`8.00.20.022.00` e `.023.00`) tinham Alíquota
-PIS/COFINS vazias; o Brownie tem `0.00`. Ajustadas pela tela e relidas. Lição
-registrada em `scripts/teknisa/README.md` e `docs/TEKNISA_MIGRACAO_CARDAPIO.md`.
-Sem código, banco ou migration. Pendente: venda real no aparelho após a carga;
-NCM da charlote (`21069090`) segue diferente do Brownie (`21069029`), por decisão a confirmar.
-
 
 ## 2026-11-08 · Codex: 14 setores de Fortaleza salvos no ChatGPT Ads
 
@@ -73,3 +63,22 @@ tráfego, intenção e reservas/comparecimento com origem medida. Não foi
 criada automação, revisão recorrente ou pausa automática. Recibo privado
 `tmp/chatgpt-ads/ativacao-2026-11-08.json`, ignorado. Leituras, diff e links
 conferidos. Sem código, banco ou migration; site e reservas preservados.
+
+## 2026-11-09 · Claude — Auditoria e estratégia de GEO
+
+Pedido do proprietário: estratégia para o Sir Fisher aparecer nas respostas
+de ChatGPT, Claude, Gemini e Copilot. Entrega em
+`docs/GEO_AUDITORIA_ESTRATEGIA_2026-11-09.md`, com plataformas, evidência
+científica, diagnóstico, plano priorizado e painel de validação.
+Achados que pedem ação: Cloudflare com `ai_training=disallow` e regra Skip
+de 15 caminhos fixos bloqueia GPTBot e ClaudeBot em `/jardim-japones/`,
+`/conheca/`, `/llms.txt` e imagens, contra a decisão de 25/10; sem Bing
+Webmaster Tools, IndexNow ou Bing Places; FAQPage com 87 perguntas e só 18
+visíveis; OSM e diretórios com "Barra Sol", horários antigos e unidades
+encerradas; Bendito Guia exibe o celular pessoal; Tripadvisor com nota 3,9,
+11 avaliações e categoria errada.
+Só leitura: GA4, Search Console, Perfil da Empresa e Cloudflare por GET.
+Nada alterado no site, portal, Cloudflare, fichas ou campanhas. Sem código,
+banco ou migration. `check_project.py` OK sem Node, ausente neste PC.
+Pendente: decisões do proprietário listadas no documento e onda 0 do painel
+antes de qualquer mudança.
