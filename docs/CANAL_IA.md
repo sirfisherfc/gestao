@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 Livre: Claude entregou a auditoria de GEO (`docs/GEO_AUDITORIA_ESTRATEGIA_2026-11-09.md`), só leitura; o teste ChatGPT Ads do Codex segue de 09 a 16/11.
+> **🚦 Status atual:** 🔴 Claude executando o plano de GEO aprovado em 09/11: site, reservas, Cloudflare e fichas externas. Bases: gestao `74821d3`, site `0237f2c`, reservas `e5715ee`. Teste ChatGPT Ads do Codex segue de 09 a 16/11, sem interferência.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
