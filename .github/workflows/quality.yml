@@ -35,6 +35,9 @@ jobs:
       - name: Cloudflare robots response verification without network
         run: python -B scripts/cloudflare/test_robots.py
 
+      - name: Cloudflare AI crawler preferences without network
+        run: python -B scripts/cloudflare/test_ia.py
+
       - name: Google Business Profile holiday exceptions without network
         run: python -B scripts/gbp/test_feriados.py
 

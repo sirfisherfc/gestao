@@ -20,10 +20,13 @@ Comandos:
   robots           desliga o robots.txt gerenciado do Cloudflare; quem publica
                    o robots.txt (com os mesmos rastreadores bloqueados)
                    e o site. --religar devolve o bloco do Cloudflare (rollback)
+  ia               deixa os robos de IA (treinamento, busca e assistentes) ler o
+                   site na borda, como decidido em 25/10 e 09/11/2026.
+                   --religar devolve o bloqueio de treinamento (rollback)
 
 Credencial: CLOUDFLARE_API_TOKEN, da variavel de ambiente ou do gestao/.env
 (ignorado pelo Git). Nunca exibir, copiar para paginas nem versionar o valor.
-O comando robots precisa da permissao Zone > Bot Management > Edit no token.
+Os comandos robots e ia precisam da permissao Zone > Bot Management > Edit no token.
 
 Uso:
   python scripts/cloudflare/cf.py diagnostico
@@ -304,17 +307,62 @@ def cmd_robots(args):
     print(f"Configuracao e purga conferidas. Confira a resposta publica: https://{WWW}/robots.txt")
 
 
+# Decisao do proprietario: robots.txt liberado em 25/10/2026 e borda liberada
+# para os robos de IA em 09/11/2026. "disabled" e o valor da API que nao aplica
+# bloqueio nem sinal de recusa na categoria; "disallow" era o estado anterior
+# do treinamento e bloqueava GPTBot/ClaudeBot fora da regra Skip de 15 caminhos.
+IA_LIBERADA = {"ai_training": "disabled", "ai_search": "disabled", "ai_user": "disabled"}
+IA_ANTERIOR = {"ai_training": "disallow", "ai_search": "disabled", "ai_user": "disabled"}
+# Campo legado "Block AI bots": a API o ajusta junto com ai_training. Em
+# 09/11/2026 passou de only_on_ad_pages para disabled na mesma gravacao.
+IA_ACOPLADOS = ("ai_bots_protection",)
+
+
+def cmd_ia(args):
+    zid = zona_id()
+    antes = api("GET", f"/zones/{zid}/bot_management")
+    if not antes.get("success") or not isinstance(antes.get("result"), dict):
+        sys.exit(f"Sem acesso ao Bot Management (permissao no token?): {antes.get('errors')}")
+    antes = antes["result"]
+    alvo = IA_ANTERIOR if args.religar else IA_LIBERADA
+    for campo, valor in alvo.items():
+        print(f"  {campo}: {antes.get(campo)} -> {valor}")
+    if not args.aplicar:
+        print("Simulacao. Use --aplicar.")
+        return
+    corpo = {c: v for c, v in alvo.items() if antes.get(c) != v}
+    if corpo:
+        if not conferir("preferencias de robos de IA", api("PUT", f"/zones/{zid}/bot_management", corpo)):
+            sys.exit("Nao foi possivel alterar as preferencias de robos de IA.")
+    resposta = api("GET", f"/zones/{zid}/bot_management")
+    if not resposta.get("success") or not isinstance(resposta.get("result"), dict):
+        sys.exit(f"Nao foi possivel conferir as preferencias de robos de IA: {resposta.get('errors')}")
+    depois = resposta["result"]
+    if any(depois.get(c) != v for c, v in alvo.items()):
+        sys.exit("As preferencias de robos de IA nao ficaram no estado solicitado; confira a zona.")
+    for campo in IA_ACOPLADOS:
+        if antes.get(campo) != depois.get(campo):
+            print(f"  {campo} (legado, acoplado): {antes.get(campo)} -> {depois.get(campo)}")
+    mudou = {k: (antes.get(k), depois.get(k)) for k in set(antes) | set(depois)
+             if k not in alvo and k not in IA_ACOPLADOS and antes.get(k) != depois.get(k)}
+    if mudou:
+        sys.exit(f"Outras configuracoes mudaram junto; confira a zona antes de continuar: {mudou}")
+    print("Preferencias conferidas. Teste os agentes nas URLs publicas (docs/GEO_AUDITORIA_ESTRATEGIA_2026-11-09.md).")
+
+
 def main():
     parser = argparse.ArgumentParser(description="Cloudflare da zona sirfisher.com.br (simula por padrao).")
     sub = parser.add_subparsers(dest="comando", required=True)
     sub.add_parser("diagnostico").set_defaults(func=cmd_diagnostico)
     for nome, func in (("site", cmd_site), ("purgar", cmd_purgar), ("desfazer-proxy", cmd_desfazer_proxy),
-                       ("robots", cmd_robots)):
+                       ("robots", cmd_robots), ("ia", cmd_ia)):
         p = sub.add_parser(nome)
         p.add_argument("--aplicar", action="store_true", help="Altera a zona de verdade.")
         p.set_defaults(func=func)
     sub.choices["robots"].add_argument("--religar", action="store_true",
                                        help="Devolve o robots.txt gerenciado do Cloudflare.")
+    sub.choices["ia"].add_argument("--religar", action="store_true",
+                                   help="Volta a bloquear os robos de treinamento (estado anterior a 09/11/2026).")
     args = parser.parse_args()
     args.func(args)
 

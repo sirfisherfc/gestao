@@ -54,6 +54,28 @@ nenhum alerta foi arquivado ou reclassificado para reduzir a contagem.
 | AI Labyrinth | Recurso opcional mantido desligado; a decisão vigente permite leitura pública por robôs de IA. |
 | Lista de IPs | Manutenção opcional para a única faixa atual, `85.208.98.0/24`; regras preservadas. |
 
+## Robôs de IA liberados na borda em 09/11/2026
+
+O proprietário confirmou em 09/11 a decisão de 25/10: os robôs de IA, inclusive
+os de treinamento, podem ler todo o conteúdo público. A auditoria de GEO
+([relatório](GEO_AUDITORIA_ESTRATEGIA_2026-11-09.md)) encontrou
+`ai_training=disallow` no Bot Management. Com isso, GPTBot, ClaudeBot, CCBot e
+Amazonbot recebiam 403 fora dos 15 caminhos da regra Skip "Robos IA", inclusive
+em `/jardim-japones/`, `/llms.txt` e nas imagens.
+
+O comando novo `python scripts/cloudflare/cf.py ia --aplicar` gravou
+`ai_training=disabled` e releu a zona. A API ajustou junto o campo legado
+`ai_bots_protection`, de `only_on_ad_pages` para `disabled`; o comando trata esse
+campo como acoplado e recusa qualquer outra mudança. Os demais campos, como
+Bot Fight Mode e robots.txt gerenciado, ficaram iguais. `--religar` devolve o
+bloqueio de treinamento. Dez testes offline estão em
+`scripts/cloudflare/test_ia.py` e rodam no workflow `quality`.
+
+Conferência pública logo depois: 20 URLs (sitemap, `llms.txt`, Conheça, menu EN e
+três imagens) com sete agentes declarados, 140 de 140 respostas 200. As duas
+regras Skip foram preservadas; com o treinamento liberado, elas ficam sem
+efeito prático e podem ser removidas numa revisão futura.
+
 ## Nova revisão pela API em 03/11
 
 Além de conferir os alertas, foi encontrada a configuração `ssl=full`.
