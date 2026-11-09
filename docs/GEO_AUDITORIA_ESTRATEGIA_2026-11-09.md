@@ -1255,7 +1255,7 @@ abertas do proprietário. Nenhuma senha foi digitada.
 
 | Frente | Resultado | Registro |
 | --- | --- | --- |
-| Bing Webmaster Tools (QW2) | Site verificado pela meta `msvalidate.01` na home, na conta Microsoft do proprietário; sitemap enviado e em processamento; relatório AI Performance disponível | site `5ec06ce` |
+| Bing Webmaster Tools (QW2) | Site verificado pela meta `msvalidate.01` na home, na conta do proprietário já conectada no Chrome; sitemap enviado e em processamento; relatório AI Performance disponível | site `5ec06ce` |
 | Tripadvisor (QW6) | A ficha `d23922740` já tinha nome "Sir Fisher", descrição, horário, culinárias, telefone corporativo, site e status aberto. O pino fica a menos de 1 m das coordenadas do site. O Tripadvisor não oferece a culinária "Peixe" e aceita no máximo cinco; nada foi alterado ali | Painel do proprietário |
 | Tripadvisor, categoria | Pedido de troca de "bares e pubs" para restaurante enviado ao assistente de suporte, com site, cardápio, executivo, Instagram e Facebook. Resposta por e-mail, sem protocolo. Ver a reavaliação abaixo | Suporte do Tripadvisor |
 | Tripadvisor, endereço da página | O proprietário não pode alterar o trecho "Barra_Sol_Sir_Fisher"; só o suporte | – |
