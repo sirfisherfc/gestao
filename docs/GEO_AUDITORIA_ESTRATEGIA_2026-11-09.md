@@ -1192,7 +1192,8 @@ exige login. Uma execução por pergunta. Dados brutos em
 | Google Modo IA, controles | 3 | 0 | – |
 | ChatGPT, descoberta PT | 14 | 6 (43%) | 4, 1, 1, 1, 2, 1 |
 | ChatGPT, descoberta EN | 5 | 3 (60%) | 1, 1, 5 |
-| ChatGPT, exatidão | 3 | 3 | 1 em todas |
+| ChatGPT, exatidão | 5 | 5 | 1 em todas |
+| ChatGPT, controles | 3 | 0 | – |
 
 | Participação nas menções de descoberta | Google Modo IA | ChatGPT |
 | --- | ---: | ---: |
@@ -1217,8 +1218,13 @@ Erros de exatidão encontrados, todos ligados a fontes antigas:
 - Google, peixe: atribui à casa "peixes fritos inteiros", fora do cardápio.
 - ChatGPT, Réveillon: fatos corretos, com o nome "Sir Fisher Praia".
 
-As perguntas F4, F5 e os três controles do ChatGPT foram enviados, mas a
-extensão do Chrome desconectou antes da leitura. Completar na próxima onda.
+F4, F5 e os três controles do ChatGPT foram lidos depois da reconexão do
+Chrome. F4 e F5 vieram corretos: preços e horário do executivo, Pub da Rua
+Frederico Borges encerrado, unidade da Beira-Mar funcionando e telefone
+corporativo. Os controles não citaram o Sir Fisher. Churrascaria: Sal e
+Brasa, Carbone e Nativas. Japonês na Aldeota: Umami, Misaki, Kamibaa,
+Japamania, Gendai e Fuji. Pizzaria: Vignoli, Matteos, Mamma Mia e Depot
+Medieval.
 
 ### Feito e publicado
 
@@ -1242,27 +1248,72 @@ corpo da página: sinal de 30% em 48 horas e saldo até 20/12/2026. O texto
 antigo também falava em pagar "na própria noite"; o proprietário deve
 confirmar se essa possibilidade existe.
 
-### Não foi possível nesta sessão
+### Segunda rodada no navegador
 
-- **Bing Webmaster Tools e Bing Places:** a página de login do Google não
-  aceita ação pela extensão. O proprietário entra em
-  `bing.com/webmasters` com a conta Google, usa a importação do Search
-  Console e depois abre o relatório AI Performance. Em
-  `bing.com/forbusiness`, importa a ficha do Perfil da Empresa.
-- **OpenStreetMap:** a API de notas anônimas respondeu erro 500. Com uma
-  conta, editar o nó 10601139599 com as tags da ação QW4.
-- **Contatos com imprensa:** não há acesso a e-mail nesta sessão. As pautas e
-  os canais estão abaixo.
-- **Tripadvisor, iFood, Restaurant Guru, Apple, Foursquare, Duo Gourmet,
-  Comida di Buteco e Bendito Guia:** exigem login do proprietário ou
-  formulário; passos na ação QW4.
-- **Instagram @sirfisherpub:** se a conta ainda existir, trocar a bio para
+Feita na mesma data, depois da reconexão do Chrome, com as sessões já
+abertas do proprietário. Nenhuma senha foi digitada.
+
+| Frente | Resultado | Registro |
+| --- | --- | --- |
+| Bing Webmaster Tools (QW2) | Site verificado pela meta `msvalidate.01` na home, na conta Microsoft do proprietário; sitemap enviado e em processamento; relatório AI Performance disponível | site `5ec06ce` |
+| Tripadvisor (QW6) | A ficha `d23922740` já tinha nome "Sir Fisher", descrição, horário, culinárias, telefone corporativo, site e status aberto. O pino fica a menos de 1 m das coordenadas do site. O Tripadvisor não oferece a culinária "Peixe" e aceita no máximo cinco; nada foi alterado ali | Painel do proprietário |
+| Tripadvisor, categoria | Pedido de troca de "bares e pubs" para restaurante enviado ao assistente de suporte, com site, cardápio, executivo, Instagram e Facebook. Resposta por e-mail, sem protocolo. Ver a reavaliação abaixo | Suporte do Tripadvisor |
+| Tripadvisor, endereço da página | O proprietário não pode alterar o trecho "Barra_Sol_Sir_Fisher"; só o suporte | – |
+| OpenStreetMap (QW4) | Nota pública 5624850 com nome, tipo restaurante, culinária, horário e site para o nó 10601139599, para um voluntário aplicar | openstreetmap.org/note/5624850 |
+| Bendito Guia | Pedido enviado: remover o celular pessoal, usar o nome "Sir Fisher" e indicar o site oficial. Resposta em até 5 dias úteis para contato@sirfisher.com.br | Formulário de contato |
+| Restaurant Guru | Já mostra "Sir Fisher", horário, telefone corporativo e site; só o endereço da página mantém "Barra-Sol". Reivindicar exige conta | – |
+| Duo Gourmet | O horário de segunda a sexta, das 10h às 14h30, é a janela do benefício, não o funcionamento. Decisão comercial do proprietário | – |
+| E-mails e PDF | "Sir Fisher Praia" retirado do código das Edge Functions `send-notifications` e `event-quote`; checagem de tipos e testes do PDF e da agenda aprovados. A implantação foi negada pelo classificador do modo automático; produção segue com o nome antigo | reservas `16e2de8` |
+
+**Reavaliação da categoria no Tripadvisor.** O plano pedia o tipo
+restaurante; a leitura de 09/11 mudou a recomendação. A lista principal de
+restaurantes de Fortaleza tem 3.165 resultados e inclui bares e pubs: o
+Mestre Sussa, cadastrado como bar e pub, aparece em 1º nas duas listas [E].
+Como bar e pub, o Sir Fisher é o 20º de 82 no ranking e o 17º na ordem em
+destaque [E]. Como restaurante, com 11 avaliações e nota 3,9, a posição
+ficaria nas centenas [I]. A troca tem custo certo e ganho incerto; o que
+move as duas listas é o volume, a nota e a recência das avaliações (AU2).
+Recomendação: manter bares e pubs até cerca de 50 avaliações e reavaliar. O
+pedido já enviado pode ser cancelado pelo mesmo assistente, se o
+proprietário decidir.
+
+### Pendências do proprietário
+
+- **Categoria do Tripadvisor:** decidir se mantém o pedido enviado ou se ele
+  deve ser cancelado, conforme a reavaliação acima.
+- **Bing Places:** o login pela conta Microsoft não abre pela extensão. Entrar
+  em `bing.com/forbusiness` e importar a ficha do Perfil da Empresa.
+- **iFood:** o portal do parceiro exige login, bloqueado para a extensão.
+  Encerrar ou ocultar as lojas do Pub e do Imprensa e decidir sobre a ficha
+  "Fish & Chip Mucuripe".
+- **Instagram @sirfisherpub:** a bio ainda diz "Ter a Dom • a partir de
+  17h30", com o endereço da Rua Frederico Borges. Só a @sirfisherfc está
+  logada, e o Meta Business Suite não abre pela extensão. Trocar a bio para
   "Unidade encerrada. Visite o Sir Fisher na Av. Beira Mar, 3421:
-  @sirfisherfc". O Google usou esse perfil para dizer que a unidade do
-  Imprensa segue ativa.
-- **E-mails e PDF:** as Edge Functions `send-notifications` e `event-quote`
-  ainda usam "Sir Fisher Praia" no remetente padrão, nos rodapés e na
-  proposta. Trocar exige reimplantar com teste de envio, numa janela própria.
+  @sirfisherfc". O próprio perfil já tem o post de encerramento.
+- **Comida di Buteco:** a página mostra horário antigo. O envio pelo
+  formulário em `comidadibuteco.com.br/contato` foi negado pelo classificador
+  do modo automático. Texto pronto: "Escrevemos pelo Sir Fisher, de
+  Fortaleza, participante do concurso. Pedimos atualizar o horário na nossa
+  página: domingo a quinta, das 9h às 22h15; sexta e sábado, das 9h às 23h.
+  Endereço e telefone continuam os mesmos."
+- **Apple Business Connect e Foursquare:** exigem login do proprietário.
+- **Contatos com imprensa:** pautas e canais abaixo. O envio a terceiros fica
+  com o proprietário ou depende de autorização expressa a cada envio.
+- **E-mails e PDF:** implantar as duas funções a partir de reservas `16e2de8`
+  e trocar o segredo `RESEND_FROM`, que ainda é "Sir Fisher Praia
+  <reservas@sirfisher.com.br>". Conferir depois com uma reserva de teste.
+
+  ```bash
+  cd reservas
+  supabase functions deploy event-quote --project-ref lucpxoynpvogkvzepagi --use-api
+  supabase functions deploy send-notifications --project-ref lucpxoynpvogkvzepagi --use-api
+  supabase secrets set RESEND_FROM="Sir Fisher <reservas@sirfisher.com.br>" --project-ref lucpxoynpvogkvzepagi
+  ```
+
+- **Testes de preço do `event-quote`:** 23 de 26 falham porque usam datas
+  fixas de outubro de 2026, que já passaram. A falha é anterior a esta
+  mudança; as datas dos testes precisam ser renovadas.
 
 ### Canais de pauta encontrados
 
@@ -1307,9 +1358,10 @@ https://www.sirfisher.com.br/almoco-executivo/
 
 ### Próximos passos
 
-1. Proprietário: Bing Webmaster Tools, Bing Places, Tripadvisor, iFood,
-   Instagram do Pub e envio das pautas, nesta ordem.
-2. Próxima sessão com o Chrome conectado: completar F4, F5 e os controles no
-   ChatGPT e rodar a onda 1 em 24/11/2026, com as mesmas perguntas.
-3. Comparar a onda 1 com esta linha de base, separando o efeito das páginas
-   novas, que o Google e o ChatGPT ainda precisam rastrear.
+1. Proprietário: categoria do Tripadvisor, implantação das Edge Functions,
+   iFood, Instagram do Pub, Bing Places, Comida di Buteco e pautas.
+2. Em cerca de uma semana, conferir no Bing Webmaster Tools o processamento
+   do sitemap e a primeira leitura do relatório AI Performance.
+3. Rodar a onda 1 em 24/11/2026, com as mesmas perguntas e a mesma
+   configuração, e compará-la com esta linha de base, separando o efeito das
+   páginas novas, que o Google e o ChatGPT ainda precisam rastrear.

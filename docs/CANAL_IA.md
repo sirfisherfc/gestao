@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 Livre: Claude concluiu a execução do plano de GEO (site, portal, Cloudflare, migration 20261109190000); pendências de login com o proprietário. Teste ChatGPT Ads do Codex segue de 09 a 16/11.
+> **🚦 Status atual:** 🟢 Livre: Claude concluiu o plano de GEO e a rodada no navegador. Atenção: reservas `16e2de8` (nome nos e-mails e no PDF) ainda não foi implantado. Teste ChatGPT Ads do Codex segue de 09 a 16/11.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -73,3 +73,19 @@ aplicada no portal e conferida. Onda 0 do painel em
 Pendente: logins do proprietário (Bing, Tripadvisor, iFood, OSM, Instagram
 do Pub), envio das pautas, e-mails e PDF das Edge Functions ainda com
 "Sir Fisher Praia" (reimplantar com teste), F4/F5/controles do ChatGPT.
+
+## 2026-11-09 · Claude — GEO no navegador; Edge Functions à frente de produção
+
+Onda 0 completa com F4, F5 e controles do ChatGPT. Bing Webmaster Tools
+verificado pela meta `msvalidate.01` da home (site `5ec06ce`, não remover) e
+sitemap enviado. Tripadvisor: ficha já correta; pedido de troca para
+restaurante enviado ao suporte, mas a reavaliação no relatório de GEO
+recomenda manter "bares e pubs" (decisão do proprietário). Nota OSM
+5624850. Bendito Guia: pedido para retirar o celular pessoal.
+
+**Atenção, reservas:** `16e2de8` tira "Sir Fisher Praia" de
+`send-notifications` e `event-quote`, mas a implantação foi negada no modo
+automático. Produção segue nas versões 52 e 68, e o segredo `RESEND_FROM`
+ainda é "Sir Fisher Praia <reservas@sirfisher.com.br>". Quem implantar essas
+funções leva a troca junto; comandos no relatório de GEO. Os testes de preço
+do `event-quote` têm 23 falhas antigas por datas fixas de outubro de 2026.
