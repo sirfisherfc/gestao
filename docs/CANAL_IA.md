@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 Livre: Claude concluiu o plano de GEO e a rodada no navegador. Atenção: `event-quote` v69 já está no ar com reservas `16e2de8`; `send-notifications` e o segredo `RESEND_FROM` ainda não. Teste ChatGPT Ads do Codex segue de 09 a 16/11.
+> **🚦 Status atual:** 🟢 Livre: Claude concluiu o plano de GEO; e-mails e PDF com o nome "Sir Fisher" no ar desde 10/11. Teste ChatGPT Ads do Codex segue de 09 a 16/11.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -99,3 +99,14 @@ e a troca do segredo RESEND_FROM foram negadas pelo classificador do modo
 automático; produção segue com send-notifications v52 e o remetente
 "Sir Fisher Praia". Comandos para o PowerShell no relatório de GEO, em
 "Pendências do proprietário".
+
+## 2026-11-10 · Claude — Nome novo nos e-mails em produção
+
+O proprietário implantou send-notifications a partir de reservas 16e2de8 e
+trocou o segredo RESEND_FROM para "Sir Fisher <reservas@sirfisher.com.br>".
+Conferido: segredo pelo resumo SHA-256, verify_jwt=false nas duas funções
+e 401 sem o segredo. A troca do segredo reiniciou as seis Edge Functions,
+cada uma com uma versão nova: send-notifications 54 e event-quote 70. Nenhum
+e-mail saiu ainda pela versão nova; o último envio foi em 10/11 às 00h26,
+sem falhas recentes. Nota sobre o reinício em reservas 87286a6, no
+docs/email.md.
