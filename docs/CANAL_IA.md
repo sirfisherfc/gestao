@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 Livre: Claude concluiu o plano de GEO e a rodada no navegador. Atenção: reservas `16e2de8` (nome nos e-mails e no PDF) ainda não foi implantado. Teste ChatGPT Ads do Codex segue de 09 a 16/11.
+> **🚦 Status atual:** 🟢 Livre: Claude concluiu o plano de GEO e a rodada no navegador. Atenção: `event-quote` v69 já está no ar com reservas `16e2de8`; `send-notifications` e o segredo `RESEND_FROM` ainda não. Teste ChatGPT Ads do Codex segue de 09 a 16/11.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -89,3 +89,13 @@ automático. Produção segue nas versões 52 e 68, e o segredo `RESEND_FROM`
 ainda é "Sir Fisher Praia <reservas@sirfisher.com.br>". Quem implantar essas
 funções leva a troca junto; comandos no relatório de GEO. Os testes de preço
 do `event-quote` têm 23 falhas antigas por datas fixas de outubro de 2026.
+
+## 2026-11-10 · Claude — event-quote implantada; notificações pendentes
+
+A função de eventos foi implantada a partir de reservas 16e2de8: versão 69,
+ativa, verify_jwt=false preservado, OPTIONS 200 e GET 405 como no código. O
+PDF da proposta já sai com "Sir Fisher". A implantação de send-notifications
+e a troca do segredo RESEND_FROM foram negadas pelo classificador do modo
+automático; produção segue com send-notifications v52 e o remetente
+"Sir Fisher Praia". Comandos para o PowerShell no relatório de GEO, em
+"Pendências do proprietário".

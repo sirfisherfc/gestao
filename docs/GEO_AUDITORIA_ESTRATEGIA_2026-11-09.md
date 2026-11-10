@@ -1263,7 +1263,7 @@ abertas do proprietário. Nenhuma senha foi digitada.
 | Bendito Guia | Pedido enviado: remover o celular pessoal, usar o nome "Sir Fisher" e indicar o site oficial. Resposta em até 5 dias úteis para contato@sirfisher.com.br | Formulário de contato |
 | Restaurant Guru | Já mostra "Sir Fisher", horário, telefone corporativo e site; só o endereço da página mantém "Barra-Sol". Reivindicar exige conta | – |
 | Duo Gourmet | O horário de segunda a sexta, das 10h às 14h30, é a janela do benefício, não o funcionamento. Decisão comercial do proprietário | – |
-| E-mails e PDF | "Sir Fisher Praia" retirado do código das Edge Functions `send-notifications` e `event-quote`; checagem de tipos e testes do PDF e da agenda aprovados. A implantação foi negada pelo classificador do modo automático; produção segue com o nome antigo | reservas `16e2de8` |
+| E-mails e PDF | "Sir Fisher Praia" retirado do código das Edge Functions `send-notifications` e `event-quote`; checagem de tipos e testes do PDF e da agenda aprovados. Em 10/11, `event-quote` foi implantada na versão 69, com `verify_jwt=false` preservado e resposta normal. A implantação de `send-notifications` e a troca do segredo `RESEND_FROM` foram negadas pelo classificador do modo automático | reservas `16e2de8` |
 
 **Reavaliação da categoria no Tripadvisor.** O plano pedia o tipo
 restaurante; a leitura de 09/11 mudou a recomendação. A lista principal de
@@ -1300,16 +1300,22 @@ proprietário decidir.
 - **Apple Business Connect e Foursquare:** exigem login do proprietário.
 - **Contatos com imprensa:** pautas e canais abaixo. O envio a terceiros fica
   com o proprietário ou depende de autorização expressa a cada envio.
-- **E-mails e PDF:** implantar as duas funções a partir de reservas `16e2de8`
-  e trocar o segredo `RESEND_FROM`, que ainda é "Sir Fisher Praia
-  <reservas@sirfisher.com.br>". Conferir depois com uma reserva de teste.
+- **E-mails:** a `event-quote` já está no ar com o nome novo. Falta
+  implantar `send-notifications` a partir de reservas `16e2de8` e trocar o
+  segredo `RESEND_FROM`, que ainda é "Sir Fisher Praia
+  <reservas@sirfisher.com.br>" e vale para as duas funções. No PowerShell, a
+  CLI fica fora do PATH:
 
-  ```bash
-  cd reservas
-  supabase functions deploy event-quote --project-ref lucpxoynpvogkvzepagi --use-api
-  supabase functions deploy send-notifications --project-ref lucpxoynpvogkvzepagi --use-api
-  supabase secrets set RESEND_FROM="Sir Fisher <reservas@sirfisher.com.br>" --project-ref lucpxoynpvogkvzepagi
+  ```powershell
+  cd "$env:USERPROFILE\OneDrive\Meus Projetos\SirFisher\reservas"
+  $env:SUPABASE_ACCESS_TOKEN = python -I -c "import sys; sys.path.insert(0, r'C:\Users\rogerio.fonseca\OneDrive\Meus Projetos\SirFisher\site\tools\analytics'); from supabase_credentials import access_token; print(access_token())"
+  & "$env:USERPROFILE\bin\supabase.exe" functions deploy send-notifications --project-ref lucpxoynpvogkvzepagi --use-api
+  & "$env:USERPROFILE\bin\supabase.exe" secrets set "RESEND_FROM=Sir Fisher <reservas@sirfisher.com.br>" --project-ref lucpxoynpvogkvzepagi
+  Remove-Item Env:SUPABASE_ACCESS_TOKEN
   ```
+
+  Conferir depois: `send-notifications` na versão 53 e o próximo e-mail de
+  reserva com o remetente "Sir Fisher".
 
 - **Testes de preço do `event-quote`:** 23 de 26 falham porque usam datas
   fixas de outubro de 2026, que já passaram. A falha é anterior a esta
