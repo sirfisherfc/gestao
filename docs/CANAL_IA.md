@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 Livre: Claude concluiu o plano de GEO; e-mails e PDF com o nome "Sir Fisher" no ar desde 10/11. Teste ChatGPT Ads do Codex segue de 09 a 16/11.
+> **🚦 Status atual:** 🟢 Livre. Teste ChatGPT Ads de 09 a 16/11 ativo, mas sem entrega até 10/11 às 14h; mudanças aguardam decisão do proprietário (ver `docs/ANALISE_CHATGPT_ADS_2026-11-10.md`).
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -17,47 +17,6 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
 **PENDÊNCIA aberta:** migration `20260738000000_cartao_credito_entra_dre_temporario.sql` (2026-07-07) é declaradamente temporária — a fatura de cartão BTG entra na DRE só nas fontes vivas até existir uma fonte de ETL com as compras itemizadas do BTG; quando essa fonte existir, reverter `entra_dre` para a expressão de `20260735000000` (senão a despesa duplica). Ver detalhes no `git log`/na própria migration.
 
 **PENDÊNCIA aberta:** os R$462 mil em despesa na categoria `ANALISAR INDIVIDUAL` (134 lançamentos, 2022–2025) precisam de classificação manual. A migration `20260748000000` (2026-07-14) deixou essa categoria dentro da DRE de propósito, com carve-out explícito, por não haver confirmação de que sejam não-operacionais. Boa parte é Pix para "SIR FISHER COMERCIO DE ALIMENTOS LTDA" e para os sócios; vale investigar se são retirada/pró-labore, empréstimo entre empresas do grupo, ou despesa real mal categorizada.
-
-## 2026-11-08 · Codex: teste ChatGPT Ads ativado por autorização expressa
-
-Gravados apenas os status de anúncio, grupo e campanha, nessa ordem.
-Os três ativos; peça aprovada. R$300 totais, sete dias de 09/11 às 00h
-até 16/11 às 00h em Fortaleza, máximo R$3,50/clique e os 14 setores
-preservados. Comparação antes/depois conferiu os demais campos. Sem mudança
-de verba, locais, datas, texto, imagem, destino ou outras campanhas.
-
-Conector e interface confirmaram controles ativos. A edição de conferência
-da campanha mostrou os 14 setores, valor e datas, depois foi cancelada.
-O único motivo atual de não veiculação é início futuro. Conta aprovada,
-faturamento configurado e nenhum bloqueio geográfico indicado. Ainda sem
-comprovação de impressões; o início automático foi explicado ao usuário.
-O relatório mensal veio sem linhas e não foi descrito como zero medido.
-As outras campanhas têm término anterior a novembro e foram preservadas.
-
-Atualizados plano e geografia. Proposta de acompanhamento diário com gastos,
-tráfego, intenção e reservas/comparecimento com origem medida. Não foi
-criada automação, revisão recorrente ou pausa automática. Recibo privado
-`tmp/chatgpt-ads/ativacao-2026-11-08.json`, ignorado. Leituras, diff e links
-conferidos. Sem código, banco ou migration; site e reservas preservados.
-
-## 2026-11-09 · Claude — Auditoria e estratégia de GEO
-
-Pedido do proprietário: estratégia para o Sir Fisher aparecer nas respostas
-de ChatGPT, Claude, Gemini e Copilot. Entrega em
-`docs/GEO_AUDITORIA_ESTRATEGIA_2026-11-09.md`, com plataformas, evidência
-científica, diagnóstico, plano priorizado e painel de validação.
-Achados que pedem ação: Cloudflare com `ai_training=disallow` e regra Skip
-de 15 caminhos fixos bloqueia GPTBot e ClaudeBot em `/jardim-japones/`,
-`/conheca/`, `/llms.txt` e imagens, contra a decisão de 25/10; sem Bing
-Webmaster Tools, IndexNow ou Bing Places; FAQPage com 87 perguntas e só 18
-visíveis; OSM e diretórios com "Barra Sol", horários antigos e unidades
-encerradas; Bendito Guia exibe o celular pessoal; Tripadvisor com nota 3,9,
-11 avaliações e categoria errada.
-Só leitura: GA4, Search Console, Perfil da Empresa e Cloudflare por GET.
-Nada alterado no site, portal, Cloudflare, fichas ou campanhas. Sem código,
-banco ou migration. `check_project.py` OK sem Node, ausente neste PC.
-Pendente: decisões do proprietário listadas no documento e onda 0 do painel
-antes de qualquer mudança.
 
 ## 2026-11-09 · Claude — Execução do plano de GEO
 
@@ -118,3 +77,16 @@ Estatísticas de Caixa → Fechamento de Caixa; a regra foi relida após
 recarregar. A inclusão da Nayane no perfil ficou pendente: a lista de
 operadores do painel voltou vazia em Perfil de Acesso e em Operador. Detalhes
 em docs/TEKNISA_ACESSOS_OPERACAO.md. Nada foi gravado no cadastro dela.
+
+## 2026-11-10 · Claude — ChatGPT Ads: teste ativo sem entrega
+
+Análise em `docs/ANALISE_CHATGPT_ADS_2026-11-10.md`, só leitura (Ads
+Manager no Chrome, GA4, portal read-only e recibos). Até 10/11 às 14h, zero
+gasto, impressões e cliques, com aviso "Lance baixo". Mesmo lance de R$3,50
+entregava no Ceará em outubro; nos 14 setores, não. A campanha está sem metas
+de conversão ("Configurar"). Desde o site `5eeb6f2` o Pixel e o `oppref`
+dependem do aceite de publicidade. Nada foi alterado na campanha.
+Pendente: decisão do proprietário entre ajustar (lance R$5, cinco contextos
+de outubro, metas, término 18/11) ou encerrar. Sem código, banco ou migration.
+Leitura do GA4 neste PC: o Python do sistema não tem a biblioteca; usar o do
+ambiente `analytics-mcp` em `LOCALAPPDATA`.
