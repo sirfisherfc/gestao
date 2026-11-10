@@ -362,7 +362,9 @@ Pedido seguinte, não concluído: incluir a Nayane no mesmo perfil. Em
 `{"dataset":{"operator":[]}}`. A tela **Operador**, com e sem filtro de nome,
 também voltou vazia. Na primeira abertura dela, com "Organização
 Relacionada" SIR FISHER, a lista ficou carregando sem terminar, enquanto
-`findOrganization` devolveu outra organização. A causa não foi apurada.
+`findOrganization` devolveu outra organização. Na nova tentativa do mesmo
+dia, depois de recarregar, a consulta só com `SHOW_FULL_OPERATOR` e
+`IDATIVO` voltou vazia tanto com `S` quanto com `N`. A causa não foi apurada.
 Para continuar, confirmar o código de operador da Nayane e o nome dela no
 cadastro, ou perguntar ao suporte por que a lista de operadores volta vazia.
 
