@@ -368,7 +368,13 @@ dia, depois de recarregar, a consulta só com `SHOW_FULL_OPERATOR` e
 Em **Cadastro de Vendedor (Garçom)** (Parametrização → Vendas →
 Mesa/Comanda), ela é o vendedor `0502`. O gerente do perfil é o vendedor
 `0501`, com operador `000000000501`; pelo mesmo padrão, o operador dela
-seria `000000000502`, ainda não conferido no módulo de acesso.
+seria `000000000502`. As capturas de 27/10 em `output/teknisa-acessos-2026-10-27/`
+confirmam esse operador. Os recibos não guardaram o formato da gravação
+de 05/11, por isso a inclusão não foi enviada fora da tela. O cabeçalho da
+sessão mostra "Sem perfil selecionado", e a lista de perfis em **Trocar
+Perfil/Unidade** também voltou vazia. Isso sugere que o login do
+proprietário perdeu o vínculo com "Administrador de sistema", cuja aba
+Operadores já aparecia vazia em 05/11. Não foi alterado.
 Para continuar, confirmar o código de operador da Nayane e o nome dela no
 cadastro, ou perguntar ao suporte por que a lista de operadores volta vazia.
 
