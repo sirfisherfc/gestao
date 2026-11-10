@@ -374,7 +374,13 @@ de 05/11, por isso a inclusão não foi enviada fora da tela. O cabeçalho da
 sessão mostra "Sem perfil selecionado", e a lista de perfis em **Trocar
 Perfil/Unidade** também voltou vazia. Isso sugere que o login do
 proprietário perdeu o vínculo com "Administrador de sistema", cuja aba
-Operadores já aparecia vazia em 05/11. Não foi alterado.
+Operadores já aparecia vazia em 05/11. Não foi alterado. Depois de um novo
+login do proprietário no mesmo dia, o cabeçalho continuou "Sem perfil
+selecionado", a lista de **Adicionar** continuou vazia e a aba Operadores de
+"Administrador de sistema" mostrou "Não há registros". Os três vínculos de
+30/10 nesse perfil não aparecem mais. Encaminhamento: pedir ao suporte
+Teknisa para religar os operadores ao perfil de administrador, explicar a
+lista vazia e incluir `000000000502` em "Gerente - Reposicao".
 Para continuar, confirmar o código de operador da Nayane e o nome dela no
 cadastro, ou perguntar ao suporte por que a lista de operadores volta vazia.
 
