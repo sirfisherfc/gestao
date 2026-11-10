@@ -342,6 +342,30 @@ apurada, e os outros dois gerentes não foram alterados.
 Falta testar: entrar com o login desse gerente e abrir o relatório Produtos
 Vendidos.
 
+## Relatório de fechamento de caixa para o gerente (10/11/2026)
+
+O proprietário pediu para o gerente acessar o relatório de fechamento de
+caixa. Em **Perfil de Acesso - Menu**, o item **Aplicação → Vendas →
+Relatórios → Estatísticas de Caixa → Fechamento de Caixa** passou a visível
+no perfil "Gerente - Reposicao". A gravação respondeu 200 em
+`acl_zhu_acl_element_rules/save`. Depois de recarregar a página, o olho
+continuou azul. O "Fechamento de Caixa" de **Vendas → Operacional** é a tela
+que fecha o caixa e continua oculto. O relatório mostra valores por forma de
+pagamento; até então o perfil não exibia faturamento.
+
+A aba Operadores do perfil mostra um único operador, o gerente incluído em
+05/11. Ele precisa sair e entrar de novo no portal para ver o item.
+
+Pedido seguinte, não concluído: incluir a Nayane no mesmo perfil. Em
+**Operadores → Adicionar**, `backend_acl/index.php/operator` (filtros
+`ACCESS_PROFILE <> 12`, `IDATIVO = S`, `SHOW_FULL_OPERATOR`) respondeu
+`{"dataset":{"operator":[]}}`. A tela **Operador**, com e sem filtro de nome,
+também voltou vazia. Na primeira abertura dela, com "Organização
+Relacionada" SIR FISHER, a lista ficou carregando sem terminar, enquanto
+`findOrganization` devolveu outra organização. A causa não foi apurada.
+Para continuar, confirmar o código de operador da Nayane e o nome dela no
+cadastro, ou perguntar ao suporte por que a lista de operadores volta vazia.
+
 ## Reimpressão do fechamento de caixa (07/11/2026)
 
 O proprietário perguntou como liberar a reimpressão do fechamento quando a

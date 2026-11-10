@@ -110,3 +110,11 @@ cada uma com uma versão nova: send-notifications 54 e event-quote 70. Nenhum
 e-mail saiu ainda pela versão nova; o último envio foi em 10/11 às 00h26,
 sem falhas recentes. Nota sobre o reinício em reservas 87286a6, no
 docs/email.md.
+
+## 2026-11-10 · Claude — Teknisa: relatório de caixa para o gerente
+
+No painel, o perfil "Gerente - Reposicao" passou a ver Vendas → Relatórios →
+Estatísticas de Caixa → Fechamento de Caixa; a regra foi relida após
+recarregar. A inclusão da Nayane no perfil ficou pendente: a lista de
+operadores do painel voltou vazia em Perfil de Acesso e em Operador. Detalhes
+em docs/TEKNISA_ACESSOS_OPERACAO.md. Nada foi gravado no cadastro dela.
