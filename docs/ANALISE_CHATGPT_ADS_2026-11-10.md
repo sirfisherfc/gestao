@@ -1,5 +1,36 @@
 # ChatGPT Ads: análise do teste de novembro em andamento
 
+## Ajuste aplicado em 10/11/2026
+
+O proprietário autorizou a recomendação A. Pela interface do Ads Manager,
+na sessão dele, foram gravados apenas estes campos:
+
+| Nível e horário | Antes | Depois |
+| --- | --- | --- |
+| Grupo, 15h44 | Lance máximo de R$3,50 | R$5,00 |
+| Grupo, 15h44 | Três contextos | Os cinco de outubro, com os mesmos fatos |
+| Campanha, 15h49 | Sem metas de conversão | Reserva confirmada e Visita realizada |
+| Campanha, 15h49 | Término em 16/11 às 00h | 18/11 às 00h |
+
+Os contextos de outubro foram reescritos sem vírgulas internas, porque a
+interface junta e separa as dicas por vírgula. Os fatos foram conferidos
+antes: executivo de segunda a sexta, das 10h às 14h, exceto feriados, a
+partir de R$31, e reservas online para até 10 pessoas. O histórico mostra
+o texto corrido; não dá para ver se ficou em cinco itens ou em um.
+
+O histórico de alterações registrou só essas duas entradas. Continuam iguais:
+R$300 totais, os 14 setores, início em 09/11, todas as plataformas,
+aprimoramento criativo desativado, texto, imagem e destino do anúncio, além
+das outras campanhas. Depois de salvar, campanha, grupo e anúncio aparecem
+"Em operação"; o aviso de lance baixo e a ação "Aumentar lance" sumiram. A
+interface estima cerca de R$33,33 por dia. Isso não comprova entrega.
+
+**Pendente:** conferir a entrega em 11/11, a partir das 15h45. Se ainda não
+houver impressões, pausar e encerrar, sem subir mais o lance. Não foi criada
+automação. O recibo privado está em `tmp/chatgpt-ads/ajuste-2026-11-10.json`.
+
+## Análise que motivou o ajuste
+
 Leitura em 10/11/2026 às 14h, America/Fortaleza, cerca de 38 horas após o
 início programado (09/11 às 00h). Fontes: Ads Manager no navegador, GA4 pela
 conta de serviço, portal pela rota de leitura da Management API e recibos

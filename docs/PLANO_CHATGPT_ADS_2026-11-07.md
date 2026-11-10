@@ -1,8 +1,10 @@
 # ChatGPT Ads: divulgação do restaurante e teste de visitas
 
-**Estado em 10/11/2026, 14h:** ativo, porém sem entrega. Zero gasto,
-impressões e cliques desde 09/11, com aviso de lance baixo; campanha sem
-metas de conversão. Ver [análise do teste em andamento](ANALISE_CHATGPT_ADS_2026-11-10.md).
+**Estado em 10/11/2026, 15h50:** ainda sem entrega até as 14h. Com
+autorização, o lance máximo passou a R$5,00, o grupo voltou a ter os cinco
+contextos de outubro, a campanha ganhou as metas de reserva e visita e o
+término passou para 18/11 às 00h. Orçamento de R$300 e os 14 setores foram
+mantidos. Ver [análise e ajuste](ANALISE_CHATGPT_ADS_2026-11-10.md).
 
 ## Ativação autorizada em 08/11/2026
 

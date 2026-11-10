@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 Livre. Teste ChatGPT Ads de 09 a 16/11 ativo, mas sem entrega até 10/11 às 14h; mudanças aguardam decisão do proprietário (ver `docs/ANALISE_CHATGPT_ADS_2026-11-10.md`).
+> **🚦 Status atual:** 🟢 Livre. Teste ChatGPT Ads ajustado em 10/11 (lance R$5, término 18/11); conferir entrega em 11/11 a partir das 15h45 (ver `docs/ANALISE_CHATGPT_ADS_2026-11-10.md`).
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -90,3 +90,14 @@ Pendente: decisão do proprietário entre ajustar (lance R$5, cinco contextos
 de outubro, metas, término 18/11) ou encerrar. Sem código, banco ou migration.
 Leitura do GA4 neste PC: o Python do sistema não tem a biblioteca; usar o do
 ambiente `analytics-mcp` em `LOCALAPPDATA`.
+
+## 2026-11-10 · Claude — ChatGPT Ads: ajuste autorizado aplicado
+
+Proprietário aprovou a recomendação A. Pela interface do Ads Manager: grupo
+com lance máximo de R$3,50 para R$5,00 e os cinco contextos de outubro
+(reescritos sem vírgulas internas; fatos conferidos), às 15h44; campanha com
+Reserva confirmada e Visita realizada e término de 16/11 para 18/11 às 00h,
+às 15h49. O histórico mostra só esses campos. R$300, 14 setores, peça e
+destino iguais. Aviso de lance baixo sumiu; entrega ainda não comprovada.
+Pendente: conferir em 11/11 a partir das 15h45; sem impressões, pausar e
+encerrar sem novo aumento. Recibo em `tmp/chatgpt-ads/ajuste-2026-11-10.json`.
