@@ -365,6 +365,10 @@ Relacionada" SIR FISHER, a lista ficou carregando sem terminar, enquanto
 `findOrganization` devolveu outra organização. Na nova tentativa do mesmo
 dia, depois de recarregar, a consulta só com `SHOW_FULL_OPERATOR` e
 `IDATIVO` voltou vazia tanto com `S` quanto com `N`. A causa não foi apurada.
+Em **Cadastro de Vendedor (Garçom)** (Parametrização → Vendas →
+Mesa/Comanda), ela é o vendedor `0502`. O gerente do perfil é o vendedor
+`0501`, com operador `000000000501`; pelo mesmo padrão, o operador dela
+seria `000000000502`, ainda não conferido no módulo de acesso.
 Para continuar, confirmar o código de operador da Nayane e o nome dela no
 cadastro, ou perguntar ao suporte por que a lista de operadores volta vazia.
 
