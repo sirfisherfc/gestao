@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 Livre. Teste ChatGPT Ads ajustado em 10/11 (lance R$5, término 18/11); conferir entrega em 11/11 a partir das 15h45 (ver `docs/ANALISE_CHATGPT_ADS_2026-11-10.md`). Públicos da Meta pendentes (ver `docs/PUBLICOS_PUBLICIDADE_2026-11-11.md`).
+> **🚦 Status atual:** 🟢 Livre. Campanha ChatGPT Ads nova aprovada e ativa, programada 12–26/11, R$300 totais, Brasil, CPC desejado R$3; teste por CEP pausado. Primeira conferência manual em 14/11 às 18h. Ver `docs/CAMPANHA_CHATGPT_ADS_2026-11-11.md`.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -17,79 +17,6 @@ Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Co
 **PENDÊNCIA aberta:** migration `20260738000000_cartao_credito_entra_dre_temporario.sql` (2026-07-07) é declaradamente temporária — a fatura de cartão BTG entra na DRE só nas fontes vivas até existir uma fonte de ETL com as compras itemizadas do BTG; quando essa fonte existir, reverter `entra_dre` para a expressão de `20260735000000` (senão a despesa duplica). Ver detalhes no `git log`/na própria migration.
 
 **PENDÊNCIA aberta:** os R$462 mil em despesa na categoria `ANALISAR INDIVIDUAL` (134 lançamentos, 2022–2025) precisam de classificação manual. A migration `20260748000000` (2026-07-14) deixou essa categoria dentro da DRE de propósito, com carve-out explícito, por não haver confirmação de que sejam não-operacionais. Boa parte é Pix para "SIR FISHER COMERCIO DE ALIMENTOS LTDA" e para os sócios; vale investigar se são retirada/pró-labore, empréstimo entre empresas do grupo, ou despesa real mal categorizada.
-
-## 2026-11-09 · Claude — Execução do plano de GEO
-
-Proprietário aprovou: robôs de IA liberados, nome público só "Sir Fisher",
-"Barra Sol" é nome antigo, imprensa autorizada. Publicado: gestao `bcb395d`
-(comando `cf.py ia`, `ai_training=disabled`, 140/140 respostas 200), site
-`32cc90e` (página /sobre/, desambiguação, FAQ visível gerado do JSON-LD por
-`tools/faq/sincronizar_faq.py` no pre-commit e na CI, nome no Réveillon) e
-`071f996` (IndexNow, primeiro envio HTTP 202), reservas `caac8ee` (nome no
-portal e no Réveillon). Migration `20261109190000_nome_publico_sir_fisher`
-aplicada no portal e conferida. Onda 0 do painel em
-`tmp/geo/painel/onda0-2026-11-09.jsonl`, resumo no relatório de GEO.
-Pendente: logins do proprietário (Bing, Tripadvisor, iFood, OSM, Instagram
-do Pub), envio das pautas, e-mails e PDF das Edge Functions ainda com
-"Sir Fisher Praia" (reimplantar com teste), F4/F5/controles do ChatGPT.
-
-## 2026-11-09 · Claude — GEO no navegador; Edge Functions à frente de produção
-
-Onda 0 completa com F4, F5 e controles do ChatGPT. Bing Webmaster Tools
-verificado pela meta `msvalidate.01` da home (site `5ec06ce`, não remover) e
-sitemap enviado. Tripadvisor: ficha já correta; pedido de troca para
-restaurante enviado ao suporte, mas a reavaliação no relatório de GEO
-recomenda manter "bares e pubs" (decisão do proprietário). Nota OSM
-5624850. Bendito Guia: pedido para retirar o celular pessoal.
-
-**Atenção, reservas:** `16e2de8` tira "Sir Fisher Praia" de
-`send-notifications` e `event-quote`, mas a implantação foi negada no modo
-automático. Produção segue nas versões 52 e 68, e o segredo `RESEND_FROM`
-ainda é "Sir Fisher Praia <reservas@sirfisher.com.br>". Quem implantar essas
-funções leva a troca junto; comandos no relatório de GEO. Os testes de preço
-do `event-quote` têm 23 falhas antigas por datas fixas de outubro de 2026.
-
-## 2026-11-10 · Claude — event-quote implantada; notificações pendentes
-
-A função de eventos foi implantada a partir de reservas 16e2de8: versão 69,
-ativa, verify_jwt=false preservado, OPTIONS 200 e GET 405 como no código. O
-PDF da proposta já sai com "Sir Fisher". A implantação de send-notifications
-e a troca do segredo RESEND_FROM foram negadas pelo classificador do modo
-automático; produção segue com send-notifications v52 e o remetente
-"Sir Fisher Praia". Comandos para o PowerShell no relatório de GEO, em
-"Pendências do proprietário".
-
-## 2026-11-10 · Claude — Nome novo nos e-mails em produção
-
-O proprietário implantou send-notifications a partir de reservas 16e2de8 e
-trocou o segredo RESEND_FROM para "Sir Fisher <reservas@sirfisher.com.br>".
-Conferido: segredo pelo resumo SHA-256, verify_jwt=false nas duas funções
-e 401 sem o segredo. A troca do segredo reiniciou as seis Edge Functions,
-cada uma com uma versão nova: send-notifications 54 e event-quote 70. Nenhum
-e-mail saiu ainda pela versão nova; o último envio foi em 10/11 às 00h26,
-sem falhas recentes. Nota sobre o reinício em reservas 87286a6, no
-docs/email.md.
-
-## 2026-11-10 · Claude — Teknisa: relatório de caixa para o gerente
-
-No painel, o perfil "Gerente - Reposicao" passou a ver Vendas → Relatórios →
-Estatísticas de Caixa → Fechamento de Caixa; a regra foi relida após
-recarregar. A inclusão da Nayane no perfil ficou pendente: a lista de
-operadores do painel voltou vazia em Perfil de Acesso e em Operador. Detalhes
-em docs/TEKNISA_ACESSOS_OPERACAO.md. Nada foi gravado no cadastro dela.
-
-## 2026-11-10 · Claude — ChatGPT Ads: teste ativo sem entrega
-
-Análise em `docs/ANALISE_CHATGPT_ADS_2026-11-10.md`, só leitura (Ads
-Manager no Chrome, GA4, portal read-only e recibos). Até 10/11 às 14h, zero
-gasto, impressões e cliques, com aviso "Lance baixo". Mesmo lance de R$3,50
-entregava no Ceará em outubro; nos 14 setores, não. A campanha está sem metas
-de conversão ("Configurar"). Desde o site `5eeb6f2` o Pixel e o `oppref`
-dependem do aceite de publicidade. Nada foi alterado na campanha.
-Pendente: decisão do proprietário entre ajustar (lance R$5, cinco contextos
-de outubro, metas, término 18/11) ou encerrar. Sem código, banco ou migration.
-Leitura do GA4 neste PC: o Python do sistema não tem a biblioteca; usar o do
-ambiente `analytics-mcp` em `LOCALAPPDATA`.
 
 ## 2026-11-10 · Claude — ChatGPT Ads: ajuste autorizado aplicado
 
@@ -128,3 +55,35 @@ encerrar ou reformular com o proprietário; detalhes na análise de 10/11.
 empresas, plano Básico recomendado (R$43,09/mês). Nova cobrança recorrente
 da Meta no cartão a partir de novembro, categoria de marketing; não é
 verba de anúncio. Confirmar o plano pela primeira fatura.
+
+## 2026-11-11 · Codex — Campanha ChatGPT Ads: roteiros e refeições
+
+Pedido delegado de 11/11 executado pelo conector. Campanha “Sir Fisher | Roteiros
+e refeições | Novembro 2026”: dois grupos, quatro anúncios, todos criados
+pausados, aprovados pela OpenAI e só depois ativados. Teste R$300 por CEP
+pausado antes; outras campanhas e conta preservadas. Brasil, todas as
+plataformas, CPC desejado R$3, R$300 totais de 12/11 00h a 26/11 00h
+(America/Fortaleza). Metas Reserva confirmada e Visita realizada associadas;
+aprimoramento criativo desligado conferido na interface, cancelada sem salvar.
+
+Relatório `docs/CAMPANHA_CHATGPT_ADS_2026-11-11.md`: Ads, GA4, Search Console e
+portal atualizados; nenhum registro de reserva com UTM ChatGPT desde outubro.
+GA4 atual: 67 sessões orgânicas por origem e 36 visualizações (30 entradas) em
+/reveillon/; não repetir os 74/36 como sessões. Venda de Réveillon aberta,
+mas medição do módulo desligada e pacote com álcool: ficou fora desta rodada.
+Fotos oficiais de peixe e pôr do sol sem edição; destinos/imagens HTTP 200.
+Sem fonte validada de ociosidade por hora. Sem código, banco ou migration.
+
+Teto agregado novo do proprietário: **R$500 em novembro**, prevalece sobre
+R$1.000 histórico. Nova verba R$300; R$200 não liberados, inclusive para atraso
+de métricas. Relatório Ads cobre até 10/11; parcial de 11/11 sem linhas não foi
+tratado como zero medido. Conferências manuais 14/11 e 18/11 às 18h, fim 26/11
+às 10h. Pausa autorizada com >=R$100 e >=30 cliques sem rota, contato ou início
+de reserva. **Sem automação/alerta recorrente.** Pacing não garante saldo até o
+fim dos 14 dias. Recibos privados em `tmp/chatgpt-ads/`, ignorados pelo Git.
+
+Validações: leituras independentes dos sete objetos ativos e quatro aprovações;
+único impedimento atual é início futuro. Fotos inspecionadas e upload aceito;
+validador empacotado indisponível por dependência, verificação independente
+registrada. Entrega real deve ser conferida após 12/11. Três repositórios e
+pares de orientações da raiz conferidos; só relatório e CANAL_IA versionados.
