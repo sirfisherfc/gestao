@@ -29,6 +29,34 @@ interface estima cerca de R$33,33 por dia. Isso não comprova entrega.
 houver impressões, pausar e encerrar, sem subir mais o lance. Não foi criada
 automação. O recibo privado está em `tmp/chatgpt-ads/ajuste-2026-11-10.json`.
 
+## Leitura de 11/11/2026, 10h40
+
+Cerca de 19 horas depois do ajuste e 59 horas depois do início: zero
+impressões, cliques e gasto na campanha, no grupo e no anúncio. O aviso de
+lance baixo não voltou; a Visão geral não tem tarefas nem dados. A única
+ação exibida é o aviso geral de que lance máximo e CPC máximo saem em
+01/01/2027, com migração para CPC desejado a partir de 09/11.
+
+Como o lance deixou de ser apontado e conta, faturamento e aprovação estão
+em ordem, a causa restante mais provável é o público elegível quase nulo
+dos 14 setores postais. Em outubro, mesmo com Ceará, o GA4 registrou
+sessões pagas de São Paulo, Curitiba e outras capitais, sinal de que a
+localização da plataforma é aproximada; a precisão de CEP pode não existir
+para a maioria dos usuários no Brasil. O suporte não respondeu sobre a cidade.
+
+O GA4 tem duas sessões com a UTM da campanha (09/11 às 20h no portal e
+10/11 às 9h em `/conheca/`), ambas em computador, Chrome e Fortaleza, sem
+clique registrado pela plataforma: acessos diretos ao link, não entrega.
+
+ChatGPT orgânico (`chatgpt.com`) trouxe 74 sessões de 01/11 a 11/11, só 18
+do Ceará; 36 entraram em `/reveillon`. Quem chega pelo ChatGPT é, em grande
+parte, quem planeja a viagem de fora, o público que o recorte por CEP exclui.
+
+Acesso: a API pública (`api.ads.openai.com/v1`) exige chave de anunciante
+criada em Configurações do Ads Manager; a sessão do navegador recebe 401 e
+o token interno da interface não foi extraído. Não há MCP público de Ads;
+o do Codex é conector exclusivo do ChatGPT. Nenhuma alteração foi feita.
+
 ## Análise que motivou o ajuste
 
 Leitura em 10/11/2026 às 14h, America/Fortaleza, cerca de 38 horas após o

@@ -119,6 +119,11 @@ semelhante 1%. O público `VisitaQR` espera o primeiro evento no pixel.
 Chrome: quedas ligadas a ociosidade e à economia de memória ligada; ver
 `docs/PUBLICOS_PUBLICIDADE_2026-11-11.md` e a seção abaixo do documento.
 
+**ChatGPT Ads, 11/11 10h40:** ainda zero impressões 19 h após lance R$5;
+sem aviso de lance. Causa provável: CEPs sem público elegível. ChatGPT
+orgânico trouxe 74 sessões desde 01/11, 76% de fora do Ceará. Decisão de
+encerrar ou reformular com o proprietário; detalhes na análise de 10/11.
+
 **Aviso financeiro:** em 11/11 o proprietário assinou o Meta Verified para
 empresas, plano Básico recomendado (R$43,09/mês). Nova cobrança recorrente
 da Meta no cartão a partir de novembro, categoria de marketing; não é
