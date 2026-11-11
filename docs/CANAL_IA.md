@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 Livre. Teste ChatGPT Ads ajustado em 10/11 (lance R$5, término 18/11); conferir entrega em 11/11 a partir das 15h45 (ver `docs/ANALISE_CHATGPT_ADS_2026-11-10.md`).
+> **🚦 Status atual:** 🟢 Livre. Teste ChatGPT Ads ajustado em 10/11 (lance R$5, término 18/11); conferir entrega em 11/11 a partir das 15h45 (ver `docs/ANALISE_CHATGPT_ADS_2026-11-10.md`). Públicos da Meta pendentes (ver `docs/PUBLICOS_PUBLICIDADE_2026-11-11.md`).
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -101,3 +101,14 @@ Reserva confirmada e Visita realizada e término de 16/11 para 18/11 às 00h,
 destino iguais. Aviso de lance baixo sumiu; entrega ainda não comprovada.
 Pendente: conferir em 11/11 a partir das 15h45; sem impressões, pausar e
 encerrar sem novo aumento. Recibo em `tmp/chatgpt-ads/ajuste-2026-11-10.json`.
+
+## 2026-11-11 · Claude — Contador de aceite e sinal VisitaQR
+
+Site `bd4b39b` e reservas `8b76ae1`: `google-ads.js` (idêntico) envia ao GA4
+`publicidade_aviso_exibido`, `publicidade_aceita` e `publicidade_recusada`;
+`atribuicao.js` envia `VisitaQR` ao pixel da Meta para origem `qr_code` com
+permissão. Privacidade atualizada (11/11). Testes e produção conferidos.
+Pendente: criar na Meta o público `VisitaQR` e o semelhante (navegador
+desconectado; passos em `docs/PUBLICOS_PUBLICIDADE_2026-11-11.md`). Google:
+públicos QR e de reserva já existem no GA4; falta campanha e a verificação
+do anunciante. Portal: versão `?v=` do script é atualizada à mão.
