@@ -118,3 +118,8 @@ pessoal), criados o público de engajamento do Instagram (365 dias) e o
 semelhante 1%. O público `VisitaQR` espera o primeiro evento no pixel.
 Chrome: quedas ligadas a ociosidade e à economia de memória ligada; ver
 `docs/PUBLICOS_PUBLICIDADE_2026-11-11.md` e a seção abaixo do documento.
+
+**Aviso financeiro:** em 11/11 o proprietário assinou o Meta Verified para
+empresas, plano Básico recomendado (R$43,09/mês). Nova cobrança recorrente
+da Meta no cartão a partir de novembro, categoria de marketing; não é
+verba de anúncio. Confirmar o plano pela primeira fatura.
