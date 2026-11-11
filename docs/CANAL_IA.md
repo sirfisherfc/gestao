@@ -112,3 +112,9 @@ Pendente: criar na Meta o público `VisitaQR` e o semelhante (navegador
 desconectado; passos em `docs/PUBLICOS_PUBLICIDADE_2026-11-11.md`). Google:
 públicos QR e de reserva já existem no GA4; falta campanha e a verificação
 do anunciante. Portal: versão `?v=` do script é atualizada à mão.
+
+Atualização 10h: na conta de anúncios do Portfólio Sir Fisher (não a
+pessoal), criados o público de engajamento do Instagram (365 dias) e o
+semelhante 1%. O público `VisitaQR` espera o primeiro evento no pixel.
+Chrome: quedas ligadas a ociosidade e à economia de memória ligada; ver
+`docs/PUBLICOS_PUBLICIDADE_2026-11-11.md` e a seção abaixo do documento.

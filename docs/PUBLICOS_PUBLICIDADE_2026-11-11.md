@@ -27,9 +27,25 @@ navegador com os três eventos do GA4 e verificações de assets, CSP, FAQ e
 cardápio. Um teste extra no Edge confirmou `VisitaQR` ao aceitar na home
 vinda do QR e na página seguinte, e ausência para quem veio do Instagram.
 
-## Meta: pendente de criação no Gerenciador de Anúncios
+## Meta: criado em 11/11 e pendente
 
-A extensão do Chrome desconectou nesta sessão. Passos:
+Usar a conta de anúncios do **Portfólio Sir Fisher**. A conta pessoal do
+proprietário também aparece no seletor, não enxerga o pixel e oferece criar
+outro; não criar. A conta do portfólio não tinha público personalizado nem
+semelhante, só dois públicos salvos antigos.
+
+Criados às 10h04 e 10h05, ambos "em preenchimento" e disponíveis para uso:
+
+- `Engajamento Instagram @sirfisherfc | 365 dias`, pessoas que interagiram
+  com a conta profissional. Quem chega ao site pelo Instagram já está aqui,
+  sem depender do aviso de cookies; por isso não entra no `VisitaQR`.
+- `Semelhante (1%) - Engajamento Instagram @sirfisherfc | 365 dias`. A Meta
+  não define mais região no semelhante; a localização vem do conjunto de
+  anúncios, onde também aparece o tamanho estimado.
+
+Pendente: o pixel ainda não tinha recebido `VisitaQR` (lista com PageView,
+ViewContent, InitiateCheckout, Schedule, FindLocation e Contact). Depois do
+primeiro evento:
 
 1. Públicos → Criar público → Público personalizado → Site.
 2. Pixel `Sir Fisher - Website`; pessoas que realizaram o evento
@@ -59,3 +75,19 @@ campanha ou verba foi criada.
 Não oferece público de visitantes do site nem semelhante. Aceita apenas
 listas de e-mails ou telefones com pelo menos 25 mil pessoas reconhecidas.
 [Custom Audiences](https://help.openai.com/en/articles/20001346-set-up-custom-audiences-for-your-campaign).
+
+## Quedas do Claude in Chrome
+
+A conexão passa pela conta, sem conector local no registro do Chrome. Os
+registros do Claude Code mostram só conexões, sem motivo da queda. Nas
+transcrições de 09 a 11/11, as quedas vieram após ociosidade: 9 minutos sem
+uso, 33 segundos depois de fechar a última aba do grupo do Claude e cerca
+de 7 minutos depois da última ação. A economia de memória do Chrome está
+ligada e descarta abas paradas. Quatro sessões do Claude Code deste projeto
+reconectaram juntas em 11/11; não houve uso simultâneo nas transcrições.
+
+Quando cai, as ferramentas somem da sessão; só o `/chrome` do proprietário
+reconecta. Para reduzir: incluir os sites de trabalho em "Sempre manter
+estes sites ativos" na economia de memória, não fechar a barra "Claude
+começou a depurar", manter uma aba do grupo aberta até o fim da tarefa e
+fechar sessões antigas do Claude Code.
