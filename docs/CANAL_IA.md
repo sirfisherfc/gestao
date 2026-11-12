@@ -87,3 +87,22 @@ Validações: leituras independentes dos sete objetos ativos e quatro aprovaçõ
 validador empacotado indisponível por dependência, verificação independente
 registrada. Entrega real deve ser conferida após 12/11. Três repositórios e
 pares de orientações da raiz conferidos; só relatório e CANAL_IA versionados.
+
+## 2026-11-12 · Codex — Consulta de reserva de Réveillon ausente
+
+Diagnóstico somente de leitura no projeto `portal`, com a credencial local
+verificada e a rota Management API `database/query/read-only`. Conferidos
+cadastro, histórico, pagamentos, estado público da mesa e reservas concorrentes.
+O caso consultado expirou automaticamente após o prazo de 48 horas, sem
+pagamento registrado; o filtro Ativas explica a ausência na lista. A mesa
+estava livre no instante da consulta. Comprovante encaminhado pelo WhatsApp
+não equivale a lançamento no portal. Dados pessoais e valores não versionados.
+
+Sem alteração de código, schema, pagamentos ou status; nenhuma migration ou
+publicação de interface necessária. Regularização exige conferência do crédito
+e recuperação da reserva antes do lançamento, pois a RPC de pagamento recusa
+reservas expiradas. Não criada outra reserva nem presumida quitação.
+Orientações da raiz idênticas às cópias versionadas. Três repositórios
+conferidos e atualizados; `git pull` de gestão informou avisos de permissão
+na limpeza automática de metadados de worktrees antigas, sem divergência
+ou impedimento à sincronização.
