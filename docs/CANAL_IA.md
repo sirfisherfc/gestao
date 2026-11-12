@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 Livre. Campanha ChatGPT Ads nova aprovada e ativa, programada 12–26/11, R$300 totais, Brasil, CPC desejado R$3; teste por CEP pausado. Primeira conferência manual em 14/11 às 18h. Ver `docs/CAMPANHA_CHATGPT_ADS_2026-11-11.md`.
+> **🚦 Status atual:** 🟢 Livre. PDF único de confirmação do Réveillon publicado no portal (`08f4b3a`), para baixar após o sinal e encaminhar pelo WhatsApp. Conferência de ChatGPT Ads continua manual em 14/11 às 18h; ver `docs/CAMPANHA_CHATGPT_ADS_2026-11-11.md`.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -121,3 +121,33 @@ após COMMIT confirmou sinal pago, mesa reservada, uma única reserva ativa,
 um único pagamento e saldo calculado. Recibos e script pontual em
 `tmp/reveillon/`, ignorados; sem dados pessoais ou valores no Git. Sem mudança
 estrutural ou de interface, nenhuma migration nem deploy necessário.
+
+## 2026-11-12 · Codex — PDF único após o sinal do Réveillon
+
+Pedido confirmado: um único arquivo completo para o proprietário encaminhar
+pelo WhatsApp após registrar o sinal, com botão na ficha; sem envio automático.
+Portal `08f4b3a`: botão **Baixar PDF completo**, modelo com identidade dos eventos,
+mesa/pessoas, data/endereço/horários, valores da reserva, pagamentos por forma,
+saldo/vencimento/Pix, consumação, inclusos/programação e regras integrais.
+Preserva a versão dos termos vinculada à reserva e o desconto contratado;
+manual sem termos usa a versão mais recente e não presume aceite registrado.
+
+Emissão apenas para admin e status sinal pago/quitada com pagamento ativo.
+Reconsulta a reserva no clique e recusa cancelada/expirada/sem pagamento;
+dados internos, contatos do cliente e notas de pagamentos não entram no PDF.
+Biblioteca pdf-lib 1.17.1 local com licença MIT, mesma versão dos eventos.
+Sem serviço externo de PDF, armazenamento público, migration ou alteração nas
+notificações. README do fornecedor e `reservas/docs/reveillon.md` atualizados.
+
+Validações: quatro testes Deno; fluxo real de download com RPCs simuladas em
+390px/1366px, privacidade, clique repetido, falhas e cancelamento; regressão do
+formulário de pagamentos. PDF de exemplo com regras completas em duas páginas,
+renderizado e inspecionado visualmente; artefatos fictícios em
+`reservas/output/pdf/reveillon-confirmation/`, ignorados. Navegador integrado
+indisponível; ensaios locais em Edge headless, sem dados ou operações de clientes.
+
+Publicação conferida: Pages `built` no commit `08f4b3a` e HTTP 200 com conteúdo
+idêntico para HTML, controlador, carregador de dados, gerador e biblioteca no
+domínio do portal. Grants SELECT autenticados existentes em `rv_events` e
+`rv_terms` conferidos no banco. Nenhuma credencial de cliente usada nos testes.
+Sem pendência de implantação. Orientações da raiz/cópias versionadas idênticas.
