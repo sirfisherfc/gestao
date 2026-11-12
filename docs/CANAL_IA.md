@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 Livre. Ícones dos dois brownies publicados no site (`7eff023`), com aviso padrão e sem observação extra; rascunho sincronizado pela migration `20261112183312`. Conferência de ChatGPT Ads continua manual em 14/11 às 18h; ver `docs/CAMPANHA_CHATGPT_ADS_2026-11-11.md`.
+> **🚦 Status atual:** 🟢 Livre. ChatGPT Ads conferido por MCP em 12/11 à tarde: campanha nova ativa/elegível, quatro peças aprovadas, sem bloqueio explícito; entrega ainda não comprovada e relatório de hoje incompleto. Recomendada conferência manual em 13/11 após completar 24h; revisões de 14/11, 18/11 e 26/11 mantidas. Ver `docs/CAMPANHA_CHATGPT_ADS_2026-11-11.md`.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -177,3 +177,26 @@ estrutural dos JSONs (somente alimentar dos dois brownies). Edge local em
 indisponivel. Pages built no commit publicado, HTTP 200 e cinco icones em
 cada brownie no dominio publico; detalhe conserva so o aviso padrao.
 Sem pendencia de implantacao; referencia real da cozinha continua nao revisada.
+
+## 2026-11-12 · Codex — Diagnóstico ChatGPT Ads por MCP
+
+Conector validado com leituras reais da conta Sir Fisher. Campanha de roteiros
+ativa/elegível desde hoje às 00h, dois grupos com CPC desejado R$3 e quatro
+anúncios ativos/aprovados; diagnóstico completo sem bloqueio explícito de
+conta, faturamento, geografia, revisão ou lance baixo. Teste por CEP segue
+pausado; seu aviso de lance baixo não pertence à campanha nova.
+
+Entrega ainda não comprovada: 05–11/11 têm zeros explícitos; hoje somente
+00h–01h retornou zeros, e 01h–15h veio sem linhas. Relatório direto da
+campanha vazio; painel conferido na sessão existente mostra “–” para
+impressões/cliques/gasto e dados preliminares. Não afirmar zero durante todo
+o dia nem atribuir causa a CEP ou lance sem evidência. Consulta de limites
+da conta indisponível, sem inferir teto. Conversões históricas zero com
+clique 30 dias e visualização desligada não cobrem hoje.
+
+Atualizado `docs/CAMPANHA_CHATGPT_ADS_2026-11-11.md` com cobertura, fontes e
+menor próximo passo: conferir manualmente 12/11 completo na manhã de 13/11,
+depois das 24h recomendadas pelo guia oficial, e suporte se continuar sem
+entrega ou cobertura conciliável. Sem envio de mensagem, alteração em Ads,
+site, portal, banco ou automação. Revisões anteriores preservadas. Validação
+das fontes, revisão do diff e `git diff --check`; alteração só documental.

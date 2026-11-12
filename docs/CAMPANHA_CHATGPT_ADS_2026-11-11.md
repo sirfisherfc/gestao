@@ -8,6 +8,86 @@
 - Início em 12/11 às 00h; término em 26/11 às 00h, America/Fortaleza; teste anterior pausado antes da ativação.
 - Conferências em 14/11, 18/11 e 26/11; pausa autorizada com R$100, pelo menos 30 cliques e nenhuma ação de alta intenção.
 
+## Conferência de entrega — 12/11/2026, 15h38–15h42
+
+Pedido do proprietário: conectar por API/MCP e identificar se o anúncio
+continuava sem avançar. Leituras reais pelo conector do Ads Manager nesta
+sessão resolveram a conta Sir Fisher, BRL, America/Fortaleza. O acesso MCP
+funcionou; a indisponibilidade relatada na sessão anterior não se aplica
+a esta execução. Nenhum orçamento, lance, anúncio ou status foi alterado.
+
+**Resultado:** ainda não há entrega registrada nas fontes consultadas,
+mas não há cobertura suficiente para afirmar zero durante todo o dia.
+A campanha nova começou **hoje às 00h**, e não na criação de ontem;
+transcorreram aproximadamente 15h40 desde o início programado.
+
+| Camada consultada | Evidência atual |
+| --- | --- |
+| Conta | Ativa, aprovada, faturamento completo e nenhuma ocorrência de bloqueio no diagnóstico de entrega |
+| Campanha nova | Ativa e elegível; verificações de prontidão, lance e descendentes completas, sem ocorrências |
+| Segmentação e orçamento | Brasil, R$300 totais, término em 26/11 às 00h, sem alteração |
+| Dois grupos | Ativos, CPC desejado R$3, sem aviso de lance baixo ou bloqueio geográfico |
+| Quatro anúncios novos | Ativos, aprovados e sem ocorrências de impedimento |
+| Teste anterior por CEP | Pausado; seu grupo agora retorna aviso de lance baixo, que não pertence à campanha nova |
+| Campanhas históricas | Encerradas pelas datas; não confundir o status ativo de outubro com elegibilidade atual |
+| Limites da conta | Leitura informa recurso indisponível nesta conta; não interpretar como limite zero, atingido ou ilimitado |
+
+### Desempenho e cobertura efetivamente recebida
+
+- **05–11/11 completos, quatro campanhas, granularidade diária:** 28 linhas
+  explícitas com zero impressões, cliques e gasto. Sem paginação pendente.
+  A campanha nova ainda não tinha iniciado nesse período.
+- **29/10–04/11 completos, conta agregada:** zero impressões, cliques e gasto.
+  Não usar esse intervalo anterior como comparação da eficácia da nova campanha.
+- **12/11 de 00h a 15h solicitado, granularidade horária:** o relatório da
+  conta retornou somente **00h–01h**, com zero impressões, cliques e gasto.
+  Solicitar 01h–15h retornou lista vazia; a consulta direta da campanha em
+  00h–15h, agregada, também voltou vazia. Sem paginação pendente. Isso é
+  ausência de cobertura, não zero medido entre 01h e 15h.
+- A consulta relativa das últimas 24 horas também retornou apenas parte
+  do intervalo, encerrando às 00h de 12/11. O diagnóstico de entrega usa
+  gasto de 05–11/11; seu gasto recente zero não cobre a campanha após o início.
+- **Conversões, conta, 05–11/11 completos:** zero metas atribuídas, janela
+  de clique de 30 dias e visualização desligada. Não cobre as conversões de hoje.
+- Na sessão existente do navegador, tabela de campanhas de **30/10 a
+  12/11**, com hoje preliminar: campanha nova em operação, impressões,
+  cliques e gasto exibidos como **“–”**. A tabela mostra zero conversões
+  e alerta de dados recentes incompletos. “–” não é zero comprovado.
+
+Os horários acima foram convertidos pelas fronteiras temporais retornadas
+para America/Fortaleza. As linhas de desempenho trazem rótulo UTC, embora
+as fronteiras dos dias consultados coincidam com 00h de Fortaleza.
+
+### Diagnóstico e menor próximo passo
+
+**Causa específica ainda não demonstrada.** Os controles disponíveis
+descartam um bloqueio explícito de conta, faturamento, revisão ou lance
+baixo na campanha nova. Não há evidência para atribuir a situação atual aos
+CEPs do teste anterior, pois o alvo agora é Brasil. “Elegível” e “em operação”
+não comprovam participação em leilões nem impressão efetiva.
+
+O [guia oficial de diagnóstico](https://help.openai.com/en/articles/20001217-troubleshooting-common-issues)
+orienta aguardar pelo menos 24 horas após o início quando não há entrega
+confirmada nem bloqueio claro. Informa atualização aproximada de 15 minutos
+para impressões/cliques e atraso aproximado de 7–8 horas para gasto; esses
+prazos não são garantias e não explicam, por si, a cobertura parcial observada.
+As [dicas de contexto](https://help.openai.com/en/articles/20001211-create-ad-groups-for-chatgpt-ads)
+informam relevância e não garantem entrega para conversas específicas.
+
+**Recomendação:** preservar a configuração e conferir manualmente após
+**13/11 às 00h**, preferencialmente na manhã de 13/11 para reconciliar também
+o gasto. Consultar 12/11 completo, comparar as fronteiras efetivamente
+retornadas, conferir campanha/grupos/anúncios e repetir o diagnóstico de
+entrega. Se o dia completo continuar sem impressões ou sem cobertura
+conciliável, encaminhar ao suporte de anúncios o início, fuso, configuração,
+status e divergência dos relatórios. Não subir lance nem orçamento apenas
+para tentar destravar. Nenhuma mensagem ao suporte foi enviada.
+
+**Prontidão para ampliar: evidência insuficiente.** O teste está elegível,
+mas ainda sem entrega comprovada. Mantidas as revisões de 14/11, 18/11 e
+26/11 e a regra de pausa já autorizada; a revisão sugerida para 13/11 é
+manual, sem nova automação ou promessa de acompanhamento automático.
+
 ## Autorização, objetivo e estado confirmado
 
 Pedido de 11/11/2026: escolher e executar uma campanha nova com duas ou três
