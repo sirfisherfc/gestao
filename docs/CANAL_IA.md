@@ -106,3 +106,18 @@ Orientações da raiz idênticas às cópias versionadas. Três repositórios
 conferidos e atualizados; `git pull` de gestão informou avisos de permissão
 na limpeza automática de metadados de worktrees antigas, sem divergência
 ou impedimento à sincronização.
+
+**Atualização após autorização de resgate:** o proprietário confirmou o crédito
+e pediu recuperar a reserva. Operação pontual aplicada pela rota de escrita
+Management API no `portal`, preservando UUID, código, mesa, dados e preços
+originais. Travas do evento, mesa e reserva, conferência de disponibilidade,
+ausência de pagamentos anteriores e verificações do estado esperado impediram
+colisão ou duplicidade. Reativação e lançamento do sinal confirmado ocorreram
+na mesma transação, com histórico e recálculo pela função existente. Horário
+bancário não informado: a observação do pagamento distingue a data do registro.
+
+Ensaio transacional com ROLLBACK passou antes da aplicação; leitura independente
+após COMMIT confirmou sinal pago, mesa reservada, uma única reserva ativa,
+um único pagamento e saldo calculado. Recibos e script pontual em
+`tmp/reveillon/`, ignorados; sem dados pessoais ou valores no Git. Sem mudança
+estrutural ou de interface, nenhuma migration nem deploy necessário.
