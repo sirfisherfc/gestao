@@ -221,16 +221,17 @@ def porcao(texto=None, principal=None, total=None, unidades=None,
 
 
 def alimentar(declarados=None, estado="declarado_no_impresso", pagina=1,
-              divergencias=None, alegacoes=None):
+              divergencias=None, alegacoes=None, fonte=None):
     """Declaracoes alimentares, separadas por grau de confianca.
 
-    `declarados` sao os simbolos transcritos do impresso. `confirmado_cozinha`
-    e `contato_cruzado` nascem vazios de proposito: nada foi validado ainda, e
-    lista vazia aqui significa "nao revisado", nunca "nao contem".
+    `declarados` sao, por padrao, os simbolos transcritos do impresso. Outra
+    origem deve informar `fonte` e seu estado de revisao. `confirmado_cozinha`
+    e `contato_cruzado` nascem vazios: lista vazia significa "nao revisado",
+    nunca "nao contem".
     """
     return {
         "declarados": declarados or [],
-        "fonte": "Sir Fisher Praia.pdf, página %d" % pagina if declarados or estado == "sem_simbolos" else None,
+        "fonte": fonte or ("Sir Fisher Praia.pdf, página %d" % pagina if declarados or estado == "sem_simbolos" else None),
         "estado": estado,
         "divergencias": divergencias or [],
         "alegacoes": alegacoes or [],
@@ -776,9 +777,13 @@ for _id, _nome, _preco, _desc_curto, _desc, _foto, _alt, _termos, _extra in DIVI
 # 5. Sobremesas e cafe (3 registros do TXT)
 # ==========================================================================
 
+FONTE_BROWNIE = ("Receita padrão, autorizada pelo proprietário em 12/11/2026; "
+                "não conferida com a cozinha ou o fornecedor.")
+ALERGENOS_BROWNIE = ["GLÚTEN", "LEITE", "LACTOSE", "OVO", "SOJA"]
+
 p("brownie-de-chocolate", "sobremesas", "Brownie de Chocolate", 1000,
   descricao="Brownie macio, feito com chocolate de alta qualidade.",
-  alimentar_=alimentar(estado="sem_simbolos", pagina=2),
+  alimentar_=alimentar(ALERGENOS_BROWNIE, estado="nao_revisado", fonte=FONTE_BROWNIE),
   foto={"base": "brownie-de-chocolate-sir-fisher", "larguras": [440, 660],
         "alt": "Fatia de brownie artesanal de chocolate", "estado": "conferido"},
   termos=["brownie", "chocolate", "doce", "sobremesa"],
@@ -786,7 +791,7 @@ p("brownie-de-chocolate", "sobremesas", "Brownie de Chocolate", 1000,
 
 p("brownie-com-sorvete", "sobremesas", "Brownie com Sorvete", 1800,
   descricao="Brownie de chocolate com sorvete de creme e calda de chocolate.",
-  alimentar_=alimentar(estado="sem_simbolos", pagina=2),
+  alimentar_=alimentar(ALERGENOS_BROWNIE, estado="nao_revisado", fonte=FONTE_BROWNIE),
   foto={"base": "brownie-com-sorvete-sir-fisher", "larguras": [440, 660],
         "alt": "Brownie quente de chocolate acompanhado de bola de sorvete", "estado": "conferido"},
   termos=["brownie", "sorvete", "chocolate", "doce", "sobremesa"],

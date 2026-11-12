@@ -2420,9 +2420,15 @@
     "fontes": []
    },
    "alimentar": {
-    "declarados": [],
-    "fonte": "Sir Fisher Praia.pdf, página 2",
-    "estado": "sem_simbolos",
+    "declarados": [
+     "GLÚTEN",
+     "LEITE",
+     "LACTOSE",
+     "OVO",
+     "SOJA"
+    ],
+    "fonte": "Receita padrão, autorizada pelo proprietário em 12/11/2026; não conferida com a cozinha ou o fornecedor.",
+    "estado": "nao_revisado",
     "divergencias": [],
     "alegacoes": [],
     "confirmado_cozinha": [],
@@ -2487,9 +2493,15 @@
     "fontes": []
    },
    "alimentar": {
-    "declarados": [],
-    "fonte": "Sir Fisher Praia.pdf, página 2",
-    "estado": "sem_simbolos",
+    "declarados": [
+     "GLÚTEN",
+     "LEITE",
+     "LACTOSE",
+     "OVO",
+     "SOJA"
+    ],
+    "fonte": "Receita padrão, autorizada pelo proprietário em 12/11/2026; não conferida com a cozinha ou o fornecedor.",
+    "estado": "nao_revisado",
     "divergencias": [],
     "alegacoes": [],
     "confirmado_cozinha": [],

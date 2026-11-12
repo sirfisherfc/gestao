@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 Livre. PDF único de confirmação do Réveillon publicado no portal (`08f4b3a`), para baixar após o sinal e encaminhar pelo WhatsApp. Conferência de ChatGPT Ads continua manual em 14/11 às 18h; ver `docs/CAMPANHA_CHATGPT_ADS_2026-11-11.md`.
+> **🚦 Status atual:** 🟢 Livre. Ícones dos dois brownies publicados no site (`7eff023`), com aviso padrão e sem observação extra; rascunho sincronizado pela migration `20261112183312`. Conferência de ChatGPT Ads continua manual em 14/11 às 18h; ver `docs/CAMPANHA_CHATGPT_ADS_2026-11-11.md`.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -151,3 +151,29 @@ idêntico para HTML, controlador, carregador de dados, gerador e biblioteca no
 domínio do portal. Grants SELECT autenticados existentes em `rv_events` e
 `rv_terms` conferidos no banco. Nenhuma credencial de cliente usada nos testes.
 Sem pendência de implantação. Orientações da raiz/cópias versionadas idênticas.
+
+
+## 2026-11-12 - Codex - Icones de alergenos nos brownies
+
+Site `7eff023`: Brownie de Chocolate e Brownie com Sorvete com os icones
+GLUTEN, LEITE, LACTOSE, OVO e SOJA, por receita padrao escolhida pelo
+proprietario. Aviso padrao mantido, sem observacao extra visivel. Origem
+interna registra a referencia; nao presume ficha tecnica nem confirmacao
+da cozinha. Fonte em `scripts/cardapio/catalogo_inicial.py` e JSON derivado;
+snapshot e HTML regenerados. `docs/HANDOFF_CARDAPIO.md` atualizado.
+
+Migration `20261112183312_cardapio_brownies_alergenos.sql` aplicada e registrada
+na mesma transacao no portal, depois de ensaio com rollback: somente
+`alimentar` dos dois produtos, com guardas para preservar confirmacoes e
+contato cruzado. Os demais campos e a publicacao ativa foram preservados;
+leitura posterior conferiu igualdade com a fonte. Sem objetos novos/grants.
+Google conferido em simulacao: mesmos 83 itens/opcoes; o gerador nao exporta
+icones de alergenos, portanto nenhuma alteracao remota necessaria ali.
+
+Validacoes: 47 testes de aceitacao, 8 testes existentes do site, verificacoes
+de assets/CSP/FAQ/prerenderizacao, cadeia de 242 migrations e comparacao
+estrutural dos JSONs (somente alimentar dos dois brownies). Edge local em
+1366px e 390px, sem overflow nem erro JavaScript; navegador integrado
+indisponivel. Pages built no commit publicado, HTTP 200 e cinco icones em
+cada brownie no dominio publico; detalhe conserva so o aviso padrao.
+Sem pendencia de implantacao; referencia real da cozinha continua nao revisada.
