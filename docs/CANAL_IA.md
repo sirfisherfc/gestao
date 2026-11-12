@@ -200,3 +200,20 @@ depois das 24h recomendadas pelo guia oficial, e suporte se continuar sem
 entrega ou cobertura conciliável. Sem envio de mensagem, alteração em Ads,
 site, portal, banco ou automação. Revisões anteriores preservadas. Validação
 das fontes, revisão do diff e `git diff --check`; alteração só documental.
+
+## 2026-11-12 · Codex — Sugestões de almoço para grupo pequeno
+
+Preparado PDF local para 12 pessoas, com entrada, almoço em travessas e
+sobremesa em três sugestões, adaptando a estrutura do Manual de Eventos.
+Preços integrais de cada item do cardápio publicado, sem os descontos do
+configurador; serviço opcional discriminado e bebidas à parte. Quantidades
+e disponibilidade dependem da conferência da equipe. Sem contrato, sinal,
+código de proposta oficial, criação de reserva ou envio de mensagem.
+
+Arquivo final em `../output/pdf/Sir-Fisher-Sugestoes-Almoco-12-Pessoas-28-11.pdf`;
+gerador e conferências em `../tmp/pdfs/`, fora dos repositórios. Material da
+cliente mantido local, sem publicação no site. No Git, somente este registro.
+Validação: JSON público HTTP 200 idêntico à fonte local; cálculo por item,
+totais, serviço e médias; quatro páginas renderizadas com Poppler e revisadas
+visualmente, com extração de texto e conferência de caracteres. Sem alteração
+na aplicação, no banco, nas regras comerciais ou nas automações existentes.
