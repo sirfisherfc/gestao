@@ -328,3 +328,34 @@ posts com teto obrigatório. Ativo desde 13/11, aprovado pelo proprietário
 8 km, /almoco-executivo/). Conferir aprovação e entrega; resultado por UTM
 `paid_social` e pelas reservas. Não trocar o token nem o fuso (Noronha). A API de dados
 do GA4 respondeu 502 o dia todo; a interface funcionou.
+
+## 2026-11-13 · Claude — Fotos de Luisa Dörr no site, Google, portal e proposta
+
+Ensaio de 18/10/2026 (44 fotos; o proprietário confirmou a autorização das
+pessoas e marcas). Análise foto a foto e mapa de lacunas:
+https://claude.ai/artifact/WPvJeXVf2Cbd9uLLBk16uv. Crédito "Foto: Luisa
+Dörr" em cada uso (Lei 9.610/98, art. 79) e nos metadados dos arquivos.
+
+- Site `6c5f3ab`: nova imagem de compartilhamento
+  (`og-sir-fisher-mesa-orla-fortaleza.jpg`) nas 8 páginas que usavam a
+  antiga; capas de Como chegar (fachada), Sobre (varanda) e Guia (orla);
+  fotos em Como chegar, Sobre, Reservas, Guia, Fish and chips PT/EN, Home
+  PT/EN (fim de tarde no lugar do sol repetido), Pôr do sol e capa de
+  Eventos; JSON-LD com a fachada. Verificadores, teste de navegador e
+  capturas 390/1440 sem erro nem rolagem horizontal.
+- Google: 14 fotos importadas por URL (`site/assets/img/perfil-google/
+  luisa-dorr-*`), relidas pela API: capa 2000×1125 (substituiu a de
+  640×360), 4 externas, 2 área de mesas, 4 comidas, 3 adicionais.
+- Reservas `fcc5911`: capa do portal com a foto sob o degradê (opacidade
+  0,7), crédito PT/EN; `style.css` e `i18n.js` com versão nova em todos os
+  imports; 40 testes Deno ok. `eb2d8ae`: faixa "O cenário do seu evento"
+  da proposta com a foto do grupo e crédito; `event-quote` reimplantada
+  (versão 71, ACTIVE, `verify_jwt` false).
+- Instagram: 4 carrosséis 4:5 e legendas em `OneDrive/Sir Fisher/Marketing/
+  Fotos/Booking/Luisa Dorr - prontas para o Instagram/`. Não publicados: a
+  fila exige aprovação do proprietário no painel e não aceita carrossel.
+
+Pendente: postar os carrosséis (confirmar o @ da fotógrafa); logo da ficha
+ainda com "Barra Sol"; drinks do cardápio sem foto (as taças do ensaio têm
+marca de gin); `pricing_test.ts` com datas de exemplo vencidas (23 falhas,
+anteriores a esta entrega).

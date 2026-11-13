@@ -323,6 +323,11 @@ entram na ficha assim:
 3. `publicar-fotos --publicar` faz commit e push só dessa pasta no repositório
    do site, espera o deploy e importa na ficha.
 
+Em 13/11/2026 entraram 14 fotos do ensaio de Luisa Dörr (capa, externas,
+área de mesas, comidas e adicionais), a partir de
+`site/assets/img/perfil-google/luisa-dorr-*`. O dHash da ficha já as
+reconhece; não reenviar.
+
 O envio direto de bytes da API (`media:startUpload` + `dataRef`) responde erro
 500 no Google; a importação por URL funciona. Por isso a foto precisa estar
 publicada no site antes.
