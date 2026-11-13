@@ -175,10 +175,19 @@ financas e permissoes) continua desligado. A conta e pos-paga e usa o fuso
 `America/Noronha` (UTC-2), uma hora a frente de Fortaleza. Mudar o fuso
 exige que a Meta feche a conta permanentemente e crie outra (aviso visto em
 13/11/2026); o proprietario decidiu manter Noronha e compensar a diferenca
-ao programar. Nome comercial da cobranca atualizado para "Sir Fisher". O contrato de
-`meta.py` ainda nao permite rotas de anuncios: amplia-lo com a primeira
-campanha real, criando tudo pausado e ativando so com o orcamento aprovado
-pelo proprietario.
+ao programar. Nome comercial da cobranca atualizado para "Sir Fisher".
+
+Impulsionamento de posts (desde 13/11/2026): `meta.py` aceita gravar so em
+`act_<conta>/campaigns|adsets|adcreatives|ads` e mudar status de objeto
+numerico apenas para `ACTIVE`/`PAUSED`. `scripts/marketing/impulsionar.py`
+recebe um plano JSON (em `tmp/meta-ads/`, ignorado) e exige `--teto`:
+orcamento total por item, data de fim com fuso em ate 31 dias, link do
+`www.sirfisher.com.br` sem parametros, post elegivel e so posicionamentos do
+Instagram (feed, stories e reels; "explore" foi recusado como obsoleto pela
+API). Os UTMs seguem o padrao do site (`instagram`, `paid_social`,
+`utm_content=ig_<id do post>`, `utm_id` da campanha). Sem `--ativar`, nasce
+pausado; ativar so com orcamento aprovado pelo proprietario. Recibo e
+releitura ficam em `tmp/meta-ads/`. Testes: `test_impulsionar.py`.
 `sent` na fila CAPI e a finalizacao pelo worker apos HTTP 2xx;
 nao representa sozinho credito publicitario ou deduplicacao confirmada
 pela Meta.

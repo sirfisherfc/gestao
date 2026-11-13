@@ -321,6 +321,10 @@ nenhuma conta de anúncios atribuída. Depois da verificação em duas etapas do
 proprietário, a conta do portfólio (final 2327) foi atribuída e a leitura
 de insights funcionou. A pedido dele, o acesso foi ampliado para "Gerenciar
 campanhas" (DRAFT/ANALYZE/ADVERTISE), sem acesso total à conta. `meta.py`
-ainda não tem rotas de anúncio; criar pausado e ativar só com orçamento
-aprovado. Não trocar o token. A API de dados
+ganhou rotas de anúncio, e `scripts/marketing/impulsionar.py` impulsiona
+posts com teto obrigatório. Ativo desde 13/11, aprovado pelo proprietário
+(teto R$300 com impostos): reel 28/09 (ambiente, R$140 até 21/11 0h, raio
+20 km, site) e reel 14/10 (almoço, R$120 até 20/11 0h, seg–sex 7h–14h, raio
+8 km, /almoco-executivo/). Conferir aprovação e entrega; resultado por UTM
+`paid_social` e pelas reservas. Não trocar o token nem o fuso (Noronha). A API de dados
 do GA4 respondeu 502 o dia todo; a interface funcionou.

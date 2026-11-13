@@ -15,6 +15,8 @@ PAGE = '107690041045934'
 IG = '17841439937145607'
 AD_ACCOUNT = '1004410887092327'  # Conta informada pelo proprietario em 02/11/2026.
 BASE = 'https://graph.facebook.com/v26.0/'
+# Criacao de anuncios so na conta do Portfolio; orcamento e teto ficam em impulsionar.py.
+ADS_WRITE = {f'act_{AD_ACCOUNT}/{kind}' for kind in ('campaigns', 'adsets', 'adcreatives', 'ads')}
 
 
 class Meta:
@@ -31,7 +33,10 @@ class Meta:
     def request(self, path, params=None, *, write=False, page=False):
         allowed_read = (path in {'me/permissions', 'me/adaccounts', 'me/assigned_ad_accounts', 'me/accounts', 'debug_token'}
             or bool(re.fullmatch(r'(?:act_)?\d+(?:_\d+)?(?:/(?:insights|comments|media|stories|content_publishing_limit))?', path)))
-        allowed_write = path in {IG + '/media', IG + '/media_publish', PAGE + '/feed', PAGE + '/photos'}
+        allowed_write = (path in {IG + '/media', IG + '/media_publish', PAGE + '/feed', PAGE + '/photos'} | ADS_WRITE
+            # Status de campanha/conjunto/anuncio: so pausar ou ativar, nada mais.
+            or (bool(re.fullmatch(r'\d{6,30}', path)) and set(params or {}) == {'status'}
+                and (params or {}).get('status') in {'ACTIVE', 'PAUSED'}))
         if (write and not allowed_write) or (not write and not allowed_read):
             raise RuntimeError('Rota fora do contrato marketing.')
         params = params or {}
@@ -53,10 +58,14 @@ class Meta:
                 return json.load(response)
         except urllib.error.HTTPError as error:
             try:
-                code = json.load(error).get('error', {}).get('code', 'indisponivel')
+                body = json.load(error).get('error', {})
             except Exception:
-                code = 'indisponivel'
-            raise RuntimeError(f'Meta HTTP {error.code}, codigo {code}; detalhes privados omitidos.') from None
+                body = {}
+            code = body.get('code', 'indisponivel')
+            # Em gravacoes, a mensagem da Meta diz o que corrigir; o token nunca entra.
+            hint = sanitize(str(body.get('error_user_msg') or body.get('message') or ''), credential)[:300] if write else ''
+            raise RuntimeError(f'Meta HTTP {error.code}, codigo {code}'
+                               + (f': {hint}' if hint else '; detalhes privados omitidos.')) from None
         except (OSError, TimeoutError):
             raise RuntimeError('Falha de rede Meta; conferir estado antes de reenviar.') from None
 
