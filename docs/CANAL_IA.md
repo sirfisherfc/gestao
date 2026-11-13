@@ -217,3 +217,48 @@ Validação: JSON público HTTP 200 idêntico à fonte local; cálculo por item,
 totais, serviço e médias; quatro páginas renderizadas com Poppler e revisadas
 visualmente, com extração de texto e conferência de caracteres. Sem alteração
 na aplicação, no banco, nas regras comerciais ou nas automações existentes.
+
+## 2026-11-13 · Codex — Execução do parecer jurídico do cardápio
+
+Parecer de Pinho & Albuquerque de 12/11 analisado. Site 9547c86 publicado:
+LEITE separado de LACTOSE em nove itens; Big Ben com LEITE/LACTOSE pelo
+cheddar; Chope Brahma com GLÚTEN; sabores dos Pasteizinhos na descrição;
+legenda SOJA/CORANTES corrigida em PT/EN. Brownies já ajustados ontem.
+Nenhum ícone removido por suposição. Mesmos 80 produtos, preços e pesos.
+Google publicado/relido: 83 itens/opções, descrições integralmente iguais à
+exportação e 29 com alérgenos em texto; sem alterações de preço.
+Site Pages built; HTML, JSON e scripts conferidos com HTTP 200 no domínio.
+
+Migration 20261113150000_cardapio_parecer_juridico.sql aplicada/registrada
+na mesma transação no portal, após dois ensaios com rollback. Somente
+alimentar dos onze produtos e descrição dos Pasteizinhos; guardas de igualdade,
+80 registros relidos contra a fonte e hash dos demais campos preservado.
+Não criou publicação integral nem alterou grants/tabelas de outros sistemas.
+Funções privadas com EXECUTE revogado dos clientes; publicar/restaurar mantêm
+controle de acesso e passam a exigir referência/data/atestado alimentar.
+Trigger invalida revisão antiga por mudança de composição, não preço/estoque.
+Painel permite registrar fonte e conferência ou salvar rascunho sem atestado;
+edição só de preço preserva revisão, receita alterada exige revisão nova.
+
+Validações: 47 testes de aceitação; ícones dos 80 produtos PT/EN em 390/1366px,
+sem overflow/erro JavaScript; painel com cliente simulado, zero escrita real;
+teste SQL reexecutável com rollback (ausência/revisão/receita/preço/estoque),
+zero atestados fictícios persistidos. Oito testes de perfil QR, três novos de
+Google FoodMenus e dois de assets Pages; quality gates, 243 migrations,
+pré-renderização/assets/CSP/FAQ aprovados. Varredura ampla de Analytics no
+Python geral esbarrou em módulos Google Analytics ausentes, fora do alvo;
+suítes aplicáveis aprovadas separadamente. Navegador integrado indisponível,
+QA no Edge local. Placa A3 e checklist de quatro páginas renderizados/revisados
+em ../output/pdf/; gerador da placa versionado. Ensaios privados em
+`tmp/parecer-cardapio/`, ignorados.
+
+Estado e pendências em docs/CARDAPIO_PARECER_JURIDICO_2026-11.md e handoff.
+Proprietário informou que não possui composições/rótulos: coquetéis, molhos,
+óleo, ícones por recheio, farofa e eventuais excessos continuam a conferir.
+Pesos dos empanados têm decisão anterior específica; sem nota genérica
+in natura. Afixação da placa, Canva/impresso e eventual delivery não foram
+executados; não declarar adequação integral. Novas publicações integrais pelo
+painel bloqueadas até revisão das receitas. Estático continua dependente da
+conferência editorial humana; não usar exportação para contornar essa revisão.
+Nenhuma credencial, parecer privado, dado bruto ou arquivo de cliente no Git.
+Orientações da raiz idênticas às cópias versionadas.

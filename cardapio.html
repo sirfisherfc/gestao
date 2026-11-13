@@ -509,6 +509,14 @@ function abrirProduto(id) {
             alimentar.divergencias.map(d => esc(d)).join('<br>') + '</div>' : ''}
       </div>
 
+      <label class="mi-campo larga"><span>Referência da revisão alimentar</span>
+        <input type="text" id="cFonteAlimentar" maxlength="500" value="${esc((alimentar.revisao || {}).fonte || '')}"
+          placeholder="Ficha técnica, versão, fornecedor e data do rótulo">
+        <small class="muted">Registre a receita, molhos, acompanhamentos e rótulos usados. Ausência de ícones também exige conferência. Troca de receita ou fornecedor exige nova revisão.</small></label>
+      <label class="mi-campo larga"><span><input type="checkbox" id="cRevisaoAlimentar" style="width:auto;margin-right:6px;padding:0">
+        Conferi a composição e os alérgenos com a ficha técnica e os rótulos.</span>
+        <small class="muted">Sem conferência, salve o rascunho. A publicação de fabricação própria exige esta revisão.</small></label>
+
       <label class="mi-campo larga"><span>Foto</span>
         <input type="file" id="cFoto" accept="image/jpeg,image/png,image/webp,image/avif">
         <small class="muted">${p.foto
@@ -608,11 +616,20 @@ async function salvarProduto(p) {
     estado: porcaoEstado
   });
 
-  const declaradosNovos = [...document.querySelectorAll('#cAlergenos input:checked')].map(cb => cb.value);
+  const marcados = [...document.querySelectorAll('#cAlergenos input:checked')].map(cb => cb.value);
+  const anteriores = (p.alimentar || {}).declarados || [];
+  const declaradosNovos = anteriores.filter(a => marcados.includes(a))
+    .concat(marcados.filter(a => !anteriores.includes(a)));
   const alimentar = Object.assign({}, p.alimentar, {
     declarados: declaradosNovos,
-    estado: declaradosNovos.length ? 'declarado_no_impresso' : 'sem_simbolos'
+    estado: 'nao_revisado',
+    revisao: null
   });
+  if (g('cRevisaoAlimentar').checked) {
+    const fonte = g('cFonteAlimentar').value.trim();
+    if (fonte.length < 3) { erro.textContent = 'Informe a referência da ficha técnica e dos rótulos conferidos.'; return; }
+    alimentar.revisao = { fonte, em: new Date().toISOString(), conferido: true };
+  }
 
   const dados = {
     categoria_id: p.categoria_id,
@@ -636,6 +653,15 @@ async function salvarProduto(p) {
     fontes: p.fontes,
     notas_internas: p.notas_internas
   };
+
+  if (!g('cRevisaoAlimentar').checked) {
+    const composicao = x => [x.nome, x.descritor, x.descricao, x.detalhe,
+      x.inclui, x.opcoes, (x.alimentar || {}).declarados];
+    if (JSON.stringify(composicao(dados)) === JSON.stringify(composicao(p))) {
+      dados.alimentar.revisao = (p.alimentar || {}).revisao || null;
+      dados.alimentar.estado = (p.alimentar || {}).estado || 'nao_revisado';
+    }
+  }
 
   const { data, error } = await sb.rpc('cardapio_salvar_produto', {
     p_id: p.id, p_dados: Object.assign(dados, { variantes, adicionais }),
@@ -723,6 +749,7 @@ async function abrirPublicar() {
 
   box.innerHTML = `
     <h3>Publicar o cardápio</h3>
+    <p class="hint">Produtos de fabricação própria exigem revisão alimentar registrada, inclusive quando não contêm nenhum dos dez insumos. Sem ficha técnica, salve o rascunho e conclua a conferência com a cozinha antes de publicar.</p>
     <p class="hint">A partir de publicar, quem abrir o QR na mesa vê esta versão.
        A versão que está no ar hoje continua guardada no histórico.</p>
     <p class="mi-erro" id="erroPublicar"></p>

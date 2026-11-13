@@ -1340,6 +1340,29 @@ def faixa_preco(prod):
 
 
 # --------------------------------------------------------------------------
+# Adequacao ao parecer juridico de 12/11/2026. A base existente declara
+# lactose nestes produtos; leite e um marcador distinto e cumulativo.
+# Nao confirma ficha tecnica nem remove marcacoes por inferencia.
+# Big Ben explicita cheddar na descricao curta e tambem precisa dos dois.
+for _produto in PRODUTOS:
+    if not _produto['publicar']:
+        continue
+    _a = _produto['alimentar']
+    if ('LACTOSE' in _a['declarados'] and 'LEITE' not in _a['declarados']) or _produto['id'] == 'big-ben-fries':
+        for _rotulo in (['LEITE', 'LACTOSE'] if _produto['id'] == 'big-ben-fries' else ['LEITE']):
+            if _rotulo not in _a['declarados']:
+                _a['declarados'].append(_rotulo)
+        _a['fonte'] += '; parecer juridico de 12/11/2026: leite separado de lactose/derivado lacteo declarado; ficha tecnica pendente.'
+        _a['estado'] = 'nao_revisado'
+    if _produto['id'] == 'chope-brahma':
+        _a['declarados'] = ['GLÚTEN']
+        _a['estado'] = 'nao_revisado'
+        _a['fonte'] += '; parecer juridico de 12/11/2026, Anexo I: indicar gluten no Chope Brahma.'
+    if _produto['id'] == 'pasteizinhos':
+        _produto['descricao'] = ('Dez pastéis crocantes com molho especial. Escolha o recheio: '
+                                 '2 queijos, carne ou camarão. As marcações reúnem os três sabores e o molho; '
+                                 'consulte a equipe sobre os alérgenos de cada recheio antes de pedir.')
+
 # Verificacoes de integridade
 # --------------------------------------------------------------------------
 

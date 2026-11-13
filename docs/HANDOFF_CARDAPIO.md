@@ -1,6 +1,22 @@
 # Handoff — Cardápio próprio e conferência operacional
 
-Atualizado em 12/11/2026. Este documento registra o estado real do cardápio em `https://www.sirfisher.com.br/cardapio/` e substitui o handoff anterior que tratava dados não confirmados como definitivamente validados.
+Atualizado em 13/11/2026. Este documento registra o estado real do cardápio em `https://www.sirfisher.com.br/cardapio/` e substitui o handoff anterior que tratava dados não confirmados como definitivamente validados.
+
+## Parecer jurídico de 12/11/2026
+
+Execução, limites e lista para a cozinha em
+[`CARDAPIO_PARECER_JURIDICO_2026-11.md`](CARDAPIO_PARECER_JURIDICO_2026-11.md).
+Onze produtos ajustados (LEITE separado de LACTOSE, cheddar da Big Ben e
+GLÚTEN no chope); sabores dos Pasteizinhos visíveis na lista; legenda PT/EN
+corrigida; Google exporta os alérgenos em texto. Preços e pesos preservados.
+Placa A3 e checklist de cozinha gerados em `../output/pdf/`.
+Migration `20261113150000` aplicada e registrada no portal com validação
+posterior; publicação integral pelo painel e restauração exigem revisão
+alimentar. Atestados antigos são invalidados por mudança de composição.
+Não há ficha/rótulo confirmado: proprietário informou que não os possui.
+Coquetéis, molhos/óleo, separação dos recheios, pesos sem fase confirmada,
+Canva/impresso, eventual delivery e afixação da placa continuam pendentes.
+Não promover o catálogo para vigente nem remover ícones por suposição.
 
 ## Estado atual
 

@@ -359,10 +359,11 @@
     "declarados": [
      "GLÚTEN",
      "LACTOSE",
-     "CRUSTÁCEOS"
+     "CRUSTÁCEOS",
+     "LEITE"
     ],
-    "fonte": "Sir Fisher Praia.pdf, página 1",
-    "estado": "declarado_no_impresso",
+    "fonte": "Sir Fisher Praia.pdf, página 1; parecer juridico de 12/11/2026: leite separado de lactose/derivado lacteo declarado; ficha tecnica pendente.",
+    "estado": "nao_revisado",
     "divergencias": [],
     "alegacoes": [],
     "confirmado_cozinha": [],
@@ -444,10 +445,11 @@
     "declarados": [
      "GLÚTEN",
      "LACTOSE",
-     "PEIXE"
+     "PEIXE",
+     "LEITE"
     ],
-    "fonte": "Sir Fisher Praia.pdf, página 1",
-    "estado": "declarado_no_impresso",
+    "fonte": "Sir Fisher Praia.pdf, página 1; parecer juridico de 12/11/2026: leite separado de lactose/derivado lacteo declarado; ficha tecnica pendente.",
+    "estado": "nao_revisado",
     "divergencias": [],
     "alegacoes": [],
     "confirmado_cozinha": [],
@@ -618,10 +620,11 @@
     "declarados": [
      "GLÚTEN",
      "OVO",
-     "LACTOSE"
+     "LACTOSE",
+     "LEITE"
     ],
-    "fonte": "Sir Fisher Praia.pdf, página 1",
-    "estado": "declarado_no_impresso",
+    "fonte": "Sir Fisher Praia.pdf, página 1; parecer juridico de 12/11/2026: leite separado de lactose/derivado lacteo declarado; ficha tecnica pendente.",
+    "estado": "nao_revisado",
     "divergencias": [],
     "alegacoes": [],
     "confirmado_cozinha": [],
@@ -703,10 +706,11 @@
     "declarados": [
      "GLÚTEN",
      "OVO",
-     "LACTOSE"
+     "LACTOSE",
+     "LEITE"
     ],
-    "fonte": "Sir Fisher Praia.pdf, página 1",
-    "estado": "declarado_no_impresso",
+    "fonte": "Sir Fisher Praia.pdf, página 1; parecer juridico de 12/11/2026: leite separado de lactose/derivado lacteo declarado; ficha tecnica pendente.",
+    "estado": "nao_revisado",
     "divergencias": [],
     "alegacoes": [],
     "confirmado_cozinha": [],
@@ -785,10 +789,12 @@
     "declarados": [
      "GLÚTEN",
      "OVO",
-     "CORANTES"
+     "CORANTES",
+     "LEITE",
+     "LACTOSE"
     ],
-    "fonte": "Sir Fisher Praia.pdf, página 1",
-    "estado": "declarado_no_impresso",
+    "fonte": "Sir Fisher Praia.pdf, página 1; parecer juridico de 12/11/2026: leite separado de lactose/derivado lacteo declarado; ficha tecnica pendente.",
+    "estado": "nao_revisado",
     "divergencias": [],
     "alegacoes": [],
     "confirmado_cozinha": [],
@@ -838,7 +844,7 @@
    "nome": "Pasteizinhos",
    "nome_original": "Pasteizinhos",
    "descritor": null,
-   "descricao": "Dez pastéis crocantes com molho especial. Sabor a escolher.",
+   "descricao": "Dez pastéis crocantes com molho especial. Escolha o recheio: 2 queijos, carne ou camarão. As marcações reúnem os três sabores e o molho; consulte a equipe sobre os alérgenos de cada recheio antes de pedir.",
    "detalhe": null,
    "preco_centavos": 3700,
    "preco_estado": "declarado",
@@ -883,10 +889,11 @@
     "declarados": [
      "LACTOSE",
      "CRUSTÁCEOS",
-     "GLÚTEN"
+     "GLÚTEN",
+     "LEITE"
     ],
-    "fonte": "Sir Fisher Praia.pdf, página 1",
-    "estado": "declarado_no_impresso",
+    "fonte": "Sir Fisher Praia.pdf, página 1; parecer juridico de 12/11/2026: leite separado de lactose/derivado lacteo declarado; ficha tecnica pendente.",
+    "estado": "nao_revisado",
     "divergencias": [
      "Os símbolos são do bloco com os três sabores. O impresso não separa as marcações por sabor."
     ],
@@ -933,7 +940,7 @@
     "tipo": "exato",
     "centavos": 3700
    },
-   "indice_busca": "2 a camarao camaroes carne com crocantes dez escolher. especial especial. molho pasteis pasteizinho pasteizinhos pastel queijo queijos sabor"
+   "indice_busca": "2 a alergenos antes as cada camarao camarao. camaroes carne com consulte crocantes de dez e equipe escolha especial especial. marcacoes molho molho; o os ou pasteis pasteizinho pasteizinhos pastel pedir. queijo queijos queijos, recheio recheio: reunem sabores sobre tres"
   },
   {
    "id": "file-mignon-trinchado",
@@ -1226,10 +1233,11 @@
    "alimentar": {
     "declarados": [
      "GLÚTEN",
-     "LACTOSE"
+     "LACTOSE",
+     "LEITE"
     ],
-    "fonte": "Sir Fisher Praia.pdf, página 1",
-    "estado": "declarado_no_impresso",
+    "fonte": "Sir Fisher Praia.pdf, página 1; parecer juridico de 12/11/2026: leite separado de lactose/derivado lacteo declarado; ficha tecnica pendente.",
+    "estado": "nao_revisado",
     "divergencias": [],
     "alegacoes": [],
     "confirmado_cozinha": [],
@@ -1492,10 +1500,11 @@
      "GLÚTEN",
      "PEIXE",
      "OVO",
-     "LACTOSE"
+     "LACTOSE",
+     "LEITE"
     ],
-    "fonte": "Sir Fisher Praia.pdf, página 1",
-    "estado": "declarado_no_impresso",
+    "fonte": "Sir Fisher Praia.pdf, página 1; parecer juridico de 12/11/2026: leite separado de lactose/derivado lacteo declarado; ficha tecnica pendente.",
+    "estado": "nao_revisado",
     "divergencias": [],
     "alegacoes": [],
     "confirmado_cozinha": [],
@@ -1586,10 +1595,11 @@
      "GLÚTEN",
      "PEIXE",
      "OVO",
-     "LACTOSE"
+     "LACTOSE",
+     "LEITE"
     ],
-    "fonte": "Sir Fisher Praia.pdf, página 1",
-    "estado": "declarado_no_impresso",
+    "fonte": "Sir Fisher Praia.pdf, página 1; parecer juridico de 12/11/2026: leite separado de lactose/derivado lacteo declarado; ficha tecnica pendente.",
+    "estado": "nao_revisado",
     "divergencias": [],
     "alegacoes": [],
     "confirmado_cozinha": [],
@@ -1682,10 +1692,11 @@
     "declarados": [
      "GLÚTEN",
      "OVO",
-     "LACTOSE"
+     "LACTOSE",
+     "LEITE"
     ],
-    "fonte": "Sir Fisher Praia.pdf, página 1",
-    "estado": "declarado_no_impresso",
+    "fonte": "Sir Fisher Praia.pdf, página 1; parecer juridico de 12/11/2026: leite separado de lactose/derivado lacteo declarado; ficha tecnica pendente.",
+    "estado": "nao_revisado",
     "divergencias": [],
     "alegacoes": [],
     "confirmado_cozinha": [],
@@ -2797,9 +2808,11 @@
     ]
    },
    "alimentar": {
-    "declarados": [],
-    "fonte": "Sir Fisher Praia.pdf, página 2",
-    "estado": "sem_simbolos",
+    "declarados": [
+     "GLÚTEN"
+    ],
+    "fonte": "Sir Fisher Praia.pdf, página 2; parecer juridico de 12/11/2026, Anexo I: indicar gluten no Chope Brahma.",
+    "estado": "nao_revisado",
     "divergencias": [],
     "alegacoes": [],
     "confirmado_cozinha": [],
