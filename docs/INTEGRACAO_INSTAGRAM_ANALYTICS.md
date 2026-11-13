@@ -162,10 +162,20 @@ Atualizacao de 13/11/2026: a causa era a falta de atribuicao da conta ao
 usuario do sistema ClaudePerfil, dono do token. A pedido do proprietario, a
 conta de anuncios do Portfolio Sir Fisher (final 2327, a mesma de
 `scripts/marketing/meta.py`) foi atribuida com acesso parcial "Ver
-desempenho", sem gerenciar campanhas nem a conta. O token nao foi trocado.
-Leitura real confirmada: `/me/adaccounts` lista a conta e `insights`
-responde. A tela de usuarios do sistema exige verificacao em duas etapas
-do administrador, feita pelo proprietario.
+desempenho". O token nao foi trocado. Leitura real confirmada:
+`/me/adaccounts` lista a conta e `insights` responde. A tela de usuarios do
+sistema exige verificacao em duas etapas do administrador, feita pelo
+proprietario.
+
+No mesmo dia, o proprietario pediu para criar campanhas por esta via, e o
+acesso passou a "Gerenciar campanhas (anuncios)", que inclui ver desempenho
+e modelos da Central de Criativos. `user_tasks` da conta retorna `DRAFT`,
+`ANALYZE` e `ADVERTISE`. "Gerenciar contas de anuncios" (acesso total, com
+financas e permissoes) continua desligado. A conta e pos-paga e usa o fuso
+`America/Noronha` (UTC-2), uma hora a frente de Fortaleza. O contrato de
+`meta.py` ainda nao permite rotas de anuncios: amplia-lo com a primeira
+campanha real, criando tudo pausado e ativando so com o orcamento aprovado
+pelo proprietario.
 `sent` na fila CAPI e a finalizacao pelo worker apos HTTP 2xx;
 nao representa sozinho credito publicitario ou deduplicacao confirmada
 pela Meta.
