@@ -2,11 +2,74 @@
 
 ## Resumo em cinco linhas
 
-- Campanha “Sir Fisher | Roteiros e refeições | Novembro 2026” criada pausada e ativada após aprovação das quatro peças.
-- Dois grupos: refeição durante o passeio na Beira-Mar e fim de tarde com refeição e vista.
-- Brasil, todas as plataformas, cobrança por clique e CPC desejado de R$3; orçamento total de R$300.
-- Início em 12/11 às 00h; término em 26/11 às 00h, America/Fortaleza; teste anterior pausado antes da ativação.
-- Conferências em 14/11, 18/11 e 26/11; pausa autorizada com R$100, pelo menos 30 cliques e nenhuma ação de alta intenção.
+- Campanha “Sir Fisher | Roteiros e refeições | Novembro 2026” ativa, com quatro anúncios aprovados; ajuste autorizado e aplicado em 13/11.
+- “Refeição no roteiro”: lance inteligente para maximizar cliques; “Fim de tarde com refeição”: CPC desejado R$3.
+- Brasil e todas as plataformas preservados; orçamento convertido de R$300 totais para R$40/dia no teste limitado.
+- Término antecipado para **15/11 às 00h, America/Fortaleza**; limite conservador de R$160 em 13–14/11, sem renovação automática.
+- Conferir entrega em 14/11 e reconciliar o gasto após o término; pausa por R$100 e pelo menos 30 cliques sem alta intenção permanece como critério manual.
+
+## Ajuste executado — 13/11/2026, aproximadamente 11h43 de Fortaleza
+
+O proprietário solicitou entrega ao público certo e avaliação de estratégias.
+Após explicar a exigência de orçamento diário para lance inteligente no
+conector, confirmou expressamente R$40/dia até 15/11 às 00h, máximo
+conservador de R$160 no intervalo, e a manutenção de Brasil para incluir
+pessoas planejando visitar Fortaleza. Não foi autorizada nova verba além
+dos R$300 da rodada e do teto agregado de R$500 de novembro.
+
+Aplicado pelo MCP e relido após salvar:
+
+| Configuração | Estado confirmado |
+| --- | --- |
+| Campanha | Ativa, orçamento R$40/dia, término 15/11 às 00h |
+| Refeição no roteiro | Ativo, maximizar cliques, cobrança por clique, sem CPC alvo |
+| Fim de tarde com refeição | Ativo, CPC alvo R$3 e cobrança por clique preservados |
+| Quatro anúncios | Ativos, aprovados, sem ocorrências de impedimento |
+| Geografia, plataformas, textos, imagens e destinos | Preservados |
+| Diagnóstico após o ajuste | Elegível, verificações completas, sem bloqueios explícitos |
+
+Uma campanha e dois grupos compartilham o orçamento; nenhum anúncio,
+grupo ou campanha foi criado. A comparação é **exploratória**, pois os
+temas diferem e não há divisão igual de verba nem alocação aleatória.
+O clique no grupo automático pode custar mais de R$3; o objetivo comercial
+continua sendo visita com consumo, acompanhado por rota, contato e reserva.
+
+O orçamento diário pode gastar até duas vezes o valor num dia; R$160 é o
+limite conservador de R$80 por dia em 13 e 14/11. Isso não é um teto total
+gravado na campanha. Não estender o término sem nova decisão de orçamento.
+Os dados anteriores já liquidados não cobrem a manhã de 13/11; reconciliar
+eventual gasto anterior ao ajuste antes de tratar qualquer saldo como livre.
+A conversão de orçamento total para diário não é reversível na mesma
+campanha, conforme a documentação do produto. O texto da descrição na
+plataforma ainda contém as condições históricas de 11/11; os campos de
+orçamento, término e lance e esta atualização registram a configuração vigente.
+
+**Entrega ainda não comprovada após o ajuste.** Consulta direta com itens
+sem impressões confirmou 12/11 completo com zero impressões, cliques e gasto;
+pedido incluindo 13/11 retornou somente até 13/11 às 00h de Fortaleza.
+Após a alteração, o relatório agregado por grupo das últimas 24h veio
+vazio, sem paginação. Não chamar de zero medido nem atribuir desempenho
+à nova estratégia antes de obter cobertura posterior a aproximadamente
+11h43 de 13/11. O diagnóstico de entrega ainda usa gasto histórico até
+13/11 às 00h; elegibilidade não prova exibição.
+
+Próxima conferência manual: impressões por grupo desde a alteração,
+cliques, gasto liquidado e ações de alta intenção; em 14/11 comparar a
+cobertura e a entrega. Persistindo ausência de impressões, acionar suporte
+com datas, fuso e configuração, sem aumentar verba por inferência. Nenhuma
+mensagem ou automação foi criada. O término de 15/11 pode interromper a
+divulgação se não houver uma decisão posterior; não prometer continuidade
+automática nem entrega garantida.
+
+CPM é um objetivo documentado, mas a versão atual do MCP não expõe a
+configuração de lance necessária para criar seu grupo; nenhuma campanha
+CPM incompleta foi criada e a campanha CPM histórica não foi reativada.
+A busca por Fortaleza retornou setores de CEP, sem confirmar um alvo
+municipal. Os contextos de Fortaleza ajudam relevância, sem restringir
+fisicamente o público a Fortaleza.
+
+Fontes: [orçamento, objetivos e alterações](https://help.openai.com/en/articles/20001210-creating-campaigns-for-chatgpt-ads),
+[lance inteligente e CPC alvo](https://help.openai.com/en/articles/20001634-bidding-strategies-and-how-pricing-works-in-chatgpt-ads).
 
 ## Conferência de entrega — 12/11/2026, 15h38–15h42
 

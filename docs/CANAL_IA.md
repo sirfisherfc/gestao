@@ -283,3 +283,24 @@ Pré-renderização, assets, CSP, três testes FoodMenus e cadeia de 244 migrati
 aprovados. Testes de aceitação: 47 aprovados. Handoff e registro do parecer
 anotam a decisão posterior sem apagar o histórico. Ensaios privados em
 `tmp/parecer-cardapio/`, ignorados. Nenhuma credencial ou dado bruto no commit.
+
+## 2026-11-13 · Codex — Ajuste de entrega do ChatGPT Ads
+
+Proprietário confirmou teste R$40/dia até 15/11 às 00h de Fortaleza,
+máximo conservador R$160 no intervalo, e Brasil incluindo intenção de
+viagem. Pelo MCP: campanha Roteiros e refeições convertida de orçamento
+total para diário, término antecipado e grupo Refeição no roteiro alterado
+para maximizar cliques. Outro grupo mantém CPC alvo R$3. Quatro anúncios
+ativos/aprovados, sem mudança de conteúdo, destino ou público; nenhuma
+campanha criada. Leituras posteriores confirmaram os campos e elegibilidade
+sem bloqueios. Comparação exploratória entre temas, sem verba igual garantida.
+
+Entrega após o ajuste ainda não demonstrada: dia 12 completo medido zero;
+consulta incluindo 13 só cobriu até 00h. Reconciliar gasto anterior e após
+o teste antes de tratar saldo como livre. Teto novembro R$500 preservado;
+nova verba não autorizada. Orçamento diário não é teto total; término impede
+continuação automática além de 15/11. Descrição histórica da plataforma
+ainda menciona condições antigas; campos salvos e atualização de
+docs/CAMPANHA_CHATGPT_ADS_2026-11-11.md são o estado vigente. Conferência
+manual em 14/11; sem agendamento, mensagem ao suporte ou promessa de entrega.
+CPM novo não foi criado: conector atual não expõe lance de grupo CPM.
