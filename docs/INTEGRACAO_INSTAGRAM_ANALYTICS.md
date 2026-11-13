@@ -172,7 +172,10 @@ acesso passou a "Gerenciar campanhas (anuncios)", que inclui ver desempenho
 e modelos da Central de Criativos. `user_tasks` da conta retorna `DRAFT`,
 `ANALYZE` e `ADVERTISE`. "Gerenciar contas de anuncios" (acesso total, com
 financas e permissoes) continua desligado. A conta e pos-paga e usa o fuso
-`America/Noronha` (UTC-2), uma hora a frente de Fortaleza. O contrato de
+`America/Noronha` (UTC-2), uma hora a frente de Fortaleza. Mudar o fuso
+exige que a Meta feche a conta permanentemente e crie outra (aviso visto em
+13/11/2026); o proprietario decidiu manter Noronha e compensar a diferenca
+ao programar. Nome comercial da cobranca atualizado para "Sir Fisher". O contrato de
 `meta.py` ainda nao permite rotas de anuncios: amplia-lo com a primeira
 campanha real, criando tudo pausado e ativando so com o orcamento aprovado
 pelo proprietario.
