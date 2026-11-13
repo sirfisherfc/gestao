@@ -7,6 +7,12 @@ Texto oficial conferido: [Lei 17.899/2022, art. 1º e anexo](https://www2.al.ce.
 
 ## Ajustes executados
 
+**Decisão posterior:** em 13/11/2026 o proprietário pediu retirar o ícone
+GLÚTEN do Chope Brahma. Essa decisão substitui a marcação do chope descrita
+no histórico abaixo; não equivale a certificação de ausência de glúten.
+Catálogo, banco e Google sincronizados pela migration pontual
+`20261113160000_cardapio_chope_sem_icone.sql`, sem mudar preços ou outros itens.
+
 - Brownies: cinco ícones já publicados em 12/11, por receita padrão autorizada
   pelo proprietário; ficha técnica real ainda pendente.
 - LEITE acrescentado à Patinha, Bolinha, Crocantes de Carne de Sol e Calabresa,

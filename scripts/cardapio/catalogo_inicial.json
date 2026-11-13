@@ -2808,10 +2808,8 @@
     ]
    },
    "alimentar": {
-    "declarados": [
-     "GLÚTEN"
-    ],
-    "fonte": "Sir Fisher Praia.pdf, página 2; parecer juridico de 12/11/2026, Anexo I: indicar gluten no Chope Brahma.",
+    "declarados": [],
+    "fonte": "Sir Fisher Praia.pdf, página 2; icone de gluten retirado por pedido expresso do proprietario em 13/11/2026; nao certifica ausencia de gluten.",
     "estado": "nao_revisado",
     "divergencias": [],
     "alegacoes": [],

@@ -4,6 +4,11 @@ Atualizado em 13/11/2026. Este documento registra o estado real do cardápio em 
 
 ## Parecer jurídico de 12/11/2026
 
+**Decisão posterior em 13/11/2026:** o proprietário pediu retirar o ícone de
+GLÚTEN do Chope Brahma. Removido do catálogo/site e da exportação Google,
+sem afirmar ausência de glúten ou revisão por rótulo. Migration pontual
+`20261113160000_cardapio_chope_sem_icone.sql`; demais ajustes preservados.
+
 Execução, limites e lista para a cozinha em
 [`CARDAPIO_PARECER_JURIDICO_2026-11.md`](CARDAPIO_PARECER_JURIDICO_2026-11.md).
 Onze produtos ajustados (LEITE separado de LACTOSE, cheddar da Big Ben e

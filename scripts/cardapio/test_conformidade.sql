@@ -5,8 +5,8 @@ update public.cardapio_produto set alimentar=alimentar - 'revisao';
 do $test$
 begin
   -- Marcacoes e precos: assercoes sobre a mudanca solicitada.
-  if not exists(select 1 from public.cardapio_produto where id='chope-brahma' and alimentar->'declarados' ? 'GLÚTEN') then
-    raise exception 'Chope sem gluten';
+  if exists(select 1 from public.cardapio_produto where id='chope-brahma' and alimentar->'declarados' ? 'GLÚTEN') then
+    raise exception 'Chope com icone retirado pelo proprietario';
   end if;
   if exists(select 1 from public.cardapio_produto where not arquivado and alimentar->'declarados' ? 'LACTOSE' and not alimentar->'declarados' ? 'LEITE') then
     raise exception 'Lactose sem leite';

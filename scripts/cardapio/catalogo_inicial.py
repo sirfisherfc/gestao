@@ -1355,9 +1355,9 @@ for _produto in PRODUTOS:
         _a['fonte'] += '; parecer juridico de 12/11/2026: leite separado de lactose/derivado lacteo declarado; ficha tecnica pendente.'
         _a['estado'] = 'nao_revisado'
     if _produto['id'] == 'chope-brahma':
-        _a['declarados'] = ['GLÚTEN']
+        _a['declarados'] = []
         _a['estado'] = 'nao_revisado'
-        _a['fonte'] += '; parecer juridico de 12/11/2026, Anexo I: indicar gluten no Chope Brahma.'
+        _a['fonte'] += '; icone de gluten retirado por pedido expresso do proprietario em 13/11/2026; nao certifica ausencia de gluten.'
     if _produto['id'] == 'pasteizinhos':
         _produto['descricao'] = ('Dez pastéis crocantes com molho especial. Escolha o recheio: '
                                  '2 queijos, carne ou camarão. As marcações reúnem os três sabores e o molho; '

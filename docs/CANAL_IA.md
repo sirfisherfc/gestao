@@ -262,3 +262,24 @@ painel bloqueadas até revisão das receitas. Estático continua dependente da
 conferência editorial humana; não usar exportação para contornar essa revisão.
 Nenhuma credencial, parecer privado, dado bruto ou arquivo de cliente no Git.
 Orientações da raiz idênticas às cópias versionadas.
+
+## 2026-11-13 · Codex — Retirada do ícone de glúten do chope
+
+Pedido expresso posterior do proprietário substitui a inclusão feita no
+parecer: Chope Brahma sem ícone GLÚTEN no catálogo, snapshot/HTML PT/EN e
+Google FoodMenus. Nenhuma alegação de ausência de glúten ou confirmação por
+rótulo. Fonte interna registra a decisão; estado alimentar não revisado.
+Demais produtos, preços, porções, fotos e disponibilidade preservados.
+
+Migration `20261113160000_cardapio_chope_sem_icone.sql` aplicada e registrada
+na mesma transação no portal, após ensaio idempotente com rollback. Guarda
+impede sobrescrever edição concorrente; leitura posterior conferiu o registro
+e hash dos outros 79 produtos. Teste SQL de conformidade ajustado à decisão
+e aprovado com rollback; sem novos objetos/grants ou publicação integral.
+
+Site `8567ac7`. Google publicado/relido: 83 itens/opções com mesmos preços,
+28 declarações alimentares; descrições integralmente iguais à exportação.
+Pré-renderização, assets, CSP, três testes FoodMenus e cadeia de 244 migrations
+aprovados. Testes de aceitação: 47 aprovados. Handoff e registro do parecer
+anotam a decisão posterior sem apagar o histórico. Ensaios privados em
+`tmp/parecer-cardapio/`, ignorados. Nenhuma credencial ou dado bruto no commit.
