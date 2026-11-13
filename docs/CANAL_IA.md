@@ -317,6 +317,7 @@ Search Console: a "Cópia sem canônica" (6 URLs) é o portal de reservas com
 `?sf_cta=`/`?sf_origin=`, rastreado antes da canônica de 03/11; validação
 iniciada e indexação de `www/reservas/` solicitada em 13/11. Meta: o token
 `META_IG_TOKEN` (usuário do sistema ClaudePerfil) tem `ads_read`, mas
-nenhuma conta de anúncios atribuída; a atribuição depende da verificação em
-duas etapas do proprietário no portfólio. Não trocar o token. A API de dados
+nenhuma conta de anúncios atribuída. Depois da verificação em duas etapas do
+proprietário, a conta do portfólio (final 2327) foi atribuída com "Ver
+desempenho" e a leitura de insights funcionou. Não trocar o token. A API de dados
 do GA4 respondeu 502 o dia todo; a interface funcionou.
