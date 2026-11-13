@@ -304,3 +304,19 @@ ainda menciona condições antigas; campos salvos e atualização de
 docs/CAMPANHA_CHATGPT_ADS_2026-11-11.md são o estado vigente. Conferência
 manual em 14/11; sem agendamento, mensagem ao suporte ou promessa de entrega.
 CPM novo não foi criado: conector atual não expõe lance de grupo CPM.
+
+## 2026-11-13 · Claude — Desempenho dos canais, Search Console e Réveillon no GA4
+
+Banco `portal`: a pedido do proprietário, `rv_events.tracking` do
+`reveillon-2027` passou de tudo `false` para `ga4 = true` (Meta e OpenAI
+seguem `false`), relido pela API e pela RPC pública. O evento
+`reveillon_prebooking` vai só ao GA4; não foi marcado como evento principal.
+Docs no `reservas` (`HANDOFF_REVEILLON.md`, `reveillon.md`).
+
+Search Console: a "Cópia sem canônica" (6 URLs) é o portal de reservas com
+`?sf_cta=`/`?sf_origin=`, rastreado antes da canônica de 03/11; validação
+iniciada e indexação de `www/reservas/` solicitada em 13/11. Meta: o token
+`META_IG_TOKEN` (usuário do sistema ClaudePerfil) tem `ads_read`, mas
+nenhuma conta de anúncios atribuída; a atribuição depende da verificação em
+duas etapas do proprietário no portfólio. Não trocar o token. A API de dados
+do GA4 respondeu 502 o dia todo; a interface funcionou.
