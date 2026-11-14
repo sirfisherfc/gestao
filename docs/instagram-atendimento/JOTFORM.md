@@ -1,5 +1,10 @@
 # Atendimento ativo no Jotform
 
+Revisão de 14/11/2026: apresentação, Réveillon e reservas corrigidos no
+Jotform e testados na prévia do canal Instagram. Direct reativado após
+os testes. [Regras aplicadas e resultados](REVISAO_2026-11-14.md).
+As seções com data de 02/11 preservam o registro da ativação inicial.
+
 Estado conferido em **02/11/2026**, no fuso de Fortaleza. O Direct do
 `@sirfisherfc` está conectado ao agente **Sir Fisher — Assistente virtual**,
 com **All DMs** e **Reply to DMs: Active**. A conta que administra o Jotform
@@ -17,7 +22,9 @@ conexão Jotform foi testada por uma conta fora do piloto antigo.
 ## Respostas e limites
 
 O agente responde em português, com mensagens curtas e base pública
-revisada. A saudação simples se identifica como assistente virtual.
+revisada. Desde 14/11/2026, a saudação simples usa “Oi! Como posso ajudar?”.
+A identificação como IA ou assistente virtual fica para uma pergunta
+explícita sobre quem atende ou sobre automação, com resposta honesta.
 Perguntas sobre comida, pratos, almoço, porções, bebidas e preços devem
 receber o link completo https://www.sirfisher.com.br/cardapio/ junto da
 informação confirmada. Preço ou disponibilidade sem fonte atual segue
@@ -30,6 +37,18 @@ a mensagem. O link não transfere o histórico nem notifica a equipe.
 Uma pergunta seguinte no Direct continua elegível para resposta.
 
 Reservas de 1 a 10 pessoas usam https://reservas.sirfisher.com.br/ .
+Isso inclui aniversário. Quando faltar quantidade, pode informar a faixa
+e o link ou perguntar apenas quantas pessoas. A palavra aniversário sozinha
+segue a reserva comum. Grupos confirmados de 11 a 29 seguem ao WhatsApp;
+de 30 a 100, à página https://www.sirfisher.com.br/eventos/ .
+
+Programação, mesas e reserva de Réveillon usam
+https://www.sirfisher.com.br/reveillon/ , que reúne instruções e acesso à
+pré-reserva. A consulta pelo cliente nessas páginas é o próximo passo para
+disponibilidade. WhatsApp fica para pedido de pessoa, exceção, negociação
+ou problema que exija a equipe. Essas regras específicas prevalecem sobre
+o encaminhamento genérico por informação dinâmica ausente.
+
 O agente não consulta disponibilidade nem conclui reserva, cancelamento
 ou pagamento. Nenhuma dessas integrações operacionais foi habilitada.
 Áudios, imagens e assuntos sem interpretação segura exigem encaminhamento;
@@ -50,7 +69,8 @@ desligada e novo teste sem essa confirmação. Duas regras experimentais
 ficaram **desabilitadas**: saudação por `Conversation starts`, que interferiu
 em outro pedido, e inclusão ampla de WhatsApp para informação ausente, que
 encaminhou uma FAQ conhecida. Não reativá-las sem corrigir e testar.
-Permanece a regra de saudação simples. A ação ampla de spam foi desligada
+Permanece a regra de saudação simples, com texto revisado em 14/11/2026.
+A ação ampla de spam foi desligada
 após classificar uma negociação legítima como spam. Uma ação específica
 orienta a não confirmar origem/autenticidade de contatos suspeitos sem
 verificação. [Matriz, fontes e testes de segurança](SEGURANCA_OPERACIONAL.md).

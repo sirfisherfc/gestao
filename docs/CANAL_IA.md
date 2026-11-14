@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 Livre. ChatGPT Ads conferido por MCP em 12/11 à tarde: campanha nova ativa/elegível, quatro peças aprovadas, sem bloqueio explícito; entrega ainda não comprovada e relatório de hoje incompleto. Recomendada conferência manual em 13/11 após completar 24h; revisões de 14/11, 18/11 e 26/11 mantidas. Ver `docs/CAMPANHA_CHATGPT_ADS_2026-11-11.md`.
+> **🚦 Status atual:** 🟢 Livre. Atendimento Jotform revisado em 14/11: apresentação, Réveillon e reservas corrigidos; prévia validada e Direct reativado. Ver `docs/instagram-atendimento/REVISAO_2026-11-14.md`. Pendências anteriores preservadas nos registros abaixo.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -359,3 +359,30 @@ Pendente: postar os carrosséis (confirmar o @ da fotógrafa); logo da ficha
 ainda com "Barra Sol"; drinks do cardápio sem foto (as taças do ensaio têm
 marca de gin); `pricing_test.ts` com datas de exemplo vencidas (23 falhas,
 anteriores a esta entrega).
+
+## 2026-11-14 · Codex — Correção do atendimento Jotform
+
+Pedido do proprietário aplicado ao agente ativo do Instagram. Localizadas
+apresentações em saudação fixa, mensagem de boas-vindas gerada, persona e
+fontes; saudação agora “Oi! Como posso ajudar?”. Identificação como IA
+somente em pergunta explícita sobre quem atende ou sobre automação.
+Réveillon direciona para a página com programação/instruções/pré-reserva;
+reserva comum, inclusive aniversário, para o portal de 1 a 10 pessoas.
+Quantidades confirmadas e casos que exigem equipe preservam os canais próprios.
+
+Sete fontes lidas, seis corrigidas e salvas; catálogo preservado. Persona,
+FAQ, política e matriz alinhadas. Ação específica de Réveillon e pedido de
+pessoa salvas; ação de contato suspeito delimitada ao relato atual.
+Resposta fixa experimental de reserva comum desabilitada após repetir o
+portal para 15 pessoas; repetição pela persona/base passou. Ações antigas
+de início de conversa, WhatsApp amplo e spam amplo permanecem desabilitadas.
+
+Doze cenários sintéticos com repetições na prévia real: perguntas dos prints,
+reserva genérica, 6/15/40 pessoas, saudação, identidade explícita, pessoa,
+reserva após pessoa, contato suspeito e Réveillon após esse relato.
+Fluxos finais descritos em docs/instagram-atendimento/REVISAO_2026-11-14.md.
+Links públicos de Réveillon e portal retornaram HTTP 200. Direct pausado
+durante ajustes, reativado e relido como Active em @sirfisherfc; comentários,
+stories e menções continuam desligados. Sem envio a clientes ou alteração
+de conversas antigas. Recibos sintéticos em tmp/instagram-atendimento/,
+ignorados. Orientações da raiz e cópias versionadas idênticas.
