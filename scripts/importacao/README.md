@@ -178,6 +178,11 @@ bancária; `--saude` e `--dry-run` só leem e dispensam chave Stone. O fechament
 fica no Status, com prazo até23h59 deD+1 em Fortaleza e conferência por etapa,
 incluindo dias sem movimento. `--recuperar-downloads` permite GET limitado do
 endereço Pix já recebido; não equivale a repetir o POST da solicitação.
+Aquisição e retomada agendadas usam `--atraso-como-aviso` para registrar os
+dias pendentes. A verificação diária `--saude` mantém saída de erro por atraso;
+execução manual também retorna erro por atraso por padrão. Erros que interrompem
+a rodada continuam falhando no GitHub. HTTP 400 exige revisar o pedido e a
+recuperação manual; o controle continua impedindo sua repetição automática.
 Agenda, validações, guardas e limitações: `docs/INTEGRACAO_API_BANCOS.md`.
 
 ### Extrato Stone pelo Meu Pluggy

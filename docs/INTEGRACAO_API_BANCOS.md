@@ -57,12 +57,43 @@ cadastral da loja na Saipos não foi consultada nesta tarefa.
   o relógio de sincronização da origem ainda era de 21/10, então o extrato
   ficou corretamente aguardando uma origem posterior ao encerramento do dia.
 
+### Alertas repetidos e recuperação de 09/11 (14/11/2026)
+
+As execuções agendadas concluíam a rodada e retornavam erro pelo mesmo atraso
+antigo. O XML de 09/11 havia recebido HTTP 400 e ficou sem repetição automática;
+dez baixas de 10/11 aguardavam suas capturas. Os arquivos de 11 e 12/11 já
+estavam concluídos. O extrato pela Pluggy continuou executando com sucesso.
+
+Aquisição e retomada agendadas agora usam `--atraso-como-aviso`: registram os
+dias atrasados no log e mantêm as pendências no Status. A verificação das 00h10
+continua retornando erro por atraso, inclusive se receber essa opção. Execução
+manual mantém o comportamento estrito por padrão. Falhas operacionais que
+interrompem a rodada continuam retornando erro; o workflow preserva o código
+de saída do processo Python.
+
+O diagnóstico de HTTP 400 agora informa recusa do pedido e orienta conferir
+data/parâmetros e revisar a recuperação manual. A documentação Stone associa
+esse código a solicitação incorreta; o registro original não guardou o corpo
+da resposta, então não permite afirmar a causa específica da recusa.
+
+O proprietário autorizou uma única nova consulta de 09/11 e o reprocessamento
+de 10/11 nesta conversa. O novo GET retornou HTTP 200; cabeçalho, vendas e
+recebíveis passaram na conferência sem gravação financeira. O cache privado
+recebeu o XML validado e manteve referência ao HTTP 400 original no campo de
+erro; recibo privado em `tmp/stone-recuperacao-2026-11-14/`. Essa recuperação
+pontual não altera os limites nem libera repetição automática de pedidos.
+
+A rotina pelo cache concluiu vendas, recebíveis, baixas e painel de 09/11.
+O reprocessamento de 10/11 resolveu as dez baixas que aguardavam captura.
+A saúde posterior ficou sem dias atrasados, com fechamento contíguo até 12/11;
+o extrato de 13/11 seguia dentro do prazo. Nenhum novo pedido Pix foi enviado.
+
 ### Agenda publicada e limites
 
 | Horário de Fortaleza | Operação |
 |---|---|
-| 06h10 e 18h10 | Coleta limitada de arquivos nunca pedidos e recuperação |
-| 11h10, 16h10 e 23h10 | Recuperação estrita pelo cache/fila privada, sem rede bancária |
+| 06h10 e 18h10 | Coleta limitada de arquivos nunca pedidos e recuperação; atraso gera aviso |
+| 11h10, 16h10 e 23h10 | Recuperação estrita pelo cache/fila privada, sem rede bancária; atraso gera aviso |
 | 00h10 | Verificação somente leitura; atraso gera saída de erro do workflow |
 | 00h43, 09h43 e 21h43 | Conferência/importação do extrato pela Pluggy |
 

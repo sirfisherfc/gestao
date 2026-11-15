@@ -72,6 +72,7 @@ class Controle:
         http=row[1] if row else None
         if http in (401,403): return f'Acesso Stone recusado (HTTP {http}); novas consultas suspensas até diagnóstico.'
         if http==429: return 'Limite de consultas Stone (HTTP 429); novas consultas suspensas até diagnóstico.'
+        if http==400: return 'Stone recusou o pedido do arquivo (HTTP 400); conferir data e parâmetros. Recuperação exige revisão manual; pedido preservado.'
         if http and http>=500: return f'Stone indisponível (HTTP {http}); pedido preservado, sem repetição automática.'
         if row and row[0] in ('reservado','erro'): return 'Resultado do pedido incerto; reserva preservada para não duplicar a solicitação.'
         if row and row[0]=='aceito': return 'Pix solicitado; aguardando entrega do arquivo pela Stone.'
@@ -214,6 +215,17 @@ def processar_dia(dia, codigos, documento, controle, fila, fechamento, *, consul
             fechamento.marcar(dia,'painel',estado='erro',mensagem='Dados preservados; atualização do painel será retomada na próxima rodada.')
 
 
+def conferir_atrasos(resumo, *, apenas_aviso=False):
+    atrasados = [str(d['dia']) for d in resumo['dias'] if d['atrasado']]
+    if not atrasados:
+        return
+    mensagem = 'Fechamento atrasado em ' + ', '.join(atrasados) + '; conferir etapas no Status.'
+    if apenas_aviso:
+        print('AVISO: ' + mensagem + ' A verificação diária mantém o alerta de falha.')
+    else:
+        raise ErroOperacional(mensagem)
+
+
 def fluxo():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--dia", type=date.fromisoformat)
@@ -222,14 +234,16 @@ def fluxo():
     parser.add_argument('--somente-cache',action='store_true',help='retoma pendências sem qualquer consulta bancária ou download')
     parser.add_argument('--recuperar-downloads',action='store_true',help='retoma GET limitado do endereço Pix já recebido, sem novo pedido')
     parser.add_argument('--saude',action='store_true',help='somente leitura do fechamento; dispensa chave Stone')
+    parser.add_argument('--atraso-como-aviso',action='store_true',
+                        help='nas retomadas, registra atraso como aviso; --saude mantém saída de erro')
     op = parser.parse_args()
     carregar_env()
     hoje = datetime.now(pix.FUSO_LOCAL).date()
     codigos = xml.resolver_stonecodes(None)
     if op.saude or op.dry_run:
         resumo = imprimir_saude(codigos)
-        if op.saude and any(d['atrasado'] for d in resumo['dias']):
-            raise ErroOperacional('há fechamento atrasado; conferir etapas no Status')
+        if op.saude:
+            conferir_atrasos(resumo)
         return
     if op.somente_cache and op.recuperar_downloads:
         raise ErroOperacional('--somente-cache não permite download, mesmo de endereço já recebido')
@@ -271,8 +285,7 @@ def fluxo():
         controle.fechar()
         fila.fechar()
     resumo = imprimir_saude(codigos)
-    if any(d['atrasado'] for d in resumo['dias']):
-        raise ErroOperacional('há dias que ultrapassaram o prazo D+1; conferir pendências no Status')
+    conferir_atrasos(resumo, apenas_aviso=op.atraso_como_aviso)
 
 
 if __name__ == "__main__":

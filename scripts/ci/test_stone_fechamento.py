@@ -3,10 +3,16 @@
 from dataclasses import replace
 from datetime import date, datetime, timedelta
 from decimal import Decimal
+from contextlib import redirect_stdout
+from io import StringIO
+import os
 from pathlib import Path
+import shutil
 import socket
+import subprocess
 import sys
 import tempfile
+import textwrap
 from types import SimpleNamespace
 import unittest
 from unittest.mock import patch, MagicMock
@@ -49,6 +55,63 @@ class Teste(unittest.TestCase):
         self.sem_rede.start();self.addCleanup(self.sem_rede.stop)
 
     def evento(self): return b.ler_baixas(XML,'123',DIA)[0]
+
+    def test_atraso_gera_aviso_so_na_retomada_e_falha_na_saude(self):
+        resumo = {'dias': [{'dia': DIA, 'atrasado': True}]}
+        with self.assertRaises(ErroOperacional):
+            r.conferir_atrasos(resumo)
+        saida = StringIO()
+        with redirect_stdout(saida):
+            r.conferir_atrasos(resumo, apenas_aviso=True)
+            r.conferir_atrasos({'dias': []})
+        self.assertIn('AVISO: Fechamento atrasado em 2026-10-21', saida.getvalue())
+        self.assertEqual(saida.getvalue().count('AVISO:'), 1)
+        # A flag da retomada não pode neutralizar --saude.
+        with patch.object(sys, 'argv', ['teste', '--saude', '--atraso-como-aviso']), \
+             patch.object(r, 'carregar_env'), patch.object(r.xml, 'resolver_stonecodes', return_value=['123']), \
+             patch.object(r, 'imprimir_saude', return_value=resumo), \
+             patch.object(r, 'Controle') as controle, patch.object(r.pix, 'FilaPix') as fila:
+            with self.assertRaises(ErroOperacional):
+                r.fluxo()
+            controle.assert_not_called()
+            fila.assert_not_called()
+
+    def test_http_400_tem_diagnostico_sem_liberar_repeticao(self):
+        controle = object.__new__(r.Controle)
+        controle.conn = MagicMock()
+        cur = controle.conn.cursor.return_value.__enter__.return_value
+        cur.fetchone.return_value = ('erro', 400)
+        mensagem = controle.diagnostico('xml', '123', DIA)
+        self.assertIn('HTTP 400', mensagem)
+        self.assertIn('revisão manual', mensagem)
+        self.assertEqual(cur.execute.call_count, 1)
+        self.assertTrue(cur.execute.call_args.args[0].startswith('select '))
+
+    def test_workflow_preserva_falhas_e_limita_aviso_as_rodadas_agendadas(self):
+        bash = shutil.which('bash')
+        if not bash and shutil.which('git'):
+            candidato = Path(shutil.which('git')).resolve().parents[1]/'bin/bash.exe'
+            if candidato.is_file():
+                bash = str(candidato)
+        self.assertIsNotNone(bash, 'Bash necessário para conferir o workflow.')
+        workflow = Path(__file__).resolve().parents[2]/'.github/workflows/importacao-diaria.yml'
+        bloco = textwrap.dedent('          args=()' + workflow.read_text(encoding='utf-8').split('          args=()', 1)[1])
+        # Executa o bloco real do workflow, substituindo só o processo Python.
+        stub = 'python() { printf "STONE_ARG %s\\n" "$@"; return "$CODIGO_TESTE"; }\n'
+        for evento, saude, cache in [('schedule', 'false', 'true'), ('schedule', 'false', 'false'),
+                                     ('schedule', 'true', 'false'), ('workflow_dispatch', 'false', 'true')]:
+            for codigo in ('0', '1', '3'):
+                with self.subTest(evento=evento, saude=saude, cache=cache, codigo=codigo), tempfile.TemporaryDirectory() as tmp:
+                    env = {**os.environ, 'EVENTO': evento, 'SO_SAUDE': saude, 'SOMENTE_CACHE': cache,
+                           'DIA': '', 'DRY_RUN': 'false', 'CODIGO_TESTE': codigo}
+                    resultado = subprocess.run([bash, '-e', '-o', 'pipefail', '-c', stub + bloco],
+                                               cwd=tmp, env=env, capture_output=True, text=True)
+                self.assertEqual(resultado.returncode, int(codigo), resultado.stderr)
+                self.assertEqual('STONE_ARG --atraso-como-aviso' in resultado.stdout,
+                                 evento == 'schedule' and saude != 'true')
+                self.assertEqual('STONE_ARG --saude' in resultado.stdout, saude == 'true')
+                self.assertIn('STONE_ARG ' + ('--somente-cache' if cache == 'true' else '--recuperar-downloads'), resultado.stdout)
+
     def parcela(self,**kw):
         return dict(stonecode='123',valor_bruto=Decimal('10'),valor_liquido=Decimal('9.812345'),
                     ultimo_status='Aberto',data_vencimento=DIA+timedelta(days=1),

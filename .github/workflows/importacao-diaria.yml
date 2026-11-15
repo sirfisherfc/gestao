@@ -41,6 +41,7 @@ jobs:
       DRY_RUN: ${{ inputs.dry_run || false }}
       SOMENTE_CACHE: ${{ inputs.somente_cache || github.event.schedule == '10 2,14,19 * * *' }}
       SO_SAUDE: ${{ github.event.schedule == '10 3 * * *' }}
+      EVENTO: ${{ github.event_name }}
       TZ: America/Fortaleza
       PYTHONIOENCODING: utf-8
     steps:
@@ -64,6 +65,9 @@ jobs:
           if [ "$DRY_RUN" = "true" ]; then args+=(--dry-run); fi
           if [ "$SOMENTE_CACHE" = "true" ]; then args+=(--somente-cache); else args+=(--recuperar-downloads); fi
           if [ "$SO_SAUDE" = "true" ]; then args+=(--saude); fi
+          # O atraso fica visível no Status e gera falha na saúde diária.
+          # Retomadas agendadas registram aviso; erros operacionais mantêm falha.
+          if [ "$EVENTO" = "schedule" ] && [ "$SO_SAUDE" != "true" ]; then args+=(--atraso-como-aviso); fi
           status=0
           python scripts/importacao/api_stone_rotina.py "${args[@]}" > saida-stone.log 2>&1 || status=$?
           # Log público: não publicar XML, CSV, credenciais ou valores.

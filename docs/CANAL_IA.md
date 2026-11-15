@@ -386,3 +386,28 @@ durante ajustes, reativado e relido como Active em @sirfisherfc; comentários,
 stories e menções continuam desligados. Sem envio a clientes ou alteração
 de conversas antigas. Recibos sintéticos em tmp/instagram-atendimento/,
 ignorados. Orientações da raiz e cópias versionadas idênticas.
+
+## 2026-11-14 · Codex — Alertas repetidos e recuperação Stone de 09/11
+
+O workflow concluía a rodada, mas retornava erro em cada retomada pelo mesmo
+atraso. XML de 09/11 recebeu HTTP 400 e o controle impediu repetição; dez
+baixas de 10/11 aguardavam suas capturas. Datas posteriores processavam e a
+Pluggy continuava funcionando. Mensagem de HTTP 400 agora orienta revisão
+manual de data/parâmetros, sem atribuir causa específica ao banco.
+
+Proprietário autorizou nesta conversa uma única nova consulta do XML de 09/11
+e o reprocessamento de 10/11. GET HTTP 200, cabeçalho e dry-runs de recebíveis
+e vendas aprovados. Cache privado recuperado com registro do HTTP 400
+original; recibo e logs em `tmp/stone-recuperacao-2026-11-14/`, ignorados.
+Rotina somente pelo cache concluiu 09/11 e resolveu as dez baixas de 10/11.
+Saúde sem atraso, fechamento contíguo até 12/11; extrato de 13/11 dentro do
+prazo. Nenhum novo POST Pix ou consulta de outro dia à Stone.
+
+Aquisição/retomada agendadas usam `--atraso-como-aviso`. Pendências continuam
+no Status; saúde diária e execução manual mantêm falha por atraso. Erros que
+interrompem a rodada preservam o código de saída. Testes do bloco Bash real
+do workflow cobrem agenda/cache/aquisição/saúde/manual e saídas 0/1/3.
+Suíte de fechamento com 17 testes aprovada, incluindo diagnóstico 400 e
+saúde estrita mesmo com a flag de aviso. Quality gates e testes de APIs,
+vendas, controle de pedidos/cache e Status aprovados. Sem migrations,
+alteração de regra financeira, segredos ou dados brutos no commit.
