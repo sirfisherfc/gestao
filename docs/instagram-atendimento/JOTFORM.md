@@ -1,8 +1,10 @@
 # Atendimento ativo no Jotform
 
-Revisão de 16/11/2026: Fortal em Dobro, Prime Gourmet e Duo Gourmet aceitos
-por resposta fixa; propostas de parceria pedem mídia kit pelo WhatsApp; toda
-menção ao WhatsApp leva o link; nome exibido passou a "Sir Fisher".
+Revisão de 16/11/2026: uma ação por cupom (Fortal em Dobro, Prime Gourmet e
+Duo Gourmet) responde só sobre o app perguntado, com as regras copiadas dos
+apps; propostas de parceria pedem mídia kit pelo WhatsApp; toda menção ao
+WhatsApp leva o link; nome exibido passou a "Sir Fisher". Regras que devem
+valer sempre vão em ações: orientações no fim da persona não foram aplicadas.
 [Causas, alterações e testes](REVISAO_2026-11-16.md).
 
 Revisão de 14/11/2026: apresentação, Réveillon e reservas corrigidos no

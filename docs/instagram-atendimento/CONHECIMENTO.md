@@ -138,12 +138,21 @@ não é acessível.
 
 **Pagamentos:** a casa aceita Pix, dinheiro e cartões. O proprietário
 confirmou em 01/11/2026 que aceita VR, Alelo, Ticket e Sodexo/Pluxee, sem
-informar restrições. Fortal em Dobro, Prime Gourmet e Duo Gourmet são
-aceitos conforme as regras de cada aplicativo, consultadas no próprio app;
-o Fortal em Dobro não vale em feriados nem em datas comemorativas com menu
-especial (confirmação de 28/09/2026, reafirmada em 16/11/2026). Dúvidas vão
-ao WhatsApp. Para outros benefícios e aplicativos, a equipe confere a
-aceitação atual.
+informar restrições. Cupons aceitos, com regras copiadas dos apps em
+16/11/2026. Responda só sobre o app perguntado:
+
+- Fortal em Dobro: o segundo Newcastle igual sai pelo cupom. Vale todos os
+  dias até 22h; segunda a partir das 11h, terça a domingo a partir das 9h.
+  Não vale em feriados, pontos facultativos e datas comemorativas. Exige
+  duas pessoas e consumo no local; não aceita vale-refeição como pagamento.
+- Prime Gourmet: na compra de um prato executivo, outro de igual ou menor
+  valor sai pelo cupom. Segunda a sexta, das 10h às 14h. Não vale em
+  feriados, vésperas e datas comemorativas; não acumula com a terça em dobro.
+- Duo Gourmet: na compra de um prato principal, o acompanhante ganha outro
+  de igual ou menor valor. Segunda a sexta, das 10h às 14h30.
+
+Regras completas em `REVISAO_2026-11-16.md`. Para outros benefícios e
+aplicativos, a equipe confere a aceitação atual.
 
 **WhatsApp:** sempre que orientar o cliente a procurar a equipe, escreva o
 link https://wa.me/5585988544274 na mesma mensagem (pedido do proprietário

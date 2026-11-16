@@ -272,19 +272,24 @@ uma resposta; sem mandar para o link da bio quando a resposta cabe na mensagem.
 > pedir mais, encaminhar para uma pessoa até a regra entrar neste book.)*
 
 **Aceitam Fortal em Dobro?**
-> Aceitamos todos os dias, exceto feriados e datas comemorativas com menu
-> especial (como o Dia dos Namorados). O segundo prato tem que ser igual ao
-> primeiro. A cozinha fecha às 22h.
-> *(Condições confirmadas pelo proprietário em 28/09/2026; conferir aceitação
-> e condições atuais antes de publicar resposta automática.)*
+> Aceitamos! No Fortal em Dobro, na compra de um Newcastle, o segundo igual
+> sai pelo cupom, para duas pessoas consumindo aqui. Vale todos os dias até
+> 22h, exceto feriados, pontos facultativos e datas comemorativas.
+> *(Regras do app enviadas pelo proprietário em 16/11/2026: às segundas, a
+> partir das 11h; não aceita vale-refeição como pagamento; não acumula com
+> promoções da casa.)*
 
-**Aceitam Prime Gourmet? Duo Gourmet?**
-> Aceitamos os dois! As condições de cada um estão no aplicativo.
+**Aceitam Prime Gourmet?**
+> Aceitamos! Na compra de um prato executivo, o outro de igual ou menor valor
+> sai pelo cupom, de segunda a sexta, das 10h às 14h. Não vale em feriados,
+> vésperas de feriado e datas comemorativas.
 
-*(Texto fixo ativo no Jotform desde 16/11/2026 para Fortal em Dobro, Prime
-Gourmet e Duo Gourmet: aceitação conforme as regras de cada app, Fortal fora
-de feriados e datas comemorativas com menu especial e WhatsApp com link para
-dúvidas. Ver `instagram-atendimento/REVISAO_2026-11-16.md`.)*
+**Aceitam Duo Gourmet?**
+> Aceitamos! Na compra de um prato principal, o acompanhante ganha outro de
+> igual ou menor valor, de segunda a sexta, das 10h às 14h30.
+
+*(No Jotform, uma ação por cupom responde só sobre o app perguntado desde
+16/11/2026. Ver `instagram-atendimento/REVISAO_2026-11-16.md`.)*
 
 **Tem happy hour? Tem outra promoção?**
 > Não temos happy hour. A terça em dobro do executivo segue as condições

@@ -485,3 +485,17 @@ visualização ou sete dias após clique. Cinco consultas somente leitura,
 sem paginação/truncamento; nenhum cliente, anúncio ou orçamento alterado.
 Validação de somas, divisões, unidades, sobreposição temporal e diff;
 somente os dois documentos, sem segredo, dado pessoal ou bruto incluído.
+
+## 2026-11-16 · Claude Code — Jotform: uma ação por cupom
+
+O proprietário enviou as regras dos apps Fortal em Dobro, Prime Gourmet e
+Duo Gourmet e pediu resposta só sobre o app perguntado. Criadas três ações
+"Always talk about", uma por cupom; a ação única da manhã foi desativada.
+Fonte "Regras dos Cupons Sir Fisher" como referência; três fontes antigas
+apontam para ela; Q&A da manhã restrito ao Fortal. Orientações de cupom na
+persona foram testadas, não aplicadas (fim da lista) e removidas: regra que
+precisa valer sempre vai em ação. Prévia: Duo, Prime no sábado, Fortal hoje,
+VR com Fortal e feriado de 20/11 corretos. Título automático da fonte "Regras
+de Atendimento" aparece como "Please provide the text"; conteúdo conferido.
+Página do Fortal mostra "Sir Fisher Praia", bairro Centro e horário até 23h;
+nada alterado lá. Somente documentação no Git.
