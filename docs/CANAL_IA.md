@@ -411,3 +411,37 @@ Suíte de fechamento com 17 testes aprovada, incluindo diagnóstico 400 e
 saúde estrita mesmo com a flag de aviso. Quality gates e testes de APIs,
 vendas, controle de pedidos/cache e Status aprovados. Sem migrations,
 alteração de regra financeira, segredos ou dados brutos no commit.
+
+## 2026-11-16 · Codex — Resultados ChatGPT Ads e Instagram/Meta
+
+Revisão somente leitura em Ads Manager, Meta, GA4 e portal para 01–15/11.
+Relatório em docs/RESULTADOS_CAMPANHAS_2026-11-16.md. ChatGPT Roteiros:
+2.762 impressões, 40 cliques, R$95,40, CPC R$2,39; 36 sessões no GA4,
+sem reserva paga vinculada no portal ou meta atribuída. Término autorizado
+em 15/11 às 00h preservado; quatro campanhas ChatGPT sem elegibilidade
+atual por status/datas. Conta aprovada/faturamento completo; limites da
+conta indisponíveis. Total ChatGPT 01/10–15/11: R$895,43, não desde criação.
+
+Meta: acesso existente de leitura funcionou sem configuração nova.
+Ambiente tem R$50,59, alcance estimado 8.009 contas, 8.767 impressões e
+679 cliques no link, CPC aproximadamente R$0,075; orçamento total R$140,
+ativa até 21/11 às 00h Fortaleza. GA4 tem uma confirmação na sessão UTM;
+portal tem uma reserva da campanha marcada como comparecida em 15/11,
+grupo informado de duas pessoas, sem consumo/ticket. Consistência entre
+agregados não comprova identidade individual nem crédito da Meta. Almoço
+ativo até 20/11 às 00h, orçamento total R$120, mas sem linha de métricas
+Meta no período; ausência não é zero. Nenhuma reserva com sua UTM exata.
+
+Preservados os fusos: Meta America/Noronha, demais America/Fortaleza,
+fronteiras diárias uma hora diferentes. Sem somar alcance ou sinais como
+pessoas. Ticket R$80/conta e R$58/pessoa são referências legadas, sem
+comprovar receita/lucro; cobertura PDV e contribuição continuam pendentes.
+Previsões limitadas à aritmética de custo constante, sem nova autorização
+de verba. Prioridades: preservar término ChatGPT, conferir entrega Almoço,
+jornada/consentimento/atribuição e consumo efetivo antes de ampliar.
+
+Validação documental: totais por grupo/dia/período reconciliados, fórmulas
+CPC/CPM/CTR e cenários conferidos, referências locais e diff revisados.
+Somente relatório e este registro; sem anúncio, código, banco, credencial,
+automação, dado pessoal ou financeiro bruto alterado/incluído. Orientações
+da raiz idênticas às cópias versionadas; três repositórios sincronizados.
