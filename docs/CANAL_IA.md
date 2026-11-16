@@ -548,3 +548,13 @@ origens desconhecidas e a ressalva do cadastro administrativo; não reatribuir.
 Sem alteração de captura, formulário, painel, tracking, banco ou dados
 históricos. Somente este recado; nenhum dado pessoal, identificador opaco,
 valor financeiro ou relatório bruto versionado. Diff documental revisado.
+
+## 2026-11-16 · Claude Code — Jotform: autoapresentação como IA
+
+Conversa real às 15h31 ainda abriu com "sou sua assistente de IA". Padrão:
+só a primeira resposta no Instagram real, com o nome da pessoa; prévia não
+reproduz. Removidas as sobras de 02/11: nome principal do agente era "Sir
+Fisher — Assistente virtual" (agora "Sir Fisher"), títulos "ASSISTENTE
+VIRTUAL" em duas fontes e menções "Identifique-se como IA…" em quatro.
+Regra IDENTIDADE no início da primeira orientação da persona, conforme
+recomendação do suporte Jotform. Confirmar na próxima conversa real.

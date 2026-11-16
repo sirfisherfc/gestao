@@ -3,7 +3,8 @@
 Revisão de 16/11/2026: uma ação por cupom (Fortal em Dobro, Prime Gourmet e
 Duo Gourmet) responde só sobre o app perguntado, com as regras copiadas dos
 apps; propostas de parceria pedem mídia kit pelo WhatsApp; toda menção ao
-WhatsApp leva o link; nome exibido passou a "Sir Fisher". Regras que devem
+WhatsApp leva o link; nome principal e nome exibido passaram a "Sir Fisher",
+sem "assistente virtual" nas fontes e com a regra IDENTIDADE no início da persona. Regras que devem
 valer sempre vão em ações: orientações no fim da persona não foram aplicadas.
 [Causas, alterações e testes](REVISAO_2026-11-16.md).
 
