@@ -530,3 +530,21 @@ exata do teste criado porque a Jotform repetia a resposta antiga em cache.
 Página pública do agente: pergunta repetida e variação com Alelo responderam
 "sim". Teste também mostrou que o agente sabe data e dia da semana, mas não
 a hora. Somente documentação no Git.
+
+## 2026-11-16 · Codex — Origem histórica das reservas de Réveillon
+
+Pedido esclarecido como consulta das reservas já feitas. Auditoria somente
+leitura: 15 registros com snapshot de atribuição. Entre 11 ativos, seis
+públicos têm canal observado, um administrativo tem indício que pode ser
+do cookie do operador e quatro seguem com origem não identificada.
+Snapshot de cookie/localStorage não recupera UTMs/referrer ausentes nem
+comprova crédito de anúncio ou origem declarada pelo cliente.
+
+Identificadores GA4 em parte dos snapshots não permitiram recuperação
+exata adicional pelas fontes disponíveis: não foi localizada exportação
+individual nos guias/scripts nem ferramenta conectada para esse cruzamento.
+Isso não prova inexistência de exportação externa privada. Preservar as
+origens desconhecidas e a ressalva do cadastro administrativo; não reatribuir.
+Sem alteração de captura, formulário, painel, tracking, banco ou dados
+históricos. Somente este recado; nenhum dado pessoal, identificador opaco,
+valor financeiro ou relatório bruto versionado. Diff documental revisado.
