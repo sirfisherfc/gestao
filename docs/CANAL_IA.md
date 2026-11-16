@@ -520,3 +520,13 @@ Não houve renovação, realocação, anúncio novo, automação, contato extern
 integração ou coleta financeira. Só relatório/CANAL; aritmética e diff
 validados, sem segredo, dado pessoal ou bruto incluído. Commits Claude
 posteriores preservados.
+
+## 2026-11-16 · Claude Code — Jotform: VR aceito também com cupom
+
+Proprietário confirmou que a casa aceita VR para tudo, inclusive com Fortal
+em Dobro, Prime Gourmet e Duo Gourmet, embora o app do Fortal proíba. Ações
+dos três cupons e fonte "Regras dos Cupons" atualizadas; Q&A com a pergunta
+exata do teste criado porque a Jotform repetia a resposta antiga em cache.
+Página pública do agente: pergunta repetida e variação com Alelo responderam
+"sim". Teste também mostrou que o agente sabe data e dia da semana, mas não
+a hora. Somente documentação no Git.

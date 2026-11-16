@@ -144,13 +144,15 @@ informar restrições. Cupons aceitos, com regras copiadas dos apps em
 - Fortal em Dobro: o segundo Newcastle igual sai pelo cupom. Vale todos os
   dias até 22h; segunda a partir das 11h, terça a domingo a partir das 9h.
   Não vale em feriados, pontos facultativos e datas comemorativas. Exige
-  duas pessoas e consumo no local; não aceita vale-refeição como pagamento.
+  duas pessoas e consumo no local.
 - Prime Gourmet: na compra de um prato executivo, outro de igual ou menor
   valor sai pelo cupom. Segunda a sexta, das 10h às 14h. Não vale em
   feriados, vésperas e datas comemorativas; não acumula com a terça em dobro.
 - Duo Gourmet: na compra de um prato principal, o acompanhante ganha outro
   de igual ou menor valor. Segunda a sexta, das 10h às 14h30.
 
+A casa aceita vale-refeição para pagar a conta, inclusive com os cupons
+(decisão do proprietário em 16/11/2026, embora o app do Fortal proíba).
 Regras completas em `REVISAO_2026-11-16.md`. Para outros benefícios e
 aplicativos, a equipe confere a aceitação atual.
 

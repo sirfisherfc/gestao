@@ -276,7 +276,7 @@ uma resposta; sem mandar para o link da bio quando a resposta cabe na mensagem.
 > sai pelo cupom, para duas pessoas consumindo aqui. Vale todos os dias até
 > 22h, exceto feriados, pontos facultativos e datas comemorativas.
 > *(Regras do app enviadas pelo proprietário em 16/11/2026: às segundas, a
-> partir das 11h; não aceita vale-refeição como pagamento; não acumula com
+> partir das 11h; não acumula com
 > promoções da casa.)*
 
 **Aceitam Prime Gourmet?**
@@ -306,9 +306,11 @@ uma resposta; sem mandar para o link da bio quando a resposta cabe na mensagem.
 > Aceitamos cartão de crédito, débito e Pix.
 
 **Aceitam vale-refeição (VR, Alelo, Sodexo/Pluxee, Ticket)?**
-> Aceitamos VR, Alelo, Ticket e Sodexo/Pluxee.
-> *(Aceitação confirmada pelo proprietário em 01/11/2026, sem informar
-> restrições. Não generalizar para outros benefícios ou aplicativos.)*
+> Aceitamos VR, Alelo, Ticket e Sodexo/Pluxee, inclusive quando a conta tem
+> Fortal em Dobro, Prime Gourmet ou Duo Gourmet.
+> *(Aceitação confirmada pelo proprietário em 01/11/2026; em 16/11/2026 ele
+> confirmou que vale para tudo, mesmo com cupom, embora o app do Fortal
+> proíba. Não generalizar para outros benefícios ou aplicativos.)*
 
 ### Ambiente
 
