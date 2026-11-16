@@ -465,3 +465,23 @@ inclusive regressões de reserva, horário e "é robô?". Contador do agente
 36 → 45 por causa da prévia; nenhum cliente recebeu mensagem. Canal com
 Reply to DMs ativo. Conversa da Larissa segue em atendimento humano.
 Somente documentação no Git; sem código, banco, segredo ou dado bruto.
+
+## 2026-11-16 · Codex — Seguidores atribuídos aos anúncios Instagram
+
+Complementado docs/RESULTADOS_CAMPANHAS_2026-11-16.md com consulta Meta
+às 13h22 Fortaleza/14h22 Noronha. Campos dedicados de seguimentos e
+visitas ao perfil, ausentes no conjunto genérico de ações anterior.
+Em 13–16/11, com dia 16 parcial: Ambiente 49 seguimentos, 454 visitas e
+R$58,68; Almoço 15, 88 e R$27,52. Soma descritiva 64 seguimentos,
+542 visitas e R$86,20; gasto por seguimento R$1,20/R$1,83 e R$1,35
+no conjunto. Não equivale a pessoas únicas garantidas, crescimento
+líquido, resultado somente de hoje, lucro ou efeito causal.
+
+Preservado o snapshot inicial. Em 01–15, Ambiente retornou 41 seguimentos,
+388 visitas e R$50,59; Almoço agora trouxe zeros explícitos somente para
+gasto, seguimentos e visitas, sem preencher impressões/cliques/CPC/CPM
+não reconsultados. Quatro linhas confirmaram atribuição de um dia após
+visualização ou sete dias após clique. Cinco consultas somente leitura,
+sem paginação/truncamento; nenhum cliente, anúncio ou orçamento alterado.
+Validação de somas, divisões, unidades, sobreposição temporal e diff;
+somente os dois documentos, sem segredo, dado pessoal ou bruto incluído.

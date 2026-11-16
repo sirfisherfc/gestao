@@ -7,6 +7,11 @@ fronteiras diárias da Meta ocorrem uma hora antes das de Fortaleza, e os
 recortes não têm cobertura horária idêntica. Os números são agregados,
 sujeitos a ajustes posteriores de atribuição.
 
+**Complementação em 16/11 às 13h22 de Fortaleza:** a seção de seguidores
+abaixo acrescenta os campos dedicados da Meta e um recorte até 16/11
+parcial. Preserva a consulta inicial e esclarece suas lacunas de gasto
+de Almoço e janela de atribuição.
+
 ## Resultado para a decisão
 
 A campanha [**“Sir Fisher | Roteiros e refeições | Novembro 2026”**](https://ads.openai.com/manage/campaigns?act=adacct_6a77b46c0ddc819fb41cfb1c276c5f4d&campaignIds=cmpn_0d15af0f928081978c89a81a918059ca) entregou
@@ -110,12 +115,62 @@ entrega. O estado ativo nos três níveis não resolve a lacuna do relatório.
 A diferença de R$89,41 entre orçamento de Ambiente e gasto conhecido até
 15/11 não é saldo atual: o gasto de 16/11 está fora desta consulta.
 
+**Nota posterior:** a consulta complementar retornou gasto, seguimentos
+e visitas ao perfil explicitamente zerados para Almoço em 01–15/11.
+Impressões, cliques, CPC e CPM não foram devolvidos nessa complementação
+e não devem ser preenchidos com zero. A tabela acima preserva a leitura
+inicial, que não havia retornado uma linha.
+
 A consulta usou a configuração de atribuição da conta, mas a janela
 concreta não foi devolvida. Não foi presumida uma janela de clique ou
 visualização. A Meta não retornou ações de reserva ou receita para
 Ambiente. GA4 e portal trazem os sinais comerciais descritos a seguir,
 com regras de medição próprias. Alcance não foi somado entre campanhas
 ou confundido com as impressões do ChatGPT.
+
+**Nota posterior:** as quatro linhas da consulta complementar devolveram
+a janela de **um dia após visualização ou sete dias após clique**.
+Essa configuração agora conhecida complementa a ausência de janela na
+primeira leitura.
+
+## Complementação de 16/11, 13h22 — seguidores atribuídos
+
+A Meta retornou campos dedicados de **seguimentos atribuídos no Instagram**
+e **visitas ao perfil**, ausentes no conjunto genérico de ações consultado
+anteriormente. Leitura em **16/11/2026 às 13h22 de Fortaleza**, equivalente
+a **14h22 em America/Noronha**, fuso da conta. As cinco consultas foram
+somente leitura, sem paginação ou truncamento; identidade e campanhas
+foram conferidas. Não houve alteração do cliente nem dos anúncios.
+
+| Período 01–15/11, fuso da conta | Seguimentos atribuídos | Visitas ao perfil | Gasto |
+| --- | ---: | ---: | ---: |
+| Ambiente | 41 | 388 | R$50,59 |
+| Almoço | 0 | 0 | R$0,00 |
+
+Incluindo **16/11 parcial**, o recorte de **13–16/11** retornou:
+
+| Campanha | Seguimentos atribuídos | Visitas ao perfil | Gasto | Gasto por seguimento atribuído |
+| --- | ---: | ---: | ---: | ---: |
+| Ambiente | 49 | 454 | R$58,68 | R$1,20 |
+| Almoço | 15 | 88 | R$27,52 | R$1,83 |
+| **Soma descritiva** | **64** | **542** | **R$86,20** | **R$1,35** |
+
+O total é **64 seguimentos atribuídos às duas campanhas no recorte**,
+com dia 16 ainda parcial; não representa somente o dia 16, pessoas únicas
+garantidas entre campanhas ou crescimento líquido do perfil. A Meta
+atribui esses eventos pela janela de um dia após visualização ou sete dias
+após clique, informada nas quatro linhas retornadas. Não se somam os
+seguimentos de 01–15 aos de 13–16, pois os períodos se sobrepõem.
+
+Os custos unitários são apenas gasto dividido por seguimentos atribuídos,
+arredondados a centavos. Não demonstram incremento causal, receita ou
+lucro. Visitas ao perfil não equivalem a seguidores. A nova consulta
+esclarece a entrega de Almoço até o recorte parcial atual, sem preencher
+suas métricas de impressões ou cliques não reconsultadas.
+
+Fonte: API de insights da Meta, campos dedicados de seguimentos e visitas
+ao perfil, com a configuração de atribuição retornada; ver
+[referência oficial](https://developers.facebook.com/docs/graph-api/reference/adaccount/insights).
 
 ## O que aconteceu depois do clique
 
