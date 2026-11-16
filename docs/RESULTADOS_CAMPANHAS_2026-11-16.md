@@ -210,11 +210,14 @@ Plano recomendado, **sem execução de mudanças ou agendamentos**:
    e medição. A releitura preservou o fim de 15/11; conversões de 12–15/11
    completos continuam com zero metas e quatro visualizações de página
    atribuídas, sujeitas a atualização posterior.
-5. **Decidir até 19/11 sobre eventual nova divulgação:** Almoço termina
-   em 20/11 às 00h e não cobre o almoço do feriado; Ambiente termina em
-   21/11 às 00h e não cobre o sábado/domingo 21–22. É um alerta de calendário.
-   Outra rodada exige proposta própria de prazo e teto; não foi criada ou
-   prorrogada campanha nesta entrega.
+5. **Decidir até 19/11 sobre eventual divulgação de 20–22/11:** o
+   [executivo é de segunda a sexta, 10h–14h, exceto feriados](https://www.sirfisher.com.br/almoco-executivo/).
+   Encerrar Almoço em 20/11 às 00h é coerente com a oferta; não se propõe
+   prorrogá-lo para anunciar executivo no feriado. Ambiente já cobre o
+   dia 20 e termina em 21/11 às 00h; sábado/domingo 21–22 ficam fora.
+   Uma eventual nova rodada deve avaliar ambiente/cardápio regular, com
+   proposta própria de prazo e teto. Prazos e verbas atuais preservados;
+   nenhuma campanha foi criada ou prorrogada nesta entrega.
 
 O feriado de 20/11 foi conferido no
 [calendário oficial](https://sirc.gov.br/feriados-e-indisponibilidades-sirc/).

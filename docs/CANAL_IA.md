@@ -511,8 +511,11 @@ Plano recomendado, sem execução: manter R$260 mídia dentro de R$300 com
 impostos; revisão manual sugerida 18/11 às 18h, comparando 16–17 completos
 e separando dia 18 parcial; conferir consumo/margem das reservas na operação
 antes de ampliar. ChatGPT encerrado em 15/11, zero metas em 12–15 completos.
-Decisão até 19/11 sobre eventual outra rodada: Almoço termina 20/11 às 00h,
-sem almoço do feriado, e Ambiente 21/11 às 00h, sem sábado/domingo 21–22.
+Decisão até 19/11 sobre eventual outra rodada: o executivo é seg–sex,
+10h–14h, exceto feriados; fim de Almoço em 20/11 às 00h é coerente com
+a oferta. Ambiente cobre o dia 20 e termina 21/11 às 00h, sem o fim de
+semana 21–22. Eventual divulgação desses dias deve avaliar ambiente e
+cardápio regular, sem anunciar executivo indisponível.
 Não houve renovação, realocação, anúncio novo, automação, contato externo,
 integração ou coleta financeira. Só relatório/CANAL; aritmética e diff
 validados, sem segredo, dado pessoal ou bruto incluído. Commits Claude
