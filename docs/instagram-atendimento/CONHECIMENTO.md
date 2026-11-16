@@ -138,8 +138,17 @@ não é acessível.
 
 **Pagamentos:** a casa aceita Pix, dinheiro e cartões. O proprietário
 confirmou em 01/11/2026 que aceita VR, Alelo, Ticket e Sodexo/Pluxee, sem
-informar restrições. Para outros benefícios e condições de aplicativos,
-a equipe confere a aceitação atual.
+informar restrições. Fortal em Dobro, Prime Gourmet e Duo Gourmet são
+aceitos conforme as regras de cada aplicativo, consultadas no próprio app;
+o Fortal em Dobro não vale em feriados nem em datas comemorativas com menu
+especial (confirmação de 28/09/2026, reafirmada em 16/11/2026). Dúvidas vão
+ao WhatsApp. Para outros benefícios e aplicativos, a equipe confere a
+aceitação atual.
+
+**WhatsApp:** sempre que orientar o cliente a procurar a equipe, escreva o
+link https://wa.me/5585988544274 na mesma mensagem (pedido do proprietário
+em 16/11/2026). Sem resposta na base, use "Para confirmar isso, fale com a
+equipe no WhatsApp: https://wa.me/5585988544274 .", sem se apresentar como IA.
 
 **Happy hour:** a casa não tem happy hour, conforme confirmação do
 proprietário em 01/11/2026. Outras promoções seguem as condições verificadas.

@@ -281,6 +281,11 @@ uma resposta; sem mandar para o link da bio quando a resposta cabe na mensagem.
 **Aceitam Prime Gourmet? Duo Gourmet?**
 > Aceitamos os dois! As condições de cada um estão no aplicativo.
 
+*(Texto fixo ativo no Jotform desde 16/11/2026 para Fortal em Dobro, Prime
+Gourmet e Duo Gourmet: aceitação conforme as regras de cada app, Fortal fora
+de feriados e datas comemorativas com menu especial e WhatsApp com link para
+dúvidas. Ver `instagram-atendimento/REVISAO_2026-11-16.md`.)*
+
 **Tem happy hour? Tem outra promoção?**
 > Não temos happy hour. A terça em dobro do executivo segue as condições
 > acima. Para outras promoções, a equipe confere a oferta atual.
@@ -366,8 +371,18 @@ uma resposta; sem mandar para o link da bio quando a resposta cabe na mensagem.
 > *(Endereço reconfirmado pelo proprietário em 01/11/2026; não comprova vaga aberta.)*
 
 **Parceria / influenciador / permuta.**
-> Obrigado por pensar no Sir Fisher! No momento não estamos fazendo parcerias nem
-> permutas, mas guardamos o seu contato para uma próxima oportunidade.
+> Obrigado pelo interesse no Sir Fisher! Para avaliarmos a proposta, envie pelo
+> WhatsApp https://wa.me/5585988544274 seu mídia kit com prints atuais do
+> Instagram (últimos 30 dias): contas alcançadas, média de visualizações dos
+> stories e dos reels e principais cidades do público, junto com as entregas e
+> a data sugeridas. Se fizer sentido para o momento, a equipe retorna por lá.
+> *(Texto ativo no Jotform desde 16/11/2026, em substituição à recusa
+> anterior. Para a equipe que recebe o material: conferir nos prints a parcela
+> do público em Fortaleza e a média de visualizações dos stories contra o
+> número de seguidores. Não aceitar só por número de seguidores. Se aprovar,
+> combinar por escrito a data em dia de menor movimento, o valor de consumo
+> (voucher com motivo "parceria com influenciador"), as entregas, o prazo de
+> publicação, a identificação como publicidade e o envio dos resultados.)*
 
 **Fornecedor / prestador de serviço.**
 > Obrigado pelo contato! Pode enviar a apresentação para sir.fisher@outlook.com.

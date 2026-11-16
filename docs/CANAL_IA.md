@@ -445,3 +445,23 @@ CPC/CPM/CTR e cenários conferidos, referências locais e diff revisados.
 Somente relatório e este registro; sem anúncio, código, banco, credencial,
 automação, dado pessoal ou financeiro bruto alterado/incluído. Orientações
 da raiz idênticas às cópias versionadas; três repositórios sincronizados.
+
+## 2026-11-16 · Claude Code — Jotform: Fortal/Prime/Duo, parcerias e WhatsApp
+
+Pedido do proprietário após respostas reais ruins no Direct (14–15/11).
+Causas e testes em docs/instagram-atendimento/REVISAO_2026-11-16.md.
+Na Jotform: duas ações Say exactly novas (Fortal em Dobro/Prime/Duo
+Gourmet; proposta de parceria pedindo mídia kit e Insights pelo WhatsApp),
+nome exibido "Sir Fisher", orientação positiva sem autoapresentação como
+IA, regra de sempre escrever o link do WhatsApp, restrição "Inclua WhatsApp
+somente quando…" limitada a reservas/Réveillon na persona e em cinco
+fontes, fonte nova de perguntas sem confirmação e fila de pendentes zerada.
+A ação de informação não confirmada foi reativada com condição genérica.
+
+Aviso: quando a base não tem nada próximo da pergunta, a Jotform usa uma
+resposta própria ("não tenho essa informação") que ignora persona e ações;
+a fonte nova cobre esse caso por exemplos. Prévia: nove cenários aprovados,
+inclusive regressões de reserva, horário e "é robô?". Contador do agente
+36 → 45 por causa da prévia; nenhum cliente recebeu mensagem. Canal com
+Reply to DMs ativo. Conversa da Larissa segue em atendimento humano.
+Somente documentação no Git; sem código, banco, segredo ou dado bruto.
