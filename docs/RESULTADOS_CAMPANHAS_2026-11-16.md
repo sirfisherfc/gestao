@@ -12,6 +12,10 @@ abaixo acrescenta os campos dedicados da Meta e um recorte até 16/11
 parcial. Preserva a consulta inicial e esclarece suas lacunas de gasto
 de Almoço e janela de atribuição.
 
+**Complementação às 13h54:** nova leitura confirma a entrega de Almoço
+e registra o plano manual recomendado abaixo, sem mudar campanhas ou
+agendar acompanhamento.
+
 ## Resultado para a decisão
 
 A campanha [**“Sir Fisher | Roteiros e refeições | Novembro 2026”**](https://ads.openai.com/manage/campaigns?act=adacct_6a77b46c0ddc819fb41cfb1c276c5f4d&campaignIds=cmpn_0d15af0f928081978c89a81a918059ca) entregou
@@ -171,6 +175,50 @@ suas métricas de impressões ou cliques não reconsultadas.
 Fonte: API de insights da Meta, campos dedicados de seguimentos e visitas
 ao perfil, com a configuração de atribuição retornada; ver
 [referência oficial](https://developers.facebook.com/docs/graph-api/reference/adaccount/insights).
+
+## Complementação de 16/11, 13h54 — próximos passos
+
+Nova leitura Meta às **13h54 de Fortaleza/14h54 de Noronha**, para
+**13–16/11 com dia 16 parcial**, sem paginação ou truncamento:
+
+| Campanha | Gasto | Impressões | Cliques no link | Seguimentos atribuídos |
+| --- | ---: | ---: | ---: | ---: |
+| Ambiente | R$59,32 | 10.266 | 803 | 49 |
+| Almoço | R$30,24 | 4.393 | 223 | 15 |
+
+São **R$89,56 e 64 seguimentos atribuídos**, razão descritiva de **R$1,40
+por seguimento**, sem comprovar pessoas únicas, crescimento líquido ou
+lucro. Ambas continuam ativas nos três níveis, com prazos e orçamentos
+preservados. A linha de Almoço em 16/11 parcial coincide com seu acumulado
+13–16: **há entrega comprovada hoje**, esclarecendo a lacuna inicial.
+Sete consultas somente leitura; atribuição de um dia após visualização
+ou sete dias após clique.
+
+Plano recomendado, **sem execução de mudanças ou agendamentos**:
+
+1. **Concluir o teste Meta dentro dos limites aprovados:** R$140 Ambiente
+   e R$120 Almoço, R$260 de mídia dentro do teto de R$300 com impostos.
+   Os R$40 de diferença não são verba extra; sem renovação ou realocação.
+2. **Conferência manual sugerida em 18/11 às 18h de Fortaleza:** comparar
+   as duas campanhas nos mesmos dias 16–17 completos, com o dia 18 parcial
+   separado; conferir também GA4, reservas e comparecimentos, respeitando
+   os fusos. CPC ou seguidores isolados não escolhem o vencedor comercial.
+3. **Conferir consumo e margem das reservas identificadas na operação**
+   antes de afirmar lucro ou ampliar verba, sem implantar integração ou
+   coletor ainda não validado.
+4. **Manter ChatGPT encerrado** até nova decisão e diagnóstico da jornada
+   e medição. A releitura preservou o fim de 15/11; conversões de 12–15/11
+   completos continuam com zero metas e quatro visualizações de página
+   atribuídas, sujeitas a atualização posterior.
+5. **Decidir até 19/11 sobre eventual nova divulgação:** Almoço termina
+   em 20/11 às 00h e não cobre o almoço do feriado; Ambiente termina em
+   21/11 às 00h e não cobre o sábado/domingo 21–22. É um alerta de calendário.
+   Outra rodada exige proposta própria de prazo e teto; não foi criada ou
+   prorrogada campanha nesta entrega.
+
+O feriado de 20/11 foi conferido no
+[calendário oficial](https://sirc.gov.br/feriados-e-indisponibilidades-sirc/).
+Não há automação, contato externo ou promessa de revisão em segundo plano.
 
 ## O que aconteceu depois do clique
 
@@ -366,6 +414,9 @@ tem 40 cliques e R$95,40: ainda não atingiu o limiar monetário. A própria
 data já encerrou o teste. Isso não constitui aprovação para renovar.
 
 ## Próximo passo proporcional à evidência
+
+Este plano pertence à consulta inicial. A complementação de 13h54 acima
+atualiza a entrega de Almoço e propõe o próximo marco manual.
 
 1. **Preservar o encerramento do ChatGPT** até uma nova decisão de prazo
    e verba. Manter os prazos e orçamentos Meta já autorizados.

@@ -499,3 +499,21 @@ VR com Fortal e feriado de 20/11 corretos. Título automático da fonte "Regras
 de Atendimento" aparece como "Please provide the text"; conteúdo conferido.
 Página do Fortal mostra "Sir Fisher Praia", bairro Centro e horário até 23h;
 nada alterado lá. Somente documentação no Git.
+
+## 2026-11-16 · Codex — Próximos passos das campanhas
+
+Complemento curto no relatório de resultados, leitura Meta 13h54 Fortaleza,
+13–16/11 parcial: Ambiente R$59,32/803 links/49 seguimentos; Almoço
+R$30,24/223/15, com entrega hoje comprovada. Total R$89,56/64, razão
+descritiva R$1,40 por seguimento. Ambos ativos, orçamento/prazo preservados.
+
+Plano recomendado, sem execução: manter R$260 mídia dentro de R$300 com
+impostos; revisão manual sugerida 18/11 às 18h, comparando 16–17 completos
+e separando dia 18 parcial; conferir consumo/margem das reservas na operação
+antes de ampliar. ChatGPT encerrado em 15/11, zero metas em 12–15 completos.
+Decisão até 19/11 sobre eventual outra rodada: Almoço termina 20/11 às 00h,
+sem almoço do feriado, e Ambiente 21/11 às 00h, sem sábado/domingo 21–22.
+Não houve renovação, realocação, anúncio novo, automação, contato externo,
+integração ou coleta financeira. Só relatório/CANAL; aritmética e diff
+validados, sem segredo, dado pessoal ou bruto incluído. Commits Claude
+posteriores preservados.
