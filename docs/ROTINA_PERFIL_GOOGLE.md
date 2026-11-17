@@ -268,7 +268,15 @@ Links fixos da ficha (atributos): o botão "Reservar" (`url_reservations`) vai
 direto para o sistema, sem passar pelo site:
 `https://reservas.sirfisher.com.br/?utm_source=google_maps&utm_medium=organic&utm_campaign=gbp_booking&utm_content=botao_reservar`
 (alterado em 30/09/2026; no painel de reservas essas reservas aparecem com
-origem `google_maps`). O destino do "Cardápio" (`url_menu`) usa o
+origem `google_maps`). Atenção: o atributo `url_reservations` sozinho não
+exibe botão na ficha. Até 17/11/2026 nenhuma sessão ou reserva veio de
+`gbp_booking`, e a Pesquisa e o Maps não mostravam "Reservar". Em 17/11/2026
+o mesmo link foi cadastrado no painel de proprietário, em Agendamentos →
+"Links para suas ferramentas de agendamento on-line", que é a origem do
+botão visível. A Place Actions API está desativada no projeto do OAuth, então
+essa tela é o caminho de edição. A métrica "Agendamentos" do Desempenho conta
+só reservas feitas dentro do Google por parceiros integrados e continua em 0
+com link próprio; medir pelo portal (`google_maps`/`gbp_booking`). O destino do "Cardápio" (`url_menu`) usa o
 cardápio próprio com a atribuição do Perfil da Empresa:
 `https://www.sirfisher.com.br/cardapio/?utm_source=google_maps&utm_medium=organic&utm_campaign=gbp_menu`.
 Esse valor foi publicado e relido no Google em 25/10/2026, às 05:41 de

@@ -558,3 +558,13 @@ Fisher — Assistente virtual" (agora "Sir Fisher"), títulos "ASSISTENTE
 VIRTUAL" em duas fontes e menções "Identifique-se como IA…" em quatro.
 Regra IDENTIDADE no início da primeira orientação da persona, conforme
 recomendação do suporte Jotform. Confirmar na próxima conversa real.
+
+## 2026-11-17 · Claude Code — Perfil do Google: botão de reserva
+
+O botão "Reservar" não aparecia na Pesquisa nem no Maps: `url_reservations`
+existe desde 30/09, mas nenhuma sessão ou reserva veio de `gbp_booking`.
+Link do portal cadastrado no painel, em Agendamentos → "Links para suas
+ferramentas de agendamento on-line". A Place Actions API está desativada no
+projeto do OAuth. Conferir em alguns dias se o botão aparece e se surgem
+reservas `google_maps/gbp_booking`. A métrica "Agendamentos" continua em 0
+por definição. Detalhes em `docs/ROTINA_PERFIL_GOOGLE.md`.
