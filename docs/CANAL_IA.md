@@ -568,3 +568,14 @@ ferramentas de agendamento on-line". A Place Actions API está desativada no
 projeto do OAuth. Conferir em alguns dias se o botão aparece e se surgem
 reservas `google_maps/gbp_booking`. A métrica "Agendamentos" continua em 0
 por definição. Detalhes em `docs/ROTINA_PERFIL_GOOGLE.md`.
+
+## 2026-11-17 · Claude Code — Réveillon: Lote 2 no ar
+
+A pedido do proprietário, Lote 2 ativo desde 11h07 (Fortaleza): lateral
+R$ 3.200, central R$ 1.700, bistrô R$ 900, cadeira extra R$ 400, mesma
+consumação (+R$ 50 por pessoa). Lote 1 inativo, com fim nessa hora; as 12
+reservas dele mantêm os preços gravados. Troca feita no banco numa só
+transação, conferida pelo acesso público (`rv_public_event`, `rv_simulate`).
+Preços fixos atualizados em `site/reveillon/index.html` e
+`reservas/reveillon.html`; seed e handoff do Réveillon registram os dois
+lotes. Sugestão em aberto: Lote 3 em dezembro para as últimas 2 ou 3 mesas.
