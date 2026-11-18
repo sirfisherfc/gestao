@@ -1,45 +1,50 @@
 SIR FISHER — ACABAMENTO DOS DESTAQUES
 18/11/2026
 
-ESTADO CORRIGIDO, CONFERIDO VISUALMENTE EM 18/11/2026
-A Casa (2 Stories), Sabores (4), Drinks (4), Quem Veio (1), Visite (2).
-Quem Veio agora contém dois comentários reais sobre o Fisher Burger.
-A Big Ben Fries que havia sido selecionada por engano saiu dessa coleção.
-Também foram retirados Stories fora de categoria dos demais grupos.
-As quatro coleções antigas já não aparecem no perfil.
+ESTADO CONFERIDO APÓS A SEGUNDA REVISÃO
+A Casa agora tem quatro Stories novos, publicados e conferidos na ordem:
+1. Chegando ao Sir — fachada e chegada pela Beira-Mar.
+2. À mesa, de frente para o mar — mesas e guarda-sóis.
+3. A vista das mesas — espaço e paisagem vistos de dentro da varanda.
+4. No fim de tarde — casa e orla em outro momento do dia.
+O ícone de guarda-sol foi preservado. Os dois itens anteriores saíram
+somente da coleção; os originais não foram excluídos.
 
-CAPAS
-Salve os cinco PNGs na galeria do celular.
-No perfil @sirfisherfc, abra as opções do Destaque correspondente,
-escolha Editar destaque / Editar capa e selecione a imagem da galeria.
+Sabores continua com quatro Stories; Drinks com quatro; Visite com dois.
+As quatro coleções antigas já não aparecem no perfil. Os ícones de A Casa,
+Sabores, Drinks e Visite já estão aplicados.
+
+ÚNICA RETIRADA PENDENTE NO APLICATIVO
+Quem Veio tem só um Story útil. Não foi encontrado material suficiente para
+completar uma coleção que ajude o visitante. A decisão é retirar o Destaque.
+
+No perfil @sirfisherfc, mantenha Quem Veio pressionado e procure a opção
+Excluir destaque. Confirme que se trata da coleção Quem Veio.
 Os nomes dos comandos podem variar conforme a versão do aplicativo.
-Centralize o símbolo no círculo, mantenha a escala e salve.
+Preserve o Story original no arquivo. Não exclua a publicação original.
 
+A versão web desta conta não oferece exclusão da coleção e não permite
+salvar a seleção vazia. A tentativa foi cancelada, preservando o conteúdo.
+Por isso Quem Veio ainda aparece na última conferência desta entrega.
+Não é necessário reaplicar seu ícone.
+
+CONFERIR O PERFIL
+Depois dessa retirada, devem permanecer A Casa (4), Sabores (4), Drinks (4)
+e Visite (2), com os ícones azuis e creme: 14 posições em quatro coleções.
+A ordem observada antes da retirada é A Casa, Visite, Quem Veio, Sabores,
+Drinks. Não presumir que trocar a capa reorganize os grupos.
+
+ARQUIVOS DAS CAPAS
 01-a-casa.png     -> A Casa
 02-sabores.png    -> Sabores
 03-drinks.png     -> Drinks
-04-quem-veio.png  -> Quem Veio
 05-visite.png     -> Visite
 
-Não é necessário publicar os arquivos das capas como novos Stories.
-Quatro ícones já foram observados aplicados no perfil.
-Ao corrigir Quem Veio, sua capa ficou novamente fotográfica: reaplique
-somente 04-quem-veio.png nesse Destaque pelo aplicativo.
-
-CONFERIR O PERFIL
-Devem permanecer A Casa, Sabores, Drinks, Quem Veio e Visite, com os ícones
-azuis e creme. Confira também que os Stories originais continuam no arquivo.
-A ordem observada após as inclusões é Visite, Quem Veio, A Casa, Sabores,
-Drinks. A adição de Stories pode mudar essa ordem; não presumir que a troca
-de capa reorganize os grupos.
-
-PENDÊNCIA REAL
-A versão web usada nesta revisão não ofereceu upload de capa.
-Falta reaplicar o ícone em Quem Veio. A retirada dos quatro grupos antigos
-e a aplicação dos demais ícones já foram observadas no perfil e ocorreram
-fora desta execução do navegador.
+O arquivo 04-quem-veio.png é apenas um master preservado; não é necessário
+usá-lo agora. Para eventual troca das outras capas, salve o PNG na galeria
+e use Editar destaque / Editar capa. Não é necessário publicá-lo como Story.
 
 CONTINUIDADE EDITORIAL
+Só reconsiderar Quem Veio com vários relatos autênticos e relevantes.
 Visite já tem exterior e link para o site; o próximo complemento deve
-explicar endereço completo e reservas. Quem Veio deve crescer apenas com
-relatos autênticos. Esses complementos futuros ainda não foram publicados.
+explicar endereço completo e reservas. Esse complemento não foi publicado.

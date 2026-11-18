@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 Livre. Atendimento Jotform revisado em 14/11: apresentação, Réveillon e reservas corrigidos; prévia validada e Direct reativado. Ver `docs/instagram-atendimento/REVISAO_2026-11-14.md`. Pendências anteriores preservadas nos registros abaixo.
+> **🚦 Status atual:** 🟢 Livre. A Casa recebeu quatro Stories novos, publicados e conferidos; retirada de Quem Veio pendente no aplicativo. Estado e limites em `docs/marketing/DESTAQUES_INSTAGRAM_2026-11-18.md`.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -678,3 +678,37 @@ Relatório e roteiro do celular atualizados para o estado corrigido.
 Capturas de QA e inventário anterior preservados fora do Git, em output.
 Sem Stories novos, exclusão de originais, alteração de anúncios, Direct,
 credencial, banco ou rotina. Capas vetoriais não foram modificadas.
+
+## 2026-11-18 · Codex — A Casa ampliado; retirar Quem Veio no aplicativo
+
+O proprietário pediu que A Casa apresentasse melhor o espaço e que Quem
+Veio saísse se não houvesse mais material útil. Publicados quatro Stories
+novos com fotos reais: chegada/fachada, mesas, vista da varanda e fim de
+tarde. Três fotos de Luisa Dörr com crédito; uma do acervo Sir Fisher.
+Fotos inteiras, sem retoque, geração de pessoas ou alegação de depoimento.
+Site `5984a56` contém apenas os quatro JPEGs; URLs HTTP 200 e hashes iguais
+aos arquivos locais; validação de imagens e Pages concluídos com sucesso.
+
+Publicação pelo cliente Meta existente, separado do MCP somente leitura,
+após confirmar @sirfisherfc, permissão e quota. As quatro mídias foram
+relidas no destino. Uma trava do OneDrive no recibo interrompeu o lote
+depois do primeiro envio; somente os três restantes foram publicados na
+continuação, sem duplicar. Não reexecutar os scripts de envio. Fontes,
+manifesto, recibos e verificação ficam privados em output/instagram-
+destaques-2026-11-18/casa-revisada/, fora do Git e sem credenciais.
+
+No Destaque A Casa, os dois itens anteriores foram substituídos pelos
+quatro novos. Reaberto em página nova e percorrido visualmente de 1 a 4:
+imagens, títulos, ordem 01/04 → 04/04 e capa de guarda-sol conferidos. Demais
+grupos preservados. Quem Veio continua com um Story: não há mais relatos
+úteis suficientes. A web não oferece exclusão de coleção e desabilita
+Avançar com seleção vazia; tentativa cancelada sem excluir originais.
+Retirada pendente pelo aplicativo, já comunicada ao proprietário.
+
+Perfil final observado: A Casa 4, Visite 2, Quem Veio 1, Sabores 4, Drinks 4,
+nessa ordem. Depois da retirada de Quem Veio: 14 posições em quatro grupos.
+Relatório e roteiro do celular atualizados. Sem mudança em anúncios,
+Direct, token, banco, agendamentos ou feed. Reservas sem alterações; pares
+de orientações da raiz idênticos. Diff e conferência visual concluídos.
+O gate local com --require-node não encontrou Node no PATH deste PC;
+validação de JavaScript depende do Quality gates no GitHub Actions.
