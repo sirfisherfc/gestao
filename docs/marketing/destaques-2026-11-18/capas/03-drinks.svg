@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 256 256">
+  <title>Sir Fisher — Drinks</title>
+  <desc>taca; fundo azul, traco creme, acento dourado; sem texto na arte.</desc>
+  <rect width="256" height="256" fill="#12293d"/>
+  <path d="M 80 72 L 80 104 C 80 135 101 153 128 153 C 155 153 176 135 176 104 L 176 72 Z" fill="none" stroke="#f6ecd9" stroke-width="8.0" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 92 110 C 111 118 145 118 164 110" fill="none" stroke="#f0a63f" stroke-width="8.0" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 128 154 L 128 199" fill="none" stroke="#f6ecd9" stroke-width="8.0" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 98 199 L 158 199" fill="none" stroke="#f6ecd9" stroke-width="8.0" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

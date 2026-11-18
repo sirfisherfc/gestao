@@ -619,3 +619,33 @@ Somente documentação; sem código, banco, anúncio, Direct, rotina ou segredo
 alterado/incluído. Diff e pares de orientações da raiz conferidos; site e
 reservas sem alterações da tarefa. Leituras reais substituem qualquer
 suposição de falha baseada apenas no cadastro MCP.
+
+## 2026-11-18 · Codex — Nova curadoria dos Destaques Instagram
+
+Proprietário confirmou somente Destaques, com prioridade experiência e
+identidade. Publicadas e relidas pela interface cinco coleções novas:
+A Casa (3), Sabores (6), Drinks (4), Quem Veio (1), Visite (2), nessa ordem.
+Reutilizados Stories de novembro já publicados; sem novos envios de Story,
+alteração de feed, anúncio, Direct ou credencial. Quem Veio usa comentários
+reais do Instagram, não avaliações Google ou depoimentos inventados.
+
+Inventário anterior: 64 posições em quatro coleções; 53 quadros/datas dos
+grupos Foods/Ambiente/Clientes conferidos. Há duplicações entre grupos.
+Não houve reprodução integral de todos os vídeos nem ranking completo por
+alcance. Duas amostras de insights históricos mostram audiência; não dizer
+que todo conteúdo antigo teve pouco impacto. Benchmarks reais: Illa Mare,
+Terra do Sol e Coco Bambu. Decisões editoriais e limites no relatório em
+docs/marketing/DESTAQUES_INSTAGRAM_2026-11-18.md.
+
+Pendência explícita de acabamento no celular: aplicar cinco capas novas,
+como escolhido pelo proprietário, e retirar Influencers/Foods/Ambiente/
+Clientes da vitrine preservando o arquivo. A web não apresentou upload de
+capa nem exclusão da coleção inteira; as quatro antigas continuam online.
+Não declarar limpeza concluída. Capas temporárias novas são fotográficas.
+Visite ainda merece complemento específico de endereço/reservas.
+
+Ícones PNG/SVG, gerador e QA versionados junto do relatório, sem fotos de
+clientes. ZIP privado de entrega em output/instagram-destaques-2026-11-18/;
+inventário, capturas e URLs temporárias fora do Git. Capas verificadas em
+1080px/corte circular64px; quantidades novas relidas; diff documental e
+pares de orientações da raiz conferidos. Nenhuma rotina nova criada.

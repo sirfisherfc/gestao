@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 256 256">
+  <title>Sir Fisher — Visite</title>
+  <desc>pin de localizacao; fundo azul, traco creme, acento dourado; sem texto na arte.</desc>
+  <rect width="256" height="256" fill="#12293d"/>
+  <path d="M 128 199 C 116 181 77 141 77 111 C 77 80 99 61 128 61 C 157 61 179 80 179 111 C 179 141 140 181 128 199 Z" fill="none" stroke="#f6ecd9" stroke-width="8.0" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="128" cy="111" r="16" fill="#f0a63f" stroke="none" stroke-width="8.0" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

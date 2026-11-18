@@ -1,0 +1,140 @@
+{
+  "brand": "Sir Fisher",
+  "date": "2026-11-18",
+  "canvas_px": [
+    1080,
+    1080
+  ],
+  "palette": {
+    "background": "#12293d",
+    "stroke": "#f6ecd9",
+    "accent": "#f0a63f"
+  },
+  "stroke_width_viewbox": 8.0,
+  "viewbox": [
+    0,
+    0,
+    256,
+    256
+  ],
+  "categories": [
+    {
+      "slug": "01-a-casa",
+      "label": "A Casa",
+      "icon": "guarda-sol e ondas"
+    },
+    {
+      "slug": "02-sabores",
+      "label": "Sabores",
+      "icon": "prato e talheres"
+    },
+    {
+      "slug": "03-drinks",
+      "label": "Drinks",
+      "icon": "taca"
+    },
+    {
+      "slug": "04-quem-veio",
+      "label": "Quem Veio",
+      "icon": "balao com coracao"
+    },
+    {
+      "slug": "05-visite",
+      "label": "Visite",
+      "icon": "pin de localizacao"
+    }
+  ],
+  "validation": [
+    {
+      "file": "01-a-casa.png",
+      "size": [
+        1080,
+        1080
+      ],
+      "mode": "RGB",
+      "content_bounds_px": [
+        231,
+        240,
+        849,
+        879
+      ],
+      "conservative_content_radius_px": 458.7,
+      "safe_circle_radius_px": 486,
+      "within_safe_circle": true
+    },
+    {
+      "file": "02-sabores.png",
+      "size": [
+        1080,
+        1080
+      ],
+      "mode": "RGB",
+      "content_bounds_px": [
+        235,
+        311,
+        833,
+        816
+      ],
+      "conservative_content_radius_px": 411.3,
+      "safe_circle_radius_px": 486,
+      "within_safe_circle": true
+    },
+    {
+      "file": "03-drinks.png",
+      "size": [
+        1080,
+        1080
+      ],
+      "mode": "RGB",
+      "content_bounds_px": [
+        319,
+        285,
+        761,
+        858
+      ],
+      "conservative_content_radius_px": 387.3,
+      "safe_circle_radius_px": 486,
+      "within_safe_circle": true
+    },
+    {
+      "file": "04-quem-veio.png",
+      "size": [
+        1080,
+        1080
+      ],
+      "mode": "RGB",
+      "content_bounds_px": [
+        235,
+        277,
+        845,
+        845
+      ],
+      "conservative_content_radius_px": 431.3,
+      "safe_circle_radius_px": 486,
+      "within_safe_circle": true
+    },
+    {
+      "file": "05-visite.png",
+      "size": [
+        1080,
+        1080
+      ],
+      "mode": "RGB",
+      "content_bounds_px": [
+        307,
+        239,
+        773,
+        858
+      ],
+      "conservative_content_radius_px": 394.2,
+      "safe_circle_radius_px": 486,
+      "within_safe_circle": true
+    }
+  ],
+  "notes": [
+    "Icones originais em vetor; sem fotos, textura ou redesenho da marca.",
+    "SVG sem elementos de texto visivel; PNG RGB de fundo solido.",
+    "Prancha inclui simulacao circular e amostras reais a 64 px.",
+    "O script escreve apenas nesta pasta. Nenhum acesso a Instagram ou rede."
+  ]
+}

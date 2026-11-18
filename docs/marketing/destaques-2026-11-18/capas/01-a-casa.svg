@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 256 256">
+  <title>Sir Fisher — A Casa</title>
+  <desc>guarda-sol e ondas; fundo azul, traco creme, acento dourado; sem texto na arte.</desc>
+  <rect width="256" height="256" fill="#12293d"/>
+  <circle cx="187" cy="66" r="9" fill="#f0a63f" stroke="none" stroke-width="8.0" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 59 112 C 68 52 188 52 197 112 Z" fill="none" stroke="#f6ecd9" stroke-width="8.0" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 128 70 C 111 83 106 94 105 112" fill="none" stroke="#f6ecd9" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 128 70 C 145 83 150 94 151 112" fill="none" stroke="#f6ecd9" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 128 113 L 128 163" fill="none" stroke="#f6ecd9" stroke-width="8.0" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 61 178 C 72 170 83 170 94 178 C 105 186 116 186 127 178 C 138 170 149 170 160 178 C 171 186 182 186 193 178" fill="none" stroke="#f6ecd9" stroke-width="8.0" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 78 198 C 89 190 100 190 111 198 C 122 206 133 206 144 198 C 155 190 166 190 177 198" fill="none" stroke="#f6ecd9" stroke-width="8.0" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

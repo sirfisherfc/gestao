@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 256 256">
+  <title>Sir Fisher — Sabores</title>
+  <desc>prato e talheres; fundo azul, traco creme, acento dourado; sem texto na arte.</desc>
+  <rect width="256" height="256" fill="#12293d"/>
+  <circle cx="128" cy="128" r="46" fill="none" stroke="#f6ecd9" stroke-width="8.0" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 60 78 L 60 115 C 60 131 82 131 82 115 L 82 78" fill="none" stroke="#f6ecd9" stroke-width="8.0" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 71 79 L 71 189" fill="none" stroke="#f6ecd9" stroke-width="8.0" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 193 188 L 193 78 C 177 94 177 112 177 131 L 193 131" fill="none" stroke="#f6ecd9" stroke-width="8.0" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 105 136 C 117 145 139 145 151 136" fill="none" stroke="#f0a63f" stroke-width="8.0" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
