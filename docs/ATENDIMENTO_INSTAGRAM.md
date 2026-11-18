@@ -1,5 +1,18 @@
 # Atendimento do Instagram @sirfisherfc
 
+## Complemento de 18/11/2026: filtro de dúvidas no feed e Stories
+
+Após pedido do proprietário, ambos os canais usam exclusão de interação
+social sem pergunta ou pedido de informação, sem fallback. Reclamações reais
+e pedido de atendimento não são excluídos por essa regra. Feed ativado para
+comentários em posts/Reels, respondendo pela base somente por Direct, sem
+comentário público automático. Stories mantêm a base. DMs comuns e menções
+preservados. Controles em Story: emoji sem resposta em 64 s; dúvida sem
+interrogação recebeu link do portal. Entrega do feed ainda sem teste por
+comentário novo. Cota consultada: 20/100, sem comprovação de que excluir
+uma mensagem zere o consumo. [Texto salvo e limites](instagram-atendimento/REVISAO_2026-11-18.md#complemento-filtro-de-dúvidas-em-feed-e-stories).
+As recomendações e estados da primeira avaliação abaixo são históricos.
+
 ## Atualização de 18/11/2026: Stories ativos; feed avaliado
 
 O atendimento a respostas de Stories estava desligado, embora DMs estivessem

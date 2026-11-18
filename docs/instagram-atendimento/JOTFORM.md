@@ -1,5 +1,15 @@
 # Atendimento ativo no Jotform
 
+Complemento de **18/11/2026**: feed e Stories agora usam exclusão de
+interações sociais sem pergunta ou pedido de informação, sem fallback.
+Feed ativado para comentários nos posts e Reels, com resposta somente por
+Direct pela base; resposta pública desligada. Stories mantêm a base e
+todos os Stories. Teste real: reação só com emojis sem resposta por 64 s;
+dúvida sem interrogação recebeu o portal de reservas. A entrega do feed
+ainda não foi testada por novo comentário. Cota consultada: **20/100**;
+filtro não comprova isenção de consumo. DMs comuns preservados. Detalhes e
+texto exato em [REVISAO_2026-11-18.md](REVISAO_2026-11-18.md#complemento-filtro-de-dúvidas-em-feed-e-stories).
+
 Revisão de **18/11/2026**: respostas a Stories ativadas e salvas para
 `@sirfisherfc`, com **All Stories**, **All Story Replies** e resposta pela
 base de conhecimento. A configuração anterior tinha apenas DMs ativos e
@@ -7,7 +17,7 @@ não cobria a solicitação recebida em resposta a um Story. Teste real pela
 conta do proprietário recebeu resposta no Instagram e foi registrado como
 Story no Jotform; contador passou de zero para uma resposta de Story.
 A solicitação antiga foi aceita e respondida manualmente, conforme pedido
-expresso. Comentários do feed e menções continuam desligados. Cota após o
+expresso. Na primeira revisão, comentários e menções ficaram desligados. Cota após o
 teste: **19/100**. [Diagnóstico e avaliação do feed](REVISAO_2026-11-18.md).
 
 Diagnóstico de 17/11/2026: no Direct real, a primeira resposta de cada conversa
@@ -133,8 +143,9 @@ ficou indisponível; depois o agente foi reativado para os testes. O botão
 | Canal/integração | Estado final conferido |
 | --- | --- |
 | Jotform Direct | Ativo para All DMs; reativado após a ampliação e os testes de segurança |
-| Jotform Stories | Ativo desde 18/11/2026; All Stories, All Story Replies, base de conhecimento; um teste real entregue |
-| Jotform comentários e menções | Desligados; feed avaliado em 18/11, com recomendação de atendimento pontual pelo baixo volume útil |
+| Jotform Stories | Ativo desde 18/11/2026; todos os Stories e respostas, com exclusão social sem dúvida e base de conhecimento; controles reais positivo/negativo conferidos |
+| Jotform comentários | Ativo no complemento de 18/11; todos os posts/Reels com exclusão social sem dúvida, resposta por DM; comentário público OFF; entrega por comentário novo ainda não testada |
+| Jotform menções | Desligadas |
 | Piloto próprio Supabase/Gemini | Pausa global ligada; modo efetivo OFF; público próprio segue OFF |
 | FAQ nativa Meta | Instagram desmarcado e salvo; Messenger preservado |
 | Palavra-chave nativa “Instagram - orientar reserva” | Desligada |
@@ -212,8 +223,10 @@ uma região ou um modelo específico.
 ## Custo e manutenção
 
 Plano **Starter gratuito**, sem cartão ou contratação. A conta mostrou
-**19 de 100 conversas mensais usadas em 18/11/2026**, após o teste de Story
-(eram 18 antes; o registro de 02/11 era 2/100). A cota é da conta do
+**20 de 100 conversas mensais usadas em 18/11/2026**, na consulta do
+complemento de filtros (19 após o primeiro teste de Story; 18 antes;
+o registro de 02/11 era 2/100). Filtro sem resposta não comprova isenção
+de consumo e 100 conversas não são 100 mensagens. A cota é da conta do
 proprietário e pode ser compartilhada com outros agentes que ele criar.
 Ao atingir a cota, o fornecedor para de responder até a renovação ou troca
 de plano. Não contratar nem prometer cobertura mensal integral sem medir

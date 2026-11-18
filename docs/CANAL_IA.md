@@ -787,3 +787,32 @@ ATENDIMENTO_INSTAGRAM atualizados. Conteúdo individual do feed permanece
 privado em tmp, fora do Git e da base do agente. Não houve nova credencial,
 assinatura, piloto, cron, alteração de banco, anúncio ou feed. Site/reservas
 sem mudanças; documentação revisada e pares das orientações da raiz idênticos.
+
+## 2026-11-18 · Codex — Jotform: filtro de dúvidas no feed e Stories
+
+Complemento solicitado pelo proprietário: exclusão nativa de interação
+social sem pergunta/pedido de informação, sem fallback, nos dois canais.
+Preserva dúvida sem interrogação, reclamação real e pedido de atendimento;
+mantém a exclusão de venda artificial de seguidores. Cuidado: vírgulas no
+texto viram categorias separadas ao salvar. Primeira redação foi dividida;
+fragmentos corrigidos/removidos. Telas finais relidas após reload com
+exatamente duas categorias, texto sem vírgulas no relatório de 18/11.
+
+Feed agora ativo para posts/Reels, editando a automação antiga: resposta
+somente por DM pela base; comentário público OFF, sem agradecimento
+automático. Não foi criado comentário público de teste nem feita resposta
+retroativa. Entrega a novo comentário continua sem ensaio; estado salvo não
+é prova de entrega. Stories preservam base/todos os Stories com novo filtro.
+Agente pausado na preparação e Enabled conferido após reativar/recarregar;
+DMs comuns, menções OFF, memória, persona e base preservados.
+
+Controle real pela conta do proprietário: reação só de emojis sem nova
+resposta por pelo menos 64 s; dúvida sobre reserva para quatro pessoas sem
+interrogação recebeu o portal, sem disponibilidade/confirmar reserva.
+Cota consultada 20/100; também houve Direct real no intervalo. Teste usa
+thread existente e não prova isenção de consumo para conversa excluída.
+Não prometer economia exata: cota é de conversas, não mensagens.
+
+JOTFORM, ATENDIMENTO_INSTAGRAM e relatório de 18/11 atualizados. Só
+documentação no Git; sem segredo, banco, token, anúncio, plano ou rotina
+alterados. Site/reservas sem mudanças; pares das orientações da raiz iguais.
