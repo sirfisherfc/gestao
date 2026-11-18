@@ -13,6 +13,29 @@ A conta autenticada e `@sirfisherfc`, ID `17841439937145607`. A integracao
 usa a API oficial da Meta v26.0 e o mesmo app/token da rotina do Perfil da
 Empresa. As quatro CLIs usadas pelo proprietario fizeram leituras reais.
 
+## Revalidação em 18/11/2026 neste PC
+
+Entre 14h17 e 14h19 (Fortaleza), a credencial canônica existente confirmou
+`@sirfisherfc` por duas leituras HTTP novas, sem cache. As quatro permissões
+necessárias estavam concedidas. O `debug_token` retornou `SYSTEM_USER`,
+`is_valid=true`, `expires_at=0` e `data_access_expires_at=0`: sem vencimento
+programado informado, sem garantir que o acesso não possa ser revogado.
+Uma consulta nova de `reach` da conta, com janela pedida de 16/11, retornou
+valor disponível. Nenhuma renovação ou substituição do token foi necessária.
+
+O servidor stdio também foi iniciado e validado por cliente SDK: initialize,
+listagem das sete ferramentas e `instagram_identity(refresh=true)` com
+conta correta e duas leituras HTTP novas. Foi usado o Python privado de
+`%LOCALAPPDATA%/SirFisher/analytics-mcp/0.8.0/`, com `mcp 2.3.0`; o Python
+padrão deste PC tem `mcp 1.28.1` e não oferece `MCPServer`.
+
+**Limite desta sessão:** `instagram_analytics` não consta no cadastro local
+do Codex nem nas ferramentas desta conversa. O servidor funciona no teste
+isolado, mas isso não comprova conexão pela interface aberta. O cadastro
+histórico por cliente abaixo não representa a instalação atual deste PC.
+Nenhuma configuração de cliente, permissão, credencial, publicação,
+anúncio ou atendimento Direct foi alterado nesta verificação.
+
 ## O que existia e o que foi comprovado
 
 | Item | Documentado/configurado antes | Prova desta entrega |

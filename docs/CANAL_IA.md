@@ -598,3 +598,24 @@ português. Testado com regra na persona e uma ação "Always talk about"
 da sessão, sem a parte em português. Persona restaurada ao texto original;
 ação desativada, sem exclusão. Não reativar sem teste que mostre as duas
 línguas. Apresentação como IA: o proprietário decidiu deixar como está.
+
+## 2026-11-18 · Codex — API, token e MCP Instagram revalidados
+
+Consulta do proprietário sobre o funcionamento do acesso. Entre 14h17 e
+14h19 Fortaleza, identidade `@sirfisherfc` confirmada sem cache, quatro
+permissões de leitura concedidas e insight `reach` disponível em consulta
+nova. `debug_token`: `SYSTEM_USER`, válido, sem vencimento programado
+informado. Sem renovação ou substituição da credencial canônica.
+
+Servidor MCP stdio passou initialize, listagem das sete ferramentas e
+`instagram_identity(refresh=true)`, com duas leituras HTTP novas. Usar o
+Python privado analytics-mcp/0.8.0 (SDK 2.3.0); o Python padrão deste PC tem
+SDK 1.28.1 sem MCPServer. Pendência constatada: `instagram_analytics` ausente
+do cadastro Codex deste PC e das ferramentas desta sessão. O teste isolado
+não comprova conexão na interface aberta. Configuração preservada.
+
+Guia INTEGRACAO_INSTAGRAM_ANALYTICS atualizado com esse estado local.
+Somente documentação; sem código, banco, anúncio, Direct, rotina ou segredo
+alterado/incluído. Diff e pares de orientações da raiz conferidos; site e
+reservas sem alterações da tarefa. Leituras reais substituem qualquer
+suposição de falha baseada apenas no cadastro MCP.
