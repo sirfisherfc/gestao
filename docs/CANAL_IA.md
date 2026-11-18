@@ -649,3 +649,32 @@ clientes. ZIP privado de entrega em output/instagram-destaques-2026-11-18/;
 inventário, capturas e URLs temporárias fora do Git. Capas verificadas em
 1080px/corte circular64px; quantidades novas relidas; diff documental e
 pares de orientações da raiz conferidos. Nenhuma rotina nova criada.
+
+## 2026-11-18 · Codex — Correção da seleção publicada nos Destaques
+
+O proprietário apontou corretamente que Quem Veio só mostrava Big Ben
+Fries. A seleção anterior estava errada e a conferência de datas/quantidades
+não havia assegurado correspondência visual. Corrigido no mesmo Destaque:
+agora contém o Story de 12/11 com dois comentários reais sobre o Fisher
+Burger; a batata saiu dessa coleção, preservando o original.
+
+Auditoria visual direta dos outros grupos encontrou erros adicionais:
+retirado croquete de A Casa; retirados de Sabores varanda com horário
+9h–23h e reel redundante de dadinho com abertura pouco informativa;
+retirado dadinho de Visite e incluído o card dos executivos com link ao
+site, selecionado e conferido na própria interface. Contagens corrigidas:
+A Casa 2, Sabores 4, Drinks 4, Quem Veio 1, Visite 2. Drinks estava correto.
+Reabertas as coleções para verificar cada posição visualmente. URLs de
+mídia/miniaturas e contagem não bastam como validação editorial.
+
+O perfil agora exibe somente os cinco grupos novos. Quatro ícones já estão
+aplicados por ação fora desta execução do navegador; as quatro coleções
+antigas não aparecem mais. Quem Veio recebeu capa fotográfica durante a
+correção e precisa reaplicar o ícone pelo aplicativo. Ordem atual observada:
+Visite, Quem Veio, A Casa, Sabores, Drinks. Não dizer que preservou a ordem
+proposta inicialmente. Não presumir que editar capa reordene o perfil.
+
+Relatório e roteiro do celular atualizados para o estado corrigido.
+Capturas de QA e inventário anterior preservados fora do Git, em output.
+Sem Stories novos, exclusão de originais, alteração de anúncios, Direct,
+credencial, banco ou rotina. Capas vetoriais não foram modificadas.

@@ -7,36 +7,41 @@ Posts fixados no feed, anúncios e atendimento não foram alterados.
 ## Resultado publicado e acabamento pendente
 
 Cinco coleções novas foram criadas pela sessão autorizada de `@sirfisherfc`.
-A ordem e as quantidades abaixo foram conferidas novamente no perfil e
-no visualizador de cada coleção, depois de salvar:
+Após o proprietário apontar que Quem Veio mostrava somente batatas, a
+conferência visual direta comprovou erro de seleção. A validação inicial
+de datas e quantidades não havia assegurado a correspondência do conteúdo.
+Quem Veio foi corrigido; a revisão dos demais encontrou e retirou outros
+Stories fora de categoria. A tabela abaixo registra o estado corrigido,
+com leitura visual do conteúdo publicado, não apenas suas miniaturas.
 
-| Ordem | Destaque | Stories | Conteúdo selecionado |
+| Grupo | Destaque | Stories | Conteúdo selecionado |
 | --- | --- | ---: | --- |
-| 1 | [A Casa](https://www.instagram.com/stories/highlights/18094776530228160/) | 3 | Vista da orla, momento ao pôr do sol e convivência à mesa. |
-| 2 | [Sabores](https://www.instagram.com/stories/highlights/17968858005249528/) | 6 | Fisher Burger, isca de peixe, croquete, Big Ben Fries, dadinho de tapioca e apresentação dos executivos com acesso ao site. |
-| 3 | [Drinks](https://www.instagram.com/stories/highlights/17931450672426164/) | 4 | Margarita, Tropical/Melancia, Fitzgerald e Sherlock Holmes Gin, em Stories que já identificam as bebidas. |
-| 4 | [Quem Veio](https://www.instagram.com/stories/highlights/17984232828132521/) | 1 | Story já publicado com dois comentários reais do Instagram sobre o Fisher Burger. Não são avaliações Google nem falas criadas para esta revisão. |
-| 5 | [Visite](https://www.instagram.com/stories/highlights/18082097681725581/) | 2 | Exterior da casa e apresentação com link para o site. Ainda merece complemento específico de localização e reservas. |
+| 1 | [A Casa](https://www.instagram.com/stories/highlights/18094776530228160/) | 2 | Vista da orla e vídeo de ambiente/brinde diante do mar. O croquete que estava na coleção foi retirado. |
+| 2 | [Sabores](https://www.instagram.com/stories/highlights/17968858005249528/) | 4 | Bolinhos, hambúrguer, preparo de Fisher Burger e dadinho de tapioca. Retirados o card da varanda com horário incorreto e um segundo vídeo redundante de dadinho com abertura pouco informativa. |
+| 3 | [Drinks](https://www.instagram.com/stories/highlights/17931450672426164/) | 4 | Margarita, Tropical/Melancita, Fitzgerald e Sherlock Holmes Gin, em Stories que já identificam as bebidas. |
+| 4 | [Quem Veio](https://www.instagram.com/stories/highlights/17984232828132521/) | 1 | Agora contém efetivamente o Story de 12/11 com dois comentários reais do Instagram sobre o Fisher Burger. A Big Ben Fries foi retirada dessa coleção, sem excluir seu original. Não são avaliações Google nem falas criadas para esta revisão. |
+| 5 | [Visite](https://www.instagram.com/stories/highlights/18082097681725581/) | 2 | Convite com exterior da casa e apresentação dos executivos com link para o site. O dadinho que estava na coleção foi retirado. Ainda merece complemento específico de localização e reservas. |
 
-São 16 posições em cinco coleções, reutilizando Stories de novembro de
-2026 já publicados pela casa. Há reutilização entre categorias: não são
-16 peças inéditas ou necessariamente 16 Stories distintos. Nenhum Story
+São 13 posições em cinco coleções, reutilizando Stories de novembro de
+2026 já publicados pela casa. Não são peças inéditas. Nenhum Story
 novo foi enviado ao público durante esta entrega.
 
-**A limpeza ainda precisa de acabamento no aplicativo.** As coleções
-`Influencers`, `Foods`, `Ambiente` e `Clientes` continuam acessíveis à direita
-das cinco novas. A interface web testada permite criar e editar, mas não
-apresentou comando de excluir a coleção inteira. Salvar `Influencers` sem
-alterações de nome/conteúdo preservou a coleção; não foi interpretado como
-exclusão bem-sucedida. Não foram usadas rotas privadas nem exclusão de
-Stories como atalho. O proprietário escolheu aplicar os ícones pelo celular.
+**Acabamento observado após a correção:** as quatro coleções antigas já
+não aparecem no perfil, e os ícones de A Casa, Sabores, Drinks e Visite
+estão aplicados. Essas mudanças ocorreram fora desta execução do navegador;
+não atribuir sua execução ao Codex. Quem Veio recebeu capa fotográfica
+provisória durante a correção e precisa receber novamente o ícone pelo
+aplicativo. Preservar o arquivo de Stories.
 
-No mesmo acabamento, retirar somente essas quatro coleções antigas da
-vitrine e aplicar as cinco capas novas. Preservar o arquivo de Stories;
-não selecionar comandos de excluir os Stories originais ou o arquivo.
-As capas atuais das coleções novas são imagens dos próprios Stories,
-provisórias até a aplicação dos ícones. Não declarar a reformulação
-integralmente concluída antes de conferir essas duas etapas no perfil.
+A ordem observada após as inclusões é Visite, Quem Veio, A Casa, Sabores,
+Drinks. Não corresponde à ordem inicialmente proposta; registrar a ordem
+efetivamente exibida e não prometer reordenação automática por editar capas.
+Não foram usadas rotas privadas nem exclusão de Stories como atalho.
+
+Em próximas edições, aguardar a grade terminar de carregar e conferir a
+seleção marcada. Depois de salvar, reabrir a coleção e conferir cada Story
+visualmente. IDs, nomes de arquivos, datas e quantidades são evidência
+auxiliar; sozinhos não comprovam a curadoria publicada.
 
 ## Diagnóstico e critério de curadoria
 
