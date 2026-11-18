@@ -589,3 +589,11 @@ persona; a prévia nunca faz isso. É o aviso do canal Instagram da Jotform
 (o suporte diz que não pode ser removido). Não mexer mais em persona, fontes
 ou ações por isso; depende de decisão do proprietário. Detalhes em
 `docs/instagram-atendimento/REVISAO_2026-11-16.md`. Nada alterado na Jotform.
+## 2026-11-17 · Claude Code — Jotform: resposta bilíngue não funciona
+
+Pedido: em outro idioma, responder no idioma da pessoa e repetir em
+português. Testado com regra na persona e uma ação "Always talk about"
+(condição livre de idioma). Na prévia, três respostas saíram só no idioma
+da sessão, sem a parte em português. Persona restaurada ao texto original;
+ação desativada, sem exclusão. Não reativar sem teste que mostre as duas
+línguas. Apresentação como IA: o proprietário decidiu deixar como está.

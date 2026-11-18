@@ -5,6 +5,9 @@ chama a pessoa pelo nome e se apresenta como IA (16 de 17 conversas desde 01/11)
 seja qual for a persona. Na prévia isso não acontece. É comportamento do canal
 Instagram da Jotform, que o suporte diz não poder ser removido; não insistir em
 regras de persona. [Evidências e opções](REVISAO_2026-11-16.md#diagnóstico-de-1711-a-apresentação-vem-do-canal-instagram).
+O proprietário decidiu deixar como está. Resposta bilíngue (idioma da pessoa
+mais português) foi testada no mesmo dia e não funcionou; a configuração
+foi revertida e a ação ficou desativada ([teste](REVISAO_2026-11-16.md#resposta-bilíngue-testada-e-revertida-1711)).
 
 Revisão de 16/11/2026: uma ação por cupom (Fortal em Dobro, Prime Gourmet e
 Duo Gourmet) responde só sobre o app perguntado, com as regras copiadas dos
