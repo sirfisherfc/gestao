@@ -1,5 +1,11 @@
 # Atendimento ativo no Jotform
 
+Diagnóstico de 17/11/2026: no Direct real, a primeira resposta de cada conversa
+chama a pessoa pelo nome e se apresenta como IA (16 de 17 conversas desde 01/11),
+seja qual for a persona. Na prévia isso não acontece. É comportamento do canal
+Instagram da Jotform, que o suporte diz não poder ser removido; não insistir em
+regras de persona. [Evidências e opções](REVISAO_2026-11-16.md#diagnóstico-de-1711-a-apresentação-vem-do-canal-instagram).
+
 Revisão de 16/11/2026: uma ação por cupom (Fortal em Dobro, Prime Gourmet e
 Duo Gourmet) responde só sobre o app perguntado, com as regras copiadas dos
 apps; propostas de parceria pedem mídia kit pelo WhatsApp; toda menção ao
@@ -31,8 +37,9 @@ conexão Jotform foi testada por uma conta fora do piloto antigo.
 
 O agente responde em português, com mensagens curtas e base pública
 revisada. Desde 14/11/2026, a saudação simples usa “Oi! Como posso ajudar?”.
-A identificação como IA ou assistente virtual fica para uma pergunta
-explícita sobre quem atende ou sobre automação, com resposta honesta.
+A persona reserva a identificação como IA para uma pergunta explícita, mas
+no Direct real o canal da Jotform faz o agente se apresentar como IA na
+primeira resposta de cada conversa (ver diagnóstico de 17/11 no topo).
 Perguntas sobre comida, pratos, almoço, porções, bebidas e preços devem
 receber o link completo https://www.sirfisher.com.br/cardapio/ junto da
 informação confirmada. Preço ou disponibilidade sem fonte atual segue

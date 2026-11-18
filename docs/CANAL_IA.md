@@ -579,3 +579,13 @@ transação, conferida pelo acesso público (`rv_public_event`, `rv_simulate`).
 Preços fixos atualizados em `site/reveillon/index.html` e
 `reservas/reveillon.html`; seed e handoff do Réveillon registram os dois
 lotes. Sugestão em aberto: Lote 3 em dezembro para as últimas 2 ou 3 mesas.
+
+## 2026-11-17 · Claude Code — Jotform: apresentação como IA é do canal
+
+A regra IDENTIDADE de 16/11 não resolveu: a conversa real das 18h57 abriu com
+"Soy tu asistente de IA". Pelo histórico, 16 de 17 conversas reais no Direct
+abrem com o nome da pessoa e a apresentação como IA, em todas as versões da
+persona; a prévia nunca faz isso. É o aviso do canal Instagram da Jotform
+(o suporte diz que não pode ser removido). Não mexer mais em persona, fontes
+ou ações por isso; depende de decisão do proprietário. Detalhes em
+`docs/instagram-atendimento/REVISAO_2026-11-16.md`. Nada alterado na Jotform.
