@@ -4,7 +4,7 @@ Revisão de 18/11/2026, a pedido do proprietário. Escopo confirmado: somente
 os Destaques abaixo da bio; prioridade para experiência e identidade.
 Posts fixados no feed, anúncios e atendimento não foram alterados.
 
-## Resultado publicado e retirada pendente
+## Resultado publicado
 
 Cinco coleções novas foram criadas pela sessão autorizada de `@sirfisherfc`.
 Após o proprietário apontar que Quem Veio mostrava somente batatas, a
@@ -15,20 +15,20 @@ Stories fora de categoria. Em seguida, o proprietário apontou que A Casa
 com dois itens não apresentava bem o espaço e que Quem Veio com um só item
 deveria sair se não houvesse mais material. A Casa recebeu quatro Stories
 novos com fotografias reais; não foi encontrado material suficiente para
-sustentar Quem Veio. A retirada dessa coleção ainda depende do aplicativo.
+sustentar Quem Veio. Na conferência final, essa coleção já não aparece no
+perfil; a retirada ocorreu fora desta execução do navegador.
 A tabela registra o estado efetivamente relido, não apenas miniaturas.
 
 | Grupo | Destaque | Stories | Conteúdo selecionado |
 | --- | --- | ---: | --- |
-| 1 | [A Casa](https://www.instagram.com/stories/highlights/18094776530228160/) | 4 | Sequência nova: Chegando ao Sir; À mesa, de frente para o mar; A vista das mesas; No fim de tarde. Substitui os dois itens anteriores e apresenta fachada, chegada, mesas, guarda-sóis e relação com a orla. |
+| 1 | [A Casa](https://www.instagram.com/stories/highlights/18094776530228160/) | 4 | Chegando ao Sir; À mesa, de frente para o mar; A vista das mesas; No fim de tarde. O encerramento agora usa outra foto da Luisa Dörr, com pessoa no parapeito, sol, mar e movimento na praia, evitando repetir a fachada da chegada. |
 | 2 | [Sabores](https://www.instagram.com/stories/highlights/17968858005249528/) | 4 | Bolinhos, hambúrguer, preparo de Fisher Burger e dadinho de tapioca. Retirados o card da varanda com horário incorreto e um segundo vídeo redundante de dadinho com abertura pouco informativa. |
 | 3 | [Drinks](https://www.instagram.com/stories/highlights/17931450672426164/) | 4 | Margarita, Tropical/Melancita, Fitzgerald e Sherlock Holmes Gin, em Stories que já identificam as bebidas. |
-| — | [Quem Veio](https://www.instagram.com/stories/highlights/17984232828132521/) | 1 | Retirada indicada pelo proprietário e ainda pendente no aplicativo. O único item útil é o Story de 12/11 com dois comentários reais sobre o Fisher Burger. Não ampliar com selfies, ensaio ou reposts antigos sem contexto. |
 | 4 | [Visite](https://www.instagram.com/stories/highlights/18082097681725581/) | 2 | Convite com exterior da casa e apresentação dos executivos com link para o site. O dadinho que estava na coleção foi retirado. Ainda merece complemento específico de localização e reservas. |
 
-O perfil ainda exibe cinco coleções e 15 posições. Depois de retirar
-Quem Veio, serão quatro coleções e 14 posições. Sabores, Drinks e Visite
-reutilizam Stories de novembro/2026 já publicados. Os quatro de A Casa
+O perfil exibe quatro coleções e 14 posições. Quem Veio não aparece mais.
+Sabores, Drinks e Visite reutilizam Stories de novembro/2026 já publicados.
+Os quatro de A Casa
 foram produzidos e publicados nesta revisão, antes de entrar no Destaque.
 
 **Acabamento observado após a correção:** as quatro coleções antigas já
@@ -36,10 +36,11 @@ não aparecem no perfil, e os ícones de A Casa, Sabores, Drinks e Visite
 estão aplicados. A aplicação desses ícones e a retirada das quatro coleções
 antigas ocorreram fora desta execução do navegador; não atribuir sua
 execução ao Codex. O ícone de guarda-sol de A Casa foi preservado e relido
-após salvar a sequência nova. Não reaplicar o ícone de Quem Veio: a decisão
-atual é retirar essa coleção, preservando o Story original no arquivo.
+após salvar a sequência nova. Não reaplicar o ícone de Quem Veio: essa
+coleção foi retirada da vitrine. Não houve exclusão de Stories originais
+por esta execução.
 
-A ordem final observada é A Casa, Visite, Quem Veio, Sabores, Drinks.
+A ordem final observada é A Casa, Visite, Sabores, Drinks.
 Não corresponde à ordem inicialmente proposta; registrar a ordem
 efetivamente exibida e não prometer reordenação automática por editar capas.
 Não foram usadas rotas privadas nem exclusão de Stories como atalho.
@@ -47,41 +48,80 @@ Não foram usadas rotas privadas nem exclusão de Stories como atalho.
 Na versão web desta conta, desmarcar o único item de Quem Veio desabilita
 Avançar, e o menu não oferece exclusão da coleção inteira. A tentativa foi
 cancelada sem excluir o Story. O proprietário foi orientado a usar, no
-aplicativo, a opção de excluir somente o Destaque Quem Veio. Não declarar
-essa retirada concluída enquanto a coleção ainda aparecer no perfil.
+aplicativo, a opção de excluir somente o Destaque Quem Veio. A retirada
+foi posteriormente observada ao reabrir o perfil, sem atribuir sua
+execução ao Codex.
 
 ## A Casa: quatro peças novas publicadas
 
-As quatro imagens de 1080 × 1920 usam fotografias reais inteiras, sem corte,
-retoque ou geração de pessoas/arquitetura. Azul, creme e dourado acompanham
-as capas; título, legenda e crédito ficam dentro da área segura. Três fotos
-são do ensaio de Luisa Dörr, com crédito visível, e uma é do acervo próprio
-Sir Fisher. Fotos de ensaio com pessoas não foram apresentadas como relatos
+As quatro imagens de 1080 × 1920 mantêm fotografias inteiras no layout.
+Azul, creme e dourado acompanham as capas; título, legenda e crédito ficam
+dentro da área segura. Três fontes são do ensaio de Luisa Dörr, com crédito
+visível, e uma é do acervo Sir Fisher. A terceira recebeu tratamento de cor
+com imagegen a pedido do proprietário; ver os critérios abaixo. Fotos de
+ensaio com pessoas não foram apresentadas como relatos
 espontâneos de clientes. A peça de chegada informa Av. Beira Mar, 3421,
 Meireles, conforme o endereço já publicado pela casa.
 
-Arquivos publicados no site, commit `5984a56`, conferidos com HTTP 200,
-tipo JPEG e hash igual ao original:
+Arquivos finais publicados no site, conferidos com HTTP 200, tipo JPEG,
+perfil sRGB e hash igual ao JPEG final aprovado. Os nomes novos preservam as
+versões anteriores. Títulos, numeração e créditos foram mantidos:
 
-1. [Chegando ao Sir](https://www.sirfisher.com.br/assets/img/instagram-casa/2026-11-18/01-chegando-ao-sir.jpg).
-2. [À mesa, de frente para o mar](https://www.sirfisher.com.br/assets/img/instagram-casa/2026-11-18/02-a-mesa.jpg).
-3. [A vista das mesas](https://www.sirfisher.com.br/assets/img/instagram-casa/2026-11-18/03-a-vista-das-mesas.jpg).
-4. [No fim de tarde](https://www.sirfisher.com.br/assets/img/instagram-casa/2026-11-18/04-no-fim-de-tarde.jpg).
+1. [Chegando ao Sir](https://www.sirfisher.com.br/assets/img/instagram-casa/2026-11-18/01-chegando-ao-sir-cor.jpg).
+2. [À mesa, de frente para o mar](https://www.sirfisher.com.br/assets/img/instagram-casa/2026-11-18/02-a-mesa-cor.jpg).
+3. [A vista das mesas](https://www.sirfisher.com.br/assets/img/instagram-casa/2026-11-18/03-a-vista-das-mesas-cor.jpg).
+4. [No fim de tarde — foto revisada](https://www.sirfisher.com.br/assets/img/instagram-casa/2026-11-18/04-no-fim-de-tarde-cor.jpg).
 
 A publicação usou o cliente Meta já existente, separado do MCP de leitura,
 após confirmar identidade, permissão e quota. As quatro mídias publicadas
 foram relidas em `IG/stories`. Uma trava do OneDrive na atualização do recibo
 local interrompeu o lote depois da primeira publicação. O estado remoto foi
 conferido e somente as três restantes foram enviadas, com recibo exclusivo
-por acréscimo. Não repetir os comandos de publicação: os quatro envios já
-estão confirmados, sem duplicação.
+por acréscimo. Não repetir os comandos de publicação: os quatro envios do
+lote inicial já estão confirmados, sem duplicação.
 
-No editor, os dois itens anteriores foram desmarcados e as quatro imagens
-novas foram marcadas depois de conferir seu conteúdo. Após salvar, o Destaque
+Na primeira montagem, os dois itens anteriores foram desmarcados. As quatro
+imagens novas foram marcadas depois de conferir seu conteúdo. Após salvar, o Destaque
 foi reaberto em página nova e percorrido de 1 a 4: títulos, fotografias e
 ordem 01/04 → 04/04 conferidos visualmente nas imagens efetivamente exibidas.
 O primeiro não tem Voltar e o quarto não tem Avançar. A capa de guarda-sol
 também foi relida; as demais categorias não foram editadas nesta etapa.
+
+**Ajuste da fotografia de encerramento:** o proprietário apontou que a
+fachada usada em No fim de tarde era muito parecida com a de Chegando ao
+Sir. Foi consultado o acervo completo de 44 fotos da Luisa Dörr. A foto
+original `LD_Fortaleza_Sir FIsher_447.jpg` apresenta uma pessoa no parapeito,
+sol e mar ao fundo e pessoas na praia; seu enquadramento difere da chegada
+e das mesas. A foto inteira aparece com crédito visível e legenda “O fim
+de tarde na Beira-Mar.” Uma versão intermediária dessa peça foi publicada
+antes do pedido seguinte, mas não chegou a ser anexada ao Destaque. Seus
+arquivos e recibo único permanecem em
+`output/instagram-destaques-2026-11-18/casa-ajuste-fim-de-tarde/`.
+
+**Harmonização de cor solicitada em seguida:** o proprietário apontou que
+a terceira foto tinha edição muito mais forte que as outras. A análise
+confirmou dois fatores: a saturação e o laranja da terceira eram maiores;
+as três fontes Luisa usavam Adobe RGB (1998), enquanto a terceira não tinha
+perfil ICC. O renderer anterior descartava o perfil ao colar as fotos no
+canvas, sem conversão de cor. Essa falha de exportação foi corrigida na
+nova montagem: as fotos 1, 2 e 4 passam por conversão ICC Adobe RGB → sRGB,
+sem filtro criativo, e os quatro JPEGs finais incorporam sRGB.
+
+A terceira foi editada pela ferramenta imagegen integrada, usando as fotos
+da Luisa como referência de cor natural. O pedido ao editor foi reduzir
+laranjas/amarelos, vibração, contraste e aparência de HDR, preservando a
+composição, objetos, inscrições e luz de pôr do sol. A revisão visual
+independente conferiu a coerência da cor e os elementos da cena. Não se
+trata de uma fotografia sem edição nem de conversão puramente matemática
+da terceira. As fotos de pessoas não passaram por reconstrução generativa.
+
+As quatro versões finais substituem as anteriores em A Casa, mantendo
+quatro posições, a sequência 01/04 → 04/04 e o ícone de guarda-sol. O quarto
+agora é a foto 447, em vez da fachada repetitiva. Originais e versões
+intermediárias foram preservados; a troca se limita à seleção do Destaque.
+Fontes, renderer, manifesto com hashes/perfis, prompt exato do imagegen,
+prévia e diário exclusivo de envio ficam privados em
+`output/instagram-destaques-2026-11-18/casa-cor-unificada/`.
 
 Em próximas edições, aguardar a grade terminar de carregar e conferir a
 seleção marcada. Depois de salvar, reabrir a coleção e conferir cada Story
@@ -149,9 +189,9 @@ O logo da casa não foi redesenhado. São ícones vetoriais produzidos por
 código, sem geração de fotografias por IA. Gerar com `python gerar_capas.py`
 nesse diretório; requer Pillow.
 
-Manter cada grupo curto e sem duplicações desnecessárias. Retirar Quem Veio
-agora e só reconsiderar a categoria quando houver relatos autênticos
-suficientes para uma sequência útil; não preencher com fotos de ensaio.
+Manter cada grupo curto e sem duplicações desnecessárias. Só reconsiderar
+Quem Veio quando houver relatos autênticos suficientes para uma sequência
+útil; não preencher com fotos de ensaio.
 Para Visite, preparar dois Stories novos com endereço
 completo e caminho de reserva, usando as regras atuais do site/portal.
 Esses complementos são próximos conteúdos propostos, ainda não publicados.

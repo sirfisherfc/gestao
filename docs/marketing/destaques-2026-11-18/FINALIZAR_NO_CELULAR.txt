@@ -1,50 +1,39 @@
-SIR FISHER — ACABAMENTO DOS DESTAQUES
+SIR FISHER — CONFERÊNCIA DOS DESTAQUES
 18/11/2026
 
-ESTADO CONFERIDO APÓS A SEGUNDA REVISÃO
-A Casa agora tem quatro Stories novos, publicados e conferidos na ordem:
+ESTADO FINAL OBSERVADO
+A Casa (4 Stories), Visite (2), Sabores (4), Drinks (4): quatro coleções,
+14 posições. Quem Veio já não aparece no perfil; a retirada ocorreu fora
+desta execução do navegador. Não é necessário reaplicar seu ícone.
+
+A CASA — SEQUÊNCIA CONFERIDA
 1. Chegando ao Sir — fachada e chegada pela Beira-Mar.
 2. À mesa, de frente para o mar — mesas e guarda-sóis.
 3. A vista das mesas — espaço e paisagem vistos de dentro da varanda.
-4. No fim de tarde — casa e orla em outro momento do dia.
-O ícone de guarda-sol foi preservado. Os dois itens anteriores saíram
-somente da coleção; os originais não foram excluídos.
+4. No fim de tarde — outra foto da Luisa Dörr: pessoa no parapeito, sol,
+   mar e movimento na praia. A fachada repetitiva saiu dessa posição.
+O ícone de guarda-sol foi preservado. As trocas feitas pelo Codex retiraram
+itens somente da coleção; os Stories originais não foram excluídos.
 
-Sabores continua com quatro Stories; Drinks com quatro; Visite com dois.
-As quatro coleções antigas já não aparecem no perfil. Os ícones de A Casa,
-Sabores, Drinks e Visite já estão aplicados.
+COR DO CONJUNTO
+Os quatro arquivos finais usam a mesma exportação de cor (sRGB).
+A terceira foto recebeu tratamento de cor com imagegen, reduzindo o
+excesso de laranja, saturação e contraste. Nas fotos da Luisa foi corrigida
+a conversão do perfil de cor, mantendo a aparência natural do ensaio.
 
-ÚNICA RETIRADA PENDENTE NO APLICATIVO
-Quem Veio tem só um Story útil. Não foi encontrado material suficiente para
-completar uma coleção que ajude o visitante. A decisão é retirar o Destaque.
-
-No perfil @sirfisherfc, mantenha Quem Veio pressionado e procure a opção
-Excluir destaque. Confirme que se trata da coleção Quem Veio.
-Os nomes dos comandos podem variar conforme a versão do aplicativo.
-Preserve o Story original no arquivo. Não exclua a publicação original.
-
-A versão web desta conta não oferece exclusão da coleção e não permite
-salvar a seleção vazia. A tentativa foi cancelada, preservando o conteúdo.
-Por isso Quem Veio ainda aparece na última conferência desta entrega.
-Não é necessário reaplicar seu ícone.
-
-CONFERIR O PERFIL
-Depois dessa retirada, devem permanecer A Casa (4), Sabores (4), Drinks (4)
-e Visite (2), com os ícones azuis e creme: 14 posições em quatro coleções.
-A ordem observada antes da retirada é A Casa, Visite, Quem Veio, Sabores,
-Drinks. Não presumir que trocar a capa reorganize os grupos.
-
-ARQUIVOS DAS CAPAS
+CAPAS
+Os quatro ícones já estão aplicados; não há troca pendente nesta entrega.
 01-a-casa.png     -> A Casa
 02-sabores.png    -> Sabores
 03-drinks.png     -> Drinks
 05-visite.png     -> Visite
 
-O arquivo 04-quem-veio.png é apenas um master preservado; não é necessário
-usá-lo agora. Para eventual troca das outras capas, salve o PNG na galeria
-e use Editar destaque / Editar capa. Não é necessário publicá-lo como Story.
+O arquivo 04-quem-veio.png é apenas um master preservado para uso futuro.
+Para eventual troca das outras capas, salve o PNG na galeria e use Editar
+destaque / Editar capa. Os nomes variam conforme a versão do aplicativo.
+Não é necessário publicar os arquivos das capas como novos Stories.
 
 CONTINUIDADE EDITORIAL
 Só reconsiderar Quem Veio com vários relatos autênticos e relevantes.
-Visite já tem exterior e link para o site; o próximo complemento deve
+Visite já tem exterior e link para o site; o próximo complemento pode
 explicar endereço completo e reservas. Esse complemento não foi publicado.

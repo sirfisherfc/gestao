@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 Livre. A Casa recebeu quatro Stories novos, publicados e conferidos; retirada de Quem Veio pendente no aplicativo. Estado e limites em `docs/marketing/DESTAQUES_INSTAGRAM_2026-11-18.md`.
+> **🚦 Status atual:** 🟢 Livre. A Casa com quatro Stories finais, cor harmonizada e nova foto de encerramento; publicados e conferidos visualmente. Quem Veio já não aparece no perfil. Ver `docs/marketing/DESTAQUES_INSTAGRAM_2026-11-18.md`.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -712,3 +712,44 @@ Direct, token, banco, agendamentos ou feed. Reservas sem alterações; pares
 de orientações da raiz idênticos. Diff e conferência visual concluídos.
 O gate local com --require-node não encontrou Node no PATH deste PC;
 validação de JavaScript depende do Quality gates no GitHub Actions.
+
+## 2026-11-18 · Codex — Encerramento e cores de A Casa corrigidos
+
+Dois pedidos seguidos: evitar a fachada repetitiva no quarto Story e
+aproximar brilho, contraste e vibração, pois a terceira foto destoava.
+Acervo Luisa Dörr completo consultado; escolhida a foto 447, com pessoa
+no parapeito, sol, mar e movimento na praia. Crédito preservado. Uma peça
+intermediária foi publicada, mas o novo pedido de cor chegou antes de sua
+inclusão no Destaque; asset e recibo preservados, sem apagar publicação.
+
+Encontrada falha no renderer anterior: as fotos Luisa 1/2/4 tinham perfil
+Adobe RGB (1998), descartado na montagem sem conversão. As três agora são
+convertidas para sRGB antes de compor; não receberam filtro criativo nem
+reconstrução generativa. A terceira foi suavizada pelo imagegen integrado,
+reduzindo laranja, vibração, contraste e aparência de HDR, com as outras
+como referência. QA independente aprovou cor e não identificou distorção
+material de objetos/geometria/texto. Os quatro JPEGs finais incorporam sRGB.
+
+Site `bad59f1` contém somente a peça intermediária 447; `e87a283` contém
+somente os quatro novos assets -cor. Assets/Pages aprovados; URLs relidas
+com HTTP 200, JPEG e SHA igual ao manifesto. Nenhum asset anterior foi
+sobrescrito. Publicação dos quatro finais pelo cliente Meta existente,
+com identidade fresca, Página, permissão, quota e diário exclusivo fsync.
+Cada mídia relida; as quatro confirmadas em IG/stories. Não reexecutar os
+scripts de publicação nem remover seus diários.
+
+No mesmo Destaque A Casa, desmarcados os quatro anteriores e selecionados
+os quatro finais depois de conferir as imagens reais na galeria. Reaberto
+após salvar e percorrido 01/04 → 04/04: títulos, créditos, fotos e ordem
+conferidos nas mídias efetivamente exibidas; quarto usa 447, terceiro é a
+versão de cor suavizada. Capa de guarda-sol preservada. Outros grupos não
+editados. Perfil final: A Casa 4, Visite 2, Sabores 4, Drinks 4 — 14 posições.
+Quem Veio já não aparece: retirada fora desta execução, sem atribuí-la ao
+Codex. A pendência anterior de acabamento no aplicativo está encerrada.
+
+Relatório e roteiro do celular atualizados. Fontes, prompt, renderer,
+manifesto, prévia, ZIP e evidências no diretório privado
+`output/instagram-destaques-2026-11-18/casa-cor-unificada/`.
+Somente três documentos em gestão; sem
+segredos, banco, anúncio, Direct, feed, token ou rotina alterados. Reservas
+sem mudanças. Diff, ZIP, QA visual e perfis/tamanhos dos JPEGs conferidos.
