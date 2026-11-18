@@ -1,5 +1,25 @@
 # Atendimento do Instagram @sirfisherfc
 
+## Atualização de 18/11/2026: Stories ativos; feed avaliado
+
+O atendimento a respostas de Stories estava desligado, embora DMs estivessem
+ativos. Reply to Stories foi ativado, salvo e relido após recarregar, para
+todos os Stories e respostas, usando a base revisada. Uma pergunta sobre
+Réveillon enviada como resposta a Story pela conta do proprietário recebeu
+o link correto no Instagram e no histórico Jotform. Contador: uma resposta
+de Story; cota da conta: 19/100. A solicitação antiga foi aceita e respondida
+manualmente a pedido expresso, com valores do segundo lote conferidos na
+página pública atual e link do evento.
+
+Comentários do feed e menções permanecem desligados. Os 12 posts mais
+recentes tinham 13 comentários de outras contas: duas perguntas de compra ou
+reserva, dez interações sociais e uma reclamação. Uma pergunta já tinha
+resposta da casa. Recomenda-se atendimento pontual das dúvidas e revisão
+humana da reclamação, preservando a cota. O filtro por palavras do Jotform
+não equivale a comprovação de intenção nem de consumo zero para excluídos.
+Detalhes e limites em [REVISAO_2026-11-18.md](instagram-atendimento/REVISAO_2026-11-18.md).
+O estado abaixo, datado de 02/11, preserva a ativação inicial.
+
 ## Estado atual em 02/11/2026: Direct ativo no Jotform
 
 O Jotform está conectado somente ao `@sirfisherfc`, com **All DMs** e

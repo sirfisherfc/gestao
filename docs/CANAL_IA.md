@@ -753,3 +753,37 @@ manifesto, prévia, ZIP e evidências no diretório privado
 Somente três documentos em gestão; sem
 segredos, banco, anúncio, Direct, feed, token ou rotina alterados. Reservas
 sem mudanças. Diff, ZIP, QA visual e perfis/tamanhos dos JPEGs conferidos.
+
+## 2026-11-18 · Codex — Jotform: Stories ativados e feed avaliado
+
+Solicitação sem resposta era reply de Story, enquanto só DMs estavam
+ativos. Painel confirmou conta/conexão corretas e Stories OFF; conversa
+não localizada na busca do Jotform e pendente em Pedidos do Instagram.
+Reply to Stories ativado, salvo e relido após reload: All Stories, All
+Story Replies, base de conhecimento, mesma exclusão restrita de venda
+artificial de seguidores/curtidas, sem fallback/horários/filtro de seguidores.
+
+Prévia de Réveillon passou. Teste real pela conta do proprietário, 16h36
+Fortaleza, recebeu resposta no Instagram e no histórico Jotform com marca
+de Story e link correto. Story replies 0→1; DMs 36→37; cota 18→19/100.
+Teste nomeava o evento em Story atual; não garante leitura de toda imagem
+nem entrega a pedidos ainda não aceitos. Por pedido expresso posterior,
+solicitação antiga aceita na Principal e respondida manualmente às 16h41,
+com preços por mesa do lote 2 conferidos no site atual e link do evento.
+Envio persistiu após reload; sem confirmação de leitura do destinatário.
+Pausa automática de 12h após intervenção manual preservada.
+
+Feed: 12 posts de 25/09–17/11, GET pelo cliente marketing existente, conta
+e permissão conferidas, sem cortes de paginação informados. Treze comentários
+de outras contas: duas perguntas comerciais, dez interações sociais e uma
+reclamação de som vizinho. Uma pergunta já respondida pela casa. Nos seis
+posts dos últimos 30 dias: nove comentários, duas perguntas e sete sociais.
+Recomendação: atendimento pontual das dúvidas e revisão humana de reclamação;
+comentários automáticos e menções seguem OFF, sem publicação de resposta
+no feed. Palavras não garantem intenção nem consumo zero de cota.
+
+Registro em docs/instagram-atendimento/REVISAO_2026-11-18.md; JOTFORM e
+ATENDIMENTO_INSTAGRAM atualizados. Conteúdo individual do feed permanece
+privado em tmp, fora do Git e da base do agente. Não houve nova credencial,
+assinatura, piloto, cron, alteração de banco, anúncio ou feed. Site/reservas
+sem mudanças; documentação revisada e pares das orientações da raiz idênticos.
