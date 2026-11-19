@@ -816,3 +816,14 @@ Não prometer economia exata: cota é de conversas, não mensagens.
 JOTFORM, ATENDIMENTO_INSTAGRAM e relatório de 18/11 atualizados. Só
 documentação no Git; sem segredo, banco, token, anúncio, plano ou rotina
 alterados. Site/reservas sem mudanças; pares das orientações da raiz iguais.
+
+## 2026-11-19 · Claude — Jotform: vinho inventado corrigido
+
+O agente afirmou ter carta de vinhos num Direct real. Criados na Jotform a ação
+"Always talk about" de vinho/rolha e o par de perguntas e respostas; os dois
+testes na página pública saíram corretos. A cliente recebeu a correção manual
+com desculpas às 11h40. Site `f8bdf5a`: o texto alternativo da foto da rolha
+deixou de citar vinho. Detalhes no topo de
+`docs/instagram-atendimento/JOTFORM.md`. Pendente: outros fatos do book que
+não estão na base da Jotform podem gerar o mesmo erro.
+

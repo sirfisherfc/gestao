@@ -1,5 +1,20 @@
 # Atendimento ativo no Jotform
 
+Correção de **19/11/2026**: num Direct real, o agente respondeu "Sim, temos
+carta de vinhos" e mandou o cardápio; na mensagem seguinte disse que não
+achou vinhos. A base não tinha a regra de vinho/rolha, que já estava no
+[book](../BOOK_QA_ATENDIMENTO.md) (confirmada em 22/10), e o modelo inventou a
+resposta. Criada a ação **Always talk about** para vinho, espumante, carta de
+vinhos, taças, balde de gelo, bebida de fora e rolha: não há carta nem venda
+de vinho; vinho e espumante entram sem rolha; sem balde nem taças; destilados
+e cervejas de fora pagam rolha. Também foi cadastrado o par "Vocês têm carta de
+vinho?" em perguntas e respostas. Na página pública, "Voces têm carta de
+vinho?" e "Que vinhos tem no cardápio?" receberam a regra correta. A cliente
+recebeu às 11h40 uma correção manual, com pedido de desculpas, pelo
+`@sirfisherfc`. A pausa automática de 12 h vale para essa conversa. Lição: fato
+que está só no book não chega ao agente. Ao confirmar uma regra nova de
+atendimento, carregá-la também em ação ou fonte da Jotform.
+
 Complemento de **18/11/2026**: feed e Stories agora usam exclusão de
 interações sociais sem pergunta ou pedido de informação, sem fallback.
 Feed ativado para comentários nos posts e Reels, com resposta somente por
