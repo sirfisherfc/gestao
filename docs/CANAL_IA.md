@@ -863,3 +863,19 @@ card e gráfico dividem a consulta (`diarioDoMes`). Se ela falhar, a
 barra verde não aparece. Não houve mudança no banco nem nos KPIs. Nos
 23 meses com venda, a soma das barras já era igual ao `faturamento`.
 Testes em `test_desempenho_front.mjs` e `test_frontend_contracts.py`.
+
+## 2026-11-22 · Claude — Réveillon: reativar reserva expirada
+
+O proprietário recebeu o pagamento de RV-D30FC5 (mesa lateral 01) depois
+que ela expirou e bloqueou a mesa para segurá-la. Nova migration
+`20261122180000_reveillon_reativar_expirada.sql` cria
+`rv_admin_reactivate`, só para administradores. Ela volta a reserva expirada
+para pré-reserva na mesma mesa, com o preço original e um prazo novo.
+Retira o bloqueio só com confirmação do painel. Recusa mesa ocupada e
+limite de cadeiras estourado. Foi aplicada no `portal`, com a versão
+registrada na mesma transação. Grants: `authenticated` sim, `anon` não. Não
+alterou dados. No `reservas`: botão "Reativar reserva" na ficha, coluna Data
+e ordenação por clique no título da lista de reservas. Testes:
+`reveillon-reactivate-tests.sql` e `reveillon-deposit-tests.sql` passaram no
+`portal` em ROLLBACK, e o novo teste de navegador passou em 390/1366px.
+Pendente: o proprietário reativar RV-D30FC5 e registrar o pagamento.
