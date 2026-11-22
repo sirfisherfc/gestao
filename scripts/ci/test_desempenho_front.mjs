@@ -250,6 +250,43 @@ test('inicio pede detalhes e apoio junto com o resumo e desenha o resumo primeir
   assert.equal(vm.runInContext("etapas.join(',')",c),'detalhes,apoio,concluido');
 });
 
+// Cliente que responde a vendas por dia com as linhas dadas (ou com erro).
+function clienteDiario(resposta){
+  const pedidos=[];
+  const from=tabela=>{
+    const b={select:()=>b,order:()=>b,eq:()=>b,
+      then:(ok,erro)=>{pedidos.push(tabela);return Promise.resolve(resposta).then(ok,erro);}};
+    return b;
+  };
+  return {sb:{from},pedidos};
+}
+
+test('realizado do card de meta e a soma das barras de vendas por dia, na mesma consulta',async()=>{
+  // dia 22 sem sangria: venda_dia nula, como o painel_diario devolve depois do corte
+  const f=clienteDiario({data:[{dia:'2026-11-20',venda_dia:1000},{dia:'2026-11-21',venda_dia:'2000.00'},{dia:'2026-11-22',venda_dia:null}],error:null});
+  const c=contextoPagina(f.sb);
+  vm.runInContext(scriptDaPagina('index.html'),c);
+  vm.runInContext("RENDER_VERSION=1;document.getElementById('mesSel').value='2026-11';",c);
+  await vm.runInContext("drawMeta('2026-11',1,5000,4000,125)",c);
+  const html=vm.runInContext("document.getElementById('bullet').innerHTML",c);
+  assert.match(html,/class="bf-val">3K</,'a barra verde deveria somar so os dias ate o corte');
+  await vm.runInContext("drawDia('2026-11',1)",c);
+  assert.equal(f.pedidos.filter(t=>t==='app_painel_diario').length,1,'grafico e card deveriam dividir a consulta');
+});
+
+test('sem vendas por dia o card de meta nao inventa realizado',async()=>{
+  const f=clienteDiario({data:null,error:{message:'falhou'}});
+  const c=contextoPagina(f.sb);
+  vm.runInContext(scriptDaPagina('index.html'),c);
+  vm.runInContext("RENDER_VERSION=1;document.getElementById('mesSel').value='2026-11';",c);
+  await vm.runInContext("drawMeta('2026-11',1,5000,4000,125)",c);
+  const html=vm.runInContext("document.getElementById('bullet').innerHTML",c);
+  assert.doesNotMatch(html,/bullet-fill/);
+  assert.match(html,/Realizado indisponível/);
+  await vm.runInContext("drawMeta('2026-11',1,5000,4000,125)",c);
+  assert.equal(f.pedidos.length,2,'falha nao deveria ficar em cache');
+});
+
 test('gerente pede o mes corrente e o rodape junto com o resumo e reaproveita a consulta',async()=>{
   const f=clienteFalso('app_gerente_resumo_mensal');
   const c=contextoPagina(f.sb);

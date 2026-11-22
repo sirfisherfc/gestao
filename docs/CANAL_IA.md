@@ -850,3 +850,16 @@ implantação (06/08 e 23/09, R$ 29 + R$ 10 + R$ 10). A SEFAZ confirmou
 mas a tela de inutilização do Teknisa só lista números pulados.
 Detalhes e o registro de teste da nota 2/001 em
 `docs/TEKNISA_ACESSOS_OPERACAO.md`. Pendente: suporte Teknisa.
+
+## 2026-11-22 · Claude — Card de meta segue o gráfico diário
+
+Na `index.html` e na `gerente.html`, a barra verde do card "Atingimento
+da meta" agora soma o `venda_dia` do `painel_diario`. Antes ela usava o
+`faturamento` total do mês. São os mesmos dias do gráfico de barras, que
+param no `corte_venda` (Stone e sangria lançadas). O percentual e a
+projeção já usavam esse corte via `tendencia_mes`. Assim, cartão ou Pix
+de um dia sem sangria não adiantam mais a barra verde. Na `index.html`,
+card e gráfico dividem a consulta (`diarioDoMes`). Se ela falhar, a
+barra verde não aparece. Não houve mudança no banco nem nos KPIs. Nos
+23 meses com venda, a soma das barras já era igual ao `faturamento`.
+Testes em `test_desempenho_front.mjs` e `test_frontend_contracts.py`.

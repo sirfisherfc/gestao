@@ -134,11 +134,11 @@ async function trocarMes(mes,consultaPronta){
     const resposta=index=>resultados[index].status==='fulfilled'?resultados[index].value:{data:null,error:resultados[index].reason};
     const [dia,gasto,hora,saldoVar,cascata]=[0,1,2,3,4].map(resposta);
     const parcial=[dia,gasto,hora,saldoVar,cascata].some(item=>item.error);
-    render(cur,rowsResumo,dia.error?[]:(dia.data||[]),gasto.error?[]:(gasto.data||[]),hora.error?[]:(hora.data||[]),saldoVar.error?null:(saldoVar.data||null),cascata.error?null:(cascata.data||null),parcial);
+    render(cur,rowsResumo,dia.error?[]:(dia.data||[]),gasto.error?[]:(gasto.data||[]),hora.error?[]:(hora.data||[]),saldoVar.error?null:(saldoVar.data||null),cascata.error?null:(cascata.data||null),parcial,!dia.error);
   }catch(e){if(trocaSeq===TROCA_SEQ)main.innerHTML='<div class="erro">Não foi possível carregar o painel: '+esc(e.message||String(e))+'</div>';}
 }
 
-function render(cur,rowsHist,dias,gastos,horas,saldoVar,cascata,parcial){
+function render(cur,rowsHist,dias,gastos,horas,saldoVar,cascata,parcial,diasOk){
   const N=v=>v==null?null:Number(v);
   const hoje=hojeISO();
   let rowDia=dias.find(x=>x.dia===hoje&&x.venda_dia!=null);
@@ -152,7 +152,10 @@ function render(cur,rowsHist,dias,gastos,horas,saldoVar,cascata,parcial){
   const metaDia=rowDia?N(rowDia.meta_dia):null;
   const percDia=(vendaDia!=null&&metaDia>0)?vendaDia/metaDia*100:null;
 
-  const meta=N(cur.meta),proj=N(cur.faturamento_proj),percMeta=N(cur.perc_meta),realizado=N(cur.faturamento);
+  const meta=N(cur.meta),proj=N(cur.faturamento_proj),percMeta=N(cur.perc_meta);
+  // Realizado = soma das barras de vendas por dia: so os dias ate o corte
+  // (Stone importada e sangria lancada), a mesma base da projecao e do percentual.
+  const realizado=diasOk?dias.reduce((s,x)=>s+(x.venda_dia==null?0:Number(x.venda_dia)),0):null;
   const diff=(proj!=null&&meta!=null)?proj-meta:null;
   const acima=diff!=null&&diff>=0;
   const corMeta=percMeta==null?C.muted:(percMeta>=param('meta_atingida_perc',100)?C.green:(acima?C.teal:C.amber));
@@ -221,10 +224,11 @@ function render(cur,rowsHist,dias,gastos,horas,saldoVar,cascata,parcial){
   drawMetaHistorico(rowsHist);
 }
 
+// realizado null = vendas do dia indisponiveis: a barra verde nao e desenhada.
 function drawBullet(realizado,proj,meta,perc,corPerc){
-  realizado=realizado||0;proj=proj||0;meta=meta||0;
+  proj=proj||0;meta=meta||0;
   const teto=Math.max(proj,meta)||1;
-  const fillW=Math.min(realizado/teto*100,100);
+  const fill=realizado==null?'':`<div class="bullet-fill" style="width:${Math.min(realizado/teto*100,100)}%;background:${C.green}"><span class="bf-val">${abrevK0(realizado)}</span></div>`;
   const projPos=Math.min(proj/teto*100,100);
   const metaPos=Math.min(meta/teto*100,100);
   const acima=proj>=meta;
@@ -237,7 +241,7 @@ function drawBullet(realizado,proj,meta,perc,corPerc){
     </div>
     <div class="bullet">
       <div class="bullet-track">
-        <div class="bullet-fill" style="width:${fillW}%;background:${C.green}"><span class="bf-val">${abrevK0(realizado)}</span></div>
+        ${fill}
         <div class="bullet-mark proj" style="left:${projPos}%"><span class="bm-bot" style="color:${C.teal};transform:${al(projPos)}">Projeção<br>${abrevK0(proj)}</span></div>
         <div class="bullet-mark meta" style="left:${metaPos}%"><span class="bm-top" style="color:${C.amber};transform:${al(metaPos)}">Meta<br>${abrevK0(meta)}</span></div>
       </div>

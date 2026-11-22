@@ -105,6 +105,16 @@ def main() -> int:
             fail("Gerente voltou a esperar o resumo para pedir as consultas do mes")
     require(manager, "consultaPronta||consultarMes(mes)", "Gerente deixou de aproveitar a consulta antecipada")
 
+    # Card de meta: o realizado e a soma das vendas por dia ate o corte, a
+    # mesma base do grafico de barras, e nao o faturamento total do mes.
+    require(manager, "diasOk?dias.reduce(", "Gerente: barra verde da meta deixou de seguir o grafico diario")
+    if "realizado=N(cur.faturamento)" in manager:
+        fail("Gerente: barra verde da meta voltou a somar vendas sem sangria")
+    home = source("index.html")
+    require(home, "drawMeta(anoMes,renderVersion", "Inicio: barra verde da meta deixou de seguir o grafico diario")
+    if "drawBullet(N(cur.faturamento)" in home:
+        fail("Inicio: barra verde da meta voltou a somar vendas sem sangria")
+
     melhoria = source("melhoria_inovacao.html")
     for fragment in (
         "criar_melhoria",

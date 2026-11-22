@@ -306,15 +306,42 @@ function renderMes(anoMes){
     </div>
   `;
   document.getElementById('main').innerHTML=html;
-  drawBullet(N(cur.faturamento),N(cur.faturamento_proj),N(cur.meta),N(cur.perc_meta));
+  drawMeta(anoMes,renderVersion,N(cur.faturamento_proj),N(cur.meta),N(cur.perc_meta));
   drawDia(anoMes,renderVersion);
   drawBars(anoMes);
 }
 
-function drawBullet(realizado,proj,meta,perc){
-  realizado=realizado||0;proj=proj||0;meta=meta||0;
+// Vendas por dia do mes: uma unica consulta serve o grafico de barras e o
+// realizado do card de meta, para os dois seguirem o mesmo corte de vendas.
+function diarioDoMes(anoMes){
+  let request=DIARIO_REQUESTS.get(anoMes);
+  if(!request){
+    request=Promise.resolve(sb.from('app_painel_diario').select('dia,venda_dia,meta_dia').eq('mes',anoMes+'-01').order('dia',{ascending:true}))
+      .catch(error=>({data:null,error}))
+      .then(res=>{if(res.error&&DIARIO_REQUESTS.get(anoMes)===request)DIARIO_REQUESTS.delete(anoMes);return res;});
+    DIARIO_REQUESTS.set(anoMes,request);
+  }
+  return request;
+}
+
+// O realizado do card e a soma das barras de "Vendas por dia": so entram os
+// dias ate o corte (Stone importada e sangria lancada), a mesma base da
+// projecao e do percentual. Venda de cartao ou Pix de um dia ainda sem
+// sangria nao adianta a barra verde em relacao ao grafico.
+async function drawMeta(anoMes,renderVersion,proj,meta,perc){
+  drawBullet(null,proj,meta,perc);
+  const {data,error}=await diarioDoMes(anoMes);
+  if(renderVersion!==RENDER_VERSION||document.getElementById('mesSel').value!==anoMes)return;
+  if(error){drawBullet(null,proj,meta,perc,'Realizado indisponível: não foi possível carregar as vendas do dia.');return;}
+  const realizado=(data||[]).reduce((s,r)=>s+(r.venda_dia==null?0:Number(r.venda_dia)),0);
+  drawBullet(realizado,proj,meta,perc);
+}
+
+// realizado null = ainda carregando ou indisponivel: a barra verde nao e desenhada.
+function drawBullet(realizado,proj,meta,perc,aviso){
+  proj=proj||0;meta=meta||0;
   const teto=Math.max(proj,meta)||1;          // o maior marcador define a ponta
-  const fillW=Math.min(realizado/teto*100,100);
+  const fill=realizado==null?'':`<div class="bullet-fill" style="width:${Math.min(realizado/teto*100,100)}%;background:${C.green}"><span class="bf-val">${abrevK0(realizado)}</span></div>`;
   const projPos=Math.min(proj/teto*100,100);
   const metaPos=Math.min(meta/teto*100,100);
   const acima=proj>=meta;
@@ -327,11 +354,11 @@ function drawBullet(realizado,proj,meta,perc){
     </div>
     <div class="bullet">
       <div class="bullet-track">
-        <div class="bullet-fill" style="width:${fillW}%;background:${C.green}"><span class="bf-val">${abrevK0(realizado)}</span></div>
+        ${fill}
         <div class="bullet-mark proj" style="left:${projPos}%"><span class="bm-bot" style="color:${C.teal};transform:${al(projPos)}">Projeção<br>${abrevK0(proj)}</span></div>
         <div class="bullet-mark meta" style="left:${metaPos}%"><span class="bm-top" style="color:${C.amber};transform:${al(metaPos)}">Meta<br>${abrevK0(meta)}</span></div>
       </div>
-    </div>`;
+    </div>${aviso?'<div class="hint">'+esc(aviso)+'</div>':''}`;
 }
 // alinhamento do rotulo conforme posicao (evita estourar nas bordas)
 function al(pos){return pos>82?'translateX(-100%)':(pos<18?'translateX(0)':'translateX(-50%)');}
@@ -354,13 +381,7 @@ const barLabelBase={id:'barLabelBase',afterDatasetsDraw(ch){
 }};
 
 async function drawDia(anoMes,renderVersion){
-  let request=DIARIO_REQUESTS.get(anoMes);
-  if(!request){
-    request=Promise.resolve(sb.from('app_painel_diario').select('dia,venda_dia,meta_dia').eq('mes',anoMes+'-01').order('dia',{ascending:true}));
-    DIARIO_REQUESTS.set(anoMes,request);
-  }
-  const {data,error}=await request;
-  if(error)DIARIO_REQUESTS.delete(anoMes);
+  const {data,error}=await diarioDoMes(anoMes);
   if(renderVersion!==RENDER_VERSION||document.getElementById('mesSel').value!==anoMes)return;
   const canvas=document.getElementById('dia');
   if(!canvas)return;
