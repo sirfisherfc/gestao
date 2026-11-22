@@ -843,3 +843,10 @@ Soda Italiana, a pedido do proprietário ("o que o imposto é menor"):
 saiu de NCM `22089000` e CEST `02.002.00`, de bebida alcoólica, para
 NCM `22021000` sem CEST, como Suco Copo e refrigerantes. O restante do
 imposto já era igual. Relida por unidade e no cadastro global.
+
+Aviso "notas pendentes/rejeitadas desde 06/08": são três NFC-e da
+implantação (06/08 e 23/09, R$ 29 + R$ 10 + R$ 10). A SEFAZ confirmou
+217 (não constam) para as três. O proprietário decidiu inutilizá-las,
+mas a tela de inutilização do Teknisa só lista números pulados.
+Detalhes e o registro de teste da nota 2/001 em
+`docs/TEKNISA_ACESSOS_OPERACAO.md`. Pendente: suporte Teknisa.

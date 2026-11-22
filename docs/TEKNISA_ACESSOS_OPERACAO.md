@@ -151,12 +151,52 @@ As duas fotos enviadas pelo proprietário mostram ocorrências distintas:
   a filial, os documentos, o tipo fiscal nem o motivo das rejeições.
   Conferir esses dados e o estado atual antes de qualquer retransmissão.
   Não houve consulta da fila nem transmissão nesta investigação.
+  A conferência de 22/11/2026 está na seção "Notas pendentes/rejeitadas
+  desde 06/08/2026" abaixo.
 - Ao solicitar a parcial: aviso de que não há impressora parametrizada
   para essa função. O proprietário confirmou que a parcial deve sair
   **na própria maquininha**. Conferir o caixa associado ao aparelho e
   os parâmetros da impressora interna usados pela parcial. A rota de
   produtos para a ELGIN não comprova essa configuração; as permissões
   salvas anteriormente liberam a função, mas não configuram a impressora.
+
+### Notas pendentes/rejeitadas desde 06/08/2026 (22/11/2026)
+
+A tela **Transmissão de NFC-e (Consumidor Final)** não aparece no menu
+do perfil atual. Ela abre pela rota direta
+`man/#/man#operation%2Fvnd20000_transmissaonfce`. Com unidade 0002,
+Produção e situação Pendente ou Rejeitada, a lista de 01/08 a 22/11
+mostrou só três notas da implantação, todas sem autorização:
+
+| Data | Caixa | Série / nota | Valor | Venda | NFC-e |
+| --- | --- | --- | --- | --- | --- |
+| 06/08 11h04 | 001 CAIXA 001 | 001 / 2 | R$ 29,00 | Cancelada | Rejeitada: 386, CFOP × CSOSN (Dadinho de Tapioca) |
+| 23/09 15h44 | 001 CAIXA 001 | 002 / 4 | R$ 10,00 | Cancelada | Pendente |
+| 23/09 15h52 | 002 POS 001 | 010 / 3 | R$ 10,00 | Concluída | Rejeitada: 386 |
+
+Em "Consultar situação da nota", a SEFAZ respondeu `217 - NF-e não
+consta na base de dados` para as três. A pergunta "atualizar os dados
+das notas no banco?" foi respondida Não, para só consultar. O
+proprietário decidiu inutilizar as três como testes. Retransmitir
+geraria nota fiscal de venda cancelada e de teste.
+
+A inutilização da tela (Ações → Inutilização de NFC-e) só oferece os
+números da lista `vnd20000_transmissaonfce_adqnumeracao`. Essa lista
+veio vazia para agosto e setembro. No ano, só mostrou série 002 nº 13
+a 17 do caixa 001, de outubro, já inutilizados ("Inutilização de número
+homologado"). Ao que parece, ela cobre números pulados, não notas já
+gravadas. Como teste, a nota 2 da série 001 foi registrada em "Inserir
+notas inutilizadas no banco de dados" (caixa 001, Produção, 06/08).
+A gravação respondeu HTTP 200, mas a nota continuou rejeitada e fora
+da lista. Esse registro não foi à SEFAZ. "Concluir vendas fora do
+prazo" só aceita nota autorizada de venda cancelada.
+
+Nenhuma nota foi transmitida, regerada ou inutilizada na SEFAZ. O painel
+mostra zero transmissões pendentes nos últimos 30 dias e zero produtos
+sem NCM ou alíquota. Fica com o suporte Teknisa o caminho para inutilizar
+ou baixar números já gravados como rejeitados/pendentes. O suporte também
+deve conferir o registro da nota 2 série 001. Recibo privado:
+`tmp/teknisa/nfce-pendentes-2026-11-22/recibo.json`.
 
 O [guia oficial de implantação](https://www.teknisa.com/odhen-guia-express-middle)
 lista Cadastro de Caixa, Configuração do Terminal do Caixa e parâmetros
