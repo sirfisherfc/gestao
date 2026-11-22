@@ -119,7 +119,7 @@ function resumo(rows){
   vm.runInContext(read('assets/dashboard-utils.js'),c);
   const indexSource=read('index.html').match(/<script>\s*([\s\S]*?)<\/script>/)[1].split('(async()=>{')[0];
   vm.runInContext(indexSource,c);
-  vm.runInContext("ROWS=fixtures;LOAD_STAGE='concluido';drawBullet=()=>{};drawDia=async()=>{};drawBars=()=>{};renderMes('2026-09');",c);
+  vm.runInContext("ROWS=fixtures;LOAD_STAGE='concluido';drawMeta=async()=>{};drawDia=async()=>{};drawBars=()=>{};renderMes('2026-09');",c);
   return elements.get('main').innerHTML;
 }
 
@@ -158,7 +158,7 @@ test('Resumo reconcilia resultado projetado com outros e coincide com DRE',()=>{
   vm.runInContext(`ROWS=fixtures;DRE_ROWS=[${JSON.stringify(completo())}];
     DETAIL_OK.dre=true;DETAIL_OK.fixa=true;DETAIL_OK.direta=true;
     DESP_DIRETA=[{dia:'2026-09-20',valor:20}];DESP_FIXA=[{dia:'2026-09-20',valor:30}];
-    LOAD_STAGE='concluido';drawBullet=()=>{};drawDia=async()=>{};drawBars=()=>{};renderMes('2026-09');`,c);
+    LOAD_STAGE='concluido';drawMeta=async()=>{};drawDia=async()=>{};drawBars=()=>{};renderMes('2026-09');`,c);
   const markup=elements.get('main').innerHTML;
   assert.match(markup,/Total gerencial \(tend\.\)[\s\S]*?class="value"[^>]*>R\$ 64<\/div>/);
 });
