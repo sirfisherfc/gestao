@@ -183,6 +183,13 @@ produto, imposto, preço e loja. O cliente de componentes atende os perfis
 alimentares e sabores de soda conferidos na Praia; variantes de coquetel
 exigem o perfil fiscal do drink de origem.
 
+O cliente de componentes não preenche o NCM nem Gênero, Tipo e Origem.
+Em 22/11/2026 o caixa listou esses componentes como pendentes no
+cadastro de impostos. Depois de criar um componente, complete Impostos
+do Produto (NCM `21069090` e alíquotas PIS/COFINS `0.00`) e a aba
+Fiscal do produto (Gênero `21`, Tipo `04`, Origem `0`). Os contratos
+estão na tabela abaixo.
+
 O executor avançado `createCardapioMigrationRunner` recebe uma ferramenta
 base atualizada, cujo destino precisa coincidir com o plano e o cliente
 de composição. `runBatch({ offset, size })` atende até três produtos.
@@ -248,6 +255,8 @@ o próximo comando; cada um exige releitura depois da gravação.
 | Produto novo vendido | `backend_cadEst/index.php/saveProduct` (`Row`) e depois `saveAbaFiscal` (`Row`, linha completa) | Conferido em 06/11. O Tipo Estoque exige Fator de Correção entre 1,00 e 1,99. Sequência completa abaixo. |
 | Botão novo do layout | `backend_man/index.php/vnd80600_configterminalcaixa_layoutProduto/save` (`DataSet`, `__is_new`) | Conferido em 06/11. O servidor calcula `CDGRUPO`. A imagem vai em uma segunda gravação sobre a linha lida. Cópias de layout `00004`/`00005` ficam fora. |
 | Imposto por unidade | `backend_cadEst/index.php/ger01900_cadastroproduto_venda_imposto` e `/save` | Perfil Comida: ICMS 00, CFOP 5102, CSOSN 102, PIS/COFINS 99 sem incidência. |
+| Impostos do Produto: editar NCM e alíquotas | `backend_man/index.php/paraVendasImpostoProduto` e `/save` (`DataSet`) | Conferido em 22/11. Linha lida + `CDSITUTRIB`/`CDSITUTRIBNFE` iguais a `CDCSTPISCOF`, `DSCLASFISC` e `changed: true`. O NCM também passa ao cadastro global. |
+| Aba Fiscal do produto | `backend_cadEst/index.php/saveAbaFiscal` (`Row`, linha completa) | Conferido em 22/11. Ler em `crud/produto_produto` com `CDPRODINI`/`CDPRODFIN`; enviar a linha com Gênero, Tipo, Origem e `changed: true`. Volumes nulos aparecem como 0 na tela. |
 | Preço na tabela | `backend_man/index.php/vnd42400_tabelapreco_produto/save` | Resposta `isPlural.result = 1`; reler a tabela 001. |
 | Novo vínculo em Produtos por Loja | `backend_man/index.php/ger12300_cadloja_produtos/save` (`DataSet`, uma linha `__is_new` com `PRODUTOS`, `CDPRODUTO_SM`, `CDARVPROD_SM` e `NMPRODUTO_SM` em listas, `NRSEQIMPRPROD`, `IDIMPCANITEM`, `CDFILIAL`, `CDLOJA`, `NRORG`) | Corpo completo conferido em 31/10: intervalos vazios, `NIVELINICIAL: T`, listas de produtos, unidade/loja, impressora, cancelamento, operador observado e horário atual. Exemplo abaixo. Corpo incompleto pode retornar HTTP 200 sem gravar. |
 

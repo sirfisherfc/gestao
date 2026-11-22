@@ -1200,3 +1200,24 @@ pela tela e relidas: os impostos por unidade ficaram iguais aos do Brownie,
 exceto os indicadores de ISS que a tela preenche por padrão. O cadastro geral
 mantém NCM `21069090` (Brownie: `21069029`) e campos fiscais mais completos.
 Falta repetir a venda no aparelho depois da atualização da carga.
+
+### Pendências fiscais dos componentes (22/11/2026)
+
+O caixa listou produtos com pendência no cadastro de impostos. Eram 16
+componentes internos: Arroz Branco e de Brócolis, três farofas, Molhos,
+Barbecue e Ketchup de Goiabada incluídos, as duas massas do London, os
+cinco sabores de soda e o Limão. Quinze estavam sem NCM. Arroz Branco,
+as duas massas e o Limão tinham alíquotas PIS/COFINS vazias, como as
+charlotes em 08/11.
+
+Seguindo os componentes já corretos (molhos extras, sabores de suco,
+Limão e charlotes), os 16 receberam NCM `21069090` em Impostos do
+Produto e alíquotas `0.00` onde estavam vazias. No cadastro global,
+receberam Gênero `21`, Tipo `04 — Produto acabado` e Origem `0`. O
+primeiro item foi feito pela tela e os demais pelo mesmo contrato, com
+releitura completa. Fora dos campos fiscais, nenhum campo mudou. Os
+recibos estão em `tmp/teknisa/fiscal-componentes-2026-11-22/`.
+
+A Soda Italiana vendida (`8.05.10.140.00`) continua com NCM `22089000`,
+de bebida alcoólica, herdado do grupo de coquetéis. Revisar esse NCM com
+a contabilidade. Falta atualizar a carga no caixa e repetir a venda.

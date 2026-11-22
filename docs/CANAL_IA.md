@@ -827,3 +827,14 @@ deixou de citar vinho. Detalhes no topo de
 `docs/instagram-atendimento/JOTFORM.md`. Pendente: outros fatos do book que
 não estão na base da Jotform podem gerar o mesmo erro.
 
+
+## 2026-11-22 · Claude — Teknisa: pendências fiscais dos componentes
+
+O caixa mostrou 16 componentes com pendência no cadastro de impostos.
+Todos receberam NCM `21069090` em Impostos do Produto, PIS/COFINS
+`0.00` onde estavam vazias, e Gênero 21, Tipo 04 e Origem 0 na aba
+Fiscal. Tudo foi relido no painel. Os contratos estão no README do
+Teknisa e os recibos em `tmp/teknisa/fiscal-componentes-2026-11-22/`.
+Aviso: o cliente de componentes não preenche esses campos, então
+complete-os ao criar um componente. Pendente: carga no caixa, venda de
+teste e NCM `22089000` da Soda Italiana.
