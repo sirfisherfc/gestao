@@ -1218,6 +1218,13 @@ primeiro item foi feito pela tela e os demais pelo mesmo contrato, com
 releitura completa. Fora dos campos fiscais, nenhum campo mudou. Os
 recibos estão em `tmp/teknisa/fiscal-componentes-2026-11-22/`.
 
-A Soda Italiana vendida (`8.05.10.140.00`) continua com NCM `22089000`,
-de bebida alcoólica, herdado do grupo de coquetéis. Revisar esse NCM com
-a contabilidade. Falta atualizar a carga no caixa e repetir a venda.
+A Soda Italiana vendida (`8.05.10.140.00`) tinha herdado do grupo de
+coquetéis o NCM `22089000`, de bebida alcoólica, e o CEST `02.002.00`.
+Por decisão do proprietário, em 22/11/2026 ela passou ao enquadramento
+de menor imposto, o mesmo de Suco Copo, Sumo de Limão e refrigerantes:
+NCM `22021000` (água gaseificada adicionada de açúcar ou aromatizada)
+e CEST vazio. ICMS por substituição (CSOSN `500`, CFOP `5405`) e
+PIS/COFINS `99` com `0.00` já eram iguais aos desses itens. A releitura
+não mostra diferença em relação ao Suco Copo e o NCM passou ao cadastro
+global. Recibo: `recibo-soda-italiana.json` na mesma pasta. Falta
+atualizar a carga no caixa e repetir a venda.

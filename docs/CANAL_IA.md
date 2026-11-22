@@ -836,5 +836,10 @@ Todos receberam NCM `21069090` em Impostos do Produto, PIS/COFINS
 Fiscal. Tudo foi relido no painel. Os contratos estão no README do
 Teknisa e os recibos em `tmp/teknisa/fiscal-componentes-2026-11-22/`.
 Aviso: o cliente de componentes não preenche esses campos, então
-complete-os ao criar um componente. Pendente: carga no caixa, venda de
-teste e NCM `22089000` da Soda Italiana.
+complete-os ao criar um componente. Pendente: carga no caixa e venda de
+teste.
+
+Soda Italiana, a pedido do proprietário ("o que o imposto é menor"):
+saiu de NCM `22089000` e CEST `02.002.00`, de bebida alcoólica, para
+NCM `22021000` sem CEST, como Suco Copo e refrigerantes. O restante do
+imposto já era igual. Relida por unidade e no cadastro global.
