@@ -275,10 +275,9 @@ uma resposta; sem mandar para o link da bio quando a resposta cabe na mensagem.
 
 **Tem a quarta do camarão?**
 > Tem sim! Toda quarta-feira, na compra de um Newcastle, você ganha um camarão
-> alho e óleo.
-> *(Regra confirmada pelo proprietário em 22/11/2026. Horário, feriados e
-> delivery ainda não foram confirmados: se o cliente pedir, encaminhar ao
-> WhatsApp.)*
+> alho e óleo. Vale em qualquer horário, inclusive em feriado, mas não vale
+> para delivery.
+> *(Regras confirmadas pelo proprietário em 22/11/2026.)*
 
 **Aceitam Fortal em Dobro?**
 > Aceitamos! No Fortal em Dobro, na compra de um Newcastle, o segundo igual

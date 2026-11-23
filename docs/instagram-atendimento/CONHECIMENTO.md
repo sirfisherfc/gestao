@@ -96,9 +96,10 @@ nem em janeiro de 2027; a volta depois disso ainda não foi confirmada.
 "Promoção em dobro" ou "almoço em dobro" sem a palavra Fortal não é o cupom
 Fortal em Dobro: sem indicação de qual, cite a terça em dobro e o Fortal e
 pergunte qual. **Quarta do camarão** (promoção da casa, sem cupom): às quartas,
-na compra de um Newcastle, o cliente ganha um camarão alho e óleo. Horário,
-feriados e delivery dessa promoção ainda não foram confirmados. Condições de
-outras promoções, cupons e aplicativos exigem confirmação atual.
+na compra de um Newcastle, o cliente ganha um camarão alho e óleo. Vale em
+qualquer horário com a cozinha aberta, inclusive em feriados, e não vale
+para delivery (proprietário, 22/11/2026). Condições de outras promoções,
+cupons e aplicativos exigem confirmação atual.
 
 **Reservas comuns:** https://reservas.sirfisher.com.br/ .
 Inclui reserva de aniversário. Informe que o portal atende de 1 a 10 pessoas

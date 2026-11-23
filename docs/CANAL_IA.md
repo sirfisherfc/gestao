@@ -893,3 +893,13 @@ Business Suite. Book, `CONHECIMENTO.md` e `JOTFORM.md` atualizados.
 Pendências: horário, feriados e delivery da quarta do camarão; revisar as
 datas da pausa da terça em dobro (dezembro e janeiro) quando ela voltar. O
 site (home e almoço executivo) ainda descreve a terça em dobro sem a pausa.
+
+## 2026-11-22 · Claude — Quarta do camarão e site da terça em dobro
+
+Respostas do proprietário às pendências da entrada anterior. Quarta do
+camarão: vale em qualquer horário, inclusive em feriado (leitura do "sim" na
+resposta), e não vale para delivery. Ação e fonte da Jotform atualizadas e
+testadas na prévia. Site `92bdd9a`: home e almoço executivo avisam que a terça
+em dobro não acontece em dezembro de 2026 nem em janeiro de 2027. A conversa
+de "Estão com vagas?" fica sem correção, por decisão do proprietário. Pendente
+apenas revisar as datas quando a terça em dobro voltar.

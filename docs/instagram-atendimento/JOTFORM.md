@@ -11,8 +11,10 @@ camarão não estavam em nenhuma ação ou fonte. Alterações na Jotform:
 - Quatro ações novas. **Terça em dobro**: 11h às 14h, exceto feriados,
   segundo executivo igual por conta da casa, duas pessoas no local; sempre
   avisa que vale em novembro e não haverá em dezembro e janeiro. **Quarta do
-  camarão**: na compra de um Newcastle, ganha um camarão alho e óleo; horário,
-  feriados e delivery seguem ao WhatsApp. **Promoções em geral**: as duas da
+  camarão**: na compra de um Newcastle, ganha um camarão alho e óleo; vale em
+  qualquer horário com a cozinha aberta, inclusive em feriados, e não vale
+  para delivery (regras dadas pelo proprietário no fim da noite de 22/11).
+  **Promoções em geral**: as duas da
   casa e os três cupons; "promoção em dobro" sem dizer qual cita a terça e o
   Fortal e pergunta qual. **Precisa reservar?**, com texto fixo: "Não precisa
   fazer reserva: temos mesas disponíveis para quem chega sem reserva. Mas, se
@@ -34,7 +36,11 @@ a ação sozinha não desfez a associação; a fonte precisou nomear a terça em
 dobro. A cliente da promoção recebeu às 22h16 de 22/11 a resposta correta, com
 desculpas, pelo Meta Business Suite do `@sirfisherfc`. Cota: **26/100**.
 A pausa de dezembro e janeiro está escrita com datas nas ações, na fonte e
-num par de perguntas: revisar quando a terça em dobro voltar.
+num par de perguntas: revisar quando a terça em dobro voltar. O site
+(home e almoço executivo) recebeu o mesmo aviso. Na prévia da quarta do
+camarão, delivery (não vale) e noite (vale) saíram certos; a primeira pergunta
+sobre feriado ainda disse "não confirmada" logo após salvar, e a seguinte
+respondeu "Sim, vale em feriado".
 
 Correção de **19/11/2026**: num Direct real, o agente respondeu "Sim, temos
 carta de vinhos" e mandou o cardápio; na mensagem seguinte disse que não
