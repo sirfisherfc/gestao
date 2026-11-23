@@ -903,3 +903,19 @@ testadas na prévia. Site `92bdd9a`: home e almoço executivo avisam que a terç
 em dobro não acontece em dezembro de 2026 nem em janeiro de 2027. A conversa
 de "Estão com vagas?" fica sem correção, por decisão do proprietário. Pendente
 apenas revisar as datas quando a terça em dobro voltar.
+
+## 2026-11-23 · Claude — Stone: recuperação de 16/11 e pedido antes das 4h
+
+CSV de vendas/recebíveis vazios: o filtro no portal da Stone estava por CNPJ;
+o histórico mensal veio completo. Os três arquivos (1.804 vendas, 1.468 e 831
+recebíveis) foram comparados por identificador e estão inteiros no banco; 259
+linhas novas, recálculo concluído. O aviso "sem importação confirmada" vinha
+dos CSV vazios que continuavam na lista.
+Falha diária da API desde 18/11: XML de 16/11 pedido às 00h41, antes da
+liberação, recebeu HTTP 400 e ficou sem repetição. Com autorização do
+proprietário, uma única consulta retornou 200; dia fechado pelo cache, 172
+baixas conferidas, saúde sem atraso e fechamento contíguo até 21/11.
+Correção: XML e Pix só são pedidos a partir das 5h do dia seguinte, sem gastar
+a reserva antes disso (`HORA_LIBERACAO` em `api_stone_rotina.py`), com teste.
+Detalhes em `docs/INTEGRACAO_API_BANCOS.md`. Sem migration. 22/11 aguarda a
+aquisição de hoje, atrasada no GitHub; as vendas já entraram pelo CSV.

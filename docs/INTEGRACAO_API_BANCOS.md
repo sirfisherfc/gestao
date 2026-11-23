@@ -88,6 +88,23 @@ O reprocessamento de 10/11 resolveu as dez baixas que aguardavam captura.
 A saúde posterior ficou sem dias atrasados, com fechamento contíguo até 12/11;
 o extrato de 13/11 seguia dentro do prazo. Nenhum novo pedido Pix foi enviado.
 
+### Pedido antes da liberação e recuperação de 16/11 (23/11/2026)
+
+Os XML de 09/11 e 16/11 receberam HTTP 400 pelo mesmo motivo provável: a
+aquisição das 18h10 atrasou no GitHub e começou depois da meia-noite (00h26 e
+00h41), pedindo o dia anterior antes da liberação da Stone, a partir das 4h.
+Pelo `criado_em`, foram os únicos pedidos de XML feitos antes das 5h desde 21/10.
+
+A rotina agora só consulta XML e Pix de um dia a partir das 5h do dia seguinte
+(`HORA_LIBERACAO`). Antes disso o dia fica aguardando, sem reservar nem gastar
+o pedido; dias mais antigos continuam liberados. O bloqueio de repetição e os
+limites por rodada não mudaram.
+
+O proprietário autorizou a correção e uma única nova consulta de 16/11: HTTP
+200, 36 vendas de cartão (mais 14 Pix já recebidos) iguais às do banco e 172
+baixas aplicadas pelo cache. Recibo privado em
+`tmp/stone-recuperacao-2026-11-23/`. Nenhum pedido Pix novo.
+
 ### Agenda publicada e limites
 
 | Horário de Fortaleza | Operação |

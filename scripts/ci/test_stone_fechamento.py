@@ -76,6 +76,27 @@ class Teste(unittest.TestCase):
             controle.assert_not_called()
             fila.assert_not_called()
 
+    def test_madrugada_nao_consome_o_pedido_antes_da_liberacao(self):
+        def rodar(hora, minuto=0, dia=DIA+timedelta(days=1), cache=False):
+            class Relogio(datetime):
+                @classmethod
+                def now(cls, tz=None): return cls(dia.year, dia.month, dia.day, hora, minuto, tzinfo=tz)
+            controle = MagicMock()
+            fila = MagicMock()
+            fila.documentos.return_value = ['doc']
+            fila.dias_prontos_nao_processados.return_value = set()
+            argv = ['teste'] + (['--somente-cache'] if cache else [])
+            with patch.object(sys, 'argv', argv), patch.object(r, 'carregar_env'),                  patch.object(r, 'datetime', Relogio), patch.object(r, 'Controle', return_value=controle),                  patch.object(r, 'Fechamento', return_value=MagicMock(registros=lambda: [])),                  patch.object(r.pix, 'FilaPix', return_value=fila),                  patch.object(r.xml, 'resolver_stonecodes', return_value=['123']),                  patch.object(r, 'imprimir_saude', return_value={'dias': []}),                  patch.object(r, 'processar_dia') as processar, redirect_stdout(StringIO()):
+                r.fluxo()
+            return [(c.args[0], c.kwargs['consultar']) for c in processar.call_args_list]
+        self.assertEqual(rodar(0, 41), [(DIA, False)])
+        self.assertEqual(rodar(4, 59), [(DIA, False)])
+        self.assertEqual(rodar(5), [(DIA, True)])
+        self.assertEqual(rodar(22, 33), [(DIA, True)])
+        self.assertEqual(rodar(22, 33, cache=True), [(DIA, False)])
+        # Dia antigo pendente continua podendo ser pedido de madrugada.
+        self.assertEqual(rodar(0, 41, dia=DIA+timedelta(days=2)), [(DIA, True), (DIA+timedelta(days=1), False)])
+
     def test_http_400_tem_diagnostico_sem_liberar_repeticao(self):
         controle = object.__new__(r.Controle)
         controle.conn = MagicMock()

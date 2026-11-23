@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import argparse
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, time, timedelta
 from pathlib import Path
 import subprocess
 import sys
@@ -17,6 +17,14 @@ from stone_fechamento import Fechamento, INICIO, dias_esperados, imprimir_saude
 import api_stone_baixas as baixas
 
 ROOT = Path(__file__).resolve().parents[2]
+# A Stone libera o arquivo a partir das 4h do dia seguinte. O GitHub atrasa a
+# aquisição das 18h10 e ela pode começar depois da meia-noite: pedido antes da
+# liberação recebe HTTP 400 e a reserva impede repetir (09/11 e 16/11/2026).
+HORA_LIBERACAO = time(5)
+
+
+def arquivo_liberado(dia, agora):
+    return agora >= datetime.combine(dia + timedelta(days=1), HORA_LIBERACAO, pix.FUSO_LOCAL)
 
 
 class Controle:
@@ -238,7 +246,8 @@ def fluxo():
                         help='nas retomadas, registra atraso como aviso; --saude mantém saída de erro')
     op = parser.parse_args()
     carregar_env()
-    hoje = datetime.now(pix.FUSO_LOCAL).date()
+    agora = datetime.now(pix.FUSO_LOCAL)
+    hoje = agora.date()
     codigos = xml.resolver_stonecodes(None)
     if op.saude or op.dry_run:
         resumo = imprimir_saude(codigos)
@@ -277,7 +286,8 @@ def fluxo():
                 completos.discard((dia,'vendas',''))
             if all((dia,e,c) in completos for e,c in etapas):
                 continue
-            processar_dia(dia,codigos,documento,controle,fila,fechamento,consultar=not op.somente_cache,
+            processar_dia(dia,codigos,documento,controle,fila,fechamento,
+                          consultar=not op.somente_cache and arquivo_liberado(dia,agora),
                           orcamento=orcamento,aguardar=op.aguardar,recuperar_downloads=op.recuperar_downloads)
         print('STONE_ROTINA_OK rodada concluída; confira fechamento e pendências no Status.')
     finally:
