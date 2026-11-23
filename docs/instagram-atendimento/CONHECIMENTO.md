@@ -90,8 +90,15 @@ Jotform e passou no Direct com almoço executivo, bolo e preço de camarão.
 **Almoço executivo:** segunda a sexta, 10h às 14h, exceto feriados.
 Opções: https://www.sirfisher.com.br/almoco-executivo/ . Às terças, exceto
 feriados, das 11h às 14h, o segundo executivo igual sai por conta da casa,
-para duas pessoas consumindo no local. Condições de outras promoções,
-cupons e aplicativos exigem confirmação atual.
+para duas pessoas consumindo no local. Em 22/11/2026 o proprietário avisou
+que a terça em dobro vale em novembro, mas não haverá em dezembro de 2026
+nem em janeiro de 2027; a volta depois disso ainda não foi confirmada.
+"Promoção em dobro" ou "almoço em dobro" sem a palavra Fortal não é o cupom
+Fortal em Dobro: sem indicação de qual, cite a terça em dobro e o Fortal e
+pergunte qual. **Quarta do camarão** (promoção da casa, sem cupom): às quartas,
+na compra de um Newcastle, o cliente ganha um camarão alho e óleo. Horário,
+feriados e delivery dessa promoção ainda não foram confirmados. Condições de
+outras promoções, cupons e aplicativos exigem confirmação atual.
 
 **Reservas comuns:** https://reservas.sirfisher.com.br/ .
 Inclui reserva de aniversário. Informe que o portal atende de 1 a 10 pessoas
@@ -99,9 +106,11 @@ e forneça o link. Se precisar esclarecer o tamanho do grupo, pergunte apenas
 quantas pessoas, aproveitando o que já foi informado. A palavra aniversário
 sozinha segue esse fluxo. Use WhatsApp quando a quantidade confirmada exigir
 a equipe, houver pedido de pessoa, exceção ou problema operacional.
-Reservar é gratuito; a visita comum não tem consumo mínimo. É possível
-chegar sem reserva, conforme mesas livres. Essas condições não substituem
-as regras específicas dos eventos.
+Reservar é gratuito; a visita comum não tem consumo mínimo. À pergunta
+"precisa reservar?", a resposta é que não precisa: há mesas disponíveis para
+quem chega sem reserva; quem preferir reservar usa o portal (decisão do
+proprietário em 22/11/2026). Essas condições não substituem as regras
+específicas do Réveillon, de grupos e dos eventos.
 Para 1 a 10 pessoas,
 o cliente consulta os horários e conclui a reserva pelo portal. A confirmação
 depende do resultado exibido ao finalizar. Antecedência máxima: 60 dias;

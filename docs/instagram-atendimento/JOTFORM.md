@@ -1,5 +1,41 @@
 # Atendimento ativo no Jotform
 
+Correção de **22/11/2026**: dois erros reais em Directs de 19 e 20/11.
+"Precisa fazer reserva?" recebeu "Sim" e o portal. "Ainda tem essa promoção
+em dobro?" e "Se tem a promoção do almoço em dobro as terças feiras"
+receberam, nas duas vezes, as regras do cupom Fortal em Dobro. A ação do
+Fortal disparava com qualquer "em dobro", e a terça em dobro e a quarta do
+camarão não estavam em nenhuma ação ou fonte. Alterações na Jotform:
+
+- Ação do Fortal só quando o cliente cita a palavra Fortal.
+- Quatro ações novas. **Terça em dobro**: 11h às 14h, exceto feriados,
+  segundo executivo igual por conta da casa, duas pessoas no local; sempre
+  avisa que vale em novembro e não haverá em dezembro e janeiro. **Quarta do
+  camarão**: na compra de um Newcastle, ganha um camarão alho e óleo; horário,
+  feriados e delivery seguem ao WhatsApp. **Promoções em geral**: as duas da
+  casa e os três cupons; "promoção em dobro" sem dizer qual cita a terça e o
+  Fortal e pergunta qual. **Precisa reservar?**, com texto fixo: "Não precisa
+  fazer reserva: temos mesas disponíveis para quem chega sem reserva. Mas, se
+  preferir reservar, é só acessar https://reservas.sirfisher.com.br/ (de 1 a
+  10 pessoas)." Não vale para Réveillon, grupo acima de 10 ou reserva existente.
+- Fonte de cupons, renomeada pela Jotform para "Promoções e Cupons Sir
+  Fisher": seção inicial com as promoções da casa e a regra do "em dobro".
+- Perguntas e respostas: "Precisa fazer reserva?", "Tem a promoção do almoço
+  em dobro às terças-feiras?" e "Ainda tem essa promoção em dobro?".
+
+Prévia do Instagram, 12 cenários, cada um em sessão nova, todos sem o erro
+depois da fonte: almoço em dobro na terça, "essa promoção em dobro" em três
+formas (duas citaram terça e Fortal e perguntaram qual; a terceira respondeu
+só com a terça em dobro), "precisa fazer reserva?", "Estão com vagas? é para
+agora", promoção na quarta, promoções em geral, e os controles de Fortal
+citado, reserva para 4 pessoas e Réveillon. Antes da seção na fonte, as variações de "promoção em dobro"
+ainda receberam o Fortal mesmo com a ação nova e o par de perguntas. Lição:
+a ação sozinha não desfez a associação; a fonte precisou nomear a terça em
+dobro. A cliente da promoção recebeu às 22h16 de 22/11 a resposta correta, com
+desculpas, pelo Meta Business Suite do `@sirfisherfc`. Cota: **26/100**.
+A pausa de dezembro e janeiro está escrita com datas nas ações, na fonte e
+num par de perguntas: revisar quando a terça em dobro voltar.
+
 Correção de **19/11/2026**: num Direct real, o agente respondeu "Sim, temos
 carta de vinhos" e mandou o cardápio; na mensagem seguinte disse que não
 achou vinhos. A base não tinha a regra de vinho/rolha, que já estava no
@@ -90,7 +126,9 @@ a mensagem. O link não transfere o histórico nem notifica a equipe.
 Uma pergunta seguinte no Direct continua elegível para resposta.
 
 Reservas de 1 a 10 pessoas usam https://reservas.sirfisher.com.br/ .
-Isso inclui aniversário. Quando faltar quantidade, pode informar a faixa
+Isso inclui aniversário. Desde 22/11/2026, quem pergunta se precisa reservar
+ouve que não precisa, pois há mesas para quem chega, e recebe o portal
+como opção. Quando faltar quantidade, pode informar a faixa
 e o link ou perguntar apenas quantas pessoas. A palavra aniversário sozinha
 segue a reserva comum. Grupos confirmados de 11 a 29 seguem ao WhatsApp;
 de 30 a 100, à página https://www.sirfisher.com.br/eventos/ .
@@ -238,9 +276,9 @@ uma região ou um modelo específico.
 ## Custo e manutenção
 
 Plano **Starter gratuito**, sem cartão ou contratação. A conta mostrou
-**20 de 100 conversas mensais usadas em 18/11/2026**, na consulta do
-complemento de filtros (19 após o primeiro teste de Story; 18 antes;
-o registro de 02/11 era 2/100). Filtro sem resposta não comprova isenção
+**26 de 100 conversas mensais usadas em 22/11/2026**, depois dos testes de
+promoções e reserva (20 em 18/11, no complemento de filtros; 19 após o
+primeiro teste de Story; o registro de 02/11 era 2/100). Filtro sem resposta não comprova isenção
 de consumo e 100 conversas não são 100 mensagens. A cota é da conta do
 proprietário e pode ser compartilhada com outros agentes que ele criar.
 Ao atingir a cota, o fornecedor para de responder até a renovação ou troca

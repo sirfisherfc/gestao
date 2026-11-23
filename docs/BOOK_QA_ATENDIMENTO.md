@@ -159,9 +159,11 @@ uma resposta; sem mandar para o link da bio quando a resposta cabe na mensagem.
 ### Reservas
 
 **Precisa reservar?**
-> Não é obrigatório! Parte das mesas fica para reserva e o restante é por ordem de
-> chegada. Nos fins de semana e feriados, entre 16h e 18h (pôr do sol), a casa
-> costuma encher, então vale reservar: reservas.sirfisher.com.br
+> Não precisa fazer reserva: temos mesas disponíveis para quem chega sem
+> reserva. Mas, se preferir reservar, é só acessar reservas.sirfisher.com.br
+> (de 1 a 10 pessoas).
+> *(Texto definido pelo proprietário em 22/11/2026, depois de o agente responder
+> "Sim" a essa pergunta. Réveillon e grupos seguem as regras próprias.)*
 
 **Como reservo?**
 > Até 10 pessoas, direto pelo site: reservas.sirfisher.com.br. A confirmação chega
@@ -258,7 +260,12 @@ uma resposta; sem mandar para o link da bio quando a resposta cabe na mensagem.
 **Ainda tem a terça em dobro?**
 > Tem sim! Toda terça-feira, exceto feriados, das 11h às 14h: na compra de um
 > executivo, o segundo igual sai por nossa conta. Vale para consumo no local, com
-> duas pessoas e pratos iguais.
+> duas pessoas e pratos iguais. Em novembro vale normalmente; em dezembro e
+> janeiro não teremos a terça em dobro.
+> *(Pausa de dezembro de 2026 e janeiro de 2027 avisada pelo proprietário em
+> 22/11/2026; a volta em fevereiro ainda não foi confirmada. "Promoção em dobro"
+> sem a palavra Fortal não é o Fortal em Dobro: se o cliente não disser qual,
+> cite as duas e pergunte.)*
 
 **A taxa de serviço na terça em dobro é sobre o valor cheio?**
 > Sim. O desconto é da casa, mas o atendimento continua sendo de dois pratos. Por
@@ -267,9 +274,11 @@ uma resposta; sem mandar para o link da bio quando a resposta cabe na mensagem.
 > *(Já gerou reclamação: vale avisar no cardápio e no post da promoção.)*
 
 **Tem a quarta do camarão?**
-> Tem sim! Toda quarta-feira.
-> *(Os detalhes, como pratos, horário e valor, estão no post fixado. Se o cliente
-> pedir mais, encaminhar para uma pessoa até a regra entrar neste book.)*
+> Tem sim! Toda quarta-feira, na compra de um Newcastle, você ganha um camarão
+> alho e óleo.
+> *(Regra confirmada pelo proprietário em 22/11/2026. Horário, feriados e
+> delivery ainda não foram confirmados: se o cliente pedir, encaminhar ao
+> WhatsApp.)*
 
 **Aceitam Fortal em Dobro?**
 > Aceitamos! No Fortal em Dobro, na compra de um Newcastle, o segundo igual
@@ -292,9 +301,11 @@ uma resposta; sem mandar para o link da bio quando a resposta cabe na mensagem.
 16/11/2026. Ver `instagram-atendimento/REVISAO_2026-11-16.md`.)*
 
 **Tem happy hour? Tem outra promoção?**
-> Não temos happy hour. A terça em dobro do executivo segue as condições
-> acima. Para outras promoções, a equipe confere a oferta atual.
-> *(Ausência de happy hour reconfirmada pelo proprietário em 01/11/2026.)*
+> Não temos happy hour. Da casa, temos a terça em dobro do executivo (em
+> novembro; em dezembro e janeiro não) e a quarta do camarão. Pelos
+> aplicativos, aceitamos Fortal em Dobro, Prime Gourmet e Duo Gourmet.
+> *(Ausência de happy hour reconfirmada pelo proprietário em 01/11/2026. Lista
+> de promoções informada pelo proprietário em 22/11/2026.)*
 
 **Aniversariante ganha alguma coisa?**
 > Ganha! No dia do aniversário, é só avisar a equipe e mostrar um documento com foto

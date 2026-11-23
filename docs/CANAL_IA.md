@@ -879,3 +879,17 @@ e ordenação por clique no título da lista de reservas. Testes:
 `reveillon-reactivate-tests.sql` e `reveillon-deposit-tests.sql` passaram no
 `portal` em ROLLBACK, e o novo teste de navegador passou em 390/1366px.
 Pendente: o proprietário reativar RV-D30FC5 e registrar o pagamento.
+
+## 2026-11-22 · Claude — Jotform: reserva, terça em dobro e quarta do camarão
+
+Dois erros reais no Direct: "precisa fazer reserva?" recebeu "Sim", e duas
+perguntas sobre a terça em dobro do almoço receberam o cupom Fortal em
+Dobro. Na Jotform, a ação do Fortal só dispara com a palavra Fortal. Entraram
+quatro ações (terça em dobro, quarta do camarão, promoções em geral e
+"precisa reservar?"), uma seção de promoções da casa na fonte de cupons e
+três pares de perguntas e respostas. A prévia passou nos 12 cenários,
+incluindo os controles. A cliente recebeu a correção com desculpas pelo
+Business Suite. Book, `CONHECIMENTO.md` e `JOTFORM.md` atualizados.
+Pendências: horário, feriados e delivery da quarta do camarão; revisar as
+datas da pausa da terça em dobro (dezembro e janeiro) quando ela voltar. O
+site (home e almoço executivo) ainda descreve a terça em dobro sem a pausa.
