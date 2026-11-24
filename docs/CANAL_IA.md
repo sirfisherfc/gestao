@@ -994,3 +994,15 @@ Documentação oficial de aproximação por HLL++ consultada. Usuários de
 semanas diferentes não devem ser somados como pessoas únicas do período.
 Evidências em `tmp/desempenho-2026-11-24/site-8-semanas.json`, ignorado pelo
 Git. Sem mudanças no site, anúncios ou banco; apenas este registro versionado.
+
+## 2026-11-24 · Codex — entrega da retomada confirmada
+
+Consulta de acompanhamento às 02h51 de Fortaleza: campanha
+`120255072476160120`, conjunto e anúncio agora com status efetivo ACTIVE.
+Meta retornou 137 impressões, seis cliques no link e R$0,66 de mídia no dia
+24/11 parcial. Confirma entrega após a análise; amostra inicial, sem avaliação
+de eficiência. Reel reutilizado: Ambiente, publicação própria de 28/09,
+`18113719193582226`, https://www.instagram.com/reel/Dd1jlNbBdIH/.
+Mesma mídia da rodada anterior, nova rodada publicitária; não houve nova
+publicação orgânica. Teto e datas preservados. Consulta somente de leitura;
+comprovante em `tmp/meta-ads/retomada-20261124-status-consulta.json`.
