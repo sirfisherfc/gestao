@@ -1028,3 +1028,14 @@ navegador (turno gravado com 1h conta 1h15 após a virada). O seletor de 42h
 antes da data é simulação sem edição, porque existe só uma escala gravada.
 Views do banco continuam usando o intervalo e a jornada gravados. Sem
 migration. Atenção: no 5x2, 1h15 leva 44h a 42h45; faltam 45min na semana.
+
+## 2026-11-24 · Claude — 42h: intervalo de 1h12 e entrada 12min mais tarde
+
+Decisão do proprietário, substitui o 1h15 do recado anterior: a partir de
+16/12/2026 a escala usa intervalo de 1h12 e entrada +12min (24min x 5 dias =
+2h). `ajustaTurno` aplica sobre turno gravado com o intervalo antigo; gravar
+o turno salva o novo e ele não desloca de novo. O início do intervalo só move
+para manter a margem de 90min (quatro turnos na escala de hoje). Simulação com
+a escala real, em leitura: as 11 pessoas em 42h00. Única consequência: a
+primeira entrada vai a 08:52 e a janela abre 08:40 (9h menos 20min), alerta
+nos sete dias nas duas equipes; "Chega antes" não foi alterado.
