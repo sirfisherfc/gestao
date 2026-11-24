@@ -440,10 +440,10 @@ function blocoEscala(){
       </td>`);
     }
     const banco=Number(p.banco_horas_semana||0);
-    return `<tr><th class="pessoa"><strong>${esc(p.nome)}</strong><span>${esc(FUNCOES[p.funcao]||p.funcao)} · ${esc(p.regime)}</span><span class="pessoa-horas ${Math.abs(banco)>2?'fora':''}">${horas(p.horas_semana)} / ${horas(p.carga_semanal_horas)}${Math.round(banco*60)?` (${horas(banco)})`:''}</span></th>${cels.join('')}</tr>`;
+    return `<tr><th class="pessoa"><input class="in-nome" data-func="${p.funcionario_id}" value="${esc(p.nome)}" maxlength="120" autocomplete="off" spellcheck="false" title="Clique para trocar o nome" aria-label="Nome de ${esc(p.nome)}"><span>${esc(FUNCOES[p.funcao]||p.funcao)} · ${esc(p.regime)}</span><span class="pessoa-horas ${Math.abs(banco)>2?'fora':''}">${horas(p.horas_semana)} / ${horas(p.carga_semanal_horas)}${Math.round(banco*60)?` (${horas(banco)})`:''}</span></th>${cels.join('')}</tr>`;
   }).join('');
   return `<section class="panel">
-    <div class="panel-head"><div><h3>Escala semanal — ${EQUIPES[EQUIPE_ATIVA]}</h3><div class="hint">Entrada, saída e o intervalo de 1h. A diferença para a jornada contratual vira banco de horas.</div></div></div>
+    <div class="panel-head"><div><h3>Escala semanal — ${EQUIPES[EQUIPE_ATIVA]}</h3><div class="hint">Entrada, saída e o intervalo de 1h. A diferença para a jornada contratual vira banco de horas. Trocou a pessoa? Clique no nome e digite o novo: os horários continuam.</div></div></div>
     <div class="scale-scroll"><table class="scale-grid"><thead><tr><th></th>${DIAS.slice(1).map(d=>`<th>${d}</th>`).join('')}</tr></thead><tbody>${linhas}</tbody></table></div>
   </section>`;
 }
@@ -552,6 +552,13 @@ function bind(){
     chk.addEventListener('change',()=>{cel.querySelector('.turno-campos').hidden=chk.checked;salvarTurno(cel);});
     cel.querySelectorAll('input[type=time]').forEach(i=>i.addEventListener('change',()=>salvarTurno(cel)));
   });
+  document.querySelectorAll('.in-nome').forEach(i=>{
+    i.addEventListener('change',()=>salvarNome(i));
+    i.addEventListener('keydown',e=>{
+      if(e.key==='Enter'){e.preventDefault();i.blur();}
+      else if(e.key==='Escape'){i.value=i.defaultValue;i.blur();}
+    });
+  });
   document.getElementById('salvarFuncionamento')?.addEventListener('click',salvarFuncionamento);
   document.getElementById('novaPessoa')?.addEventListener('submit',e=>salvarPessoa(e,null));
   document.querySelectorAll('.scale-person[data-id]').forEach(f=>{
@@ -602,16 +609,37 @@ async function salvarTurno(cel){
   await load();
 }
 
+// Troca so o nome: o cadastro e os turnos sao os mesmos, entao quem entra
+// herda os horarios de quem saiu. O resto vai como esta no banco porque a RPC
+// grava a linha inteira.
+async function salvarNome(campo){
+  const id=Number(campo.dataset.func),nome=campo.value.trim();
+  const p=pessoas().find(x=>x.funcionario_id===id);
+  if(!p)return;
+  if(!nome){campo.value=p.nome;toast('O nome não pode ficar vazio.',true);return;}
+  if(nome===p.nome){campo.value=p.nome;return;}
+  campo.disabled=true;
+  const{error}=await sb.rpc('salvar_escala_funcionario',{
+    p_id:id,p_nome:nome,p_equipe:p.equipe,p_funcao:p.funcao,p_regime:p.regime,
+    p_carga:Number(p.carga_semanal_horas),p_autonomia:p.autonomia_fechamento,
+    p_ativo:p.ativo,p_ordem:p.ordem});
+  if(error){campo.disabled=false;campo.value=p.nome;toast(error.code==='23505'?`Não salvou: já existe ${nome} na equipe.`:'Não salvou: '+error.message,true);return;}
+  toast(`${p.nome} trocado por ${nome}.`);
+  await load();
+}
+
 async function salvarPessoa(event,id){
   event.preventDefault();
-  const f=new FormData(event.currentTarget);
+  // currentTarget vira null depois do await: guardar antes.
+  const form=event.currentTarget,f=new FormData(form);
+  const atual=id==null?null:pessoas().find(p=>p.funcionario_id===id);
   const{error}=await sb.rpc('salvar_escala_funcionario',{
     p_id:id,p_nome:f.get('nome'),p_equipe:f.get('equipe'),p_funcao:f.get('funcao'),
     p_regime:f.get('regime'),p_carga:Number(f.get('carga')),
-    p_autonomia:f.get('autonomia')==='on',p_ativo:id==null?true:f.get('ativo')==='on',p_ordem:100});
-  if(error){cel.classList.add('nao-salvo');toast('Não salvou: '+error.message,true);return;}
+    p_autonomia:f.get('autonomia')==='on',p_ativo:id==null?true:f.get('ativo')==='on',p_ordem:atual?atual.ordem:100});
+  if(error){toast('Não salvou: '+error.message,true);return;}
   toast(id==null?'Pessoa adicionada.':'Cadastro atualizado.');
-  if(id==null)event.currentTarget.reset();
+  if(id==null)form.reset();
   await load();
 }
 
@@ -633,7 +661,7 @@ async function salvarFuncionamento(){
       p_dia_semana:Number(tr.dataset.dia),p_abertura_min:abre,p_fechamento_min:fecha,
       p_pre_min:Number(tr.querySelector('.fn-pre').value),
       p_pos_min:Number(tr.querySelector('.fn-pos').value)});
-    if(error){cel.classList.add('nao-salvo');toast('Não salvou: '+error.message,true);return;}
+    if(error){toast('Não salvou: '+error.message,true);return;}
   }
   toast('Horários salvos.');await load();
 }

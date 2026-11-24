@@ -248,7 +248,9 @@ header{background:var(--header);color:#fff;position:sticky;top:0;z-index:10}
 .heat-key.ok{background:#cfe4d5}.heat-key.folgado{background:#e6ecf0}
 .scale-grid td,.scale-grid tbody th{border:1px solid var(--border);padding:6px;vertical-align:top}
 .scale-grid tbody th.pessoa{min-width:170px}
-.scale-grid th.pessoa strong{display:block;font-size:12.5px;color:var(--text)}
+.scale-grid th.pessoa .in-nome{display:block;width:100%;margin:-4px 0 0 -6px;padding:3px 5px;border:1px solid transparent;border-radius:6px;background:transparent;font:inherit;font-size:12.5px;font-weight:700;color:var(--text);text-overflow:ellipsis;cursor:text}
+.scale-grid th.pessoa .in-nome:hover{border-color:var(--border)}
+.scale-grid th.pessoa .in-nome:focus{border-color:var(--border);background:#fff}
 .scale-grid th.pessoa span{display:block;font-size:10.5px;color:var(--muted);margin-top:2px}
 .scale-grid th.pessoa .pessoa-horas{font-variant-numeric:tabular-nums;font-weight:500}
 .scale-grid th.pessoa .pessoa-horas.fora{color:var(--red)}

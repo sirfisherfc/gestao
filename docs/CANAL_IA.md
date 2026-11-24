@@ -1006,3 +1006,13 @@ de eficiência. Reel reutilizado: Ambiente, publicação própria de 28/09,
 Mesma mídia da rodada anterior, nova rodada publicitária; não houve nova
 publicação orgânica. Teto e datas preservados. Consulta somente de leitura;
 comprovante em `tmp/meta-ads/retomada-20261124-status-consulta.json`.
+
+## 2026-11-24 · Claude — trocar o nome na escala
+
+`escalas.html`: o nome na tabela "Escala semanal" virou campo editável (Enter
+salva, Esc desfaz). Usa a RPC existente `salvar_escala_funcionario` com os
+demais dados iguais, então quem entra herda os turnos. Corrigidos no caminho:
+salvar o cadastro em "Equipe" zerava a ordem manual para 100; adicionar pessoa
+quebrava depois de gravar e não recarregava; erro ao salvar cadastro ou
+horário usava variável inexistente e não mostrava a mensagem. Sem migration.
+Testado em navegador com dados fictícios; nenhum nome real foi alterado.
