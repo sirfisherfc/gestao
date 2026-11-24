@@ -1039,3 +1039,13 @@ para manter a margem de 90min (quatro turnos na escala de hoje). Simulação com
 a escala real, em leitura: as 11 pessoas em 42h00. Única consequência: a
 primeira entrada vai a 08:52 e a janela abre 08:40 (9h menos 20min), alerta
 nos sete dias nas duas equipes; "Chega antes" não foi alterado.
+
+## 2026-11-24 · Claude — 42h: 8min na entrada, 8 no intervalo e 8 na saída
+
+Nova decisão do proprietário, substitui o 12/12: a partir de 16/12/2026,
+entrada +8min, intervalo de 1h08 e saída -8min (24min x 5 dias = 2h).
+Simulação com a escala real, em leitura: 11 pessoas em 42h00; os mesmos
+quatro turnos movem o início do intervalo para manter 90min de margem.
+Sobram 8min descobertos na abertura (08:40-08:48) e 8min no fim da janela de
+fechamento, todo dia e nas duas equipes; a página mostra 10min porque amostra
+em passos de 5. `escala_funcionamento` não foi alterado.

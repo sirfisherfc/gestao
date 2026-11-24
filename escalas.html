@@ -45,9 +45,9 @@ const PASSO=5;   // resolucao da amostragem, em minutos
 // Teto da jornada semanal por data de vigencia. O cadastro continua guardando
 // a jornada de cada pessoa; vale o menor dos dois, entao quem tem contrato
 // abaixo do teto nao muda e quem esta em 44h cai sozinho para 42h na data.
-// A reducao de 2h sai de 12min a mais de intervalo e 12min a menos na entrada,
-// por dia: 24min x 5 dias (decisao do proprietario, 24/11/2026).
-const JORNADAS=[{desde:'',horas:44,intervalo:60,atraso:0},{desde:'2026-12-16',horas:42,intervalo:72,atraso:12}];
+// A reducao de 2h sai de tres partes de 8min por dia: entrada mais tarde,
+// intervalo maior e saida mais cedo: 24min x 5 dias (decisao do proprietario, 24/11/2026).
+const JORNADAS=[{desde:'',horas:44,intervalo:60,atraso:0,antecipa:0},{desde:'2026-12-16',horas:42,intervalo:68,atraso:8,antecipa:8}];
 function jornadaVigente(){
   const hoje=new Date().toLocaleDateString('sv-SE',{timeZone:'America/Fortaleza'});
   return JORNADAS.filter(j=>j.desde<=hoje).pop();
@@ -59,23 +59,24 @@ let JORNADA_SEL=null;
 function jornada(){return JORNADA_SEL||jornadaVigente();}
 function simulando(){return jornada().desde!==jornadaVigente().desde;}
 // Turno gravado com intervalo menor que o da jornada em uso ainda e o antigo:
-// conta com o intervalo e a entrada novos, sem regravar celula por celula.
+// conta com entrada, intervalo e saida novos, sem regravar celula por celula.
 // Gravar o turno salva o intervalo novo e, com isso, ele nao desloca de novo.
 function ajustaTurno(t){
   if(t.folga||t.entrada_min==null)return{...t,horas_trabalhadas:0};
-  const j=jornada(),sai=t.saida_min;
-  let ent=t.entrada_min,i0=t.intervalo_inicio_min,i1=t.intervalo_fim_min;
+  const j=jornada();
+  let ent=t.entrada_min,sai=t.saida_min,i0=t.intervalo_inicio_min,i1=t.intervalo_fim_min;
   if(i0!=null&&i1-i0<j.intervalo){
     const margem=cfg('margem_intervalo_min',90);
     const antesOk=i0-ent>=margem,depoisOk=sai-i1>=margem;
     ent+=j.atraso;
+    sai-=j.antecipa;
     // Mantem o horario do intervalo; so move o necessario para nao encostar na
     // ponta um intervalo que antes respeitava a margem.
     if(antesOk)i0=Math.max(i0,ent+margem);
     if(depoisOk)i0=Math.min(i0,sai-margem-j.intervalo);
     i1=i0+j.intervalo;
   }
-  return{...t,entrada_min:ent,intervalo_inicio_min:i0,intervalo_fim_min:i1,
+  return{...t,entrada_min:ent,saida_min:sai,intervalo_inicio_min:i0,intervalo_fim_min:i1,
     horas_trabalhadas:(sai-ent-(i0==null?0:i1-i0))/60};
 }
 function cargaDe(p){return Math.min(Number(p.carga_semanal_horas),jornada().horas);}
@@ -476,7 +477,7 @@ function blocoJornada(){
 }
 function avisoJornada(){
   const fora=foraDaJornada(EQUIPE_ATIVA),j=jornada();
-  const previa=simulando()?`<br>Simulação de ${dataCurta(j.desde)}: ${j.horas}h, intervalo de ${horas(j.intervalo/60)}${j.atraso?` e entrada ${j.atraso}min mais tarde`:''} sobre os horários atuais. Para editar, volte para a jornada de hoje.`:'';
+  const previa=simulando()?`<br>Simulação de ${dataCurta(j.desde)}: ${j.horas}h, intervalo de ${horas(j.intervalo/60)}${j.atraso?`, entrada ${j.atraso}min mais tarde`:''}${j.antecipa?` e saída ${j.antecipa}min mais cedo`:''} sobre os horários atuais. Para editar, volte para a jornada de hoje.`:'';
   if(!fora.length)return `<div class="jornada-aviso ok">✓ Todos cumprem a jornada semanal.${previa}</div>`;
   return `<div class="jornada-aviso"><strong>⚠ ${fora.length===1?'1 pessoa fora':`${fora.length} pessoas fora`} da jornada semanal:</strong> ${
     fora.map(p=>`${esc(p.nome)} (${textoDesvio(p)})`).join(', ')}.${previa}</div>`;
