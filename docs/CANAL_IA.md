@@ -1086,3 +1086,13 @@ valor financeiro bruto ou credencial incluído no commit. Sem migration,
 mudança de interface, anúncio, preço, bloqueio, reserva ou pagamento.
 Liberação da mesa e virada de lote permanecem como decisões do proprietário;
 o pedido atual foi de análise.
+
+## 2026-11-24 · Claude — análise da escala contra o movimento (só leitura)
+
+Nada foi alterado na escala, na página ou no banco. Achados: contra os
+lançamentos do Saipos (01/09 a 29/10, 59 dias) a defasagem pedido–pagamento
+que melhor ajusta é ~45min (correlação 0,886; 75min dá 0,846), e os 75min
+escondem a noite; a régua de 4,34 foi calibrada com essa curva e a média
+esconde dias cheios (usar também o percentil 80). Com 42h, 8/8/8 alonga
+intervalos encadeados de hora em hora e cria sobreposições de 8 a 10min.
+Propostas de intervalo e turno entregues ao proprietário, aguardando decisão.
