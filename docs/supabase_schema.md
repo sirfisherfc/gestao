@@ -1375,8 +1375,8 @@ movimento real da casa.
 
 ### escala_config
 - Tipo: tabela de parâmetros (chave/valor).
-- Chaves: `defasagem_venda_pagamento_min` (75), `capacidade_vendas_hora_pessoa`
-  (4.18), `carga_semanal_horas` (44), `margem_intervalo_min` (90),
+- Chaves: `defasagem_venda_pagamento_min` (45), `capacidade_vendas_hora_pessoa`
+  (3.97), `carga_semanal_horas` (44), `margem_intervalo_min` (90),
   `meses_historico` (12). Mudar aqui muda a régua de toda a página.
 
 ### escala_funcionamento
@@ -1398,8 +1398,8 @@ movimento real da casa.
   defasagem configurada e agrega por dia da semana × hora. O pagamento acontece
   no fim da refeição; o trabalho aconteceu antes. Sem o deslocamento a escala
   seria dimensionada com mais de uma hora de atraso.
-- A defasagem de 75 min foi estimada cruzando a curva de lançamento do sistema
-  de vendas com a curva de pagamento deste banco.
+- A defasagem de 45 min (20261124190000; antes 75) foi ajustada cruzando a
+  curva de itens lançados no Saipos com a curva de pagamento deste banco.
 - Deslocar a transação (e não a curva já agregada) mantém o resultado exato
   quando a defasagem não é múltipla de uma hora.
 - **Cobre ~94% do faturamento**: a venda em espécie não tem hora.

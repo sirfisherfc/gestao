@@ -1111,3 +1111,12 @@ de Pix/dinheiro, transferência automática ou integração com vouchers de sóc
 Definir tratamento de serviço/couvert antes do evento. Nenhuma configuração,
 comanda, venda ou recebimento criado. Catálogo local tentou executar, mas
 `node` não está no PATH deste PC; manuais locais e manual oficial consultados.
+
+## 2026-11-24 · Claude — escala ajustada ao movimento e régua em 45min
+
+Aprovado pelo proprietário. 27 turnos regravados pela página (44h e folgas
+iguais; conferidos 55 de 55 no banco). Cópia anterior e plano em
+`tmp/escala-2026-11-24/`, ignorado pelo Git. Migration `20261124190000`
+aplicada e registrada: defasagem 45min e capacidade 3,97 (pico 11,885 / 3).
+Textos de reserva da página e `supabase_schema.md` acompanham. Correção do
+recado anterior: a correlação 0,846 é de 70min, e 0,886 é de 50min.

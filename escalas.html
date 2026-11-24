@@ -158,7 +158,7 @@ function serie(equipe,dia){
   if(!_serie)_serie=new Map();
   const k=equipe+'|'+dia;
   if(_serie.has(k))return _serie.get(k);
-  const cap=cfg('capacidade_vendas_hora_pessoa',4.34);
+  const cap=cfg('capacidade_vendas_hora_pessoa',3.97);
   // Piso 1 nas duas equipes: so "tem de ter alguem com a casa aberta". O piso
   // de 2 na cozinha era arbitrario — criava 44,5 pessoas-hora de exigencia por
   // semana que a demanda nao pede, e cobrava 24h de deficit de uma escala que
@@ -294,7 +294,7 @@ function render(){
   const alertasLista=alertas();
   const erros=alertasLista.filter(a=>a.nivel==='erro').length;
   main.innerHTML=`
-    <div class="page-intro"><div><h2>Escalas</h2><p>A jornada de cada pessoa contra a curva de movimento real da casa. A demanda vem do faturamento dos últimos 12 meses, deslocada ${cfg('defasagem_venda_pagamento_min',75)} min para o horário em que o pedido acontece — não o do pagamento.</p></div><div class="actions"><button id="recarregar" class="button secondary">Atualizar</button></div></div>
+    <div class="page-intro"><div><h2>Escalas</h2><p>A jornada de cada pessoa contra a curva de movimento real da casa. A demanda vem do faturamento dos últimos 12 meses, deslocada ${cfg('defasagem_venda_pagamento_min',45)} min para o horário em que o pedido acontece — não o do pagamento.</p></div><div class="actions"><button id="recarregar" class="button secondary">Atualizar</button></div></div>
     <div class="scale-tabs">${Object.entries(EQUIPES).map(([k,v])=>`<button class="scale-tab${k===EQUIPE_ATIVA?' active':''}" data-equipe="${k}">${v}${foraDaJornada(k).length?` <span class="tab-fora" role="img" aria-label="${foraDaJornada(k).length} fora da jornada" title="Pessoas fora da jornada">${foraDaJornada(k).length}</span>`:''}</button>`).join('')}</div>
     ${blocoResumo()}
     ${blocoCartaz()}
@@ -314,7 +314,7 @@ function blocoResumo(){
     <div class="summary-card ${r.vazio?'overdue':'paid'}"><div class="label">Casa aberta e vazia</div><div class="value">${horas(r.vazio)}</div><div class="note">Horas sem ninguém da equipe escalado</div></div>
     <div class="summary-card ${Math.abs(r.banco)>4?'pending':'paid'}"><div class="label">Banco de horas da semana</div><div class="value">${horas(r.banco)}</div><div class="note">Soma do que a escala passa ou falta da jornada</div></div>
   </div>
-  ${r.piorQd?`<div class="scale-worst">Momento mais apertado: <strong>${r.piorQd}</strong> — ${r.pior.toFixed(1)} vendas/hora por pessoa (o teto calibrado é ${cfg('capacidade_vendas_hora_pessoa',4.18).toFixed(1)}).</div>`:''}`;
+  ${r.piorQd?`<div class="scale-worst">Momento mais apertado: <strong>${r.piorQd}</strong> — ${r.pior.toFixed(1)} vendas/hora por pessoa (o teto calibrado é ${cfg('capacidade_vendas_hora_pessoa',3.97).toFixed(1)}).</div>`:''}`;
 }
 
 // Cartaz da semana: versao limpa, para tirar print e mandar nos grupos.
@@ -450,7 +450,7 @@ function blocoTabela(){
 }
 
 function blocoMapa(){
-  const cap=cfg('capacidade_vendas_hora_pessoa',4.18);
+  const cap=cfg('capacidade_vendas_hora_pessoa',3.97);
   return `<section class="panel">
     <div class="panel-head">
       <div><h3>Cobertura contra o movimento</h3><div class="hint">A demanda está convertida em gente: ${cap.toFixed(1)} vendas por hora é o que uma pessoa dá conta. Os sete dias usam a mesma escala.</div></div>
