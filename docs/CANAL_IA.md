@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 Livre. A Casa com quatro Stories finais, cor harmonizada e nova foto de encerramento; publicados e conferidos visualmente. Quem Veio já não aparece no perfil. Ver `docs/marketing/DESTAQUES_INSTAGRAM_2026-11-18.md`.
+> **🚦 Status atual:** 🟢 Livre. Análise dos lotes e da possível venda da mesa da diretoria concluída em leitura; nenhuma alteração de preço, bloqueio ou reserva.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -1058,3 +1058,31 @@ qui) e 22min (sex a dom). Horários públicos iguais. Conferido no banco e na
 produção: zero alertas na escala de hoje (44h) e na simulação de 42h.
 O fechamento descoberto por 8min é aceito; se precisar, hora extra. Campos
 de minutos passam a aceitar passo de 1.
+
+## 2026-11-24 · Codex — análise do ritmo de vendas do Réveillon
+
+Consultados reservas, pagamentos ativos, lotes, bloqueios e capacidade no
+Supabase `portal`, pela rota Management API `database/query/read-only`, com
+credencial existente verificada. Cruzamento com consultas reais do MCP
+Google Analytics nas páginas do evento e do mapa. Comparação de coortes
+pela criação da reserva com pagamento confirmado, em janelas iguais de sete
+dias ao redor da virada de 17/11 às 11h07 de Fortaleza; atualização até a
+tarde de 24/11 separada da janela fechada. Não confundir pagamento posterior
+de reserva do lote anterior com nova venda do lote atual, nem somar sessões
+dos dois domínios como pessoas únicas. Dados recentes do GA4 são provisórios.
+
+Recomendação entregue na conversa: considerar vender a mesa da diretoria
+no lote vigente e condicionar novo lote à redução do estoque e a novas
+vendas com pagamento; cenário de reajuste mantém a consumação e repete o
+incremento por pessoa da troca anterior. Conferidos desconto Pix real,
+diferença entre contratado e recebido e limite global de cadeiras, incluindo
+a necessidade de preservar lugares para o bloqueio do patrocinador.
+Não pressupor a capacidade antiga das laterais da documentação: conferir
+configuração vigente antes de prometer extras.
+
+Somente este registro versionado. Totais agregados privados em
+`reservas/tmp/reveillon-2026-11-24/`, ignorado pelo Git; nenhum dado pessoal,
+valor financeiro bruto ou credencial incluído no commit. Sem migration,
+mudança de interface, anúncio, preço, bloqueio, reserva ou pagamento.
+Liberação da mesa e virada de lote permanecem como decisões do proprietário;
+o pedido atual foi de análise.
