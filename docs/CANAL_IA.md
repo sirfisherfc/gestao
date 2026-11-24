@@ -943,3 +943,35 @@ Evidências agregadas e scripts de leitura em `tmp/desempenho-2026-11-24/`,
 ignorados pelo Git; sem nomes/contatos de clientes. Recomendações entregues
 na conversa. Nenhum anúncio, verba, banco, site, credencial, mensagem ou
 agendamento foi alterado. Única alteração versionada: este registro.
+
+## 2026-11-24 · Codex — retomada de Ambiente na Meta
+
+Após a revisão, o proprietário pediu escolher a melhor opção e ativar
+novamente. Retomado o reel próprio de Ambiente de 28/09, que teve o menor
+CPC do link e uma reserva identificada marcada como comparecida. Nova
+rodada, com histórico separado: campanha `120255072476160120`, conjunto
+`120255072476520120`, anúncio `120255072477670120`, conta Meta confirmada
+`1004410887092327`. Nome: `SF | Ambiente | Retomada 24nov | Trafego`.
+
+Teto desta rodada: R$150, sendo R$130 de orçamento total de mídia e R$20
+reservados para impostos, conforme a proposta anterior de sete dias. Início
+24/11/2026 às 02h25min01s; término 01/12/2026 às 02h25min01s, Fortaleza.
+Meta exibe 03h25 em America/Noronha. Raio de 20 km do restaurante, 21–65
+anos; Instagram feed, Stories e Reels. Objetivo tráfego, otimização para
+cliques no link, cobrança por impressões. Destino: home oficial, com acesso
+ao cardápio e às reservas. Não prometer otimização ou resultado em reservas.
+UTM própria: `ambiente_retomada_20261124`, com ID do conteúdo e da campanha.
+
+Criados pausados pela ferramenta validada `scripts/marketing/impulsionar.py`.
+Conta, elegibilidade do reel, destino real do CTA, atribuição, orçamento,
+público e datas relidos antes de ativar anúncio → conjunto → campanha.
+Os três níveis foram relidos com status configurado ACTIVE; anúncio passou
+de IN_PROCESS para PENDING_REVIEW. Aprovação e entrega efetiva dependem da
+Meta. Não existe acompanhamento recorrente criado por esta tarefa. Revisão
+manual recomendada no terceiro dia e no fechamento, com reservas e visitas
+separadas de cliques/seguidores. Google, ChatGPT e testes anteriores preservados.
+
+Sete testes do contrato de impulsionamento passaram. Home HTTP 200, links de
+reserva e script de atribuição conferidos. Plano, prévia de configuração e
+recibos antes/depois em `tmp/meta-ads/`, ignorados pelo Git. Sem alteração de
+código, banco, credencial ou automação; somente este registro versionado.
