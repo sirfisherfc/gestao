@@ -919,3 +919,27 @@ Correção: XML e Pix só são pedidos a partir das 5h do dia seguinte, sem gast
 a reserva antes disso (`HORA_LIBERACAO` em `api_stone_rotina.py`), com teste.
 Detalhes em `docs/INTEGRACAO_API_BANCOS.md`. Sem migration. 22/11 aguarda a
 aquisição de hoje, atrasada no GitHub; as vendas já entraram pelo CSV.
+
+## 2026-11-24 · Codex — desempenho recente e campanhas
+
+Revisão somente de leitura: GA4 e reservas comuns em 17–23/11 contra
+10–16/11; Instagram em 16–22/11 contra 9–15/11; Search Console e Perfil
+Google em 15–21/11 contra 8–14/11. Últimos dias do GA4 sujeitos à consolidação.
+Site www: 2.441 sessões, 1.952 usuários ativos e 4.184 visualizações de
+página. QR das mesas separado da descoberta externa. Portal: 13 reservas
+públicas criadas contra sete; comparecimentos ainda exigem conferir quatro
+reservas de datas passadas que permanecem confirmadas.
+
+Meta: conta e 16 campanhas relidas, com término dos dois conjuntos novos
+já vencido. ChatGPT: quatro campanhas conferidas, todas com término vencido;
+sem linhas de entrega na semana atual. Google Ads aberto na sessão existente,
+conta Sir Fisher Praia conferida: Performance Max finalizada, sem gasto ou
+impressões nos dois períodos. As 12 ações de conversão ativadas não incluem
+reserva confirmada; Store visits informa configuração incorreta. Vínculo
+Ads/GA4 relido. Não atribuir visitas ou lucro a cliques, seguidores ou eventos
+enviados; consumo das reservas continua sem vínculo com a mídia.
+
+Evidências agregadas e scripts de leitura em `tmp/desempenho-2026-11-24/`,
+ignorados pelo Git; sem nomes/contatos de clientes. Recomendações entregues
+na conversa. Nenhum anúncio, verba, banco, site, credencial, mensagem ou
+agendamento foi alterado. Única alteração versionada: este registro.
