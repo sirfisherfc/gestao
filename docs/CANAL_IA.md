@@ -1096,3 +1096,18 @@ escondem a noite; a régua de 4,34 foi calibrada com essa curva e a média
 esconde dias cheios (usar também o percentil 80). Com 42h, 8/8/8 alonga
 intervalos encadeados de hora em hora e cria sobreposições de 8 a 10min.
 Propostas de intervalo e turno entregues ao proprietário, aguardando decisão.
+
+## 2026-11-24 · Codex — uso da consumação do Réveillon no caixa
+
+Esclarecimento operacional, sem alteração dos sistemas: o portal já calcula
+a consumação por reserva e a exibe na ficha e na confirmação. Ainda não há
+procedimento validado para aplicar esse crédito no Teknisa. O histórico de
+adiantamento POS/PC de 30/10 não comprova um recebimento específico para
+consumação de evento já paga. Proposta apresentada como pendente de validação:
+identificar mesa e reserva, lançar os produtos normalmente e abater o crédito
+elegível no fechamento com identificação de valor recebido anteriormente,
+cobrando apenas o excedente. Não presumir desconto comercial, novo ingresso
+de Pix/dinheiro, transferência automática ou integração com vouchers de sócios.
+Definir tratamento de serviço/couvert antes do evento. Nenhuma configuração,
+comanda, venda ou recebimento criado. Catálogo local tentou executar, mas
+`node` não está no PATH deste PC; manuais locais e manual oficial consultados.
