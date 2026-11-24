@@ -1049,3 +1049,12 @@ quatro turnos movem o início do intervalo para manter 90min de margem.
 Sobram 8min descobertos na abertura (08:40-08:48) e 8min no fim da janela de
 fechamento, todo dia e nas duas equipes; a página mostra 10min porque amostra
 em passos de 5. `escala_funcionamento` não foi alterado.
+
+## 2026-11-24 · Claude — janela da escala reduzida
+
+A pedido do proprietário, gravado pelo formulário da própria página:
+`escala_funcionamento` com pré-abertura 12min e pós-fechamento 7min (seg a
+qui) e 22min (sex a dom). Horários públicos iguais. Conferido no banco e na
+produção: zero alertas na escala de hoje (44h) e na simulação de 42h.
+O fechamento descoberto por 8min é aceito; se precisar, hora extra. Campos
+de minutos passam a aceitar passo de 1.
