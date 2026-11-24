@@ -975,3 +975,22 @@ Sete testes do contrato de impulsionamento passaram. Home HTTP 200, links de
 reserva e script de atribuição conferidos. Plano, prévia de configuração e
 recibos antes/depois em `tmp/meta-ads/`, ignorados pelo Git. Sem alteração de
 código, banco, credencial ou automação; somente este registro versionado.
+
+## 2026-11-24 · Codex — acessos ao site nas últimas oito semanas
+
+Consulta GA4 somente de leitura, propriedade oficial e host
+`www.sirfisher.com.br`, oito blocos de sete dias de 29/09 a 23/11/2026,
+no fuso de Fortaleza. Sessões, usuários ativos e páginas por semana; QR e
+Instagram pago separados. Total consultado diretamente em 56 dias:
+8.905 sessões, 6.923 usuários ativos e 15.973 visualizações de página.
+Semana recente: 2.441 sessões, incluindo 847 por QR e 751 por Instagram
+pago. Primeira semana: 415 sessões. Os últimos dias podem consolidar depois.
+
+Contagens estimadas de sessões do GA4 diferem conforme a agregação:
+soma dos oito recortes 8.824, consulta única 8.905 (0,9% de diferença).
+Primeiro recorte conferido também em consulta independente; visualizações
+somadas conciliam em 15.973. Preservados os retornos, sem ajustar números.
+Documentação oficial de aproximação por HLL++ consultada. Usuários de
+semanas diferentes não devem ser somados como pessoas únicas do período.
+Evidências em `tmp/desempenho-2026-11-24/site-8-semanas.json`, ignorado pelo
+Git. Sem mudanças no site, anúncios ou banco; apenas este registro versionado.
