@@ -42,6 +42,38 @@ const FUNCOES={gerente_salao:'Gerente de salão',garcom:'Garçom',lider_cozinha:
 const HORA_INI=7,HORA_FIM=26;
 const PASSO=5;   // resolucao da amostragem, em minutos
 
+// Teto da jornada semanal por data de vigencia. O cadastro continua guardando
+// a jornada de cada pessoa; vale o menor dos dois, entao quem tem contrato
+// abaixo do teto nao muda e quem esta em 44h cai sozinho para 42h na data.
+// O intervalo minimo muda junto: 1h ate a virada, 1h15 depois.
+const JORNADAS=[{desde:'',horas:44,intervalo:60},{desde:'2026-12-16',horas:42,intervalo:75}];
+function jornadaVigente(){
+  const hoje=new Date().toLocaleDateString('sv-SE',{timeZone:'America/Fortaleza'});
+  return JORNADAS.filter(j=>j.desde<=hoje).pop();
+}
+// A escala e um modelo semanal, sem data: so existe uma gravada. Escolher a
+// proxima jornada e simulacao, sem edicao, senao preparar dezembro mudaria o
+// turno de amanha. null segue o calendario.
+let JORNADA_SEL=null;
+function jornada(){return JORNADA_SEL||jornadaVigente();}
+function simulando(){return jornada().desde!==jornadaVigente().desde;}
+// Turno gravado com intervalo menor que o da jornada em uso conta com o novo:
+// assim a virada vale para a escala inteira sem regravar celula por celula.
+function ajustaTurno(t){
+  if(t.folga||t.entrada_min==null)return{...t,horas_trabalhadas:0};
+  let fim=t.intervalo_fim_min,pausa=0;
+  if(t.intervalo_inicio_min!=null){
+    fim=Math.max(fim,t.intervalo_inicio_min+jornada().intervalo);
+    pausa=fim-t.intervalo_inicio_min;
+  }
+  return{...t,intervalo_fim_min:fim,horas_trabalhadas:(t.saida_min-t.entrada_min-pausa)/60};
+}
+function cargaDe(p){return Math.min(Number(p.carga_semanal_horas),jornada().horas);}
+function desvioMin(p){return Math.round(Number(p.horas_semana||0)*60)-Math.round(cargaDe(p)*60);}
+function foraDaJornada(equipe){return pessoas().filter(p=>p.equipe===equipe&&p.ativo&&desvioMin(p)!==0);}
+function duracao(min){const m=Math.abs(min);return m<60?`${m}min`:horas(m/60);}
+function textoDesvio(p){const d=desvioMin(p);return d<0?`faltam ${duracao(d)}`:`passa ${duracao(d)}`;}
+
 let AUTH=null,TURNOS=[],DEMANDA=[],FUNC=[],CFG={},EQUIPE_ATIVA='salao',VISTA='curva',LOAD_SEQ=0;
 
 function toast(msg,erro=false){const el=document.getElementById('toast');el.textContent=msg;el.className='toast show'+(erro?' err':'');setTimeout(()=>el.classList.remove('show'),2800);}
@@ -69,8 +101,9 @@ function pessoas(){
   const mapa=new Map();
   TURNOS.forEach(t=>{
     if(!mapa.has(t.funcionario_id))mapa.set(t.funcionario_id,{...t,dias:{}});
-    mapa.get(t.funcionario_id).dias[t.dia_semana]=t;
+    mapa.get(t.funcionario_id).dias[t.dia_semana]=ajustaTurno(t);
   });
+  mapa.forEach(p=>{p.horas_semana=Object.values(p.dias).reduce((h,t)=>h+t.horas_trabalhadas,0);});
   // Chefia primeiro dentro de cada equipe, depois a ordem manual, depois nome.
   const chefia=f=>(f==='gerente_salao'||f==='lider_cozinha')?0:1;
   _pessoas=[...mapa.values()].sort((a,b)=>
@@ -189,11 +222,10 @@ function causaDoVao(equipe,dia,v){
 function alertas(){
   const out=[];
   const margem=cfg('margem_intervalo_min',90);
-  const carga=cfg('carga_semanal_horas',44);
   pessoas().filter(p=>p.ativo).forEach(p=>{
-    const semana=Number(p.horas_semana||0);
-    if(semana>carga+2)out.push({nivel:'erro',quem:p.nome,texto:`${horas(semana)} na semana — ${horas(semana-carga)} acima da jornada, além do que o banco de horas absorve.`});
-    else if(semana<carga-2&&semana>0)out.push({nivel:'aviso',quem:p.nome,texto:`${horas(semana)} na semana — ${horas(carga-semana)} abaixo da jornada.`});
+    const semana=Number(p.horas_semana||0),desvio=desvioMin(p),carga=horas(cargaDe(p));
+    if(desvio>120)out.push({nivel:'erro',quem:p.nome,texto:`${horas(semana)} na semana — ${duracao(desvio)} acima da jornada de ${carga}, além do que o banco de horas absorve.`});
+    else if(desvio)out.push({nivel:'aviso',quem:p.nome,texto:`${horas(semana)} na semana — ${duracao(desvio)} ${desvio>0?'acima':'abaixo'} da jornada de ${carga}.`});
     const folgas=Number(p.folgas_semana||0),esperado=p.regime==='5x2'?2:1;
     if(folgas!==esperado)out.push({nivel:'aviso',quem:p.nome,texto:`${folgas} folga(s) na semana, mas o regime é ${p.regime}.`});
     for(let d=1;d<=7;d++){
@@ -241,7 +273,7 @@ function resumo(equipe){
     else if(p.dem>2&&p.dem/p.cov>pior){pior=p.dem/p.cov;piorQd=`${DIAS[d]} ${hhmm(p.m)}`;}
   }
   const banco=pessoas().filter(p=>p.equipe===equipe&&p.ativo)
-    .reduce((s,p)=>s+Number(p.banco_horas_semana||0),0);
+    .reduce((s,p)=>s+desvioMin(p)/60,0);
   return{entregues,deficit,vazio,pior,piorQd,banco};
 }
 
@@ -252,7 +284,7 @@ function render(){
   const erros=alertasLista.filter(a=>a.nivel==='erro').length;
   main.innerHTML=`
     <div class="page-intro"><div><h2>Escalas</h2><p>A jornada de cada pessoa contra a curva de movimento real da casa. A demanda vem do faturamento dos últimos 12 meses, deslocada ${cfg('defasagem_venda_pagamento_min',75)} min para o horário em que o pedido acontece — não o do pagamento.</p></div><div class="actions"><button id="recarregar" class="button secondary">Atualizar</button></div></div>
-    <div class="scale-tabs">${Object.entries(EQUIPES).map(([k,v])=>`<button class="scale-tab${k===EQUIPE_ATIVA?' active':''}" data-equipe="${k}">${v}</button>`).join('')}</div>
+    <div class="scale-tabs">${Object.entries(EQUIPES).map(([k,v])=>`<button class="scale-tab${k===EQUIPE_ATIVA?' active':''}" data-equipe="${k}">${v}${foraDaJornada(k).length?` <span class="tab-fora" role="img" aria-label="${foraDaJornada(k).length} fora da jornada" title="Pessoas fora da jornada">${foraDaJornada(k).length}</span>`:''}</button>`).join('')}</div>
     ${blocoResumo()}
     ${blocoCartaz()}
     ${blocoMapa()}
@@ -296,7 +328,7 @@ function blocoCartaz(){
   return `<section class="panel cartaz" id="cartaz">
     <div class="cartaz-head">
       <div><h3>Escala da semana — ${EQUIPES[EQUIPE_ATIVA]}</h3>
-      <span>Entrada e saída · o horário menor é o início do intervalo de 1h</span></div>
+      <span>Entrada e saída · o horário menor é o início do intervalo de ${horas(jornadaVigente().intervalo/60)}</span></div>
       <button id="imprimir" class="button secondary">Imprimir</button>
     </div>
     <div class="scroll"><table class="cartaz-grid">
@@ -421,29 +453,50 @@ function blocoMapa(){
   </section>`;
 }
 
+function dataCurta(iso){const[,m,d]=iso.split('-');return `${d}/${m}`;}
+// So aparece enquanto existir jornada futura; depois da virada nao ha escolha.
+function blocoJornada(){
+  const vig=jornadaVigente();
+  const opcoes=JORNADAS.slice(JORNADAS.indexOf(vig));
+  if(opcoes.length<2)return '';
+  return `<div class="scale-views jornada-sel" role="group" aria-label="Jornada usada na conferência">${opcoes.map(j=>{
+    const ativa=j===jornada();
+    return `<button class="scale-view${ativa?' active':''}" data-jornada="${j.horas}" aria-pressed="${ativa}">${j.horas}h ${j===vig?'(hoje)':`(a partir de ${dataCurta(j.desde)})`}</button>`;
+  }).join('')}</div>`;
+}
+function avisoJornada(){
+  const fora=foraDaJornada(EQUIPE_ATIVA),j=jornada();
+  const previa=simulando()?`<br>Simulação de ${dataCurta(j.desde)}: ${j.horas}h e intervalo de ${horas(j.intervalo/60)} sobre os horários atuais. Para editar, volte para a jornada de hoje.`:'';
+  if(!fora.length)return `<div class="jornada-aviso ok">✓ Todos cumprem a jornada semanal.${previa}</div>`;
+  return `<div class="jornada-aviso"><strong>⚠ ${fora.length===1?'1 pessoa fora':`${fora.length} pessoas fora`} da jornada semanal:</strong> ${
+    fora.map(p=>`${esc(p.nome)} (${textoDesvio(p)})`).join(', ')}.${previa}</div>`;
+}
+
 function blocoEscala(){
   const lista=pessoas().filter(p=>p.equipe===EQUIPE_ATIVA);
   if(!lista.length)return '<section class="panel"><div class="empty">Nenhuma pessoa cadastrada nesta equipe.</div></section>';
+  const trava=simulando()?' disabled':'';
   const linhas=lista.map(p=>{
     const cels=[];
     for(let d=1;d<=7;d++){
       const t=p.dias[d]||{folga:true};
       cels.push(`<td class="turno-cel${t.folga?' folga':''}" data-func="${p.funcionario_id}" data-dia="${d}">
-        <label class="turno-folga"><input type="checkbox" class="chk-folga"${t.folga?' checked':''}> folga</label>
+        <label class="turno-folga"><input type="checkbox" class="chk-folga"${t.folga?' checked':''}${trava}> folga</label>
         <div class="turno-campos"${t.folga?' hidden':''}>
-          <input type="time" class="in-entrada" value="${hhmm(t.entrada_min)}" step="300" aria-label="Entrada ${DIAS[d]}">
-          <input type="time" class="in-saida" value="${hhmm(t.saida_min)}" step="300" aria-label="Saída ${DIAS[d]}">
+          <input type="time" class="in-entrada"${trava} value="${hhmm(t.entrada_min)}" step="300" aria-label="Entrada ${DIAS[d]}">
+          <input type="time" class="in-saida"${trava} value="${hhmm(t.saida_min)}" step="300" aria-label="Saída ${DIAS[d]}">
           <label class="turno-int"><span>int</span>
-            <input type="time" class="in-int-ini" value="${hhmm(t.intervalo_inicio_min)}" step="300" aria-label="Início do intervalo ${DIAS[d]}">
+            <input type="time" class="in-int-ini"${trava} value="${hhmm(t.intervalo_inicio_min)}" step="300" aria-label="Início do intervalo ${DIAS[d]}">
           </label>
         </div>
       </td>`);
     }
-    const banco=Number(p.banco_horas_semana||0);
-    return `<tr><th class="pessoa"><input class="in-nome" data-func="${p.funcionario_id}" value="${esc(p.nome)}" maxlength="120" autocomplete="off" spellcheck="false" title="Clique para trocar o nome" aria-label="Nome de ${esc(p.nome)}"><span>${esc(FUNCOES[p.funcao]||p.funcao)} · ${esc(p.regime)}</span><span class="pessoa-horas ${Math.abs(banco)>2?'fora':''}">${horas(p.horas_semana)} / ${horas(p.carga_semanal_horas)}${Math.round(banco*60)?` (${horas(banco)})`:''}</span></th>${cels.join('')}</tr>`;
+    const fora=p.ativo&&desvioMin(p)!==0;
+    return `<tr${fora?' class="fora-jornada"':''}><th class="pessoa"><input class="in-nome" data-func="${p.funcionario_id}" value="${esc(p.nome)}" maxlength="120" autocomplete="off" spellcheck="false" title="Clique para trocar o nome" aria-label="Nome de ${esc(p.nome)}"><span>${esc(FUNCOES[p.funcao]||p.funcao)} · ${esc(p.regime)}</span><span class="pessoa-horas">${horas(p.horas_semana)} / ${horas(cargaDe(p))}</span>${fora?`<span class="pessoa-desvio">${textoDesvio(p)}</span>`:''}</th>${cels.join('')}</tr>`;
   }).join('');
   return `<section class="panel">
-    <div class="panel-head"><div><h3>Escala semanal — ${EQUIPES[EQUIPE_ATIVA]}</h3><div class="hint">Entrada, saída e o intervalo de 1h. A diferença para a jornada contratual vira banco de horas. Trocou a pessoa? Clique no nome e digite o novo: os horários continuam.</div></div></div>
+    <div class="panel-head"><div><h3>Escala semanal — ${EQUIPES[EQUIPE_ATIVA]}</h3><div class="hint">Entrada, saída e o intervalo de ${horas(jornada().intervalo/60)}. A diferença para a jornada contratual vira banco de horas. Trocou a pessoa? Clique no nome e digite o novo: os horários continuam.</div></div>${blocoJornada()}</div>
+    ${avisoJornada()}
     <div class="scale-scroll"><table class="scale-grid"><thead><tr><th></th>${DIAS.slice(1).map(d=>`<th>${d}</th>`).join('')}</tr></thead><tbody>${linhas}</tbody></table></div>
   </section>`;
 }
@@ -545,7 +598,8 @@ function bind(){
   document.getElementById('recarregar').addEventListener('click',load);
   document.getElementById('imprimir')?.addEventListener('click',()=>window.print());
   document.querySelectorAll('.scale-tab').forEach(b=>b.addEventListener('click',()=>{EQUIPE_ATIVA=b.dataset.equipe;render();}));
-  document.querySelectorAll('.scale-view').forEach(b=>b.addEventListener('click',()=>{VISTA=b.dataset.vista;render();}));
+  document.querySelectorAll('.scale-view[data-jornada]').forEach(b=>b.addEventListener('click',()=>{JORNADA_SEL=JORNADAS.find(j=>j.horas===Number(b.dataset.jornada));_pessoas=null;_serie=null;render();}));
+  document.querySelectorAll('.scale-view[data-vista]').forEach(b=>b.addEventListener('click',()=>{VISTA=b.dataset.vista;render();}));
   bindCurva();
   document.querySelectorAll('.turno-cel').forEach(cel=>{
     const chk=cel.querySelector('.chk-folga');
@@ -569,14 +623,16 @@ function bind(){
 
 /* ---------------------------------------------------------------- escrita */
 async function salvarTurno(cel){
+  if(simulando())return;
   const folga=cel.querySelector('.chk-folga').checked;
   const ent=paraMin(cel.querySelector('.in-entrada').value);
   let sai=paraMin(cel.querySelector('.in-saida').value);
   let i0=paraMin(cel.querySelector('.in-int-ini').value);
-  // O fim do intervalo nao e digitado: e sempre a entrada dele + 1h, que e o
-  // minimo do art. 71 da CLT. Digitar os dois abria espaco para gravar
+  // O fim do intervalo nao e digitado: e sempre a entrada dele + o intervalo
+  // da jornada vigente (nunca abaixo da 1h do art. 71 da CLT). Digitar os dois abria espaco para gravar
   // intervalo de duracao errada.
-  let i1=i0==null?null:i0+60;
+  const pausa=jornadaVigente().intervalo;
+  let i1=i0==null?null:i0+pausa;
   cel.classList.remove('nao-salvo');
   if(!folga){
     if(ent==null||sai==null){toast('Informe entrada e saída.',true);return;}
@@ -593,7 +649,7 @@ async function salvarTurno(cel){
     }
     if(i0!=null){
       if(i0<=ent)i0+=1440;
-      i1=i0+60;
+      i1=i0+pausa;
       if(i1>=sai){
         cel.classList.add('nao-salvo');
         toast(`Não salvei: o intervalo das ${hhmm(i0)} às ${hhmm(i1)} não cabe entre ${hhmm(ent)} e ${hhmm(sai)}.`,true);

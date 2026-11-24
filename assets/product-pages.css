@@ -254,7 +254,14 @@ header{background:var(--header);color:#fff;position:sticky;top:0;z-index:10}
 .scale-grid th.pessoa span{padding-left:6px}
 .scale-grid th.pessoa span{display:block;font-size:10.5px;color:var(--muted);margin-top:2px}
 .scale-grid th.pessoa .pessoa-horas{font-variant-numeric:tabular-nums;font-weight:500}
-.scale-grid th.pessoa .pessoa-horas.fora{color:var(--red)}
+.scale-grid tr.fora-jornada th.pessoa{background:#fdf0f0;box-shadow:inset 4px 0 0 var(--red)}
+.scale-grid tr.fora-jornada td{background:#fdf7f6}
+.scale-grid tr.fora-jornada .pessoa-horas{color:var(--red);font-weight:700}
+.scale-grid th.pessoa .pessoa-desvio{display:inline-block;margin:5px 0 0 6px;padding:2px 8px;border-radius:99px;background:var(--red);color:#fff;font-size:11px;font-weight:700}
+.jornada-aviso{margin:0 0 12px;padding:10px 12px;border-radius:8px;border-left:4px solid var(--red);background:#fdf0f0;color:#8f2420;font-size:13px}
+.panel-head:has(.jornada-sel){flex-wrap:wrap}.panel-head:has(.jornada-sel)>div:first-child{flex:1 1 300px}
+.jornada-aviso.ok{border-left-color:#4f9a78;background:#eef6f1;color:#2b5f47}
+.tab-fora{display:inline-block;min-width:18px;margin-left:5px;padding:1px 5px;border-radius:99px;background:var(--red);color:#fff;font-size:11px;font-weight:700;text-align:center}
 .turno-cel.folga{background:#f4f5f6}
 /* Edicao recusada: sem marca na celula, o toast some e fica a impressao de
    que gravou. */

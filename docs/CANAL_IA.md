@@ -1016,3 +1016,15 @@ salvar o cadastro em "Equipe" zerava a ordem manual para 100; adicionar pessoa
 quebrava depois de gravar e não recarregava; erro ao salvar cadastro ou
 horário usava variável inexistente e não mostrava a mensagem. Sem migration.
 Testado em navegador com dados fictícios; nenhum nome real foi alterado.
+
+## 2026-11-24 · Claude — escala destaca jornada não cumprida
+
+`escalas.html`: qualquer diferença (a partir de 1 min) entre a semana e a
+jornada pinta a linha, mostra "faltam/passa X", lista os nomes no topo e conta
+na aba da equipe. Regras do proprietário em `JORNADAS`: 44h com intervalo de
+1h; a partir de 16/12/2026, 42h com 1h15, pela data de Fortaleza. Vale o menor
+entre a jornada do cadastro e o teto; horas e intervalo são recalculados no
+navegador (turno gravado com 1h conta 1h15 após a virada). O seletor de 42h
+antes da data é simulação sem edição, porque existe só uma escala gravada.
+Views do banco continuam usando o intervalo e a jornada gravados. Sem
+migration. Atenção: no 5x2, 1h15 leva 44h a 42h45; faltam 45min na semana.
