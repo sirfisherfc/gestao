@@ -230,9 +230,11 @@ QR das mesas → /qr/ → home com origem qr_code → botão Cardápio → /card
 ```
 
 A publicação do cardápio próprio mudou o destino do botão. O redirecionamento
-continua abrindo a home. O QR novo da entrada usa
-`/cardapio/?utm_source=qr_code&utm_medium=offline&utm_campaign=cardapio_entrada`.
-As campanhas dos dois materiais devem continuar separadas no Analytics.
+continua abrindo a home. Em 25/11/2026, o proprietário esclareceu que os únicos
+QRs em uso estão nas mesas. O endereço de QR de entrada preparado anteriormente,
+`/cardapio/?utm_source=qr_code&utm_medium=offline&utm_campaign=cardapio_entrada`,
+não comprova material instalado ou em uso. Se outro material for utilizado no
+futuro, sua campanha deverá ficar separada no Analytics.
 
 Atribuição real de anúncio, Maps e QR precisa ser preservada no percurso.
 Usar `sf_origin` como contexto de navegação e `sf_cta` para a posição do botão.

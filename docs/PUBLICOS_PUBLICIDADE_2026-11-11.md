@@ -1,5 +1,43 @@
 # Públicos de quem aceitou publicidade
 
+## Conferência atual em 25/11/2026
+
+O proprietário esclareceu: somente QRs nas mesas estão em uso. O objetivo
+é aproveitar automaticamente os sinais autorizados nas plataformas; pesquisa
+de perfil e mudança do destino do QR não são necessárias a esse objetivo.
+
+Consulta GA4 de 26/10 a 24/11: `publicidade_aceita` em sessões atribuídas a
+`qr_code / offline` teve 584 eventos e 581 usuários. Não é tamanho de público
+elegível, prova de recebimento pela Meta ou ganho incremental de vendas.
+Admin API relida: os dois públicos QR de 90 dias continuam presentes e com
+personalização habilitada. Essa configuração não prova uso em campanha.
+
+Leitura real da Marketing API, com identidade `sirfisherfc` confirmada e
+`ads_read` concedida, no objeto da conta do Portfólio esperada. Inventário
+completo, sem próxima página: apenas o público de engajamento Instagram e
+seu semelhante, ambos prontos para uso. O público QR não existe nessa conta.
+Dos 17 conjuntos retornados, três com `effective_status=ACTIVE`: todos com
+destino WEBSITE, otimização LINK_CLICKS e sem público personalizado no
+targeting. Não afirmar que os aceites já estão orientando um público QR
+nas campanhas, nem que a entrega aberta não usa nenhum sinal do pixel.
+
+O benefício técnico do aceite é permitir os sinais/publicidade personalizada
+previstos no site. Ganho comercial incremental não foi demonstrado. Próxima
+etapa para aproveitar especificamente o QR: corrigir o evento, conferir seu
+recebimento, preparar público/semelhante elegíveis e uso explícito em campanha.
+Não ativar campanhas ou mudar orçamento apenas por causa deste diagnóstico.
+
+Correção proposta para `VisitaQR`, ainda não implantada: exigir entrada atual
+com os parâmetros QR/offline, preservar essa entrada por uma janela curta
+para aceitar publicidade na página seguinte e deduplicar por visita. Não
+usar os 90 dias de origem armazenada como prova de nova leitura. Preservar
+a atribuição histórica separadamente. Isso mede abertura do endereço QR,
+não distingue câmera, link compartilhado e URL reaberta pelo navegador.
+
+Evidências agregadas: `tmp/qr-aceite-2026-11-25/`. Sem alteração de código,
+pixel, público, anúncio ou banco nesta conferência. As seções abaixo são o
+histórico da implantação de 11/11, preservado com sua data.
+
 Pedido do proprietário em 11/11/2026: usar quem permite publicidade no site,
 em especial clientes que leem o QR Code da mesa, para as plataformas
 formarem públicos e procurarem pessoas parecidas. A política de privacidade

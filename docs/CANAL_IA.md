@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 Livre. Diagnóstico do QR e proposta de melhoria entregues; sem mudanças na coleta ou nos anúncios nesta análise.
+> **🚦 Status atual:** 🟢 Livre. Aceites e públicos conferidos em leitura; esclarecimento sobre QR das mesas registrado abaixo.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -1221,3 +1221,30 @@ semelhante criados, público QR ainda pendente naquele registro. Estado atual
 de recebimento/elegibilidade não foi relido na Meta e continua a conferir.
 Sem mudanças em campanhas, consentimento, site, banco ou agendamentos nesta
 análise. Documentação oficial atual de Google/Meta consultada.
+
+## 2026-11-25 · Codex — ganho dos aceites e uso real do público QR
+
+Proprietário corrigiu o contexto: só há QR nas mesas. Seu objetivo é usar
+automaticamente os sinais de quem aceita publicidade; pesquisa e mudança
+do destino do QR não são necessárias para isso. `docs/CARDAPIO.md` atualizado:
+material preparado para entrada não comprova implantação. Diagnóstico atual
+acrescentado em `docs/PUBLICOS_PUBLICIDADE_2026-11-11.md`.
+
+GA4 relido: 584 eventos/581 usuários em `publicidade_aceita` de sessões QR
+entre 26/10 e 24/11. Os dois públicos QR de 90 dias continuam presentes e
+com personalização habilitada. Isso não comprova elegibilidade de todos nem
+ganho comercial incremental.
+
+Meta Marketing API consultada em leitura, identidade `sirfisherfc` e
+`ads_read` confirmados, conta do Portfólio esperada. Inventário completo:
+somente dois públicos, engajamento Instagram e seu semelhante, ambos prontos;
+público QR ainda não existe. Dos 17 conjuntos, três ACTIVE: destino WEBSITE,
+otimização LINK_CLICKS e sem público personalizado no targeting. Não inferir
+que o pixel não tem qualquer utilidade para a plataforma, mas não há uso
+explícito de público QR ou ganho de vendas demonstrado pelos aceites.
+
+Explicada correção de `VisitaQR`: entrada atual QR/offline, janela curta
+para aceitar na página seguinte e deduplicação por visita, com atribuição de
+90 dias separada. Ainda não aplicada: usuário perguntou como corrigir.
+Nenhuma alteração de coleta, anúncio, público, orçamento ou banco. Consultas
+reais e diff documental validados; evidências em `tmp/qr-aceite-2026-11-25/`.
