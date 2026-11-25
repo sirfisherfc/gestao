@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 Livre. Auditoria de eventos concluída em leitura; entrega registrada abaixo.
+> **🚦 Status atual:** 🟢 Livre. Medição do configurador publicada e validada no endereço público; entrega abaixo.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -1155,3 +1155,32 @@ Evidências agregadas em `tmp/eventos-auditoria-2026-11-25/`, ignorado pelo Git.
 Alterado apenas este canal; sem migration, mudanças de site ou banco, envios
 de formulário ou nova coleta. Pendente para acompanhamento futuro: medir
 visita, etapas, simulação concluída, escolha e envio, preservando a origem.
+
+## 2026-11-25 · Codex — medição do configurador de eventos publicada
+
+Pedido de correção concluído no site, commit `4bf1d2d`. `/eventos/` agora
+carrega GA4 e as preferências compartilhadas de publicidade/origem. Coleta
+visita, início, etapas, impedimentos, tentativa/sucesso/erro de simulação,
+escolha e tentativa/sucesso/erro de envio. Repetir a mesma escolha não duplica
+o evento; chamadas simultâneas de cálculo/envio são impedidas. Sucesso de
+envio depende da resposta da API. Eventos personalizados só vão para GA4,
+sem contato, configuração, data do encontro, código ou texto de erro.
+URLs estatísticas sem query/hash, com UTMs nos campos nativos de campanha.
+
+Dia a dia e origem podem ser consultados por `date`, `eventName` e
+`sessionSourceMedium`, com `eventCount`/`totalUsers`; usuários do período
+não são a soma dos dias/etapas. Não houve alteração do banco, da Edge
+Function, do painel nem cadastro de conversões de anúncios. A origem dos
+pedidos no banco continua site/admin; a nova análise de canal ocorre no
+Analytics. Histórico anterior à publicação não foi recuperado.
+
+Validações: 134 testes Deno passaram; configurador em 390/1440 px passou
+localmente e em produção (`eventos_browser_test.py --published`), com API
+e SDKs simulados. Teste de CSP/consentimento com SDKs reais passou localmente
+e no endereço público (coleta interceptada; GA 6, Ads 3, Meta 1, OpenAI 1).
+Sem pedidos reais ou eventos de teste enviados. Capturas dos dois formatos
+inspecionadas; limites, erros, recusa e falha do Analytics cobertos. Hashes,
+CSP, FAQ e catálogo estático conferidos; CI de assets e GitHub Pages do
+commit concluídos com sucesso. Evidências locais no tmp da auditoria.
+Contrato e comandos em `site/tools/analytics/README.md`. Coleta nova desde
+25/11/2026; bloqueadores/rede ainda podem causar diferenças frente ao banco.
