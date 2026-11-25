@@ -610,3 +610,12 @@ menu continuou reduzido nos módulos principal, MAN e ACL, e após recarregar. L
 a hipótese da marca Administrador enfraquece: a causa pode estar em outro nível,
 como módulos liberados para a organização, ou em sessão antiga. Falta testar com
 um novo login.
+
+**Login novo (25/11, depois do aviso da Teknisa às 17:57).** O gestor da Teknisa
+informou que atualizaram e que o login dele vê tudo. A pedido do proprietário, o
+cookie legível e o armazenamento local de `retail.teknisa.com` foram limpos no
+Chrome; ele entrou de novo e a unidade 0002 foi selecionada. O menu continuou
+com Vendas, Estoque e Parametrização, sem Operador, Perfil, Controle de Acesso
+do Caixa e Produtos Vendidos. Sessão antiga fica descartada como causa. O acesso
+da operadora segue sem ajuste, aguardando o suporte. A tela não mostra
+"Sair" no menu aberto; a limpeza do armazenamento local encerra a sessão.
