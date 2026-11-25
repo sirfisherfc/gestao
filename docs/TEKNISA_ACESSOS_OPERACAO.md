@@ -601,3 +601,12 @@ informa quem o alterou e confere os operadores vinculados.
 
 No login, o sistema avisou: "Seu sistema perderá a validade em 25 dia(s)".
 Contato indicado: Financeiro da Teknisa.
+
+**Nova tentativa no mesmo dia (só leitura).** O cabeçalho passou a mostrar apenas
+"0002 - SIR FISHER PRAIA", sem perfil e sem "Parametrização do Controle de Acesso
+por Perfil", e Trocar Unidade deixou de pedir perfil. Isso sugere que o Controle
+de Acesso foi desativado por terceiro; não foi confirmado na tela do perfil. O
+menu continuou reduzido nos módulos principal, MAN e ACL, e após recarregar. Logo,
+a hipótese da marca Administrador enfraquece: a causa pode estar em outro nível,
+como módulos liberados para a organização, ou em sessão antiga. Falta testar com
+um novo login.
