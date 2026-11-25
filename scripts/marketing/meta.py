@@ -20,6 +20,8 @@ ADS_WRITE = {f'act_{AD_ACCOUNT}/{kind}' for kind in ('campaigns', 'adsets', 'adc
 QR_PIXEL = '948509834960152'
 QR_NAME = 'Clientes QR com aceite | 180 dias'
 QR_LOOKALIKE = 'Semelhante 1% | Clientes QR'
+QR_BUSINESS = '1811708709836892'
+QR_STUDY_NAME = 'SF | Teste QR 26nov2026 | Aberto x Semelhante'
 QR_RULE = {'inclusions': {'operator': 'or', 'rules': [{
     'event_sources': [{'id': QR_PIXEL, 'type': 'pixel'}],
     'retention_seconds': 180 * 86400,
@@ -46,6 +48,31 @@ def qr_creation_allowed(path, params, verified_seed=None):
     return False
 
 
+def qr_study_allowed(path, params, verified_campaigns=()):
+    """Experimento fixo, sem orçamento próprio, apenas com campanhas relidas."""
+    if path != QR_BUSINESS + '/ad_studies' or not isinstance(params, dict):
+        return False
+    try:
+        cells = json.loads(params.get('cells', 'null'))
+        return (set(params) == {'name', 'type', 'description', 'start_time', 'end_time', 'cells'}
+                and params['name'] == QR_STUDY_NAME and params['type'] == 'SPLIT_TEST'
+                and int(params['end_time']) - int(params['start_time']) == 7 * 86400
+                and len(verified_campaigns) == 2 and len(set(verified_campaigns)) == 2
+                and cells == [{'name': 'A | Aberto', 'treatment_percentage': 50, 'campaigns': [verified_campaigns[0]]},
+                              {'name': 'B | Semelhante QR', 'treatment_percentage': 50, 'campaigns': [verified_campaigns[1]]}])
+    except (ValueError, TypeError, KeyError):
+        return False
+
+
+def qr_targeting_update_allowed(path, params, verified_targeting=None):
+    """Ajuste apenas do targeting dos conjuntos novos conferidos em pausa."""
+    try:
+        return (path in (verified_targeting or {}) and set(params or {}) == {'targeting'}
+                and json.loads(params['targeting']) == verified_targeting[path])
+    except (ValueError, TypeError):
+        return False
+
+
 class Meta:
     def __init__(self):
         self.analytics = InstagramAnalytics()
@@ -59,9 +86,12 @@ class Meta:
 
     def request(self, path, params=None, *, write=False, page=False):
         allowed_read = (path in {'me/permissions', 'me/adaccounts', 'me/assigned_ad_accounts', 'me/accounts', 'debug_token'}
+            or path == f'act_{AD_ACCOUNT}/delivery_estimate'
             or bool(re.fullmatch(r'(?:act_)?\d+(?:_\d+)?(?:/(?:insights|comments|media|stories|content_publishing_limit))?', path)))
         qr_create = qr_creation_allowed(path, params, getattr(self, 'verified_qr_seed', None))
-        allowed_write = (qr_create or path in {IG + '/media', IG + '/media_publish', PAGE + '/feed', PAGE + '/photos'} | ADS_WRITE
+        qr_study = qr_study_allowed(path, params, getattr(self, 'verified_split_campaigns', ()))
+        qr_targeting = qr_targeting_update_allowed(path, params, getattr(self, 'verified_test_targeting', None))
+        allowed_write = (qr_create or qr_study or qr_targeting or path in {IG + '/media', IG + '/media_publish', PAGE + '/feed', PAGE + '/photos'} | ADS_WRITE
             # Status de campanha/conjunto/anuncio: so pausar ou ativar, nada mais.
             or (bool(re.fullmatch(r'\d{6,30}', path)) and set(params or {}) == {'status'}
                 and (params or {}).get('status') in {'ACTIVE', 'PAUSED'}))

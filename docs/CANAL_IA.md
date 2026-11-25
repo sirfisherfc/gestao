@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 Livre. Público QR e semelhante criados na Meta; compartilhamento dos públicos QR com Google Ads confirmado. Sem mudanças em campanhas ou verbas.
+> **🚦 Status atual:** 🟢 Livre. Teste A/B Meta aberto × semelhante QR criado, conferido e programado; teto R$300 e início 26/11 às 9h de Fortaleza.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -1283,3 +1283,35 @@ Uso efetivo do semelhante em campanha/sugestão e reativação de campanhas
 Google continuam etapas de campanha; não foram alterados conjuntos ativos
 ou verba nesta preparação. Fonte automática de públicos agora criada na
 Meta e compartilhamento Google comprovado, sem promessa de ganho de vendas.
+
+## 2026-11-25 · Codex — teste Meta aberto × semelhante QR programado
+
+Proprietário pediu campanhas para comparar e informou R$300 no total.
+Programados R$260 de mídia (R$130 por grupo) e R$40 de margem para cobranças
+adicionais, seguindo a rodada anterior. Início 26/11 às 9h e fim 03/12 às
+9h, Fortaleza; na conta Meta America/Noronha aparece 10h.
+
+Experimento nativo SPLIT_TEST `2143173756312504`, divisão aleatória 50/50.
+A aberto: campanha 120255101248710120, conjunto 120255101255550120,
+anúncio 120255101257230120. B semelhante QR: campanha 120255101257490120,
+conjunto 120255101258020120, anúncio 120255101259830120. Ambos com mesmo
+reel Ambiente (18113719193582226), CTA/destino `/conheca/`, Instagram feed/
+Stories/Reels, raio 20 km, 21–65 anos, LPV e exclusão da mesma base de
+clientes QR. Expansão do semelhante desligada e relida; UTMs distintas.
+
+Criados pausados, configurações e células relidas; destino real dos dois
+CTAs conferido no Gerenciador. Ativação em seis entidades concluída, status
+ACTIVE nos três níveis dos dois grupos; anúncios IN_PROCESS na primeira
+leitura, sujeitos à análise Meta. Início futuro não comprova entrega.
+Rodada Ambiente existente, Google, ChatGPT, site, banco e consentimento
+preservados. Nenhum novo agendamento ou rotina recorrente.
+
+Ferramenta `scripts/marketing/teste_publicos_qr.py`, testes e contrato
+restrito para criar estudo/reparar targeting do teste em `meta.py`.
+35 testes sem rede passaram; destino em produção passou no teste de CSP/
+consentimento com coletas interceptadas. Relatório antes do início retornou
+not_started. Critério primário: custo por LPV; GA4, reservas e comparecimento
+como medidas adicionais, sem tratar clique como venda ou garantir vencedor.
+Plano, recuperação e comandos em `docs/TESTE_PUBLICOS_QR_2026-11-26.md`;
+recibos em `tmp/teste-publicos-qr-2026-11-25/`. Persistência após cada criação
+evitou duplicação ao corrigir parâmetro/horário; sempre pausado na preparação.
