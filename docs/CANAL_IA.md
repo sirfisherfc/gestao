@@ -1120,3 +1120,11 @@ iguais; conferidos 55 de 55 no banco). Cópia anterior e plano em
 aplicada e registrada: defasagem 45min e capacidade 3,97 (pico 11,885 / 3).
 Textos de reserva da página e `supabase_schema.md` acompanham. Correção do
 recado anterior: a correlação 0,846 é de 70min, e 0,886 é de 50min.
+
+## 2026-11-25 · Claude — Teknisa: perfil de administrador com menu reduzido
+
+Pedido de acesso total para uma operadora não concluído. O login do
+proprietário, no perfil Administrador de sistema, também está sem as telas de
+Operador, Perfil e relatórios. Só leitura. Aguarda o suporte Teknisa restaurar
+o perfil; detalhe em `docs/TEKNISA_ACESSOS_OPERACAO.md`. Aviso no login: sistema
+perde a validade em 25 dias.

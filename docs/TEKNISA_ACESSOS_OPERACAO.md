@@ -570,3 +570,34 @@ sem pergunta. Líquido 1.446,34 = formas de pagamento = sangria, sobra 0. A
 Stone (12:00–15:58) mostrou 1.535,98: débito e crédito iguais; o Pix ficou
 89,64 acima (158,04 contra 68,40), indício de Pix lançado em outro caixa.
 Logo, a mudança da madrugada não impede a impressão no fechamento.
+
+## Perfil de administrador com menu reduzido (25/11/2026)
+
+Uma operadora administradora deixou de ver relatórios de produtos no painel, e
+o suporte atribuiu o caso ao Controle de Acesso do operador. O proprietário não
+alterou permissões e pediu acesso total para ela. Leitura com o login do
+proprietário, sem gravação:
+
+- A sessão mostra "1 - Administrador de sistema | Parametrização do Controle de
+  Acesso por Perfil", na unidade 0002. O "Sem perfil selecionado" de 10/11 não
+  aparece mais.
+- Vendas → Relatórios → Relatórios de Produtos tem os mesmos três itens da foto
+  dela: Venda de Produtos com Composição, Rentabilidade de Produtos e Venda de
+  Produto no Período. "Produtos Vendidos" não existe na busca do menu.
+- O menu tem só Vendas, Estoque e Parametrização. As buscas "Operador" e
+  "Perfil" voltam vazias. "Acesso" mostra Log de Controle de Acesso, Controle de
+  acesso ao Assistant e Controle de Acesso ao Retail Control; o Controle de
+  Acesso do Caixa sumiu. "Fechamento" não traz o relatório Fechamento de Caixa.
+- O botão Access Control do cabeçalho lista os perfis Administrador de sistema e
+  Gerente - Reposicao, mas só edita elementos da tela aberta.
+
+Conclusão: a restrição atinge o login do proprietário, portanto não é
+exclusiva do operador dela. Hipótese não confirmada: o perfil perdeu a marca
+**Administrador**, e só aparecem os itens com regra de visível. O perfil e o
+operador dela não foram vistos. O ajuste não foi feito: as telas Operador e
+Perfil de Acesso estão ocultas, e não foi tentada URL direta ou API para
+contornar a restrição. Encaminhamento: o suporte Teknisa restaura o perfil,
+informa quem o alterou e confere os operadores vinculados.
+
+No login, o sistema avisou: "Seu sistema perderá a validade em 25 dia(s)".
+Contato indicado: Financeiro da Teknisa.
