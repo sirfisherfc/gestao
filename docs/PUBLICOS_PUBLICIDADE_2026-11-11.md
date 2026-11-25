@@ -1,6 +1,65 @@
 # Públicos de quem aceitou publicidade
 
-## Conferência atual em 25/11/2026
+## Público QR e semelhante criados em 25/11/2026
+
+Direção confirmada pelo proprietário: aproveitar os clientes que aceitaram
+para encontrar pessoas parecidas no Google e na Meta. Retorno ao site
+renovando o sinal QR não é um impedimento para essa finalidade; não alterar
+`VisitaQR` ou restringir a coleta para contar novas presenças físicas. O
+evento continua sem representar compra ou uma nova presença na casa.
+
+Concluída criação na conta Meta do Portfólio `1004410887092327`, usando
+apenas o evento `VisitaQR` do pixel `Sir Fisher - Website` (`948509834960152`):
+
+| Recurso | ID | Releitura após criar |
+| --- | --- | --- |
+| `Clientes QR com aceite \| 180 dias` | `120255101123660120` | WEBSITE; regra exata VisitaQR; delivery 200, operation 441 (preenchendo) |
+| `Semelhante 1% \| Clientes QR` | `120255101123670120` | LOOKALIKE; origem no público acima; proporção 0,01; delivery 200, operation 300 (atualizando) |
+
+Ambos aceitos e relidos na API, com conta, regra e origem verificadas. O
+tamanho inicial ainda não é uma contagem consolidada. `prefill=true` aproveita
+o histórico do próprio evento consentido, sem regra genérica por URL e sem
+upload de nome/telefone. A lista é atualizada pela Meta conforme o evento
+e sua retenção. A leitura agregada do pixel confirmou `VisitaQR` recebido;
+eventos repetidos não são pessoas adicionais na contagem de público.
+
+No Google Ads, sessão existente reutilizada e conta `149-377-8788`
+confirmada: ambos os públicos QR de 90 dias já estão compartilhados com o
+Ads. `Visitantes pelo QR | 90 dias` tem lista `9499060310` e
+`QR | perfil agregado | 90 dias`, `9499064759`. A interface mostrou 0 em
+Pesquisa/YouTube/Display e 8 em Gmail, com tamanho insuficiente e sem uso
+em campanhas. A conta informa que não há anúncios sendo veiculados porque
+campanhas/grupos estão pausados ou removidos. Isso não equivale a ausência
+de acessos no GA4; população elegível para publicidade tem outra cobertura.
+
+Não houve mudança no site, consentimento, reservas, campanhas, segmentação
+ativa ou orçamento. Para gerar entrega com a nova base Meta, o semelhante
+ainda precisa ser usado como público/sugestão na configuração de campanha.
+No Google, aplicar a base como sinal em campanhas compatíveis quando forem
+veicular; não reativar campanha expirada nem criar verba por inferência.
+
+Ferramenta reproduzível, com prévia, rotas limitadas e releitura idempotente:
+
+```powershell
+python scripts/marketing/publicos_qr.py
+python scripts/marketing/publicos_qr.py --aplicar --out tmp/publicos-qr-2026-11-25/recibo.json
+python -B -m unittest discover -s scripts/marketing -p test_publicos_qr.py
+python -B -m unittest discover -s scripts/marketing -p test_impulsionar.py
+```
+
+A escrita aceita apenas esses dois nomes/regras na conta fixa. WEBSITE é
+inferido da regra pela API v27: `subtype=WEBSITE` foi recusado com 2654;
+LOOKALIKE usa `subtype=LOOKALIKE`, origem validada e somente `ratio=0.01`,
+sem país (a localização continua no conjunto). O ID criado é salvo antes
+da releitura, para não repetir POST após falha de rede. Os demais comandos
+do cliente Meta mantêm v26. Sem ampliação do MCP de Instagram somente leitura.
+18 testes sem rede passaram. Recibos em `tmp/publicos-qr-2026-11-25/`.
+
+Referências oficiais: [públicos de site](https://developers.facebook.com/documentation/ads-commerce/marketing-api/audiences/guides/website-custom-audiences),
+[semelhantes e formato v27](https://developers.facebook.com/documentation/ads-commerce/marketing-api/audiences/guides/lookalike-audiences),
+[sinais de público no Google Ads](https://support.google.com/google-ads/answer/14753570).
+
+## Conferência em 25/11/2026, antes da criação dos públicos QR
 
 O proprietário esclareceu: somente QRs nas mesas estão em uso. O objetivo
 é aproveitar automaticamente os sinais autorizados nas plataformas; pesquisa

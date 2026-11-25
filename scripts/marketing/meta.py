@@ -17,6 +17,33 @@ AD_ACCOUNT = '1004410887092327'  # Conta informada pelo proprietario em 02/11/20
 BASE = 'https://graph.facebook.com/v26.0/'
 # Criacao de anuncios so na conta do Portfolio; orcamento e teto ficam em impulsionar.py.
 ADS_WRITE = {f'act_{AD_ACCOUNT}/{kind}' for kind in ('campaigns', 'adsets', 'adcreatives', 'ads')}
+QR_PIXEL = '948509834960152'
+QR_NAME = 'Clientes QR com aceite | 180 dias'
+QR_LOOKALIKE = 'Semelhante 1% | Clientes QR'
+QR_RULE = {'inclusions': {'operator': 'or', 'rules': [{
+    'event_sources': [{'id': QR_PIXEL, 'type': 'pixel'}],
+    'retention_seconds': 180 * 86400,
+    'filter': {'operator': 'and', 'filters': [
+        {'field': 'event', 'operator': 'eq', 'value': 'VisitaQR'}]}}]}}
+
+
+def qr_creation_allowed(path, params, verified_seed=None):
+    """Apenas os dois públicos QR fixos; nunca campanhas ou uploads de contatos."""
+    if path != f'act_{AD_ACCOUNT}/customaudiences' or not isinstance(params, dict):
+        return False
+    try:
+        if params.get('name') == QR_NAME:
+            return (set(params) == {'name', 'rule', 'retention_days', 'prefill'}
+                    and params['name'] == QR_NAME and params['retention_days'] == 180
+                    and params['prefill'] == 'true' and json.loads(params['rule']) == QR_RULE)
+        if params.get('subtype') == 'LOOKALIKE':
+            return (set(params) == {'name', 'subtype', 'origin_audience_id', 'lookalike_spec'}
+                    and params['name'] == QR_LOOKALIKE and str(verified_seed).isdigit()
+                    and params['origin_audience_id'] == verified_seed
+                    and json.loads(params['lookalike_spec']) == {'ratio': 0.01})
+    except (ValueError, TypeError):
+        return False
+    return False
 
 
 class Meta:
@@ -33,7 +60,8 @@ class Meta:
     def request(self, path, params=None, *, write=False, page=False):
         allowed_read = (path in {'me/permissions', 'me/adaccounts', 'me/assigned_ad_accounts', 'me/accounts', 'debug_token'}
             or bool(re.fullmatch(r'(?:act_)?\d+(?:_\d+)?(?:/(?:insights|comments|media|stories|content_publishing_limit))?', path)))
-        allowed_write = (path in {IG + '/media', IG + '/media_publish', PAGE + '/feed', PAGE + '/photos'} | ADS_WRITE
+        qr_create = qr_creation_allowed(path, params, getattr(self, 'verified_qr_seed', None))
+        allowed_write = (qr_create or path in {IG + '/media', IG + '/media_publish', PAGE + '/feed', PAGE + '/photos'} | ADS_WRITE
             # Status de campanha/conjunto/anuncio: so pausar ou ativar, nada mais.
             or (bool(re.fullmatch(r'\d{6,30}', path)) and set(params or {}) == {'status'}
                 and (params or {}).get('status') in {'ACTIVE', 'PAUSED'}))
@@ -46,7 +74,10 @@ class Meta:
         if not credential:
             raise RuntimeError('Credencial da Pagina nao confirmada.')
         data = urllib.parse.urlencode(params).encode() if write else None
-        url = BASE + path + ('' if write else '?' + urllib.parse.urlencode(params))
+        # v27 remove país/localização da criação de semelhantes. Demais fluxos
+        # mantêm sua versão; a localização continua no conjunto de anúncios.
+        base = 'https://graph.facebook.com/v27.0/' if write and qr_create else BASE
+        url = base + path + ('' if write else '?' + urllib.parse.urlencode(params))
         request = urllib.request.Request(url, data=data,
             headers={'Authorization': 'Bearer ' + credential}, method='POST' if write else 'GET')
         if not write:

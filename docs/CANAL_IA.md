@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 Livre. Aceites e públicos conferidos em leitura; esclarecimento sobre QR das mesas registrado abaixo.
+> **🚦 Status atual:** 🟢 Livre. Público QR e semelhante criados na Meta; compartilhamento dos públicos QR com Google Ads confirmado. Sem mudanças em campanhas ou verbas.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -1248,3 +1248,38 @@ para aceitar na página seguinte e deduplicação por visita, com atribuição d
 90 dias separada. Ainda não aplicada: usuário perguntou como corrigir.
 Nenhuma alteração de coleta, anúncio, público, orçamento ou banco. Consultas
 reais e diff documental validados; evidências em `tmp/qr-aceite-2026-11-25/`.
+
+## 2026-11-25 · Codex — público QR e semelhante na Meta concluídos
+
+Proprietário reforçou o objetivo de públicos semelhantes; repetição de sinal
+em retorno ao site é aceitável para essa finalidade. Proposta de separar
+novas leituras deixa de ser prioridade. Nenhuma alteração em `VisitaQR`,
+QR impresso, site, consentimento ou formulário de cliente.
+
+Marketing API: conta/pixel e identidade `sirfisherfc` confirmados, com
+ads_management existente. Criados e relidos `Clientes QR com aceite | 180
+dias` (120255101123660120, regra exata do evento consentido VisitaQR) e
+`Semelhante 1% | Clientes QR` (120255101123670120, origem no primeiro).
+Delivery 200 nos dois; operation 441/300, em preenchimento/atualização.
+Tamanho inicial não consolidado. Histórico do próprio evento aproveitado,
+sem upload de clientes ou regra genérica por URL. Pixel já recebia VisitaQR.
+
+Google Ads aberto com sessão existente, conta 149-377-8788 confirmada: listas
+QR 9499060310/9499064759 presentes, abertas e não usadas. Interface mostrou
+0 Pesquisa/YouTube/Display e 8 Gmail, volume insuficiente; nenhuma campanha
+veiculando. GA4 e Google Ads não têm a mesma população elegível. Nenhum
+novo login, token, campanha, anúncio ou orçamento foi solicitado/criado.
+
+Ferramenta `scripts/marketing/publicos_qr.py` criada com prévia padrão,
+inventário completo, validação de conta/pixel/regra, criação limitada e
+releitura. `meta.py` ganhou apenas a rota de criação dos dois públicos fixos;
+outros fluxos continuam em v26. v27 recusou subtype=WEBSITE; contrato
+corrigido conforme guia, inferindo o tipo pela regra; semelhante sem país.
+18 testes de contrato/idempotência/recuperação sem rede passaram. Prévia,
+criação e nova consulta de leitura reais concluídas. Documentação atualizada
+em `docs/PUBLICOS_PUBLICIDADE_2026-11-11.md`; recibos no tmp ignorado.
+
+Uso efetivo do semelhante em campanha/sugestão e reativação de campanhas
+Google continuam etapas de campanha; não foram alterados conjuntos ativos
+ou verba nesta preparação. Fonte automática de públicos agora criada na
+Meta e compartilhamento Google comprovado, sem promessa de ganho de vendas.
