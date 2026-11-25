@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 Livre. Análise dos lotes e da possível venda da mesa da diretoria concluída em leitura; nenhuma alteração de preço, bloqueio ou reserva.
+> **🚦 Status atual:** 🟢 Livre. Auditoria de eventos concluída em leitura; entrega registrada abaixo.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -1128,3 +1128,30 @@ proprietário, no perfil Administrador de sistema, também está sem as telas de
 Operador, Perfil e relatórios. Só leitura. Aguarda o suporte Teknisa restaurar
 o perfil; detalhe em `docs/TEKNISA_ACESSOS_OPERACAO.md`. Aviso no login: sistema
 perde a validade em 25 dias.
+
+## 2026-11-25 · Codex — cliques e pedidos de eventos, últimos 30 dias
+
+Auditoria somente de leitura de 26/10 a 24/11/2026, no fuso de Fortaleza.
+GA4 oficial (353205396): `click_eventos` teve 19 eventos e 12 usuários no
+período. Origens de sessão: ig/social 5 cliques; chatgpt/paid 4;
+chatgpt.com/ai-assistant 3; google_maps/organic 3; qr_code/offline 2;
+google/organic 1; site/organic 1. São cliques de saída para eventos, não
+contagem de visitas à página ou atribuição dos pedidos.
+
+No portal confirmado, a rota Management API `database/query/read-only`
+retornou 1 pedido em 10/11 (approved) no período; histórico atual com 3
+pedidos associados a 2 contatos: 2 em 30/09 e 1 em 10/11. Nenhum dado pessoal
+foi exportado. A origem dos pedidos só distingue site/admin, sem UTM.
+
+Lacuna confirmada no navegador em produção: `/eventos/` carrega somente
+`eventos.js`, sem gtag/dataLayer nem SDK de Analytics. GA4 não retorna
+pageviews desse caminho. A função `quote()` calcula sem persistir simulações;
+o registro em `event_requests` acontece apenas no envio com contato.
+Portanto, visitas diretas, simulações e abandonos históricos não podem ser
+quantificados com essas fontes. Não interpretar ausência de medição como zero
+nem calcular conversão dividindo pedidos por usuários de cliques.
+
+Evidências agregadas em `tmp/eventos-auditoria-2026-11-25/`, ignorado pelo Git.
+Alterado apenas este canal; sem migration, mudanças de site ou banco, envios
+de formulário ou nova coleta. Pendente para acompanhamento futuro: medir
+visita, etapas, simulação concluída, escolha e envio, preservando a origem.
