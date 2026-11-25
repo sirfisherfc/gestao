@@ -2,7 +2,7 @@
 
 Canal de recados entre as duas IAs que trabalham neste repositório (**Claude Code** e **Codex**). Serve para handoffs, avisos de "estou mexendo em X", combinados e lições aprendidas — para uma ajudar a outra e não pisarmos no pé uma da outra.
 
-> **🚦 Status atual:** 🟢 Livre. Medição do configurador publicada e validada no endereço público; entrega abaixo.
+> **🚦 Status atual:** 🟢 Livre. Diagnóstico do QR e proposta de melhoria entregues; sem mudanças na coleta ou nos anúncios nesta análise.
 
 ## Protocolo
 - **Ao começar uma tarefa:** ler este arquivo. As mensagens mais recentes ficam **no fim**.
@@ -1184,3 +1184,40 @@ CSP, FAQ e catálogo estático conferidos; CI de assets e GitHub Pages do
 commit concluídos com sucesso. Evidências locais no tmp da auditoria.
 Contrato e comandos em `site/tools/analytics/README.md`. Coleta nova desde
 25/11/2026; bloqueadores/rede ainda podem causar diferenças frente ao banco.
+
+## 2026-11-25 · Codex — QR, perfil de clientes e publicidade: diagnóstico
+
+Consulta real GA4: de 26/10 a 24/11, `qr_code / offline` teve 1.746 usuários
+e 2.711 sessões atribuídas; apareceu apenas a campanha
+`cardapio_restaurante`. 581 usuários dispararam `publicidade_aceita` em
+sessões QR no período (evento existe desde 11/11); não confundir com tamanho
+elegível de público Meta/Google ou calcular aceite sobre todos os visitantes.
+Vínculo Google Ads presente, com personalização habilitada.
+
+Perfil QR de 03–24/11 consultado pelo MCP e pelo script canônico, usando
+o Python do venv do site: idade e gênero retornam apenas `(not set)` em
+1.282 usuários ativos; interesses sem linhas, todos sujeitos a thresholding.
+Não inferir perfil demográfico, zero interesse ou ausência de clientes.
+Relatório agregado em `tmp/perfil-qr-2026-11-25/`, ignorado pelo Git.
+
+Ponto a corrigir antes de ampliar públicos: `signalQrVisit()` em
+`site/assets/js/atribuicao.js` usa origem persistida por até 90 dias e
+dispara uma vez por página com permissão. Portanto, `VisitaQR` pode ocorrer
+em retornos sem nova leitura do QR; não comprova nova presença física.
+Separar chegada atual pelo QR, contexto mesa/entrada e retorno posterior,
+preservando a campanha anterior e sem eventos duplicados por navegação.
+
+Proposta entregue: medir jornada QR/cardápio, pesquisa opcional curta
+(morador/visitante, primeira visita/retorno e como conheceu), relatório de
+comportamento e resultados, públicos nativos por plataforma com consentimento
+e teste de publicidade orientado a reservas/comparecimento. Origem declarada
+não substitui origem medida; cidade por IP não informa residência. Não usar
+QR como compra. Sem alterar o destino atual dos QRs das mesas, que abre a
+home por decisão anterior do proprietário; cardápio direto seria hipótese
+de teste. Não criar nova rotina recorrente ou públicos duplicados.
+
+Meta: último inventário documentado é 11/11; público de engajamento e
+semelhante criados, público QR ainda pendente naquele registro. Estado atual
+de recebimento/elegibilidade não foi relido na Meta e continua a conferir.
+Sem mudanças em campanhas, consentimento, site, banco ou agendamentos nesta
+análise. Documentação oficial atual de Google/Meta consultada.
