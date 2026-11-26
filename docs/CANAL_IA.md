@@ -1129,6 +1129,9 @@ Operador, Perfil e relatórios. Só leitura. Aguarda o suporte Teknisa restaurar
 o perfil; detalhe em `docs/TEKNISA_ACESSOS_OPERACAO.md`. Aviso no login: sistema
 perde a validade em 25 dias.
 
+Conferido de novo em 26/11: menu ainda reduzido, sem Operador e Perfil.
+Ajuste da operadora segue pendente do suporte.
+
 ## 2026-11-25 · Codex — cliques e pedidos de eventos, últimos 30 dias
 
 Auditoria somente de leitura de 26/10 a 24/11/2026, no fuso de Fortaleza.

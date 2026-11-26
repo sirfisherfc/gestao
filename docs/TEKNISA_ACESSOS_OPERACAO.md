@@ -619,3 +619,8 @@ com Vendas, Estoque e Parametrização, sem Operador, Perfil, Controle de Acesso
 do Caixa e Produtos Vendidos. Sessão antiga fica descartada como causa. O acesso
 da operadora segue sem ajuste, aguardando o suporte. A tela não mostra
 "Sair" no menu aberto; a limpeza do armazenamento local encerra a sessão.
+
+**Conferência de 26/11 (só leitura).** Login do proprietário na unidade 0002,
+sessão já ativa no Chrome. O menu segue com Vendas, Estoque e Parametrização;
+as buscas "Operador" e "Perfil" voltam vazias. A restauração ainda não chegou a
+este login, e o acesso da operadora continua sem ajuste.
