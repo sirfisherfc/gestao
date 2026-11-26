@@ -1318,3 +1318,15 @@ como medidas adicionais, sem tratar clique como venda ou garantir vencedor.
 Plano, recuperação e comandos em `docs/TESTE_PUBLICOS_QR_2026-11-26.md`;
 recibos em `tmp/teste-publicos-qr-2026-11-25/`. Persistência após cada criação
 evitou duplicação ao corrigir parâmetro/horário; sempre pausado na preparação.
+
+## 2026-11-26 · Claude — Search Console e SEO do Jardim Japonês
+
+Aviso novo "Página alternativa com tag canônica adequada" (e-mail de 24/11):
+é `reservas.sirfisher.com.br/?sf_cta=topo`, cópia com parâmetro proposital que
+já aponta para a canônica do portal. Nenhuma ação. `/jardim-japones/` estava
+indexada (rastreio 25/11). Search Console 27/10–26/11: 3.502 impressões, 11
+cliques, posição média 8,5; GA4: 20 visualizações, 14 usuários. Site
+`a582e2a`: título e descrição com horário e entrada grátis, FAQ com custo e
+feriados, horário e mapa no `TouristAttraction`, `lastmod` no sitemap.
+Publicado e conferido; IndexNow HTTP 200; indexação solicitada no Google.
+Pendente: comparar CTR em ~3 semanas; fotos próprias pós-reforma ainda faltam.
